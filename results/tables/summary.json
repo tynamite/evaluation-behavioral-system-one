@@ -1,5 +1,5 @@
 {
-  "run_file": "run_live_20260918T222105Z.jsonl",
+  "run_file": "run_live_20260918T230710Z.jsonl",
   "backend": [
     "openrouter"
   ],
@@ -9,13 +9,13 @@
   ],
   "n_records": 9360,
   "n_errors": 0,
-  "n_baseline_unparsed": 224,
-  "baseline_unparsed_rate": 0.0479,
+  "n_baseline_unparsed": 9,
+  "baseline_unparsed_rate": 0.0019,
   "baseline_cells": 468,
-  "baseline_cells_below_full_samples": 37,
-  "baseline_cells_with_no_usable_sample": 13,
-  "baseline_min_usable_samples": 0,
-  "total_cost_usd": 2.6698,
+  "baseline_cells_below_full_samples": 4,
+  "baseline_cells_with_no_usable_sample": 0,
+  "baseline_min_usable_samples": 5,
+  "total_cost_usd": 2.8304,
   "personas": [
     "antisocial",
     "neutral",
@@ -26,6 +26,6 @@
     "baseline",
     "jev"
   ],
-  "n_statistics": 601,
-  "mean_order_tv": 0.05104819563152897
+  "n_statistics": 608,
+  "mean_order_tv": 0.05153822412155746
 }
