@@ -2,7 +2,17 @@
 
 from __future__ import annotations
 
-from . import cognitive, dark_triad, decision, games, personality, reasoning, risk_time, strategic
+from . import (
+    cognitive,
+    dark_triad,
+    decision,
+    followup,
+    games,
+    personality,
+    reasoning,
+    risk_time,
+    strategic,
+)
 from .base import PERSONAS, Persona, Probe, apply_persona, permute_options
 
 MODULES = {
@@ -14,6 +24,7 @@ MODULES = {
     "personality": personality,
     "reasoning": reasoning,
     "dark_triad": dark_triad,
+    "followup": followup,
 }
 
 

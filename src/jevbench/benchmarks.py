@@ -292,6 +292,101 @@ BENCHMARKS: dict[str, Benchmark] = {
             "approximate",
             "",
         ),
+        # --- Follow-up battery: sourced from ML2's own preregistered protocol ---
+        # (https://www.projectimplicit.net/nosek/ML2protocol.pdf), which quotes each
+        # original study's own reported numbers. These are the ORIGINAL authors' point
+        # estimates, not ML2's own replicated means (ML2's public tables report only
+        # replicated effect sizes, not raw means) — original sample sizes are modest
+        # (N=64-207), so "medium" throughout, even though ML2 confirms the effect's
+        # existence and direction at far higher power. See FOLLOWUP_PREREGISTRATION.md.
+        Benchmark(
+            "moral_typecasting_responsibility_man",
+            "mean responsibility rating when the higher-agency party (the man) commits the act",
+            5.29,
+            "1-7 scale",
+            "Gray & Wegner (2009), J. Personality and Social Psychology 96:505-520, Study 1a, N=69",
+            "medium",
+            "SD 1.86 in the original. Companion condition: moral_typecasting_responsibility_baby.",
+        ),
+        Benchmark(
+            "moral_typecasting_responsibility_baby",
+            "mean responsibility rating when the lower-agency party (the baby) commits the act",
+            3.86,
+            "1-7 scale",
+            "Gray & Wegner (2009), J. Personality and Social Psychology 96:505-520, Study 1a, N=69",
+            "medium",
+            "SD 1.64 in the original. Higher-agency actors are rated more responsible.",
+        ),
+        Benchmark(
+            "position_power_long_line",
+            "mean perceived-power composite when the org-chart line is long (7cm)",
+            5.01,
+            "1-7 scale",
+            "Giessner & Schubert (2007), Org. Behavior and Human Decision Processes 104:30-44, "
+            "Study 1a, N=64",
+            "medium",
+            "SD 0.60 in the original. Composite of 5 items. Companion: position_power_short_line.",
+        ),
+        Benchmark(
+            "position_power_short_line",
+            "mean perceived-power composite when the org-chart line is short (2cm)",
+            4.62,
+            "1-7 scale",
+            "Giessner & Schubert (2007), Org. Behavior and Human Decision Processes 104:30-44, "
+            "Study 1a, N=64",
+            "medium",
+            "SD 0.81 in the original.",
+        ),
+        Benchmark(
+            "shafir_award_extreme",
+            "proportion awarding custody to the extreme (mixed-feature) parent",
+            0.64,
+            "proportion",
+            "Shafir (1993), Memory & Cognition 21:546-556, Study 1, N=170",
+            "medium",
+            "Companion shafir_deny_extreme sums to over 1.0 with this by design: the extreme "
+            "parent is both chosen and rejected more than the average parent.",
+        ),
+        Benchmark(
+            "shafir_deny_extreme",
+            "proportion denying custody to the extreme (mixed-feature) parent",
+            0.55,
+            "proportion",
+            "Shafir (1993), Memory & Cognition 21:546-556, Study 1, N=170",
+            "medium",
+            "See shafir_award_extreme.",
+        ),
+        Benchmark(
+            "norenzayan_rule_based",
+            "proportion choosing the rule-based group in the 'belongs to' framing",
+            0.67,
+            "proportion",
+            "Norenzayan, Smith, Kim & Nisbett (2002), Cognitive Science 26:653-684, Study 2",
+            "medium",
+            "Pooled across European American, Asian American and East Asian samples, as ML2 "
+            "replicated it. The original reports a cultural split (Europeans more rule-based, "
+            "East Asians more family-resemblance) that this pooled figure obscures.",
+        ),
+        Benchmark(
+            "incidental_anchor_p97",
+            "mean estimated US market share when the phone is named the 'P97'",
+            58.1,
+            "percent",
+            "Critcher & Gilovich (2008), J. Behavioral Decision Making 21:241-251, Study 2, N=207",
+            "medium",
+            "SD 19.6 in the original. Companion: incidental_anchor_p17. ML2 replicated this "
+            "effect at d=0.04 against an original d=0.30 — essentially gone; see "
+            "FOLLOWUP_PREREGISTRATION.md Section 2 (H3).",
+        ),
+        Benchmark(
+            "incidental_anchor_p17",
+            "mean estimated US market share when the phone is named the 'P17'",
+            51.9,
+            "percent",
+            "Critcher & Gilovich (2008), J. Behavioral Decision Making 21:241-251, Study 2, N=207",
+            "medium",
+            "SD 21.7 in the original. See incidental_anchor_p97.",
+        ),
     ]
 }
 

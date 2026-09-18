@@ -312,3 +312,32 @@ residual circularity concern.
 The item pool in Section 4, the pairing rule, the hypotheses, and the
 falsification condition in Section 6 are unaffected — the flaws were in how
 "estimate" and "fame" are *operationalised*, not in what the study is asking.
+
+---
+
+## 9. Amendment 2 — 2026-09-19
+
+Caught while actually building the five items, before any probe was run —
+Amendment 1's own fix had a gap.
+
+Section 8.1 sorted "estimate" by **primitive** (`Choice` items get a `Noul`;
+`Score` items keep their primitive and reword the instructions). That's the
+wrong axis. The real distinction is what kind of statistic the human data
+*is*: a **proportion** choosing between options (Shafir, Norenzayan, Knobe,
+Trolley — where "what fraction chose X" is exactly what was published), or a
+**mean** (Gray & Wegner's and Giessner & Schubert's rating scales — but also
+incidental anchors, which is a `Choice`-over-percentage-bands item whose
+published statistic is a *mean estimate with an SD*, not a proportion in any
+one band). Section 8.1 filed incidental anchors under the `Noul` bucket by
+primitive type and got it wrong: there is no single "correct band" to target
+a proportion at, because the human number is a mean.
+
+**Corrected rule**: keep the same primitive and criteria for every item, and
+only reword the instructions from a first-person answer to a population
+prediction — for both `Score` items and mean-type `Choice` items alike. The
+`Noul`-targeting-a-named-option construction is used only for genuine
+proportion items. Incidental anchors' "estimate" is therefore a `Choice`
+over the same percentage bands as "own" and "simulate", asking what the
+model predicts the *average* participant estimate was — read off with the
+same `expected_numeric` band-midpoint calculation the repository's existing
+anchoring item already uses, not a new comparison method.

@@ -142,6 +142,31 @@ def likert_item(
     )
 
 
+def score_probe(
+    probe_id: str,
+    instrument: str,
+    instructions: str,
+    criteria: list[str],
+    *,
+    state: Any = None,
+    **meta: Any,
+) -> Probe:
+    """A rating-scale item about a scenario, as opposed to a self-report trait.
+
+    `likert_item` above is specifically the "describe how accurately this
+    statement describes you" wording used by the personality inventories; this
+    is the general case, used where the instructions are scenario-specific
+    (rate how responsible someone is, how powerful someone appears, ...).
+    """
+    return Probe(
+        probe_id=probe_id,
+        instrument=instrument,
+        question=Score(instructions=instructions, criteria=list(criteria)),
+        state=state,
+        meta=meta,
+    )
+
+
 def binary_choice(
     probe_id: str,
     instrument: str,
