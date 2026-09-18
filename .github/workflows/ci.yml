@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install
+        run: uv pip install --system -e ".[dev]"
+
+      - name: Lint
+        run: |
+          ruff check src tests
+          ruff format --check src tests
+
+      - name: Type check
+        run: mypy src/jevbench
+
+      - name: Tests
+        run: pytest tests -q --cov=jevbench --cov-report=term-missing
+
+      # The whole pipeline must work with no API key at all. This runs the
+      # battery against the offline simulator and analyses the result, which
+      # catches breakage in the runner and analysis layers that unit tests miss.
+      - name: End-to-end pipeline (offline, no key)
+        run: |
+          jevbench probes
+          jevbench doctor --backend simulator
+          jevbench run --backend simulator --replicates 2 --workers 4
+          jevbench analyse
+          jevbench figures
+          python scripts/check_figure_layout.py
+
+      - name: Upload offline artefacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: offline-pipeline-output
+          path: |
+            results/tables/
+            results/figures/
+          if-no-files-found: error
+
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan history for committed secrets
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Belt and braces: fail loudly if a .env ever gets tracked, and catch any
+      # OpenRouter/TypeSafe-shaped key pasted into a tracked file.
+      - name: Assert no env file is tracked
+        run: |
+          if git ls-files --error-unmatch .env 2>/dev/null; then
+            echo "::error::.env is tracked — remove it and rotate the key"
+            exit 1
+          fi
+          echo "no tracked .env"
+
+      - name: Assert no API keys in tracked files
+        run: |
+          if git grep -nIE 'sk-or-v1-[A-Za-z0-9]{32,}|ts-(live|sk)-[A-Za-z0-9]{20,}' -- . ':(exclude).github/workflows/*'; then
+            echo "::error::a live API key appears in a tracked file"
+            exit 1
+          fi
+          echo "no API keys found in tracked files"
