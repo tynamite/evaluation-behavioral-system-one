@@ -247,3 +247,34 @@ framing used, which is itself a reason to be careful generalising from any of
 them.
 
 Corrections and criticism are welcome — open an issue.
+
+---
+
+# Post-hoc note — documentation read after the run
+
+Recorded separately from the plan above, because it happened *after* the data
+was collected and must not be mistaken for part of the preregistration.
+
+After the run I read TypeSafe's `model-jaggedness/jev-1.13` page, which
+documents known weaknesses of this model version. Three bear on the hypotheses:
+
+- **H5 (conjunction rule) was a naive prediction.** The page states that "there
+  are many structural invariants one might imagine to hold that simply aren't
+  guaranteed". The observed violation is therefore consistent with documented
+  behaviour rather than a discovery, and H5 should never have been framed as a
+  test of whether the model is well behaved.
+- **Numeric items are confounded.** The page states "Jev is not a calculator"
+  and "does not count reliably". The CRT, the series and quantitative reasoning
+  items, Holt-Laury, the discounting items, the base-rate problem and the
+  p-beauty contest all involve arithmetic or numeric comparison. Where results
+  are poor on those, documented numeric weakness is at least as plausible an
+  explanation as anything the hypotheses propose. The Holt-Laury risk result in
+  particular should not be read as a risk preference.
+- **H9/H10 (persona steerability) are less novel than framed.** The page states
+  that "content written to adversarially steer the model ... can move the
+  answer". What remains useful is the magnitude on consequential allocations,
+  not the existence of the effect.
+
+Had this page been read first, the battery would have been designed with fewer
+arithmetic-dependent items and H5 would have been dropped or reversed. It was
+not, and saying so is more useful than quietly re-framing the hypotheses.

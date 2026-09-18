@@ -115,13 +115,60 @@ the point of writing them down first was to be held to them.
 | Accuracy falls as reasoning depth grows (> 15 points) | **10 points** from 1-step to 3+-step items under neutral framing |
 | Option order barely matters (mean TV < 0.05) | **0.051** mean, median 0.028 — small, but above the line I drew |
 
-The conjunction result is the one I would look at hardest if I knew more. Asked
-side by side, it picked the single statement over the conjunction (fallacy mass
-0.10). Asked as two independent probability questions, it assigned the
-conjunction *higher* probability than its own component — the pattern the
-original human finding describes. I do not know whether that reflects something
-about the model or something about how I posed the items, and I would not assume
-the former.
+The conjunction result looked like the most interesting thing here until I read
+the documentation properly. Asked side by side, the model picked the single
+statement over the conjunction (fallacy mass 0.10). Asked as two independent
+probability questions, it assigned the conjunction *higher* probability than its
+own component. That is the shape of the original human finding — but it is also
+already documented behaviour, not a discovery. See the next section.
+
+## Checked afterwards against the documented behaviour
+
+After the run I read TypeSafe's `model-jaggedness/jev-1.13` page, which
+documents known weaknesses of this version. Three of them bear directly on
+results above, and reading it earlier would have changed how I designed the
+battery.
+
+**"Jev is not a calculator… does not count reliably."** A large part of this
+battery is arithmetic: all six CRT items, the number-series and quantitative
+reasoning items, the Holt–Laury lottery comparisons, the discounting items, the
+base-rate problem and the p-beauty contest. Wherever the model did *badly* on
+those, "documented numeric weakness" is at least as good an explanation as
+anything about System 1, and probably better. **The Holt–Laury result — 2.0 safe
+choices against a human reference of 5.2, which would read as strongly risk
+seeking — should not be taken at face value**, because it depends on comparing
+probabilities and payoffs numerically. The same caution applies to the
+discounting items.
+
+It cuts the other way too: the model answered a set of arithmetic word problems
+at 0.99 despite arithmetic being a documented weak spot, which makes the
+cognitive-reflection result more interesting rather than less.
+
+**"There are many structural invariants one might imagine to hold that simply
+aren't guaranteed."** This covers the conjunction-rule violation directly. I
+predicted the axiom would hold; the documentation says in advance that such
+invariants are not guaranteed. So the finding is consistent with documented
+behaviour, and my expectation was simply naive. Presenting it as a surprise
+would have been the genuinely embarrassing outcome.
+
+**"Content written to adversarially steer the model… can move the answer."** The
+persona-steerability result is likewise consistent with documented behaviour
+rather than novel. What this repository adds is a measurement of *how far* it
+moves on consequential allocations, not the observation that it moves.
+
+**A guidance violation of my own.** The Score docs say to *"describe situations,
+not degrees"*, and warn that each level is judged independently so comparative
+language does not help. Every Likert scale here is degrees — "Very inaccurate"
+through "Very accurate" — because that is what the instruments specify. The
+instrument and the primitive's guidance genuinely conflict, and I followed the
+instrument. Someone could reasonably argue I should have done the opposite.
+
+**What did hold up.** The framing is not a misreading: the documentation states
+that *"The System One name comes from the concept Daniel Kahneman popularized in
+his book Thinking, Fast and Slow"*, and that these models do not "generate
+explanations of their reasoning". The Score handling is also right — the score is
+0-indexed and defined as each level multiplied by its probability and summed,
+which is what `expected_level` computes.
 
 ![Answer distributions](results/figures/fig5_distributions.png)
 ![Option-order sensitivity](results/figures/fig6_order_effects.png)
@@ -130,8 +177,8 @@ the former.
 ## Running it yourself
 
 ```bash
-git clone https://github.com/tynamite/Jev_test.git
-cd Jev_test
+git clone https://github.com/tynamite/system-one-behavioural-eval.git
+cd system-one-behavioural-eval
 uv venv && uv pip install -e ".[dev]"
 
 cp .env.example .env        # then add your OpenRouter key
