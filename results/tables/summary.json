@@ -1,0 +1,25 @@
+{
+  "run_file": "run_live_20260918T222105Z.jsonl",
+  "backend": [
+    "openrouter"
+  ],
+  "models": [
+    "anthropic/claude-sonnet-5",
+    "typesafe/jev-1.13-20260917"
+  ],
+  "n_records": 9360,
+  "n_errors": 0,
+  "total_cost_usd": 2.6698,
+  "personas": [
+    "antisocial",
+    "neutral",
+    "rational_agent",
+    "typical_human"
+  ],
+  "arms": [
+    "baseline",
+    "jev"
+  ],
+  "n_statistics": 601,
+  "mean_order_tv": 0.05104819563152897
+}
