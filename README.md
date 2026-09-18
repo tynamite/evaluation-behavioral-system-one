@@ -47,18 +47,27 @@ every number here is computed from the returned distribution, never from the top
 answer — discarding the distribution would throw away the only reason this was
 worth doing.
 
-The contrast showed up in the run itself. The comparison arm, resampled ten
-times per item, mostly returned saturated estimates — 0.00 or 1.00 — because ten
-draws from a confident model rarely disagree. Jev returned graded probabilities
-for the same items, at **$0.08 against $2.58** for the identical grid. (That
-saturation is partly an artifact of only ten samples; it is not evidence that the
-chat model's underlying distribution is degenerate.)
+The contrast showed up in the run itself, at **$0.09 against $2.74** for the
+identical grid.
+
+The comparison arm returns near-identical answers on most items: 90% of its
+cells had all ten samples agree. That is genuine low-entropy behaviour rather
+than a defect — temperature is demonstrably active, and genuinely ambiguous
+items do come back mixed. Two caveats follow that the cost comparison alone
+obscures. Ten samples cannot resolve a probability finer than 0.1, and ten
+agreeing samples license "at least 0.78" at 95%, not 1.00. And the arms do not
+measure the same quantity: Jev reports a credence, whereas resampling recovers a
+sampling frequency, and a model can be internally uncertain while emitting the
+same token every time. The cost asymmetry is real; the graded-versus-saturated
+contrast is partly an artifact of comparing two different things.
 
 ## What I observed
 
-9,360 observations, 0 transport errors, $2.67 total. 117 probes × 4 persona
-conditions × 10 replicates, plus the same grid through `claude-sonnet-5`.
-Full tables in [docs/RESULTS.md](docs/RESULTS.md).
+9,360 observations at $2.83. 117 probes × 4 persona conditions × 10 replicates,
+plus the same grid through `claude-sonnet-5`. No transport errors; 9 of 4,680
+comparison-arm replies (0.19%) could not be resolved to an option, and every
+cell retained at least 5 of its 10 samples. Full tables in
+[docs/RESULTS.md](docs/RESULTS.md).
 
 ### Under neutral framing it does not look like human System 1
 
@@ -69,14 +78,14 @@ human value. It answered the Cognitive Reflection Test at **0.99** probability
 mass on the correct answers (human reference ≈ 0.41), with **0.01** on the
 intuitive lures that the items are built to attract. It continued a losing
 project in the sunk-cost item with probability **0.01** (human ≈ 0.85), got the
-base-rate item's correct band at **0.60** (human ≈ 0.15), and moved **1.2
+base-rate item's correct band at **0.61** (human ≈ 0.15), and moved **1.4
 percentage points** between anchoring conditions where humans move about 20.
 
 ![Gap from human reference values](results/figures/fig2_gap_from_human.png)
 
-The social preferences are the exception: it gave **0.15** of the pie as
-dictator, offered **0.41** in the ultimatum game (human ≈ 0.40) and rejected low
-offers at **0.67**. Positive giving is not equilibrium play, so on these items it
+The social preferences are the exception: it gave **0.14** of the pie as
+dictator, offered **0.42** in the ultimatum game (human ≈ 0.40) and rejected low
+offers at **0.66**. Positive giving is not equilibrium play, so on these items it
 does land near people rather than near game theory.
 
 ### Asked to answer like a person, it moves a long way
@@ -86,7 +95,7 @@ does land near people rather than near game theory.
 
 One sentence — *answer the way a typical human participant would actually
 answer* — moved CRT accuracy from **0.99 to 0.55** and lure mass from **0.01 to
-0.41**. Sunk-cost continuation went from **0.01 to 0.80** against a human
+0.41**. Sunk-cost continuation went from **0.01 to 0.81** against a human
 reference of 0.85. The conjunction fallacy went from **0.10 to 0.93** against
 0.85. Whatever else that is, the model has a usable representation of how people
 get these problems wrong.
@@ -96,8 +105,8 @@ answer as a rational agent, it put **all** its mass on giving nothing in the
 dictator game and **all** of it on the Nash equilibrium of 0 in the p-beauty
 contest. Asked to adopt an antisocial persona, Dark Triad self-report rose from
 **5.0 to 8.6** on a 9-point scale (the manipulation check), and giving collapsed
-across every game — dictator 0.15 → 0.00, trust sent 0.37 → 0.07, public goods
-0.39 → 0.01.
+across every game — dictator 0.14 → 0.00, trust sent 0.37 → 0.08, public goods
+0.38 → 0.01.
 
 That the persona reaches consequential allocations and not just self-description
 is the part I found most interesting, and it is measurable here only because the
@@ -110,7 +119,7 @@ the point of writing them down first was to be held to them.
 
 | Expected | Observed |
 |---|---|
-| Framing reversal much weaker than humans (< 25 points) | **33 points** — weaker than the human ~50, but larger than I predicted |
+| Framing reversal much weaker than humans (< 25 points) | **29 points** — weaker than the human ~50, but larger than I predicted |
 | Independently elicited probabilities obey P(A∧B) ≤ P(A) | **Violated**, margin **−0.09** under neutral framing and **−0.39** when asked to answer like a person |
 | Accuracy falls as reasoning depth grows (> 15 points) | **10 points** from 1-step to 3+-step items under neutral framing |
 | Option order barely matters (mean TV < 0.05) | **0.051** mean, median 0.028 — small, but above the line I drew |
@@ -266,14 +275,28 @@ which is what makes the order-invariance claim testable rather than assumed.
 reverse-keyed items, so answering the surface wording rather than the content
 is detectable.
 
-**Bugs found the hard way.** The comparison arm originally capped replies at 8
-tokens, which truncated the chat model into returning null content on 490 of
-4,680 calls — and not at random, but concentrated on the hardest items and the
-most deliberative persona. Analysing that run would have compared Jev against a
-baseline silently missing its worst cases. A second bug matched option text by
-substring, so on the p-beauty contest, whose options are the integers 0–100, a
-reply of `"100"` could resolve to `"1"`. Both are now regression-tested. The
-committed run has **0 errors**; the flawed one was discarded, not patched.
+**Bugs found the hard way.** Three defects in the comparison arm, all the same
+shape: a reply arrives, fails to parse, and disappears without being counted as
+an error. The first capped replies at 8 tokens, truncating the chat model into
+null content on 490 of 4,680 calls. The second raised that cap only to 64, which
+still truncated 224. Neither failed at random — both concentrated on the numeric
+items where the model reasons before answering, so the affected runs would have
+compared Jev against a baseline missing precisely its hardest cases. The third
+matched option text by substring, so on the p-beauty contest, whose options are
+the integers 0–100, a reply of `"100"` could resolve to `"1"`.
+
+All three are regression-tested, the cap now holds a full reasoning trace, and
+`summary.json` reports unresolved replies and per-cell sample coverage so this
+class of gap cannot go uncounted again. The committed run has no transport
+errors and 9 unresolved replies (0.19%), against 224 (4.8%) before the fix.
+Re-running moved no headline result by more than 0.04, so the defect produced
+unreportable numbers rather than false ones — luck rather than design, since
+nothing was counting unresolved replies. That counter should have existed from
+the first run.
+
+The typed arm has had no parsing failure across roughly 14,000 calls, because a
+typed decision has nowhere to fail. That is a better argument for the
+architecture than any behavioural result here.
 
 ## Limitations
 
