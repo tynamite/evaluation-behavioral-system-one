@@ -63,7 +63,7 @@ def test_run_filename_marks_simulated_data(tmp_path: Path) -> None:
 
 
 def test_redact_hides_a_key() -> None:
-    secret = "sk-or-v1-abcdef0123456789"
+    secret = "sk-or-v1-EXAMPLE_FAKE_VALUE_FOR_TESTS_ONLY"
     assert secret not in redact(f"HTTP 401 for key {secret}", secret)
     assert "REDACTED" in redact(f"key {secret}", secret)
 

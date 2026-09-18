@@ -6,7 +6,7 @@ answer set for each (probe, persona, arm) — so they can be compared directly:
     Jev arm       mean of the distributions returned across replicates
     baseline arm  empirical frequency of parsed answers across resamples
 
-That reduction is the whole point of the study. Jev reports its distribution;
+That reduction is the whole point of the project. Jev reports its distribution;
 the baseline's has to be paid for N times and estimated. Downstream, every
 statistic consumes a distribution, never an argmax.
 """

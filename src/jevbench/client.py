@@ -107,7 +107,7 @@ class SystemOneClient:
 
         The baseline arm deliberately does *not* try to extract a calibrated
         distribution from the chat model — that asymmetry is the point of the
-        study. It is resampled instead (see `BatteryRunner.run_baseline`).
+        project. It is resampled instead (see `BatteryRunner.run_baseline`).
 
         `max_tokens` is generous rather than minimal. An earlier version capped
         it at 8, which truncated the reply into `content: null` on exactly the

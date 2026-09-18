@@ -179,7 +179,7 @@ class BatteryRunner:
     def run_baseline(self, probes: list[Probe], samples: int = 10) -> list[Record]:
         """Estimate a chat model's response distribution by resampling.
 
-        This is the comparison that motivates the study: to get from a
+        This is the comparison that motivates the project: to get from a
         text-generating model what Jev returns in a single call, the same prompt
         must be paid for `samples` times, and the result still mixes decoding
         noise into the estimate.

@@ -1,13 +1,13 @@
 """Typed request/response objects for the System One decision API.
 
-Jev exposes exactly three question primitives. Every probe in this study is
+Jev exposes exactly three question primitives. Every probe in this project is
 expressed as one of them:
 
     Choice — pick one of N labelled options (one-of-N, N <= 255)
     Score  — place the state on an ordered rubric of 2..10 levels
     Noul   — the calibrated probability that a single statement is true
 
-The important property for this study is that all three return a *probability
+The important property for this project is that all three return a *probability
 distribution*, not just a point answer. Conventional LLM-psychology work has to
 approximate a response distribution by resampling the same prompt many times at
 temperature > 0, which conflates decoding noise with genuine response
@@ -79,7 +79,7 @@ Question = Choice | Score | Noul
 class Answer:
     """A single answer, normalised across backends.
 
-    `probabilities` is the object of interest throughout this study; `value` is
+    `probabilities` is the object of interest throughout this project; `value` is
     retained only for reporting and is never used as the unit of analysis.
     """
 
@@ -97,7 +97,7 @@ class Answer:
         if kind == "noul":
             p = float(obj["noul"])
             # Express a Noul as an explicit two-point distribution so that every
-            # answer in the study has the same shape downstream.
+            # answer in the project has the same shape downstream.
             return cls(
                 qid=qid,
                 kind="noul",

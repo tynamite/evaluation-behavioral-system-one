@@ -45,7 +45,7 @@ noise of the sampler — and it costs N calls per item.
 
 Jev returns a **calibrated probability distribution over the answer set in a
 single call**. For a forced-choice instrument, that is the object psychometrics
-actually wants and has never been able to observe directly. This study is built
+actually wants and has never been able to observe directly. This project is built
 around that: **every analysis is performed on the returned distribution, never
 on the argmax.** Reporting only the top choice would discard the entire reason
 this model is interesting.
@@ -65,7 +65,7 @@ this model is interesting.
 - **3 replicates** per cell, with the presentation order of Choice options
   independently permuted in each replicate.
 - **Baseline arm**: the identical battery through `claude-sonnet-5`, resampled
-  10x per cell at temperature 1.0, which is the conventional method this study
+  10x per cell at temperature 1.0, which is the conventional method this project
   is contrasting itself with.
 
 One probe per API call. Jev accepts many questions in one call, but batching
@@ -154,7 +154,7 @@ any number presented as one would be an artefact of the test, not a property of
 the model. What can be measured is **accuracy on a fixed item set**, which is
 what is reported.
 
-Items are authored for this study in the format of the ICAR public-domain item
+Items are authored for this project in the format of the ICAR public-domain item
 bank (Condon & Revelle 2014). They are not the validated ICAR-16 items and
 carry no ICAR norms. The commercial instruments (WAIS, Raven's APM) are
 copyrighted and are not reproduced. ICAR's three-dimensional rotation items are
@@ -193,30 +193,57 @@ not a clinical assessment.
 | **H11** | Jev's steerability relative to the autoregressive baseline. | **Exploratory — no direction predicted.** A single-pass model has no deliberation stage in which to reconsider a persona, which could make it more steerable; it also has no long context to accumulate one, which could make it less. |
 
 H11 is marked exploratory deliberately. Stating a direction after the fact would
-be the easiest way to make this study look more predictive than it is.
+be the easiest way to make this project look more predictive than it is.
 
 ---
 
-## Scope and disclaimer
+## What this is, and what it is not
 
-This is an independent study. It is not affiliated with, endorsed by,
-commissioned by or reviewed by TypeSafe AI, Anthropic, OpenRouter or any other
-organisation, and nothing here should be read as speaking for any of them.
+This is a personal project, done out of curiosity and as a way of learning how
+to build an evaluation. It is not research, it is not a product review, and it
+is not the work of anyone with professional standing in psychometrics,
+experimental economics or model evaluation. Treat it as a hobby project that
+tries to be careful, not as a source.
 
-What the results describe is bounded:
+**No claims are made.** Not about any model, any company, any product, or
+anyone's fitness for any purpose. What is here is a set of numbers recorded
+from a public API on one day, and a description of how they were produced.
+Anyone can recompute them from `data/raw/` and reach their own view.
 
-- **One model version, one date, one route.** `jev-1.13` as served through a
-  third-party gateway in September 2026. Behaviour may differ on the vendor's
-  own endpoint, on another version, or at another time.
-- **Observed API behaviour only.** Every claim is about outputs recorded in
-  `data/raw/`, which anyone can recompute. Nothing here is a claim about how any
-  model is built, trained, intended to be used, or described by its developer.
-- **Not a product evaluation.** Psychometric instruments and economic games were
-  designed to measure people. They are used here as probes of model behaviour,
-  not as a fitness assessment for any task, and results should not be read as
-  advice about whether to use any model for anything.
-- **No diagnostic claims.** Self-report instruments administered to a model do
-  not measure psychological traits, disorders, or intelligence.
+Specific things this is not:
 
-Product names and trade marks are the property of their respective owners and
-are used here for identification only.
+- **Not expert work.** The instruments are used well outside the contexts they
+  were validated in, by someone who is not qualified to validate them. Choices
+  that a specialist would make differently are certainly present.
+- **Not peer reviewed, and probably wrong somewhere.** Two real bugs were
+  already found and fixed mid-project, one of which would have quietly biased
+  a whole comparison arm. There is no reason to think that was the last one.
+- **Not a measure of intelligence.** The reasoning items have no norms and no
+  standardisation sample. They report accuracy on a fixed set of questions.
+- **Not a psychological assessment.** Self-report instruments administered to
+  software do not measure traits, disorders or states. The Dark Triad scale is
+  used only to check whether a persona instruction changed the model's answers.
+- **Not a comparison against a control group.** The human numbers are
+  published values from unrelated samples, decades and protocols. They give a
+  rough sense of scale and nothing more.
+- **Not advice.** Nothing here supports a decision about whether to use any
+  model for anything.
+- **Not affiliated** with, endorsed by, or reviewed by TypeSafe AI, Anthropic,
+  OpenRouter or anyone else. Product names and trade marks belong to their
+  owners and appear here only to say which API was called.
+
+**On the word "preregistration."** This file was written and committed before
+the data existed, which is the useful part of the practice, and the git history
+shows it. But it was not registered with OSF, AsPredicted or any registry, and
+nothing external prevented it from being edited. It is a self-discipline device
+to stop hypotheses being invented after the fact — not a formal preregistration,
+and it should not be given the weight of one.
+
+**Scope of the numbers.** One model version (`jev-1.13`), through one
+third-party gateway, on one day in September 2026, with one battery. Behaviour
+may differ on another route, another version, another day, or with items worded
+differently. Several results below turn out to depend heavily on the exact
+framing used, which is itself a reason to be careful generalising from any of
+them.
+
+Corrections and criticism are welcome — open an issue.

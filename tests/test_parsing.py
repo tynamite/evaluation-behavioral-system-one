@@ -26,15 +26,18 @@ def test_null_content_does_not_crash() -> None:
     assert parse_option("   \n ", ["a", "b"]) is None
 
 
-@pytest.mark.parametrize(("reply", "expected"), [
-    ("33", "33"),
-    ("100", "100"),
-    ("0", "0"),
-    ("1", "1"),
-    ("  22  ", "22"),
-    ("I would choose 22.", "22"),
-    ("My answer: 67", "67"),
-])
+@pytest.mark.parametrize(
+    ("reply", "expected"),
+    [
+        ("33", "33"),
+        ("100", "100"),
+        ("0", "0"),
+        ("1", "1"),
+        ("  22  ", "22"),
+        ("I would choose 22.", "22"),
+        ("My answer: 67", "67"),
+    ],
+)
 def test_numeric_options_resolve_exactly(reply: str, expected: str) -> None:
     assert parse_option(reply, NUMBERS) == expected
 
@@ -49,14 +52,17 @@ def test_out_of_range_number_is_unparsed_rather_than_guessed() -> None:
     assert parse_option("500", NUMBERS) is None
 
 
-@pytest.mark.parametrize(("reply", "options", "expected"), [
-    ("$0.05", ["$0.05", "$0.10", "$1.00"], "$0.05"),
-    ("cooperate", ["cooperate", "defect"], "cooperate"),
-    ("The answer is program_a", ["program_a", "program_b"], "program_a"),
-    ("accept", ["accept", "reject"], "accept"),
-    ("REJECT", ["accept", "reject"], "reject"),
-    ("5 minutes", ["5 minutes", "100 minutes"], "5 minutes"),
-])
+@pytest.mark.parametrize(
+    ("reply", "options", "expected"),
+    [
+        ("$0.05", ["$0.05", "$0.10", "$1.00"], "$0.05"),
+        ("cooperate", ["cooperate", "defect"], "cooperate"),
+        ("The answer is program_a", ["program_a", "program_b"], "program_a"),
+        ("accept", ["accept", "reject"], "accept"),
+        ("REJECT", ["accept", "reject"], "reject"),
+        ("5 minutes", ["5 minutes", "100 minutes"], "5 minutes"),
+    ],
+)
 def test_label_options_resolve(reply: str, options: list[str], expected: str) -> None:
     assert parse_option(reply, options) == expected
 

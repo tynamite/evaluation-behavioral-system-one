@@ -1,6 +1,6 @@
 """Cognitive Reflection Test (Frederick 2005; extended items from Toplak et al. 2014).
 
-The CRT is the keystone instrument of this study. Each item is built so that a
+The CRT is the keystone instrument of this project. Each item is built so that a
 fast, associative response yields a specific *wrong* answer (the "lure") while
 the correct answer requires suppressing it. That is precisely the System 1 /
 System 2 distinction a self-described "System One" model invites.

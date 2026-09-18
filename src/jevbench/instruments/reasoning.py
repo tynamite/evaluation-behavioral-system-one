@@ -5,7 +5,7 @@ IQ score is norm-referenced — it positions a person against a standardisation
 sample with age norms. A model has neither an age nor a reference population,
 so "Jev's IQ" is not a quantity that exists. Accuracy on a fixed item set is.
 
-Items are authored for this study in the format of the International Cognitive
+Items are authored for this project in the format of the International Cognitive
 Ability Resource (Condon & Revelle 2014, Intelligence 43:52-64), which is the
 open, public-domain alternative to the commercial instruments. They are *not*
 the validated ICAR-16 items and carry no ICAR norms. The commercial batteries

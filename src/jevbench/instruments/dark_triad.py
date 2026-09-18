@@ -8,7 +8,7 @@ repository, and a self-report proxy administered to a model would not mean what
 a clinical assessment means in any case.
 
 This instrument does **not** diagnose anything. Nothing here is a claim that a
-model has a personality disorder. Its role in this study is as a *manipulation
+model has a personality disorder. Its role in this project is as a *manipulation
 check*: it verifies whether the `antisocial` persona instruction actually
 shifted the model's self-report, so that any shift observed in the economic
 games can be attributed to the persona having taken hold rather than to noise.
