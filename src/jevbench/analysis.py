@@ -759,3 +759,72 @@ def analyse_run(path: Path, out_dir: Path) -> dict[str, Any]:
     print(f"\nwrote {out_dir / 'statistics.csv'} ({len(sdf)} rows)")
     print(f"wrote {out_dir / 'order_effects.csv'} ({len(odf)} rows)")
     return summary
+
+
+# -- how closely does a condition reproduce the human values? -----------
+
+
+@dataclass(slots=True)
+class Fidelity:
+    """How well one condition's answers track the published human values.
+
+    `mae` is the average absolute distance from the human value, `bias` the
+    signed average (positive means the model is more extreme than people), and
+    `r` / `rho` say whether it gets the *ordering* right — whether it knows
+    which effects are strong, not merely how strong effects are on average. A
+    condition can have low error and no correlation, which would mean it lands
+    near the human average without knowing anything about individual items.
+    """
+
+    arm: str
+    persona: str
+    n_measures: int
+    mae: float
+    bias: float
+    r: float
+    rho: float
+
+
+def human_fidelity(
+    sdf: pd.DataFrame, measures: list[tuple[str, str, str, str]]
+) -> tuple[list[Fidelity], dict[tuple[str, str], list[tuple[str, float, float]]]]:
+    """Compare each (arm, persona) against the human reference values.
+
+    Only measures on a shared 0-1 probability scale are used, so the error is
+    an average of comparable quantities rather than a mix of scales.
+    """
+    from scipy import stats as _stats
+
+    out: list[Fidelity] = []
+    points: dict[tuple[str, str], list[tuple[str, float, float]]] = {}
+    for arm in sorted(sdf["arm"].unique()):
+        for persona in sorted(sdf["persona"].unique()):
+            pairs: list[tuple[str, float, float]] = []
+            for inst, stat, bench, label in measures:
+                sel = sdf[
+                    (sdf.instrument == inst)
+                    & (sdf.statistic == stat)
+                    & (sdf.persona == persona)
+                    & (sdf.arm == arm)
+                ]
+                b = BENCHMARKS.get(bench)
+                if not len(sel) or b is None:
+                    continue
+                pairs.append((label, float(b.value), float(sel.value.iloc[0])))
+            if len(pairs) < 3:
+                continue
+            h = np.array([p[1] for p in pairs])
+            m = np.array([p[2] for p in pairs])
+            points[(arm, persona)] = pairs
+            out.append(
+                Fidelity(
+                    arm=arm,
+                    persona=persona,
+                    n_measures=len(pairs),
+                    mae=float(np.abs(m - h).mean()),
+                    bias=float((m - h).mean()),
+                    r=float(_stats.pearsonr(h, m)[0]),
+                    rho=float(_stats.spearmanr(h, m)[0]),
+                )
+            )
+    return out, points

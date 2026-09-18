@@ -97,6 +97,7 @@ def main(argv: list[str]) -> int:
         "fig4_reflection": lambda: plots.fig_reflection(sdf, out),
         "fig5_distributions": lambda: plots.fig_distributions(df, out),
         "fig6_order_effects": lambda: plots.fig_order_effects(odf, out),
+        "fig7_human_fidelity": lambda: plots.fig_human_fidelity(sdf, out),
     }
 
     # Re-render inside this process so the figure is still open for measurement.

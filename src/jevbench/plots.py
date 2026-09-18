@@ -895,7 +895,153 @@ def build_figures(run_path: Path, out_dir: Path) -> list[Path]:
         fig_reflection(sdf, out_dir),
         fig_distributions(df, out_dir),
         fig_order_effects(odf, out_dir),
+        fig_human_fidelity(sdf, out_dir),
     ]
     for p in paths:
         print(f"wrote {p}")
     return paths
+
+
+def fig_human_fidelity(sdf: pd.DataFrame, out: Path) -> Path:
+    """How closely does each condition reproduce the human values?
+
+    The left panels are the canonical form for this question: the published
+    human value on x, the model's on y, and a 45-degree line. A point on the
+    line is a measure the condition reproduces exactly; distance from the line
+    is the error, and its direction says whether the model is more or less
+    extreme than people.
+    """
+    from .analysis import human_fidelity
+
+    fid, points = human_fidelity(sdf, PROBABILITY_MEASURES)
+    by_key = {(f.arm, f.persona): f for f in fid}
+
+    fig, axes = plt.subplots(
+        1,
+        3,
+        figsize=(15.0, 5.0),
+        dpi=170,
+        gridspec_kw={"width_ratios": [1, 1, 1.05], "wspace": 0.38},
+    )
+    fig.patch.set_facecolor(SURFACE)
+
+    for ax, persona, title in (
+        (axes[0], "neutral", "Answering neutrally"),
+        (axes[1], "typical_human", "Asked to answer as a typical human"),
+    ):
+        pairs = points.get(("jev", persona), [])
+        f = by_key.get(("jev", persona))
+        ax.plot([0, 1], [0, 1], color=INK_3, linewidth=1.2, zorder=1)
+        hs = [p[1] for p in pairs]
+        ms = [p[2] for p in pairs]
+        for h, m in zip(hs, ms, strict=True):
+            ax.plot([h, h], [h, m], color=GRID, linewidth=1.4, zorder=2)
+        ax.plot(
+            hs,
+            ms,
+            "o",
+            markersize=9,
+            color=JEV,
+            markeredgecolor=SURFACE,
+            markeredgewidth=2,
+            linestyle="none",
+            zorder=3,
+        )
+        # Label only the extremes: the three worst misses and the best match.
+        ranked = sorted(pairs, key=lambda p: -abs(p[2] - p[1]))
+        for rank, (label, h, m) in enumerate([*ranked[:2], ranked[-1]] if ranked else []):
+            # Point the label back into the panel, so it cannot run off the
+            # right edge onto the neighbouring panel's tick labels.
+            to_left = h > 0.5
+            ax.annotate(
+                label,
+                xy=(h, m),
+                xytext=(-9 if to_left else 9, -13 if m > 0.90 else (9 if rank == 2 else 5)),
+                textcoords="offset points",
+                ha="right" if to_left else "left",
+                color=INK_2,
+                fontsize=8,
+            )
+        if f is not None:
+            ax.text(
+                0.0,
+                1.012,
+                f"mean error {f.mae:.2f}   ·   correlation r = {f.r:+.2f}",
+                transform=ax.transAxes,
+                va="bottom",
+                ha="left",
+                color=INK_2,
+                fontsize=9,
+                fontweight="bold",
+            )
+        ax.set_xlim(-0.04, 1.08)
+        ax.set_ylim(-0.04, 1.08)
+        ax.set_xticks(np.arange(0, 1.01, 0.25))
+        ax.set_yticks(np.arange(0, 1.01, 0.25))
+        ax.set_xlabel("published human rate", color=INK_2, fontsize=9.5)
+        ax.set_ylabel("Jev", color=INK_2, fontsize=9.5)
+        ax.set_title(title, color=INK, fontsize=11, fontweight="bold", loc="left", pad=30)
+        _grid(ax, "both")
+
+    # Mean error by condition, both arms.
+    ax = axes[2]
+    order = ["typical_human", "neutral", "antisocial", "rational_agent"]
+    y = np.arange(len(order))
+    for arm, colour, label, off in (
+        ("jev", JEV, "Jev", 0.16),
+        ("baseline", BASE, "Baseline LLM", -0.16),
+    ):
+        vals = [by_key[(arm, p)].mae if (arm, p) in by_key else np.nan for p in order]
+        ax.plot(
+            vals,
+            y + off,
+            "o",
+            markersize=9,
+            color=colour,
+            markeredgecolor=SURFACE,
+            markeredgewidth=2,
+            linestyle="none",
+            label=label,
+            zorder=3,
+        )
+        for i, v in enumerate(vals):
+            if np.isfinite(v):
+                ax.plot([0, v], [i + off, i + off], color=colour, linewidth=2, zorder=2)
+                ax.text(v + 0.012, i + off, f"{v:.2f}", va="center", color=INK_2, fontsize=8.5)
+    ax.set_yticks(y, [PERSONA_LABEL[p] for p in order], fontsize=9.5)
+    ax.set_xlim(0, 0.62)
+    ax.invert_yaxis()
+    ax.set_xlabel("mean absolute error vs the human rate", color=INK_2, fontsize=9.5)
+    ax.set_title(
+        "Distance from human behaviour",
+        color=INK,
+        fontsize=11,
+        fontweight="bold",
+        loc="left",
+        pad=34,
+    )
+    _grid(ax, "x")
+    ax.legend(
+        frameon=False,
+        fontsize=9,
+        labelcolor=INK_2,
+        loc="lower left",
+        bbox_to_anchor=(0.0, 1.005),
+        ncols=2,
+        handletextpad=0.4,
+        columnspacing=1.6,
+    )
+
+    _titles(
+        fig,
+        "Does the model know how people answer?",
+        "Fourteen measures with a published human value, all on a 0-1 scale. The diagonal is an "
+        "exact match. Human values are reference points from unrelated samples, not a "
+        "matched control group.",
+        y=1.0,
+    )
+    fig.subplots_adjust(top=0.78)
+    path = out / "fig7_human_fidelity.png"
+    fig.savefig(path, facecolor=SURFACE, bbox_inches="tight")
+    plt.close(fig)
+    return path
