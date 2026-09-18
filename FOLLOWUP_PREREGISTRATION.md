@@ -47,8 +47,9 @@ and it did not exist in the first project's design.
 
 ## 3. Design
 
-**Three elicitations per item, all on existing primitives — no schema
-changes:**
+**Three elicitations per item.** *Superseded by Amendment 1 below — the table
+here was under-specified for `Score`-format items and is kept only so the diff
+shows what was wrong.*
 
 | Elicitation | Framing | Primitive |
 |---|---|---|
@@ -56,14 +57,15 @@ changes:**
 | Simulate | "answer as a typical participant would" | same |
 | Estimate | "what proportion of participants gave answer X?" | `Noul` or `Score` band |
 
-**Fame index**, computed before any model call and independent of anything the
-model outputs: (a) citation count of the canonical paper on Google Scholar,
-(b) a binary presence/absence flag in each of three named books — *Thinking,
-Fast and Slow*, *Predictably Irrational*, *Nudge* — via index lookup, (c) one
-separate model-rated familiarity item per effect ("how well-known is this
-finding to a general audience", `Score` 1–5), averaged over 5 replicates.
-Items where the three disagree by more than one tier are dropped rather than
-argued over.
+**Fame index.** *Superseded by Amendment 1 — leg (b) below cannot be computed
+with the tools available and is kept only so the diff shows what was wrong.*
+computed before any model call and independent of anything the model outputs:
+(a) citation count of the canonical paper on Google Scholar, (b) a binary
+presence/absence flag in each of three named books — *Thinking, Fast and
+Slow*, *Predictably Irrational*, *Nudge* — via index lookup, (c) one separate
+model-rated familiarity item per effect ("how well-known is this finding to a
+general audience", `Score` 1–5), averaged over 5 replicates. Items where the
+three disagree by more than one tier are dropped rather than argued over.
 
 **Pairing rule**, fixed before any data exists so no pair is chosen after
 seeing results: within each response-format group (`Choice`-binary,
@@ -206,3 +208,107 @@ a confound in the first project, not a finding.
 Total new spend: **under $2**. Nothing has been run. This document is the
 complete plan; the next action, if approved, is building the five items and
 the fame-index script, not collecting data.
+
+---
+
+## 8. Amendment 1 — 2026-09-19
+
+Made **before any of the five new items exist and before anything has run**;
+the working tree still contains no probes and no data at the time of this
+commit. Two parts of Section 3 turned out to be under-specified rather than
+merely estimated wrong, and both are fixed here rather than silently edited.
+
+### 8.1 What was wrong with "estimate"
+
+The elicitation table treated "estimate" as a drop-in third condition
+alongside "own" and "simulate", the way `typical_human` is a drop-in persona
+alongside `neutral`. It isn't. "Own" and "simulate" are the *same question*
+with different instructions prepended — that's exactly what `apply_persona`
+already does. "Estimate" is a different question: it asks about the
+population, not the respondent. For the two `Score`-format items (moral
+typecasting, position and power) I had not decided whether the model would be
+predicting a mean rating, a proportion above the midpoint, or something else
+— three choices with three different comparison statistics, none of them
+written down.
+
+**Fixed specification, split by response format:**
+
+- **`Choice`-format items** (Trolley, Knobe, Shafir, Norenzayan, incidental
+  anchors, and the six reused items) — "estimate" is a **`Noul`** question
+  asking for the proportion who gave one specific, named option. The target
+  option is whichever key the existing analysis already extracts for that
+  item (`correct`, `lure`, `fallacy_option`, `cooperative_option`,
+  `certain_option`, and so on for the reused items; the extreme-parent option
+  for Shafir; the rule-based option for Norenzayan). This adds no new
+  bookkeeping — those keys already exist in every probe's `meta`. The
+  returned probability compares directly to the published proportion.
+
+  Worked example (Shafir, award-custody framing):
+
+  > *Own / simulate instructions:* "To which parent would you award sole
+  > custody of the child?" — `Choice` between Parent A and Parent B.
+  >
+  > *Estimate instructions:* "In a real study, participants read about these
+  > two parents and were asked to award sole custody to one of them. [Parent
+  > A and Parent B descriptions, unchanged.] What proportion of participants
+  > awarded custody to Parent B?" — `Noul`, compared to the published 0.64.
+
+- **`Score`-format items** (moral typecasting, position and power) —
+  "estimate" keeps the **same `Score` primitive and the same criteria** as
+  "own" and "simulate"; only the instructions change, from a first-person
+  rating to a prediction of the average rating participants gave. This keeps
+  all three elicitations on the same 1–7 scale, directly comparable to each
+  other and to the published mean, rather than introducing a second statistic
+  that would need its own conversion.
+
+  Worked example (moral typecasting, man-commits-the-act condition):
+
+  > *Own / simulate instructions:* "How responsible is the man for his
+  > behaviour?" — `Score`, 7 levels, "Not at all responsible" to "Fully
+  > responsible".
+  >
+  > *Estimate instructions:* "In a real study, participants read this
+  > scenario and rated how responsible the man was for his behaviour, from 1
+  > (not at all responsible) to 7 (fully responsible). What do you estimate
+  > the average rating participants gave?" — same `Score` primitive and
+  > criteria, compared to the published mean of 5.29.
+
+### 8.2 What was wrong with the fame index
+
+Leg (b), checking whether an effect appears in the index of three named
+books, cannot be executed with the tools available. A book's index is
+essentially never online as searchable text, and no amount of web search
+substitutes for actually reading it. Proposing it as a one-hour task assumed
+a capability that doesn't exist, which is a design error, not an estimation
+error.
+
+**Fixed fame index — three legs, two of them fully external and objective:**
+
+1. **Citation count** of the canonical paper (Semantic Scholar or Google
+   Scholar's citedBy count), recorded with the date it was checked, since the
+   number moves.
+2. **Wikipedia depth**: does the effect have its own dedicated article (not
+   merely a mention on its author's biography page)? If yes, that article's
+   word count; if no, zero. Checkable directly, unlike a book index — most of
+   the reused famous items already have one (the Trolley problem's article
+   alone runs to several thousand words, and the mammogram problem this
+   project already uses is the standard textbook example of base-rate
+   neglect), and I'd expect most of the five new obscure items not to —
+   unverified until the check is actually run.
+3. **Model-rated familiarity**, kept from the original design but now
+   explicitly sourced from **the comparison arm's model, not Jev** — asking
+   Jev to rate how famous an effect is and then using that rating to predict
+   Jev's own behaviour on the same effect would be circular. Using a
+   different model doesn't eliminate the concern (both are still trained on
+   overlapping text), but it removes the direct circularity, and that
+   limitation is stated here rather than discovered later.
+
+Items where legs (1) and (2) disagree by more than one tier are dropped,
+exactly as before; leg (3) is corroborating rather than decisive, given the
+residual circularity concern.
+
+### 8.3 What did not change
+
+The item pool in Section 4, the pairing rule, the hypotheses, and the
+falsification condition in Section 6 are unaffected — the flaws were in how
+"estimate" and "fame" are *operationalised*, not in what the study is asking.
