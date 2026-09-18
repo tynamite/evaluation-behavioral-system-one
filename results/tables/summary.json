@@ -9,6 +9,12 @@
   ],
   "n_records": 9360,
   "n_errors": 0,
+  "n_baseline_unparsed": 224,
+  "baseline_unparsed_rate": 0.0479,
+  "baseline_cells": 468,
+  "baseline_cells_below_full_samples": 37,
+  "baseline_cells_with_no_usable_sample": 13,
+  "baseline_min_usable_samples": 0,
   "total_cost_usd": 2.6698,
   "personas": [
     "antisocial",

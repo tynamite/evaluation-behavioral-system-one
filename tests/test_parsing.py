@@ -74,3 +74,29 @@ def test_unrelated_reply_is_unparsed() -> None:
 def test_longest_option_wins_over_a_prefix() -> None:
     """'option_a' must not swallow a reply naming 'option_ab'."""
     assert parse_option("option_ab", ["option_a", "option_ab"]) == "option_ab"
+
+
+def test_reads_past_a_reasoning_trace() -> None:
+    """A 64-token cap still truncated numeric items where the model reasons first.
+
+    The cap is now generous, so replies arrive with the working shown. The answer
+    is the last option named, not the first: a model restates the problem's
+    numbers before committing to one.
+    """
+    assert parse_option("Two-thirds of 50 is 33, so I choose 22.", NUMBERS) == "22"
+    assert parse_option("The average might be 50. I pick 33", NUMBERS) == "33"
+    assert (
+        parse_option("Not program_a. I choose program_b.", ["program_a", "program_b"])
+        == "program_b"
+    )
+    assert parse_option("Reject rather than accept? No - reject.", ["accept", "reject"]) == "reject"
+
+
+def test_an_option_at_the_end_of_a_sentence_still_matches() -> None:
+    """Excluding a trailing '.' outright silently dropped sentence-final answers."""
+    assert parse_option("I would accept.", ["accept", "reject"]) == "accept"
+    assert parse_option("cooperate.", ["cooperate", "defect"]) == "cooperate"
+
+
+def test_a_decimal_does_not_match_its_integer_prefix() -> None:
+    assert parse_option("33.5", NUMBERS) is None

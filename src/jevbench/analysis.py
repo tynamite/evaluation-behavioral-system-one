@@ -719,12 +719,34 @@ def analyse_run(path: Path, out_dir: Path) -> dict[str, Any]:
 
     n_err = int(df["error"].notna().sum()) if "error" in df.columns else 0
     cost = float(sum(float((u or {}).get("cost") or 0.0) for u in df["usage"]))
+
+    # A reply that arrives but cannot be resolved to an option is a silent hole:
+    # it is not a transport error, so counting only errors hides it entirely. An
+    # earlier run lost 4.8% of the baseline arm that way, concentrated on the
+    # items the model reasoned longest about — a systematic gap, not noise.
+    base = df[df["arm"] == "baseline"]
+    unparsed = int((base["error"].isna() & base["value"].isna()).sum()) if len(base) else 0
+    coverage: dict[str, int] = {}
+    if len(base):
+        cells = base.groupby(["probe_id", "persona"]).size()
+        good = base[base["value"].notna()].groupby(["probe_id", "persona"]).size()
+        good = good.reindex(cells.index, fill_value=0)
+        coverage = {
+            "baseline_cells": len(cells),
+            "baseline_cells_below_full_samples": int((good < cells).sum()),
+            "baseline_cells_with_no_usable_sample": int((good == 0).sum()),
+            "baseline_min_usable_samples": int(good.min()),
+        }
+
     summary = {
         "run_file": path.name,
         "backend": sorted(df["backend"].unique()),
         "models": sorted(df["model"].unique()),
         "n_records": len(df),
         "n_errors": n_err,
+        "n_baseline_unparsed": unparsed,
+        "baseline_unparsed_rate": round(unparsed / len(base), 4) if len(base) else 0.0,
+        **coverage,
         "total_cost_usd": round(cost, 4),
         "personas": sorted(df["persona"].unique()),
         "arms": sorted(df["arm"].unique()),

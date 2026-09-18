@@ -53,7 +53,7 @@ class SystemOneClient:
         headers = {"Authorization": f"Bearer {self._key}", "Content-Type": "application/json"}
         if self.config.backend == "openrouter":
             # Optional attribution headers; harmless if ignored.
-            headers["HTTP-Referer"] = "https://github.com/tynamite/Jev_test"
+            headers["HTTP-Referer"] = "https://github.com/tynamite/system-one-behavioural-eval"
             headers["X-Title"] = "jevbench"
         return headers
 
@@ -110,14 +110,17 @@ class SystemOneClient:
         project. It is resampled instead (see `BatteryRunner.run_baseline`).
 
         `max_tokens` is generous rather than minimal. An earlier version capped
-        it at 8, which truncated the reply into `content: null` on exactly the
-        items the model found hardest — a systematic hole, not random loss.
+        it at 8, and a second at 64; both truncated the reply into
+        `content: null` on exactly the items the model found hardest, which is a
+        systematic hole rather than random loss. The model reasons before
+        answering on numeric items whatever the prompt asks for, so the cap has
+        to accommodate that and the parser has to read past it.
         """
         payload = {
             "model": self.config.baseline_model,
             "messages": [{"role": "user", "content": prompt}],
             "temperature": 1.0,
-            "max_tokens": 64,
+            "max_tokens": 512,
         }
         obj = self._post(self.config.chat_url, payload)
         choices = obj.get("choices") or []
@@ -152,19 +155,29 @@ def parse_option(text: str | None, options: list[str]) -> str | None:
     numeric = all(_as_number(o) is not None for o in options)
     if numeric:
         found = re.findall(r"-?\d+(?:\.\d+)?", cleaned.replace(",", ""))
-        if found:
-            # The final number in the reply is the answer when a model
-            # restates the problem before answering.
-            for token in reversed(found):
-                for opt in options:
-                    if _as_number(opt) == _as_number(token):
-                        return opt
+        # The last number wins: a model that reasons aloud restates the problem's
+        # numbers before committing to one.
+        for token in reversed(found):
+            for opt in options:
+                if _as_number(opt) == _as_number(token):
+                    return opt
         return None
 
-    for opt in sorted(options, key=len, reverse=True):
-        if re.search(rf"(?<![\w${{}}.]){re.escape(opt.lower())}(?![\w.])", lowered):
-            return opt
-    return None
+    # Likewise for labelled options — take the last one mentioned, and among
+    # options ending at the same place prefer the longest, so "option_a" cannot
+    # swallow a reply naming "option_ab".
+    best: tuple[int, int, str] | None = None
+    for opt in options:
+        # Excluding a trailing "." outright would miss an option at the end of a
+        # sentence, so only a "." that continues a decimal disqualifies a match.
+        matches = list(re.finditer(rf"(?<![\w$]){re.escape(opt.lower())}(?!\w)(?!\.\d)", lowered))
+        if not matches:
+            continue
+        end = matches[-1].end()
+        candidate = (end, len(opt), opt)
+        if best is None or candidate > best:
+            best = candidate
+    return best[2] if best else None
 
 
 def _as_number(text: str) -> float | None:
