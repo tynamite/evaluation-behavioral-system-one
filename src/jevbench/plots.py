@@ -21,7 +21,7 @@ from __future__ import annotations
 
 from dataclasses import asdict
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal
 
 import matplotlib
 
@@ -888,7 +888,7 @@ def build_figures(run_path: Path, out_dir: Path) -> list[Path]:
     df = load_records(run_path)
     sdf = pd.DataFrame([asdict(s) for s in compute_stats(df)])
     odf = order_effects(df)
-    paths = [
+    maybe_paths: list[Path | None] = [
         fig_vs_human(sdf, out_dir),
         fig_gap(sdf, out_dir),
         fig_persona(sdf, out_dir),
@@ -896,9 +896,15 @@ def build_figures(run_path: Path, out_dir: Path) -> list[Path]:
         fig_distributions(df, out_dir),
         fig_order_effects(odf, out_dir),
         fig_human_fidelity(sdf, out_dir),
+        fig_followup_elicitations(sdf, out_dir),
+        fig_followup_currency(sdf, out_dir),
     ]
+    paths = [p for p in maybe_paths if p is not None]
+    skipped = len(maybe_paths) - len(paths)
     for p in paths:
         print(f"wrote {p}")
+    if skipped:
+        print(f"skipped {skipped} figure(s) with no data for their instruments")
     return paths
 
 
@@ -1042,6 +1048,328 @@ def fig_human_fidelity(sdf: pd.DataFrame, out: Path) -> Path:
     )
     fig.subplots_adjust(top=0.78)
     path = out / "fig7_human_fidelity.png"
+    fig.savefig(path, facecolor=SURFACE, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
+# -- follow-up battery ---------------------------------------------------
+# See FOLLOWUP_PREREGISTRATION.md. These items have no data in the run
+# committed alongside the main battery — that run predates them — so both
+# functions return None rather than an empty figure when nothing is there.
+
+FOLLOWUP_PROPORTION_ROWS = [
+    (
+        "shafir_award_extreme",
+        "choosing_rejecting",
+        "prob_award_extreme",
+        "Award custody to extreme parent",
+    ),
+    (
+        "shafir_deny_extreme",
+        "choosing_rejecting",
+        "prob_deny_extreme",
+        "Deny custody to extreme parent",
+    ),
+    ("norenzayan_rule_based", "categorization", "prob_rule_based", "Choose the rule-based group"),
+]
+
+FOLLOWUP_RATING_ROWS = [
+    (
+        "moral_typecasting_responsibility_man",
+        "moral_typecasting",
+        "responsibility_man",
+        "Responsibility: high-agency actor",
+    ),
+    (
+        "moral_typecasting_responsibility_baby",
+        "moral_typecasting",
+        "responsibility_baby",
+        "Responsibility: low-agency actor",
+    ),
+    ("position_power_long_line", "position_power", "power_long_line", "Perceived power: long line"),
+    (
+        "position_power_short_line",
+        "position_power",
+        "power_short_line",
+        "Perceived power: short line",
+    ),
+]
+
+FOLLOWUP_PERCENT_ROWS = [
+    ("incidental_anchor_p97", "incidental_anchors", "estimate_p97", 'Market-share estimate: "P97"'),
+    ("incidental_anchor_p17", "incidental_anchors", "estimate_p17", 'Market-share estimate: "P17"'),
+]
+
+
+def _followup_points(
+    sdf: pd.DataFrame, rows: list[tuple[str, str, str, str]]
+) -> list[tuple[str, float | None, float | None, float | None, float]]:
+    """(label, own, simulate, estimate, human) for each row, skipping rows with no data at all."""
+    out: list[tuple[str, float | None, float | None, float | None, float]] = []
+    for bench, inst, stat, label in rows:
+        own = _lookup(sdf, inst, stat, "neutral", "jev")
+        sim = _lookup(sdf, inst, stat, "typical_human", "jev")
+        est = _lookup(sdf, f"{inst}_estimate", stat, "neutral", "jev")
+        if own is None and sim is None and est is None:
+            continue
+        out.append((label, own, sim, est, BENCHMARKS[bench].value))
+    return out
+
+
+def _plot_elicitation_panel(
+    ax: Axes, points: list[tuple[str, float | None, float | None, float | None, float]]
+) -> None:
+    """own/simulate/estimate as same-colour, different-marker-shape points; human as an aqua
+    diamond. No point-adjacent labels: with four markers per row they collide whenever two
+    values sit close together, which is common here. The number that matters — how far the
+    model's direct population estimate lands from the true value — goes in a fixed column
+    on the right instead, the same fix used for the persona dumbbells in fig3.
+    """
+    y = np.arange(len(points))
+    own_vals = [p[1] if p[1] is not None else np.nan for p in points]
+    sim_vals = [p[2] if p[2] is not None else np.nan for p in points]
+    est_vals = [p[3] if p[3] is not None else np.nan for p in points]
+    humans = [p[4] for p in points]
+    series: list[tuple[list[float], str, str]] = [
+        (own_vals, "o", "Own answer (neutral)"),
+        (sim_vals, "s", "Simulate (as typical human)"),
+        (est_vals, "^", "Estimate (predict the population)"),
+    ]
+    for vals, marker, label in series:
+        ax.plot(
+            vals,
+            y,
+            marker,
+            markersize=9,
+            color=JEV,
+            markeredgecolor=SURFACE,
+            markeredgewidth=2,
+            linestyle="none",
+            label=label,
+            zorder=3,
+        )
+    ax.plot(
+        humans,
+        y,
+        "D",
+        markersize=8,
+        color=HUMAN,
+        markeredgecolor=SURFACE,
+        markeredgewidth=2,
+        linestyle="none",
+        label="Original study",
+        zorder=4,
+    )
+    ax.set_yticks(y, [p[0] for p in points], fontsize=9)
+    ax.invert_yaxis()
+    _grid(ax, "x")
+
+    # Fixed column: how far the "estimate" condition lands from the true value.
+    for i, (est, human) in enumerate(zip(est_vals, humans, strict=True)):
+        if not np.isfinite(est):
+            continue
+        ax.text(
+            1.06,
+            i,
+            f"{est - human:+.1f}",
+            transform=ax.get_yaxis_transform(),
+            va="center",
+            ha="left",
+            color=INK_2,
+            fontsize=8.5,
+            clip_on=False,
+            fontweight="bold"
+            if abs(est - human) >= 0.25 * max(abs(h) for h in humans)
+            else "normal",
+        )
+    # Anchored in pure axes-fraction coordinates (both x and y), not data-y, so
+    # it sits just above *this panel's own* top edge regardless of how many
+    # rows the panel has — mixing a data-y with an axes-x, as the per-row gap
+    # labels above do, put this header at wildly different heights across the
+    # three panels, since they have different row counts sharing one figure.
+    ax.text(
+        1.06,
+        1.22,
+        "est. gap",
+        transform=ax.transAxes,
+        va="bottom",
+        ha="left",
+        color=INK_3,
+        fontsize=8,
+        fontweight="bold",
+        clip_on=False,
+    )
+
+
+def fig_followup_elicitations(sdf: pd.DataFrame, out: Path) -> Path | None:
+    """Own vs. simulate vs. estimate against the original study's own number.
+
+    Three panels, one per response scale, because a proportion, a 1-7 rating
+    and a percentage estimate cannot share an axis. `estimate` predicts the
+    population statistic itself rather than answering as a participant — see
+    Amendment 1 in FOLLOWUP_PREREGISTRATION.md for why that is a different
+    question from `simulate`, not a third point on the same one.
+    """
+    panels = [
+        (FOLLOWUP_PROPORTION_ROWS, "Proportion choosing one option", (-0.04, 1.08)),
+        (FOLLOWUP_RATING_ROWS, "Rating (1-7 scale)", (0.7, 7.3)),
+        (FOLLOWUP_PERCENT_ROWS, "Estimated percentage", (-3, 103)),
+    ]
+    data = [(_followup_points(sdf, rows), title, xlim) for rows, title, xlim in panels]
+    if all(not pts for pts, _, _ in data):
+        return None
+
+    widths = [max(len(pts), 1) for pts, _, _ in data]
+    fig, axes = plt.subplots(
+        1,
+        3,
+        figsize=(15.5, 1.1 * max(widths) + 2.6),
+        dpi=170,
+        gridspec_kw={"width_ratios": [1, 1, 1], "wspace": 1.3},
+    )
+    fig.patch.set_facecolor(SURFACE)
+    handles: list[Any] = []
+    labels: list[str] = []
+    for ax, (points, title, xlim) in zip(axes, data, strict=True):
+        if not points:
+            ax.set_visible(False)
+            continue
+        _plot_elicitation_panel(ax, points)
+        ax.set_xlim(*xlim)
+        ax.set_title(title, color=INK, fontsize=10.5, fontweight="bold", loc="left", pad=10)
+        if not handles:
+            handles, labels = ax.get_legend_handles_labels()
+
+    fig.legend(
+        handles,
+        labels,
+        frameon=False,
+        fontsize=9,
+        labelcolor=INK_2,
+        loc="upper left",
+        bbox_to_anchor=(0.0, 1.0),
+        ncols=4,
+        handletextpad=0.4,
+        columnspacing=1.4,
+    )
+    _titles(
+        fig,
+        "The follow-up battery: five effects sourced from Many Labs 2's own protocol",
+        "Own answer, simulated-human answer, and a direct population estimate, against the "
+        "original study's own number (N=64-207 per item — see FOLLOWUP_PREREGISTRATION.md).",
+        y=1.14,
+    )
+    fig.subplots_adjust(top=0.72)
+    path = out / "fig8_followup_elicitations.png"
+    fig.savefig(path, facecolor=SURFACE, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
+def fig_followup_currency(sdf: pd.DataFrame, out: Path) -> Path | None:
+    """H3: does the model track the textbook anchoring gap, or the one ML2 actually found?
+
+    Critcher & Gilovich's original anchoring gap was 6.2 points. Many Labs 2's
+    own replication of that exact effect came back at d=0.04 — essentially
+    gone. This is the single most decisive planned test in the follow-up
+    study: if simulating or estimating "a typical participant" reproduces
+    something close to 6.2 points, the model is reciting the textbook
+    description of an effect that, on the best current evidence, no longer
+    holds.
+    """
+    conditions = [
+        ("own", "incidental_anchors", "neutral", "Own answer\n(neutral)"),
+        ("sim", "incidental_anchors", "typical_human", "Simulate\n(as typical human)"),
+        ("est", "incidental_anchors_estimate", "neutral", "Estimate\n(predict the population)"),
+    ]
+    gaps = [
+        (_lookup(sdf, inst, "anchor_gap", persona, "jev"), label)
+        for _, inst, persona, label in conditions
+    ]
+    if all(g is None for g, _ in gaps):
+        return None
+
+    fig, ax = plt.subplots(figsize=(8.6, 4.6), dpi=170)
+    fig.patch.set_facecolor(SURFACE)
+
+    original_gap = (
+        BENCHMARKS["incidental_anchor_p97"].value - BENCHMARKS["incidental_anchor_p17"].value
+    )
+    ml2_gap = 0.0  # d=0.04 on ML2's own replication is not distinguishable from zero at this scale
+
+    x = np.arange(len(gaps))
+    vals = [g if g is not None else np.nan for g, _ in gaps]
+    ax.bar(x, vals, 0.55, color=JEV, zorder=3)
+    # Positive bars are labelled above their top, in the empty space toward the
+    # reference lines. A negative bar's tip points toward the two-line x-tick
+    # labels below it, and no fixed points-offset clears every tick label's
+    # height reliably (checked: it doesn't) — so a negative bar's label goes
+    # inside the bar instead, near its tip, in white rather than chasing the
+    # collision with ever-larger offsets.
+    for xi, v in zip(x, vals, strict=True):
+        if not np.isfinite(v):
+            continue
+        if v >= 0:
+            ax.annotate(
+                f"{v:+.1f} pts",
+                xy=(xi, v),
+                xytext=(0, 6),
+                textcoords="offset points",
+                ha="center",
+                color=JEV,
+                fontsize=9,
+                fontweight="bold",
+            )
+        else:
+            ax.annotate(
+                f"{v:+.1f} pts",
+                xy=(xi, v),
+                xytext=(0, 6),
+                textcoords="offset points",
+                ha="center",
+                va="bottom",
+                color=SURFACE,
+                fontsize=9,
+                fontweight="bold",
+            )
+
+    ax.axhline(original_gap, color=HUMAN, linewidth=2, linestyle="--", zorder=2)
+    ax.annotate(
+        f"original study: {original_gap:+.1f} pts",
+        xy=(len(gaps) - 0.4, original_gap),
+        xytext=(6, 4),
+        textcoords="offset points",
+        color=HUMAN,
+        fontsize=9,
+        fontweight="bold",
+        annotation_clip=False,
+    )
+    ax.axhline(ml2_gap, color=INK_3, linewidth=2, linestyle=":", zorder=2)
+    ax.annotate(
+        "ML2's own replication: ~0",
+        xy=(len(gaps) - 0.4, ml2_gap),
+        xytext=(6, -12),
+        textcoords="offset points",
+        color=INK_3,
+        fontsize=9,
+        fontweight="bold",
+        annotation_clip=False,
+    )
+
+    ax.set_xticks(x, [label for _, label in gaps], fontsize=9)
+    ax.set_ylabel('estimated gap, "P97" minus "P17" (points)', color=INK_2, fontsize=9.5)
+    _grid(ax, "y")
+    fig.subplots_adjust(right=0.78)
+    _titles(
+        fig,
+        "Does the model know the textbook anchoring effect, or the real one?",
+        "Critcher & Gilovich's original gap was 6.2 points; Many Labs 2's own replication of "
+        "this exact effect found d=0.04 — essentially nothing.",
+        y=1.0,
+    )
+    fig.subplots_adjust(top=0.76, bottom=0.22)
+    path = out / "fig9_followup_currency.png"
     fig.savefig(path, facecolor=SURFACE, bbox_inches="tight")
     plt.close(fig)
     return path

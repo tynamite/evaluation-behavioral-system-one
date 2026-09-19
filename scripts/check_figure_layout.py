@@ -98,6 +98,10 @@ def main(argv: list[str]) -> int:
         "fig5_distributions": lambda: plots.fig_distributions(df, out),
         "fig6_order_effects": lambda: plots.fig_order_effects(odf, out),
         "fig7_human_fidelity": lambda: plots.fig_human_fidelity(sdf, out),
+        # These two return None (no figure at all) when the run has no data for the
+        # follow-up battery — true of the committed live run, which predates it.
+        "fig8_followup_elicitations": lambda: plots.fig_followup_elicitations(sdf, out),
+        "fig9_followup_currency": lambda: plots.fig_followup_currency(sdf, out),
     }
 
     # Re-render inside this process so the figure is still open for measurement.
@@ -133,6 +137,8 @@ def _check(name: str, build) -> int:  # type: ignore[no-untyped-def]
         plt.close = real_close  # type: ignore[assignment]
 
     bad = 0
+    if not captured:
+        print(f"{name}: skipped (no data for this figure's instruments)")
     for fig in captured:
         overlaps = _overlaps(fig)
         if overlaps:

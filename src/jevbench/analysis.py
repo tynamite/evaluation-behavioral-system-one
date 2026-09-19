@@ -682,6 +682,193 @@ def compute_stats(df: pd.DataFrame) -> list[Stat]:
                     note="9-point agreement scale; manipulation check only",
                 )
 
+            # --- follow-up: moral typecasting (Gray & Wegner) -------
+            for suffix, bench_suffix in (
+                ("", "moral_typecasting"),
+                ("_estimate", "moral_typecasting"),
+            ):
+                inst = f"moral_typecasting{suffix}"
+                man = g(f"moral_typecasting_man_commits{suffix}")
+                baby = g(f"moral_typecasting_baby_commits{suffix}")
+                man_lvl = expected_level(man, 7) if man else None
+                baby_lvl = expected_level(baby, 7) if baby else None
+                if man_lvl is not None:
+                    add(
+                        inst,
+                        "responsibility_man",
+                        persona,
+                        arm,
+                        man_lvl,
+                        bench=f"{bench_suffix}_responsibility_man",
+                    )
+                if baby_lvl is not None:
+                    add(
+                        inst,
+                        "responsibility_baby",
+                        persona,
+                        arm,
+                        baby_lvl,
+                        bench=f"{bench_suffix}_responsibility_baby",
+                    )
+                if man_lvl is not None and baby_lvl is not None:
+                    add(
+                        inst,
+                        "agency_responsibility_gap",
+                        persona,
+                        arm,
+                        man_lvl - baby_lvl,
+                        note="the higher-agency actor (man) is rated more responsible; "
+                        "original gap is 5.29 - 3.86 = 1.43",
+                    )
+
+            # --- follow-up: position and power (Giessner & Schubert) -
+            for suffix, bench_suffix in (("", "position_power"), ("_estimate", "position_power")):
+                inst = f"position_power{suffix}"
+                long_l = g(f"position_power_long_line{suffix}")
+                short_l = g(f"position_power_short_line{suffix}")
+                long_lvl = expected_level(long_l, 7) if long_l else None
+                short_lvl = expected_level(short_l, 7) if short_l else None
+                if long_lvl is not None:
+                    add(
+                        inst,
+                        "power_long_line",
+                        persona,
+                        arm,
+                        long_lvl,
+                        bench=f"{bench_suffix}_long_line",
+                    )
+                if short_lvl is not None:
+                    add(
+                        inst,
+                        "power_short_line",
+                        persona,
+                        arm,
+                        short_lvl,
+                        bench=f"{bench_suffix}_short_line",
+                    )
+                if long_lvl is not None and short_lvl is not None:
+                    add(
+                        inst,
+                        "position_power_gap",
+                        persona,
+                        arm,
+                        long_lvl - short_lvl,
+                        note="a longer vertical line reads as more powerful; "
+                        "original gap is 5.01 - 4.62 = 0.39",
+                    )
+
+            # --- follow-up: choosing vs rejecting (Shafir) -----------
+            award = g("shafir_award")
+            deny = g("shafir_deny")
+            award_p = prob_of(award, "parent_b") if award else None
+            deny_p = prob_of(deny, "parent_b") if deny else None
+            if award_p is not None:
+                add(
+                    "choosing_rejecting",
+                    "prob_award_extreme",
+                    persona,
+                    arm,
+                    award_p,
+                    bench="shafir_award_extreme",
+                )
+            if deny_p is not None:
+                add(
+                    "choosing_rejecting",
+                    "prob_deny_extreme",
+                    persona,
+                    arm,
+                    deny_p,
+                    bench="shafir_deny_extreme",
+                )
+            if award_p is not None and deny_p is not None:
+                add(
+                    "choosing_rejecting",
+                    "choose_reject_sum",
+                    persona,
+                    arm,
+                    award_p + deny_p,
+                    note="Shafir's diagnostic: the extreme parent is both chosen and rejected "
+                    "more than the average parent, so this sums to more than 1.0; "
+                    "original sum is 0.64 + 0.55 = 1.19",
+                )
+            award_est = g("shafir_award_estimate")
+            deny_est = g("shafir_deny_estimate")
+            if award_est:
+                add(
+                    "choosing_rejecting_estimate",
+                    "prob_award_extreme",
+                    persona,
+                    arm,
+                    prob_of(award_est, "true"),
+                    bench="shafir_award_extreme",
+                )
+            if deny_est:
+                add(
+                    "choosing_rejecting_estimate",
+                    "prob_deny_extreme",
+                    persona,
+                    arm,
+                    prob_of(deny_est, "true"),
+                    bench="shafir_deny_extreme",
+                )
+
+            # --- follow-up: categorization (Norenzayan et al.) -------
+            cat = g("norenzayan_belongs_to")
+            if cat:
+                add(
+                    "categorization",
+                    "prob_rule_based",
+                    persona,
+                    arm,
+                    prob_of(cat, "group_1"),
+                    bench="norenzayan_rule_based",
+                )
+            cat_est = g("norenzayan_belongs_to_estimate")
+            if cat_est:
+                add(
+                    "categorization_estimate",
+                    "prob_rule_based",
+                    persona,
+                    arm,
+                    prob_of(cat_est, "true"),
+                    bench="norenzayan_rule_based",
+                )
+
+            # --- follow-up: incidental anchors (Critcher & Gilovich) -
+            anchor_bands = {
+                "0-35%": 17.5,
+                "35-45%": 40.0,
+                "45-55%": 50.0,
+                "55-65%": 60.0,
+                "65-80%": 72.5,
+                "80-100%": 90.0,
+            }
+            for suffix, bench_suffix in (
+                ("", "incidental_anchor"),
+                ("_estimate", "incidental_anchor"),
+            ):
+                inst = f"incidental_anchors{suffix}"
+                p97 = g(f"incidental_anchor_p97{suffix}")
+                p17 = g(f"incidental_anchor_p17{suffix}")
+                p97_v = expected_numeric(p97, anchor_bands.get) if p97 else None
+                p17_v = expected_numeric(p17, anchor_bands.get) if p17 else None
+                if p97_v is not None:
+                    add(inst, "estimate_p97", persona, arm, p97_v, bench=f"{bench_suffix}_p97")
+                if p17_v is not None:
+                    add(inst, "estimate_p17", persona, arm, p17_v, bench=f"{bench_suffix}_p17")
+                if p97_v is not None and p17_v is not None:
+                    add(
+                        inst,
+                        "anchor_gap",
+                        persona,
+                        arm,
+                        p97_v - p17_v,
+                        note="H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's "
+                        "own replication of this effect found d=0.04, essentially zero — "
+                        "does a simulated or estimated gap track the original number or "
+                        "the near-zero one ML2 actually found?",
+                    )
+
     return stats
 
 
