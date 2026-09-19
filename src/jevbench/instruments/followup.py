@@ -1,11 +1,19 @@
 """Follow-up battery: fame vs. replicated effect size, on Many Labs 2 items.
 
 See `FOLLOWUP_PREREGISTRATION.md` at the repo root for the full design and its
-two amendments. Five items, each newly sourced from ML2's own preregistered
-protocol (https://www.projectimplicit.net/nosek/ML2protocol.pdf), which
-specifies exactly which study, condition and dependent variable ML2 itself
-replicated — the numbers here are the original authors' own, quoted from that
-document, not paraphrased from a secondary source.
+two amendments. Eight items in total, from two sources (Section 4.2 vs. 4.3):
+
+- Five items (moral_typecasting, position_power, choosing_rejecting,
+  categorization, incidental_anchors) are newly sourced from ML2's own
+  preregistered protocol (https://www.projectimplicit.net/nosek/ML2protocol.pdf),
+  which specifies exactly which study, condition and dependent variable ML2
+  itself replicated — the numbers are the original authors' own, quoted from
+  that document, not paraphrased from a secondary source.
+- Three items (knobe, trolley, false_consensus) are Section 4.2: ML2 didn't
+  replicate them, so they're sourced from the original papers directly
+  instead, cross-checked against secondary sources rather than the papers'
+  own PDFs (not accessible here) — see each function's docstring for exactly
+  what that means for its wording.
 
 Every item is built three ways:
 
@@ -360,6 +368,185 @@ def incidental_anchors() -> list[Probe]:
     return probes
 
 
+def intentional_side_effects() -> list[Probe]:
+    """Knobe (2003), Analysis 63:190-194, N=78 (39 harm / 39 help).
+
+    A company chairman starts a program that will incidentally harm or help
+    the environment; he says he doesn't care about the environment, only
+    profit. The vignette below is quoted close to the original (verified
+    against secondary sources reproducing it, not the original PDF).
+    Original proportions judging the side effect intentional: harm 0.82,
+    help 0.23 — `knobe_{harm,help}_intentional` in `benchmarks.py`.
+    """
+    harm_vignette = (
+        "The vice-president of a company went to the chairman of the board and said, "
+        "'We are thinking of starting a new program. It will help us increase profits, "
+        "but it will also harm the environment.' The chairman of the board answered, "
+        "'I don't care at all about harming the environment. I just want to make as much "
+        "profit as I can. Let's start the new program.' They started the new program. "
+        "Sure enough, the environment was harmed."
+    )
+    help_vignette = (
+        "The vice-president of a company went to the chairman of the board and said, "
+        "'We are thinking of starting a new program. It will help us increase profits, "
+        "and it will also help the environment.' The chairman of the board answered, "
+        "'I don't care at all about helping the environment. I just want to make as much "
+        "profit as I can. Let's start the new program.' They started the new program. "
+        "Sure enough, the environment was helped."
+    )
+    options = {
+        "intentional": "Yes, he did it intentionally",
+        "unintentional": "No, he did not do it intentionally",
+    }
+    conditions = [("harm", harm_vignette), ("help", help_vignette)]
+    probes: list[Probe] = []
+    for verb, vignette in conditions:
+        state = {"scenario": vignette}
+        probes.append(
+            binary_choice(
+                probe_id=f"knobe_{verb}",
+                instrument="knobe",
+                instructions=f"Did the chairman intentionally {verb} the environment?",
+                options=options,
+                state=state,
+                condition=verb,
+                intentional_option="intentional",
+            )
+        )
+        probes.append(
+            noul_probe(
+                probe_id=f"knobe_{verb}_estimate",
+                instrument="knobe_estimate",
+                instructions=(
+                    "In a real study, participants read this scenario and were asked "
+                    f"whether the chairman intentionally {verb}ed the environment. What "
+                    "proportion of participants said yes, he did it intentionally?"
+                ),
+                state=state,
+                condition=verb,
+                target="intentional",
+            )
+        )
+    return probes
+
+
+def trolley_dilemma() -> list[Probe]:
+    """Hauser, Cushman, Young, Jin & Mikhail (2007), Mind & Language 22:1-21.
+
+    Web-based "Moral Sense Test", large international sample. The vignettes
+    below are the standard switch/footbridge formulation used throughout the
+    trolley-problem literature, including this study's own web instrument —
+    the original paper's exact item wording wasn't accessible here, so this
+    is the canonical version rather than a verbatim quote; only the reported
+    percentages are the paper's own. Original proportions judging the action
+    permissible: switch 0.89, push 0.11 —
+    `trolley_{switch,push}_permissible` in `benchmarks.py`.
+    """
+    switch_vignette = (
+        "A runaway trolley is heading down the tracks toward five people who will be "
+        "killed if it proceeds on its present course. You are standing next to a switch. "
+        "If you pull the switch, the trolley will be diverted onto a side track, where it "
+        "will kill one person instead of the five people on the main track."
+    )
+    push_vignette = (
+        "A runaway trolley is heading down the tracks toward five people who will be "
+        "killed if it proceeds on its present course. You are standing on a footbridge "
+        "above the tracks, next to a large stranger. The only way to save the five people "
+        "is to push the stranger off the footbridge and onto the tracks below; his body "
+        "will stop the trolley before it reaches the five people, but he will die."
+    )
+    options = {
+        "permissible": "Yes, it is morally permissible",
+        "not_permissible": "No, it is not morally permissible",
+    }
+    conditions = [
+        ("switch", switch_vignette, "pull the switch"),
+        ("push", push_vignette, "push the stranger off the footbridge"),
+    ]
+    probes: list[Probe] = []
+    for label, vignette, action in conditions:
+        state = {"scenario": vignette}
+        probes.append(
+            binary_choice(
+                probe_id=f"trolley_{label}",
+                instrument="trolley",
+                instructions=f"Is it morally permissible for you to {action}?",
+                options=options,
+                state=state,
+                condition=label,
+            )
+        )
+        probes.append(
+            noul_probe(
+                probe_id=f"trolley_{label}_estimate",
+                instrument="trolley_estimate",
+                instructions=(
+                    "In a real study, participants read this scenario and were asked "
+                    f"whether it would be morally permissible to {action}. What proportion "
+                    "of participants said yes, it is permissible?"
+                ),
+                state=state,
+                condition=label,
+                target="permissible",
+            )
+        )
+    return probes
+
+
+def false_consensus() -> list[Probe]:
+    """Ross, Greene & House (1977), J. Experimental Social Psychology 13:279-301,
+    Study 3, N=104.
+
+    Participants are asked whether they would wear a sandwich-board sign
+    reading "EAT AT JOE'S" around campus for 30 minutes, then estimate what
+    percentage of their peers would also agree. Original mean estimates:
+    participants who agreed to wear it predicted 61.4% of peers would also
+    agree; participants who refused predicted 30.4% would agree —
+    `false_consensus_{wearer,nonwearer}_predicts_wear` in `benchmarks.py`.
+    Unlike this module's other items, the published DV is itself a
+    percentage estimate, so `own`/`simulate` are already `Noul` probes here
+    rather than a `Choice` converted into one only for `estimate`.
+    """
+    sign = (
+        "A researcher on campus asks whether you would be willing to walk around campus "
+        'for 30 minutes wearing a sandwich-board sign that reads "EAT AT JOE\'S."'
+    )
+    conditions = [
+        ("wearer", "Suppose you agree to wear the sign.", "agreed to wear it"),
+        ("nonwearer", "Suppose you refuse to wear the sign.", "refused to wear it"),
+    ]
+    probes: list[Probe] = []
+    for label, frame, past_choice in conditions:
+        state = {"scenario": sign, "frame": frame}
+        probes.append(
+            noul_probe(
+                probe_id=f"false_consensus_{label}",
+                instrument="false_consensus",
+                instructions=(
+                    f"{frame} What percentage of your fellow students do you think would "
+                    "also agree to wear the sign?"
+                ),
+                state=state,
+                condition=label,
+            )
+        )
+        probes.append(
+            noul_probe(
+                probe_id=f"false_consensus_{label}_estimate",
+                instrument="false_consensus_estimate",
+                instructions=(
+                    "In a real study, participants were asked whether they would agree to "
+                    f"wear this sign around campus. Among those who {past_choice}, what do "
+                    "you estimate was the average percentage they predicted for how many of "
+                    "their fellow students would also agree to wear it?"
+                ),
+                state=state,
+                condition=label,
+            )
+        )
+    return probes
+
+
 def probes() -> list[Probe]:
     return [
         *moral_typecasting(),
@@ -367,4 +554,7 @@ def probes() -> list[Probe]:
         *choosing_vs_rejecting(),
         *categorization(),
         *incidental_anchors(),
+        *intentional_side_effects(),
+        *trolley_dilemma(),
+        *false_consensus(),
     ]

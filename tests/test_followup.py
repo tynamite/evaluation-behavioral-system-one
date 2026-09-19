@@ -15,7 +15,7 @@ import re
 
 from jevbench.benchmarks import BENCHMARKS
 from jevbench.instruments.followup import categorization, probes
-from jevbench.schema import Choice
+from jevbench.schema import Choice, Noul
 
 PROBES = probes()
 BY_ID = {p.probe_id: p for p in PROBES}
@@ -28,7 +28,7 @@ def _features(description: str) -> tuple[str, ...]:
 
 
 def test_probe_count_and_instruments() -> None:
-    assert len(PROBES) == 18
+    assert len(PROBES) == 30
     instruments = {p.instrument for p in PROBES}
     assert instruments == {
         "moral_typecasting",
@@ -41,6 +41,12 @@ def test_probe_count_and_instruments() -> None:
         "categorization_estimate",
         "incidental_anchors",
         "incidental_anchors_estimate",
+        "knobe",
+        "knobe_estimate",
+        "trolley",
+        "trolley_estimate",
+        "false_consensus",
+        "false_consensus_estimate",
     }
 
 
@@ -74,9 +80,33 @@ def test_choice_estimate_probes_reuse_the_same_options_as_the_response_probe() -
 
 
 def test_proportion_type_estimates_are_noul_not_choice() -> None:
-    """Shafir and Norenzayan are proportion-type: estimate targets one named option."""
-    for eid in ("shafir_award_estimate", "shafir_deny_estimate", "norenzayan_belongs_to_estimate"):
+    """Proportion-type items (a Choice whose human number is 'what fraction chose X')
+    get a Noul estimate targeting one named option, not a reworded Choice."""
+    for eid in (
+        "shafir_award_estimate",
+        "shafir_deny_estimate",
+        "norenzayan_belongs_to_estimate",
+        "knobe_harm_estimate",
+        "knobe_help_estimate",
+        "trolley_switch_estimate",
+        "trolley_push_estimate",
+    ):
         assert BY_ID[eid].question.kind == "noul"
+
+
+def test_knobe_and_trolley_estimates_target_the_named_option() -> None:
+    for eid in ("knobe_harm_estimate", "knobe_help_estimate"):
+        assert BY_ID[eid].meta["target"] == "intentional"
+    for eid in ("trolley_switch_estimate", "trolley_push_estimate"):
+        assert BY_ID[eid].meta["target"] == "permissible"
+
+
+def test_false_consensus_own_and_simulate_are_already_noul() -> None:
+    """Unlike this module's other items, false_consensus's published DV is itself a
+    percentage estimate, so own/simulate need no Choice-to-Noul conversion at all."""
+    for pid in ("false_consensus_wearer", "false_consensus_nonwearer"):
+        assert isinstance(BY_ID[pid].question, Noul)
+        assert isinstance(BY_ID[f"{pid}_estimate"].question, Noul)
 
 
 def test_every_referenced_benchmark_exists() -> None:
@@ -91,6 +121,9 @@ def test_every_referenced_benchmark_exists() -> None:
             mod.choosing_vs_rejecting,
             mod.categorization,
             mod.incidental_anchors,
+            mod.intentional_side_effects,
+            mod.trolley_dilemma,
+            mod.false_consensus,
         )
     )
     # Docstrings write these as e.g. `moral_typecasting_responsibility_{man,baby}`.
@@ -158,3 +191,37 @@ def test_categorization_options_name_the_two_groups() -> None:
     probe = BY_ID["norenzayan_belongs_to"]
     assert set(probe.question.criteria) == {"group_1", "group_2"}
     assert probe.meta["rule_based_option"] == "group_1"
+
+
+def test_knobe_vignette_wording_matches_the_original() -> None:
+    """Checked against secondary sources reproducing Knobe (2003)'s exact text."""
+    harm = BY_ID["knobe_harm"].state["scenario"]
+    helped = BY_ID["knobe_help"].state["scenario"]
+    for scenario in (harm, helped):
+        assert "vice-president" in scenario
+        assert "as much profit as I can" in scenario
+    assert "harm the environment" in harm and "was harmed" in harm
+    assert "help the environment" in helped and "was helped" in helped
+
+
+def test_trolley_switch_and_push_differ_only_in_the_mechanism() -> None:
+    """The switch/push asymmetry is the whole point of the item: both vignettes must
+    describe the same five-vs-one trade-off, differing only in how the one dies."""
+    switch = BY_ID["trolley_switch"].state["scenario"]
+    push = BY_ID["trolley_push"].state["scenario"]
+    for scenario in (switch, push):
+        assert "five people" in scenario
+    assert "switch" in switch and "footbridge" not in switch
+    assert "footbridge" in push and "push the stranger" in push
+
+
+def test_false_consensus_frames_predict_more_of_own_choice() -> None:
+    """Sanity check against the benchmark values themselves: wearers should predict a
+    higher wear-rate than non-wearers (0.614 vs 0.304) -- the false consensus effect."""
+    wearer_bench = BENCHMARKS["false_consensus_wearer_predicts_wear"]
+    nonwearer_bench = BENCHMARKS["false_consensus_nonwearer_predicts_wear"]
+    assert wearer_bench.value > nonwearer_bench.value
+    assert BY_ID["false_consensus_wearer"].state["frame"] == "Suppose you agree to wear the sign."
+    assert (
+        BY_ID["false_consensus_nonwearer"].state["frame"] == "Suppose you refuse to wear the sign."
+    )

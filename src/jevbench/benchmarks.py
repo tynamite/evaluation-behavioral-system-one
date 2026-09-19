@@ -387,6 +387,77 @@ BENCHMARKS: dict[str, Benchmark] = {
             "medium",
             "SD 21.7 in the original. See incidental_anchor_p97.",
         ),
+        # --- Follow-up battery, section 4.2: sourced from the original papers directly ---
+        # (not ML2's protocol, since ML2 didn't replicate these three). Vignette wording
+        # for knobe and false_consensus is quoted close to the original papers, cross-checked
+        # against secondary sources; the trolley vignettes use the standard switch/footbridge
+        # formulation rather than a verbatim quote, since the original paper's exact item text
+        # wasn't accessible — see instruments/followup.py's trolley_dilemma() docstring.
+        Benchmark(
+            "knobe_harm_intentional",
+            "proportion judging the harmful side effect intentional",
+            0.82,
+            "proportion",
+            "Knobe (2003), Analysis 63:190-194, N=78 (39 harm / 39 help)",
+            "medium",
+            "Companion: knobe_help_intentional. The asymmetry between the two -- not the "
+            "absolute levels -- is the finding (the 'Knobe effect' / side-effect effect).",
+        ),
+        Benchmark(
+            "knobe_help_intentional",
+            "proportion judging the helpful side effect intentional",
+            0.23,
+            "proportion",
+            "Knobe (2003), Analysis 63:190-194, N=78 (39 harm / 39 help)",
+            "medium",
+            "See knobe_harm_intentional.",
+        ),
+        Benchmark(
+            "trolley_switch_permissible",
+            "proportion judging it morally permissible to divert the trolley by pulling a switch",
+            0.89,
+            "proportion",
+            "Hauser, Cushman, Young, Jin & Mikhail (2007), Mind & Language 22:1-21; large "
+            "international web-based sample (Moral Sense Test)",
+            "medium",
+            "Companion: trolley_push_permissible. No single N is reported for this "
+            "comparison specifically in the sources available here.",
+        ),
+        Benchmark(
+            "trolley_push_permissible",
+            "proportion judging it morally permissible to push a stranger off a footbridge "
+            "to stop the trolley",
+            0.11,
+            "proportion",
+            "Hauser, Cushman, Young, Jin & Mikhail (2007), Mind & Language 22:1-21; large "
+            "international web-based sample (Moral Sense Test)",
+            "medium",
+            "See trolley_switch_permissible. The switch/push asymmetry, not the absolute "
+            "levels, is the classic finding.",
+        ),
+        Benchmark(
+            "false_consensus_wearer_predicts_wear",
+            "mean predicted percentage of peers who would also agree to wear the sign, "
+            "among participants who themselves agreed",
+            61.4,
+            "percent",
+            "Ross, Greene & House (1977), J. Experimental Social Psychology 13:279-301, "
+            "Study 3, N=104",
+            "medium",
+            "Companion: false_consensus_nonwearer_predicts_wear. Both groups predict more "
+            "of their own choice than the other group does -- the false consensus effect.",
+        ),
+        Benchmark(
+            "false_consensus_nonwearer_predicts_wear",
+            "mean predicted percentage of peers who would agree to wear the sign, among "
+            "participants who themselves refused",
+            30.4,
+            "percent",
+            "Ross, Greene & House (1977), J. Experimental Social Psychology 13:279-301, "
+            "Study 3, N=104",
+            "medium",
+            "See false_consensus_wearer_predicts_wear.",
+        ),
     ]
 }
 

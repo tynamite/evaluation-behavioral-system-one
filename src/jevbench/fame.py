@@ -161,7 +161,7 @@ ITEMS: dict[str, FameItem] = {
             "the rest of this session).",
             None,
             0,
-            (),
+            ("knobe_harm_intentional", "knobe_help_intentional"),
             "People are more likely to say a side effect was caused "
             "'intentionally' when it's a harmful side effect than when it's an "
             "equally unintended helpful one, even though nothing else about "
@@ -179,7 +179,7 @@ ITEMS: dict[str, FameItem] = {
             "figure).",
             "Trolley problem",
             4_700,
-            (),
+            ("trolley_switch_permissible", "trolley_push_permissible"),
             "Most people say it's okay to divert a runaway trolley onto a "
             "track where it kills one person instead of five by flipping a "
             "switch, but say it's not okay to achieve the exact same outcome "
@@ -194,7 +194,7 @@ ITEMS: dict[str, FameItem] = {
             "Approximate, via web search aggregation on 2026-09-19.",
             "False consensus effect",
             5_700,
-            (),
+            ("false_consensus_wearer_predicts_wear", "false_consensus_nonwearer_predicts_wear"),
             "People who hold a view tend to overestimate how many other "
             "people share that view, compared to people who hold the "
             "opposite view (the false consensus effect).",
