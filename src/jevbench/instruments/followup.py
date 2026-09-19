@@ -499,13 +499,17 @@ def false_consensus() -> list[Probe]:
 
     Participants are asked whether they would wear a sandwich-board sign
     reading "EAT AT JOE'S" around campus for 30 minutes, then estimate what
-    percentage of their peers would also agree. Original mean estimates:
-    participants who agreed to wear it predicted 61.4% of peers would also
-    agree; participants who refused predicted 30.4% would agree —
+    proportion of their peers would also agree. Original mean estimates:
+    participants who agreed to wear it predicted 0.614 of peers would also
+    agree (reported as 61.4% in the paper); participants who refused
+    predicted 0.304 (30.4%) —
     `false_consensus_{wearer,nonwearer}_predicts_wear` in `benchmarks.py`.
     Unlike this module's other items, the published DV is itself a
-    percentage estimate, so `own`/`simulate` are already `Noul` probes here
-    rather than a `Choice` converted into one only for `estimate`.
+    proportion estimate, so `own`/`simulate` are already `Noul` probes here
+    rather than a `Choice` converted into one only for `estimate`. The
+    instructions ask for a proportion (0 to 1), not a 0-100 percentage,
+    to match `Noul`'s own [0, 1] output — the same convention the
+    proportion-type `estimate` probes elsewhere in this module already use.
     """
     sign = (
         "A researcher on campus asks whether you would be willing to walk around campus "
@@ -523,8 +527,8 @@ def false_consensus() -> list[Probe]:
                 probe_id=f"false_consensus_{label}",
                 instrument="false_consensus",
                 instructions=(
-                    f"{frame} What percentage of your fellow students do you think would "
-                    "also agree to wear the sign?"
+                    f"{frame} What proportion (from 0 to 1) of your fellow students do you "
+                    "think would also agree to wear the sign?"
                 ),
                 state=state,
                 condition=label,
@@ -537,8 +541,8 @@ def false_consensus() -> list[Probe]:
                 instructions=(
                     "In a real study, participants were asked whether they would agree to "
                     f"wear this sign around campus. Among those who {past_choice}, what do "
-                    "you estimate was the average percentage they predicted for how many of "
-                    "their fellow students would also agree to wear it?"
+                    "you estimate was the average proportion (from 0 to 1) they predicted "
+                    "for how many of their fellow students would also agree to wear it?"
                 ),
                 state=state,
                 condition=label,

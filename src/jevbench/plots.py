@@ -1072,6 +1072,42 @@ FOLLOWUP_PROPORTION_ROWS = [
         "Deny custody to extreme parent",
     ),
     ("norenzayan_rule_based", "categorization", "prob_rule_based", "Choose the rule-based group"),
+    (
+        "knobe_harm_intentional",
+        "knobe",
+        "prob_harm_intentional",
+        "Intentional: harmful side effect",
+    ),
+    (
+        "knobe_help_intentional",
+        "knobe",
+        "prob_help_intentional",
+        "Intentional: helpful side effect",
+    ),
+    (
+        "trolley_switch_permissible",
+        "trolley",
+        "prob_switch_permissible",
+        "Permissible: divert by switch",
+    ),
+    (
+        "trolley_push_permissible",
+        "trolley",
+        "prob_push_permissible",
+        "Permissible: push off footbridge",
+    ),
+    (
+        "false_consensus_wearer_predicts_wear",
+        "false_consensus",
+        "wearer_predicts_wear",
+        "Wearers predict others also wear",
+    ),
+    (
+        "false_consensus_nonwearer_predicts_wear",
+        "false_consensus",
+        "nonwearer_predicts_wear",
+        "Non-wearers predict others wear",
+    ),
 ]
 
 FOLLOWUP_RATING_ROWS = [
@@ -1118,13 +1154,22 @@ def _followup_points(
 
 
 def _plot_elicitation_panel(
-    ax: Axes, points: list[tuple[str, float | None, float | None, float | None, float]]
+    ax: Axes,
+    points: list[tuple[str, float | None, float | None, float | None, float]],
+    total_rows: int,
 ) -> None:
     """own/simulate/estimate as same-colour, different-marker-shape points; human as an aqua
     diamond. No point-adjacent labels: with four markers per row they collide whenever two
     values sit close together, which is common here. The number that matters — how far the
     model's direct population estimate lands from the true value — goes in a fixed column
     on the right instead, the same fix used for the persona dumbbells in fig3.
+
+    `total_rows` is the largest row count across all three panels, not this panel's own —
+    the three panels share one figure height (set from the tallest panel), and without this
+    a short panel's few rows autoscale to fill that whole height, spread out far more than
+    the tallest panel's row spacing. Pinning every panel's y-limits to the same `total_rows`
+    keeps one consistent row height across panels; a short panel just leaves blank space at
+    the bottom instead of stretching.
     """
     y = np.arange(len(points))
     own_vals = [p[1] if p[1] is not None else np.nan for p in points]
@@ -1162,6 +1207,7 @@ def _plot_elicitation_panel(
         zorder=4,
     )
     ax.set_yticks(y, [p[0] for p in points], fontsize=9)
+    ax.set_ylim(-0.5, total_rows - 0.5)
     ax.invert_yaxis()
     _grid(ax, "x")
 
@@ -1221,10 +1267,11 @@ def fig_followup_elicitations(sdf: pd.DataFrame, out: Path) -> Path | None:
         return None
 
     widths = [max(len(pts), 1) for pts, _, _ in data]
+    max_rows = max(widths)
     fig, axes = plt.subplots(
         1,
         3,
-        figsize=(15.5, 1.1 * max(widths) + 2.6),
+        figsize=(15.5, 1.1 * max_rows + 2.6),
         dpi=170,
         gridspec_kw={"width_ratios": [1, 1, 1], "wspace": 1.3},
     )
@@ -1235,7 +1282,7 @@ def fig_followup_elicitations(sdf: pd.DataFrame, out: Path) -> Path | None:
         if not points:
             ax.set_visible(False)
             continue
-        _plot_elicitation_panel(ax, points)
+        _plot_elicitation_panel(ax, points, max_rows)
         ax.set_xlim(*xlim)
         ax.set_title(title, color=INK, fontsize=10.5, fontweight="bold", loc="left", pad=10)
         if not handles:
@@ -1255,7 +1302,7 @@ def fig_followup_elicitations(sdf: pd.DataFrame, out: Path) -> Path | None:
     )
     _titles(
         fig,
-        "The follow-up battery: five effects sourced from Many Labs 2's own protocol",
+        "The follow-up battery: eight effects, sourced from ML2's protocol or the original papers",
         "Own answer, simulated-human answer, and a direct population estimate, against the "
         "original study's own number (N=64-207 per item — see FOLLOWUP_PREREGISTRATION.md).",
         y=1.14,

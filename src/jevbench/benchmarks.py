@@ -437,26 +437,30 @@ BENCHMARKS: dict[str, Benchmark] = {
         ),
         Benchmark(
             "false_consensus_wearer_predicts_wear",
-            "mean predicted percentage of peers who would also agree to wear the sign, "
+            "mean predicted proportion of peers who would also agree to wear the sign, "
             "among participants who themselves agreed",
-            61.4,
-            "percent",
+            0.614,
+            "proportion",
             "Ross, Greene & House (1977), J. Experimental Social Psychology 13:279-301, "
             "Study 3, N=104",
             "medium",
-            "Companion: false_consensus_nonwearer_predicts_wear. Both groups predict more "
-            "of their own choice than the other group does -- the false consensus effect.",
+            "Reported in the original as 61.4%. Stored here as a 0-1 proportion, not a "
+            "percent, to match the Noul primitive's own [0, 1] output -- see "
+            "instruments/followup.py's false_consensus() docstring. Companion: "
+            "false_consensus_nonwearer_predicts_wear. Both groups predict more of their "
+            "own choice than the other group does -- the false consensus effect.",
         ),
         Benchmark(
             "false_consensus_nonwearer_predicts_wear",
-            "mean predicted percentage of peers who would agree to wear the sign, among "
+            "mean predicted proportion of peers who would agree to wear the sign, among "
             "participants who themselves refused",
-            30.4,
-            "percent",
+            0.304,
+            "proportion",
             "Ross, Greene & House (1977), J. Experimental Social Psychology 13:279-301, "
             "Study 3, N=104",
             "medium",
-            "See false_consensus_wearer_predicts_wear.",
+            "Reported in the original as 30.4%; stored as a 0-1 proportion here, see "
+            "false_consensus_wearer_predicts_wear.",
         ),
     ]
 }

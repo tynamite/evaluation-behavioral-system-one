@@ -869,6 +869,152 @@ def compute_stats(df: pd.DataFrame) -> list[Stat]:
                         "the near-zero one ML2 actually found?",
                     )
 
+            # --- follow-up: intentional side effects (Knobe) ---------
+            harm = g("knobe_harm")
+            helped = g("knobe_help")
+            harm_p = prob_of(harm, "intentional") if harm else None
+            help_p = prob_of(helped, "intentional") if helped else None
+            if harm_p is not None:
+                add(
+                    "knobe",
+                    "prob_harm_intentional",
+                    persona,
+                    arm,
+                    harm_p,
+                    bench="knobe_harm_intentional",
+                )
+            if help_p is not None:
+                add(
+                    "knobe",
+                    "prob_help_intentional",
+                    persona,
+                    arm,
+                    help_p,
+                    bench="knobe_help_intentional",
+                )
+            if harm_p is not None and help_p is not None:
+                add(
+                    "knobe",
+                    "harm_help_asymmetry",
+                    persona,
+                    arm,
+                    harm_p - help_p,
+                    note="a harmful side effect is judged far more intentional than an "
+                    "equally unintended helpful one (the Knobe effect); original gap is "
+                    "0.82 - 0.23 = 0.59",
+                )
+            harm_est = g("knobe_harm_estimate")
+            help_est = g("knobe_help_estimate")
+            if harm_est:
+                add(
+                    "knobe_estimate",
+                    "prob_harm_intentional",
+                    persona,
+                    arm,
+                    prob_of(harm_est, "true"),
+                    bench="knobe_harm_intentional",
+                )
+            if help_est:
+                add(
+                    "knobe_estimate",
+                    "prob_help_intentional",
+                    persona,
+                    arm,
+                    prob_of(help_est, "true"),
+                    bench="knobe_help_intentional",
+                )
+
+            # --- follow-up: trolley switch vs. push (Hauser et al.) --
+            switch = g("trolley_switch")
+            push = g("trolley_push")
+            switch_p = prob_of(switch, "permissible") if switch else None
+            push_p = prob_of(push, "permissible") if push else None
+            if switch_p is not None:
+                add(
+                    "trolley",
+                    "prob_switch_permissible",
+                    persona,
+                    arm,
+                    switch_p,
+                    bench="trolley_switch_permissible",
+                )
+            if push_p is not None:
+                add(
+                    "trolley",
+                    "prob_push_permissible",
+                    persona,
+                    arm,
+                    push_p,
+                    bench="trolley_push_permissible",
+                )
+            if switch_p is not None and push_p is not None:
+                add(
+                    "trolley",
+                    "switch_push_asymmetry",
+                    persona,
+                    arm,
+                    switch_p - push_p,
+                    note="diverting the trolley by switch is judged far more permissible "
+                    "than pushing a person to achieve the same outcome; original gap is "
+                    "0.89 - 0.11 = 0.78",
+                )
+            switch_est = g("trolley_switch_estimate")
+            push_est = g("trolley_push_estimate")
+            if switch_est:
+                add(
+                    "trolley_estimate",
+                    "prob_switch_permissible",
+                    persona,
+                    arm,
+                    prob_of(switch_est, "true"),
+                    bench="trolley_switch_permissible",
+                )
+            if push_est:
+                add(
+                    "trolley_estimate",
+                    "prob_push_permissible",
+                    persona,
+                    arm,
+                    prob_of(push_est, "true"),
+                    bench="trolley_push_permissible",
+                )
+
+            # --- follow-up: false consensus (Ross, Greene & House) ---
+            for suffix, bench_suffix in (("", "false_consensus"), ("_estimate", "false_consensus")):
+                inst = f"false_consensus{suffix}"
+                wearer = g(f"false_consensus_wearer{suffix}")
+                nonwearer = g(f"false_consensus_nonwearer{suffix}")
+                wearer_p = prob_of(wearer, "true") if wearer else None
+                nonwearer_p = prob_of(nonwearer, "true") if nonwearer else None
+                if wearer_p is not None:
+                    add(
+                        inst,
+                        "wearer_predicts_wear",
+                        persona,
+                        arm,
+                        wearer_p,
+                        bench=f"{bench_suffix}_wearer_predicts_wear",
+                    )
+                if nonwearer_p is not None:
+                    add(
+                        inst,
+                        "nonwearer_predicts_wear",
+                        persona,
+                        arm,
+                        nonwearer_p,
+                        bench=f"{bench_suffix}_nonwearer_predicts_wear",
+                    )
+                if wearer_p is not None and nonwearer_p is not None:
+                    add(
+                        inst,
+                        "false_consensus_gap",
+                        persona,
+                        arm,
+                        wearer_p - nonwearer_p,
+                        note="each group predicts more of its own choice than the other "
+                        "group does; original gap is 0.614 - 0.304 = 0.31",
+                    )
+
     return stats
 
 
