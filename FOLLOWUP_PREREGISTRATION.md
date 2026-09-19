@@ -341,3 +341,119 @@ over the same percentage bands as "own" and "simulate", asking what the
 model predicts the *average* participant estimate was — read off with the
 same `expected_numeric` band-midpoint calculation the repository's existing
 anchoring item already uses, not a new comparison method.
+
+---
+
+## 10. Amendment 3 — 2026-09-19
+
+Written while gathering the actual data the pairing rule (Section 3) needs:
+Many Labs 2's own replicated effect size for each item in the pool. Reading
+Klein et al. (2018)'s full results section (not a secondary summary) surfaced
+a problem the design didn't anticipate.
+
+### 10.1 What was found
+
+Several items in this project's pool share a *source paper* with one of
+ML2's 28 replicated effects, but not the *specific study or vignette* ML2
+actually ran:
+
+- **`framing`**: this project's item is the gain/loss "Asian disease"
+  problem (Tversky & Kahneman, 1981). ML2's effect 16, also cited to
+  Tversky & Kahneman (1981), is a different experiment from the same paper
+  (Study 10: a $5-discount travel decision). There is no ML2-replicated
+  number for the Asian disease problem.
+- **`false_consensus`**: this project's item is Ross, Greene & House
+  (1977)'s Study 3 (the sandwich-board sign). ML2 ran two different
+  vignettes from the same paper's Study 1 instead (effects 13 and 14: a
+  supermarket scenario and a traffic-ticket scenario). Neither is the
+  sandwich-board study.
+- **`crt`, `conjunction`, `sunk_cost`, `allais`, `base_rate`**: not among
+  ML2's 28 effects at all. (`crt` appears once, as an individual-difference
+  *moderator* measure using a different CRT variant — never as a
+  replication target.)
+
+Full details, exact figures and sources are in `src/jevbench/ml2_effects.py`.
+
+Seven items do have a clean match — same vignette, same condition, a real
+ML2-replicated number usable as this project's own comparator: `knobe`,
+`trolley`, `moral_typecasting`, `position_power`, `choosing_rejecting`,
+`categorization`, `incidental_anchors` (`knobe`'s replication changed
+measurement scale, and `categorization`'s match is to ML2's own reported
+rate for the single condition this project built, not its headline
+cross-condition test — both documented in `ml2_effects.py`, both still
+usable for a standardized magnitude). Two of those seven (`trolley`,
+`position_power`) are excluded from pairing anyway, for the unrelated
+reason in the table below: both were already dropped by the fame index for
+a missing citation count, before this amendment's ML2-matching check ever
+ran.
+
+### 10.2 The consequence for the pairing rule
+
+Section 3's rule needs an item to clear two independent gates: survive the
+fame index's drop rule (Section 8.2), **and** have a valid ML2-replicated
+magnitude for the exact vignette built. Intersecting the two:
+
+| Item | Fame tier | Valid ML2 match? | Eligible for pairing? |
+|---|---|---|---|
+| `framing` | high | no (different study) | no |
+| `false_consensus` | high | no (different study) | no |
+| `sunk_cost` | medium | no (not in ML2) | no |
+| `trolley` | dropped (no citation count) | yes | no |
+| `position_power` | dropped (no citation count) | yes | no |
+| `knobe` | low | yes | **yes** |
+| `moral_typecasting` | low | yes | **yes** |
+| `choosing_rejecting` | low | yes | **yes** |
+| `categorization` | low | yes | **yes** |
+| `incidental_anchors` | low | yes | **yes** |
+
+All five eligible items land in the **same** fame tier (`low`). Section 3's
+rule pairs each item with "its nearest neighbour on magnitude from the
+opposite fame tercile" — with every eligible item in one tercile, there is
+no opposite tercile to pair against. Applied exactly as written, against
+the actual gathered data, the rule forms **zero pairs**
+(`src/jevbench/pairing.py`, `build_pairs()`; verified both on the real data
+and against a synthetic fixture proving the matching algorithm itself works
+correctly — `tests/test_pairing.py`).
+
+This is not a bug in the matching code — the algorithm is tested
+separately and matches correctly when both tiers are populated. It is the
+real, if disappointing, output of a preregistered rule meeting real data:
+the two items that made it into `high` fame (`framing`, `false_consensus`)
+are exactly the two whose ML2 match turned out to be invalid, and the two
+items with a clean ML2 match that reach `medium`-or-above fame
+(`trolley`, `position_power`) were already dropped upstream for a missing
+citation count. Nothing in the fame index or the ML2-matching check was
+built with this outcome in mind or adjusted after seeing it — both were
+finished (fame index: previous commit; ML2 matching: this one) before the
+intersection was computed.
+
+### 10.3 What this means, and what is not decided here
+
+Without pairs, H1 and H2 as designed — a paired-difference test across
+items matched on magnitude, isolating fame from effect size — cannot be
+run on this item pool. Options, **none chosen here**:
+
+1. Rebuild `framing` and `false_consensus` to use the actual vignettes ML2
+   replicated (the $5-discount study; the supermarket or traffic-ticket
+   scenario) instead of the ones already built. This would give two more
+   high-fame, ML2-matched items and might produce real pairs — but it
+   replaces two already-committed, working instruments, is a nontrivial
+   amount of new construction, and was not requested.
+2. Drop the matched-pairs design and instead correlate fame tier (or a
+   continuous fame proxy) against simulated/estimated error across all five
+   eligible items directly, without pairing — weaker than the original
+   design (it no longer controls for magnitude by construction) but usable
+   on the data actually in hand.
+3. Report the null pairing result itself as a finding: a preregistered
+   design, run honestly, that turned out not to be executable with this
+   item pool — itself informative about how hard it is to find matched
+   real-world items differing mainly in fame, which was the whole
+   motivation for building a fame index in the first place (Section 2).
+
+### 10.4 What did not change
+
+The item pool (Section 4), the fame index's legs and drop rule (Section
+8.2), and the hypotheses (Section 5) are unaffected by this amendment. What
+changed is empirical, not designed: which items the pairing rule can
+actually use, discovered by reading ML2's results in full rather than
+assumed from which paper an item cites.
