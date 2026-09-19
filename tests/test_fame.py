@@ -138,3 +138,14 @@ def test_familiarity_mean_averages_replicates() -> None:
 def test_all_verdicts_covers_every_item() -> None:
     verdicts = fame.all_verdicts(ratings={})
     assert {v.key for v in verdicts} == set(fame.ITEMS)
+
+
+def test_committed_familiarity_data_covers_every_item_with_five_replicates_in_range() -> None:
+    """`data/fame_familiarity.json`, once `scripts/rate_familiarity.py` has run."""
+    ratings = fame.load_familiarity()
+    if not ratings:
+        return  # not yet run; other tests already cover the empty-file path
+    assert set(ratings) == set(fame.ITEMS)
+    for key, vals in ratings.items():
+        assert len(vals) == 5, f"{key} has {len(vals)} ratings, expected 5"
+        assert all(1.0 <= v <= 5.0 for v in vals), f"{key} has an out-of-range rating: {vals}"
