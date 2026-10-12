@@ -2011,474 +2011,6 @@ false_consensus,false_consensus_gap,typical_human,perplexity/pplx-decider-v1.1-2
 false_consensus_estimate,wearer_predicts_wear,typical_human,perplexity/pplx-decider-v1.1-27b-20261006,0.523529303948301,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
 false_consensus_estimate,nonwearer_predicts_wear,typical_human,perplexity/pplx-decider-v1.1-27b-20261006,0.2531144220051416,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
 false_consensus_estimate,false_consensus_gap,typical_human,perplexity/pplx-decider-v1.1-27b-20261006,0.2704148819431594,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
-crt,proportion_correct,antisocial,nace-ai/drex-v1.5-20261009,0.8178479787095744,0.6157539361787235,0.9987049999666664,crt_proportion_correct,0.413,high,,System One
-crt,probability_mass_on_lure,antisocial,nace-ai/drex-v1.5-20261009,0.11388032278978895,8.333338333383335e-05,0.3127843016526997,,,,,System One
-fluid_reasoning,accuracy,antisocial,nace-ai/drex-v1.5-20261009,0.8803656780412862,0.7795519170719811,0.9637523015802743,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
-fluid_reasoning,accuracy_steps_1,antisocial,nace-ai/drex-v1.5-20261009,0.996830081796348,0.9935802567897283,0.9998099885993158,,,,,System One
-fluid_reasoning,accuracy_steps_2,antisocial,nace-ai/drex-v1.5-20261009,0.9951316460790176,0.9881650257442879,0.9991983290796544,,,,,System One
-fluid_reasoning,accuracy_steps_3,antisocial,nace-ai/drex-v1.5-20261009,0.7154658378131854,0.532705901081178,0.8840348251929331,,,,,System One
-fluid_reasoning,accuracy_steps_4,antisocial,nace-ai/drex-v1.5-20261009,0.938520609093852,0.877611223887761,0.9994299942999431,,,,,System One
-fluid_reasoning,depth_penalty_1_vs_3plus,antisocial,nace-ai/drex-v1.5-20261009,0.2317965170319034,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
-dictator,mean_share,antisocial,nace-ai/drex-v1.5-20261009,0.004702094041880838,,,dictator_mean_share,0.283,high,,System One
-dictator,prob_give_zero,antisocial,nace-ai/drex-v1.5-20261009,0.9865197303946078,,,dictator_share_zero,0.36,high,,System One
-dictator,prob_give_half,antisocial,nace-ai/drex-v1.5-20261009,0.0007900158003160061,,,dictator_share_half,0.17,high,,System One
-ultimatum_proposer,mean_share,antisocial,nace-ai/drex-v1.5-20261009,0.17223900000000003,,,ultimatum_mean_offer,0.4,high,,System One
-trust_sender,mean_share,antisocial,nace-ai/drex-v1.5-20261009,0.3033920678413568,,,trust_sender_share,0.5,high,,System One
-public_goods,mean_share,antisocial,nace-ai/drex-v1.5-20261009,0.029762214267143976,,,pgg_round1_share,0.5,medium,,System One
-ultimatum_responder,prob_reject_offer_0,antisocial,nace-ai/drex-v1.5-20261009,0.04256,,,,,,,System One
-ultimatum_responder,prob_reject_offer_1,antisocial,nace-ai/drex-v1.5-20261009,0.013549999999999998,,,,,,,System One
-ultimatum_responder,prob_reject_offer_2,antisocial,nace-ai/drex-v1.5-20261009,0.014249999999999995,,,,,,,System One
-ultimatum_responder,prob_reject_offer_3,antisocial,nace-ai/drex-v1.5-20261009,0.01164,,,,,,,System One
-ultimatum_responder,prob_reject_offer_4,antisocial,nace-ai/drex-v1.5-20261009,0.01061,,,,,,,System One
-ultimatum_responder,prob_reject_offer_5,antisocial,nace-ai/drex-v1.5-20261009,0.010409999999999999,,,,,,,System One
-ultimatum_responder,prob_reject_offer_6,antisocial,nace-ai/drex-v1.5-20261009,0.00824,,,,,,,System One
-ultimatum_responder,prob_reject_offer_7,antisocial,nace-ai/drex-v1.5-20261009,0.005720000000000001,,,,,,,System One
-ultimatum_responder,prob_reject_offer_8,antisocial,nace-ai/drex-v1.5-20261009,0.00694,,,,,,,System One
-ultimatum_responder,prob_reject_offer_9,antisocial,nace-ai/drex-v1.5-20261009,0.006999999999999999,,,,,,,System One
-ultimatum_responder,prob_reject_offer_10,antisocial,nace-ai/drex-v1.5-20261009,0.0046,,,,,,,System One
-ultimatum_responder,prob_reject_low_offer,antisocial,nace-ai/drex-v1.5-20261009,0.028055,,,ultimatum_rejection_low_offer,0.5,medium,,System One
-trust_trustee,return_share_sent_2,antisocial,nace-ai/drex-v1.5-20261009,0.012452040227873508,,,,,,,System One
-trust_trustee,return_share_sent_5,antisocial,nace-ai/drex-v1.5-20261009,0.030616251820887952,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,antisocial,nace-ai/drex-v1.5-20261009,0.028797,,,,,,,System One
-public_goods_conditional,contribution_low,antisocial,nace-ai/drex-v1.5-20261009,0.01895237904758095,,,,,,,System One
-public_goods_conditional,contribution_mid,antisocial,nace-ai/drex-v1.5-20261009,0.041389930503474816,,,,,,,System One
-public_goods_conditional,contribution_high,antisocial,nace-ai/drex-v1.5-20261009,0.06171653133874644,,,,,,,System One
-prisoners_dilemma,cooperation_one_shot,antisocial,nace-ai/drex-v1.5-20261009,0.0008599999999999999,,,pd_cooperation_oneshot,0.37,medium,,System One
-prisoners_dilemma,cooperation_after_cooperation,antisocial,nace-ai/drex-v1.5-20261009,0.00996,,,,,,,System One
-prisoners_dilemma,cooperation_after_defection,antisocial,nace-ai/drex-v1.5-20261009,0.0019499999999999997,,,,,,,System One
-framing,prob_certain_gain_frame,antisocial,nace-ai/drex-v1.5-20261009,0.2036,,,framing_gain_certain,0.72,high,,System One
-framing,prob_certain_loss_frame,antisocial,nace-ai/drex-v1.5-20261009,0.8896599999999999,,,framing_loss_certain,0.22,high,,System One
-framing,framing_swing,antisocial,nace-ai/drex-v1.5-20261009,-0.6860599999999999,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
-allais,prob_certain_pair1,antisocial,nace-ai/drex-v1.5-20261009,0.13825,,,allais_p1_certain,0.8,high,,System One
-allais,prob_safer_pair2,antisocial,nace-ai/drex-v1.5-20261009,0.39616,,,allais_p2_certain,0.35,high,,System One
-allais,independence_violation,antisocial,nace-ai/drex-v1.5-20261009,0.08348088000000001,,,,,,joint probability of the A-then-D pattern that violates independence,System One
-conjunction,prob_fallacy_forced_choice,antisocial,nace-ai/drex-v1.5-20261009,0.32463999999999993,,,conjunction_fallacy_rate,0.85,high,,System One
-conjunction_axiom,p_single,antisocial,nace-ai/drex-v1.5-20261009,0.43600000000000005,,,,,,,System One
-conjunction_axiom,p_conjunction,antisocial,nace-ai/drex-v1.5-20261009,0.7608,,,,,,,System One
-conjunction_axiom,axiom_margin,antisocial,nace-ai/drex-v1.5-20261009,-0.3248,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
-base_rate,prob_correct_band,antisocial,nace-ai/drex-v1.5-20261009,0.18463815361846384,,,base_rate_correct_band,0.15,medium,,System One
-base_rate,prob_lure_band,antisocial,nace-ai/drex-v1.5-20261009,0.04436955630443696,,,,,,,System One
-anchoring,estimate_low_anchor,antisocial,nace-ai/drex-v1.5-20261009,23.355417108342166,,,anchoring_low_median,25.0,medium,,System One
-anchoring,estimate_high_anchor,antisocial,nace-ai/drex-v1.5-20261009,47.83000660013201,,,anchoring_high_median,45.0,medium,,System One
-anchoring,anchoring_effect,antisocial,nace-ai/drex-v1.5-20261009,24.474589491789843,,,,,,human gap is about 20 points,System One
-sunk_cost,prob_continue,antisocial,nace-ai/drex-v1.5-20261009,0.005940000000000001,,,sunk_cost_continue,0.85,medium,,System One
-holt_laury,expected_safe_choices,antisocial,nace-ai/drex-v1.5-20261009,1.0177100000000001,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
-discounting,prob_patient_7d,antisocial,nace-ai/drex-v1.5-20261009,0.5030325,0.4660775,0.5511,,,,,System One
-discounting,prob_patient_30d,antisocial,nace-ai/drex-v1.5-20261009,0.5378550000000001,0.4384850000000001,0.637225,,,,,System One
-discounting,prob_patient_180d,antisocial,nace-ai/drex-v1.5-20261009,0.4726675,0.4007,0.5770025,,,,,System One
-present_bias,prob_patient_immediate_frontend,antisocial,nace-ai/drex-v1.5-20261009,0.14356000000000002,,,,,,,System One
-present_bias,prob_patient_delayed_frontend,antisocial,nace-ai/drex-v1.5-20261009,0.36460000000000004,,,,,,,System One
-present_bias,present_bias_gap,antisocial,nace-ai/drex-v1.5-20261009,0.22104000000000001,,,present_bias_reversal,0.3,approximate,positive means more patient when both options are delayed,System One
-beauty_contest,expected_guess,antisocial,nace-ai/drex-v1.5-20261009,15.574440447641887,,,beauty_contest_mean,36.0,medium,,System One
-beauty_contest,mass_at_33,antisocial,nace-ai/drex-v1.5-20261009,0.03137490007993605,,,,,,,System One
-beauty_contest,mass_at_22,antisocial,nace-ai/drex-v1.5-20261009,0.019084732214228618,,,,,,,System One
-beauty_contest,mass_at_0,antisocial,nace-ai/drex-v1.5-20261009,0.26448840927258194,,,,,,,System One
-money_request,expected_request,antisocial,nace-ai/drex-v1.5-20261009,18.328676992610518,,,money_request_modal,17.0,high,,System One
-money_request,mass_level0_20,antisocial,nace-ai/drex-v1.5-20261009,0.5519513634045616,,,,,,,System One
-money_request,mass_level1_19,antisocial,nace-ai/drex-v1.5-20261009,0.22607417480776348,,,,,,,System One
-money_request,mass_level2_18,antisocial,nace-ai/drex-v1.5-20261009,0.0247782655214135,,,,,,,System One
-money_request,mass_level3_17,antisocial,nace-ai/drex-v1.5-20261009,0.019778615496915213,,,,,,,System One
-mini_ipip,extraversion,antisocial,nace-ai/drex-v1.5-20261009,3.381401374674514,2.9349027493490274,3.9717490599059904,mini_ipip_extraversion,3.2,approximate,,System One
-mini_ipip,agreeableness,antisocial,nace-ai/drex-v1.5-20261009,1.6156230376962304,1.1000460753924606,2.348975,mini_ipip_agreeableness,4.0,approximate,,System One
-mini_ipip,conscientiousness,antisocial,nace-ai/drex-v1.5-20261009,3.26672600567876,2.145808798958088,4.17395,mini_ipip_conscientiousness,3.4,approximate,,System One
-mini_ipip,neuroticism,antisocial,nace-ai/drex-v1.5-20261009,1.6132401484851515,1.2268,2.1043704454554546,mini_ipip_neuroticism,2.8,approximate,,System One
-mini_ipip,openness,antisocial,nace-ai/drex-v1.5-20261009,3.685476414239364,2.9384582118211826,4.094891030896911,mini_ipip_openness,3.7,approximate,,System One
-dirty_dozen,machiavellianism,antisocial,nace-ai/drex-v1.5-20261009,7.657019019431853,7.126655584088319,8.036310306030604,,,,9-point agreement scale; manipulation check only,System One
-dirty_dozen,overall,antisocial,nace-ai/drex-v1.5-20261009,7.034740209348571,6.198171764185887,7.727284874371166,,,,9-point agreement scale; manipulation check only,System One
-dirty_dozen,psychopathy,antisocial,nace-ai/drex-v1.5-20261009,7.781631740674067,7.3838758175817585,8.134813481348136,,,,9-point agreement scale; manipulation check only,System One
-dirty_dozen,narcissism,antisocial,nace-ai/drex-v1.5-20261009,5.665569867939795,4.154625,7.297650036906003,,,,9-point agreement scale; manipulation check only,System One
-moral_typecasting,responsibility_man,antisocial,nace-ai/drex-v1.5-20261009,5.278472152784722,,,moral_typecasting_responsibility_man,5.29,medium,,System One
-moral_typecasting,responsibility_baby,antisocial,nace-ai/drex-v1.5-20261009,2.2335999999999996,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
-moral_typecasting,agency_responsibility_gap,antisocial,nace-ai/drex-v1.5-20261009,3.044872152784722,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
-moral_typecasting_estimate,responsibility_man,antisocial,nace-ai/drex-v1.5-20261009,5.4005,,,moral_typecasting_responsibility_man,5.29,medium,,System One
-moral_typecasting_estimate,responsibility_baby,antisocial,nace-ai/drex-v1.5-20261009,5.3072307230723075,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
-moral_typecasting_estimate,agency_responsibility_gap,antisocial,nace-ai/drex-v1.5-20261009,0.0932692769276926,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
-position_power,power_long_line,antisocial,nace-ai/drex-v1.5-20261009,3.4641464146414647,,,position_power_long_line,5.01,medium,,System One
-position_power,power_short_line,antisocial,nace-ai/drex-v1.5-20261009,2.7968937515001198,,,position_power_short_line,4.62,medium,,System One
-position_power,position_power_gap,antisocial,nace-ai/drex-v1.5-20261009,0.6672526631413449,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
-position_power_estimate,power_long_line,antisocial,nace-ai/drex-v1.5-20261009,5.1915000000000004,,,position_power_long_line,5.01,medium,,System One
-position_power_estimate,power_short_line,antisocial,nace-ai/drex-v1.5-20261009,4.6536,,,position_power_short_line,4.62,medium,,System One
-position_power_estimate,position_power_gap,antisocial,nace-ai/drex-v1.5-20261009,0.5379000000000005,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
-choosing_rejecting,prob_award_extreme,antisocial,nace-ai/drex-v1.5-20261009,0.19260000000000002,,,shafir_award_extreme,0.64,medium,,System One
-choosing_rejecting,prob_deny_extreme,antisocial,nace-ai/drex-v1.5-20261009,0.9726,,,shafir_deny_extreme,0.55,medium,,System One
-choosing_rejecting,choose_reject_sum,antisocial,nace-ai/drex-v1.5-20261009,1.1652,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
-choosing_rejecting_estimate,prob_award_extreme,antisocial,nace-ai/drex-v1.5-20261009,0.78871,,,shafir_award_extreme,0.64,medium,,System One
-choosing_rejecting_estimate,prob_deny_extreme,antisocial,nace-ai/drex-v1.5-20261009,0.932,,,shafir_deny_extreme,0.55,medium,,System One
-categorization,prob_rule_based,antisocial,nace-ai/drex-v1.5-20261009,0.37538,,,norenzayan_rule_based,0.67,medium,,System One
-categorization_estimate,prob_rule_based,antisocial,nace-ai/drex-v1.5-20261009,0.83234,,,norenzayan_rule_based,0.67,medium,,System One
-incidental_anchors,estimate_p97,antisocial,nace-ai/drex-v1.5-20261009,58.58391083910839,,,incidental_anchor_p97,58.1,medium,,System One
-incidental_anchors,estimate_p17,antisocial,nace-ai/drex-v1.5-20261009,57.797202972029716,,,incidental_anchor_p17,51.9,medium,,System One
-incidental_anchors,anchor_gap,antisocial,nace-ai/drex-v1.5-20261009,0.7867078670786753,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
-incidental_anchors_estimate,estimate_p97,antisocial,nace-ai/drex-v1.5-20261009,59.254944703317804,,,incidental_anchor_p97,58.1,medium,,System One
-incidental_anchors_estimate,estimate_p17,antisocial,nace-ai/drex-v1.5-20261009,60.32559674403256,,,incidental_anchor_p17,51.9,medium,,System One
-incidental_anchors_estimate,anchor_gap,antisocial,nace-ai/drex-v1.5-20261009,-1.070652040714755,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
-knobe,prob_harm_intentional,antisocial,nace-ai/drex-v1.5-20261009,0.72016,,,knobe_harm_intentional,0.82,medium,,System One
-knobe,prob_help_intentional,antisocial,nace-ai/drex-v1.5-20261009,0.0249,,,knobe_help_intentional,0.23,medium,,System One
-knobe,harm_help_asymmetry,antisocial,nace-ai/drex-v1.5-20261009,0.69526,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
-knobe_estimate,prob_harm_intentional,antisocial,nace-ai/drex-v1.5-20261009,0.37661,,,knobe_harm_intentional,0.82,medium,,System One
-knobe_estimate,prob_help_intentional,antisocial,nace-ai/drex-v1.5-20261009,0.11510000000000001,,,knobe_help_intentional,0.23,medium,,System One
-trolley,prob_switch_permissible,antisocial,nace-ai/drex-v1.5-20261009,0.97278,,,trolley_switch_permissible,0.89,medium,,System One
-trolley,prob_push_permissible,antisocial,nace-ai/drex-v1.5-20261009,0.9129200000000001,,,trolley_push_permissible,0.11,medium,,System One
-trolley,switch_push_asymmetry,antisocial,nace-ai/drex-v1.5-20261009,0.05985999999999991,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
-trolley_estimate,prob_switch_permissible,antisocial,nace-ai/drex-v1.5-20261009,0.9935,,,trolley_switch_permissible,0.89,medium,,System One
-trolley_estimate,prob_push_permissible,antisocial,nace-ai/drex-v1.5-20261009,0.9241,,,trolley_push_permissible,0.11,medium,,System One
-false_consensus,wearer_predicts_wear,antisocial,nace-ai/drex-v1.5-20261009,0.7596,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
-false_consensus,nonwearer_predicts_wear,antisocial,nace-ai/drex-v1.5-20261009,0.6845,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
-false_consensus,false_consensus_gap,antisocial,nace-ai/drex-v1.5-20261009,0.07510000000000006,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
-false_consensus_estimate,wearer_predicts_wear,antisocial,nace-ai/drex-v1.5-20261009,0.9747,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
-false_consensus_estimate,nonwearer_predicts_wear,antisocial,nace-ai/drex-v1.5-20261009,0.9251000000000001,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
-false_consensus_estimate,false_consensus_gap,antisocial,nace-ai/drex-v1.5-20261009,0.049599999999999866,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
-crt,proportion_correct,neutral,nace-ai/drex-v1.5-20261009,0.8817398671626595,0.7619162728048509,0.9939749968998631,crt_proportion_correct,0.413,high,,System One
-crt,probability_mass_on_lure,neutral,nace-ai/drex-v1.5-20261009,0.058546899373663884,0.00031666896676767144,0.15938189914032588,,,,,System One
-fluid_reasoning,accuracy,neutral,nace-ai/drex-v1.5-20261009,0.8940359489493463,0.8043347881820477,0.9648929967013641,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
-fluid_reasoning,accuracy_steps_1,neutral,nace-ai/drex-v1.5-20261009,0.9948766928657408,0.9875999999999999,0.99984999399976,,,,,System One
-fluid_reasoning,accuracy_steps_2,neutral,nace-ai/drex-v1.5-20261009,0.9898881555412737,0.977389822941303,0.9995566573997072,,,,,System One
-fluid_reasoning,accuracy_steps_3,neutral,nace-ai/drex-v1.5-20261009,0.7489082985347961,0.5846205658608861,0.8914533321736838,,,,,System One
-fluid_reasoning,accuracy_steps_4,neutral,nace-ai/drex-v1.5-20261009,0.9631649897498975,0.92838,0.997949979499795,,,,,System One
-fluid_reasoning,depth_penalty_1_vs_3plus,neutral,nace-ai/drex-v1.5-20261009,0.19835579628314437,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
-dictator,mean_share,neutral,nace-ai/drex-v1.5-20261009,0.20203595928081444,,,dictator_mean_share,0.283,high,,System One
-dictator,prob_give_zero,neutral,nace-ai/drex-v1.5-20261009,0.4474410511789765,,,dictator_share_zero,0.36,high,,System One
-dictator,prob_give_half,neutral,nace-ai/drex-v1.5-20261009,0.06939861202775946,,,dictator_share_half,0.17,high,,System One
-ultimatum_proposer,mean_share,neutral,nace-ai/drex-v1.5-20261009,0.5041660416604167,,,ultimatum_mean_offer,0.4,high,,System One
-trust_sender,mean_share,neutral,nace-ai/drex-v1.5-20261009,0.4229062290622906,,,trust_sender_share,0.5,high,,System One
-public_goods,mean_share,neutral,nace-ai/drex-v1.5-20261009,0.2898242035159297,,,pgg_round1_share,0.5,medium,,System One
-ultimatum_responder,prob_reject_offer_0,neutral,nace-ai/drex-v1.5-20261009,0.34232000000000007,,,,,,,System One
-ultimatum_responder,prob_reject_offer_1,neutral,nace-ai/drex-v1.5-20261009,0.0425,,,,,,,System One
-ultimatum_responder,prob_reject_offer_2,neutral,nace-ai/drex-v1.5-20261009,0.04118,,,,,,,System One
-ultimatum_responder,prob_reject_offer_3,neutral,nace-ai/drex-v1.5-20261009,0.032380000000000006,,,,,,,System One
-ultimatum_responder,prob_reject_offer_4,neutral,nace-ai/drex-v1.5-20261009,0.029269999999999997,,,,,,,System One
-ultimatum_responder,prob_reject_offer_5,neutral,nace-ai/drex-v1.5-20261009,0.016139999999999998,,,,,,,System One
-ultimatum_responder,prob_reject_offer_6,neutral,nace-ai/drex-v1.5-20261009,0.015950000000000006,,,,,,,System One
-ultimatum_responder,prob_reject_offer_7,neutral,nace-ai/drex-v1.5-20261009,0.01178,,,,,,,System One
-ultimatum_responder,prob_reject_offer_8,neutral,nace-ai/drex-v1.5-20261009,0.01139,,,,,,,System One
-ultimatum_responder,prob_reject_offer_9,neutral,nace-ai/drex-v1.5-20261009,0.011380000000000003,,,,,,,System One
-ultimatum_responder,prob_reject_offer_10,neutral,nace-ai/drex-v1.5-20261009,0.00495,,,,,,,System One
-ultimatum_responder,prob_reject_low_offer,neutral,nace-ai/drex-v1.5-20261009,0.19241000000000003,,,ultimatum_rejection_low_offer,0.5,medium,,System One
-trust_trustee,return_share_sent_2,neutral,nace-ai/drex-v1.5-20261009,0.2880416666666666,,,,,,,System One
-trust_trustee,return_share_sent_5,neutral,nace-ai/drex-v1.5-20261009,0.43557266666666655,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,neutral,nace-ai/drex-v1.5-20261009,0.24440188803776072,,,,,,,System One
-public_goods_conditional,contribution_low,neutral,nace-ai/drex-v1.5-20261009,0.28885944562217514,,,,,,,System One
-public_goods_conditional,contribution_mid,neutral,nace-ai/drex-v1.5-20261009,0.45343006860137214,,,,,,,System One
-public_goods_conditional,contribution_high,neutral,nace-ai/drex-v1.5-20261009,0.4844228442284423,,,,,,,System One
-prisoners_dilemma,cooperation_one_shot,neutral,nace-ai/drex-v1.5-20261009,0.038570000000000014,,,pd_cooperation_oneshot,0.37,medium,,System One
-prisoners_dilemma,cooperation_after_cooperation,neutral,nace-ai/drex-v1.5-20261009,0.62576,,,,,,,System One
-prisoners_dilemma,cooperation_after_defection,neutral,nace-ai/drex-v1.5-20261009,0.0054800000000000005,,,,,,,System One
-framing,prob_certain_gain_frame,neutral,nace-ai/drex-v1.5-20261009,0.51405,,,framing_gain_certain,0.72,high,,System One
-framing,prob_certain_loss_frame,neutral,nace-ai/drex-v1.5-20261009,0.59738,,,framing_loss_certain,0.22,high,,System One
-framing,framing_swing,neutral,nace-ai/drex-v1.5-20261009,-0.08333000000000002,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
-allais,prob_certain_pair1,neutral,nace-ai/drex-v1.5-20261009,0.35275,,,allais_p1_certain,0.8,high,,System One
-allais,prob_safer_pair2,neutral,nace-ai/drex-v1.5-20261009,0.46532999999999997,,,allais_p2_certain,0.35,high,,System One
-allais,independence_violation,neutral,nace-ai/drex-v1.5-20261009,0.1886048425,,,,,,joint probability of the A-then-D pattern that violates independence,System One
-conjunction,prob_fallacy_forced_choice,neutral,nace-ai/drex-v1.5-20261009,0.57739,,,conjunction_fallacy_rate,0.85,high,,System One
-conjunction_axiom,p_single,neutral,nace-ai/drex-v1.5-20261009,0.23640000000000003,,,,,,,System One
-conjunction_axiom,p_conjunction,neutral,nace-ai/drex-v1.5-20261009,0.7829,,,,,,,System One
-conjunction_axiom,axiom_margin,neutral,nace-ai/drex-v1.5-20261009,-0.5465,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
-base_rate,prob_correct_band,neutral,nace-ai/drex-v1.5-20261009,0.14272285445708915,,,base_rate_correct_band,0.15,medium,,System One
-base_rate,prob_lure_band,neutral,nace-ai/drex-v1.5-20261009,0.036420728414568296,,,,,,,System One
-anchoring,estimate_low_anchor,neutral,nace-ai/drex-v1.5-20261009,21.65879158791588,,,anchoring_low_median,25.0,medium,,System One
-anchoring,estimate_high_anchor,neutral,nace-ai/drex-v1.5-20261009,38.29194083881678,,,anchoring_high_median,45.0,medium,,System One
-anchoring,anchoring_effect,neutral,nace-ai/drex-v1.5-20261009,16.6331492509009,,,,,,human gap is about 20 points,System One
-sunk_cost,prob_continue,neutral,nace-ai/drex-v1.5-20261009,0.006299999999999998,,,sunk_cost_continue,0.85,medium,,System One
-holt_laury,expected_safe_choices,neutral,nace-ai/drex-v1.5-20261009,1.10521,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
-discounting,prob_patient_7d,neutral,nace-ai/drex-v1.5-20261009,0.7370399999999999,0.66812,0.80596,,,,,System One
-discounting,prob_patient_30d,neutral,nace-ai/drex-v1.5-20261009,0.70278,0.6323000000000001,0.7761525,,,,,System One
-discounting,prob_patient_180d,neutral,nace-ai/drex-v1.5-20261009,0.757,0.7255075,0.7965875,,,,,System One
-present_bias,prob_patient_immediate_frontend,neutral,nace-ai/drex-v1.5-20261009,0.25503000000000003,,,,,,,System One
-present_bias,prob_patient_delayed_frontend,neutral,nace-ai/drex-v1.5-20261009,0.22721,,,,,,,System One
-present_bias,present_bias_gap,neutral,nace-ai/drex-v1.5-20261009,-0.02782000000000004,,,present_bias_reversal,0.3,approximate,positive means more patient when both options are delayed,System One
-beauty_contest,expected_guess,neutral,nace-ai/drex-v1.5-20261009,22.711600000000026,,,beauty_contest_mean,36.0,medium,,System One
-beauty_contest,mass_at_33,neutral,nace-ai/drex-v1.5-20261009,0.060399999999999995,,,,,,,System One
-beauty_contest,mass_at_22,neutral,nace-ai/drex-v1.5-20261009,0.027699999999999995,,,,,,,System One
-beauty_contest,mass_at_0,neutral,nace-ai/drex-v1.5-20261009,0.0362,,,,,,,System One
-money_request,expected_request,neutral,nace-ai/drex-v1.5-20261009,17.149800000000003,,,money_request_modal,17.0,high,,System One
-money_request,mass_level0_20,neutral,nace-ai/drex-v1.5-20261009,0.0406,,,,,,,System One
-money_request,mass_level1_19,neutral,nace-ai/drex-v1.5-20261009,0.6042,,,,,,,System One
-money_request,mass_level2_18,neutral,nace-ai/drex-v1.5-20261009,0.0385,,,,,,,System One
-money_request,mass_level3_17,neutral,nace-ai/drex-v1.5-20261009,0.0335,,,,,,,System One
-mini_ipip,extraversion,neutral,nace-ai/drex-v1.5-20261009,3.283046462328465,2.7002099990001,4.046979542969796,mini_ipip_extraversion,3.2,approximate,,System One
-mini_ipip,agreeableness,neutral,nace-ai/drex-v1.5-20261009,3.8182632011798825,3.023776402359764,4.61275,mini_ipip_agreeableness,4.0,approximate,,System One
-mini_ipip,conscientiousness,neutral,nace-ai/drex-v1.5-20261009,3.23654401190119,2.305055505550555,4.119351530153015,mini_ipip_conscientiousness,3.4,approximate,,System One
-mini_ipip,neuroticism,neutral,nace-ai/drex-v1.5-20261009,2.2161825000000004,1.6108000000000002,2.8703000000000003,mini_ipip_neuroticism,2.8,approximate,,System One
-mini_ipip,openness,neutral,nace-ai/drex-v1.5-20261009,3.9723881422238816,3.650634936506349,4.294141347941414,mini_ipip_openness,3.7,approximate,,System One
-dirty_dozen,machiavellianism,neutral,nace-ai/drex-v1.5-20261009,3.110075,2.26,3.988975,,,,9-point agreement scale; manipulation check only,System One
-dirty_dozen,overall,neutral,nace-ai/drex-v1.5-20261009,3.9628894735979965,3.063016626016776,4.91522997339005,,,,9-point agreement scale; manipulation check only,System One
-dirty_dozen,psychopathy,neutral,nace-ai/drex-v1.5-20261009,3.43671618093889,2.2480291029102917,5.292155036346735,,,,9-point agreement scale; manipulation check only,System One
-dirty_dozen,narcissism,neutral,nace-ai/drex-v1.5-20261009,5.341877239855098,3.9756730951904817,6.237666147376663,,,,9-point agreement scale; manipulation check only,System One
-moral_typecasting,responsibility_man,neutral,nace-ai/drex-v1.5-20261009,5.9305069493050695,,,moral_typecasting_responsibility_man,5.29,medium,,System One
-moral_typecasting,responsibility_baby,neutral,nace-ai/drex-v1.5-20261009,1.785921407859214,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
-moral_typecasting,agency_responsibility_gap,neutral,nace-ai/drex-v1.5-20261009,4.1445855414458554,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
-moral_typecasting_estimate,responsibility_man,neutral,nace-ai/drex-v1.5-20261009,5.3286,,,moral_typecasting_responsibility_man,5.29,medium,,System One
-moral_typecasting_estimate,responsibility_baby,neutral,nace-ai/drex-v1.5-20261009,4.469953004699531,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
-moral_typecasting_estimate,agency_responsibility_gap,neutral,nace-ai/drex-v1.5-20261009,0.858646995300469,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
-position_power,power_long_line,neutral,nace-ai/drex-v1.5-20261009,2.717828217178283,,,position_power_long_line,5.01,medium,,System One
-position_power,power_short_line,neutral,nace-ai/drex-v1.5-20261009,2.3591,,,position_power_short_line,4.62,medium,,System One
-position_power,position_power_gap,neutral,nace-ai/drex-v1.5-20261009,0.3587282171782826,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
-position_power_estimate,power_long_line,neutral,nace-ai/drex-v1.5-20261009,4.478299999999999,,,position_power_long_line,5.01,medium,,System One
-position_power_estimate,power_short_line,neutral,nace-ai/drex-v1.5-20261009,4.5767,,,position_power_short_line,4.62,medium,,System One
-position_power_estimate,position_power_gap,neutral,nace-ai/drex-v1.5-20261009,-0.09840000000000071,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
-choosing_rejecting,prob_award_extreme,neutral,nace-ai/drex-v1.5-20261009,0.07497000000000002,,,shafir_award_extreme,0.64,medium,,System One
-choosing_rejecting,prob_deny_extreme,neutral,nace-ai/drex-v1.5-20261009,0.9654200000000001,,,shafir_deny_extreme,0.55,medium,,System One
-choosing_rejecting,choose_reject_sum,neutral,nace-ai/drex-v1.5-20261009,1.0403900000000001,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
-choosing_rejecting_estimate,prob_award_extreme,neutral,nace-ai/drex-v1.5-20261009,0.5927,,,shafir_award_extreme,0.64,medium,,System One
-choosing_rejecting_estimate,prob_deny_extreme,neutral,nace-ai/drex-v1.5-20261009,0.8026199999999999,,,shafir_deny_extreme,0.55,medium,,System One
-categorization,prob_rule_based,neutral,nace-ai/drex-v1.5-20261009,0.2794,,,norenzayan_rule_based,0.67,medium,,System One
-categorization_estimate,prob_rule_based,neutral,nace-ai/drex-v1.5-20261009,0.71872,,,norenzayan_rule_based,0.67,medium,,System One
-incidental_anchors,estimate_p97,neutral,nace-ai/drex-v1.5-20261009,55.1930269302693,,,incidental_anchor_p97,58.1,medium,,System One
-incidental_anchors,estimate_p17,neutral,nace-ai/drex-v1.5-20261009,55.31202812028121,,,incidental_anchor_p17,51.9,medium,,System One
-incidental_anchors,anchor_gap,neutral,nace-ai/drex-v1.5-20261009,-0.11900119001191456,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
-incidental_anchors_estimate,estimate_p97,neutral,nace-ai/drex-v1.5-20261009,55.697218027819716,,,incidental_anchor_p97,58.1,medium,,System One
-incidental_anchors_estimate,estimate_p17,neutral,nace-ai/drex-v1.5-20261009,55.48939021219575,,,incidental_anchor_p17,51.9,medium,,System One
-incidental_anchors_estimate,anchor_gap,neutral,nace-ai/drex-v1.5-20261009,0.2078278156239648,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
-knobe,prob_harm_intentional,neutral,nace-ai/drex-v1.5-20261009,0.66296,,,knobe_harm_intentional,0.82,medium,,System One
-knobe,prob_help_intentional,neutral,nace-ai/drex-v1.5-20261009,0.010700000000000003,,,knobe_help_intentional,0.23,medium,,System One
-knobe,harm_help_asymmetry,neutral,nace-ai/drex-v1.5-20261009,0.65226,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
-knobe_estimate,prob_harm_intentional,neutral,nace-ai/drex-v1.5-20261009,0.662,,,knobe_harm_intentional,0.82,medium,,System One
-knobe_estimate,prob_help_intentional,neutral,nace-ai/drex-v1.5-20261009,0.2938,,,knobe_help_intentional,0.23,medium,,System One
-trolley,prob_switch_permissible,neutral,nace-ai/drex-v1.5-20261009,0.9873799999999999,,,trolley_switch_permissible,0.89,medium,,System One
-trolley,prob_push_permissible,neutral,nace-ai/drex-v1.5-20261009,0.043149999999999994,,,trolley_push_permissible,0.11,medium,,System One
-trolley,switch_push_asymmetry,neutral,nace-ai/drex-v1.5-20261009,0.9442299999999999,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
-trolley_estimate,prob_switch_permissible,neutral,nace-ai/drex-v1.5-20261009,0.99,,,trolley_switch_permissible,0.89,medium,,System One
-trolley_estimate,prob_push_permissible,neutral,nace-ai/drex-v1.5-20261009,0.8546,,,trolley_push_permissible,0.11,medium,,System One
-false_consensus,wearer_predicts_wear,neutral,nace-ai/drex-v1.5-20261009,0.6497,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
-false_consensus,nonwearer_predicts_wear,neutral,nace-ai/drex-v1.5-20261009,0.5788,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
-false_consensus,false_consensus_gap,neutral,nace-ai/drex-v1.5-20261009,0.07090000000000007,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
-false_consensus_estimate,wearer_predicts_wear,neutral,nace-ai/drex-v1.5-20261009,0.9088,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
-false_consensus_estimate,nonwearer_predicts_wear,neutral,nace-ai/drex-v1.5-20261009,0.8134,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
-false_consensus_estimate,false_consensus_gap,neutral,nace-ai/drex-v1.5-20261009,0.09540000000000004,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
-crt,proportion_correct,rational_agent,nace-ai/drex-v1.5-20261009,0.8653979523552566,0.7293105369328207,0.9995533247330414,crt_proportion_correct,0.413,high,,System One
-crt,probability_mass_on_lure,rational_agent,nace-ai/drex-v1.5-20261009,0.10277612645047551,9.833443338033552e-05,0.23309612561710047,,,,,System One
-fluid_reasoning,accuracy,rational_agent,nace-ai/drex-v1.5-20261009,0.8556877054250002,0.7385504411630389,0.9522374752795852,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
-fluid_reasoning,accuracy_steps_1,rational_agent,nace-ai/drex-v1.5-20261009,0.9985866960316937,0.9974101035958561,0.999689984499225,,,,,System One
-fluid_reasoning,accuracy_steps_2,rational_agent,nace-ai/drex-v1.5-20261009,0.9926233357654001,0.9802416720320961,0.9994633405321068,,,,,System One
-fluid_reasoning,accuracy_steps_3,rational_agent,nace-ai/drex-v1.5-20261009,0.6549985619822726,0.45315958379620336,0.8476878288994352,,,,,System One
-fluid_reasoning,accuracy_steps_4,rational_agent,nace-ai/drex-v1.5-20261009,0.9329443305433054,0.8661086610866109,0.99978,,,,,System One
-fluid_reasoning,depth_penalty_1_vs_3plus,rational_agent,nace-ai/drex-v1.5-20261009,0.28182240770252487,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
-dictator,mean_share,rational_agent,nace-ai/drex-v1.5-20261009,0.0011629883701162987,,,dictator_mean_share,0.283,high,,System One
-dictator,prob_give_zero,rational_agent,nace-ai/drex-v1.5-20261009,0.997250027499725,,,dictator_share_zero,0.36,high,,System One
-dictator,prob_give_half,rational_agent,nace-ai/drex-v1.5-20261009,0.0002599974000259997,,,dictator_share_half,0.17,high,,System One
-ultimatum_proposer,mean_share,rational_agent,nace-ai/drex-v1.5-20261009,0.4166591670416479,,,ultimatum_mean_offer,0.4,high,,System One
-trust_sender,mean_share,rational_agent,nace-ai/drex-v1.5-20261009,0.01489514895148952,,,trust_sender_share,0.5,high,,System One
-public_goods,mean_share,rational_agent,nace-ai/drex-v1.5-20261009,0.0009340560433626019,,,pgg_round1_share,0.5,medium,,System One
-ultimatum_responder,prob_reject_offer_0,rational_agent,nace-ai/drex-v1.5-20261009,0.0139,,,,,,,System One
-ultimatum_responder,prob_reject_offer_1,rational_agent,nace-ai/drex-v1.5-20261009,0.00446,,,,,,,System One
-ultimatum_responder,prob_reject_offer_2,rational_agent,nace-ai/drex-v1.5-20261009,0.0043,,,,,,,System One
-ultimatum_responder,prob_reject_offer_3,rational_agent,nace-ai/drex-v1.5-20261009,0.00397,,,,,,,System One
-ultimatum_responder,prob_reject_offer_4,rational_agent,nace-ai/drex-v1.5-20261009,0.004079999999999999,,,,,,,System One
-ultimatum_responder,prob_reject_offer_5,rational_agent,nace-ai/drex-v1.5-20261009,0.005390000000000001,,,,,,,System One
-ultimatum_responder,prob_reject_offer_6,rational_agent,nace-ai/drex-v1.5-20261009,0.0031500000000000005,,,,,,,System One
-ultimatum_responder,prob_reject_offer_7,rational_agent,nace-ai/drex-v1.5-20261009,0.00252,,,,,,,System One
-ultimatum_responder,prob_reject_offer_8,rational_agent,nace-ai/drex-v1.5-20261009,0.00404,,,,,,,System One
-ultimatum_responder,prob_reject_offer_9,rational_agent,nace-ai/drex-v1.5-20261009,0.0038599999999999993,,,,,,,System One
-ultimatum_responder,prob_reject_offer_10,rational_agent,nace-ai/drex-v1.5-20261009,0.003349999999999999,,,,,,,System One
-ultimatum_responder,prob_reject_low_offer,rational_agent,nace-ai/drex-v1.5-20261009,0.00918,,,ultimatum_rejection_low_offer,0.5,medium,,System One
-trust_trustee,return_share_sent_2,rational_agent,nace-ai/drex-v1.5-20261009,0.003975,,,,,,,System One
-trust_trustee,return_share_sent_5,rational_agent,nace-ai/drex-v1.5-20261009,0.006850529656073547,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,rational_agent,nace-ai/drex-v1.5-20261009,0.0031620000000000007,,,,,,,System One
-public_goods_conditional,contribution_low,rational_agent,nace-ai/drex-v1.5-20261009,0.008938910610893892,,,,,,,System One
-public_goods_conditional,contribution_mid,rational_agent,nace-ai/drex-v1.5-20261009,0.007872921270787293,,,,,,,System One
-public_goods_conditional,contribution_high,rational_agent,nace-ai/drex-v1.5-20261009,0.014547854521454781,,,,,,,System One
-prisoners_dilemma,cooperation_one_shot,rational_agent,nace-ai/drex-v1.5-20261009,0.0005,,,pd_cooperation_oneshot,0.37,medium,,System One
-prisoners_dilemma,cooperation_after_cooperation,rational_agent,nace-ai/drex-v1.5-20261009,0.09844000000000001,,,,,,,System One
-prisoners_dilemma,cooperation_after_defection,rational_agent,nace-ai/drex-v1.5-20261009,0.0013500000000000003,,,,,,,System One
-framing,prob_certain_gain_frame,rational_agent,nace-ai/drex-v1.5-20261009,0.31432000000000004,,,framing_gain_certain,0.72,high,,System One
-framing,prob_certain_loss_frame,rational_agent,nace-ai/drex-v1.5-20261009,0.8840399999999999,,,framing_loss_certain,0.22,high,,System One
-framing,framing_swing,rational_agent,nace-ai/drex-v1.5-20261009,-0.5697199999999999,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
-allais,prob_certain_pair1,rational_agent,nace-ai/drex-v1.5-20261009,0.3436,,,allais_p1_certain,0.8,high,,System One
-allais,prob_safer_pair2,rational_agent,nace-ai/drex-v1.5-20261009,0.4856000000000001,,,allais_p2_certain,0.35,high,,System One
-allais,independence_violation,rational_agent,nace-ai/drex-v1.5-20261009,0.17674784,,,,,,joint probability of the A-then-D pattern that violates independence,System One
-conjunction,prob_fallacy_forced_choice,rational_agent,nace-ai/drex-v1.5-20261009,0.3217200000000001,,,conjunction_fallacy_rate,0.85,high,,System One
-conjunction_axiom,p_single,rational_agent,nace-ai/drex-v1.5-20261009,0.11429999999999997,,,,,,,System One
-conjunction_axiom,p_conjunction,rational_agent,nace-ai/drex-v1.5-20261009,0.6382000000000001,,,,,,,System One
-conjunction_axiom,axiom_margin,rational_agent,nace-ai/drex-v1.5-20261009,-0.5239000000000001,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
-base_rate,prob_correct_band,rational_agent,nace-ai/drex-v1.5-20261009,0.0950090499095009,,,base_rate_correct_band,0.15,medium,,System One
-base_rate,prob_lure_band,rational_agent,nace-ai/drex-v1.5-20261009,0.03568964310356896,,,,,,,System One
-anchoring,estimate_low_anchor,rational_agent,nace-ai/drex-v1.5-20261009,21.493710062899375,,,anchoring_low_median,25.0,medium,,System One
-anchoring,estimate_high_anchor,rational_agent,nace-ai/drex-v1.5-20261009,39.08868645254189,,,anchoring_high_median,45.0,medium,,System One
-anchoring,anchoring_effect,rational_agent,nace-ai/drex-v1.5-20261009,17.594976389642518,,,,,,human gap is about 20 points,System One
-sunk_cost,prob_continue,rational_agent,nace-ai/drex-v1.5-20261009,0.00338,,,sunk_cost_continue,0.85,medium,,System One
-holt_laury,expected_safe_choices,rational_agent,nace-ai/drex-v1.5-20261009,1.09421,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
-discounting,prob_patient_7d,rational_agent,nace-ai/drex-v1.5-20261009,0.7504500000000001,0.7073100000000001,0.79359,,,,,System One
-discounting,prob_patient_30d,rational_agent,nace-ai/drex-v1.5-20261009,0.8197125000000001,0.812215,0.8339799999999999,,,,,System One
-discounting,prob_patient_180d,rational_agent,nace-ai/drex-v1.5-20261009,0.7605299999999999,0.684485,0.851845,,,,,System One
-present_bias,prob_patient_immediate_frontend,rational_agent,nace-ai/drex-v1.5-20261009,0.15143,,,,,,,System One
-present_bias,prob_patient_delayed_frontend,rational_agent,nace-ai/drex-v1.5-20261009,0.59505,,,,,,,System One
-present_bias,present_bias_gap,rational_agent,nace-ai/drex-v1.5-20261009,0.44361999999999996,,,present_bias_reversal,0.3,approximate,positive means more patient when both options are delayed,System One
-beauty_contest,expected_guess,rational_agent,nace-ai/drex-v1.5-20261009,5.3887943971986045,,,beauty_contest_mean,36.0,medium,,System One
-beauty_contest,mass_at_33,rational_agent,nace-ai/drex-v1.5-20261009,0.02931465732866433,,,,,,,System One
-beauty_contest,mass_at_22,rational_agent,nace-ai/drex-v1.5-20261009,0.003101550775387693,,,,,,,System One
-beauty_contest,mass_at_0,rational_agent,nace-ai/drex-v1.5-20261009,0.815007503751876,,,,,,,System One
-money_request,expected_request,rational_agent,nace-ai/drex-v1.5-20261009,18.356500000000004,,,money_request_modal,17.0,high,,System One
-money_request,mass_level0_20,rational_agent,nace-ai/drex-v1.5-20261009,0.5207,,,,,,,System One
-money_request,mass_level1_19,rational_agent,nace-ai/drex-v1.5-20261009,0.25630000000000003,,,,,,,System One
-money_request,mass_level2_18,rational_agent,nace-ai/drex-v1.5-20261009,0.023700000000000002,,,,,,,System One
-money_request,mass_level3_17,rational_agent,nace-ai/drex-v1.5-20261009,0.0287,,,,,,,System One
-mini_ipip,extraversion,rational_agent,nace-ai/drex-v1.5-20261009,2.9027032427240322,2.53097600239976,3.352745724572457,mini_ipip_extraversion,3.2,approximate,,System One
-mini_ipip,agreeableness,rational_agent,nace-ai/drex-v1.5-20261009,3.379758065754081,3.1034505249475055,3.6560656065606567,mini_ipip_agreeableness,4.0,approximate,,System One
-mini_ipip,conscientiousness,rational_agent,nace-ai/drex-v1.5-20261009,3.287054938746549,2.488642404240424,4.102321202120211,mini_ipip_conscientiousness,3.4,approximate,,System One
-mini_ipip,neuroticism,rational_agent,nace-ai/drex-v1.5-20261009,2.054975,1.70455,2.508175,mini_ipip_neuroticism,2.8,approximate,,System One
-mini_ipip,openness,rational_agent,nace-ai/drex-v1.5-20261009,4.016777953295329,3.850645,4.227048859885988,mini_ipip_openness,3.7,approximate,,System One
-dirty_dozen,machiavellianism,rational_agent,nace-ai/drex-v1.5-20261009,3.2805268084542685,2.295055675567557,4.3556711328867115,,,,9-point agreement scale; manipulation check only,System One
-dirty_dozen,overall,rational_agent,nace-ai/drex-v1.5-20261009,3.746838137660084,2.962917970663922,4.552042104021173,,,,9-point agreement scale; manipulation check only,System One
-dirty_dozen,psychopathy,rational_agent,nace-ai/drex-v1.5-20261009,3.4622551783449045,2.3795708645017664,5.0363500000000005,,,,9-point agreement scale; manipulation check only,System One
-dirty_dozen,narcissism,rational_agent,nace-ai/drex-v1.5-20261009,4.497732426181078,2.7815975977402267,5.636451775051529,,,,9-point agreement scale; manipulation check only,System One
-moral_typecasting,responsibility_man,rational_agent,nace-ai/drex-v1.5-20261009,5.542545745425458,,,moral_typecasting_responsibility_man,5.29,medium,,System One
-moral_typecasting,responsibility_baby,rational_agent,nace-ai/drex-v1.5-20261009,4.110099999999999,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
-moral_typecasting,agency_responsibility_gap,rational_agent,nace-ai/drex-v1.5-20261009,1.4324457454254587,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
-moral_typecasting_estimate,responsibility_man,rational_agent,nace-ai/drex-v1.5-20261009,5.46944694469447,,,moral_typecasting_responsibility_man,5.29,medium,,System One
-moral_typecasting_estimate,responsibility_baby,rational_agent,nace-ai/drex-v1.5-20261009,4.424300000000001,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
-moral_typecasting_estimate,agency_responsibility_gap,rational_agent,nace-ai/drex-v1.5-20261009,1.0451469446944692,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
-position_power,power_long_line,rational_agent,nace-ai/drex-v1.5-20261009,2.5745999999999998,,,position_power_long_line,5.01,medium,,System One
-position_power,power_short_line,rational_agent,nace-ai/drex-v1.5-20261009,2.381761823817618,,,position_power_short_line,4.62,medium,,System One
-position_power,position_power_gap,rational_agent,nace-ai/drex-v1.5-20261009,0.19283817618238164,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
-position_power_estimate,power_long_line,rational_agent,nace-ai/drex-v1.5-20261009,4.6403,,,position_power_long_line,5.01,medium,,System One
-position_power_estimate,power_short_line,rational_agent,nace-ai/drex-v1.5-20261009,4.5584999999999996,,,position_power_short_line,4.62,medium,,System One
-position_power_estimate,position_power_gap,rational_agent,nace-ai/drex-v1.5-20261009,0.08180000000000032,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
-choosing_rejecting,prob_award_extreme,rational_agent,nace-ai/drex-v1.5-20261009,0.34952,,,shafir_award_extreme,0.64,medium,,System One
-choosing_rejecting,prob_deny_extreme,rational_agent,nace-ai/drex-v1.5-20261009,0.95663,,,shafir_deny_extreme,0.55,medium,,System One
-choosing_rejecting,choose_reject_sum,rational_agent,nace-ai/drex-v1.5-20261009,1.30615,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
-choosing_rejecting_estimate,prob_award_extreme,rational_agent,nace-ai/drex-v1.5-20261009,0.6167,,,shafir_award_extreme,0.64,medium,,System One
-choosing_rejecting_estimate,prob_deny_extreme,rational_agent,nace-ai/drex-v1.5-20261009,0.8452,,,shafir_deny_extreme,0.55,medium,,System One
-categorization,prob_rule_based,rational_agent,nace-ai/drex-v1.5-20261009,0.28387,,,norenzayan_rule_based,0.67,medium,,System One
-categorization_estimate,prob_rule_based,rational_agent,nace-ai/drex-v1.5-20261009,0.8568000000000001,,,norenzayan_rule_based,0.67,medium,,System One
-incidental_anchors,estimate_p97,rational_agent,nace-ai/drex-v1.5-20261009,52.2949229492295,,,incidental_anchor_p97,58.1,medium,,System One
-incidental_anchors,estimate_p17,rational_agent,nace-ai/drex-v1.5-20261009,51.81046379072419,,,incidental_anchor_p17,51.9,medium,,System One
-incidental_anchors,anchor_gap,rational_agent,nace-ai/drex-v1.5-20261009,0.4844591585053095,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
-incidental_anchors_estimate,estimate_p97,rational_agent,nace-ai/drex-v1.5-20261009,54.72609452189043,,,incidental_anchor_p97,58.1,medium,,System One
-incidental_anchors_estimate,estimate_p17,rational_agent,nace-ai/drex-v1.5-20261009,56.90422383104676,,,incidental_anchor_p17,51.9,medium,,System One
-incidental_anchors_estimate,anchor_gap,rational_agent,nace-ai/drex-v1.5-20261009,-2.1781293091563256,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
-knobe,prob_harm_intentional,rational_agent,nace-ai/drex-v1.5-20261009,0.46537999999999996,,,knobe_harm_intentional,0.82,medium,,System One
-knobe,prob_help_intentional,rational_agent,nace-ai/drex-v1.5-20261009,0.0125,,,knobe_help_intentional,0.23,medium,,System One
-knobe,harm_help_asymmetry,rational_agent,nace-ai/drex-v1.5-20261009,0.45287999999999995,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
-knobe_estimate,prob_harm_intentional,rational_agent,nace-ai/drex-v1.5-20261009,0.7611,,,knobe_harm_intentional,0.82,medium,,System One
-knobe_estimate,prob_help_intentional,rational_agent,nace-ai/drex-v1.5-20261009,0.20469999999999997,,,knobe_help_intentional,0.23,medium,,System One
-trolley,prob_switch_permissible,rational_agent,nace-ai/drex-v1.5-20261009,0.98462,,,trolley_switch_permissible,0.89,medium,,System One
-trolley,prob_push_permissible,rational_agent,nace-ai/drex-v1.5-20261009,0.20046,,,trolley_push_permissible,0.11,medium,,System One
-trolley,switch_push_asymmetry,rational_agent,nace-ai/drex-v1.5-20261009,0.7841600000000001,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
-trolley_estimate,prob_switch_permissible,rational_agent,nace-ai/drex-v1.5-20261009,0.9935,,,trolley_switch_permissible,0.89,medium,,System One
-trolley_estimate,prob_push_permissible,rational_agent,nace-ai/drex-v1.5-20261009,0.898,,,trolley_push_permissible,0.11,medium,,System One
-false_consensus,wearer_predicts_wear,rational_agent,nace-ai/drex-v1.5-20261009,0.8557,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
-false_consensus,nonwearer_predicts_wear,rational_agent,nace-ai/drex-v1.5-20261009,0.6724,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
-false_consensus,false_consensus_gap,rational_agent,nace-ai/drex-v1.5-20261009,0.18330000000000002,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
-false_consensus_estimate,wearer_predicts_wear,rational_agent,nace-ai/drex-v1.5-20261009,0.9833000000000001,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
-false_consensus_estimate,nonwearer_predicts_wear,rational_agent,nace-ai/drex-v1.5-20261009,0.9476,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
-false_consensus_estimate,false_consensus_gap,rational_agent,nace-ai/drex-v1.5-20261009,0.035700000000000065,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
-crt,proportion_correct,typical_human,nace-ai/drex-v1.5-20261009,0.7964133274598973,0.4850701952452789,0.995621537858202,crt_proportion_correct,0.413,high,,System One
-crt,probability_mass_on_lure,typical_human,nace-ai/drex-v1.5-20261009,0.16138323055236847,0.0025050530039903117,0.4624545918493108,,,,,System One
-fluid_reasoning,accuracy,typical_human,nace-ai/drex-v1.5-20261009,0.8300528921163496,0.69493782961449,0.9430215284172001,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
-fluid_reasoning,accuracy_steps_1,typical_human,nace-ai/drex-v1.5-20261009,0.9942530953792933,0.989239892398924,0.999620003799962,,,,,System One
-fluid_reasoning,accuracy_steps_2,typical_human,nace-ai/drex-v1.5-20261009,0.9865332013877578,0.9681214372095197,0.998191555354576,,,,,System One
-fluid_reasoning,accuracy_steps_3,typical_human,nace-ai/drex-v1.5-20261009,0.6056567925441814,0.3582440269626059,0.8298320822154986,,,,,System One
-fluid_reasoning,accuracy_steps_4,typical_human,nace-ai/drex-v1.5-20261009,0.8996980079102977,0.8021860437208744,0.9972099720997211,,,,,System One
-fluid_reasoning,depth_penalty_1_vs_3plus,typical_human,nace-ai/drex-v1.5-20261009,0.32325381053153046,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
-dictator,mean_share,typical_human,nace-ai/drex-v1.5-20261009,0.1973530529389412,,,dictator_mean_share,0.283,high,,System One
-dictator,prob_give_zero,typical_human,nace-ai/drex-v1.5-20261009,0.24544509109817805,,,dictator_share_zero,0.36,high,,System One
-dictator,prob_give_half,typical_human,nace-ai/drex-v1.5-20261009,0.058598828023439534,,,dictator_share_half,0.17,high,,System One
-ultimatum_proposer,mean_share,typical_human,nace-ai/drex-v1.5-20261009,0.4872573628681434,,,ultimatum_mean_offer,0.4,high,,System One
-trust_sender,mean_share,typical_human,nace-ai/drex-v1.5-20261009,0.4357253572535725,,,trust_sender_share,0.5,high,,System One
-public_goods,mean_share,typical_human,nace-ai/drex-v1.5-20261009,0.2904019040190402,,,pgg_round1_share,0.5,medium,,System One
-ultimatum_responder,prob_reject_offer_0,typical_human,nace-ai/drex-v1.5-20261009,0.20256000000000002,,,,,,,System One
-ultimatum_responder,prob_reject_offer_1,typical_human,nace-ai/drex-v1.5-20261009,0.07670000000000003,,,,,,,System One
-ultimatum_responder,prob_reject_offer_2,typical_human,nace-ai/drex-v1.5-20261009,0.0741,,,,,,,System One
-ultimatum_responder,prob_reject_offer_3,typical_human,nace-ai/drex-v1.5-20261009,0.05112,,,,,,,System One
-ultimatum_responder,prob_reject_offer_4,typical_human,nace-ai/drex-v1.5-20261009,0.057100000000000005,,,,,,,System One
-ultimatum_responder,prob_reject_offer_5,typical_human,nace-ai/drex-v1.5-20261009,0.022920000000000003,,,,,,,System One
-ultimatum_responder,prob_reject_offer_6,typical_human,nace-ai/drex-v1.5-20261009,0.029919999999999995,,,,,,,System One
-ultimatum_responder,prob_reject_offer_7,typical_human,nace-ai/drex-v1.5-20261009,0.030149999999999996,,,,,,,System One
-ultimatum_responder,prob_reject_offer_8,typical_human,nace-ai/drex-v1.5-20261009,0.03184,,,,,,,System One
-ultimatum_responder,prob_reject_offer_9,typical_human,nace-ai/drex-v1.5-20261009,0.03162000000000001,,,,,,,System One
-ultimatum_responder,prob_reject_offer_10,typical_human,nace-ai/drex-v1.5-20261009,0.010750000000000001,,,,,,,System One
-ultimatum_responder,prob_reject_low_offer,typical_human,nace-ai/drex-v1.5-20261009,0.13963000000000003,,,ultimatum_rejection_low_offer,0.5,medium,,System One
-trust_trustee,return_share_sent_2,typical_human,nace-ai/drex-v1.5-20261009,0.32349990166568326,,,,,,,System One
-trust_trustee,return_share_sent_5,typical_human,nace-ai/drex-v1.5-20261009,0.4396769365639678,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,typical_human,nace-ai/drex-v1.5-20261009,0.32435251294974093,,,,,,,System One
-public_goods_conditional,contribution_low,typical_human,nace-ai/drex-v1.5-20261009,0.23110562211244226,,,,,,,System One
-public_goods_conditional,contribution_mid,typical_human,nace-ai/drex-v1.5-20261009,0.4122757544849103,,,,,,,System One
-public_goods_conditional,contribution_high,typical_human,nace-ai/drex-v1.5-20261009,0.487791,,,,,,,System One
-prisoners_dilemma,cooperation_one_shot,typical_human,nace-ai/drex-v1.5-20261009,0.0723,,,pd_cooperation_oneshot,0.37,medium,,System One
-prisoners_dilemma,cooperation_after_cooperation,typical_human,nace-ai/drex-v1.5-20261009,0.8015000000000001,,,,,,,System One
-prisoners_dilemma,cooperation_after_defection,typical_human,nace-ai/drex-v1.5-20261009,0.00368,,,,,,,System One
-framing,prob_certain_gain_frame,typical_human,nace-ai/drex-v1.5-20261009,0.27316,,,framing_gain_certain,0.72,high,,System One
-framing,prob_certain_loss_frame,typical_human,nace-ai/drex-v1.5-20261009,0.78061,,,framing_loss_certain,0.22,high,,System One
-framing,framing_swing,typical_human,nace-ai/drex-v1.5-20261009,-0.50745,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
-allais,prob_certain_pair1,typical_human,nace-ai/drex-v1.5-20261009,0.33122,,,allais_p1_certain,0.8,high,,System One
-allais,prob_safer_pair2,typical_human,nace-ai/drex-v1.5-20261009,0.52556,,,allais_p2_certain,0.35,high,,System One
-allais,independence_violation,typical_human,nace-ai/drex-v1.5-20261009,0.15714401680000004,,,,,,joint probability of the A-then-D pattern that violates independence,System One
-conjunction,prob_fallacy_forced_choice,typical_human,nace-ai/drex-v1.5-20261009,0.61165,,,conjunction_fallacy_rate,0.85,high,,System One
-conjunction_axiom,p_single,typical_human,nace-ai/drex-v1.5-20261009,0.058699999999999995,,,,,,,System One
-conjunction_axiom,p_conjunction,typical_human,nace-ai/drex-v1.5-20261009,0.4481,,,,,,,System One
-conjunction_axiom,axiom_margin,typical_human,nace-ai/drex-v1.5-20261009,-0.3894,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
-base_rate,prob_correct_band,typical_human,nace-ai/drex-v1.5-20261009,0.13522,,,base_rate_correct_band,0.15,medium,,System One
-base_rate,prob_lure_band,typical_human,nace-ai/drex-v1.5-20261009,0.05376000000000001,,,,,,,System One
-anchoring,estimate_low_anchor,typical_human,nace-ai/drex-v1.5-20261009,20.595755957559575,,,anchoring_low_median,25.0,medium,,System One
-anchoring,estimate_high_anchor,typical_human,nace-ai/drex-v1.5-20261009,39.97075,,,anchoring_high_median,45.0,medium,,System One
-anchoring,anchoring_effect,typical_human,nace-ai/drex-v1.5-20261009,19.374994042440427,,,,,,human gap is about 20 points,System One
-sunk_cost,prob_continue,typical_human,nace-ai/drex-v1.5-20261009,0.0654,,,sunk_cost_continue,0.85,medium,,System One
-holt_laury,expected_safe_choices,typical_human,nace-ai/drex-v1.5-20261009,2.29828,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
-discounting,prob_patient_7d,typical_human,nace-ai/drex-v1.5-20261009,0.477285,0.40569,0.577805,,,,,System One
-discounting,prob_patient_30d,typical_human,nace-ai/drex-v1.5-20261009,0.3953075,0.361645,0.44232,,,,,System One
-discounting,prob_patient_180d,typical_human,nace-ai/drex-v1.5-20261009,0.46365999999999996,0.4049425,0.5150699999999999,,,,,System One
-present_bias,prob_patient_immediate_frontend,typical_human,nace-ai/drex-v1.5-20261009,0.18330000000000002,,,,,,,System One
-present_bias,prob_patient_delayed_frontend,typical_human,nace-ai/drex-v1.5-20261009,0.29248,,,,,,,System One
-present_bias,present_bias_gap,typical_human,nace-ai/drex-v1.5-20261009,0.10918,,,present_bias_reversal,0.3,approximate,positive means more patient when both options are delayed,System One
-beauty_contest,expected_guess,typical_human,nace-ai/drex-v1.5-20261009,20.242775722427755,,,beauty_contest_mean,36.0,medium,,System One
-beauty_contest,mass_at_33,typical_human,nace-ai/drex-v1.5-20261009,0.0208979102089791,,,,,,,System One
-beauty_contest,mass_at_22,typical_human,nace-ai/drex-v1.5-20261009,0.03199680031996801,,,,,,,System One
-beauty_contest,mass_at_0,typical_human,nace-ai/drex-v1.5-20261009,0.0021997800219978004,,,,,,,System One
-money_request,expected_request,typical_human,nace-ai/drex-v1.5-20261009,16.4849,,,money_request_modal,17.0,high,,System One
-money_request,mass_level0_20,typical_human,nace-ai/drex-v1.5-20261009,0.198,,,,,,,System One
-money_request,mass_level1_19,typical_human,nace-ai/drex-v1.5-20261009,0.1982,,,,,,,System One
-money_request,mass_level2_18,typical_human,nace-ai/drex-v1.5-20261009,0.09040000000000001,,,,,,,System One
-money_request,mass_level3_17,typical_human,nace-ai/drex-v1.5-20261009,0.1024,,,,,,,System One
-mini_ipip,extraversion,typical_human,nace-ai/drex-v1.5-20261009,3.089212506249375,2.622437506249375,3.5332250124987503,mini_ipip_extraversion,3.2,approximate,,System One
-mini_ipip,agreeableness,typical_human,nace-ai/drex-v1.5-20261009,4.125389128912891,3.8085000000000004,4.427067386738674,mini_ipip_agreeableness,4.0,approximate,,System One
-mini_ipip,conscientiousness,typical_human,nace-ai/drex-v1.5-20261009,3.100383362373334,2.1071596290370964,4.0936070957095705,mini_ipip_conscientiousness,3.4,approximate,,System One
-mini_ipip,neuroticism,typical_human,nace-ai/drex-v1.5-20261009,2.04250205394841,1.8137296089539103,2.2366674449944997,mini_ipip_neuroticism,2.8,approximate,,System One
-mini_ipip,openness,typical_human,nace-ai/drex-v1.5-20261009,4.029407699230077,3.7427257274272576,4.2971,mini_ipip_openness,3.7,approximate,,System One
-dirty_dozen,machiavellianism,typical_human,nace-ai/drex-v1.5-20261009,3.540438640409386,2.2035345465453453,4.877342734273427,,,,9-point agreement scale; manipulation check only,System One
-dirty_dozen,overall,typical_human,nace-ai/drex-v1.5-20261009,3.67531063539969,2.8639634735233805,4.525863552184467,,,,9-point agreement scale; manipulation check only,System One
-dirty_dozen,psychopathy,typical_human,nace-ai/drex-v1.5-20261009,2.7561482538827327,2.2062749999999998,3.7940076804400777,,,,9-point agreement scale; manipulation check only,System One
-dirty_dozen,narcissism,typical_human,nace-ai/drex-v1.5-20261009,4.729345011906951,3.172038913608639,5.938696122112212,,,,9-point agreement scale; manipulation check only,System One
-moral_typecasting,responsibility_man,typical_human,nace-ai/drex-v1.5-20261009,5.1934000000000005,,,moral_typecasting_responsibility_man,5.29,medium,,System One
-moral_typecasting,responsibility_baby,typical_human,nace-ai/drex-v1.5-20261009,2.167916791679168,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
-moral_typecasting,agency_responsibility_gap,typical_human,nace-ai/drex-v1.5-20261009,3.0254832083208325,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
-moral_typecasting_estimate,responsibility_man,typical_human,nace-ai/drex-v1.5-20261009,5.21374274854971,,,moral_typecasting_responsibility_man,5.29,medium,,System One
-moral_typecasting_estimate,responsibility_baby,typical_human,nace-ai/drex-v1.5-20261009,4.4849,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
-moral_typecasting_estimate,agency_responsibility_gap,typical_human,nace-ai/drex-v1.5-20261009,0.7288427485497104,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
-position_power,power_long_line,typical_human,nace-ai/drex-v1.5-20261009,3.8297999999999996,,,position_power_long_line,5.01,medium,,System One
-position_power,power_short_line,typical_human,nace-ai/drex-v1.5-20261009,3.0464999999999995,,,position_power_short_line,4.62,medium,,System One
-position_power,position_power_gap,typical_human,nace-ai/drex-v1.5-20261009,0.7833000000000001,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
-position_power_estimate,power_long_line,typical_human,nace-ai/drex-v1.5-20261009,4.9234,,,position_power_long_line,5.01,medium,,System One
-position_power_estimate,power_short_line,typical_human,nace-ai/drex-v1.5-20261009,4.788221177882212,,,position_power_short_line,4.62,medium,,System One
-position_power_estimate,position_power_gap,typical_human,nace-ai/drex-v1.5-20261009,0.13517882211778787,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
-choosing_rejecting,prob_award_extreme,typical_human,nace-ai/drex-v1.5-20261009,0.30716,,,shafir_award_extreme,0.64,medium,,System One
-choosing_rejecting,prob_deny_extreme,typical_human,nace-ai/drex-v1.5-20261009,0.9483999999999999,,,shafir_deny_extreme,0.55,medium,,System One
-choosing_rejecting,choose_reject_sum,typical_human,nace-ai/drex-v1.5-20261009,1.25556,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
-choosing_rejecting_estimate,prob_award_extreme,typical_human,nace-ai/drex-v1.5-20261009,0.7481,,,shafir_award_extreme,0.64,medium,,System One
-choosing_rejecting_estimate,prob_deny_extreme,typical_human,nace-ai/drex-v1.5-20261009,0.8815,,,shafir_deny_extreme,0.55,medium,,System One
-categorization,prob_rule_based,typical_human,nace-ai/drex-v1.5-20261009,0.27512000000000003,,,norenzayan_rule_based,0.67,medium,,System One
-categorization_estimate,prob_rule_based,typical_human,nace-ai/drex-v1.5-20261009,0.75104,,,norenzayan_rule_based,0.67,medium,,System One
-incidental_anchors,estimate_p97,typical_human,nace-ai/drex-v1.5-20261009,54.62625373746261,,,incidental_anchor_p97,58.1,medium,,System One
-incidental_anchors,estimate_p17,typical_human,nace-ai/drex-v1.5-20261009,53.53102062041241,,,incidental_anchor_p17,51.9,medium,,System One
-incidental_anchors,anchor_gap,typical_human,nace-ai/drex-v1.5-20261009,1.0952331170501992,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
-incidental_anchors_estimate,estimate_p97,typical_human,nace-ai/drex-v1.5-20261009,60.655107755387775,,,incidental_anchor_p97,58.1,medium,,System One
-incidental_anchors_estimate,estimate_p17,typical_human,nace-ai/drex-v1.5-20261009,60.463065738685216,,,incidental_anchor_p17,51.9,medium,,System One
-incidental_anchors_estimate,anchor_gap,typical_human,nace-ai/drex-v1.5-20261009,0.19204201670255827,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
-knobe,prob_harm_intentional,typical_human,nace-ai/drex-v1.5-20261009,0.7518500000000001,,,knobe_harm_intentional,0.82,medium,,System One
-knobe,prob_help_intentional,typical_human,nace-ai/drex-v1.5-20261009,0.014290000000000002,,,knobe_help_intentional,0.23,medium,,System One
-knobe,harm_help_asymmetry,typical_human,nace-ai/drex-v1.5-20261009,0.7375600000000001,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
-knobe_estimate,prob_harm_intentional,typical_human,nace-ai/drex-v1.5-20261009,0.54723,,,knobe_harm_intentional,0.82,medium,,System One
-knobe_estimate,prob_help_intentional,typical_human,nace-ai/drex-v1.5-20261009,0.23620000000000002,,,knobe_help_intentional,0.23,medium,,System One
-trolley,prob_switch_permissible,typical_human,nace-ai/drex-v1.5-20261009,0.96682,,,trolley_switch_permissible,0.89,medium,,System One
-trolley,prob_push_permissible,typical_human,nace-ai/drex-v1.5-20261009,0.07001000000000002,,,trolley_push_permissible,0.11,medium,,System One
-trolley,switch_push_asymmetry,typical_human,nace-ai/drex-v1.5-20261009,0.89681,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
-trolley_estimate,prob_switch_permissible,typical_human,nace-ai/drex-v1.5-20261009,0.9942,,,trolley_switch_permissible,0.89,medium,,System One
-trolley_estimate,prob_push_permissible,typical_human,nace-ai/drex-v1.5-20261009,0.5646000000000001,,,trolley_push_permissible,0.11,medium,,System One
-false_consensus,wearer_predicts_wear,typical_human,nace-ai/drex-v1.5-20261009,0.9604000000000001,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
-false_consensus,nonwearer_predicts_wear,typical_human,nace-ai/drex-v1.5-20261009,0.6888,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
-false_consensus,false_consensus_gap,typical_human,nace-ai/drex-v1.5-20261009,0.2716000000000002,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
-false_consensus_estimate,wearer_predicts_wear,typical_human,nace-ai/drex-v1.5-20261009,0.9867000000000001,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
-false_consensus_estimate,nonwearer_predicts_wear,typical_human,nace-ai/drex-v1.5-20261009,0.8492,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
-false_consensus_estimate,false_consensus_gap,typical_human,nace-ai/drex-v1.5-20261009,0.13750000000000018,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
 crt,proportion_correct,antisocial,inception/mercury-decide-20260930,0.9585825062810058,0.8802356951839607,0.9992901554248145,crt_proportion_correct,0.413,high,,System One
 crt,probability_mass_on_lure,antisocial,inception/mercury-decide-20260930,0.040186531048243414,0.00018399593277231441,0.11746749871946018,,,,,System One
 fluid_reasoning,accuracy,antisocial,inception/mercury-decide-20260930,0.9046551668828875,0.7999225424029789,0.9794052702437025,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
@@ -4708,3 +4240,471 @@ false_consensus,false_consensus_gap,typical_human,upstage/solar-decide-20260928,
 false_consensus_estimate,wearer_predicts_wear,typical_human,upstage/solar-decide-20260928,0.6179906,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
 false_consensus_estimate,nonwearer_predicts_wear,typical_human,upstage/solar-decide-20260928,0.4059678,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
 false_consensus_estimate,false_consensus_gap,typical_human,upstage/solar-decide-20260928,0.21202279999999996,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt,proportion_correct,antisocial,cloudflare/clef-flash,0.6983244045940058,0.5068202327383631,0.8657002431163151,crt_proportion_correct,0.413,high,,System One
+crt,probability_mass_on_lure,antisocial,cloudflare/clef-flash,0.17905824347238697,0.0359648772752574,0.36652491450427477,,,,,System One
+fluid_reasoning,accuracy,antisocial,cloudflare/clef-flash,0.7648595917921713,0.6206700284740871,0.8858836872003786,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,antisocial,cloudflare/clef-flash,0.9628509204965136,0.9309627614895404,0.98665,,,,,System One
+fluid_reasoning,accuracy_steps_2,antisocial,cloudflare/clef-flash,0.7969344921806044,0.5367052820692298,0.9613517535560824,,,,,System One
+fluid_reasoning,accuracy_steps_3,antisocial,cloudflare/clef-flash,0.6321198814727398,0.37776,0.8332490329437376,,,,,System One
+fluid_reasoning,accuracy_steps_4,antisocial,cloudflare/clef-flash,0.8362368836883688,0.7376737673767376,0.9348,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,antisocial,cloudflare/clef-flash,0.2853717051980784,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,antisocial,cloudflare/clef-flash,0.06491440342386305,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,antisocial,cloudflare/clef-flash,0.8872845086196552,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,antisocial,cloudflare/clef-flash,0.008319667213311469,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,antisocial,cloudflare/clef-flash,0.2582534952097125,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,antisocial,cloudflare/clef-flash,0.2562715627156272,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,antisocial,cloudflare/clef-flash,0.17765487168203553,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,antisocial,cloudflare/clef-flash,0.45897999999999994,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,antisocial,cloudflare/clef-flash,0.12819999999999998,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,antisocial,cloudflare/clef-flash,0.11303999999999999,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,antisocial,cloudflare/clef-flash,0.14462,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,antisocial,cloudflare/clef-flash,0.10912,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,antisocial,cloudflare/clef-flash,0.129,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,antisocial,cloudflare/clef-flash,0.08027999999999999,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,antisocial,cloudflare/clef-flash,0.08296,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,antisocial,cloudflare/clef-flash,0.07189999999999999,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,antisocial,cloudflare/clef-flash,0.04328,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,antisocial,cloudflare/clef-flash,0.042980000000000004,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,antisocial,cloudflare/clef-flash,0.29358999999999996,,,ultimatum_rejection_low_offer,0.5,medium,,System One
+trust_trustee,return_share_sent_2,antisocial,cloudflare/clef-flash,0.08000400020001,,,,,,,System One
+trust_trustee,return_share_sent_5,antisocial,cloudflare/clef-flash,0.174316,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,antisocial,cloudflare/clef-flash,0.09568299999999999,,,,,,,System One
+public_goods_conditional,contribution_low,antisocial,cloudflare/clef-flash,0.24615730786539328,,,,,,,System One
+public_goods_conditional,contribution_mid,antisocial,cloudflare/clef-flash,0.2505700570057006,,,,,,,System One
+public_goods_conditional,contribution_high,antisocial,cloudflare/clef-flash,0.211755,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,antisocial,cloudflare/clef-flash,0.014860000000000002,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,antisocial,cloudflare/clef-flash,0.02737,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,antisocial,cloudflare/clef-flash,0.02944,,,,,,,System One
+framing,prob_certain_gain_frame,antisocial,cloudflare/clef-flash,0.37812,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,antisocial,cloudflare/clef-flash,0.53042,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,antisocial,cloudflare/clef-flash,-0.1523,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,antisocial,cloudflare/clef-flash,0.22915999999999997,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,antisocial,cloudflare/clef-flash,0.6325000000000001,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,antisocial,cloudflare/clef-flash,0.0842163,,,,,,joint probability of the A-then-D pattern that violates independence,System One
+conjunction,prob_fallacy_forced_choice,antisocial,cloudflare/clef-flash,0.19943999999999995,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,antisocial,cloudflare/clef-flash,0.7118,,,,,,,System One
+conjunction_axiom,p_conjunction,antisocial,cloudflare/clef-flash,0.44774,,,,,,,System One
+conjunction_axiom,axiom_margin,antisocial,cloudflare/clef-flash,0.26405999999999996,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,antisocial,cloudflare/clef-flash,0.13878000000000004,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,antisocial,cloudflare/clef-flash,0.050969999999999994,,,,,,,System One
+anchoring,estimate_low_anchor,antisocial,cloudflare/clef-flash,23.625925000000002,,,anchoring_low_median,25.0,medium,,System One
+anchoring,estimate_high_anchor,antisocial,cloudflare/clef-flash,30.912500000000005,,,anchoring_high_median,45.0,medium,,System One
+anchoring,anchoring_effect,antisocial,cloudflare/clef-flash,7.286575000000003,,,,,,human gap is about 20 points,System One
+sunk_cost,prob_continue,antisocial,cloudflare/clef-flash,0.1382,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,antisocial,cloudflare/clef-flash,2.4230499999999995,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,antisocial,cloudflare/clef-flash,0.41923499999999997,0.36195,0.48399000000000003,,,,,System One
+discounting,prob_patient_30d,antisocial,cloudflare/clef-flash,0.2363525,0.206935,0.255925,,,,,System One
+discounting,prob_patient_180d,antisocial,cloudflare/clef-flash,0.21015500000000004,0.18632,0.23025500000000002,,,,,System One
+present_bias,prob_patient_immediate_frontend,antisocial,cloudflare/clef-flash,0.10038,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,antisocial,cloudflare/clef-flash,0.21344,,,,,,,System One
+present_bias,present_bias_gap,antisocial,cloudflare/clef-flash,0.11306,,,present_bias_reversal,0.3,approximate,positive means more patient when both options are delayed,System One
+beauty_contest,expected_guess,antisocial,cloudflare/clef-flash,41.663373069845576,,,beauty_contest_mean,36.0,medium,,System One
+beauty_contest,mass_at_33,antisocial,cloudflare/clef-flash,0.02762220977678214,,,,,,,System One
+beauty_contest,mass_at_22,antisocial,cloudflare/clef-flash,0.015921273701896152,,,,,,,System One
+beauty_contest,mass_at_0,antisocial,cloudflare/clef-flash,0.0016201296103688294,,,,,,,System One
+money_request,expected_request,antisocial,cloudflare/clef-flash,17.133844015320456,,,money_request_modal,17.0,high,,System One
+money_request,mass_level0_20,antisocial,cloudflare/clef-flash,0.3197195915877476,,,,,,,System One
+money_request,mass_level1_19,antisocial,cloudflare/clef-flash,0.18545556366691002,,,,,,,System One
+money_request,mass_level2_18,antisocial,cloudflare/clef-flash,0.08545256357690731,,,,,,,System One
+money_request,mass_level3_17,antisocial,cloudflare/clef-flash,0.05164154924647739,,,,,,,System One
+mini_ipip,extraversion,antisocial,cloudflare/clef-flash,3.1461232065076095,3.02025,3.271996413015219,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,antisocial,cloudflare/clef-flash,1.6798052760149145,1.5510094125926221,1.746733825185245,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,antisocial,cloudflare/clef-flash,3.115849685882787,2.7617754646639403,3.3970957286562804,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,antisocial,cloudflare/clef-flash,2.2018464074652746,1.7578331437371253,2.6828495067901357,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,antisocial,cloudflare/clef-flash,2.882183819040927,2.534147638081854,3.319529408264496,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,antisocial,cloudflare/clef-flash,7.5170499547503145,7.438210052196347,7.619469785956421,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,antisocial,cloudflare/clef-flash,7.12394846927628,6.686977095401021,7.476848932924606,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,antisocial,cloudflare/clef-flash,7.376516496661793,7.057577892201656,7.586122204832289,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,antisocial,cloudflare/clef-flash,6.478278956416732,5.611301456637819,7.30258264632939,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,antisocial,cloudflare/clef-flash,4.91964,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,antisocial,cloudflare/clef-flash,1.343846246150154,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,antisocial,cloudflare/clef-flash,3.5757937538498465,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+moral_typecasting_estimate,responsibility_man,antisocial,cloudflare/clef-flash,5.8638,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting_estimate,responsibility_baby,antisocial,cloudflare/clef-flash,3.1996200000000004,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting_estimate,agency_responsibility_gap,antisocial,cloudflare/clef-flash,2.66418,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,antisocial,cloudflare/clef-flash,4.673316334183291,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,antisocial,cloudflare/clef-flash,4.592520373981301,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,antisocial,cloudflare/clef-flash,0.0807959602019892,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+position_power_estimate,power_long_line,antisocial,cloudflare/clef-flash,4.970337923654656,,,position_power_long_line,5.01,medium,,System One
+position_power_estimate,power_short_line,antisocial,cloudflare/clef-flash,5.138925832225033,,,position_power_short_line,4.62,medium,,System One
+position_power_estimate,position_power_gap,antisocial,cloudflare/clef-flash,-0.16858790857037764,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,antisocial,cloudflare/clef-flash,0.54016,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,antisocial,cloudflare/clef-flash,0.24213999999999997,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,antisocial,cloudflare/clef-flash,0.7823,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+choosing_rejecting_estimate,prob_award_extreme,antisocial,cloudflare/clef-flash,0.37485,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting_estimate,prob_deny_extreme,antisocial,cloudflare/clef-flash,0.48845,,,shafir_deny_extreme,0.55,medium,,System One
+categorization,prob_rule_based,antisocial,cloudflare/clef-flash,0.37422000000000005,,,norenzayan_rule_based,0.67,medium,,System One
+categorization_estimate,prob_rule_based,antisocial,cloudflare/clef-flash,0.30810000000000004,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,antisocial,cloudflare/clef-flash,49.23675,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,antisocial,cloudflare/clef-flash,49.0782,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,antisocial,cloudflare/clef-flash,0.1585499999999982,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+incidental_anchors_estimate,estimate_p97,antisocial,cloudflare/clef-flash,55.6546,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors_estimate,estimate_p17,antisocial,cloudflare/clef-flash,53.520820416408334,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors_estimate,anchor_gap,antisocial,cloudflare/clef-flash,2.133779583591668,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,antisocial,cloudflare/clef-flash,0.11615,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,antisocial,cloudflare/clef-flash,0.027680000000000003,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,antisocial,cloudflare/clef-flash,0.08847,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+knobe_estimate,prob_harm_intentional,antisocial,cloudflare/clef-flash,0.13932,,,knobe_harm_intentional,0.82,medium,,System One
+knobe_estimate,prob_help_intentional,antisocial,cloudflare/clef-flash,0.04325,,,knobe_help_intentional,0.23,medium,,System One
+trolley,prob_switch_permissible,antisocial,cloudflare/clef-flash,0.77042,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,antisocial,cloudflare/clef-flash,0.81396,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,antisocial,cloudflare/clef-flash,-0.04354000000000002,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+trolley_estimate,prob_switch_permissible,antisocial,cloudflare/clef-flash,0.86313,,,trolley_switch_permissible,0.89,medium,,System One
+trolley_estimate,prob_push_permissible,antisocial,cloudflare/clef-flash,0.74269,,,trolley_push_permissible,0.11,medium,,System One
+false_consensus,wearer_predicts_wear,antisocial,cloudflare/clef-flash,0.06670000000000002,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,antisocial,cloudflare/clef-flash,0.23957999999999996,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,antisocial,cloudflare/clef-flash,-0.17287999999999992,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+false_consensus_estimate,wearer_predicts_wear,antisocial,cloudflare/clef-flash,0.10996000000000002,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus_estimate,nonwearer_predicts_wear,antisocial,cloudflare/clef-flash,0.28747000000000006,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus_estimate,false_consensus_gap,antisocial,cloudflare/clef-flash,-0.17751000000000006,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt,proportion_correct,neutral,cloudflare/clef-flash,0.6258416666666666,0.4215,0.8300166666666667,crt_proportion_correct,0.413,high,,System One
+crt,probability_mass_on_lure,neutral,cloudflare/clef-flash,0.2084533333333333,0.03689166666666667,0.42385333333333336,,,,,System One
+fluid_reasoning,accuracy,neutral,cloudflare/clef-flash,0.7709807823245387,0.6307903919660707,0.8909787793719397,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,neutral,cloudflare/clef-flash,0.9757898771321046,0.963139631396314,0.9904699999999999,,,,,System One
+fluid_reasoning,accuracy_steps_2,neutral,cloudflare/clef-flash,0.8199229656770141,0.598957764437076,0.9661600485664023,,,,,System One
+fluid_reasoning,accuracy_steps_3,neutral,cloudflare/clef-flash,0.6200730512647921,0.36836884124635016,0.8275842603619031,,,,,System One
+fluid_reasoning,accuracy_steps_4,neutral,cloudflare/clef-flash,0.8451176487648765,0.752975297529753,0.93726,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,neutral,cloudflare/clef-flash,0.3057069153117382,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,neutral,cloudflare/clef-flash,0.3647181169129853,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,neutral,cloudflare/clef-flash,0.10639361638301703,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,neutral,cloudflare/clef-flash,0.13503189808611482,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,neutral,cloudflare/clef-flash,0.45646999999999993,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,neutral,cloudflare/clef-flash,0.6522448653080813,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,neutral,cloudflare/clef-flash,0.39146308536914626,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,neutral,cloudflare/clef-flash,0.81654,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,neutral,cloudflare/clef-flash,0.46874000000000005,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,neutral,cloudflare/clef-flash,0.41355,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,neutral,cloudflare/clef-flash,0.19140000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,neutral,cloudflare/clef-flash,0.12145,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,neutral,cloudflare/clef-flash,0.11475999999999999,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,neutral,cloudflare/clef-flash,0.07332000000000002,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,neutral,cloudflare/clef-flash,0.0875,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,neutral,cloudflare/clef-flash,0.06860999999999999,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,neutral,cloudflare/clef-flash,0.034080000000000006,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,neutral,cloudflare/clef-flash,0.03674000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,neutral,cloudflare/clef-flash,0.6426400000000001,,,ultimatum_rejection_low_offer,0.5,medium,,System One
+trust_trustee,return_share_sent_2,neutral,cloudflare/clef-flash,0.42853690648800896,,,,,,,System One
+trust_trustee,return_share_sent_5,neutral,cloudflare/clef-flash,0.45305401396596834,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,neutral,cloudflare/clef-flash,0.48167071695018654,,,,,,,System One
+public_goods_conditional,contribution_low,neutral,cloudflare/clef-flash,0.37688,,,,,,,System One
+public_goods_conditional,contribution_mid,neutral,cloudflare/clef-flash,0.4076000000000001,,,,,,,System One
+public_goods_conditional,contribution_high,neutral,cloudflare/clef-flash,0.4202370237023702,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,neutral,cloudflare/clef-flash,0.0188,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,neutral,cloudflare/clef-flash,0.05344,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,neutral,cloudflare/clef-flash,0.0261,,,,,,,System One
+framing,prob_certain_gain_frame,neutral,cloudflare/clef-flash,0.54882,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,neutral,cloudflare/clef-flash,0.5454399999999999,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,neutral,cloudflare/clef-flash,0.0033800000000000496,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,neutral,cloudflare/clef-flash,0.348,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,neutral,cloudflare/clef-flash,0.6476,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,neutral,cloudflare/clef-flash,0.12263519999999999,,,,,,joint probability of the A-then-D pattern that violates independence,System One
+conjunction,prob_fallacy_forced_choice,neutral,cloudflare/clef-flash,0.6165499999999999,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,neutral,cloudflare/clef-flash,0.08682,,,,,,,System One
+conjunction_axiom,p_conjunction,neutral,cloudflare/clef-flash,0.57786,,,,,,,System One
+conjunction_axiom,axiom_margin,neutral,cloudflare/clef-flash,-0.49104000000000003,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,neutral,cloudflare/clef-flash,0.12718000000000004,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,neutral,cloudflare/clef-flash,0.06606,,,,,,,System One
+anchoring,estimate_low_anchor,neutral,cloudflare/clef-flash,21.321350000000002,,,anchoring_low_median,25.0,medium,,System One
+anchoring,estimate_high_anchor,neutral,cloudflare/clef-flash,29.160166991650424,,,anchoring_high_median,45.0,medium,,System One
+anchoring,anchoring_effect,neutral,cloudflare/clef-flash,7.838816991650422,,,,,,human gap is about 20 points,System One
+sunk_cost,prob_continue,neutral,cloudflare/clef-flash,0.03615,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,neutral,cloudflare/clef-flash,3.22724,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,neutral,cloudflare/clef-flash,0.6200424999999999,0.6098399999999999,0.62927,,,,,System One
+discounting,prob_patient_30d,neutral,cloudflare/clef-flash,0.6087925,0.5758975000000001,0.65296,,,,,System One
+discounting,prob_patient_180d,neutral,cloudflare/clef-flash,0.65297,0.6293774999999999,0.6719550000000001,,,,,System One
+present_bias,prob_patient_immediate_frontend,neutral,cloudflare/clef-flash,0.23077999999999993,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,neutral,cloudflare/clef-flash,0.21944,,,,,,,System One
+present_bias,present_bias_gap,neutral,cloudflare/clef-flash,-0.011339999999999933,,,present_bias_reversal,0.3,approximate,positive means more patient when both options are delayed,System One
+beauty_contest,expected_guess,neutral,cloudflare/clef-flash,34.66164999999997,,,beauty_contest_mean,36.0,medium,,System One
+beauty_contest,mass_at_33,neutral,cloudflare/clef-flash,0.03515,,,,,,,System One
+beauty_contest,mass_at_22,neutral,cloudflare/clef-flash,0.02265,,,,,,,System One
+beauty_contest,mass_at_0,neutral,cloudflare/clef-flash,0.00045000000000000004,,,,,,,System One
+money_request,expected_request,neutral,cloudflare/clef-flash,16.22863085476581,,,money_request_modal,17.0,high,,System One
+money_request,mass_level0_20,neutral,cloudflare/clef-flash,0.11235550577976881,,,,,,,System One
+money_request,mass_level1_19,neutral,cloudflare/clef-flash,0.21181152753889845,,,,,,,System One
+money_request,mass_level2_18,neutral,cloudflare/clef-flash,0.10813567457301708,,,,,,,System One
+money_request,mass_level3_17,neutral,cloudflare/clef-flash,0.06973721051157955,,,,,,,System One
+mini_ipip,extraversion,neutral,cloudflare/clef-flash,3.2485299693224503,2.9654099999999994,3.6347093103553987,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,neutral,cloudflare/clef-flash,3.418246485471741,2.712469746317758,4.124023224625724,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,neutral,cloudflare/clef-flash,3.0754052203867768,2.352188102813831,3.4773613583185012,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,neutral,cloudflare/clef-flash,2.6444615471596147,2.2203447556195504,3.0685783386996786,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,neutral,cloudflare/clef-flash,3.04219336863802,2.6829103259837,3.5173047799303583,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,neutral,cloudflare/clef-flash,4.4912066450558985,3.6360354414176568,5.346377848694141,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,neutral,cloudflare/clef-flash,4.9105634249395065,4.359281741471474,5.476912518284958,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,neutral,cloudflare/clef-flash,4.702463074339058,3.897593769623823,5.646594304715236,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,neutral,cloudflare/clef-flash,5.538020555423565,4.556376249574973,6.27577111084713,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,neutral,cloudflare/clef-flash,4.742432272968189,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,neutral,cloudflare/clef-flash,1.7235000000000005,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,neutral,cloudflare/clef-flash,3.018932272968189,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+moral_typecasting_estimate,responsibility_man,neutral,cloudflare/clef-flash,5.8953500000000005,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting_estimate,responsibility_baby,neutral,cloudflare/clef-flash,4.9912005279683225,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting_estimate,agency_responsibility_gap,neutral,cloudflare/clef-flash,0.9041494720316781,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,neutral,cloudflare/clef-flash,4.2359905603775845,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,neutral,cloudflare/clef-flash,4.08294,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,neutral,cloudflare/clef-flash,0.1530505603775847,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+position_power_estimate,power_long_line,neutral,cloudflare/clef-flash,4.586200000000001,,,position_power_long_line,5.01,medium,,System One
+position_power_estimate,power_short_line,neutral,cloudflare/clef-flash,4.9094999999999995,,,position_power_short_line,4.62,medium,,System One
+position_power_estimate,position_power_gap,neutral,cloudflare/clef-flash,-0.3232999999999988,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,neutral,cloudflare/clef-flash,0.14668,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,neutral,cloudflare/clef-flash,0.7569800000000001,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,neutral,cloudflare/clef-flash,0.9036600000000001,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+choosing_rejecting_estimate,prob_award_extreme,neutral,cloudflare/clef-flash,0.4066000000000001,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting_estimate,prob_deny_extreme,neutral,cloudflare/clef-flash,0.57804,,,shafir_deny_extreme,0.55,medium,,System One
+categorization,prob_rule_based,neutral,cloudflare/clef-flash,0.3835,,,norenzayan_rule_based,0.67,medium,,System One
+categorization_estimate,prob_rule_based,neutral,cloudflare/clef-flash,0.33695,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,neutral,cloudflare/clef-flash,48.363299999999995,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,neutral,cloudflare/clef-flash,47.2586,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,neutral,cloudflare/clef-flash,1.104699999999994,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+incidental_anchors_estimate,estimate_p97,neutral,cloudflare/clef-flash,52.60199999999999,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors_estimate,estimate_p17,neutral,cloudflare/clef-flash,51.89684484224212,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors_estimate,anchor_gap,neutral,cloudflare/clef-flash,0.7051551577578721,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,neutral,cloudflare/clef-flash,0.0942,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,neutral,cloudflare/clef-flash,0.02449,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,neutral,cloudflare/clef-flash,0.06971000000000001,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+knobe_estimate,prob_harm_intentional,neutral,cloudflare/clef-flash,0.13234,,,knobe_harm_intentional,0.82,medium,,System One
+knobe_estimate,prob_help_intentional,neutral,cloudflare/clef-flash,0.048850000000000005,,,knobe_help_intentional,0.23,medium,,System One
+trolley,prob_switch_permissible,neutral,cloudflare/clef-flash,0.9115,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,neutral,cloudflare/clef-flash,0.7765799999999999,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,neutral,cloudflare/clef-flash,0.13492000000000004,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+trolley_estimate,prob_switch_permissible,neutral,cloudflare/clef-flash,0.8428000000000001,,,trolley_switch_permissible,0.89,medium,,System One
+trolley_estimate,prob_push_permissible,neutral,cloudflare/clef-flash,0.5824800000000001,,,trolley_push_permissible,0.11,medium,,System One
+false_consensus,wearer_predicts_wear,neutral,cloudflare/clef-flash,0.10476000000000002,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,neutral,cloudflare/clef-flash,0.20070000000000002,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,neutral,cloudflare/clef-flash,-0.09594,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+false_consensus_estimate,wearer_predicts_wear,neutral,cloudflare/clef-flash,0.19222,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus_estimate,nonwearer_predicts_wear,neutral,cloudflare/clef-flash,0.38642000000000004,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus_estimate,false_consensus_gap,neutral,cloudflare/clef-flash,-0.19420000000000004,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt,proportion_correct,rational_agent,cloudflare/clef-flash,0.7134494709912262,0.5466406892756726,0.8608111502346866,crt_proportion_correct,0.413,high,,System One
+crt,probability_mass_on_lure,rational_agent,cloudflare/clef-flash,0.15745835168610287,0.041459714180061225,0.33540692084604234,,,,,System One
+fluid_reasoning,accuracy,rational_agent,cloudflare/clef-flash,0.7720044105634816,0.6286048568355603,0.8945404406082267,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,rational_agent,cloudflare/clef-flash,0.9737509159450433,0.9542027478351298,0.9920300000000001,,,,,System One
+fluid_reasoning,accuracy_steps_2,rational_agent,cloudflare/clef-flash,0.8211353528990216,0.5765470195656883,0.9658723724647101,,,,,System One
+fluid_reasoning,accuracy_steps_3,rational_agent,cloudflare/clef-flash,0.6161820749876298,0.36412749728502364,0.8217131860064685,,,,,System One
+fluid_reasoning,accuracy_steps_4,rational_agent,cloudflare/clef-flash,0.86737,0.7951,0.93964,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,rational_agent,cloudflare/clef-flash,0.30174930206577566,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,rational_agent,cloudflare/clef-flash,0.0559116773503205,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,rational_agent,cloudflare/clef-flash,0.9104573137194116,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,rational_agent,cloudflare/clef-flash,0.007870236107083213,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,rational_agent,cloudflare/clef-flash,0.16937800000000003,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,rational_agent,cloudflare/clef-flash,0.19800990049502473,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,rational_agent,cloudflare/clef-flash,0.24800519948005192,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,rational_agent,cloudflare/clef-flash,0.29402,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,rational_agent,cloudflare/clef-flash,0.046150000000000004,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,rational_agent,cloudflare/clef-flash,0.07289999999999999,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,rational_agent,cloudflare/clef-flash,0.06372000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,rational_agent,cloudflare/clef-flash,0.055479999999999995,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,rational_agent,cloudflare/clef-flash,0.043340000000000004,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,rational_agent,cloudflare/clef-flash,0.03544000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,rational_agent,cloudflare/clef-flash,0.04066000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,rational_agent,cloudflare/clef-flash,0.044800000000000006,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,rational_agent,cloudflare/clef-flash,0.024820000000000002,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,rational_agent,cloudflare/clef-flash,0.0221,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,rational_agent,cloudflare/clef-flash,0.17008500000000001,,,ultimatum_rejection_low_offer,0.5,medium,,System One
+trust_trustee,return_share_sent_2,rational_agent,cloudflare/clef-flash,0.09342040348280596,,,,,,,System One
+trust_trustee,return_share_sent_5,rational_agent,cloudflare/clef-flash,0.16316687665406743,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,rational_agent,cloudflare/clef-flash,0.09949203047817129,,,,,,,System One
+public_goods_conditional,contribution_low,rational_agent,cloudflare/clef-flash,0.3109905495274764,,,,,,,System One
+public_goods_conditional,contribution_mid,rational_agent,cloudflare/clef-flash,0.29339053733761367,,,,,,,System One
+public_goods_conditional,contribution_high,rational_agent,cloudflare/clef-flash,0.2902236843420961,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,rational_agent,cloudflare/clef-flash,0.01451,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,rational_agent,cloudflare/clef-flash,0.03726,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,rational_agent,cloudflare/clef-flash,0.0254,,,,,,,System One
+framing,prob_certain_gain_frame,rational_agent,cloudflare/clef-flash,0.46052,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,rational_agent,cloudflare/clef-flash,0.6011000000000001,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,rational_agent,cloudflare/clef-flash,-0.1405800000000001,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,rational_agent,cloudflare/clef-flash,0.38434,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,rational_agent,cloudflare/clef-flash,0.6541300000000001,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,rational_agent,cloudflare/clef-flash,0.1329316758,,,,,,joint probability of the A-then-D pattern that violates independence,System One
+conjunction,prob_fallacy_forced_choice,rational_agent,cloudflare/clef-flash,0.31056,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,rational_agent,cloudflare/clef-flash,0.18475,,,,,,,System One
+conjunction_axiom,p_conjunction,rational_agent,cloudflare/clef-flash,0.11469999999999998,,,,,,,System One
+conjunction_axiom,axiom_margin,rational_agent,cloudflare/clef-flash,0.07005000000000002,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,rational_agent,cloudflare/clef-flash,0.12712,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,rational_agent,cloudflare/clef-flash,0.05492000000000001,,,,,,,System One
+anchoring,estimate_low_anchor,rational_agent,cloudflare/clef-flash,22.1682,,,anchoring_low_median,25.0,medium,,System One
+anchoring,estimate_high_anchor,rational_agent,cloudflare/clef-flash,27.993950000000005,,,anchoring_high_median,45.0,medium,,System One
+anchoring,anchoring_effect,rational_agent,cloudflare/clef-flash,5.825750000000006,,,,,,human gap is about 20 points,System One
+sunk_cost,prob_continue,rational_agent,cloudflare/clef-flash,0.0182,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,rational_agent,cloudflare/clef-flash,3.71796,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,rational_agent,cloudflare/clef-flash,0.7090799999999999,0.64995,0.747975,,,,,System One
+discounting,prob_patient_30d,rational_agent,cloudflare/clef-flash,0.7161325000000001,0.6771499999999999,0.7706975,,,,,System One
+discounting,prob_patient_180d,rational_agent,cloudflare/clef-flash,0.7564625,0.7261875,0.79745,,,,,System One
+present_bias,prob_patient_immediate_frontend,rational_agent,cloudflare/clef-flash,0.17414000000000002,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,rational_agent,cloudflare/clef-flash,0.2732,,,,,,,System One
+present_bias,present_bias_gap,rational_agent,cloudflare/clef-flash,0.09905999999999998,,,present_bias_reversal,0.3,approximate,positive means more patient when both options are delayed,System One
+beauty_contest,expected_guess,rational_agent,cloudflare/clef-flash,33.47113538166107,,,beauty_contest_mean,36.0,medium,,System One
+beauty_contest,mass_at_33,rational_agent,cloudflare/clef-flash,0.07299167866858695,,,,,,,System One
+beauty_contest,mass_at_22,rational_agent,cloudflare/clef-flash,0.01906305008801408,,,,,,,System One
+beauty_contest,mass_at_0,rational_agent,cloudflare/clef-flash,0.005520883341334612,,,,,,,System One
+money_request,expected_request,rational_agent,cloudflare/clef-flash,16.789299999999997,,,money_request_modal,17.0,high,,System One
+money_request,mass_level0_20,rational_agent,cloudflare/clef-flash,0.25930000000000003,,,,,,,System One
+money_request,mass_level1_19,rational_agent,cloudflare/clef-flash,0.22174000000000002,,,,,,,System One
+money_request,mass_level2_18,rational_agent,cloudflare/clef-flash,0.06986,,,,,,,System One
+money_request,mass_level3_17,rational_agent,cloudflare/clef-flash,0.0424,,,,,,,System One
+mini_ipip,extraversion,rational_agent,cloudflare/clef-flash,3.1647803648124837,2.889743854903078,3.4139672395343723,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,rational_agent,cloudflare/clef-flash,2.808643162380907,2.4612033155842212,3.081650488817534,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,rational_agent,cloudflare/clef-flash,3.341112152066655,2.9175802605759227,3.88862305093536,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,rational_agent,cloudflare/clef-flash,2.491053844146234,2.330515,2.7402590324387024,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,rational_agent,cloudflare/clef-flash,3.378681599424903,3.1704544522620672,3.6230048501027237,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,rational_agent,cloudflare/clef-flash,4.407001208009286,4.033902865393269,4.719112416018573,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,rational_agent,cloudflare/clef-flash,4.660119652304075,4.1489473467514815,5.1921782591004275,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,rational_agent,cloudflare/clef-flash,4.532492239836659,3.6792125,5.631340528194543,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,rational_agent,cloudflare/clef-flash,5.0408655090662755,3.912429711120584,5.895506281278912,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,rational_agent,cloudflare/clef-flash,6.084681693633872,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,rational_agent,cloudflare/clef-flash,1.6139500000000002,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,rational_agent,cloudflare/clef-flash,4.470731693633872,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+moral_typecasting_estimate,responsibility_man,rational_agent,cloudflare/clef-flash,5.839110346620797,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting_estimate,responsibility_baby,rational_agent,cloudflare/clef-flash,3.82818,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting_estimate,agency_responsibility_gap,rational_agent,cloudflare/clef-flash,2.0109303466207966,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,rational_agent,cloudflare/clef-flash,4.03546,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,rational_agent,cloudflare/clef-flash,4.116383491504744,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,rational_agent,cloudflare/clef-flash,-0.08092349150474476,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+position_power_estimate,power_long_line,rational_agent,cloudflare/clef-flash,4.450227488625568,,,position_power_long_line,5.01,medium,,System One
+position_power_estimate,power_short_line,rational_agent,cloudflare/clef-flash,4.938282468701252,,,position_power_short_line,4.62,medium,,System One
+position_power_estimate,position_power_gap,rational_agent,cloudflare/clef-flash,-0.4880549800756837,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,rational_agent,cloudflare/clef-flash,0.26944999999999997,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,rational_agent,cloudflare/clef-flash,0.5246000000000001,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,rational_agent,cloudflare/clef-flash,0.79405,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+choosing_rejecting_estimate,prob_award_extreme,rational_agent,cloudflare/clef-flash,0.29572000000000004,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting_estimate,prob_deny_extreme,rational_agent,cloudflare/clef-flash,0.48234000000000005,,,shafir_deny_extreme,0.55,medium,,System One
+categorization,prob_rule_based,rational_agent,cloudflare/clef-flash,0.41220999999999997,,,norenzayan_rule_based,0.67,medium,,System One
+categorization_estimate,prob_rule_based,rational_agent,cloudflare/clef-flash,0.46430999999999994,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,rational_agent,cloudflare/clef-flash,46.65845000000001,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,rational_agent,cloudflare/clef-flash,46.217600000000004,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,rational_agent,cloudflare/clef-flash,0.4408500000000046,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+incidental_anchors_estimate,estimate_p97,rational_agent,cloudflare/clef-flash,52.088625317519046,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors_estimate,estimate_p17,rational_agent,cloudflare/clef-flash,50.879850000000005,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors_estimate,anchor_gap,rational_agent,cloudflare/clef-flash,1.2087753175190414,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,rational_agent,cloudflare/clef-flash,0.10296000000000001,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,rational_agent,cloudflare/clef-flash,0.028450000000000007,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,rational_agent,cloudflare/clef-flash,0.07451,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+knobe_estimate,prob_harm_intentional,rational_agent,cloudflare/clef-flash,0.16763000000000003,,,knobe_harm_intentional,0.82,medium,,System One
+knobe_estimate,prob_help_intentional,rational_agent,cloudflare/clef-flash,0.0581,,,knobe_help_intentional,0.23,medium,,System One
+trolley,prob_switch_permissible,rational_agent,cloudflare/clef-flash,0.91326,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,rational_agent,cloudflare/clef-flash,0.51036,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,rational_agent,cloudflare/clef-flash,0.4028999999999999,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+trolley_estimate,prob_switch_permissible,rational_agent,cloudflare/clef-flash,0.8535600000000001,,,trolley_switch_permissible,0.89,medium,,System One
+trolley_estimate,prob_push_permissible,rational_agent,cloudflare/clef-flash,0.55755,,,trolley_push_permissible,0.11,medium,,System One
+false_consensus,wearer_predicts_wear,rational_agent,cloudflare/clef-flash,0.09530000000000001,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,rational_agent,cloudflare/clef-flash,0.18966,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,rational_agent,cloudflare/clef-flash,-0.09435999999999999,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+false_consensus_estimate,wearer_predicts_wear,rational_agent,cloudflare/clef-flash,0.19792000000000004,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus_estimate,nonwearer_predicts_wear,rational_agent,cloudflare/clef-flash,0.19592000000000004,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus_estimate,false_consensus_gap,rational_agent,cloudflare/clef-flash,0.0020000000000000018,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt,proportion_correct,typical_human,cloudflare/clef-flash,0.5421006320316016,0.29062396536493496,0.7820779307298699,crt_proportion_correct,0.413,high,,System One
+crt,probability_mass_on_lure,typical_human,cloudflare/clef-flash,0.29910243878860615,0.08453154424387886,0.57391,,,,,System One
+fluid_reasoning,accuracy,typical_human,cloudflare/clef-flash,0.7492839667769997,0.6078772512145628,0.8683865108918111,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,typical_human,cloudflare/clef-flash,0.9258833333333333,0.8251099999999999,0.9794199999999998,,,,,System One
+fluid_reasoning,accuracy_steps_2,typical_human,cloudflare/clef-flash,0.8010169329162368,0.5408985646508219,0.9627347196501543,,,,,System One
+fluid_reasoning,accuracy_steps_3,typical_human,cloudflare/clef-flash,0.6338799720697964,0.39020619513463395,0.8193226110123065,,,,,System One
+fluid_reasoning,accuracy_steps_4,typical_human,cloudflare/clef-flash,0.7331000000000001,0.5471,0.9191,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,typical_human,cloudflare/clef-flash,0.26995446616793606,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,typical_human,cloudflare/clef-flash,0.33551764482355173,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,typical_human,cloudflare/clef-flash,0.025019749802501972,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,typical_human,cloudflare/clef-flash,0.05659943400565994,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,typical_human,cloudflare/clef-flash,0.4508270496229774,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,typical_human,cloudflare/clef-flash,0.528878,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,typical_human,cloudflare/clef-flash,0.3816094712423007,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,typical_human,cloudflare/clef-flash,0.85728,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,typical_human,cloudflare/clef-flash,0.6482,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,typical_human,cloudflare/clef-flash,0.57905,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,typical_human,cloudflare/clef-flash,0.30416000000000004,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,typical_human,cloudflare/clef-flash,0.17593,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,typical_human,cloudflare/clef-flash,0.17124,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,typical_human,cloudflare/clef-flash,0.10434000000000002,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,typical_human,cloudflare/clef-flash,0.11076,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,typical_human,cloudflare/clef-flash,0.08770000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,typical_human,cloudflare/clef-flash,0.04205,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,typical_human,cloudflare/clef-flash,0.04578,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,typical_human,cloudflare/clef-flash,0.75274,,,ultimatum_rejection_low_offer,0.5,medium,,System One
+trust_trustee,return_share_sent_2,typical_human,cloudflare/clef-flash,0.49924166666666664,,,,,,,System One
+trust_trustee,return_share_sent_5,typical_human,cloudflare/clef-flash,0.505516220648826,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,typical_human,cloudflare/clef-flash,0.4993939575770304,,,,,,,System One
+public_goods_conditional,contribution_low,typical_human,cloudflare/clef-flash,0.360834,,,,,,,System One
+public_goods_conditional,contribution_mid,typical_human,cloudflare/clef-flash,0.4072849999999999,,,,,,,System One
+public_goods_conditional,contribution_high,typical_human,cloudflare/clef-flash,0.42412620631031556,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,typical_human,cloudflare/clef-flash,0.09318,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,typical_human,cloudflare/clef-flash,0.38099999999999995,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,typical_human,cloudflare/clef-flash,0.03612,,,,,,,System One
+framing,prob_certain_gain_frame,typical_human,cloudflare/clef-flash,0.67656,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,typical_human,cloudflare/clef-flash,0.5065,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,typical_human,cloudflare/clef-flash,0.1700600000000001,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,typical_human,cloudflare/clef-flash,0.29515,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,typical_human,cloudflare/clef-flash,0.68244,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,typical_human,cloudflare/clef-flash,0.09372783400000001,,,,,,joint probability of the A-then-D pattern that violates independence,System One
+conjunction,prob_fallacy_forced_choice,typical_human,cloudflare/clef-flash,0.9559000000000001,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,typical_human,cloudflare/clef-flash,0.19291999999999998,,,,,,,System One
+conjunction_axiom,p_conjunction,typical_human,cloudflare/clef-flash,0.90458,,,,,,,System One
+conjunction_axiom,axiom_margin,typical_human,cloudflare/clef-flash,-0.7116600000000001,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,typical_human,cloudflare/clef-flash,0.07588544687318761,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,typical_human,cloudflare/clef-flash,0.09867407955522671,,,,,,,System One
+anchoring,estimate_low_anchor,typical_human,cloudflare/clef-flash,22.207150000000002,,,anchoring_low_median,25.0,medium,,System One
+anchoring,estimate_high_anchor,typical_human,cloudflare/clef-flash,29.758185491129463,,,anchoring_high_median,45.0,medium,,System One
+anchoring,anchoring_effect,typical_human,cloudflare/clef-flash,7.551035491129461,,,,,,human gap is about 20 points,System One
+sunk_cost,prob_continue,typical_human,cloudflare/clef-flash,0.3591,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,typical_human,cloudflare/clef-flash,3.3024500000000003,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,typical_human,cloudflare/clef-flash,0.384155,0.33934000000000003,0.42897,,,,,System One
+discounting,prob_patient_30d,typical_human,cloudflare/clef-flash,0.37099250000000006,0.30642500000000006,0.43556000000000006,,,,,System One
+discounting,prob_patient_180d,typical_human,cloudflare/clef-flash,0.34381500000000004,0.308545,0.379085,,,,,System One
+present_bias,prob_patient_immediate_frontend,typical_human,cloudflare/clef-flash,0.17751999999999998,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,typical_human,cloudflare/clef-flash,0.25156,,,,,,,System One
+present_bias,present_bias_gap,typical_human,cloudflare/clef-flash,0.07404000000000002,,,present_bias_reversal,0.3,approximate,positive means more patient when both options are delayed,System One
+beauty_contest,expected_guess,typical_human,cloudflare/clef-flash,36.569473894778966,,,beauty_contest_mean,36.0,medium,,System One
+beauty_contest,mass_at_33,typical_human,cloudflare/clef-flash,0.03318663732746549,,,,,,,System One
+beauty_contest,mass_at_22,typical_human,cloudflare/clef-flash,0.01888377675535107,,,,,,,System One
+beauty_contest,mass_at_0,typical_human,cloudflare/clef-flash,0.0005201040208041608,,,,,,,System One
+money_request,expected_request,typical_human,cloudflare/clef-flash,16.1236,,,money_request_modal,17.0,high,,System One
+money_request,mass_level0_20,typical_human,cloudflare/clef-flash,0.17535,,,,,,,System One
+money_request,mass_level1_19,typical_human,cloudflare/clef-flash,0.10455,,,,,,,System One
+money_request,mass_level2_18,typical_human,cloudflare/clef-flash,0.10169999999999998,,,,,,,System One
+money_request,mass_level3_17,typical_human,cloudflare/clef-flash,0.0824,,,,,,,System One
+mini_ipip,extraversion,typical_human,cloudflare/clef-flash,3.1254994643482172,2.9316739286964344,3.319325,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,typical_human,cloudflare/clef-flash,3.4126215101557453,3.145433164226569,3.6961546835416286,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,typical_human,cloudflare/clef-flash,2.882430087366158,2.450445888261385,3.3018033342955073,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,typical_human,cloudflare/clef-flash,2.8644434012075553,2.6287093522926046,3.100177450122506,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,typical_human,cloudflare/clef-flash,3.169566646399353,2.931689890195608,3.3867000490024504,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,typical_human,cloudflare/clef-flash,4.238074010457147,3.6351934482431045,4.682557388752224,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,typical_human,cloudflare/clef-flash,4.6318799981552505,4.060519552893342,5.23578984870012,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,typical_human,cloudflare/clef-flash,4.303591610312134,3.6327932206242695,5.490026838073522,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,typical_human,cloudflare/clef-flash,5.353974373696471,4.251042425818556,6.122885695270858,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,typical_human,cloudflare/clef-flash,6.06312,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,typical_human,cloudflare/clef-flash,1.6294000000000002,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,typical_human,cloudflare/clef-flash,4.433719999999999,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+moral_typecasting_estimate,responsibility_man,typical_human,cloudflare/clef-flash,5.849740000000001,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting_estimate,responsibility_baby,typical_human,cloudflare/clef-flash,4.3476,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting_estimate,agency_responsibility_gap,typical_human,cloudflare/clef-flash,1.5021400000000007,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,typical_human,cloudflare/clef-flash,4.850219999999999,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,typical_human,cloudflare/clef-flash,4.727539999999999,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,typical_human,cloudflare/clef-flash,0.1226799999999999,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+position_power_estimate,power_long_line,typical_human,cloudflare/clef-flash,4.658519511170671,,,position_power_long_line,5.01,medium,,System One
+position_power_estimate,power_short_line,typical_human,cloudflare/clef-flash,5.00905,,,position_power_short_line,4.62,medium,,System One
+position_power_estimate,position_power_gap,typical_human,cloudflare/clef-flash,-0.350530488829329,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,typical_human,cloudflare/clef-flash,0.37587999999999994,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,typical_human,cloudflare/clef-flash,0.6523,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,typical_human,cloudflare/clef-flash,1.0281799999999999,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+choosing_rejecting_estimate,prob_award_extreme,typical_human,cloudflare/clef-flash,0.34108,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting_estimate,prob_deny_extreme,typical_human,cloudflare/clef-flash,0.52834,,,shafir_deny_extreme,0.55,medium,,System One
+categorization,prob_rule_based,typical_human,cloudflare/clef-flash,0.4932,,,norenzayan_rule_based,0.67,medium,,System One
+categorization_estimate,prob_rule_based,typical_human,cloudflare/clef-flash,0.33107,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,typical_human,cloudflare/clef-flash,48.41041372896103,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,typical_human,cloudflare/clef-flash,48.04131752094875,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,typical_human,cloudflare/clef-flash,0.36909620801228016,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+incidental_anchors_estimate,estimate_p97,typical_human,cloudflare/clef-flash,54.19863205471782,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors_estimate,estimate_p17,typical_human,cloudflare/clef-flash,51.483544506335186,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors_estimate,anchor_gap,typical_human,cloudflare/clef-flash,2.715087548382634,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,typical_human,cloudflare/clef-flash,0.142,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,typical_human,cloudflare/clef-flash,0.033650000000000006,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,typical_human,cloudflare/clef-flash,0.10834999999999997,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+knobe_estimate,prob_harm_intentional,typical_human,cloudflare/clef-flash,0.09030000000000002,,,knobe_harm_intentional,0.82,medium,,System One
+knobe_estimate,prob_help_intentional,typical_human,cloudflare/clef-flash,0.038869999999999995,,,knobe_help_intentional,0.23,medium,,System One
+trolley,prob_switch_permissible,typical_human,cloudflare/clef-flash,0.9179,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,typical_human,cloudflare/clef-flash,0.76706,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,typical_human,cloudflare/clef-flash,0.15084000000000009,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+trolley_estimate,prob_switch_permissible,typical_human,cloudflare/clef-flash,0.86736,,,trolley_switch_permissible,0.89,medium,,System One
+trolley_estimate,prob_push_permissible,typical_human,cloudflare/clef-flash,0.6938000000000001,,,trolley_push_permissible,0.11,medium,,System One
+false_consensus,wearer_predicts_wear,typical_human,cloudflare/clef-flash,0.19824999999999998,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,typical_human,cloudflare/clef-flash,0.21494,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,typical_human,cloudflare/clef-flash,-0.01669000000000001,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+false_consensus_estimate,wearer_predicts_wear,typical_human,cloudflare/clef-flash,0.15894000000000003,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus_estimate,nonwearer_predicts_wear,typical_human,cloudflare/clef-flash,0.46298000000000006,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus_estimate,false_consensus_gap,typical_human,cloudflare/clef-flash,-0.30404000000000003,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One

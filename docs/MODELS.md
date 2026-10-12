@@ -23,9 +23,13 @@ one day, and how they were produced.
 | `inception/mercury-decide-20260930` | System One | Oct 12 | 5,880 | $0.03 |
 | `liquid/d1-20260930` | System One | Oct 12 | 5,880 | $0.04 |
 | `upstage/solar-decide-flash-20261008` | System One | Oct 12 | 5,880 | $0.14 |
-| `nace-ai/drex-v1.5-20261009` | System One | Oct 12 | 5,880 | $0.03 |
+| `cloudflare/clef-flash` | System One | Oct 12 | 5,880 | $0.07 |
 | `upstage/solar-decide-20260928` | System One | Oct 12 (resumed after an interruption) | 5,880 | $0.14 |
 | `anthropic/claude-haiku-5.5` | chat, resampled | Oct 12 | 5,880 | $0.68 |
+
+Drex 1.5 (`nace-ai/drex-v1.5-20261009`) was run on Oct 12 too and has since
+been replaced in the comparison by Cloudflare's Clef Flash; its run file stays
+in `data/raw/` and `jevbench compare` reproduces its numbers if passed it.
 
 The Oct 12 runs are 147 probes × 4 personas × 10 replicates; the committed
 Sep 18 run predates the 30 follow-up items and has 117 probes. Every measure
@@ -34,7 +38,8 @@ compared below comes from items present in both.
 Reproduce:
 
 ```bash
-jevbench compare data/raw/run_live_20260918T230710Z.jsonl data/raw/run_live_20261012*.jsonl
+jevbench compare data/raw/run_live_20260918T230710Z.jsonl \
+  $(ls data/raw/run_live_20261012*.jsonl | grep -v drex)
 ```
 
 Solar Decide was throttled by its provider to about 25 calls a minute, and its
@@ -48,7 +53,7 @@ duplicates.
 ## Read the health table first
 
 [`results/comparison/health.csv`](../results/comparison/health.csv) exists to
-stop silent holes being read as results, and on this run it caught three, two
+stop silent holes being read as results, and on this run it caught four, two
 of which were bugs in this repository.
 
 ![What the health table caught](../results/figures/health-checks.png)
@@ -66,6 +71,15 @@ it has no score on the follow-up study's estimate items.
 options (0–100), and the route rejects a `Choice` with more than 26. This is a
 documented limit of the route rather than a model behaviour, and it costs each
 of them one item.
+
+**Clef Flash's endpoint intermittently rejects one item.** On the
+average-speed reasoning item, half of the first 40 calls came back HTTP 400
+with Cloudflare reporting the request itself as malformed. The same request,
+with the same option order, succeeded on other attempts, so this is the
+provider's fault rather than the item's; `jevbench run --resume` retried the
+failures until all 40 succeeded, over seven passes. The committed run has no
+errors. Clef Flash is also served under an undated name, like
+Microsoft-Decision-1 (see the limitations).
 
 **Haiku 5.5 truncated on its own reasoning.** It reasons before answering, and
 the reasoning counts against the reply cap: on the first run 183 calls spent
@@ -124,13 +138,13 @@ a shared 0–1 scale, and the correlation `r` with them across measures
 | Model | Neutral: distance | Neutral: r | As typical human: distance | As typical human: r |
 |---|---|---|---|---|
 | Solar Decide Flash | **0.21** | +0.20 | **0.11** | +0.76 |
-| Drex 1.5 | 0.27 | +0.00 | 0.29 | −0.10 |
+| Clef Flash | 0.23 | +0.07 | 0.18 | +0.45 |
 | d1 | 0.32 | +0.09 | 0.19 | +0.66 |
 | Jev 1.13 | 0.32 | −0.15 | 0.14 | +0.76 |
 | Mercury Decide | 0.33 | −0.06 | 0.20 | +0.54 |
 | GPT-6 Luna Decisions | 0.34 | −0.38 | 0.19 | +0.11 |
 | Decider v1.1 27B | 0.34 | −0.42 | 0.15 | +0.67 |
-| Claude Sonnet 5 | 0.35 | +0.02 | 0.17 | +0.83 |
+| Claude Sonnet 5 | 0.35 | +0.01 | 0.17 | +0.83 |
 | Microsoft-Decision-1 | 0.37 | −0.62 | 0.18 | +0.59 |
 | Solar Decide | 0.43 | −0.13 | 0.15 | +0.79 |
 | Claude Haiku 5.5 | 0.49 | −0.54 | 0.18 | +0.88 |
@@ -138,18 +152,20 @@ a shared 0–1 scale, and the correlation `r` with them across measures
 The pattern from the main write-up holds across every model: **answering
 neutrally, none of them looks like people** (no correlation better than +0.20,
 several strongly negative), and **one sentence asking for a typical human
-moves nearly all of them a long way toward people.** Two do not move: Drex 1.5
-gets no closer, and GPT-6 Luna Decisions gets closer on average but without
-learning which effects are strong (r +0.11).
+moves nearly all of them a long way toward people.** Two move less: Clef Flash
+gets only a little closer (0.23 to 0.18) and learns only part of which effects
+are strong (r +0.45), and GPT-6 Luna Decisions gets closer on average but
+without learning which effects are strong (r +0.11).
 
 ### Why the top of that table should not be read as a ranking
 
 ![The framing reversal by model](../results/figures/framing-contrast.png)
 
-Solar Decide Flash comes out closest, and the reason matters more than the
-ranking. Its answers sit nearer 0.5 than any other model's, and most of the
-human reference values sit in the middle of the scale too — on average 0.18
-from 0.5. A model that hedges everywhere therefore scores a small distance
+Solar Decide Flash and Clef Flash come out closest, and the reason matters
+more than the ranking. Answering neutrally, their answers sit nearer 0.5 than
+any other model's (on average 0.18 and 0.17 from it), and most of the human
+reference values sit in the middle of the scale too — on average 0.18 from
+0.5. A model that hedges everywhere therefore scores a small distance
 without reproducing any effect.
 
 The framing reversal shows it. Humans pick the certain option 72% of the time
@@ -157,16 +173,16 @@ in the gain frame and 22% in the loss frame, a 50-point reversal; the main
 write-up already argues that the contrast, not either level, is the robust
 quantity. Gain minus loss, in points:
 
-| | Human | d1 | Solar | Mercury | Jev | Decider | Luna | Solar Flash | Drex | MS-Decision-1 | Sonnet 5 | Haiku 5.5 |
+| | Human | d1 | Solar | Mercury | Jev | Decider | Luna | Solar Flash | Clef Flash | MS-Decision-1 | Sonnet 5 | Haiku 5.5 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Neutral | 50 | **54** | 80 | 19 | 29 | 17 | 3 | 9 | −8 | −48 | 100 | 0 |
-| As typical human | 50 | 56 | **50** | 34 | 30 | 45 | 21 | 4 | −51 | −10 | 100 | 100 |
+| Neutral | 50 | **54** | 80 | 19 | 29 | 17 | 3 | 9 | 0 | −48 | 100 | 0 |
+| As typical human | 50 | 56 | **50** | 34 | 30 | 45 | 21 | 4 | 17 | −10 | 100 | 100 |
 
-On the effect itself, Solar Decide Flash shows almost none, d1 reproduces it
+On the effect itself, Solar Decide Flash shows almost none, Clef Flash none
+without an instruction and a third of it when asked to answer as a person, d1 reproduces it
 almost exactly under both framings, Solar Decide lands on it exactly when asked
 to answer as a person, the two chat models show it at full strength or not at all
-(resampled answers saturate at 0 or 1), and Drex 1.5 and Microsoft-Decision-1
-reverse it. Distance from human levels and reproduction of human effects are
+(resampled answers saturate at 0 or 1), and Microsoft-Decision-1 reverses it. Distance from human levels and reproduction of human effects are
 different questions, and this battery's one summary number answers only the
 first.
 
@@ -182,20 +198,26 @@ first.
   furthest from 0.5 of any model (answering neutrally, only Solar Decide is more
   extreme). In that framing it gets the cognitive reflection items right only 6%
   of the time (people: 41%), and continues the sunk-cost project every time.
+- **Clef Flash is the only model that over-trusts unprompted**, sending 65% in
+  the trust game (people: 50%), and with no instruction it answers the
+  cognitive reflection items correctly least often of any model (63%; people
+  41%, every other model 79% or more). It is a fine-tune of Qwen3.5-9B.
 - **The sunk-cost item is the one nothing reproduces under neutral framing**:
   every model, System One or chat, abandons the project (≤ 0.07, people 0.85).
-- **No model reproduces the conjunction fallacy unprompted** except Drex 1.5
-  (0.58) and Solar Decide Flash (0.70); asked to answer as a person, all but
-  Luna (0.50) and Drex (0.61) reach 0.83 or more, against people's 0.85.
+- **No model reproduces the conjunction fallacy unprompted** except Solar
+  Decide Flash (0.70) and Clef Flash (0.62); asked to answer as a person, all
+  but Luna (0.50) reach 0.83 or more, against people's 0.85.
 
 ## Limitations specific to this comparison
 
 1. **Two dates.** Jev and Sonnet were run on Sep 18 and everything else on
    Oct 12. Jev is pinned to a dated version, but the route and gateway may have
    changed in between.
-2. **Microsoft-Decision-1 is not reproducible.** Its listing says its weights
-   are updated continually while the API stays the same; the served name
-   carries a date that does not change when they are.
+2. **Microsoft-Decision-1 and Clef Flash are not reproducible.**
+   Microsoft-Decision-1's listing says its weights are updated continually
+   while the API stays the same; the served name carries a date that does not
+   change when they are. Clef Flash is served as `cloudflare/clef-flash` with no
+   date at all, so a later run may meet a different model under the same name.
 3. **One summary number is not a ranking**, for the reason above. It is
    reported because it is what the existing analysis computes, not because it
    orders the models.

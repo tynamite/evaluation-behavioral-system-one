@@ -99,7 +99,7 @@ def test_framing_figure_plots_the_real_swings(built: list[Path]) -> None:
     pairs = list(zip(refs, focal, strict=True))
     assert any(abs(a - 53.8) < 0.1 and abs(b - 56.1) < 0.1 for a, b in pairs)  # d1
     assert any(abs(a - 29.5) < 0.1 and abs(b - 29.7) < 0.1 for a, b in pairs)  # Jev
-    assert sum(1 for a, _b in pairs if a < 0) == 2  # only Microsoft and Drex reverse it
+    assert sum(1 for a, _b in pairs if a < 0) == 1  # only Microsoft-Decision-1 reverses it
 
 
 def test_decision_chart_shows_all_three_series_on_every_row(built: list[Path]) -> None:
@@ -108,3 +108,21 @@ def test_decision_chart_shows_all_three_series_on_every_row(built: list[Path]) -
         assert len(re.findall(rf'data-series="{series}"', page)) == 7
     # Pinned: the cognitive reflection row is 0.41 people, 0.99 and 0.55 for Jev.
     assert 'data-series="neutral" data-value="0.9892"' in page
+
+
+def test_scatter_legend_matches_where_the_highlighted_model_sits(built: list[Path]) -> None:
+    page = next(p for p in built if p.stem == "models-scatter").read_text()
+    points = {
+        n: (float(x), float(y))
+        for n, x, y in re.findall(
+            r'<circle data-name="([^"]+)" data-x="([\d.]+)" data-y="([\d.]+)"', page
+        )
+    }
+    note = re.search(
+        r">([^<>]+): (the only model above the line|furthest above the line|moved least when told)<",
+        page,
+    )
+    assert note, "scatter legend names no highlighted model"
+    x, y = points[note.group(1)]
+    # "Above the line" means told-to-be-human is further from people than neutral.
+    assert (y > x) == ("above" in note.group(2))

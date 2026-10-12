@@ -1098,6 +1098,17 @@ def fig_models_scatter(fdf: pd.DataFrame) -> Figure:
         return bottom - (v - y0) / (y1 - y0) * (bottom - top)
 
     focal = max(pts, key=lambda p: p[2] - p[1])  # the one that moved least (or moved away)
+    # Say what the highlight shows rather than assume it: with no model above
+    # the line, the least-moved one is still below it.
+    above = [p for p in pts if p[2] > p[1]]
+    if focal[2] > focal[1]:
+        focal_note = (
+            f"{focal[0]}: the only model above the line"
+            if len(above) == 1
+            else (f"{focal[0]}: furthest above the line")
+        )
+    else:
+        focal_note = f"{focal[0]}: moved least when told"
     out: list[str] = []
     for i in range(9):
         t = round(x0 + i * 0.05, 2)
@@ -1251,13 +1262,13 @@ def fig_models_scatter(fdf: pd.DataFrame) -> Figure:
         _t(
             424,
             ly0 + 35,
-            f"{focal[0]}: the only model above the line",
+            focal_note,
             size=9,
             family=SANS,
             fill=INK,
         )
     )
-    jx = int(424 + text_width(f"{focal[0]}: the only model above the line", 9) + 40)
+    jx = int(424 + text_width(focal_note, 9) + 40)
     out.append(
         f'<circle cx="{jx}" cy="{ly0 + 31}" r="5" fill="{JEV_PINK}" stroke="{INK}" stroke-width="1"/>'
     )
@@ -1277,7 +1288,7 @@ def fig_models_scatter(fdf: pd.DataFrame) -> Figure:
             "would mean identical to people. Across: no instruction. Up: told to answer like a typical person. "
             "Points below the dashed line moved closer to people when told."
         ),
-        desc="Scatter of eleven models' mean distance from human values answering neutrally versus as a typical person; all but Drex 1.5 fall below the no-change line.",
+        desc="Scatter of eleven models' mean distance from human values answering neutrally versus as a typical person; all eleven fall below the no-change line.",
         width=1000,
         height=ly0 + 50,
         body="\n".join(out),
@@ -1340,9 +1351,9 @@ def fig_framing(mdf: pd.DataFrame) -> Figure:
             "The same choice between a sure and a risky programme against a disease, worded once as lives saved "
             "and once as lives lost. People pick the sure option 72% of the time in the gain wording and 22% in "
             "the loss wording, a 50-point swing. Each row is a model's swing in points; below zero, it picks the "
-            "sure option more often in the loss wording, the reverse of people. Solar Decide Flash, which has the "
-            "smallest overall distance from human results in the scatter, swings 9 points with no "
-            "instruction and 4 when told to answer like a typical person."
+            "sure option more often in the loss wording, the reverse of people. Solar Decide Flash and Clef Flash, "
+            "the two closest to human results in the scatter with no instruction, swing 9 and 0 points with no "
+            "instruction and 4 and 17 when told to answer like a typical person."
         ),
         desc="Dumbbell chart of eight System One models' framing reversal in points, answering neutrally and as a typical person, against the human value of 50.",
         width=1000,
