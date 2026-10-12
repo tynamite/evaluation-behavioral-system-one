@@ -925,6 +925,7 @@ SHORT = {
     "upstage/solar-decide-20260928": "Solar Decide",
     "upstage/solar-decide-flash-20261008": "Solar Decide Flash",
     "nace-ai/drex-v1.5-20261009": "Drex 1.5",
+    "cloudflare/clef-flash": "Clef Flash",
     "anthropic/claude-sonnet-5": "Claude Sonnet 5",
     "anthropic/claude-haiku-5.5": "Claude Haiku 5.5",
 }
@@ -939,6 +940,7 @@ MAKER = {
     "liquid": "Liquid AI",
     "upstage": "Upstage",
     "nace-ai": "Nace AI",
+    "cloudflare": "Cloudflare",
     "anthropic": "Anthropic",
 }
 
