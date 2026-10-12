@@ -72,8 +72,46 @@ the reasoning counts against the reply cap: on the first run 183 calls spent
 all 512 tokens on reasoning and returned nothing, concentrated on the numeric
 estimate items — the same shape of hole the main write-up describes for the
 first Sonnet runs. The cap is now configurable and recorded per record; the
-committed Haiku run used 4,096 and has 9 unresolved replies (0.15%), against
+committed Haiku run used 4,096 and has 3 unresolved replies (0.06%), against
 Sonnet's 9 at 512. The truncated run was discarded, not mixed in.
+
+### How a chat model's reply becomes an answer
+
+A System One model answers in a typed distribution and has nowhere to go
+wrong. A chat model answers in text, so the chat arm's results depend on how
+that text is read, and the [how-it-works figure](../results/figures/how-it-works.png)
+now shows each step:
+
+- **The prompt lists the options and asks for exactly one key** and nothing
+  else. Haiku 5.5 complied on 98.7% of replies, Sonnet 5 on 93.7%; most of
+  Sonnet's other replies echo the option line (`pressure: pressure`).
+- **A reply that is not exactly a key is read for the option it names**: the
+  last one mentioned, so reasoning that restates the problem's numbers before
+  committing is read for the commitment, except that a leading `key:` wins.
+  That exception is new. The earlier parser read Sonnet's `$1: Offer $1, keep
+  $9` as $9, and the same for one public-goods reply; two cells moved (the
+  rational-agent ultimatum offer from 0.18 to 0.10 of the pie and one
+  conditional contribution from 0.82 to 0.72), and neither is reported
+  anywhere in the write-up.
+- **A true/false item takes only a bare true or false.** Haiku five times
+  replied along the lines of "I can't answer this with true or false", which
+  the earlier parser counted as *false*. These now count as unresolved, as do
+  replies naming no option at all (Haiku twice answered `B` where there are no
+  lettered options). Haiku's bare `45-55` now matches the band `45-55%`.
+- **Unresolved replies are dropped and counted**, never guessed:
+  `n_unresolved` in [`health.csv`](../results/comparison/health.csv).
+- **Eleven follow-up items ask what proportion of people said yes** (the
+  trolley, Knobe, false-consensus, choosing/rejecting and categorisation
+  estimates). Asked of a System One model, `P(true)` stands for that
+  proportion. A chat model is asked the same question and told to reply true
+  or false, which cannot carry a number: ten replies are a vote on whether
+  most people said yes, not an estimate. Those 440 Haiku records are now left
+  out of every chat-arm statistic and counted as `n_not_measurable`; before
+  this, `statistics.csv` listed them as estimates. None fed the comparison
+  above, and the Sep 18 Sonnet run predates the items.
+
+Answers are re-read from the stored reply text every time a run is loaded, so
+these fixes reach the committed runs without editing them.
 
 ## Closeness to human values
 

@@ -44,6 +44,43 @@ def load_records(path: Path) -> pd.DataFrame:
             "Simulated output is structurally valid nonsense and must never be "
             "pooled with live data."
         )
+    return _reread_chat_replies(df)
+
+
+def _reread_chat_replies(df: pd.DataFrame) -> pd.DataFrame:
+    """Re-derive each chat reply's answer from its raw text with the current parser.
+
+    The run file keeps the raw reply, so a parser fix reaches committed runs
+    without editing them. Chat records for items that ask for a proportion
+    get no answer and are flagged `not_measurable` (see `noul_probe`), so
+    health.csv can count them apart from replies that failed to parse.
+    """
+    from .client import parse_option
+    from .instruments import PERSONAS, all_probes, apply_persona
+    from .runner import render_prompt
+
+    df["not_measurable"] = False
+    if "arm" not in df.columns or not (df["arm"] == "baseline").any():
+        return df
+    probes = {p.probe_id: p for p in all_probes(None)}
+    proportion = {pid for pid, p in probes.items() if p.meta.get("asks_for") == "proportion"}
+    flagged = (df["arm"] == "baseline") & df["probe_id"].isin(proportion)
+    df["not_measurable"] = flagged
+    df.loc[flagged, "value"] = None
+
+    options: dict[str, list[str]] = {}
+    for idx in df.index[(df["arm"] == "baseline") & ~flagged]:
+        row = df.loc[idx]
+        if isinstance(row.get("error"), str) or row["probe_id"] not in probes:
+            continue
+        meta = row["meta"] if isinstance(row["meta"], dict) else {}
+        if "raw_text" not in meta:
+            continue
+        pid = str(row["probe_id"])
+        if pid not in options:
+            prepared = apply_persona(probes[pid], PERSONAS[str(row["persona"])])
+            options[pid] = render_prompt(prepared)[1]
+        df.at[idx, "value"] = parse_option(meta["raw_text"], options[pid])
     return df
 
 
@@ -1068,7 +1105,12 @@ def analyse_run(path: Path, out_dir: Path) -> dict[str, Any]:
     # it is not a transport error, so counting only errors hides it entirely. An
     # earlier run lost 4.8% of the baseline arm that way, concentrated on the
     # items the model reasoned longest about — a systematic gap, not noise.
+    # Proportion items asked of a chat model are left unscored on purpose (see
+    # `_reread_chat_replies`); they are counted apart, not as parse failures.
     base = df[df["arm"] == "baseline"]
+    not_measurable = int(base["not_measurable"].sum()) if "not_measurable" in base else 0
+    if "not_measurable" in base:
+        base = base[~base["not_measurable"].astype(bool)]
     unparsed = int((base["error"].isna() & base["value"].isna()).sum()) if len(base) else 0
     coverage: dict[str, int] = {}
     if len(base):
@@ -1090,6 +1132,7 @@ def analyse_run(path: Path, out_dir: Path) -> dict[str, Any]:
         "n_errors": n_err,
         "n_baseline_unparsed": unparsed,
         "baseline_unparsed_rate": round(unparsed / len(base), 4) if len(base) else 0.0,
+        "n_baseline_not_measurable": not_measurable,
         **coverage,
         "total_cost_usd": round(cost, 4),
         "personas": sorted(df["persona"].unique()),

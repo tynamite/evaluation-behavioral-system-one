@@ -171,6 +171,22 @@ def parse_option(text: str | None, options: list[str]) -> str | None:
         if opt.lower() == lowered:
             return opt
 
+    # A true/false item takes only a bare true or false (markdown and trailing
+    # punctuation aside). Anything longer is a model declining the format, and
+    # "I can't answer this with true or false" must not count as "false".
+    if {o.lower() for o in options} == {"true", "false"}:
+        bare = lowered.strip("*_`'\" .!")
+        return next((o for o in options if o.lower() == bare), None)
+
+    # Models often echo the option line they were shown ("$1: Offer $1, keep
+    # $9"). The key before the colon is the answer; the label after it may name
+    # other amounts, which the last-mention rules below would pick up instead.
+    head = lowered.strip("*_` ").split(":", 1)[0].strip("*_` ")
+    if ":" in lowered:
+        for opt in sorted(options, key=len, reverse=True):
+            if opt.lower() == head:
+                return opt
+
     numeric = all(_as_number(o) is not None for o in options)
     if numeric:
         found = re.findall(r"-?\d+(?:\.\d+)?", cleaned.replace(",", ""))
@@ -189,7 +205,10 @@ def parse_option(text: str | None, options: list[str]) -> str | None:
     for opt in options:
         # Excluding a trailing "." outright would miss an option at the end of a
         # sentence, so only a "." that continues a decimal disqualifies a match.
-        matches = list(re.finditer(rf"(?<![\w$]){re.escape(opt.lower())}(?!\w)(?!\.\d)", lowered))
+        # A percentage band also matches without its "%": "45-55" names "45-55%".
+        forms = {opt.lower(), opt.lower().rstrip("%")} - {""}
+        pattern = "|".join(re.escape(f) for f in sorted(forms, key=len, reverse=True))
+        matches = list(re.finditer(rf"(?<![\w$])(?:{pattern})(?![\w%])(?!\.\d)", lowered))
         if not matches:
             continue
         end = matches[-1].end()

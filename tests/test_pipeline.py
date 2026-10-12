@@ -6,6 +6,7 @@ import json
 from dataclasses import replace
 from pathlib import Path
 
+import pandas as pd
 import pytest
 
 from jevbench.analysis import analyse_run, load_records
@@ -147,3 +148,83 @@ def test_resume_finishes_an_interrupted_run_without_duplicates(tmp_path: Path) -
     assert len(df) == len(full)
     assert df["error"].isna().all()
     assert not df.duplicated(["arm", "probe_id", "persona", "replicate"]).any()
+
+
+def test_proportion_items_are_flagged() -> None:
+    probes = {p.probe_id: p for p in all_probes(None)}
+    proportion = {pid for pid, p in probes.items() if p.meta.get("asks_for") == "proportion"}
+    assert len(proportion) == 11
+    assert all(probes[pid].question.kind == "noul" for pid in proportion)
+    # Linda's statements are truth claims, which a true/false reply can answer.
+    assert probes["conjunction_p_single"].meta["asks_for"] == "truth"
+
+
+def test_chat_replies_are_reread_and_proportion_items_left_unscored(tmp_path: Path) -> None:
+    base = {
+        "instrument": "x",
+        "arm": "baseline",
+        "replicate": 0,
+        "backend": "openrouter",
+        "model": "chat",
+        "persona": "neutral",
+        "error": None,
+    }
+    rows = [
+        # Stored answer from an older parser; the raw text says $1.
+        {
+            **base,
+            "probe_id": "ultimatum_offer",
+            "kind": "choice",
+            "value": "$9",
+            "meta": {"raw_text": "$1: Offer $1, keep $9"},
+        },
+        {
+            **base,
+            "probe_id": "trolley_push_estimate",
+            "kind": "noul",
+            "value": "false",
+            "meta": {"raw_text": "false"},
+        },
+    ]
+    path = tmp_path / "run_live_x.jsonl"
+    path.write_text("".join(json.dumps(r) + "\n" for r in rows))
+    df = load_records(path).set_index("probe_id")
+    assert df.loc["ultimatum_offer", "value"] == "$1"
+    assert pd.isna(df.loc["trolley_push_estimate", "value"])
+    assert bool(df.loc["trolley_push_estimate", "not_measurable"])
+    assert not bool(df.loc["ultimatum_offer", "not_measurable"])
+
+
+def test_analysis_summary_counts_unmeasurable_apart_from_unparsed(tmp_path: Path) -> None:
+    base = {
+        "instrument": "x",
+        "arm": "baseline",
+        "replicate": 0,
+        "backend": "openrouter",
+        "model": "chat",
+        "persona": "neutral",
+        "error": None,
+        "usage": {},
+    }
+    rows = [
+        {
+            **base,
+            "probe_id": "trolley_push_estimate",
+            "kind": "noul",
+            "value": "false",
+            "meta": {"raw_text": "false"},
+        },
+        {
+            **base,
+            "probe_id": "ultimatum_offer",
+            "kind": "choice",
+            "value": None,
+            "meta": {"raw_text": "no idea"},
+        },
+    ]
+    path = tmp_path / "run_live_x.jsonl"
+    path.write_text("".join(json.dumps(r) + "\n" for r in rows))
+    summary = analyse_run(path, tmp_path / "out")
+    assert summary["n_baseline_not_measurable"] == 1
+    assert summary["n_baseline_unparsed"] == 1
+    assert summary["baseline_cells"] == 1

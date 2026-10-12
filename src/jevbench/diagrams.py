@@ -1434,7 +1434,7 @@ def _node(
 
 
 def fig_process() -> Figure:
-    W, H = 960, 520
+    W, H = 960, 660
     w, h = 160, 64
     cols = [24, 212, 400, 588, 776]
     mid, top, bot = 200, 104, 296  # connector y-levels
@@ -1530,7 +1530,43 @@ def fig_process() -> Figure:
             extra=' font-style="italic"',
         )
     )
-    a.append(_legend(W, 452, []))
+    # The chat path in detail: a chat model answers in free text, so how a reply
+    # becomes an answer (and what happens when it cannot) is part of the method.
+    sy, sh = 384, 160  # strip container
+    sx, sw = cols[0] - 8, cols[3] + w + 8 - (cols[0] - 8)
+    a.append(
+        f'<rect x="{sx}" y="{sy}" width="{sw}" height="{sh}" rx="8" fill="{ink(0.02)}" stroke="{ink(0.18)}" stroke-width="0.8" stroke-dasharray="4,3"/>'
+    )
+    a.append(
+        _t(
+            sx + 12,
+            sy + 18,
+            "CHAT MODEL PATH IN DETAIL: HOW A REPLY BECOMES AN ANSWER",
+            size=7,
+            spacing="0.14em",
+        )
+    )
+    by = sy + 30
+    steps = [
+        ("Options listed", "'reply with one key'", "ASK"),
+        ("Room to reason", "512 tokens; Haiku 4,096", "CAP"),
+        ("Reply read", "exact key in 94–99%", "PARSE"),
+        ("Unreadable: dropped", "counted, not guessed", "GAP"),
+    ]
+    for i, (name, sub, tag) in enumerate(steps):
+        if i:
+            a.append(
+                f'<line x1="{cols[i - 1] + w}" y1="{by + h // 2}" x2="{cols[i]}" y2="{by + h // 2}" stroke="{MUTED}" stroke-width="1" marker-end="url(#arrow)"/>'
+            )
+        a.append(_node(cols[i], by, w, h, name, sub, tag=tag))
+    notes = [
+        "Not exactly a key? The last option the reply names counts, and a leading key wins: \u201c$1: Offer $1, keep $9\u201d is $1.",
+        "Unreadable (empty, cut off, no option named): Claude Sonnet 5, 9 of 4,680 replies; Claude Haiku 5.5, 3 of 5,440.",
+        "The 11 items asking what proportion of people said yes get no chat score: ten true/false replies are a vote.",
+    ]
+    for j, line in enumerate(notes):
+        a.append(_t(sx + 12, by + h + 22 + 15 * j, line, size=10, family=SANS, fill=INK))
+    a.append(_legend(W, 576, []))
     legend = [
         (accent(0.08), ACCENT, "System One model path", 0),
         (WHITE, INK, "Step", 1),
@@ -1540,9 +1576,9 @@ def fig_process() -> Figure:
     x = 104
     for fill, stroke, label, _ in legend:
         a.append(
-            f'<rect x="{x}" y="482" width="16" height="10" rx="2" fill="{fill}" stroke="{stroke}" stroke-width="1"/>'
+            f'<rect x="{x}" y="606" width="16" height="10" rx="2" fill="{fill}" stroke="{stroke}" stroke-width="1"/>'
         )
-        a.append(_t(x + 24, 491, label, size=9, family=SANS, fill=INK))
+        a.append(_t(x + 24, 615, label, size=9, family=SANS, fill=INK))
         x += int(24 + text_width(label, 9) + 40)
     return Figure(
         slug="how-it-works",
@@ -1552,11 +1588,11 @@ def fig_process() -> Figure:
             "Each item is asked under four prompts: no instruction, \u2018answer like a typical person\u2019, "
             "\u2018answer like a rational agent\u2019 and an antisocial persona. Each model is asked "
             "every item ten times under each prompt. A System One model returns a probability for every possible "
-            "answer on each call, and the ten distributions are averaged. A chat model returns one answer per call, "
-            "and the ten answers are counted. Either way the result is one distribution per item and prompt, "
+            "answer on each call, and the ten distributions are averaged. A chat model returns one answer per call as text, "
+            "which is read for the option it names, and the ten answers are counted. Either way the result is one distribution per item and prompt, "
             "compared with the published human result for that test."
         ),
-        desc="Process diagram: a battery item is framed four ways, answered either by a System One model in one call or by a chat model sampled ten times, reduced to one distribution per cell, and compared with a published human rate.",
+        desc="Process diagram: a battery item is framed four ways, asked ten times of either a System One model or a chat model, whose text replies are read for an option key with unreadable ones dropped and counted, reduced to one distribution per cell, and compared with a published human rate.",
         width=W,
         height=H,
         body="\n".join(a),
@@ -1594,7 +1630,7 @@ def fig_health() -> Figure:
             "Reasoning used the cap",
             "all 512 tokens, no answer",
             "Cap raised and recorded",
-            "4,096 → 9 unresolved",
+            "4,096 → 3 unresolved",
             "focal",
         ),
     ]

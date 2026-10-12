@@ -332,6 +332,15 @@ unreportable numbers rather than false ones — luck rather than design, since
 nothing was counting unresolved replies. That counter should have existed from
 the first run.
 
+A later audit found three smaller misreadings, now fixed and re-read from the
+stored replies: a reply echoing the option line (`$1: Offer $1, keep $9`) was
+read for its last amount, a reply declining the true/false format ("I can't
+answer this with true or false") was read as *false*, and the follow-up
+items that ask a chat model for a proportion as a true/false reply were scored
+as if a vote were an estimate. Two Sonnet cells moved, neither reported here;
+[docs/MODELS.md](docs/MODELS.md#how-a-chat-models-reply-becomes-an-answer)
+has the detail.
+
 The typed arm has had no parsing failure across roughly 14,000 calls, because a
 typed decision has nowhere to fail. That is a better argument for the
 architecture than any behavioural result here.
