@@ -1420,3 +1420,90 @@ def fig_followup_currency(sdf: pd.DataFrame, out: Path) -> Path | None:
     fig.savefig(path, facecolor=SURFACE, bbox_inches="tight")
     plt.close(fig)
     return path
+
+
+def fig_model_comparison(fdf: pd.DataFrame, out: Path) -> Path | None:
+    """Which models land closest to people, answering neutrally and as a typical human?
+
+    One row per model, its mean distance from the published human values on
+    the shared 0-1 measures. Colour is assigned by model *type* — System One or
+    resampled chat — not by model, so the palette stays the validated
+    three-slot set however many models are compared; the correlation with the
+    human values is printed beside each point because a low error alone can
+    come from sitting near the middle of everything.
+    """
+    panels = [
+        (p, t)
+        for p, t in (
+            ("neutral", "Answering neutrally"),
+            ("typical_human", "Asked to answer as a typical human"),
+        )
+        if len(fdf) and (fdf["persona"] == p).any()
+    ]
+    if not panels:
+        return None
+
+    n_models = int(fdf["model"].nunique())
+    fig, axes = plt.subplots(
+        1,
+        len(panels),
+        figsize=(7.2 * len(panels), 1.4 + 0.42 * n_models),
+        dpi=170,
+        gridspec_kw={"wspace": 0.75},
+        squeeze=False,
+    )
+    fig.patch.set_facecolor(SURFACE)
+    top = max(0.5, float(fdf["mae"].max()) * 1.15)
+
+    for ax, (persona, title) in zip(axes[0], panels, strict=True):
+        sel = fdf[fdf["persona"] == persona].sort_values("mae", ascending=False)
+        y = np.arange(len(sel))
+        for yi, (_, row) in zip(y, sel.iterrows(), strict=True):
+            system_one = row["type"] == "System One"
+            colour = JEV if system_one else BASE
+            ax.plot([0, row["mae"]], [yi, yi], color=GRID, linewidth=1.4, zorder=1)
+            ax.plot(
+                row["mae"],
+                yi,
+                "o" if system_one else "s",
+                markersize=9,
+                color=colour,
+                markeredgecolor=SURFACE,
+                markeredgewidth=2,
+                zorder=3,
+            )
+            ax.annotate(
+                f"r = {row['r']:+.2f}",
+                xy=(row["mae"], yi),
+                xytext=(9, 0),
+                textcoords="offset points",
+                va="center",
+                color=INK_2,
+                fontsize=8,
+            )
+        ax.set_yticks(y, list(sel["model"]), fontsize=9)
+        ax.set_xlim(0, top)
+        ax.set_ylim(-0.6, len(sel) - 0.4)
+        ax.set_xlabel("mean distance from human rate (lower is closer)", color=INK_2, fontsize=9.5)
+        ax.set_title(title, color=INK, fontsize=11, fontweight="bold", loc="left", pad=10)
+        _grid(ax, "x")
+
+    handles = [
+        Line2D([], [], marker="o", color=JEV, linestyle="none", markersize=8, label="System One"),
+        Line2D(
+            [], [], marker="s", color=BASE, linestyle="none", markersize=8, label="Chat, resampled"
+        ),
+    ]
+    fig.legend(
+        handles=handles,
+        loc="lower left",
+        bbox_to_anchor=(0.0, -0.02 - 0.5 / (1.4 + 0.42 * n_models)),
+        ncol=2,
+        frameon=False,
+        fontsize=9,
+        labelcolor=INK_2,
+    )
+    path = out / "fig_models_vs_human.png"
+    fig.savefig(path, facecolor=SURFACE, bbox_inches="tight")
+    plt.close(fig)
+    return path

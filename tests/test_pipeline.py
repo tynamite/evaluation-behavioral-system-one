@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
 
 from jevbench.analysis import analyse_run, load_records
+from jevbench.compare import compare_runs
 from jevbench.config import Config, redact
 from jevbench.instruments import all_probes
 from jevbench.runner import run_battery
@@ -78,3 +80,49 @@ def test_missing_key_raises_a_helpful_error(monkeypatch: pytest.MonkeyPatch) -> 
     cfg = Config(backend="openrouter", api_key=None)
     with pytest.raises(RuntimeError, match="OPENROUTER_API_KEY is not set"):
         cfg.require_key()
+
+
+def test_run_filename_names_the_model(tmp_path: Path) -> None:
+    cfg = replace(Config.from_env(backend="simulator"), model="liquid/d1")
+    path = run_battery(cfg, modules=["crt"], replicates=1, personas=["neutral"], out_dir=tmp_path)
+    assert path.name.endswith("_liquid--d1.jsonl")
+    assert "simulated" in path.name
+
+
+def test_zero_runs_refuses_to_write_an_empty_file(tmp_path: Path) -> None:
+    cfg = Config.from_env(backend="simulator")
+    with pytest.raises(RuntimeError, match="nothing to run"):
+        run_battery(cfg, modules=["crt"], replicates=0, personas=["neutral"], out_dir=tmp_path)
+
+
+def _two_simulated_runs(tmp_path: Path) -> list[Path]:
+    base = Config.from_env(backend="simulator")
+    return [
+        run_battery(
+            replace(base, model=m),
+            modules=["crt", "decision", "games"],
+            replicates=1,
+            personas=["neutral", "typical_human"],
+            out_dir=tmp_path,
+        )
+        for m in ("typesafe/jev-1.13", "liquid/d1")
+    ]
+
+
+def test_compare_keys_each_model_by_its_served_name(tmp_path: Path) -> None:
+    paths = _two_simulated_runs(tmp_path)
+    tables = compare_runs(paths, tmp_path / "cmp")
+    assert set(tables["health"]["model"]) == {
+        "simulator-v1[typesafe/jev-1.13]",
+        "simulator-v1[liquid/d1]",
+    }
+    assert set(tables["fidelity"]["model"]) == set(tables["health"]["model"])
+    assert {"simulator-v1[liquid/d1]", "human"} <= set(tables["measures"].columns)
+    for name in ("health.csv", "fidelity.csv", "measures.csv", "statistics.csv"):
+        assert (tmp_path / "cmp" / name).exists()
+
+
+def test_compare_refuses_the_same_model_twice(tmp_path: Path) -> None:
+    path = _two_simulated_runs(tmp_path)[0]
+    with pytest.raises(ValueError, match="appears in both"):
+        compare_runs([path, path], tmp_path / "cmp")

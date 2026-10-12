@@ -199,6 +199,31 @@ jevbench analyse
 jevbench figures
 ```
 
+### Adding more models
+
+Every System One model on OpenRouter's decisions route shares Jev's
+`/v1/systemone` contract, so any of them can be run through the same battery,
+one run file per model. Chat models go in the baseline arm, and
+`--replicates 0` adds one without re-running a System One arm.
+
+```bash
+# check each model implements Choice, Score and Noul before paying for a run
+jevbench doctor --model openai/gpt-6-luna-decisions liquid/d1 microsoft/microsoft-decision-1
+
+jevbench run --model liquid/d1 --replicates 10
+jevbench run --replicates 0 --baseline-model anthropic/claude-haiku-5.5 --baseline-samples 10
+
+jevbench compare data/raw/run_live_*.jsonl       # -> results/comparison/
+```
+
+`compare` reduces each file with the single-run analysis unchanged, then joins
+the results on the model that actually served each arm. It writes
+`health.csv` (read it first: a model that rejects one primitive shows up there
+as an error rate of 1.0 for that kind), `fidelity.csv`, `measures.csv` and
+`fig_models_vs_human.png`. To analyse one of the new runs on its own without
+overwriting the committed results, give `analyse` and `figures` an `--out`
+directory.
+
 **No key? Everything still works.** The offline backend is deterministic and
 exercises the entire pipeline:
 

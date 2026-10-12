@@ -8,7 +8,9 @@ without spending anything.
     jevbench analyse --run data/raw/run_live_<timestamp>.jsonl
     jevbench figures --run data/raw/run_live_<timestamp>.jsonl
 
-Filenames are tagged `live` or `simulated`. `simulated` files come from the
+Filenames are tagged `live` or `simulated`, and runs made since multi-model
+support end in the model(s) they contain, e.g.
+`run_live_<timestamp>_liquid--d1.jsonl`. `simulated` files come from the
 offline deterministic backend; they are structurally valid nonsense used to
 exercise the pipeline in CI, and `load_records` refuses to pool them with live
 records.
@@ -19,7 +21,7 @@ records.
 |---|---|
 | `probe_id`, `instrument` | which item, and which instrument it belongs to |
 | `persona` | `neutral`, `typical_human`, `rational_agent` or `antisocial` |
-| `arm` | `jev` (System One) or `baseline` (autoregressive chat model) |
+| `arm` | `jev` (the System One arm, whichever model served it — see `model`) or `baseline` (autoregressive chat model) |
 | `replicate` | replicate index; for the baseline arm, the resample index |
 | `backend`, `model` | transport used, and the exact served model version |
 | `kind` | `choice`, `score` or `noul` |

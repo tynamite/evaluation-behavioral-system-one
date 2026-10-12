@@ -14,6 +14,7 @@ RAW_DIR = DATA_DIR / "raw"
 RESULTS_DIR = REPO_ROOT / "results"
 FIGURES_DIR = RESULTS_DIR / "figures"
 TABLES_DIR = RESULTS_DIR / "tables"
+COMPARISON_DIR = RESULTS_DIR / "comparison"
 
 OPENROUTER_DECISIONS_URL = "https://openrouter.ai/api/alpha/decisions"
 OPENROUTER_CHAT_URL = "https://openrouter.ai/api/v1/chat/completions"

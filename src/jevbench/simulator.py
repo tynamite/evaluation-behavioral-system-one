@@ -30,10 +30,11 @@ def _softmax_like(keys: list[str], seed: str) -> dict[str, float]:
 class SimulatorClient:
     """Mirrors `SystemOneClient.decide` without touching the network."""
 
-    model = "simulator-v1"
-
-    def __init__(self, seed: str = "jevbench") -> None:
+    def __init__(self, seed: str = "jevbench", stands_in_for: str | None = None) -> None:
         self.seed = seed
+        # Named so that two simulated "models" stay distinguishable in a
+        # comparison, without the served name ever looking like a real model.
+        self.model = f"simulator-v1[{stands_in_for}]" if stands_in_for else "simulator-v1"
         self.call_log: list[dict[str, Any]] = []
 
     def close(self) -> None:  # parity with the HTTP client

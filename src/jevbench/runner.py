@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import random
+import re
 import sys
 import threading
 import time
@@ -89,7 +90,7 @@ class BatteryRunner:
 
     def _client(self) -> Any:
         if self.config.backend == "simulator":
-            return SimulatorClient()
+            return SimulatorClient(stands_in_for=self.config.model)
         return SystemOneClient(self.config)
 
     def _tick(self, total: int, cost: float) -> None:
@@ -251,6 +252,11 @@ class BatteryRunner:
             )
 
 
+def model_slug(model: str) -> str:
+    """A filesystem-safe name for a model id: `openai/gpt-6-luna` -> `openai--gpt-6-luna`."""
+    return re.sub(r"[^A-Za-z0-9._-]+", "-", model.replace("/", "--")).strip("-")
+
+
 def write_jsonl(records: list[Record], path: Path) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as fh:
@@ -277,14 +283,24 @@ def run_battery(
     probes = all_probes(modules)
     runner = BatteryRunner(config, personas=personas, replicates=replicates, workers=workers)
     started = time.time()
-    records = runner.run_jev(probes)
+    # replicates=0 skips the System One arm, so a new chat model can be added
+    # as a baseline-only run without paying for the typed arm again.
+    records = runner.run_jev(probes) if replicates > 0 else []
     if baseline_samples > 0:
         records.extend(runner.run_baseline(probes, samples=baseline_samples))
+    if not records:
+        raise RuntimeError("nothing to run: set --replicates or --baseline-samples above 0")
 
     out_dir = out_dir or RAW_DIR
     stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
     tag = "simulated" if config.backend == "simulator" else "live"
-    path = out_dir / f"run_{tag}_{stamp}.jsonl"
+    # The timestamp still leads, so `latest_run` keeps sorting chronologically;
+    # the suffix names which models are in the file, so runs of several models
+    # can sit side by side in data/raw/.
+    arms = [config.model] if replicates > 0 else []
+    if baseline_samples > 0 and config.backend != "simulator":
+        arms.append(config.baseline_model)
+    path = out_dir / f"run_{tag}_{stamp}_{'+'.join(model_slug(m) for m in arms)}.jsonl"
     write_jsonl(records, path)
 
     total_cost = sum(float(r.usage.get("cost") or 0.0) for r in records)
