@@ -165,3 +165,21 @@ def test_main_charts_carry_the_four_chosen_models(built: list[Path]) -> None:
         assert abs(float(dots[0]) - crt) < 1e-3
     dictator = next(p for p in built if p.stem == "models-dictator").read_text()
     assert len(re.findall(r'data-series="people"', dictator)) == 4 * 11
+
+
+def test_order_chart_averages_every_model_over_the_same_cells(built: list[Path]) -> None:
+    page = next(p for p in built if p.stem == "models-order-effects").read_text()
+    counts = set(re.findall(r"(\d+ shuffled cells · \d+ unshuffled)", page))
+    assert len(counts) == 1, counts
+
+
+def test_multi_model_runs_do_not_follow_the_focal_run(tmp_path: Path) -> None:
+    import shutil
+
+    # A focal run copied elsewhere must not move where the comparison runs are read from.
+    moved = tmp_path / COMMITTED_RUN.name
+    shutil.copy(COMMITTED_RUN, moved)
+    paths = build_diagrams(
+        moved, TABLES_DIR, REPO_ROOT / "results" / "comparison", tmp_path / "out"
+    )
+    assert any(p.stem == "models-dictator" for p in paths)

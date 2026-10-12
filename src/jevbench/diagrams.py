@@ -2035,11 +2035,18 @@ def fig_models_order(runs: dict[str, pd.DataFrame]) -> Figure:
     from .analysis import order_effects
 
     odfs = {m: order_effects(runs[m]) for m, _c in MAIN_MODELS}
-    # Jev's run predates the 30 follow-up items, so compare on the items all four share.
-    common = set.intersection(*(set(o["probe_id"]) for o in odfs.values()))
+
+    # Jev's run predates the 30 follow-up items, and a refusal can drop a single
+    # cell, so average every model over the same (item, prompt) cells.
+    def cells(o: pd.DataFrame) -> set[tuple[str, str]]:
+        return set(zip(o["probe_id"], o["persona"], strict=True))
+
+    common = set.intersection(*(cells(o) for o in odfs.values()))
+    items = {pid for pid, _p in common}
     rows = []
     for m, _c in MAIN_MODELS:
-        o = odfs[m][odfs[m]["probe_id"].isin(common)]
+        o = odfs[m]
+        o = o[[k in common for k in zip(o["probe_id"], o["persona"], strict=True)]]
         sh, un = o[o["shuffled"]]["mean_tv_distance"], o[~o["shuffled"]]["mean_tv_distance"]
         rows.append(
             (
@@ -2075,13 +2082,17 @@ def fig_models_order(runs: dict[str, pd.DataFrame]) -> Figure:
         width=1000,
         height=510,
         body=body,
-        source=f"Mean distance over all pairs of the 10 repeats, per item and prompt, on the {len(common)} items "
-        "all four runs share. Jev run 18 Sep 2026, the others 12 Oct 2026.",
+        source=f"Mean distance over all pairs of the 10 repeats, per item and prompt, on the {len(common)} item-and-"
+        f"prompt cells ({len(items)} items) all four runs share. Jev run 18 Sep 2026, the others 12 Oct 2026.",
     )
 
 
 def build_diagrams(
-    run_path: Path, tables_dir: Path, comparison_dir: Path, out_dir: Path
+    run_path: Path,
+    tables_dir: Path,
+    comparison_dir: Path,
+    out_dir: Path,
+    raw_dir: Path | None = None,
 ) -> list[Path]:
     from .analysis import load_records
 
@@ -2098,7 +2109,12 @@ def build_diagrams(
             *pd.read_csv(comparison_dir / "health.csv")[["model", "run_file"]].T.values, strict=True
         )
     )
-    runs = {m: load_records(run_path.parent / files[m]) for m, _c in MAIN_MODELS}
+    # health.csv names each run file by basename; they live in the raw-data
+    # directory whatever single run `run_path` points at.
+    from .config import RAW_DIR
+
+    raw = raw_dir or RAW_DIR
+    runs = {m: load_records(raw / files[m]) for m, _c in MAIN_MODELS}
 
     figures = [
         fig_process(),
