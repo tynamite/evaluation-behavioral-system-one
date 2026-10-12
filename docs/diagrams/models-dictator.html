@@ -28,7 +28,7 @@
       font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.5rem;
     }
     .subtitle { color: var(--color-muted); font-size: 0.95rem; line-height: 1.45;
-      max-width: 60rem; margin-bottom: 1.5rem; }
+      max-width: 60rem; margin-bottom: 1rem; }
     .source { font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-muted);
       border-top: 1px solid rgba(45,49,66,0.12); margin-top: 1rem; padding-top: 0.75rem; line-height: 1.5; }
     svg { width: 100%; min-width: 1000px; display: block; }
@@ -41,7 +41,7 @@
     <h1>Four System One models&#x27; answer distributions in the dictator game, against people&#x27;s</h1>
     <p class="subtitle">You are given $10 and decide how much to give an anonymous stranger, who cannot respond. Grey: the share of people giving each amount. Coloured: the probability each model returns for that amount, averaged over 10 calls. People have three peaks, at nothing, half and everything.</p>
     <div class="diagram-container">
-      <svg viewBox="0 0 1000 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="models-dictator-title models-dictator-desc">
+      <svg viewBox="0 22 1000 498" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="models-dictator-title models-dictator-desc">
         <title id="models-dictator-title">Four System One models&#x27; answer distributions in the dictator game, against people&#x27;s</title>
         <desc id="models-dictator-desc">Four small bar charts, one per System One model, each showing the model&#x27;s probability of giving each amount from $0 to $10 next to the share of people who give it.</desc>
         <defs>
@@ -50,165 +50,177 @@
           <marker id="arrow-link" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#2e5aa8"/></marker>
         </defs>
         <rect width="100%" height="100%" fill="#f5f5f5"/>
-<text x="70" y="46" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="start" font-weight="600">Jev 1.13</text>
+<circle fill="#ff69b4" stroke="#2d3142" stroke-width="1" cx="75.0" cy="42.0" r="4.5"/>
+<text x="86" y="46" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="start" font-weight="600">Jev 1.13</text>
 <text x="64" y="213" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0">0%</text>
-<line x1="70" y1="135.0" x2="470" y2="135.0" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
-<text x="64" y="138" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0.4">40%</text>
-<line x1="70" y1="60.0" x2="470" y2="60.0" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
-<text x="64" y="63" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0.8">80%</text>
+<line x1="70" y1="164.5" x2="470" y2="164.5" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="64" y="167.476" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0.2">20%</text>
+<line x1="70" y1="119.0" x2="470" y2="119.0" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="64" y="121.953" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0.4">40%</text>
+<line x1="70" y1="73.4" x2="470" y2="73.4" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="64" y="76.4294" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0.6">60%</text>
 <line x1="70" y1="210" x2="470" y2="210" stroke="rgba(45,49,66,0.25)" stroke-width="1"/>
-<rect data-series="people" data-value="0.3611" x="73.2" y="142.3" width="14" height="67.7" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Jev 1.13" data-value="0.6190" x="89.2" y="93.9" width="14" height="116.1" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"/>
+<rect data-series="people" data-value="0.3611" x="73.2" y="127.8" width="14" height="82.2" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $0 · 36%</title></rect>
+<rect data-series="Jev 1.13" data-value="0.6190" x="89.2" y="69.1" width="14" height="140.9" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"><title>Jev 1.13 · gives $0 · 62%</title></rect>
 <text x="88.1818" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$0</text>
-<rect data-series="people" data-value="0.0914" x="109.5" y="192.9" width="14" height="17.1" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Jev 1.13" data-value="0.0430" x="125.5" y="201.9" width="14" height="8.1" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"/>
+<rect data-series="people" data-value="0.0914" x="109.5" y="189.2" width="14" height="20.8" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $1 · 9%</title></rect>
+<rect data-series="Jev 1.13" data-value="0.0430" x="125.5" y="200.2" width="14" height="9.8" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"><title>Jev 1.13 · gives $1 · 4%</title></rect>
 <text x="124.545" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$1</text>
-<rect data-series="people" data-value="0.0881" x="145.9" y="193.5" width="14" height="16.5" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Jev 1.13" data-value="0.0620" x="161.9" y="198.4" width="14" height="11.6" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"/>
+<rect data-series="people" data-value="0.0881" x="145.9" y="189.9" width="14" height="20.1" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $2 · 9%</title></rect>
+<rect data-series="Jev 1.13" data-value="0.0620" x="161.9" y="195.9" width="14" height="14.1" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"><title>Jev 1.13 · gives $2 · 6%</title></rect>
 <text x="160.909" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$2</text>
-<rect data-series="people" data-value="0.0891" x="182.3" y="193.3" width="14" height="16.7" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Jev 1.13" data-value="0.0600" x="198.3" y="198.8" width="14" height="11.2" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"/>
+<rect data-series="people" data-value="0.0891" x="182.3" y="189.7" width="14" height="20.3" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $3 · 9%</title></rect>
+<rect data-series="Jev 1.13" data-value="0.0600" x="198.3" y="196.3" width="14" height="13.7" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"><title>Jev 1.13 · gives $3 · 6%</title></rect>
 <text x="197.273" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$3</text>
-<rect data-series="people" data-value="0.0723" x="218.6" y="196.4" width="14" height="13.6" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Jev 1.13" data-value="0.0230" x="234.6" y="205.7" width="14" height="4.3" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"/>
+<rect data-series="people" data-value="0.0723" x="218.6" y="193.5" width="14" height="16.5" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $4 · 7%</title></rect>
+<rect data-series="Jev 1.13" data-value="0.0230" x="234.6" y="204.8" width="14" height="5.2" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"><title>Jev 1.13 · gives $4 · 2%</title></rect>
 <text x="233.636" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$4</text>
-<rect data-series="people" data-value="0.1674" x="255.0" y="178.6" width="14" height="31.4" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Jev 1.13" data-value="0.1840" x="271.0" y="175.5" width="14" height="34.5" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"/>
+<rect data-series="people" data-value="0.1674" x="255.0" y="171.9" width="14" height="38.1" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $5 · 17%</title></rect>
+<rect data-series="Jev 1.13" data-value="0.1840" x="271.0" y="168.1" width="14" height="41.9" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"><title>Jev 1.13 · gives $5 · 18%</title></rect>
 <text x="270" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$5</text>
-<rect data-series="people" data-value="0.0389" x="291.4" y="202.7" width="14" height="7.3" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Jev 1.13" data-value="0.0010" x="307.4" y="209.8" width="14" height="0.2" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"/>
+<rect data-series="people" data-value="0.0389" x="291.4" y="201.1" width="14" height="8.9" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $6 · 4%</title></rect>
+<rect data-series="Jev 1.13" data-value="0.0010" x="307.4" y="209.8" width="14" height="0.2" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"><title>Jev 1.13 · gives $6 · 0%</title></rect>
 <text x="306.364" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$6</text>
-<rect data-series="people" data-value="0.0197" x="327.7" y="206.3" width="14" height="3.7" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Jev 1.13" data-value="0.0000" x="343.7" y="210.0" width="14" height="0.0" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"/>
+<rect data-series="people" data-value="0.0197" x="327.7" y="205.5" width="14" height="4.5" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $7 · 2%</title></rect>
+<rect data-series="Jev 1.13" data-value="0.0000" x="343.7" y="210.0" width="14" height="0.0" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"><title>Jev 1.13 · gives $7 · 0%</title></rect>
 <text x="342.727" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$7</text>
-<rect data-series="people" data-value="0.0107" x="364.1" y="208.0" width="14" height="2.0" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Jev 1.13" data-value="0.0000" x="380.1" y="210.0" width="14" height="0.0" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"/>
+<rect data-series="people" data-value="0.0107" x="364.1" y="207.6" width="14" height="2.4" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $8 · 1%</title></rect>
+<rect data-series="Jev 1.13" data-value="0.0000" x="380.1" y="210.0" width="14" height="0.0" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"><title>Jev 1.13 · gives $8 · 0%</title></rect>
 <text x="379.091" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$8</text>
-<rect data-series="people" data-value="0.0070" x="400.5" y="208.7" width="14" height="1.3" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Jev 1.13" data-value="0.0000" x="416.5" y="210.0" width="14" height="0.0" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"/>
+<rect data-series="people" data-value="0.0070" x="400.5" y="208.4" width="14" height="1.6" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $9 · 1%</title></rect>
+<rect data-series="Jev 1.13" data-value="0.0000" x="416.5" y="210.0" width="14" height="0.0" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"><title>Jev 1.13 · gives $9 · 0%</title></rect>
 <text x="415.455" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$9</text>
-<rect data-series="people" data-value="0.0544" x="436.8" y="199.8" width="14" height="10.2" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Jev 1.13" data-value="0.0080" x="452.8" y="208.5" width="14" height="1.5" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"/>
+<rect data-series="people" data-value="0.0544" x="436.8" y="197.6" width="14" height="12.4" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $10 · 5%</title></rect>
+<rect data-series="Jev 1.13" data-value="0.0080" x="452.8" y="208.2" width="14" height="1.8" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"><title>Jev 1.13 · gives $10 · 1%</title></rect>
 <text x="451.818" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$10</text>
-<text x="550" y="46" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="start" font-weight="600">GPT-6 Luna Decisions</text>
+<rect fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1" x="551.1" y="38.1" width="7.9" height="7.9"/>
+<text x="566" y="46" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="start" font-weight="600">GPT-6 Luna Decisions</text>
 <text x="544" y="213" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0">0%</text>
-<line x1="550" y1="135.0" x2="950" y2="135.0" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
-<text x="544" y="138" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0.4">40%</text>
-<line x1="550" y1="60.0" x2="950" y2="60.0" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
-<text x="544" y="63" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0.8">80%</text>
+<line x1="550" y1="164.5" x2="950" y2="164.5" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="544" y="167.476" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0.2">20%</text>
+<line x1="550" y1="119.0" x2="950" y2="119.0" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="544" y="121.953" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0.4">40%</text>
+<line x1="550" y1="73.4" x2="950" y2="73.4" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="544" y="76.4294" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0.6">60%</text>
 <line x1="550" y1="210" x2="950" y2="210" stroke="rgba(45,49,66,0.25)" stroke-width="1"/>
-<rect data-series="people" data-value="0.3611" x="553.2" y="142.3" width="14" height="67.7" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="GPT-6 Luna Decisions" data-value="0.0190" x="569.2" y="206.4" width="14" height="3.6" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"/>
+<rect data-series="people" data-value="0.3611" x="553.2" y="127.8" width="14" height="82.2" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $0 · 36%</title></rect>
+<rect data-series="GPT-6 Luna Decisions" data-value="0.0190" x="569.2" y="205.7" width="14" height="4.3" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"><title>GPT-6 Luna Decisions · gives $0 · 2%</title></rect>
 <text x="568.182" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$0</text>
-<rect data-series="people" data-value="0.0914" x="589.5" y="192.9" width="14" height="17.1" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="GPT-6 Luna Decisions" data-value="0.0810" x="605.5" y="194.8" width="14" height="15.2" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"/>
+<rect data-series="people" data-value="0.0914" x="589.5" y="189.2" width="14" height="20.8" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $1 · 9%</title></rect>
+<rect data-series="GPT-6 Luna Decisions" data-value="0.0810" x="605.5" y="191.6" width="14" height="18.4" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"><title>GPT-6 Luna Decisions · gives $1 · 8%</title></rect>
 <text x="604.545" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$1</text>
-<rect data-series="people" data-value="0.0881" x="625.9" y="193.5" width="14" height="16.5" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="GPT-6 Luna Decisions" data-value="0.0940" x="641.9" y="192.4" width="14" height="17.6" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"/>
+<rect data-series="people" data-value="0.0881" x="625.9" y="189.9" width="14" height="20.1" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $2 · 9%</title></rect>
+<rect data-series="GPT-6 Luna Decisions" data-value="0.0940" x="641.9" y="188.6" width="14" height="21.4" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"><title>GPT-6 Luna Decisions · gives $2 · 9%</title></rect>
 <text x="640.909" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$2</text>
-<rect data-series="people" data-value="0.0891" x="662.3" y="193.3" width="14" height="16.7" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="GPT-6 Luna Decisions" data-value="0.1670" x="678.3" y="178.7" width="14" height="31.3" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"/>
+<rect data-series="people" data-value="0.0891" x="662.3" y="189.7" width="14" height="20.3" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $3 · 9%</title></rect>
+<rect data-series="GPT-6 Luna Decisions" data-value="0.1670" x="678.3" y="172.0" width="14" height="38.0" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"><title>GPT-6 Luna Decisions · gives $3 · 17%</title></rect>
 <text x="677.273" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$3</text>
-<rect data-series="people" data-value="0.0723" x="698.6" y="196.4" width="14" height="13.6" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="GPT-6 Luna Decisions" data-value="0.1220" x="714.6" y="187.1" width="14" height="22.9" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"/>
+<rect data-series="people" data-value="0.0723" x="698.6" y="193.5" width="14" height="16.5" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $4 · 7%</title></rect>
+<rect data-series="GPT-6 Luna Decisions" data-value="0.1220" x="714.6" y="182.2" width="14" height="27.8" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"><title>GPT-6 Luna Decisions · gives $4 · 12%</title></rect>
 <text x="713.636" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$4</text>
-<rect data-series="people" data-value="0.1674" x="735.0" y="178.6" width="14" height="31.4" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="GPT-6 Luna Decisions" data-value="0.4640" x="751.0" y="123.0" width="14" height="87.0" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"/>
+<rect data-series="people" data-value="0.1674" x="735.0" y="171.9" width="14" height="38.1" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $5 · 17%</title></rect>
+<rect data-series="GPT-6 Luna Decisions" data-value="0.4640" x="751.0" y="104.4" width="14" height="105.6" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"><title>GPT-6 Luna Decisions · gives $5 · 46%</title></rect>
 <text x="750" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$5</text>
-<rect data-series="people" data-value="0.0389" x="771.4" y="202.7" width="14" height="7.3" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="GPT-6 Luna Decisions" data-value="0.0180" x="787.4" y="206.6" width="14" height="3.4" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"/>
+<rect data-series="people" data-value="0.0389" x="771.4" y="201.1" width="14" height="8.9" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $6 · 4%</title></rect>
+<rect data-series="GPT-6 Luna Decisions" data-value="0.0180" x="787.4" y="205.9" width="14" height="4.1" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"><title>GPT-6 Luna Decisions · gives $6 · 2%</title></rect>
 <text x="786.364" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$6</text>
-<rect data-series="people" data-value="0.0197" x="807.7" y="206.3" width="14" height="3.7" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="GPT-6 Luna Decisions" data-value="0.0110" x="823.7" y="207.9" width="14" height="2.1" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"/>
+<rect data-series="people" data-value="0.0197" x="807.7" y="205.5" width="14" height="4.5" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $7 · 2%</title></rect>
+<rect data-series="GPT-6 Luna Decisions" data-value="0.0110" x="823.7" y="207.5" width="14" height="2.5" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"><title>GPT-6 Luna Decisions · gives $7 · 1%</title></rect>
 <text x="822.727" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$7</text>
-<rect data-series="people" data-value="0.0107" x="844.1" y="208.0" width="14" height="2.0" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="GPT-6 Luna Decisions" data-value="0.0110" x="860.1" y="207.9" width="14" height="2.1" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"/>
+<rect data-series="people" data-value="0.0107" x="844.1" y="207.6" width="14" height="2.4" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $8 · 1%</title></rect>
+<rect data-series="GPT-6 Luna Decisions" data-value="0.0110" x="860.1" y="207.5" width="14" height="2.5" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"><title>GPT-6 Luna Decisions · gives $8 · 1%</title></rect>
 <text x="859.091" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$8</text>
-<rect data-series="people" data-value="0.0070" x="880.5" y="208.7" width="14" height="1.3" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="GPT-6 Luna Decisions" data-value="0.0060" x="896.5" y="208.9" width="14" height="1.1" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"/>
+<rect data-series="people" data-value="0.0070" x="880.5" y="208.4" width="14" height="1.6" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $9 · 1%</title></rect>
+<rect data-series="GPT-6 Luna Decisions" data-value="0.0060" x="896.5" y="208.6" width="14" height="1.4" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"><title>GPT-6 Luna Decisions · gives $9 · 1%</title></rect>
 <text x="895.455" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$9</text>
-<rect data-series="people" data-value="0.0544" x="916.8" y="199.8" width="14" height="10.2" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="GPT-6 Luna Decisions" data-value="0.0070" x="932.8" y="208.7" width="14" height="1.3" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"/>
+<rect data-series="people" data-value="0.0544" x="916.8" y="197.6" width="14" height="12.4" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $10 · 5%</title></rect>
+<rect data-series="GPT-6 Luna Decisions" data-value="0.0070" x="932.8" y="208.4" width="14" height="1.6" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"><title>GPT-6 Luna Decisions · gives $10 · 1%</title></rect>
 <text x="931.818" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$10</text>
-<text x="70" y="266" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="start" font-weight="600">Clef</text>
+<path fill="#8e7c0b" stroke="#8e7c0b" stroke-width="1" d="M75.0 255.9 L81.1 262.0 L75.0 268.1 L68.9 262.0 Z"/>
+<text x="86" y="266" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="start" font-weight="600">Clef</text>
 <text x="64" y="433" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0">0%</text>
-<line x1="70" y1="355.0" x2="470" y2="355.0" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
-<text x="64" y="358" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0.4">40%</text>
-<line x1="70" y1="280.0" x2="470" y2="280.0" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
-<text x="64" y="283" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0.8">80%</text>
+<line x1="70" y1="384.5" x2="470" y2="384.5" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="64" y="387.476" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0.2">20%</text>
+<line x1="70" y1="339.0" x2="470" y2="339.0" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="64" y="341.953" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0.4">40%</text>
+<line x1="70" y1="293.4" x2="470" y2="293.4" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="64" y="296.429" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0.6">60%</text>
 <line x1="70" y1="430" x2="470" y2="430" stroke="rgba(45,49,66,0.25)" stroke-width="1"/>
-<rect data-series="people" data-value="0.3611" x="73.2" y="362.3" width="14" height="67.7" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Clef" data-value="0.1254" x="89.2" y="406.5" width="14" height="23.5" fill="#157a6e" fill-opacity="0.75" stroke="#157a6e" stroke-width="1"/>
+<rect data-series="people" data-value="0.3611" x="73.2" y="347.8" width="14" height="82.2" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $0 · 36%</title></rect>
+<rect data-series="Clef" data-value="0.1254" x="89.2" y="401.5" width="14" height="28.5" fill="#8e7c0b" fill-opacity="0.75" stroke="#8e7c0b" stroke-width="1"><title>Clef · gives $0 · 13%</title></rect>
 <text x="88.1818" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$0</text>
-<rect data-series="people" data-value="0.0914" x="109.5" y="412.9" width="14" height="17.1" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Clef" data-value="0.0246" x="125.5" y="425.4" width="14" height="4.6" fill="#157a6e" fill-opacity="0.75" stroke="#157a6e" stroke-width="1"/>
+<rect data-series="people" data-value="0.0914" x="109.5" y="409.2" width="14" height="20.8" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $1 · 9%</title></rect>
+<rect data-series="Clef" data-value="0.0246" x="125.5" y="424.4" width="14" height="5.6" fill="#8e7c0b" fill-opacity="0.75" stroke="#8e7c0b" stroke-width="1"><title>Clef · gives $1 · 2%</title></rect>
 <text x="124.545" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$1</text>
-<rect data-series="people" data-value="0.0881" x="145.9" y="413.5" width="14" height="16.5" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Clef" data-value="0.0260" x="161.9" y="425.1" width="14" height="4.9" fill="#157a6e" fill-opacity="0.75" stroke="#157a6e" stroke-width="1"/>
+<rect data-series="people" data-value="0.0881" x="145.9" y="409.9" width="14" height="20.1" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $2 · 9%</title></rect>
+<rect data-series="Clef" data-value="0.0260" x="161.9" y="424.1" width="14" height="5.9" fill="#8e7c0b" fill-opacity="0.75" stroke="#8e7c0b" stroke-width="1"><title>Clef · gives $2 · 3%</title></rect>
 <text x="160.909" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$2</text>
-<rect data-series="people" data-value="0.0891" x="182.3" y="413.3" width="14" height="16.7" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Clef" data-value="0.1139" x="198.3" y="408.6" width="14" height="21.4" fill="#157a6e" fill-opacity="0.75" stroke="#157a6e" stroke-width="1"/>
+<rect data-series="people" data-value="0.0891" x="182.3" y="409.7" width="14" height="20.3" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $3 · 9%</title></rect>
+<rect data-series="Clef" data-value="0.1139" x="198.3" y="404.1" width="14" height="25.9" fill="#8e7c0b" fill-opacity="0.75" stroke="#8e7c0b" stroke-width="1"><title>Clef · gives $3 · 11%</title></rect>
 <text x="197.273" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$3</text>
-<rect data-series="people" data-value="0.0723" x="218.6" y="416.4" width="14" height="13.6" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Clef" data-value="0.0679" x="234.6" y="417.3" width="14" height="12.7" fill="#157a6e" fill-opacity="0.75" stroke="#157a6e" stroke-width="1"/>
+<rect data-series="people" data-value="0.0723" x="218.6" y="413.5" width="14" height="16.5" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $4 · 7%</title></rect>
+<rect data-series="Clef" data-value="0.0679" x="234.6" y="414.5" width="14" height="15.5" fill="#8e7c0b" fill-opacity="0.75" stroke="#8e7c0b" stroke-width="1"><title>Clef · gives $4 · 7%</title></rect>
 <text x="233.636" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$4</text>
-<rect data-series="people" data-value="0.1674" x="255.0" y="398.6" width="14" height="31.4" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Clef" data-value="0.5605" x="271.0" y="324.9" width="14" height="105.1" fill="#157a6e" fill-opacity="0.75" stroke="#157a6e" stroke-width="1"/>
+<rect data-series="people" data-value="0.1674" x="255.0" y="391.9" width="14" height="38.1" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $5 · 17%</title></rect>
+<rect data-series="Clef" data-value="0.5605" x="271.0" y="302.4" width="14" height="127.6" fill="#8e7c0b" fill-opacity="0.75" stroke="#8e7c0b" stroke-width="1"><title>Clef · gives $5 · 56%</title></rect>
 <text x="270" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$5</text>
-<rect data-series="people" data-value="0.0389" x="291.4" y="422.7" width="14" height="7.3" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Clef" data-value="0.0291" x="307.4" y="424.5" width="14" height="5.5" fill="#157a6e" fill-opacity="0.75" stroke="#157a6e" stroke-width="1"/>
+<rect data-series="people" data-value="0.0389" x="291.4" y="421.1" width="14" height="8.9" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $6 · 4%</title></rect>
+<rect data-series="Clef" data-value="0.0291" x="307.4" y="423.4" width="14" height="6.6" fill="#8e7c0b" fill-opacity="0.75" stroke="#8e7c0b" stroke-width="1"><title>Clef · gives $6 · 3%</title></rect>
 <text x="306.364" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$6</text>
-<rect data-series="people" data-value="0.0197" x="327.7" y="426.3" width="14" height="3.7" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Clef" data-value="0.0195" x="343.7" y="426.3" width="14" height="3.7" fill="#157a6e" fill-opacity="0.75" stroke="#157a6e" stroke-width="1"/>
+<rect data-series="people" data-value="0.0197" x="327.7" y="425.5" width="14" height="4.5" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $7 · 2%</title></rect>
+<rect data-series="Clef" data-value="0.0195" x="343.7" y="425.6" width="14" height="4.4" fill="#8e7c0b" fill-opacity="0.75" stroke="#8e7c0b" stroke-width="1"><title>Clef · gives $7 · 2%</title></rect>
 <text x="342.727" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$7</text>
-<rect data-series="people" data-value="0.0107" x="364.1" y="428.0" width="14" height="2.0" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Clef" data-value="0.0070" x="380.1" y="428.7" width="14" height="1.3" fill="#157a6e" fill-opacity="0.75" stroke="#157a6e" stroke-width="1"/>
+<rect data-series="people" data-value="0.0107" x="364.1" y="427.6" width="14" height="2.4" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $8 · 1%</title></rect>
+<rect data-series="Clef" data-value="0.0070" x="380.1" y="428.4" width="14" height="1.6" fill="#8e7c0b" fill-opacity="0.75" stroke="#8e7c0b" stroke-width="1"><title>Clef · gives $8 · 1%</title></rect>
 <text x="379.091" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$8</text>
-<rect data-series="people" data-value="0.0070" x="400.5" y="428.7" width="14" height="1.3" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Clef" data-value="0.0049" x="416.5" y="429.1" width="14" height="0.9" fill="#157a6e" fill-opacity="0.75" stroke="#157a6e" stroke-width="1"/>
+<rect data-series="people" data-value="0.0070" x="400.5" y="428.4" width="14" height="1.6" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $9 · 1%</title></rect>
+<rect data-series="Clef" data-value="0.0049" x="416.5" y="428.9" width="14" height="1.1" fill="#8e7c0b" fill-opacity="0.75" stroke="#8e7c0b" stroke-width="1"><title>Clef · gives $9 · 0%</title></rect>
 <text x="415.455" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$9</text>
-<rect data-series="people" data-value="0.0544" x="436.8" y="419.8" width="14" height="10.2" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="Clef" data-value="0.0209" x="452.8" y="426.1" width="14" height="3.9" fill="#157a6e" fill-opacity="0.75" stroke="#157a6e" stroke-width="1"/>
+<rect data-series="people" data-value="0.0544" x="436.8" y="417.6" width="14" height="12.4" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $10 · 5%</title></rect>
+<rect data-series="Clef" data-value="0.0209" x="452.8" y="425.2" width="14" height="4.8" fill="#8e7c0b" fill-opacity="0.75" stroke="#8e7c0b" stroke-width="1"><title>Clef · gives $10 · 2%</title></rect>
 <text x="451.818" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$10</text>
-<text x="550" y="266" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="start" font-weight="600">d1</text>
+<path fill="#7911d4" stroke="#7911d4" stroke-width="1" d="M555.0 255.7 L560.7 265.8 L549.3 265.8 Z"/>
+<text x="566" y="266" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="start" font-weight="600">d1</text>
 <text x="544" y="433" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0">0%</text>
-<line x1="550" y1="355.0" x2="950" y2="355.0" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
-<text x="544" y="358" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0.4">40%</text>
-<line x1="550" y1="280.0" x2="950" y2="280.0" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
-<text x="544" y="283" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0.8">80%</text>
+<line x1="550" y1="384.5" x2="950" y2="384.5" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="544" y="387.476" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0.2">20%</text>
+<line x1="550" y1="339.0" x2="950" y2="339.0" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="544" y="341.953" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0.4">40%</text>
+<line x1="550" y1="293.4" x2="950" y2="293.4" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="544" y="296.429" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" data-tick="y" data-value="0.6">60%</text>
 <line x1="550" y1="430" x2="950" y2="430" stroke="rgba(45,49,66,0.25)" stroke-width="1"/>
-<rect data-series="people" data-value="0.3611" x="553.2" y="362.3" width="14" height="67.7" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="d1" data-value="0.3997" x="569.2" y="355.1" width="14" height="74.9" fill="#6b4c9a" fill-opacity="0.75" stroke="#6b4c9a" stroke-width="1"/>
+<rect data-series="people" data-value="0.3611" x="553.2" y="347.8" width="14" height="82.2" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $0 · 36%</title></rect>
+<rect data-series="d1" data-value="0.3997" x="569.2" y="339.0" width="14" height="91.0" fill="#7911d4" fill-opacity="0.75" stroke="#7911d4" stroke-width="1"><title>d1 · gives $0 · 40%</title></rect>
 <text x="568.182" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$0</text>
-<rect data-series="people" data-value="0.0914" x="589.5" y="412.9" width="14" height="17.1" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="d1" data-value="0.0983" x="605.5" y="411.6" width="14" height="18.4" fill="#6b4c9a" fill-opacity="0.75" stroke="#6b4c9a" stroke-width="1"/>
+<rect data-series="people" data-value="0.0914" x="589.5" y="409.2" width="14" height="20.8" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $1 · 9%</title></rect>
+<rect data-series="d1" data-value="0.0983" x="605.5" y="407.6" width="14" height="22.4" fill="#7911d4" fill-opacity="0.75" stroke="#7911d4" stroke-width="1"><title>d1 · gives $1 · 10%</title></rect>
 <text x="604.545" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$1</text>
-<rect data-series="people" data-value="0.0881" x="625.9" y="413.5" width="14" height="16.5" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="d1" data-value="0.0935" x="641.9" y="412.5" width="14" height="17.5" fill="#6b4c9a" fill-opacity="0.75" stroke="#6b4c9a" stroke-width="1"/>
+<rect data-series="people" data-value="0.0881" x="625.9" y="409.9" width="14" height="20.1" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $2 · 9%</title></rect>
+<rect data-series="d1" data-value="0.0935" x="641.9" y="408.7" width="14" height="21.3" fill="#7911d4" fill-opacity="0.75" stroke="#7911d4" stroke-width="1"><title>d1 · gives $2 · 9%</title></rect>
 <text x="640.909" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$2</text>
-<rect data-series="people" data-value="0.0891" x="662.3" y="413.3" width="14" height="16.7" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="d1" data-value="0.0912" x="678.3" y="412.9" width="14" height="17.1" fill="#6b4c9a" fill-opacity="0.75" stroke="#6b4c9a" stroke-width="1"/>
+<rect data-series="people" data-value="0.0891" x="662.3" y="409.7" width="14" height="20.3" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $3 · 9%</title></rect>
+<rect data-series="d1" data-value="0.0912" x="678.3" y="409.3" width="14" height="20.7" fill="#7911d4" fill-opacity="0.75" stroke="#7911d4" stroke-width="1"><title>d1 · gives $3 · 9%</title></rect>
 <text x="677.273" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$3</text>
-<rect data-series="people" data-value="0.0723" x="698.6" y="416.4" width="14" height="13.6" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="d1" data-value="0.0648" x="714.6" y="417.9" width="14" height="12.1" fill="#6b4c9a" fill-opacity="0.75" stroke="#6b4c9a" stroke-width="1"/>
+<rect data-series="people" data-value="0.0723" x="698.6" y="413.5" width="14" height="16.5" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $4 · 7%</title></rect>
+<rect data-series="d1" data-value="0.0648" x="714.6" y="415.3" width="14" height="14.7" fill="#7911d4" fill-opacity="0.75" stroke="#7911d4" stroke-width="1"><title>d1 · gives $4 · 6%</title></rect>
 <text x="713.636" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$4</text>
-<rect data-series="people" data-value="0.1674" x="735.0" y="398.6" width="14" height="31.4" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="d1" data-value="0.2237" x="751.0" y="388.1" width="14" height="41.9" fill="#6b4c9a" fill-opacity="0.75" stroke="#6b4c9a" stroke-width="1"/>
+<rect data-series="people" data-value="0.1674" x="735.0" y="391.9" width="14" height="38.1" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $5 · 17%</title></rect>
+<rect data-series="d1" data-value="0.2237" x="751.0" y="379.1" width="14" height="50.9" fill="#7911d4" fill-opacity="0.75" stroke="#7911d4" stroke-width="1"><title>d1 · gives $5 · 22%</title></rect>
 <text x="750" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$5</text>
-<rect data-series="people" data-value="0.0389" x="771.4" y="422.7" width="14" height="7.3" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="d1" data-value="0.0072" x="787.4" y="428.7" width="14" height="1.3" fill="#6b4c9a" fill-opacity="0.75" stroke="#6b4c9a" stroke-width="1"/>
+<rect data-series="people" data-value="0.0389" x="771.4" y="421.1" width="14" height="8.9" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $6 · 4%</title></rect>
+<rect data-series="d1" data-value="0.0072" x="787.4" y="428.4" width="14" height="1.6" fill="#7911d4" fill-opacity="0.75" stroke="#7911d4" stroke-width="1"><title>d1 · gives $6 · 1%</title></rect>
 <text x="786.364" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$6</text>
-<rect data-series="people" data-value="0.0197" x="807.7" y="426.3" width="14" height="3.7" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="d1" data-value="0.0058" x="823.7" y="428.9" width="14" height="1.1" fill="#6b4c9a" fill-opacity="0.75" stroke="#6b4c9a" stroke-width="1"/>
+<rect data-series="people" data-value="0.0197" x="807.7" y="425.5" width="14" height="4.5" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $7 · 2%</title></rect>
+<rect data-series="d1" data-value="0.0058" x="823.7" y="428.7" width="14" height="1.3" fill="#7911d4" fill-opacity="0.75" stroke="#7911d4" stroke-width="1"><title>d1 · gives $7 · 1%</title></rect>
 <text x="822.727" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$7</text>
-<rect data-series="people" data-value="0.0107" x="844.1" y="428.0" width="14" height="2.0" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="d1" data-value="0.0049" x="860.1" y="429.1" width="14" height="0.9" fill="#6b4c9a" fill-opacity="0.75" stroke="#6b4c9a" stroke-width="1"/>
+<rect data-series="people" data-value="0.0107" x="844.1" y="427.6" width="14" height="2.4" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $8 · 1%</title></rect>
+<rect data-series="d1" data-value="0.0049" x="860.1" y="428.9" width="14" height="1.1" fill="#7911d4" fill-opacity="0.75" stroke="#7911d4" stroke-width="1"><title>d1 · gives $8 · 0%</title></rect>
 <text x="859.091" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$8</text>
-<rect data-series="people" data-value="0.0070" x="880.5" y="428.7" width="14" height="1.3" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="d1" data-value="0.0042" x="896.5" y="429.2" width="14" height="0.8" fill="#6b4c9a" fill-opacity="0.75" stroke="#6b4c9a" stroke-width="1"/>
+<rect data-series="people" data-value="0.0070" x="880.5" y="428.4" width="14" height="1.6" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $9 · 1%</title></rect>
+<rect data-series="d1" data-value="0.0042" x="896.5" y="429.0" width="14" height="1.0" fill="#7911d4" fill-opacity="0.75" stroke="#7911d4" stroke-width="1"><title>d1 · gives $9 · 0%</title></rect>
 <text x="895.455" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$9</text>
-<rect data-series="people" data-value="0.0544" x="916.8" y="419.8" width="14" height="10.2" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"/>
-<rect data-series="d1" data-value="0.0068" x="932.8" y="428.7" width="14" height="1.3" fill="#6b4c9a" fill-opacity="0.75" stroke="#6b4c9a" stroke-width="1"/>
+<rect data-series="people" data-value="0.0544" x="916.8" y="417.6" width="14" height="12.4" fill="rgba(79,93,117,0.18)" stroke="#4f5d75" stroke-width="1"><title>people · gives $10 · 5%</title></rect>
+<rect data-series="d1" data-value="0.0068" x="932.8" y="428.4" width="14" height="1.6" fill="#7911d4" fill-opacity="0.75" stroke="#7911d4" stroke-width="1"><title>d1 · gives $10 · 1%</title></rect>
 <text x="931.818" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">$10</text>
 <text x="520" y="466" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.14em">AMOUNT GIVEN TO THE STRANGER, OUT OF $10</text>
 <line x1="30" y1="476" x2="970" y2="476" stroke="rgba(45,49,66,0.1)" stroke-width="0.8"/>
@@ -217,8 +229,8 @@
 <text x="128" y="509" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">People: share of 20,813 dictators in 328 treatments</text>
 <rect x="443.4" y="500" width="10" height="10" rx="2" fill="#ff69b4" fill-opacity="0.75" stroke="#d6126f" stroke-width="1"/>
 <rect x="456.4" y="500" width="10" height="10" rx="2" fill="#2e5aa8" fill-opacity="0.75" stroke="#2e5aa8" stroke-width="1"/>
-<rect x="469.4" y="500" width="10" height="10" rx="2" fill="#157a6e" fill-opacity="0.75" stroke="#157a6e" stroke-width="1"/>
-<rect x="482.4" y="500" width="10" height="10" rx="2" fill="#6b4c9a" fill-opacity="0.75" stroke="#6b4c9a" stroke-width="1"/>
+<rect x="469.4" y="500" width="10" height="10" rx="2" fill="#8e7c0b" fill-opacity="0.75" stroke="#8e7c0b" stroke-width="1"/>
+<rect x="482.4" y="500" width="10" height="10" rx="2" fill="#7911d4" fill-opacity="0.75" stroke="#7911d4" stroke-width="1"/>
 <text x="503.4" y="509" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">The model&#x27;s returned probability, no instruction</text>
       </svg>
     </div>

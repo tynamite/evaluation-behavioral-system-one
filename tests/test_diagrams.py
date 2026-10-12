@@ -58,7 +58,7 @@ def test_dumbbell_refuses_too_many_rows() -> None:
 
 def test_every_model_in_the_scatter_is_named(built: list[Path]) -> None:
     page = next(p for p in built if p.stem == "models-scatter").read_text()
-    points = set(re.findall(r'<circle data-name="([^"]+)"', page))
+    points = set(re.findall(r'data-name="([^"]+)" data-x=', page))
     labels = set(re.findall(r'data-name="([^"]+)" data-role="label"', page))
     assert len(points) == 12
     assert labels == points
@@ -114,18 +114,27 @@ def test_scatter_legend_matches_where_the_highlighted_model_sits(built: list[Pat
     page = next(p for p in built if p.stem == "models-scatter").read_text()
     points = {
         n: (float(x), float(y))
-        for n, x, y in re.findall(
-            r'<circle data-name="([^"]+)" data-x="([\d.]+)" data-y="([\d.]+)"', page
-        )
+        for n, x, y in re.findall(r'data-name="([^"]+)" data-x="([\d.]+)" data-y="([\d.]+)"', page)
     }
-    note = re.search(
-        r">([^<>]+): (the only model above the line|furthest above the line|moved least when told)<",
-        page,
-    )
-    assert note, "scatter legend names no highlighted model"
-    x, y = points[note.group(1)]
     # "Above the line" means told-to-be-human is further from people than neutral.
-    assert (y > x) == ("above" in note.group(2))
+    above = {n for n, (x, y) in points.items() if y > x}
+    note = re.search(r">([^<>]+): (the only model above the line|furthest above the line)<", page)
+    # A model is singled out exactly when one sits above the line, and it is one of them.
+    assert bool(note) == bool(above)
+    if note:
+        assert note.group(1) in above
+
+
+def test_main_models_keep_shape_and_colour_in_the_scatter(built: list[Path]) -> None:
+    from jevbench.diagrams import MAIN_MODELS, MAIN_SHAPES, SHORT
+
+    page = next(p for p in built if p.stem == "models-scatter").read_text()
+    tags = {"circle": "circle", "square": "rect", "diamond": "path", "triangle": "path"}
+    for model, colour in MAIN_MODELS:
+        tag = tags[MAIN_SHAPES[model]]
+        assert re.search(
+            rf'<{tag} data-name="{re.escape(SHORT[model])}"[^>]*fill="{colour}"', page
+        ), SHORT[model]
 
 
 def test_dictator_chart_uses_the_full_human_distribution(built: list[Path]) -> None:

@@ -28,7 +28,7 @@
       font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.5rem;
     }
     .subtitle { color: var(--color-muted); font-size: 0.95rem; line-height: 1.45;
-      max-width: 60rem; margin-bottom: 1.5rem; }
+      max-width: 60rem; margin-bottom: 1rem; }
     .source { font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-muted);
       border-top: 1px solid rgba(45,49,66,0.12); margin-top: 1rem; padding-top: 0.75rem; line-height: 1.5; }
     svg { width: 100%; min-width: 1000px; display: block; }
@@ -39,9 +39,9 @@
   <div class="frame">
     <p class="eyebrow">Decision-making tests · four models</p>
     <h1>Four System One models vs. published human results on seven decision-making tests</h1>
-    <p class="subtitle">Classic problems from behavioural economics. Each row says what was asked and which answer is counted; some rows count the correct answer, others the typical human error. Left, asked with no instruction; right, with this sentence added first: “Answer the way a typical human participant in a psychology or economics experiment would actually answer — not the textbook-correct answer, and not an idealised one. Give the response the average person would give.” The tick is people; each dot is a model&#x27;s probability on that answer, or its expected share.</p>
+    <p class="subtitle">Classic problems from behavioural economics. Each row says what was asked and which answer is counted; some rows count the correct answer, others the typical human error. Left, asked with no instruction; right, with this sentence added first: “Answer the way a typical human participant in a psychology or economics experiment would actually answer — not the textbook-correct answer, and not an idealised one. Give the response the average person would give.” The tick is people; each mark is a model&#x27;s probability on that answer, or its expected share.</p>
     <div class="diagram-container">
-      <svg viewBox="0 0 1000 522" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="models-decisions-title models-decisions-desc">
+      <svg viewBox="0 33 1000 489" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="models-decisions-title models-decisions-desc">
         <title id="models-decisions-title">Four System One models vs. published human results on seven decision-making tests</title>
         <desc id="models-decisions-desc">Dot chart of 7 decisions measures in two panels, no instruction and told to answer like a typical person, comparing Jev 1.13, GPT-6 Luna Decisions, Clef and d1 with the published human result.</desc>
         <defs>
@@ -66,64 +66,64 @@
 <line x1="435.9" y1="99.5" x2="590.4" y2="99.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="435.9" y1="106.5" x2="577.7" y2="106.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line data-series="people" data-value="0.4130" x1="435.9" y1="80" x2="435.9" y2="112" stroke="#4f5d75" stroke-width="2"/>
-<circle data-series="Jev 1.13" data-panel="neutral" data-value="0.9892" cx="608.8" cy="85.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
-<circle data-series="GPT-6 Luna Decisions" data-panel="neutral" data-value="0.8755" cx="574.7" cy="92.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
-<circle data-series="Clef" data-panel="neutral" data-value="0.9279" cx="590.4" cy="99.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
-<circle data-series="d1" data-panel="neutral" data-value="0.8856" cx="577.7" cy="106.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<circle data-series="Jev 1.13" data-panel="neutral" data-value="0.9892" fill="#ff69b4" stroke="#2d3142" stroke-width="1" cx="608.8" cy="85.5" r="3.5"><title>Jev 1.13 · no instruction · 0.99 (people 0.41)</title></circle>
+<rect data-series="GPT-6 Luna Decisions" data-panel="neutral" data-value="0.8755" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1" x="571.6" y="89.4" width="6.1" height="6.1"><title>GPT-6 Luna Decisions · no instruction · 0.88 (people 0.41)</title></rect>
+<path data-series="Clef" data-panel="neutral" data-value="0.9279" fill="#8e7c0b" stroke="#8e7c0b" stroke-width="1" d="M590.4 94.8 L595.1 99.5 L590.4 104.2 L585.7 99.5 Z"><title>Clef · no instruction · 0.93 (people 0.41)</title></path>
+<path data-series="d1" data-panel="neutral" data-value="0.8856" fill="#7911d4" stroke="#7911d4" stroke-width="1" d="M577.7 101.6 L582.1 109.4 L573.3 109.4 Z"><title>d1 · no instruction · 0.89 (people 0.41)</title></path>
 <line x1="528.0" y1="137.5" x2="599.7" y2="137.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="528.0" y1="144.5" x2="540.0" y2="144.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="528.0" y1="151.5" x2="594.3" y2="151.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="528.0" y1="158.5" x2="584.2" y2="158.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line data-series="people" data-value="0.7200" x1="528.0" y1="132" x2="528.0" y2="164" stroke="#4f5d75" stroke-width="2"/>
-<circle data-series="Jev 1.13" data-panel="neutral" data-value="0.9590" cx="599.7" cy="137.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
-<circle data-series="GPT-6 Luna Decisions" data-panel="neutral" data-value="0.7600" cx="540.0" cy="144.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
-<circle data-series="Clef" data-panel="neutral" data-value="0.9411" cx="594.3" cy="151.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
-<circle data-series="d1" data-panel="neutral" data-value="0.9074" cx="584.2" cy="158.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<circle data-series="Jev 1.13" data-panel="neutral" data-value="0.9590" fill="#ff69b4" stroke="#2d3142" stroke-width="1" cx="599.7" cy="137.5" r="3.5"><title>Jev 1.13 · no instruction · 0.96 (people 0.72)</title></circle>
+<rect data-series="GPT-6 Luna Decisions" data-panel="neutral" data-value="0.7600" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1" x="536.9" y="141.4" width="6.1" height="6.1"><title>GPT-6 Luna Decisions · no instruction · 0.76 (people 0.72)</title></rect>
+<path data-series="Clef" data-panel="neutral" data-value="0.9411" fill="#8e7c0b" stroke="#8e7c0b" stroke-width="1" d="M594.3 146.8 L599.1 151.5 L594.3 156.2 L589.6 151.5 Z"><title>Clef · no instruction · 0.94 (people 0.72)</title></path>
+<path data-series="d1" data-panel="neutral" data-value="0.9074" fill="#7911d4" stroke="#7911d4" stroke-width="1" d="M584.2 153.6 L588.6 161.4 L579.8 161.4 Z"><title>d1 · no instruction · 0.91 (people 0.72)</title></path>
 <line x1="378.0" y1="189.5" x2="511.2" y2="189.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="378.0" y1="196.5" x2="531.0" y2="196.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="378.0" y1="203.5" x2="514.3" y2="203.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="378.0" y1="210.5" x2="422.7" y2="210.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line data-series="people" data-value="0.2200" x1="378.0" y1="184" x2="378.0" y2="216" stroke="#4f5d75" stroke-width="2"/>
-<circle data-series="Jev 1.13" data-panel="neutral" data-value="0.6640" cx="511.2" cy="189.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
-<circle data-series="GPT-6 Luna Decisions" data-panel="neutral" data-value="0.7300" cx="531.0" cy="196.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
-<circle data-series="Clef" data-panel="neutral" data-value="0.6742" cx="514.3" cy="203.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
-<circle data-series="d1" data-panel="neutral" data-value="0.3691" cx="422.7" cy="210.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<circle data-series="Jev 1.13" data-panel="neutral" data-value="0.6640" fill="#ff69b4" stroke="#2d3142" stroke-width="1" cx="511.2" cy="189.5" r="3.5"><title>Jev 1.13 · no instruction · 0.66 (people 0.22)</title></circle>
+<rect data-series="GPT-6 Luna Decisions" data-panel="neutral" data-value="0.7300" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1" x="527.9" y="193.4" width="6.1" height="6.1"><title>GPT-6 Luna Decisions · no instruction · 0.73 (people 0.22)</title></rect>
+<path data-series="Clef" data-panel="neutral" data-value="0.6742" fill="#8e7c0b" stroke="#8e7c0b" stroke-width="1" d="M514.3 198.8 L519.0 203.5 L514.3 208.2 L509.5 203.5 Z"><title>Clef · no instruction · 0.67 (people 0.22)</title></path>
+<path data-series="d1" data-panel="neutral" data-value="0.3691" fill="#7911d4" stroke="#7911d4" stroke-width="1" d="M422.7 205.6 L427.1 213.4 L418.3 213.4 Z"><title>d1 · no instruction · 0.37 (people 0.22)</title></path>
 <line x1="552.0" y1="241.5" x2="497.4" y2="241.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="552.0" y1="248.5" x2="519.0" y2="248.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="552.0" y1="255.5" x2="469.0" y2="255.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="552.0" y1="262.5" x2="544.6" y2="262.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line data-series="people" data-value="0.8000" x1="552.0" y1="236" x2="552.0" y2="268" stroke="#4f5d75" stroke-width="2"/>
-<circle data-series="Jev 1.13" data-panel="neutral" data-value="0.6180" cx="497.4" cy="241.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
-<circle data-series="GPT-6 Luna Decisions" data-panel="neutral" data-value="0.6900" cx="519.0" cy="248.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
-<circle data-series="Clef" data-panel="neutral" data-value="0.5232" cx="469.0" cy="255.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
-<circle data-series="d1" data-panel="neutral" data-value="0.7754" cx="544.6" cy="262.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<circle data-series="Jev 1.13" data-panel="neutral" data-value="0.6180" fill="#ff69b4" stroke="#2d3142" stroke-width="1" cx="497.4" cy="241.5" r="3.5"><title>Jev 1.13 · no instruction · 0.62 (people 0.80)</title></circle>
+<rect data-series="GPT-6 Luna Decisions" data-panel="neutral" data-value="0.6900" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1" x="515.9" y="245.4" width="6.1" height="6.1"><title>GPT-6 Luna Decisions · no instruction · 0.69 (people 0.80)</title></rect>
+<path data-series="Clef" data-panel="neutral" data-value="0.5232" fill="#8e7c0b" stroke="#8e7c0b" stroke-width="1" d="M469.0 250.8 L473.7 255.5 L469.0 260.2 L464.2 255.5 Z"><title>Clef · no instruction · 0.52 (people 0.80)</title></path>
+<path data-series="d1" data-panel="neutral" data-value="0.7754" fill="#7911d4" stroke="#7911d4" stroke-width="1" d="M544.6 257.6 L549.0 265.4 L540.2 265.4 Z"><title>d1 · no instruction · 0.78 (people 0.80)</title></path>
 <line x1="567.0" y1="293.5" x2="339.0" y2="293.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="567.0" y1="300.5" x2="312.9" y2="300.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="567.0" y1="307.5" x2="573.8" y2="307.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="567.0" y1="314.5" x2="315.4" y2="314.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line data-series="people" data-value="0.8500" x1="567.0" y1="288" x2="567.0" y2="320" stroke="#4f5d75" stroke-width="2"/>
-<circle data-series="Jev 1.13" data-panel="neutral" data-value="0.0900" cx="339.0" cy="293.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
-<circle data-series="GPT-6 Luna Decisions" data-panel="neutral" data-value="0.0030" cx="312.9" cy="300.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
-<circle data-series="Clef" data-panel="neutral" data-value="0.8726" cx="573.8" cy="307.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
-<circle data-series="d1" data-panel="neutral" data-value="0.0113" cx="315.4" cy="314.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<circle data-series="Jev 1.13" data-panel="neutral" data-value="0.0900" fill="#ff69b4" stroke="#2d3142" stroke-width="1" cx="339.0" cy="293.5" r="3.5"><title>Jev 1.13 · no instruction · 0.09 (people 0.85)</title></circle>
+<rect data-series="GPT-6 Luna Decisions" data-panel="neutral" data-value="0.0030" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1" x="309.8" y="297.4" width="6.1" height="6.1"><title>GPT-6 Luna Decisions · no instruction · 0.00 (people 0.85)</title></rect>
+<path data-series="Clef" data-panel="neutral" data-value="0.8726" fill="#8e7c0b" stroke="#8e7c0b" stroke-width="1" d="M573.8 302.8 L578.5 307.5 L573.8 312.2 L569.1 307.5 Z"><title>Clef · no instruction · 0.87 (people 0.85)</title></path>
+<path data-series="d1" data-panel="neutral" data-value="0.0113" fill="#7911d4" stroke="#7911d4" stroke-width="1" d="M315.4 309.6 L319.8 317.4 L311.0 317.4 Z"><title>d1 · no instruction · 0.01 (people 0.85)</title></path>
 <line x1="357.0" y1="345.5" x2="496.2" y2="345.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="357.0" y1="352.5" x2="529.8" y2="352.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="357.0" y1="359.5" x2="563.3" y2="359.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="357.0" y1="366.5" x2="350.0" y2="366.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line data-series="people" data-value="0.1500" x1="357.0" y1="340" x2="357.0" y2="372" stroke="#4f5d75" stroke-width="2"/>
-<circle data-series="Jev 1.13" data-panel="neutral" data-value="0.6140" cx="496.2" cy="345.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
-<circle data-series="GPT-6 Luna Decisions" data-panel="neutral" data-value="0.7260" cx="529.8" cy="352.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
-<circle data-series="Clef" data-panel="neutral" data-value="0.8376" cx="563.3" cy="359.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
-<circle data-series="d1" data-panel="neutral" data-value="0.1266" cx="350.0" cy="366.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<circle data-series="Jev 1.13" data-panel="neutral" data-value="0.6140" fill="#ff69b4" stroke="#2d3142" stroke-width="1" cx="496.2" cy="345.5" r="3.5"><title>Jev 1.13 · no instruction · 0.61 (people 0.15)</title></circle>
+<rect data-series="GPT-6 Luna Decisions" data-panel="neutral" data-value="0.7260" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1" x="526.7" y="349.4" width="6.1" height="6.1"><title>GPT-6 Luna Decisions · no instruction · 0.73 (people 0.15)</title></rect>
+<path data-series="Clef" data-panel="neutral" data-value="0.8376" fill="#8e7c0b" stroke="#8e7c0b" stroke-width="1" d="M563.3 354.8 L568.0 359.5 L563.3 364.2 L558.6 359.5 Z"><title>Clef · no instruction · 0.84 (people 0.15)</title></path>
+<path data-series="d1" data-panel="neutral" data-value="0.1266" fill="#7911d4" stroke="#7911d4" stroke-width="1" d="M350.0 361.6 L354.4 369.4 L345.6 369.4 Z"><title>d1 · no instruction · 0.13 (people 0.15)</title></path>
 <line x1="567.0" y1="397.5" x2="315.0" y2="397.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="567.0" y1="404.5" x2="312.0" y2="404.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="567.0" y1="411.5" x2="316.9" y2="411.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="567.0" y1="418.5" x2="321.7" y2="418.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line data-series="people" data-value="0.8500" x1="567.0" y1="392" x2="567.0" y2="424" stroke="#4f5d75" stroke-width="2"/>
-<circle data-series="Jev 1.13" data-panel="neutral" data-value="0.0100" cx="315.0" cy="397.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
-<circle data-series="GPT-6 Luna Decisions" data-panel="neutral" data-value="0.0000" cx="312.0" cy="404.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
-<circle data-series="Clef" data-panel="neutral" data-value="0.0162" cx="316.9" cy="411.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
-<circle data-series="d1" data-panel="neutral" data-value="0.0322" cx="321.7" cy="418.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<circle data-series="Jev 1.13" data-panel="neutral" data-value="0.0100" fill="#ff69b4" stroke="#2d3142" stroke-width="1" cx="315.0" cy="397.5" r="3.5"><title>Jev 1.13 · no instruction · 0.01 (people 0.85)</title></circle>
+<rect data-series="GPT-6 Luna Decisions" data-panel="neutral" data-value="0.0000" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1" x="308.9" y="401.4" width="6.1" height="6.1"><title>GPT-6 Luna Decisions · no instruction · 0.00 (people 0.85)</title></rect>
+<path data-series="Clef" data-panel="neutral" data-value="0.0162" fill="#8e7c0b" stroke="#8e7c0b" stroke-width="1" d="M316.9 406.8 L321.6 411.5 L316.9 416.2 L312.1 411.5 Z"><title>Clef · no instruction · 0.02 (people 0.85)</title></path>
+<path data-series="d1" data-panel="neutral" data-value="0.0322" fill="#7911d4" stroke="#7911d4" stroke-width="1" d="M321.7 413.6 L326.1 421.4 L317.2 421.4 Z"><title>d1 · no instruction · 0.03 (people 0.85)</title></path>
 <text x="798" y="52" fill="#2d3142" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.14em">TOLD TO ANSWER LIKE A TYPICAL PERSON</text>
 <line x1="648" y1="66" x2="648" y2="430" stroke="rgba(45,49,66,0.25)" stroke-width="1"/>
 <text x="648" y="446" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0">0.00</text>
@@ -140,64 +140,64 @@
 <line x1="771.9" y1="99.5" x2="814.4" y2="99.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="771.9" y1="106.5" x2="858.8" y2="106.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line data-series="people" data-value="0.4130" x1="771.9" y1="80" x2="771.9" y2="112" stroke="#4f5d75" stroke-width="2"/>
-<circle data-series="Jev 1.13" data-panel="typical_human" data-value="0.5531" cx="813.9" cy="85.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
-<circle data-series="GPT-6 Luna Decisions" data-panel="typical_human" data-value="0.6147" cx="832.4" cy="92.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
-<circle data-series="Clef" data-panel="typical_human" data-value="0.5548" cx="814.4" cy="99.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
-<circle data-series="d1" data-panel="typical_human" data-value="0.7025" cx="858.8" cy="106.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<circle data-series="Jev 1.13" data-panel="typical_human" data-value="0.5531" fill="#ff69b4" stroke="#2d3142" stroke-width="1" cx="813.9" cy="85.5" r="3.5"><title>Jev 1.13 · told to answer like a typical person · 0.55 (people 0.41)</title></circle>
+<rect data-series="GPT-6 Luna Decisions" data-panel="typical_human" data-value="0.6147" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1" x="829.3" y="89.4" width="6.1" height="6.1"><title>GPT-6 Luna Decisions · told to answer like a typical person · 0.61 (people 0.41)</title></rect>
+<path data-series="Clef" data-panel="typical_human" data-value="0.5548" fill="#8e7c0b" stroke="#8e7c0b" stroke-width="1" d="M814.4 94.8 L819.2 99.5 L814.4 104.2 L809.7 99.5 Z"><title>Clef · told to answer like a typical person · 0.55 (people 0.41)</title></path>
+<path data-series="d1" data-panel="typical_human" data-value="0.7025" fill="#7911d4" stroke="#7911d4" stroke-width="1" d="M858.8 101.6 L863.2 109.4 L854.3 109.4 Z"><title>d1 · told to answer like a typical person · 0.70 (people 0.41)</title></path>
 <line x1="864.0" y1="137.5" x2="939.3" y2="137.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="864.0" y1="144.5" x2="900.0" y2="144.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="864.0" y1="151.5" x2="930.8" y2="151.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="864.0" y1="158.5" x2="923.1" y2="158.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line data-series="people" data-value="0.7200" x1="864.0" y1="132" x2="864.0" y2="164" stroke="#4f5d75" stroke-width="2"/>
-<circle data-series="Jev 1.13" data-panel="typical_human" data-value="0.9710" cx="939.3" cy="137.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
-<circle data-series="GPT-6 Luna Decisions" data-panel="typical_human" data-value="0.8400" cx="900.0" cy="144.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
-<circle data-series="Clef" data-panel="typical_human" data-value="0.9426" cx="930.8" cy="151.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
-<circle data-series="d1" data-panel="typical_human" data-value="0.9171" cx="923.1" cy="158.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<circle data-series="Jev 1.13" data-panel="typical_human" data-value="0.9710" fill="#ff69b4" stroke="#2d3142" stroke-width="1" cx="939.3" cy="137.5" r="3.5"><title>Jev 1.13 · told to answer like a typical person · 0.97 (people 0.72)</title></circle>
+<rect data-series="GPT-6 Luna Decisions" data-panel="typical_human" data-value="0.8400" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1" x="896.9" y="141.4" width="6.1" height="6.1"><title>GPT-6 Luna Decisions · told to answer like a typical person · 0.84 (people 0.72)</title></rect>
+<path data-series="Clef" data-panel="typical_human" data-value="0.9426" fill="#8e7c0b" stroke="#8e7c0b" stroke-width="1" d="M930.8 146.8 L935.5 151.5 L930.8 156.2 L926.0 151.5 Z"><title>Clef · told to answer like a typical person · 0.94 (people 0.72)</title></path>
+<path data-series="d1" data-panel="typical_human" data-value="0.9171" fill="#7911d4" stroke="#7911d4" stroke-width="1" d="M923.1 153.6 L927.6 161.4 L918.7 161.4 Z"><title>d1 · told to answer like a typical person · 0.92 (people 0.72)</title></path>
 <line x1="714.0" y1="189.5" x2="850.2" y2="189.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="714.0" y1="196.5" x2="838.2" y2="196.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="714.0" y1="203.5" x2="862.9" y2="203.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="714.0" y1="210.5" x2="754.9" y2="210.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line data-series="people" data-value="0.2200" x1="714.0" y1="184" x2="714.0" y2="216" stroke="#4f5d75" stroke-width="2"/>
-<circle data-series="Jev 1.13" data-panel="typical_human" data-value="0.6740" cx="850.2" cy="189.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
-<circle data-series="GPT-6 Luna Decisions" data-panel="typical_human" data-value="0.6340" cx="838.2" cy="196.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
-<circle data-series="Clef" data-panel="typical_human" data-value="0.7163" cx="862.9" cy="203.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
-<circle data-series="d1" data-panel="typical_human" data-value="0.3563" cx="754.9" cy="210.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<circle data-series="Jev 1.13" data-panel="typical_human" data-value="0.6740" fill="#ff69b4" stroke="#2d3142" stroke-width="1" cx="850.2" cy="189.5" r="3.5"><title>Jev 1.13 · told to answer like a typical person · 0.67 (people 0.22)</title></circle>
+<rect data-series="GPT-6 Luna Decisions" data-panel="typical_human" data-value="0.6340" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1" x="835.1" y="193.4" width="6.1" height="6.1"><title>GPT-6 Luna Decisions · told to answer like a typical person · 0.63 (people 0.22)</title></rect>
+<path data-series="Clef" data-panel="typical_human" data-value="0.7163" fill="#8e7c0b" stroke="#8e7c0b" stroke-width="1" d="M862.9 198.8 L867.6 203.5 L862.9 208.2 L858.2 203.5 Z"><title>Clef · told to answer like a typical person · 0.72 (people 0.22)</title></path>
+<path data-series="d1" data-panel="typical_human" data-value="0.3563" fill="#7911d4" stroke="#7911d4" stroke-width="1" d="M754.9 205.6 L759.3 213.4 L750.5 213.4 Z"><title>d1 · told to answer like a typical person · 0.36 (people 0.22)</title></path>
 <line x1="888.0" y1="241.5" x2="893.1" y2="241.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="888.0" y1="248.5" x2="888.6" y2="248.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="888.0" y1="255.5" x2="841.2" y2="255.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="888.0" y1="262.5" x2="920.1" y2="262.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line data-series="people" data-value="0.8000" x1="888.0" y1="236" x2="888.0" y2="268" stroke="#4f5d75" stroke-width="2"/>
-<circle data-series="Jev 1.13" data-panel="typical_human" data-value="0.8170" cx="893.1" cy="241.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
-<circle data-series="GPT-6 Luna Decisions" data-panel="typical_human" data-value="0.8020" cx="888.6" cy="248.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
-<circle data-series="Clef" data-panel="typical_human" data-value="0.6440" cx="841.2" cy="255.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
-<circle data-series="d1" data-panel="typical_human" data-value="0.9071" cx="920.1" cy="262.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<circle data-series="Jev 1.13" data-panel="typical_human" data-value="0.8170" fill="#ff69b4" stroke="#2d3142" stroke-width="1" cx="893.1" cy="241.5" r="3.5"><title>Jev 1.13 · told to answer like a typical person · 0.82 (people 0.80)</title></circle>
+<rect data-series="GPT-6 Luna Decisions" data-panel="typical_human" data-value="0.8020" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1" x="885.5" y="245.4" width="6.1" height="6.1"><title>GPT-6 Luna Decisions · told to answer like a typical person · 0.80 (people 0.80)</title></rect>
+<path data-series="Clef" data-panel="typical_human" data-value="0.6440" fill="#8e7c0b" stroke="#8e7c0b" stroke-width="1" d="M841.2 250.8 L845.9 255.5 L841.2 260.2 L836.5 255.5 Z"><title>Clef · told to answer like a typical person · 0.64 (people 0.80)</title></path>
+<path data-series="d1" data-panel="typical_human" data-value="0.9071" fill="#7911d4" stroke="#7911d4" stroke-width="1" d="M920.1 257.6 L924.5 265.4 L915.7 265.4 Z"><title>d1 · told to answer like a typical person · 0.91 (people 0.80)</title></path>
 <line x1="903.0" y1="293.5" x2="927.6" y2="293.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="903.0" y1="300.5" x2="797.7" y2="300.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="903.0" y1="307.5" x2="938.9" y2="307.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="903.0" y1="314.5" x2="909.7" y2="314.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line data-series="people" data-value="0.8500" x1="903.0" y1="288" x2="903.0" y2="320" stroke="#4f5d75" stroke-width="2"/>
-<circle data-series="Jev 1.13" data-panel="typical_human" data-value="0.9320" cx="927.6" cy="293.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
-<circle data-series="GPT-6 Luna Decisions" data-panel="typical_human" data-value="0.4990" cx="797.7" cy="300.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
-<circle data-series="Clef" data-panel="typical_human" data-value="0.9695" cx="938.9" cy="307.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
-<circle data-series="d1" data-panel="typical_human" data-value="0.8725" cx="909.7" cy="314.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<circle data-series="Jev 1.13" data-panel="typical_human" data-value="0.9320" fill="#ff69b4" stroke="#2d3142" stroke-width="1" cx="927.6" cy="293.5" r="3.5"><title>Jev 1.13 · told to answer like a typical person · 0.93 (people 0.85)</title></circle>
+<rect data-series="GPT-6 Luna Decisions" data-panel="typical_human" data-value="0.4990" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1" x="794.6" y="297.4" width="6.1" height="6.1"><title>GPT-6 Luna Decisions · told to answer like a typical person · 0.50 (people 0.85)</title></rect>
+<path data-series="Clef" data-panel="typical_human" data-value="0.9695" fill="#8e7c0b" stroke="#8e7c0b" stroke-width="1" d="M938.9 302.8 L943.6 307.5 L938.9 312.2 L934.1 307.5 Z"><title>Clef · told to answer like a typical person · 0.97 (people 0.85)</title></path>
+<path data-series="d1" data-panel="typical_human" data-value="0.8725" fill="#7911d4" stroke="#7911d4" stroke-width="1" d="M909.7 309.6 L914.1 317.4 L905.3 317.4 Z"><title>d1 · told to answer like a typical person · 0.87 (people 0.85)</title></path>
 <line x1="693.0" y1="345.5" x2="722.4" y2="345.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="693.0" y1="352.5" x2="749.1" y2="352.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="693.0" y1="359.5" x2="658.9" y2="359.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="693.0" y1="366.5" x2="675.8" y2="366.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line data-series="people" data-value="0.1500" x1="693.0" y1="340" x2="693.0" y2="372" stroke="#4f5d75" stroke-width="2"/>
-<circle data-series="Jev 1.13" data-panel="typical_human" data-value="0.2480" cx="722.4" cy="345.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
-<circle data-series="GPT-6 Luna Decisions" data-panel="typical_human" data-value="0.3370" cx="749.1" cy="352.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
-<circle data-series="Clef" data-panel="typical_human" data-value="0.0364" cx="658.9" cy="359.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
-<circle data-series="d1" data-panel="typical_human" data-value="0.0928" cx="675.8" cy="366.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<circle data-series="Jev 1.13" data-panel="typical_human" data-value="0.2480" fill="#ff69b4" stroke="#2d3142" stroke-width="1" cx="722.4" cy="345.5" r="3.5"><title>Jev 1.13 · told to answer like a typical person · 0.25 (people 0.15)</title></circle>
+<rect data-series="GPT-6 Luna Decisions" data-panel="typical_human" data-value="0.3370" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1" x="746.0" y="349.4" width="6.1" height="6.1"><title>GPT-6 Luna Decisions · told to answer like a typical person · 0.34 (people 0.15)</title></rect>
+<path data-series="Clef" data-panel="typical_human" data-value="0.0364" fill="#8e7c0b" stroke="#8e7c0b" stroke-width="1" d="M658.9 354.8 L663.6 359.5 L658.9 364.2 L654.2 359.5 Z"><title>Clef · told to answer like a typical person · 0.04 (people 0.15)</title></path>
+<path data-series="d1" data-panel="typical_human" data-value="0.0928" fill="#7911d4" stroke="#7911d4" stroke-width="1" d="M675.8 361.6 L680.2 369.4 L671.4 369.4 Z"><title>d1 · told to answer like a typical person · 0.09 (people 0.15)</title></path>
 <line x1="903.0" y1="397.5" x2="892.2" y2="397.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="903.0" y1="404.5" x2="657.0" y2="404.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="903.0" y1="411.5" x2="881.5" y2="411.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line x1="903.0" y1="418.5" x2="819.9" y2="418.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
 <line data-series="people" data-value="0.8500" x1="903.0" y1="392" x2="903.0" y2="424" stroke="#4f5d75" stroke-width="2"/>
-<circle data-series="Jev 1.13" data-panel="typical_human" data-value="0.8140" cx="892.2" cy="397.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
-<circle data-series="GPT-6 Luna Decisions" data-panel="typical_human" data-value="0.0300" cx="657.0" cy="404.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
-<circle data-series="Clef" data-panel="typical_human" data-value="0.7783" cx="881.5" cy="411.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
-<circle data-series="d1" data-panel="typical_human" data-value="0.5729" cx="819.9" cy="418.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<circle data-series="Jev 1.13" data-panel="typical_human" data-value="0.8140" fill="#ff69b4" stroke="#2d3142" stroke-width="1" cx="892.2" cy="397.5" r="3.5"><title>Jev 1.13 · told to answer like a typical person · 0.81 (people 0.85)</title></circle>
+<rect data-series="GPT-6 Luna Decisions" data-panel="typical_human" data-value="0.0300" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1" x="653.9" y="401.4" width="6.1" height="6.1"><title>GPT-6 Luna Decisions · told to answer like a typical person · 0.03 (people 0.85)</title></rect>
+<path data-series="Clef" data-panel="typical_human" data-value="0.7783" fill="#8e7c0b" stroke="#8e7c0b" stroke-width="1" d="M881.5 406.8 L886.2 411.5 L881.5 416.2 L876.8 411.5 Z"><title>Clef · told to answer like a typical person · 0.78 (people 0.85)</title></path>
+<path data-series="d1" data-panel="typical_human" data-value="0.5729" fill="#7911d4" stroke="#7911d4" stroke-width="1" d="M819.9 413.6 L824.3 421.4 L815.5 421.4 Z"><title>d1 · told to answer like a typical person · 0.57 (people 0.85)</title></path>
 <text x="288" y="95" fill="#2d3142" font-size="11" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="600">Cognitive reflection test</text>
 <text x="288" y="108" fill="#4f5d75" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="end">6 trick questions (bat and ball) · correct</text>
 <text x="288" y="147" fill="#2d3142" font-size="11" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="600">Framing, worded as gains</text>
@@ -217,15 +217,15 @@
 <text x="30" y="490" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" letter-spacing="0.14em">LEGEND</text>
 <line x1="104" y1="498" x2="104" y2="512" stroke="#4f5d75" stroke-width="2"/>
 <text x="116" y="509" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">Published human result</text>
-<circle cx="274.8" cy="505" r="4.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
+<circle fill="#ff69b4" stroke="#2d3142" stroke-width="1" cx="274.8" cy="505.0" r="4.5"/>
 <text x="284.8" y="509" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">Jev 1.13</text>
-<circle cx="360" cy="505" r="4.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
+<rect fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1" x="356.1" y="501.1" width="7.9" height="7.9"/>
 <text x="370" y="509" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">GPT-6 Luna Decisions</text>
-<circle cx="510" cy="505" r="4.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
+<path fill="#8e7c0b" stroke="#8e7c0b" stroke-width="1" d="M510.0 498.9 L516.1 505.0 L510.0 511.1 L503.9 505.0 Z"/>
 <text x="520" y="509" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">Clef</text>
-<circle cx="573.6" cy="505" r="4.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<path fill="#7911d4" stroke="#7911d4" stroke-width="1" d="M573.6 498.7 L579.3 508.8 L567.9 508.8 Z"/>
 <text x="583.6" y="509" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">d1</text>
-<text x="970" y="509" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">DOTS TOP TO BOTTOM IN LEGEND ORDER</text>
+<text x="970" y="509" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">MARKS TOP TO BOTTOM IN LEGEND ORDER</text>
       </svg>
     </div>
     <p class="source">Each model: mean of the probability distributions returned over 10 repeats. Jev run 18 Sep 2026, the others 12 Oct 2026. Human results: published studies or meta-analyses, listed in docs/BENCHMARKS.md. Eight more models are in the scatter and docs/MODELS.md.</p>

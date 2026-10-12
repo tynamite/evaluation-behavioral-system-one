@@ -28,7 +28,7 @@
       font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.5rem;
     }
     .subtitle { color: var(--color-muted); font-size: 0.95rem; line-height: 1.45;
-      max-width: 60rem; margin-bottom: 1.5rem; }
+      max-width: 60rem; margin-bottom: 1rem; }
     .source { font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-muted);
       border-top: 1px solid rgba(45,49,66,0.12); margin-top: 1rem; padding-top: 0.75rem; line-height: 1.5; }
     svg { width: 100%; min-width: 960px; display: block; }
@@ -41,7 +41,7 @@
     <h1>How each test item is run and scored</h1>
     <p class="subtitle">Each item is asked under four prompts: no instruction, ‘answer like a typical person’, ‘answer like a rational agent’ and an antisocial persona. Each model is asked every item ten times under each prompt. A System One model returns a probability for every possible answer on each call, and the ten distributions are averaged. A chat model returns one answer per call as text, which is read for the option it names, and the ten answers are counted. Either way the result is one distribution per item and prompt, compared with the published human result for that test.</p>
     <div class="diagram-container">
-      <svg viewBox="0 0 960 660" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="how-it-works-title how-it-works-desc">
+      <svg viewBox="0 29 960 631" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="how-it-works-title how-it-works-desc">
         <title id="how-it-works-title">How each test item is run and scored</title>
         <desc id="how-it-works-desc">Process diagram: a battery item is framed four ways, asked ten times of either a System One model or a chat model, whose text replies are read for an option key with unreadable ones dropped and counted, reduced to one distribution per cell, and compared with a published human rate.</desc>
         <defs>
