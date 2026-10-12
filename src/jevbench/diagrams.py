@@ -100,6 +100,12 @@ class Figure:
     body: str
     source: str
 
+    @property
+    def top(self) -> int:
+        """Where the drawing starts: charts lay out from y=0 but rarely draw there,
+        and the empty band would otherwise sit between the subtitle and the plot."""
+        return max(0, int(_content_top(self.body)) - 12)
+
     def html(self) -> str:
         return f"""<!DOCTYPE html>
 <html lang="en">
@@ -131,7 +137,7 @@ class Figure:
       font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.5rem;
     }}
     .subtitle {{ color: var(--color-muted); font-size: 0.95rem; line-height: 1.45;
-      max-width: 60rem; margin-bottom: 1.5rem; }}
+      max-width: 60rem; margin-bottom: 1rem; }}
     .source {{ font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-muted);
       border-top: 1px solid {ink(0.12)}; margin-top: 1rem; padding-top: 0.75rem; line-height: 1.5; }}
     svg {{ width: 100%; min-width: {self.width}px; display: block; }}
@@ -144,7 +150,7 @@ class Figure:
     <h1>{esc(self.title)}</h1>
     <p class="subtitle">{esc(self.subtitle)}</p>
     <div class="diagram-container">
-      <svg viewBox="0 0 {self.width} {self.height}" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="{self.slug}-title {self.slug}-desc">
+      <svg viewBox="0 {self.top} {self.width} {self.height - self.top}" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="{self.slug}-title {self.slug}-desc">
         <title id="{self.slug}-title">{esc(self.title)}</title>
         <desc id="{self.slug}-desc">{esc(self.desc)}</desc>
         <defs>
@@ -164,6 +170,45 @@ class Figure:
 
 
 # -- shared chart pieces -----------------------------------------------------
+
+
+def _content_top(body: str) -> float:
+    """The smallest y any element of `body` reaches, ignoring rotated text.
+
+    Text is measured from its baseline up by its font size; paths from the y
+    coordinates in their data. It need only be close: `Figure.top` adds a margin.
+    """
+    import re
+
+    tops: list[float] = []
+    for tag, attrs in re.findall(r"<(\w+)\s([^>]*)>", body):
+        if "transform=" in attrs:
+            continue
+        a = dict(re.findall(r'([\w-]+)="([^"]*)"', attrs))
+
+        def num(k: str, a: dict[str, str] = a) -> float | None:
+            try:
+                return float(a[k])
+            except (KeyError, ValueError):
+                return None
+
+        if tag == "text" and num("y") is not None:
+            tops.append(float(a["y"]) - float(a.get("font-size", 8)))
+        elif tag == "rect" and num("y") is not None:
+            tops.append(float(a["y"]))
+        elif tag == "line":
+            tops += [v for v in (num("y1"), num("y2")) if v is not None]
+        elif tag == "circle" and num("cy") is not None:
+            tops.append(float(a["cy"]) - (num("r") or 0))
+        elif tag == "path" and "d" in a:
+            # Pairs after M/L/Q/C/T commands are (x, y); V takes a bare y.
+            for cmd, args in re.findall(r"([MLQCTVHZ])([^MLQCTVHZ]*)", a["d"]):
+                vals = [float(v) for v in re.findall(r"-?\d+(?:\.\d+)?", args)]
+                if cmd == "V":
+                    tops += vals
+                elif cmd != "H":
+                    tops += vals[1::2]
+    return min(tops) if tops else 0.0
 
 
 def _t(
@@ -1140,18 +1185,20 @@ def fig_models_scatter(fdf: pd.DataFrame) -> Figure:
     def Y(v: float) -> float:
         return bottom - (v - y0) / (y1 - y0) * (bottom - top)
 
-    focal = max(pts, key=lambda p: p[2] - p[1])  # the one that moved least (or moved away)
-    # Say what the highlight shows rather than assume it: with no model above
-    # the line, the least-moved one is still below it.
-    above = [p for p in pts if p[2] > p[1]]
-    if focal[2] > focal[1]:
-        focal_note = (
-            f"{focal[0]}: the only model above the line"
-            if len(above) == 1
-            else (f"{focal[0]}: furthest above the line")
-        )
-    else:
-        focal_note = f"{focal[0]}: moved least when told"
+    # A model above the line (told to answer like a person, it moved away from
+    # people) is the one result this chart exists to catch, so it gets a ring
+    # and a legend line; with none above the line nothing is singled out.
+    above = sorted((p for p in pts if p[2] > p[1]), key=lambda p: p[1] - p[2])
+    focal_name = above[0][0] if above else ""
+    focal_note = (
+        ""
+        if not above
+        else f"{focal_name}: the only model above the line"
+        if len(above) == 1
+        else f"{focal_name}: furthest above the line"
+    )
+    # The README's main models keep their colour and shape here too.
+    main = {SHORT[m]: (m, c) for m, c in MAIN_MODELS}
     out: list[str] = []
     for i in range(9):
         t = round(x0 + i * 0.05, 2)
@@ -1219,7 +1266,7 @@ def fig_models_scatter(fdf: pd.DataFrame) -> Figure:
     )
 
     size = 10.0
-    marks = [(n, X(xn), Y(yt), 6.0 if n == focal[0] else 5.0) for n, xn, yt, _ in pts]
+    marks = [(n, X(xn), Y(yt), 7.0 if n == focal_name else 6.0) for n, xn, yt, _ in pts]
     labels = place_labels(
         marks,
         size=size,
@@ -1231,23 +1278,31 @@ def fig_models_scatter(fdf: pd.DataFrame) -> Figure:
             out.append(
                 f'<line x1="{leader[0]:.1f}" y1="{leader[1]:.1f}" x2="{leader[2]:.1f}" y2="{leader[3]:.1f}" stroke="{ink(0.45)}" stroke-width="0.8"/>'
             )
-    for name, xn, yt, typ in sorted(pts, key=lambda p: p[0] == focal[0]):
+    for name, xn, yt, typ in sorted(pts, key=lambda p: p[0] in main):
         cx, cy = X(xn), Y(yt)
-        is_focal = name == focal[0]
-        r = 6 if is_focal else 5
-        out.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r}" fill="{PAPER}"/>')
-        if is_focal:
-            mark = f'fill="{accent(0.15)}" stroke="{ACCENT}" stroke-width="1.2"'
-        elif name == "Jev 1.13":
-            mark = f'fill="{JEV_PINK}" stroke="{INK}" stroke-width="1"'
+        shape = "circle"
+        if name in main:
+            model, colour = main[name]
+            shape, mark = MAIN_SHAPES[model], _model_style(model, colour)
         elif name == "Claude Haiku 5.5":
             mark = f'fill="{ANTHROPIC_ORANGE}" stroke="{INK}" stroke-width="1"'
         elif typ != "System One":
             mark = f'fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"'
         else:
             mark = f'fill="{muted(0.20)}" stroke="{MUTED}" stroke-width="1"'
+        if name == focal_name:
+            out.append(
+                f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="10" fill="none" stroke="{INK}" stroke-width="1.5"/>'
+            )
         out.append(
-            f'<circle data-name="{esc(name)}" data-x="{xn:.4f}" data-y="{yt:.4f}" cx="{cx:.1f}" cy="{cy:.1f}" r="{r}" {mark}/>'
+            _mark(
+                shape,
+                cx,
+                cy,
+                5,
+                f'data-name="{esc(name)}" data-x="{xn:.4f}" data-y="{yt:.4f}" ' + mark,
+                title=f"{name} · {xn:.2f} with no instruction · {yt:.2f} as a typical person",
+            )
         )
     for name, (lx, ly, anchor, box, _leader) in labels.items():
         out.append(
@@ -1290,37 +1345,28 @@ def fig_models_scatter(fdf: pd.DataFrame) -> Figure:
     )
     ly0 = bottom + 50
     out.append(_legend(1000, ly0, []))
+    ky = ly0 + 31
     out.append(
-        f'<circle cx="104" cy="{ly0 + 31}" r="5" fill="{muted(0.20)}" stroke="{MUTED}" stroke-width="1"/>'
+        f'<circle cx="104" cy="{ky}" r="5" fill="{muted(0.20)}" stroke="{MUTED}" stroke-width="1"/>'
     )
-    out.append(_t(116, ly0 + 35, "System One model", size=9, family=SANS, fill=INK))
+    out.append(_t(116, ky + 4, "System One model", size=9, family=SANS, fill=INK))
+    x = 116 + text_width("System One model", 9) + 30
     out.append(
-        f'<circle cx="244" cy="{ly0 + 31}" r="5" fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"/>'
+        f'<circle cx="{x:g}" cy="{ky}" r="5" fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"/>'
     )
-    out.append(_t(256, ly0 + 35, "Chat model, resampled", size=9, family=SANS, fill=INK))
+    out.append(_t(x + 12, ky + 4, "Chat model, resampled", size=9, family=SANS, fill=INK))
+    x += 12 + text_width("Chat model, resampled", 9) + 30
+    for model, colour in MAIN_MODELS:
+        x = _model_key(out, x, ky, model, colour) - 4
     out.append(
-        f'<circle cx="412" cy="{ly0 + 31}" r="6" fill="{accent(0.15)}" stroke="{ACCENT}" stroke-width="1.2"/>'
+        f'<circle cx="{x:g}" cy="{ky}" r="5" fill="{ANTHROPIC_ORANGE}" stroke="{INK}" stroke-width="1"/>'
     )
-    out.append(
-        _t(
-            424,
-            ly0 + 35,
-            focal_note,
-            size=9,
-            family=SANS,
-            fill=INK,
+    out.append(_t(x + 12, ky + 4, "Claude Haiku 5.5", size=9, family=SANS, fill=INK))
+    if focal_note:
+        out.append(
+            f'<circle cx="104" cy="{ky + 22}" r="8" fill="none" stroke="{INK}" stroke-width="1.5"/>'
         )
-    )
-    jx = int(424 + text_width(focal_note, 9) + 40)
-    out.append(
-        f'<circle cx="{jx}" cy="{ly0 + 31}" r="5" fill="{JEV_PINK}" stroke="{INK}" stroke-width="1"/>'
-    )
-    out.append(_t(jx + 12, ly0 + 35, "Jev 1.13", size=9, family=SANS, fill=INK))
-    hx = int(jx + 12 + text_width("Jev 1.13", 9) + 36)
-    out.append(
-        f'<circle cx="{hx}" cy="{ly0 + 31}" r="5" fill="{ANTHROPIC_ORANGE}" stroke="{INK}" stroke-width="1"/>'
-    )
-    out.append(_t(hx + 12, ly0 + 35, "Claude Haiku 5.5", size=9, family=SANS, fill=INK))
+        out.append(_t(116, ky + 26, focal_note, size=9, family=SANS, fill=INK))
     return Figure(
         slug="models-scatter",
         eyebrow=f"{_count(len(pts)).capitalize()} models · no instruction vs. told to answer like a typical person",
@@ -1717,9 +1763,66 @@ def fig_health() -> Figure:
 MAIN_MODELS = [
     ("typesafe/jev-1.13-20260917", JEV_PINK),
     ("openai/gpt-6-luna-decisions-20261006", "#2e5aa8"),
-    ("cloudflare/clef", ACCENT),
-    ("liquid/d1-20260930", "#6b4c9a"),
+    ("cloudflare/clef", "#8e7c0b"),
+    ("liquid/d1-20260930", "#7911d4"),
 ]
+# Colours chosen by search, not by eye: under normal vision and simulated
+# deuteranopia, protanopia and tritanopia, every pair among these, people's
+# slate, the teal accent and Jev's magenta stays at least 28 CIELAB units apart
+# (the old blue and violet were 5 apart for protanopes). None is teal, which
+# elsewhere means "told to answer like a typical person". Each model also has
+# its own shape, so identity never rests on colour alone.
+MAIN_SHAPES = {
+    "typesafe/jev-1.13-20260917": "circle",
+    "openai/gpt-6-luna-decisions-20261006": "square",
+    "cloudflare/clef": "diamond",
+    "liquid/d1-20260930": "triangle",
+}
+
+
+def _mark(shape: str, x: float, y: float, r: float, attrs: str, title: str = "") -> str:
+    """One marker of the given shape centred on (x, y), at roughly equal visual weight.
+
+    `attrs` goes first so data attributes keep their order; `title` becomes a
+    hover label in the HTML version.
+    """
+    if shape == "circle":
+        tag, geo = "circle", f'cx="{x:.1f}" cy="{y:.1f}" r="{r:g}"'
+    elif shape == "square":
+        side = r * 1.75
+        tag, geo = (
+            "rect",
+            (
+                f'x="{x - side / 2:.1f}" y="{y - side / 2:.1f}" width="{side:.1f}" height="{side:.1f}"'
+            ),
+        )
+    elif shape == "diamond":
+        d = r * 1.35
+        tag, geo = (
+            "path",
+            (
+                f'd="M{x:.1f} {y - d:.1f} L{x + d:.1f} {y:.1f} L{x:.1f} {y + d:.1f} L{x - d:.1f} {y:.1f} Z"'
+            ),
+        )
+    elif shape == "triangle":
+        t = r * 1.4
+        tag, geo = (
+            "path",
+            (
+                f'd="M{x:.1f} {y - t:.1f} L{x + t * 0.9:.1f} {y + t * 0.6:.1f} '
+                f'L{x - t * 0.9:.1f} {y + t * 0.6:.1f} Z"'
+            ),
+        )
+    else:
+        raise ValueError(f"unknown marker shape {shape!r}")
+    if title:
+        return f"<{tag} {attrs} {geo}><title>{esc(title)}</title></{tag}>"
+    return f"<{tag} {attrs} {geo}/>"
+
+
+def _model_style(model: str, colour: str) -> str:
+    edge = INK if colour == JEV_PINK else colour
+    return f'fill="{colour}" stroke="{edge}" stroke-width="1"'
 
 
 def _mstat(cdf: pd.DataFrame, inst: str, stat: str, persona: str, model: str) -> float:
@@ -1734,11 +1837,9 @@ def _mstat(cdf: pd.DataFrame, inst: str, stat: str, persona: str, model: str) ->
     return float(sel["value"].iloc[0])
 
 
-def _model_key(out: list[str], x: float, y: float, label: str, colour: str) -> float:
-    edge = INK if colour == JEV_PINK else colour
-    out.append(
-        f'<circle cx="{x:g}" cy="{y:g}" r="4.5" fill="{colour}" stroke="{edge}" stroke-width="1"/>'
-    )
+def _model_key(out: list[str], x: float, y: float, model: str, colour: str) -> float:
+    label = SHORT[model]
+    out.append(_mark(MAIN_SHAPES[model], x, y, 4.5, _model_style(model, colour)))
     out.append(_t(x + 10, y + 4, label, size=9, family=SANS, fill=INK))
     return x + 10 + text_width(label, 9) + 32
 
@@ -1757,6 +1858,7 @@ def _model_dots(
     n = len(rows)
     pitch, y0 = 52, 96
     spans = [(312, 612), (648, 948)][: len(panels)]
+    panel_names = {key: header.lower() for key, header in panels}
     offsets = [-10.5, -3.5, 3.5, 10.5]
     last = y0 + (n - 1) * pitch
     out: list[str] = []
@@ -1791,10 +1893,16 @@ def _model_dots(
             )
             for (model, colour), dy in zip(MAIN_MODELS, offsets, strict=True):
                 v = vals[key][model]
-                edge = INK if colour == JEV_PINK else colour
                 out.append(
-                    f'<circle data-series="{esc(SHORT[model])}" data-panel="{key}" data-value="{v:.4f}" '
-                    f'cx="{a + v * (b - a):.1f}" cy="{y + dy}" r="3.5" fill="{colour}" stroke="{edge}" stroke-width="1"/>'
+                    _mark(
+                        MAIN_SHAPES[model],
+                        a + v * (b - a),
+                        y + dy,
+                        3.5,
+                        f'data-series="{esc(SHORT[model])}" data-panel="{key}" data-value="{v:.4f}" '
+                        + _model_style(model, colour),
+                        title=f"{SHORT[model]} · {panel_names[key]} · {v:.2f} (people {human:.2f})",
+                    )
                 )
     for k, (name, sub, _h, _v) in enumerate(rows):
         y = y0 + k * pitch
@@ -1818,8 +1926,8 @@ def _model_dots(
     out.append(_t(116, ly + 35, "Published human result", size=9, family=SANS, fill=INK))
     x = 116 + text_width("Published human result", 9) + 40
     for model, colour in MAIN_MODELS:
-        x = _model_key(out, x, ly + 31, SHORT[model], colour)
-    out.append(_t(970, ly + 35, "DOTS TOP TO BOTTOM IN LEGEND ORDER", anchor="end"))
+        x = _model_key(out, x, ly + 31, model, colour)
+    out.append(_t(970, ly + 35, "MARKS TOP TO BOTTOM IN LEGEND ORDER", anchor="end"))
     return "\n".join(out)
 
 
@@ -1864,7 +1972,7 @@ def fig_models_tests(cdf: pd.DataFrame, which: str) -> Figure:
         title=title,
         subtitle=(
             f"{what} Left, asked with no instruction; right, with this sentence added first: "
-            f"\u201c{_prompt('typical_human')}\u201d The tick is people; each dot is a model's probability on "
+            f"\u201c{_prompt('typical_human')}\u201d The tick is people; each mark is a model's probability on "
             "that answer, or its expected share."
         ),
         desc=f"Dot chart of {len(rows)} {which} measures in two panels, no instruction and told to answer like a "
@@ -1931,7 +2039,9 @@ def fig_models_dictator(runs: dict[str, pd.DataFrame]) -> Figure:
         for m, _c in MAIN_MODELS
     }
     top = max(max(people), *(max(v) for v in dists.values()))
-    ceil = max(0.4, math.ceil(top * 5) / 5)
+    # The scale ends just above the tallest bar, so no panel carries an empty
+    # band above its top gridline; gridlines stay on round 20s.
+    ceil = max(0.4, top + 0.04)
     cells = [(70, 60), (550, 60), (70, 280), (550, 280)]
     w, h = 400, 150
     out: list[str] = []
@@ -1941,8 +2051,9 @@ def fig_models_dictator(runs: dict[str, pd.DataFrame]) -> Figure:
         def y(v: float, base: float = base) -> float:
             return base - v / ceil * h
 
-        out.append(_t(x0, y0 - 14, SHORT[model], size=12, family=SANS, fill=INK, weight=600))
-        for t in (0.0, ceil / 2, ceil):
+        out.append(_mark(MAIN_SHAPES[model], x0 + 5, y0 - 18, 4.5, _model_style(model, colour)))
+        out.append(_t(x0 + 16, y0 - 14, SHORT[model], size=12, family=SANS, fill=INK, weight=600))
+        for t in [i * 0.2 for i in range(int(ceil / 0.2 + 1e-9) + 1)]:
             if t:
                 out.append(
                     f'<line x1="{x0}" y1="{y(t):.1f}" x2="{x0 + w}" y2="{y(t):.1f}" stroke="{ink(0.08)}" stroke-width="0.8"/>'
@@ -1974,9 +2085,11 @@ def fig_models_dictator(runs: dict[str, pd.DataFrame]) -> Figure:
                 ),
             ):
                 by = y(v)
+                who = "people" if series == "people" else SHORT[model]
                 out.append(
                     f'<rect data-series="{esc(series)}" data-value="{v:.4f}" x="{bx:.1f}" y="{by:.1f}" '
-                    f'width="{bar}" height="{base - by:.1f}" {style} stroke-width="1"/>'
+                    f'width="{bar}" height="{base - by:.1f}" {style} stroke-width="1">'
+                    f"<title>{esc(who)} · gives {a} · {v:.0%}</title></rect>"
                 )
             out.append(_t(cx, base + 14, a, size=8, anchor="middle"))
     out.append(
@@ -2083,8 +2196,26 @@ def fig_models_order(runs: dict[str, pd.DataFrame]) -> Figure:
         height=510,
         body=body,
         source=f"Mean distance over all pairs of the 10 repeats, per item and prompt, on the {len(common)} item-and-"
-        f"prompt cells ({len(items)} items) all four runs share. Jev run 18 Sep 2026, the others 12 Oct 2026.",
+        f"prompt cells ({len(items)} items) all four runs share. {_order_notes(rows)}"
+        "Jev run 18 Sep 2026, the others 12 Oct 2026.",
     )
+
+
+def _order_notes(rows: list[tuple[str, str, float, float]]) -> str:
+    """Say why a row looks odd before a reader takes it for a bug."""
+    notes = []
+    for name, _sub, floor, shuffled in rows:
+        if floor < 0.0005:
+            notes.append(
+                f"{name}'s floor is 0 because it returns the identical distribution on every repeat "
+                "when nothing is shuffled."
+            )
+        elif shuffled < floor:
+            notes.append(
+                f"{name} varies slightly less with shuffled options than without, so it shows no "
+                "order effect beyond its repeat-to-repeat noise."
+            )
+    return " ".join(notes) + (" " if notes else "")
 
 
 def build_diagrams(

@@ -28,7 +28,7 @@
       font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.5rem;
     }
     .subtitle { color: var(--color-muted); font-size: 0.95rem; line-height: 1.45;
-      max-width: 60rem; margin-bottom: 1.5rem; }
+      max-width: 60rem; margin-bottom: 1rem; }
     .source { font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-muted);
       border-top: 1px solid rgba(45,49,66,0.12); margin-top: 1rem; padding-top: 0.75rem; line-height: 1.5; }
     svg { width: 100%; min-width: 960px; display: block; }
@@ -41,7 +41,7 @@
     <h1>Three problems found by the per-model error checks, and what was done</h1>
     <p class="subtitle">For each model the comparison counts errors, refusals, replies that could not be matched to an answer, and items left with no usable answer (results/comparison/health.csv). A reply that arrives but cannot be used is not a network error, so nothing would flag it without these counts. Two of the three problems were bugs in this repository.</p>
     <div class="diagram-container">
-      <svg viewBox="0 0 960 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="health-checks-title health-checks-desc">
+      <svg viewBox="0 25 960 415" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="health-checks-title health-checks-desc">
         <title id="health-checks-title">Three problems found by the per-model error checks, and what was done</title>
         <desc id="health-checks-desc">Process diagram of three problems the health table caught: GPT-6 Luna Decisions refusals, the Solar models&#x27; option cap, and Claude Haiku 5.5 truncating on reasoning, each with its cause and fix.</desc>
         <defs>

@@ -28,7 +28,7 @@
       font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.5rem;
     }
     .subtitle { color: var(--color-muted); font-size: 0.95rem; line-height: 1.45;
-      max-width: 60rem; margin-bottom: 1.5rem; }
+      max-width: 60rem; margin-bottom: 1rem; }
     .source { font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-muted);
       border-top: 1px solid rgba(45,49,66,0.12); margin-top: 1rem; padding-top: 0.75rem; line-height: 1.5; }
     svg { width: 100%; min-width: 1000px; display: block; }
@@ -41,7 +41,7 @@
     <h1>How much four System One models&#x27; answers change when the options are shuffled</h1>
     <p class="subtitle">Each item was asked 10 times. Multiple-choice options were put in a new random order every time; Likert and yes/no items were left as they were, so they show how much the answers move with nothing changed. The gap between the two is the order effect. 0 means identical distributions, 1 no overlap.</p>
     <div class="diagram-container">
-      <svg viewBox="0 0 1000 510" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="models-order-effects-title models-order-effects-desc">
+      <svg viewBox="0 28 1000 482" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="models-order-effects-title models-order-effects-desc">
         <title id="models-order-effects-title">How much four System One models&#x27; answers change when the options are shuffled</title>
         <desc id="models-order-effects-desc">Dumbbell chart of four System One models&#x27; mean answer change between repeats, for shuffled multiple-choice items and for never-shuffled items.</desc>
         <defs>
@@ -100,7 +100,7 @@
 <text x="970" y="497" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">ROWS BY THE SHUFFLED VALUE</text>
       </svg>
     </div>
-    <p class="source">Mean distance over all pairs of the 10 repeats, per item and prompt, on the 467 item-and-prompt cells (117 items) all four runs share. Jev run 18 Sep 2026, the others 12 Oct 2026.</p>
+    <p class="source">Mean distance over all pairs of the 10 repeats, per item and prompt, on the 467 item-and-prompt cells (117 items) all four runs share. Clef varies slightly less with shuffled options than without, so it shows no order effect beyond its repeat-to-repeat noise. GPT-6 Luna Decisions&#x27;s floor is 0 because it returns the identical distribution on every repeat when nothing is shuffled. Jev run 18 Sep 2026, the others 12 Oct 2026.</p>
   </div>
 </body>
 </html>
