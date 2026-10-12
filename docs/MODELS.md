@@ -53,7 +53,7 @@ duplicates.
 ## Read the health table first
 
 [`results/comparison/health.csv`](../results/comparison/health.csv) exists to
-stop silent holes being read as results, and on this run it caught four, two
+stop silent holes being read as results, and on this run it caught three, two
 of which were bugs in this repository.
 
 ![What the health table caught](../results/figures/health-checks.png)
@@ -72,15 +72,6 @@ options (0–100), and the route rejects a `Choice` with more than 26. This is a
 documented limit of the route rather than a model behaviour, and it costs each
 of them one item.
 
-**Clef Flash's endpoint intermittently rejects one item.** On the
-average-speed reasoning item, half of the first 40 calls came back HTTP 400
-with Cloudflare reporting the request itself as malformed. The same request,
-with the same option order, succeeded on other attempts, so this is the
-provider's fault rather than the item's; `jevbench run --resume` retried the
-failures until all 40 succeeded, over seven passes. The committed run has no
-errors. Clef Flash is also served under an undated name, like
-Microsoft-Decision-1 (see the limitations).
-
 **Haiku 5.5 truncated on its own reasoning.** It reasons before answering, and
 the reasoning counts against the reply cap: on the first run 183 calls spent
 all 512 tokens on reasoning and returned nothing, concentrated on the numeric
@@ -88,6 +79,17 @@ estimate items — the same shape of hole the main write-up describes for the
 first Sonnet runs. The cap is now configurable and recorded per record; the
 committed Haiku run used 4,096 and has 3 unresolved replies (0.06%), against
 Sonnet's 9 at 512. The truncated run was discarded, not mixed in.
+
+**Not in the table: Clef Flash's endpoint intermittently rejects one item.**
+The runner logged this one as errors, and they were cleared before the run
+was committed, so `health.csv` shows Clef Flash with none. On the
+average-speed reasoning item, half of the first 40 calls came back HTTP 400
+with Cloudflare reporting the request itself as malformed. The same request,
+with the same option order, succeeded on other attempts, so this is the
+provider's fault rather than the item's; `jevbench run --resume` retried the
+failures until all 40 succeeded, over seven passes. The committed run has no
+errors. Clef Flash is also served under an undated name, like
+Microsoft-Decision-1 (see the limitations).
 
 ### How a chat model's reply becomes an answer
 
