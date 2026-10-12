@@ -9,7 +9,9 @@ baseline (Claude Sonnet 5), and a second chat baseline (Claude Haiku 5.5).
 The same caveats as the main write-up apply in full: this is a hobby project,
 the human values are not a control group, and **no claims are made about any
 model, company or product.** These are numbers recorded from a public API on
-one day, and how they were produced.
+two days (Sep 18 and Oct 12, 2026), and how they were produced. The committed
+runs predate several method fixes; see
+[Known issues in the committed data](../README.md#known-issues-in-the-committed-data).
 
 ## What was run
 
@@ -63,10 +65,12 @@ of which were bugs in this repository.
 ![What the health table caught](../results/figures/health-checks.png)
 
 **GPT-6 Luna Decisions refuses some items.** 240 of its 5,880 calls (4%) came
-back `OpenAI refused to answer question "answer"`: the custody case, the trolley
-estimates, the false-consensus and choosing/rejecting estimates, and a Dirty
-Dozen item. The route reports a refusal as HTTP 502, so the client first logged
-these as transport errors and retried each one five times. A refusal is now
+back `OpenAI refused to answer question "answer"`, across 24 item × persona
+cells: the trolley, Knobe, categorisation, false-consensus and
+choosing/rejecting (custody case) estimates, the false-consensus choices
+themselves, and one Dirty Dozen item (`dd_09`). The route reports a refusal as
+HTTP 502, so the client first logged these as transport errors and tried each
+one five times. A refusal is now
 recorded as one and never retried. None of the refused items feeds the
 comparison below, but 44% of this model's yes/no (`Noul`) items are refused, so
 it has no score on the follow-up study's estimate items.
@@ -81,8 +85,9 @@ the reasoning counts against the reply cap: on the first run 183 calls spent
 all 512 tokens on reasoning and returned nothing, concentrated on the numeric
 estimate items — the same shape of hole the main write-up describes for the
 first Sonnet runs. The cap is now configurable and recorded per record; the
-committed Haiku run used 4,096 and has 3 unresolved replies (0.06%), against
-Sonnet's 9 at 512. The truncated run was discarded, not mixed in.
+committed Haiku run used 4,096 and has 3 unresolved replies (0.05%: two bare
+`B` replies and one that still hit the 4,096 cap), against Sonnet's 9 at 512.
+The truncated run, and its 183 empty replies, was discarded, not mixed in.
 
 **Not in the table: both Clef endpoints intermittently reject one item.**
 The runner logged this one as errors, and they were cleared before the run
@@ -93,13 +98,13 @@ with the same option order, succeeded on other attempts, so this is the
 provider's fault rather than the item's; `jevbench run --resume` retried the
 failures until all 40 succeeded, over seven passes. Clef did the same on the
 same item (11 of 40 calls, four passes). Both committed runs have no errors.
-Both are also served under undated names, like Microsoft-Decision-1 (see the
-limitations).
+Both are also served under undated names, and Microsoft-Decision-1 under a
+date that does not change when its weights do (see the limitations).
 
 ### How a chat model's reply becomes an answer
 
-A System One model answers in a typed distribution and has nowhere to go
-wrong. A chat model answers in text, so the chat arm's results depend on how
+A System One model answers in a typed distribution, so there is no text to
+misread (it can still refuse or reject an item, as above). A chat model answers in text, so the chat arm's results depend on how
 that text is read, and the [how-it-works figure](../results/figures/how-it-works.png)
 now shows each step:
 
@@ -116,9 +121,10 @@ now shows each step:
   anywhere in the write-up.
 - **A true/false item takes only a bare true or false.** Haiku five times
   replied along the lines of "I can't answer this with true or false", which
-  the earlier parser counted as *false*. These now count as unresolved, as do
-  replies naming no option at all (Haiku twice answered `B` where there are no
-  lettered options). Haiku's bare `45-55` now matches the band `45-55%`.
+  the earlier parser counted as *false*. All five were on the proportion
+  items below, so they now sit with those as not measurable. Replies naming no
+  option at all (Haiku twice answered `B` where there are no lettered options)
+  count as unresolved. Haiku's bare `45-55` now matches the band `45-55%`.
 - **Unresolved replies are dropped and counted**, never guessed:
   `n_unresolved` in [`health.csv`](../results/comparison/health.csv).
 - **Eleven follow-up items ask what proportion of people said yes** (the
@@ -129,7 +135,7 @@ now shows each step:
   most people said yes, not an estimate. Those 440 Haiku records are now left
   out of every chat-arm statistic and counted as `n_not_measurable`; before
   this, `statistics.csv` listed them as estimates. None fed the comparison
-  above, and the Sep 18 Sonnet run predates the items.
+  below, and the Sep 18 Sonnet run predates the items.
 
 Answers are re-read from the stored reply text every time a run is loaded, so
 these fixes reach the committed runs without editing them.
@@ -138,40 +144,47 @@ these fixes reach the committed runs without editing them.
 
 ![Models against human values](../results/figures/models-scatter.png)
 
-Mean absolute distance from the published human value over the 14 measures on
-a shared 0–1 scale, and the correlation `r` with them across measures
+Mean absolute distance from the published human value over the 14
+probability-scale measures (each on 0–1), and the correlation `r` with them across measures
 ([`fidelity.csv`](../results/comparison/fidelity.csv)):
 
 | Model | Neutral: distance | Neutral: r | As typical human: distance | As typical human: r |
 |---|---|---|---|---|
-| Solar Decide Flash | **0.21** | +0.20 | **0.11** | +0.76 |
-| Clef Flash | 0.23 | +0.07 | 0.18 | +0.45 |
-| Clef | 0.29 | −0.02 | 0.16 | +0.69 |
-| d1 | 0.32 | +0.09 | 0.19 | +0.66 |
-| Jev 1.13 | 0.32 | −0.15 | 0.14 | +0.76 |
-| Mercury Decide | 0.33 | −0.06 | 0.20 | +0.54 |
-| GPT-6 Luna Decisions | 0.34 | −0.38 | 0.19 | +0.11 |
-| Decider v1.1 27B | 0.34 | −0.42 | 0.15 | +0.67 |
-| Claude Sonnet 5 | 0.35 | +0.01 | 0.17 | +0.83 |
-| Microsoft-Decision-1 | 0.37 | −0.62 | 0.18 | +0.59 |
-| Solar Decide | 0.43 | −0.13 | 0.15 | +0.79 |
-| Claude Haiku 5.5 | 0.49 | −0.54 | 0.18 | +0.88 |
+| Clef Flash | **0.22** | +0.07 | 0.17 | +0.48 |
+| Solar Decide Flash | 0.23 | +0.20 | **0.12** | +0.73 |
+| Clef | 0.28 | −0.02 | 0.16 | +0.70 |
+| Jev 1.13 | 0.31 | −0.15 | 0.13 | +0.76 |
+| Mercury Decide | 0.31 | −0.07 | 0.20 | +0.56 |
+| d1 | 0.32 | +0.08 | 0.19 | +0.67 |
+| Decider v1.1 27B | 0.33 | −0.43 | 0.13 | +0.71 |
+| GPT-6 Luna Decisions | 0.35 | −0.37 | 0.21 | +0.09 |
+| Claude Sonnet 5 | 0.35 | +0.01 | 0.20 | +0.79 |
+| Microsoft-Decision-1 | 0.38 | −0.61 | 0.17 | +0.63 |
+| Solar Decide | 0.43 | −0.13 | 0.15 | +0.77 |
+| Claude Haiku 5.5 | 0.51 | −0.52 | 0.18 | +0.87 |
+
+The cognitive reflection measure is Frederick's three items and the ultimatum
+rejection measure the $1 offer, to match what the human values measure (see
+[BENCHMARKS.md](BENCHMARKS.md)); an earlier version of this table used all six
+CRT items and the $0 and $1 offers, and ranked Solar Decide Flash first.
 
 The pattern from the main write-up holds across every model: **answering
 neutrally, none of them looks like people** (no correlation better than +0.20,
-several strongly negative), and **one sentence asking for a typical human
-moves nearly all of them a long way toward people.** Two move less: Clef Flash
-gets only a little closer (0.23 to 0.18) and learns only part of which effects
-are strong (r +0.45), and GPT-6 Luna Decisions gets closer on average but
-without learning which effects are strong (r +0.11).
+several strongly negative), and **a short instruction to answer like a typical
+human moves nearly all of them a long way toward people** (the instruction is
+quoted in the [README](../README.md#asked-to-answer-like-a-person-it-moves-a-long-way);
+it also says "not the textbook-correct answer", so it steers as well as asks).
+Two move less: Clef Flash gets only a little closer (0.22 to 0.17) and learns
+only part of which effects are strong (r +0.48), and GPT-6 Luna Decisions gets closer on average but
+without learning which effects are strong (r +0.09).
 
 ### Why the top of that table should not be read as a ranking
 
 ![The framing reversal by model](../results/figures/framing-contrast.png)
 
-Solar Decide Flash and Clef Flash come out closest, and the reason matters
+Clef Flash and Solar Decide Flash come out closest, and the reason matters
 more than the ranking. Answering neutrally, their answers sit nearer 0.5 than
-any other model's (on average 0.18 and 0.17 from it), and most of the human
+any other model's (on average 0.17 and 0.20 from it), and most of the human
 reference values sit in the middle of the scale too — on average 0.18 from
 0.5. A model that hedges everywhere therefore scores a small distance
 without reproducing any effect.
@@ -189,7 +202,7 @@ quantity. Gain minus loss, in points:
 On the effect itself, Solar Decide Flash shows almost none, Clef Flash none
 without an instruction and a third of it when asked to answer as a person, d1 reproduces it
 almost exactly under both framings, Solar Decide lands on it exactly when asked
-to answer as a person, the two chat models show it at full strength or not at all
+to answer as a person, the two chat models show it as 100 points or 0
 (resampled answers saturate at 0 or 1), and Microsoft-Decision-1 reverses it. Distance from human levels and reproduction of human effects are
 different questions, and this battery's one summary number answers only the
 first.
@@ -202,22 +215,26 @@ first.
   any System One model: it plays the games almost as game theory prescribes,
   sending 1% in the trust game and contributing 2% to the public good (people:
   about half). Asked to answer as a person, both move close to people.
-- **Haiku 5.5 is the most extreme answerer when asked to be a typical person**,
-  furthest from 0.5 of any model (answering neutrally, only Solar Decide is more
-  extreme). In that framing it gets the cognitive reflection items right only 6%
-  of the time (people: 41%), and continues the sunk-cost project every time.
+- **The two chat models are the most extreme answerers when asked to be a
+  typical person**, furthest from 0.5 of any model (Sonnet 0.36 and Haiku 0.35
+  from it on average, the next 0.26). In that framing both get Frederick's
+  cognitive reflection items right 0% of the time (people: 41%), and Haiku
+  continues the sunk-cost project every time.
 - **Clef Flash is the only model that over-trusts unprompted**, sending 65% in
-  the trust game (people: 50%), and with no instruction it answers the
-  cognitive reflection items correctly least often of any model (63%; people
-  41%, every other model 79% or more). It is a fine-tune of Qwen3.5-9B.
-- **The sunk-cost item is the one nothing reproduces under neutral framing**:
+  the trust game (people: 50%), and with no instruction it answers Frederick's
+  cognitive reflection items correctly least often of any model (65%; people
+  41%, every other model 78% or more). It is a fine-tune of Qwen3.5-9B.
+- **The sunk-cost item is missed by the widest margin under neutral framing**:
   every model, System One or chat, abandons the project (≤ 0.07, people 0.85).
+  The committed runs used a paraphrase of the item that made the loss certain,
+  which may account for some of this; see
+  [Known issues](../README.md#known-issues-in-the-committed-data).
 - **Only Clef reproduces the conjunction fallacy unprompted**, at 0.87 against
   people's 0.85; Solar Decide Flash (0.70) and Clef Flash (0.62) come part of
   the way and every other model stays at 0.25 or below. Asked to answer as a
   person, all but Luna (0.50) reach 0.83 or more.
-- **Clef and Clef Flash differ the way the Solar pair do.** The 27B model does
-  not hedge: it shows about half the human framing effect under both prompts
+- **Clef and Clef Flash differ the way the Solar pair do.** Clef (listed on
+  OpenRouter as built on Qwen3.8-27B) does not hedge: it shows about half the human framing effect under both prompts
   (27 and 23 points) where Flash shows none.
 
 ## Limitations specific to this comparison

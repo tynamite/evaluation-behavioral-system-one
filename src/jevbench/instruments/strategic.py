@@ -39,12 +39,7 @@ def beauty_contest() -> list[Probe]:
 
 def money_request() -> list[Probe]:
     """11-20 money request game (Arad & Rubinstein 2012). A clean level-k ladder."""
-    options = {
-        str(n): (
-            f"Request {n}" + (" (the largest amount, but never earns the bonus)" if n == 20 else "")
-        )
-        for n in range(11, 21)
-    }
+    options = {str(n): f"Request {n}" for n in range(11, 21)}
     return [
         binary_choice(
             probe_id="money_request_11_20",

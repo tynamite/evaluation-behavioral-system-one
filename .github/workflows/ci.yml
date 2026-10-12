@@ -63,8 +63,8 @@ jobs:
         with:
           name: offline-pipeline-output
           path: |
-            results/tables/
-            results/figures/
+            results/simulated/tables/
+            results/simulated/figures/
           if-no-files-found: error
 
   secrets:

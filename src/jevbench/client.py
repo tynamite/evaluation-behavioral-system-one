@@ -66,7 +66,7 @@ class SystemOneClient:
         headers = {"Authorization": f"Bearer {self._key}", "Content-Type": "application/json"}
         if self.config.backend == "openrouter":
             # Optional attribution headers; harmless if ignored.
-            headers["HTTP-Referer"] = "https://github.com/tynamite/system-one-behavioural-eval"
+            headers["HTTP-Referer"] = "https://github.com/tynamite/evaluation-behavioral-system-one"
             headers["X-Title"] = "jevbench"
         return headers
 

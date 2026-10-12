@@ -74,14 +74,17 @@ def main(argv: list[str]) -> int:
     L.append(f"Models: {', '.join(f'`{m}`' for m in models)}  ")
     L.append(f"Records: {len(df):,} ({n_err} transport errors, excluded)  ")
     L.append(f"Total cost: ${cost:.4f} (Jev arm ${jev_cost:.4f})\n")
-    L.append("All values are probability mass, computed from the returned "
-             "distributions rather than from the point answers. Human values are "
+    L.append("Every table below is the Jev arm only; the chat baseline and the other "
+             "System One models are compared in `results/comparison/`. Values are "
+             "probability mass, computed from the returned distributions rather than "
+             "from the point answers. Human values are "
              "literature reference points, not a matched control group — see "
              "[BENCHMARKS.md](BENCHMARKS.md).\n")
 
     L.append("## Cognitive reflection\n")
     L += persona_table(sdf, [
-        ("crt", "proportion_correct", "CRT correct"),
+        ("crt", "proportion_correct", "CRT correct (Frederick's 3 items)"),
+        ("crt", "proportion_correct_all6", "CRT correct (all 6 items)"),
         ("crt", "probability_mass_on_lure", "CRT mass on intuitive lure"),
     ])
     L.append("")
@@ -102,7 +105,7 @@ def main(argv: list[str]) -> int:
         ("dictator", "prob_give_zero", "Dictator: mass on giving nothing"),
         ("dictator", "prob_give_half", "Dictator: mass on giving half"),
         ("ultimatum_proposer", "mean_share", "Ultimatum: offer share"),
-        ("ultimatum_responder", "prob_reject_low_offer", "Ultimatum: reject a low offer"),
+        ("ultimatum_responder", "prob_reject_low_offer", "Ultimatum: reject a $1 offer"),
         ("trust_sender", "mean_share", "Trust: share sent"),
         ("trust_trustee", "return_share_sent_5", "Trust: share returned"),
         ("public_goods", "mean_share", "Public goods: contribution"),
@@ -119,8 +122,8 @@ def main(argv: list[str]) -> int:
         ("allais", "independence_violation", "Allais: independence violation"),
         ("conjunction", "prob_fallacy_forced_choice", "Conjunction fallacy (forced choice)"),
         ("conjunction_axiom", "axiom_margin", "Conjunction axiom margin (negative = violation)"),
-        ("base_rate", "prob_correct_band", "Base rate: correct band"),
-        ("anchoring", "anchoring_effect", "Anchoring effect (human ≈ 20 points)"),
+        ("base_rate", "prob_correct_band", "Base rate: 0-10% band (vs Bayesian answers)"),
+        ("anchoring", "anchoring_effect", "Anchoring gap (human ≈ 20 points)"),
         ("sunk_cost", "prob_continue", "Sunk cost: continue"),
     ])
     L.append("")
@@ -128,7 +131,7 @@ def main(argv: list[str]) -> int:
     L.append("## Risk, time and strategic depth\n")
     L += persona_table(sdf, [
         ("holt_laury", "expected_safe_choices", "Holt–Laury safe choices (risk neutral = 4)"),
-        ("present_bias", "present_bias_gap", "Present-bias gap"),
+        ("present_bias", "present_bias_gap", "Present-bias gap (direction only)"),
         ("beauty_contest", "expected_guess", "p-beauty: expected guess"),
         ("beauty_contest", "mass_at_0", "p-beauty: mass on equilibrium (0)"),
         ("money_request", "expected_request", "11-20 game: expected request"),
@@ -157,7 +160,7 @@ def main(argv: list[str]) -> int:
         L.append(f"- Median: {odf.mean_tv_distance.median():.4f}")
         L.append(f"- 95th percentile: {odf.mean_tv_distance.quantile(0.95):.4f}")
         if len(floor):
-            L.append(f"- Same measure on the {len(floor)} unshuffled cells (the noise floor): "
+            L.append(f"- Same measure on the {len(floor)} unshuffled cells (replicates with nothing reordered, a rough noise floor): "
                      f"{floor.mean_tv_distance.mean():.4f}")
         L.append(f"- Largest single probe: {odf.mean_tv_distance.max():.4f} "
                  f"(`{odf.loc[odf.mean_tv_distance.idxmax(), 'probe_id']}`)")

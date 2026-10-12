@@ -36,7 +36,7 @@ The `reliability` column is deliberately conservative:
 | `allais_p1_certain` | choosing the certain $3,000 in the first pair | 0.8 | proportion | high |
 | `allais_p2_certain` | choosing the higher-probability gamble in the second pair | 0.35 | proportion | high |
 | `conjunction_fallacy_rate` | rating the conjunction as more probable | 0.85 | proportion | high |
-| `crt_proportion_correct` | mean proportion of CRT items answered correctly | 0.413 | proportion | high |
+| `crt_proportion_correct` | mean proportion of Frederick's three CRT items answered correctly | 0.413 | proportion | high |
 | `dictator_mean_share` | mean share of pie given by dictator | 0.283 | share of pie | high |
 | `dictator_share_half` | proportion of dictators giving exactly half | 0.17 | proportion | high |
 | `dictator_share_zero` | proportion of dictators giving nothing | 0.36 | proportion | high |
@@ -47,20 +47,34 @@ The `reliability` column is deliberately conservative:
 | `trust_return_share` | share of the tripled amount returned by the trustee | 0.37 | share of tripled amount | high |
 | `trust_sender_share` | share of endowment sent by the sender | 0.5 | share of endowment | high |
 | `ultimatum_mean_offer` | mean proposer offer as share of pie | 0.4 | share of pie | high |
-| `anchoring_high_median` | median estimate under a high (65%) anchor | 45 | percent | medium |
-| `anchoring_low_median` | median estimate under a low (10%) anchor | 25 | percent | medium |
-| `base_rate_correct_band` | giving an answer in the correct 0-10% band | 0.15 | proportion | medium |
+| `anchoring_high_median` | median estimate under a high (65%) anchor | 45 | percent | approximate |
+| `anchoring_low_median` | median estimate under a low (10%) anchor | 25 | percent | approximate |
+| `base_rate_correct_band` | giving a Bayesian (approximately correct) answer | 0.15 | proportion | medium |
 | `beauty_contest_mean` | mean guess in a two-thirds beauty contest | 36 | number 0-100 | medium |
+| `false_consensus_nonwearer_predicts_wear` | mean predicted proportion of peers who would agree to wear the sign, among participants who themselves refused | 0.304 | proportion | medium |
+| `false_consensus_wearer_predicts_wear` | mean predicted proportion of peers who would also agree to wear the sign, among participants who themselves agreed | 0.614 | proportion | medium |
+| `incidental_anchor_p17` | mean estimated US market share when the phone is named the 'P17' | 51.9 | percent | medium |
+| `incidental_anchor_p97` | mean estimated US market share when the phone is named the 'P97' | 58.1 | percent | medium |
+| `knobe_harm_intentional` | proportion judging the harmful side effect intentional | 0.82 | proportion | medium |
+| `knobe_help_intentional` | proportion judging the helpful side effect intentional | 0.23 | proportion | medium |
 | `mini_ipip_agreeableness` | mean Mini-IPIP agreeableness score | 4 | 1-5 scale | approximate |
 | `mini_ipip_conscientiousness` | mean Mini-IPIP conscientiousness score | 3.4 | 1-5 scale | approximate |
 | `mini_ipip_extraversion` | mean Mini-IPIP extraversion score | 3.2 | 1-5 scale | approximate |
 | `mini_ipip_neuroticism` | mean Mini-IPIP neuroticism score | 2.8 | 1-5 scale | approximate |
 | `mini_ipip_openness` | mean Mini-IPIP openness/intellect score | 3.7 | 1-5 scale | approximate |
+| `moral_typecasting_responsibility_baby` | mean responsibility rating when the lower-agency party (the baby) commits the act | 3.86 | 1-7 scale | medium |
+| `moral_typecasting_responsibility_man` | mean responsibility rating when the higher-agency party (the man) commits the act | 5.29 | 1-7 scale | medium |
+| `norenzayan_rule_based` | proportion choosing the rule-based group in the 'belongs to' framing | 0.67 | proportion | medium |
 | `pd_cooperation_oneshot` | cooperation rate in a one-shot prisoner's dilemma | 0.37 | proportion | medium |
 | `pgg_round1_share` | first-round contribution as share of endowment | 0.5 | share of endowment | medium |
-| `present_bias_reversal` | preference reversal between immediate and delayed front end | 0.3 | proportion | approximate |
+| `position_power_long_line` | mean perceived-power composite when the org-chart line is long (7cm) | 5.01 | 1-7 scale | medium |
+| `position_power_short_line` | mean perceived-power composite when the org-chart line is short (2cm) | 4.62 | 1-7 scale | medium |
+| `shafir_award_extreme` | proportion awarding custody to the extreme (mixed-feature) parent | 0.64 | proportion | medium |
+| `shafir_deny_extreme` | proportion denying custody to the extreme (mixed-feature) parent | 0.55 | proportion | medium |
 | `sunk_cost_continue` | continuing the losing project | 0.85 | proportion | medium |
-| `ultimatum_rejection_low_offer` | rejection rate for offers below 20% of pie | 0.5 | proportion | medium |
+| `trolley_push_permissible` | proportion judging it morally permissible to push a stranger off a footbridge to stop the trolley | 0.11 | proportion | medium |
+| `trolley_switch_permissible` | proportion judging it morally permissible to divert the trolley by pulling a switch | 0.89 | proportion | medium |
+| `ultimatum_rejection_low_offer` | rejection rate for an offer of 10% of the pie | 0.5 | proportion | medium |
 
 ## Sources and caveats
 
@@ -80,7 +94,7 @@ The `reliability` column is deliberately conservative:
 - Value: 0.85 proportion (high)
 - Source: Tversky & Kahneman (1983), Psychological Review 90:293-315
 
-**`crt_proportion_correct`** — mean proportion of CRT items answered correctly
+**`crt_proportion_correct`** — mean proportion of Frederick's three CRT items answered correctly
 
 - Value: 0.413 proportion (high)
 - Source: Frederick (2005), J. Econ. Perspectives 19(4):25-42, n=3,428
@@ -89,7 +103,7 @@ The `reliability` column is deliberately conservative:
 **`dictator_mean_share`** — mean share of pie given by dictator
 
 - Value: 0.283 share of pie (high)
-- Source: Engel (2011), Experimental Economics 14:583-610; meta-analysis of 616 studies
+- Source: Engel (2011), Experimental Economics 14:583-610; meta-analysis of 616 treatments from 129 papers
 - Note: The distribution is strongly bimodal: ~36% give nothing and ~17% give exactly half. The mean alone is a poor summary; compare the full histogram.
 
 **`dictator_share_half`** — proportion of dictators giving exactly half
@@ -123,13 +137,13 @@ The `reliability` column is deliberately conservative:
 
 - Value: 17 shekels (high)
 - Source: Arad & Rubinstein (2012), American Economic Review 102:3561-3573
-- Note: Observed distribution roughly: 20 -> 6%, 19 -> 12%, 18 -> 30%, 17 -> 32%. Equilibrium play is mixed and concentrated on 15-17.
+- Note: Observed distribution roughly: 20 -> 6%, 19 -> 12%, 18 -> 30%, 17 -> 32%. Equilibrium play is mixed and concentrated on 15-17. This is the human mode; the model's figure is its mean request, so read it as a rough guide.
 
 **`trust_return_share`** — share of the tripled amount returned by the trustee
 
 - Value: 0.37 share of tripled amount (high)
 - Source: Johnson & Mislin (2011), J. Economic Psychology 32:865-889
-- Note: Returns average slightly less than the amount originally sent, so senders roughly break even.
+- Note: Trustees return about 37% of the tripled amount, roughly what was sent, so trusting roughly breaks even.
 
 **`trust_sender_share`** — share of endowment sent by the sender
 
@@ -144,26 +158,63 @@ The `reliability` column is deliberately conservative:
 
 **`anchoring_high_median`** — median estimate under a high (65%) anchor
 
-- Value: 45 percent (medium)
+- Value: 45 percent (approximate)
 - Source: Tversky & Kahneman (1974), Science 185:1124-1131
-- Note: The 20-point gap between anchors is the effect of interest.
+- Note: The 20-point gap between anchors is the effect of interest; the levels are not comparable.
 
 **`anchoring_low_median`** — median estimate under a low (10%) anchor
 
-- Value: 25 percent (medium)
+- Value: 25 percent (approximate)
 - Source: Tversky & Kahneman (1974), Science 185:1124-1131
+- Note: Different question (T&K asked African UN countries with a wheel-of-fortune anchor of 10 or 65); compare the gap between anchors, not the levels.
 
-**`base_rate_correct_band`** — giving an answer in the correct 0-10% band
+**`base_rate_correct_band`** — giving a Bayesian (approximately correct) answer
 
 - Value: 0.15 proportion (medium)
 - Source: Eddy (1982) in Judgment Under Uncertainty; Gigerenzer & Hoffrage (1995), Psych. Review 102:684-704
-- Note: Eddy reported ~95% of physicians answering 70-80%. The normative answer is 7.8%.
+- Note: Approximate comparator: Gigerenzer & Hoffrage report about 16% Bayesian answers in the probability format, which is not the same measure as a 0-10% band. Eddy reported ~95% of physicians answering 70-80%. The normative answer is 7.8%.
 
 **`beauty_contest_mean`** — mean guess in a two-thirds beauty contest
 
 - Value: 36 number 0-100 (medium)
 - Source: Nagel (1995), American Economic Review 85:1313-1326
 - Note: Nash equilibrium is 0. Human guesses spike at 33 (one step of reasoning) and 22 (two steps). Large newspaper samples average lower, around 23.
+
+**`false_consensus_nonwearer_predicts_wear`** — mean predicted proportion of peers who would agree to wear the sign, among participants who themselves refused
+
+- Value: 0.304 proportion (medium)
+- Source: Ross, Greene & House (1977), J. Experimental Social Psychology 13:279-301, Study 3, N=104
+- Note: Reported in the original as 30.4%; stored as a 0-1 proportion here, see false_consensus_wearer_predicts_wear.
+
+**`false_consensus_wearer_predicts_wear`** — mean predicted proportion of peers who would also agree to wear the sign, among participants who themselves agreed
+
+- Value: 0.614 proportion (medium)
+- Source: Ross, Greene & House (1977), J. Experimental Social Psychology 13:279-301, Study 3, N=104
+- Note: Reported in the original as 61.4%. Stored here as a 0-1 proportion, not a percent, to match the Noul primitive's own [0, 1] output -- see instruments/followup.py's false_consensus() docstring. Companion: false_consensus_nonwearer_predicts_wear. Both groups predict more of their own choice than the other group does -- the false consensus effect.
+
+**`incidental_anchor_p17`** — mean estimated US market share when the phone is named the 'P17'
+
+- Value: 51.9 percent (medium)
+- Source: Critcher & Gilovich (2008), J. Behavioral Decision Making 21:241-251, Study 2, N=207
+- Note: SD 21.7 in the original. See incidental_anchor_p97.
+
+**`incidental_anchor_p97`** — mean estimated US market share when the phone is named the 'P97'
+
+- Value: 58.1 percent (medium)
+- Source: Critcher & Gilovich (2008), J. Behavioral Decision Making 21:241-251, Study 2, N=207
+- Note: SD 19.6 in the original. Companion: incidental_anchor_p17. ML2 replicated this effect at d=0.04 against an original d=0.30 — essentially gone; see FOLLOWUP_PREREGISTRATION.md Section 2 (H3).
+
+**`knobe_harm_intentional`** — proportion judging the harmful side effect intentional
+
+- Value: 0.82 proportion (medium)
+- Source: Knobe (2003), Analysis 63:190-194, N=78 (39 harm / 39 help)
+- Note: Companion: knobe_help_intentional. The asymmetry between the two -- not the absolute levels -- is the finding (the 'Knobe effect' / side-effect effect).
+
+**`knobe_help_intentional`** — proportion judging the helpful side effect intentional
+
+- Value: 0.23 proportion (medium)
+- Source: Knobe (2003), Analysis 63:190-194, N=78 (39 harm / 39 help)
+- Note: See knobe_harm_intentional.
 
 **`mini_ipip_agreeableness`** — mean Mini-IPIP agreeableness score
 
@@ -191,6 +242,24 @@ The `reliability` column is deliberately conservative:
 - Value: 3.7 1-5 scale (approximate)
 - Source: Donnellan et al. (2006)
 
+**`moral_typecasting_responsibility_baby`** — mean responsibility rating when the lower-agency party (the baby) commits the act
+
+- Value: 3.86 1-7 scale (medium)
+- Source: Gray & Wegner (2009), J. Personality and Social Psychology 96:505-520, Study 1a, N=69
+- Note: SD 1.64 in the original. Higher-agency actors are rated more responsible.
+
+**`moral_typecasting_responsibility_man`** — mean responsibility rating when the higher-agency party (the man) commits the act
+
+- Value: 5.29 1-7 scale (medium)
+- Source: Gray & Wegner (2009), J. Personality and Social Psychology 96:505-520, Study 1a, N=69
+- Note: SD 1.86 in the original. Companion condition: moral_typecasting_responsibility_baby.
+
+**`norenzayan_rule_based`** — proportion choosing the rule-based group in the 'belongs to' framing
+
+- Value: 0.67 proportion (medium)
+- Source: Norenzayan, Smith, Kim & Nisbett (2002), Cognitive Science 26:653-684, Study 2
+- Note: Pooled across European American, Asian American and East Asian samples, as ML2 replicated it. The original reports a cultural split (Europeans more rule-based, East Asians more family-resemblance) that this pooled figure obscures.
+
 **`pd_cooperation_oneshot`** — cooperation rate in a one-shot prisoner's dilemma
 
 - Value: 0.37 proportion (medium)
@@ -203,20 +272,50 @@ The `reliability` column is deliberately conservative:
 - Source: Ledyard (1995) in Handbook of Experimental Economics; Fehr & Gächter (2000), AER 90:980-994
 - Note: Typically 40-60% in round 1, decaying toward zero over repeated rounds without punishment.
 
-**`present_bias_reversal`** — preference reversal between immediate and delayed front end
+**`position_power_long_line`** — mean perceived-power composite when the org-chart line is long (7cm)
 
-- Value: 0.3 proportion (approximate)
-- Source: Thaler (1981), Economics Letters 8:201-207; Frederick, Loewenstein & O'Donoghue (2002), JEL 40:351-401
-- Note: Magnitude varies widely with amounts and delays; direction (more patience when both options are delayed) is the robust finding, not the level.
+- Value: 5.01 1-7 scale (medium)
+- Source: Giessner & Schubert (2007), Org. Behavior and Human Decision Processes 104:30-44, Study 1a, N=64
+- Note: SD 0.60 in the original. Composite of 5 items. Companion: position_power_short_line.
+
+**`position_power_short_line`** — mean perceived-power composite when the org-chart line is short (2cm)
+
+- Value: 4.62 1-7 scale (medium)
+- Source: Giessner & Schubert (2007), Org. Behavior and Human Decision Processes 104:30-44, Study 1a, N=64
+- Note: SD 0.81 in the original.
+
+**`shafir_award_extreme`** — proportion awarding custody to the extreme (mixed-feature) parent
+
+- Value: 0.64 proportion (medium)
+- Source: Shafir (1993), Memory & Cognition 21:546-556, Study 1, N=170
+- Note: Companion shafir_deny_extreme sums to over 1.0 with this by design: the extreme parent is both chosen and rejected more than the average parent.
+
+**`shafir_deny_extreme`** — proportion denying custody to the extreme (mixed-feature) parent
+
+- Value: 0.55 proportion (medium)
+- Source: Shafir (1993), Memory & Cognition 21:546-556, Study 1, N=170
+- Note: See shafir_award_extreme.
 
 **`sunk_cost_continue`** — continuing the losing project
 
 - Value: 0.85 proportion (medium)
 - Source: Arkes & Blumer (1985), Org. Behavior and Human Decision Processes 35:124-140
 
-**`ultimatum_rejection_low_offer`** — rejection rate for offers below 20% of pie
+**`trolley_push_permissible`** — proportion judging it morally permissible to push a stranger off a footbridge to stop the trolley
+
+- Value: 0.11 proportion (medium)
+- Source: Hauser, Cushman, Young, Jin & Mikhail (2007), Mind & Language 22:1-21; large international web-based sample (Moral Sense Test)
+- Note: See trolley_switch_permissible. The switch/push asymmetry, not the absolute levels, is the classic finding.
+
+**`trolley_switch_permissible`** — proportion judging it morally permissible to divert the trolley by pulling a switch
+
+- Value: 0.89 proportion (medium)
+- Source: Hauser, Cushman, Young, Jin & Mikhail (2007), Mind & Language 22:1-21; large international web-based sample (Moral Sense Test)
+- Note: Companion: trolley_push_permissible. No single N is reported for this comparison specifically in the sources available here.
+
+**`ultimatum_rejection_low_offer`** — rejection rate for an offer of 10% of the pie
 
 - Value: 0.5 proportion (medium)
 - Source: Camerer (2003), Behavioral Game Theory, ch. 2
-- Note: Rejection falls steeply as the offer rises; near-zero at an equal split.
+- Note: Camerer reports offers below 20% rejected about half the time; compared here with the $1-of-$10 offer only. Rejection falls steeply as the offer rises; near-zero at an equal split.
 

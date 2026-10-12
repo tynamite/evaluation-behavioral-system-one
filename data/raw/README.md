@@ -20,7 +20,7 @@ records.
 | Field | Meaning |
 |---|---|
 | `probe_id`, `instrument` | which item, and which instrument it belongs to |
-| `persona` | `neutral`, `typical_human`, `rational_agent` or `antisocial` |
+| `persona` | `neutral`, `typical_human`, `rational_agent` or `antisocial` (`typical_human_plain` exists in code but in no committed run) |
 | `arm` | `jev` (the System One arm, whichever model served it — see `model`) or `baseline` (autoregressive chat model) |
 | `replicate` | replicate index; for the baseline arm, the resample index |
 | `backend`, `model` | transport used, and the exact served model version |
@@ -29,9 +29,14 @@ records.
 | `probabilities` | **the unit of analysis**: the returned distribution |
 | `confidence` | the model's calibrated confidence, where the primitive returns one |
 | `legend` | for Score items, the index-to-level mapping |
-| `option_order` | the permutation used for this replicate, for the order-effect analysis |
-| `meta` | scoring keys for the instrument (correct answer, lure, trait, reverse-keying) |
+| `option_order` | the permutation used for this replicate, for the order-effect analysis (empty for the committed chat-arm records, which were not shuffled) |
+| `meta` | scoring keys for the instrument (correct answer, lure, trait, reverse-keying); for the baseline arm also `raw_text`, the chat reply as received, which is re-read on every load |
 | `usage` | token counts and cost for this call |
-| `error` | transport error, if any; such records are excluded and counted |
+| `error` | transport error or refusal, if any (refusals start `refused:`); such records are excluded and counted |
+| `timestamp` | when the call completed (UTC) |
+
+`run_live_20261012T083120Z_nace-ai--drex-v1.5.jsonl` (Drex 1.5) is kept for
+completeness but left out of every comparison; see
+[docs/MODELS.md](../../docs/MODELS.md).
 
 No prompts contain personal data, and no credentials appear in these files.

@@ -27,6 +27,9 @@ from .benchmarks import BENCHMARKS
 Dist = dict[str, float]
 Key = tuple[str, str, str]  # (probe_id, persona, arm)
 
+# The three items Frederick (2005) published, the only ones his benchmark covers.
+FREDERICK_CRT = frozenset({"crt_bat_ball", "crt_widgets", "crt_lilypads"})
+
 
 def latest_run(raw_dir: Path) -> Path | None:
     runs = sorted(raw_dir.glob("run_*.jsonl"))
@@ -255,23 +258,40 @@ def compute_stats(df: pd.DataFrame) -> list[Stat]:
                 return dists.get((pid, _p, _a))
 
             # --- cognitive reflection -------------------------------
+            # Frederick's (2005) benchmark is for his three items only; the other
+            # three come from Toplak et al. (2014) and are reported apart, so the
+            # human comparison is like for like.
             crt = [p for p in meta if p.startswith("crt_")]
-            corr, lure = [], []
+            corr, lure, corr3 = [], [], []
             for pid in crt:
                 d = g(pid)
                 if not d:
                     continue
-                corr.append(prob_of(d, str(meta[pid].get("correct"))))
+                c = prob_of(d, str(meta[pid].get("correct")))
+                corr.append(c)
                 lure.append(prob_of(d, str(meta[pid].get("lure"))))
-            if corr:
+                if pid in FREDERICK_CRT:
+                    corr3.append(c)
+            if corr3:
                 add(
                     "crt",
                     "proportion_correct",
                     persona,
                     arm,
+                    float(np.mean(corr3)),
+                    ci=bootstrap_ci(corr3),
+                    bench="crt_proportion_correct",
+                    note="Frederick's three items (bat and ball, widgets, lily pads)",
+                )
+            if corr:
+                add(
+                    "crt",
+                    "proportion_correct_all6",
+                    persona,
+                    arm,
                     float(np.mean(corr)),
                     ci=bootstrap_ci(corr),
-                    bench="crt_proportion_correct",
+                    note="all six items; no single human benchmark covers these",
                 )
                 add(
                     "crt",
@@ -369,7 +389,9 @@ def compute_stats(df: pd.DataFrame) -> list[Stat]:
                     continue
                 rej = prob_of(d, "reject")
                 add("ultimatum_responder", f"prob_reject_offer_{offer}", persona, arm, rej)
-                if offer <= 1:
+                # Only the $1 offer (10% of the pie) is compared with Camerer's
+                # low-offer figure; $0 leaves nothing to reject in favour of.
+                if offer == 1:
                     low_rej.append(rej)
             if low_rej:
                 add(
@@ -379,6 +401,7 @@ def compute_stats(df: pd.DataFrame) -> list[Stat]:
                     arm,
                     float(np.mean(low_rej)),
                     bench="ultimatum_rejection_low_offer",
+                    note="offer of $1 out of $10",
                 )
 
             # --- trustee reciprocity --------------------------------
@@ -482,7 +505,11 @@ def compute_stats(df: pd.DataFrame) -> list[Stat]:
                     persona,
                     arm,
                     prob_of(p1, "option_a") * prob_of(p2, "option_d"),
-                    note="joint probability of the A-then-D pattern that violates independence",
+                    note=(
+                        "product of the two marginal probabilities (A in pair 1, D in "
+                        "pair 2); the items are asked separately, so this assumes the two "
+                        "choices are independent"
+                    ),
                 )
 
             # --- conjunction ----------------------------------------
@@ -561,7 +588,10 @@ def compute_stats(df: pd.DataFrame) -> list[Stat]:
                         persona,
                         arm,
                         b_val - a_val,
-                        note="human gap is about 20 points",
+                        note=(
+                            "human gap is about 20 points (Tversky & Kahneman 1974); "
+                            "compare the gap, not the levels"
+                        ),
                     )
 
             # --- sunk cost ------------------------------------------
@@ -631,8 +661,10 @@ def compute_stats(df: pd.DataFrame) -> list[Stat]:
                     persona,
                     arm,
                     prob_of(del_d, "later") - prob_of(now_d, "later"),
-                    bench="present_bias_reversal",
-                    note="positive means more patient when both options are delayed",
+                    note=(
+                        "positive means more patient when both options are delayed; "
+                        "no human level is compared, only the direction"
+                    ),
                 )
 
             # --- strategic ------------------------------------------
@@ -658,6 +690,7 @@ def compute_stats(df: pd.DataFrame) -> list[Stat]:
                     arm,
                     expected_numeric(d),
                     bench="money_request_modal",
+                    note="the model's mean request against the human mode",
                 )
                 for lvl_name, val in (
                     ("level0", 20),
@@ -1161,7 +1194,8 @@ class Fidelity:
     """How well one condition's answers track the published human values.
 
     `mae` is the average absolute distance from the human value, `bias` the
-    signed average (positive means the model is more extreme than people), and
+    signed average (positive means the model's values sit above people's on
+    average, which is not the same as being more extreme), and
     `r` / `rho` say whether it gets the *ordering* right — whether it knows
     which effects are strong, not merely how strong effects are on average. A
     condition can have low error and no correlation, which would mean it lands

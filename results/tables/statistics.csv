@@ -1,5 +1,6 @@
 instrument,statistic,persona,arm,value,ci_low,ci_high,benchmark_key,human_value,reliability,note
-crt,proportion_correct,antisocial,baseline,1.0,1.0,1.0,crt_proportion_correct,0.413,high,
+crt,proportion_correct,antisocial,baseline,1.0,1.0,1.0,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
+crt,proportion_correct_all6,antisocial,baseline,1.0,1.0,1.0,,,,all six items; no single human benchmark covers these
 crt,probability_mass_on_lure,antisocial,baseline,0.0,0.0,0.0,,,,
 fluid_reasoning,accuracy,antisocial,baseline,1.0,1.0,1.0,,,,accuracy on an authored ICAR-format item set; not an IQ score
 fluid_reasoning,accuracy_steps_1,antisocial,baseline,1.0,1.0,1.0,,,,
@@ -24,7 +25,7 @@ ultimatum_responder,prob_reject_offer_7,antisocial,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_8,antisocial,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_9,antisocial,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_10,antisocial,baseline,0.0,,,,,,
-ultimatum_responder,prob_reject_low_offer,antisocial,baseline,0.5,,,ultimatum_rejection_low_offer,0.5,medium,
+ultimatum_responder,prob_reject_low_offer,antisocial,baseline,0.0,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10
 trust_trustee,return_share_sent_2,antisocial,baseline,0.0,,,,,,
 trust_trustee,return_share_sent_5,antisocial,baseline,0.0,,,trust_return_share,0.37,high,
 trust_trustee,return_share_sent_10,antisocial,baseline,0.0,,,,,,
@@ -39,16 +40,16 @@ framing,prob_certain_loss_frame,antisocial,baseline,0.0,,,framing_loss_certain,0
 framing,framing_swing,antisocial,baseline,1.0,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
 allais,prob_certain_pair1,antisocial,baseline,1.0,,,allais_p1_certain,0.8,high,
 allais,prob_safer_pair2,antisocial,baseline,0.0,,,allais_p2_certain,0.35,high,
-allais,independence_violation,antisocial,baseline,1.0,,,,,,joint probability of the A-then-D pattern that violates independence
+allais,independence_violation,antisocial,baseline,1.0,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
 conjunction,prob_fallacy_forced_choice,antisocial,baseline,0.1,,,conjunction_fallacy_rate,0.85,high,
 conjunction_axiom,p_single,antisocial,baseline,0.7,,,,,,
 conjunction_axiom,p_conjunction,antisocial,baseline,0.2,,,,,,
 conjunction_axiom,axiom_margin,antisocial,baseline,0.49999999999999994,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
 base_rate,prob_correct_band,antisocial,baseline,0.0,,,base_rate_correct_band,0.15,medium,
 base_rate,prob_lure_band,antisocial,baseline,0.0,,,,,,
-anchoring,estimate_low_anchor,antisocial,baseline,30.0,,,anchoring_low_median,25.0,medium,
-anchoring,estimate_high_anchor,antisocial,baseline,30.0,,,anchoring_high_median,45.0,medium,
-anchoring,anchoring_effect,antisocial,baseline,0.0,,,,,,human gap is about 20 points
+anchoring,estimate_low_anchor,antisocial,baseline,30.0,,,anchoring_low_median,25.0,approximate,
+anchoring,estimate_high_anchor,antisocial,baseline,30.0,,,anchoring_high_median,45.0,approximate,
+anchoring,anchoring_effect,antisocial,baseline,0.0,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
 sunk_cost,prob_continue,antisocial,baseline,0.0,,,sunk_cost_continue,0.85,medium,
 holt_laury,expected_safe_choices,antisocial,baseline,0.0,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
 discounting,prob_patient_7d,antisocial,baseline,0.725,0.25,1.0,,,,
@@ -56,12 +57,12 @@ discounting,prob_patient_30d,antisocial,baseline,0.525,0.15,0.875,,,,
 discounting,prob_patient_180d,antisocial,baseline,0.0,0.0,0.0,,,,
 present_bias,prob_patient_immediate_frontend,antisocial,baseline,0.0,,,,,,
 present_bias,prob_patient_delayed_frontend,antisocial,baseline,1.0,,,,,,
-present_bias,present_bias_gap,antisocial,baseline,1.0,,,present_bias_reversal,0.3,approximate,positive means more patient when both options are delayed
+present_bias,present_bias_gap,antisocial,baseline,1.0,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
 beauty_contest,expected_guess,antisocial,baseline,17.0,,,beauty_contest_mean,36.0,medium,
 beauty_contest,mass_at_33,antisocial,baseline,0.0,,,,,,
 beauty_contest,mass_at_22,antisocial,baseline,0.0,,,,,,
 beauty_contest,mass_at_0,antisocial,baseline,0.0,,,,,,
-money_request,expected_request,antisocial,baseline,19.0,,,money_request_modal,17.0,high,
+money_request,expected_request,antisocial,baseline,19.0,,,money_request_modal,17.0,high,the model's mean request against the human mode
 money_request,mass_level0_20,antisocial,baseline,0.0,,,,,,
 money_request,mass_level1_19,antisocial,baseline,1.0,,,,,,
 money_request,mass_level2_18,antisocial,baseline,0.0,,,,,,
@@ -75,7 +76,8 @@ dirty_dozen,machiavellianism,antisocial,baseline,8.6,8.2,9.0,,,,9-point agreemen
 dirty_dozen,overall,antisocial,baseline,8.783333333333333,8.533333333333333,9.0,,,,9-point agreement scale; manipulation check only
 dirty_dozen,psychopathy,antisocial,baseline,8.75,8.25,9.0,,,,9-point agreement scale; manipulation check only
 dirty_dozen,narcissism,antisocial,baseline,9.0,9.0,9.0,,,,9-point agreement scale; manipulation check only
-crt,proportion_correct,antisocial,jev,0.9316666666666666,0.8551666666666667,0.9890000000000002,crt_proportion_correct,0.413,high,
+crt,proportion_correct,antisocial,jev,0.91,0.757,0.9899999999999999,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
+crt,proportion_correct_all6,antisocial,jev,0.9316666666666666,0.8551666666666667,0.9890000000000002,,,,all six items; no single human benchmark covers these
 crt,probability_mass_on_lure,antisocial,jev,0.04800000000000001,0.0025,0.11116666666666669,,,,
 fluid_reasoning,accuracy,antisocial,jev,0.866644978311645,0.7585641099432766,0.9514458333333332,,,,accuracy on an authored ICAR-format item set; not an IQ score
 fluid_reasoning,accuracy_steps_1,antisocial,jev,0.976,0.9380000000000001,1.0,,,,
@@ -100,7 +102,7 @@ ultimatum_responder,prob_reject_offer_7,antisocial,jev,0.05500000000000001,,,,,,
 ultimatum_responder,prob_reject_offer_8,antisocial,jev,0.06600000000000002,,,,,,
 ultimatum_responder,prob_reject_offer_9,antisocial,jev,0.08000000000000002,,,,,,
 ultimatum_responder,prob_reject_offer_10,antisocial,jev,0.066,,,,,,
-ultimatum_responder,prob_reject_low_offer,antisocial,jev,0.23000000000000004,,,ultimatum_rejection_low_offer,0.5,medium,
+ultimatum_responder,prob_reject_low_offer,antisocial,jev,0.093,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10
 trust_trustee,return_share_sent_2,antisocial,jev,0.004833333333333333,,,,,,
 trust_trustee,return_share_sent_5,antisocial,jev,0.004738071404738071,,,trust_return_share,0.37,high,
 trust_trustee,return_share_sent_10,antisocial,jev,0.005105105105105106,,,,,,
@@ -115,16 +117,16 @@ framing,prob_certain_loss_frame,antisocial,jev,0.5519999999999999,,,framing_loss
 framing,framing_swing,antisocial,jev,-0.07999999999999985,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
 allais,prob_certain_pair1,antisocial,jev,0.331,,,allais_p1_certain,0.8,high,
 allais,prob_safer_pair2,antisocial,jev,0.47700000000000004,,,allais_p2_certain,0.35,high,
-allais,independence_violation,antisocial,jev,0.17311300000000002,,,,,,joint probability of the A-then-D pattern that violates independence
+allais,independence_violation,antisocial,jev,0.17311300000000002,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
 conjunction,prob_fallacy_forced_choice,antisocial,jev,0.26000000000000006,,,conjunction_fallacy_rate,0.85,high,
 conjunction_axiom,p_single,antisocial,jev,0.16999999999999998,,,,,,
 conjunction_axiom,p_conjunction,antisocial,jev,0.24499999999999997,,,,,,
 conjunction_axiom,axiom_margin,antisocial,jev,-0.07499999999999998,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
 base_rate,prob_correct_band,antisocial,jev,0.5760000000000001,,,base_rate_correct_band,0.15,medium,
 base_rate,prob_lure_band,antisocial,jev,0.01,,,,,,
-anchoring,estimate_low_anchor,antisocial,jev,22.9375,,,anchoring_low_median,25.0,medium,
-anchoring,estimate_high_anchor,antisocial,jev,23.063063063063066,,,anchoring_high_median,45.0,medium,
-anchoring,anchoring_effect,antisocial,jev,0.12556306306306553,,,,,,human gap is about 20 points
+anchoring,estimate_low_anchor,antisocial,jev,22.9375,,,anchoring_low_median,25.0,approximate,
+anchoring,estimate_high_anchor,antisocial,jev,23.063063063063066,,,anchoring_high_median,45.0,approximate,
+anchoring,anchoring_effect,antisocial,jev,0.12556306306306553,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
 sunk_cost,prob_continue,antisocial,jev,0.10300000000000001,,,sunk_cost_continue,0.85,medium,
 holt_laury,expected_safe_choices,antisocial,jev,1.321,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
 discounting,prob_patient_7d,antisocial,jev,0.22575,0.1655,0.28600000000000003,,,,
@@ -132,12 +134,12 @@ discounting,prob_patient_30d,antisocial,jev,0.239,0.1945,0.2835,,,,
 discounting,prob_patient_180d,antisocial,jev,0.28275,0.23075,0.3255,,,,
 present_bias,prob_patient_immediate_frontend,antisocial,jev,0.11000000000000001,,,,,,
 present_bias,prob_patient_delayed_frontend,antisocial,jev,0.587,,,,,,
-present_bias,present_bias_gap,antisocial,jev,0.477,,,present_bias_reversal,0.3,approximate,positive means more patient when both options are delayed
+present_bias,present_bias_gap,antisocial,jev,0.477,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
 beauty_contest,expected_guess,antisocial,jev,28.6803607214429,,,beauty_contest_mean,36.0,medium,
 beauty_contest,mass_at_33,antisocial,jev,0.034068136272545096,,,,,,
 beauty_contest,mass_at_22,antisocial,jev,0.01002004008016032,,,,,,
 beauty_contest,mass_at_0,antisocial,jev,0.1653306613226453,,,,,,
-money_request,expected_request,antisocial,jev,18.205,,,money_request_modal,17.0,high,
+money_request,expected_request,antisocial,jev,18.205,,,money_request_modal,17.0,high,the model's mean request against the human mode
 money_request,mass_level0_20,antisocial,jev,0.09100000000000001,,,,,,
 money_request,mass_level1_19,antisocial,jev,0.713,,,,,,
 money_request,mass_level2_18,antisocial,jev,0.05100000000000001,,,,,,
@@ -151,7 +153,8 @@ dirty_dozen,machiavellianism,antisocial,jev,8.709250000000003,8.652000000000001,
 dirty_dozen,overall,antisocial,jev,8.595591516366065,8.474495833333334,8.693343599699398,,,,9-point agreement scale; manipulation check only
 dirty_dozen,psychopathy,antisocial,jev,8.636774549098195,8.573049098196392,8.700500000000002,,,,9-point agreement scale; manipulation check only
 dirty_dozen,narcissism,antisocial,jev,8.44075,8.1965,8.684999999999999,,,,9-point agreement scale; manipulation check only
-crt,proportion_correct,neutral,baseline,1.0,1.0,1.0,crt_proportion_correct,0.413,high,
+crt,proportion_correct,neutral,baseline,1.0,1.0,1.0,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
+crt,proportion_correct_all6,neutral,baseline,1.0,1.0,1.0,,,,all six items; no single human benchmark covers these
 crt,probability_mass_on_lure,neutral,baseline,0.0,0.0,0.0,,,,
 fluid_reasoning,accuracy,neutral,baseline,1.0,1.0,1.0,,,,accuracy on an authored ICAR-format item set; not an IQ score
 fluid_reasoning,accuracy_steps_1,neutral,baseline,1.0,1.0,1.0,,,,
@@ -176,7 +179,7 @@ ultimatum_responder,prob_reject_offer_7,neutral,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_8,neutral,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_9,neutral,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_10,neutral,baseline,0.0,,,,,,
-ultimatum_responder,prob_reject_low_offer,neutral,baseline,1.0,,,ultimatum_rejection_low_offer,0.5,medium,
+ultimatum_responder,prob_reject_low_offer,neutral,baseline,1.0,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10
 trust_trustee,return_share_sent_2,neutral,baseline,0.5,,,,,,
 trust_trustee,return_share_sent_5,neutral,baseline,0.5266666666666667,,,trust_return_share,0.37,high,
 trust_trustee,return_share_sent_10,neutral,baseline,0.5,,,,,,
@@ -191,16 +194,16 @@ framing,prob_certain_loss_frame,neutral,baseline,0.0,,,framing_loss_certain,0.22
 framing,framing_swing,neutral,baseline,1.0,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
 allais,prob_certain_pair1,neutral,baseline,1.0,,,allais_p1_certain,0.8,high,
 allais,prob_safer_pair2,neutral,baseline,0.0,,,allais_p2_certain,0.35,high,
-allais,independence_violation,neutral,baseline,1.0,,,,,,joint probability of the A-then-D pattern that violates independence
+allais,independence_violation,neutral,baseline,1.0,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
 conjunction,prob_fallacy_forced_choice,neutral,baseline,0.0,,,conjunction_fallacy_rate,0.85,high,
 conjunction_axiom,p_single,neutral,baseline,1.0,,,,,,
 conjunction_axiom,p_conjunction,neutral,baseline,1.0,,,,,,
 conjunction_axiom,axiom_margin,neutral,baseline,0.0,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
 base_rate,prob_correct_band,neutral,baseline,0.7,,,base_rate_correct_band,0.15,medium,
 base_rate,prob_lure_band,neutral,baseline,0.0,,,,,,
-anchoring,estimate_low_anchor,neutral,baseline,30.0,,,anchoring_low_median,25.0,medium,
-anchoring,estimate_high_anchor,neutral,baseline,30.0,,,anchoring_high_median,45.0,medium,
-anchoring,anchoring_effect,neutral,baseline,0.0,,,,,,human gap is about 20 points
+anchoring,estimate_low_anchor,neutral,baseline,30.0,,,anchoring_low_median,25.0,approximate,
+anchoring,estimate_high_anchor,neutral,baseline,30.0,,,anchoring_high_median,45.0,approximate,
+anchoring,anchoring_effect,neutral,baseline,0.0,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
 sunk_cost,prob_continue,neutral,baseline,0.0,,,sunk_cost_continue,0.85,medium,
 holt_laury,expected_safe_choices,neutral,baseline,4.2,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
 discounting,prob_patient_7d,neutral,baseline,0.75,0.25,1.0,,,,
@@ -208,12 +211,12 @@ discounting,prob_patient_30d,neutral,baseline,0.75,0.25,1.0,,,,
 discounting,prob_patient_180d,neutral,baseline,0.75,0.25,1.0,,,,
 present_bias,prob_patient_immediate_frontend,neutral,baseline,1.0,,,,,,
 present_bias,prob_patient_delayed_frontend,neutral,baseline,1.0,,,,,,
-present_bias,present_bias_gap,neutral,baseline,0.0,,,present_bias_reversal,0.3,approximate,positive means more patient when both options are delayed
+present_bias,present_bias_gap,neutral,baseline,0.0,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
 beauty_contest,expected_guess,neutral,baseline,17.8,,,beauty_contest_mean,36.0,medium,
 beauty_contest,mass_at_33,neutral,baseline,0.0,,,,,,
 beauty_contest,mass_at_22,neutral,baseline,0.1,,,,,,
 beauty_contest,mass_at_0,neutral,baseline,0.0,,,,,,
-money_request,expected_request,neutral,baseline,17.0,,,money_request_modal,17.0,high,
+money_request,expected_request,neutral,baseline,17.0,,,money_request_modal,17.0,high,the model's mean request against the human mode
 money_request,mass_level0_20,neutral,baseline,0.0,,,,,,
 money_request,mass_level1_19,neutral,baseline,0.0,,,,,,
 money_request,mass_level2_18,neutral,baseline,0.0,,,,,,
@@ -227,7 +230,8 @@ dirty_dozen,machiavellianism,neutral,baseline,1.25,1.0,1.75,,,,9-point agreement
 dirty_dozen,overall,neutral,baseline,1.7916666666666667,1.3166666666666667,2.4250000000000003,,,,9-point agreement scale; manipulation check only
 dirty_dozen,psychopathy,neutral,baseline,1.5750000000000002,1.0,2.1500000000000004,,,,9-point agreement scale; manipulation check only
 dirty_dozen,narcissism,neutral,baseline,2.55,1.7000000000000002,3.9499999999999997,,,,9-point agreement scale; manipulation check only
-crt,proportion_correct,neutral,jev,0.9891666666666666,0.9773333333333333,0.9981666666666666,crt_proportion_correct,0.413,high,
+crt,proportion_correct,neutral,jev,0.9946666666666667,0.984,1.0,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
+crt,proportion_correct_all6,neutral,jev,0.9891666666666666,0.9773333333333333,0.9981666666666666,,,,all six items; no single human benchmark covers these
 crt,probability_mass_on_lure,neutral,jev,0.007000000000000002,0.0,0.016333333333333335,,,,
 fluid_reasoning,accuracy,neutral,jev,0.9119444444444444,0.8228194444444444,0.9780555555555556,,,,accuracy on an authored ICAR-format item set; not an IQ score
 fluid_reasoning,accuracy_steps_1,neutral,jev,1.0,1.0,1.0,,,,
@@ -252,7 +256,7 @@ ultimatum_responder,prob_reject_offer_7,neutral,jev,0.015999999999999997,,,,,,
 ultimatum_responder,prob_reject_offer_8,neutral,jev,0.020999999999999998,,,,,,
 ultimatum_responder,prob_reject_offer_9,neutral,jev,0.016,,,,,,
 ultimatum_responder,prob_reject_offer_10,neutral,jev,0.009999999999999998,,,,,,
-ultimatum_responder,prob_reject_low_offer,neutral,jev,0.6605,,,ultimatum_rejection_low_offer,0.5,medium,
+ultimatum_responder,prob_reject_low_offer,neutral,jev,0.485,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10
 trust_trustee,return_share_sent_2,neutral,jev,0.333,,,,,,
 trust_trustee,return_share_sent_5,neutral,jev,0.3010666666666666,,,trust_return_share,0.37,high,
 trust_trustee,return_share_sent_10,neutral,jev,0.2518999999999999,,,,,,
@@ -267,16 +271,16 @@ framing,prob_certain_loss_frame,neutral,jev,0.664,,,framing_loss_certain,0.22,hi
 framing,framing_swing,neutral,jev,0.29499999999999993,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
 allais,prob_certain_pair1,neutral,jev,0.6180000000000001,,,allais_p1_certain,0.8,high,
 allais,prob_safer_pair2,neutral,jev,0.619,,,allais_p2_certain,0.35,high,
-allais,independence_violation,neutral,jev,0.23545800000000006,,,,,,joint probability of the A-then-D pattern that violates independence
+allais,independence_violation,neutral,jev,0.23545800000000006,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
 conjunction,prob_fallacy_forced_choice,neutral,jev,0.09000000000000001,,,conjunction_fallacy_rate,0.85,high,
 conjunction_axiom,p_single,neutral,jev,0.16599999999999998,,,,,,
 conjunction_axiom,p_conjunction,neutral,jev,0.25699999999999995,,,,,,
 conjunction_axiom,axiom_margin,neutral,jev,-0.09099999999999997,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
 base_rate,prob_correct_band,neutral,jev,0.614,,,base_rate_correct_band,0.15,medium,
 base_rate,prob_lure_band,neutral,jev,0.006,,,,,,
-anchoring,estimate_low_anchor,neutral,jev,24.21,,,anchoring_low_median,25.0,medium,
-anchoring,estimate_high_anchor,neutral,jev,25.573073073073076,,,anchoring_high_median,45.0,medium,
-anchoring,anchoring_effect,neutral,jev,1.3630730730730747,,,,,,human gap is about 20 points
+anchoring,estimate_low_anchor,neutral,jev,24.21,,,anchoring_low_median,25.0,approximate,
+anchoring,estimate_high_anchor,neutral,jev,25.573073073073076,,,anchoring_high_median,45.0,approximate,
+anchoring,anchoring_effect,neutral,jev,1.3630730730730747,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
 sunk_cost,prob_continue,neutral,jev,0.009999999999999998,,,sunk_cost_continue,0.85,medium,
 holt_laury,expected_safe_choices,neutral,jev,2.063,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
 discounting,prob_patient_7d,neutral,jev,0.52825,0.4455,0.6119999999999999,,,,
@@ -284,12 +288,12 @@ discounting,prob_patient_30d,neutral,jev,0.5535,0.4100000000000001,0.713,,,,
 discounting,prob_patient_180d,neutral,jev,0.51925,0.417,0.6215000000000002,,,,
 present_bias,prob_patient_immediate_frontend,neutral,jev,0.129,,,,,,
 present_bias,prob_patient_delayed_frontend,neutral,jev,0.483,,,,,,
-present_bias,present_bias_gap,neutral,jev,0.354,,,present_bias_reversal,0.3,approximate,positive means more patient when both options are delayed
+present_bias,present_bias_gap,neutral,jev,0.354,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
 beauty_contest,expected_guess,neutral,jev,15.610050251256274,,,beauty_contest_mean,36.0,medium,
 beauty_contest,mass_at_33,neutral,jev,0.036180904522613064,,,,,,
 beauty_contest,mass_at_22,neutral,jev,0.010050251256281405,,,,,,
 beauty_contest,mass_at_0,neutral,jev,0.39597989949748746,,,,,,
-money_request,expected_request,neutral,jev,18.045,,,money_request_modal,17.0,high,
+money_request,expected_request,neutral,jev,18.045,,,money_request_modal,17.0,high,the model's mean request against the human mode
 money_request,mass_level0_20,neutral,jev,0.094,,,,,,
 money_request,mass_level1_19,neutral,jev,0.6709999999999999,,,,,,
 money_request,mass_level2_18,neutral,jev,0.052000000000000005,,,,,,
@@ -303,7 +307,8 @@ dirty_dozen,machiavellianism,neutral,jev,4.847389278557115,4.13575,5.49541783567
 dirty_dozen,overall,neutral,jev,5.025379759519038,4.490628836840347,5.516257410654642,,,,9-point agreement scale; manipulation check only
 dirty_dozen,psychopathy,neutral,jev,4.660749999999999,3.6192499999999996,5.644,,,,9-point agreement scale; manipulation check only
 dirty_dozen,narcissism,neutral,jev,5.568,5.0680000000000005,6.068,,,,9-point agreement scale; manipulation check only
-crt,proportion_correct,rational_agent,baseline,1.0,1.0,1.0,crt_proportion_correct,0.413,high,
+crt,proportion_correct,rational_agent,baseline,1.0,1.0,1.0,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
+crt,proportion_correct_all6,rational_agent,baseline,1.0,1.0,1.0,,,,all six items; no single human benchmark covers these
 crt,probability_mass_on_lure,rational_agent,baseline,0.0,0.0,0.0,,,,
 fluid_reasoning,accuracy,rational_agent,baseline,1.0,1.0,1.0,,,,accuracy on an authored ICAR-format item set; not an IQ score
 fluid_reasoning,accuracy_steps_1,rational_agent,baseline,1.0,1.0,1.0,,,,
@@ -328,7 +333,7 @@ ultimatum_responder,prob_reject_offer_7,rational_agent,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_8,rational_agent,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_9,rational_agent,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_10,rational_agent,baseline,0.0,,,,,,
-ultimatum_responder,prob_reject_low_offer,rational_agent,baseline,0.0,,,ultimatum_rejection_low_offer,0.5,medium,
+ultimatum_responder,prob_reject_low_offer,rational_agent,baseline,0.0,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10
 trust_trustee,return_share_sent_2,rational_agent,baseline,0.0,,,,,,
 trust_trustee,return_share_sent_5,rational_agent,baseline,0.0,,,trust_return_share,0.37,high,
 trust_trustee,return_share_sent_10,rational_agent,baseline,0.0,,,,,,
@@ -343,16 +348,16 @@ framing,prob_certain_loss_frame,rational_agent,baseline,0.375,,,framing_loss_cer
 framing,framing_swing,rational_agent,baseline,0.625,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
 allais,prob_certain_pair1,rational_agent,baseline,0.0,,,allais_p1_certain,0.8,high,
 allais,prob_safer_pair2,rational_agent,baseline,0.0,,,allais_p2_certain,0.35,high,
-allais,independence_violation,rational_agent,baseline,0.0,,,,,,joint probability of the A-then-D pattern that violates independence
+allais,independence_violation,rational_agent,baseline,0.0,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
 conjunction,prob_fallacy_forced_choice,rational_agent,baseline,0.0,,,conjunction_fallacy_rate,0.85,high,
 conjunction_axiom,p_single,rational_agent,baseline,0.8888888888888888,,,,,,
 conjunction_axiom,p_conjunction,rational_agent,baseline,0.0,,,,,,
 conjunction_axiom,axiom_margin,rational_agent,baseline,0.8888888888888888,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
 base_rate,prob_correct_band,rational_agent,baseline,0.8,,,base_rate_correct_band,0.15,medium,
 base_rate,prob_lure_band,rational_agent,baseline,0.0,,,,,,
-anchoring,estimate_low_anchor,rational_agent,baseline,30.0,,,anchoring_low_median,25.0,medium,
-anchoring,estimate_high_anchor,rational_agent,baseline,30.0,,,anchoring_high_median,45.0,medium,
-anchoring,anchoring_effect,rational_agent,baseline,0.0,,,,,,human gap is about 20 points
+anchoring,estimate_low_anchor,rational_agent,baseline,30.0,,,anchoring_low_median,25.0,approximate,
+anchoring,estimate_high_anchor,rational_agent,baseline,30.0,,,anchoring_high_median,45.0,approximate,
+anchoring,anchoring_effect,rational_agent,baseline,0.0,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
 sunk_cost,prob_continue,rational_agent,baseline,0.0,,,sunk_cost_continue,0.85,medium,
 holt_laury,expected_safe_choices,rational_agent,baseline,4.0,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
 discounting,prob_patient_7d,rational_agent,baseline,0.925,0.7749999999999999,1.0,,,,
@@ -360,12 +365,12 @@ discounting,prob_patient_30d,rational_agent,baseline,0.75,0.25,1.0,,,,
 discounting,prob_patient_180d,rational_agent,baseline,0.925,0.7749999999999999,1.0,,,,
 present_bias,prob_patient_immediate_frontend,rational_agent,baseline,1.0,,,,,,
 present_bias,prob_patient_delayed_frontend,rational_agent,baseline,1.0,,,,,,
-present_bias,present_bias_gap,rational_agent,baseline,0.0,,,present_bias_reversal,0.3,approximate,positive means more patient when both options are delayed
+present_bias,present_bias_gap,rational_agent,baseline,0.0,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
 beauty_contest,expected_guess,rational_agent,baseline,0.0,,,beauty_contest_mean,36.0,medium,
 beauty_contest,mass_at_33,rational_agent,baseline,0.0,,,,,,
 beauty_contest,mass_at_22,rational_agent,baseline,0.0,,,,,,
 beauty_contest,mass_at_0,rational_agent,baseline,1.0,,,,,,
-money_request,expected_request,rational_agent,baseline,11.0,,,money_request_modal,17.0,high,
+money_request,expected_request,rational_agent,baseline,11.0,,,money_request_modal,17.0,high,the model's mean request against the human mode
 money_request,mass_level0_20,rational_agent,baseline,0.0,,,,,,
 money_request,mass_level1_19,rational_agent,baseline,0.0,,,,,,
 money_request,mass_level2_18,rational_agent,baseline,0.0,,,,,,
@@ -379,7 +384,8 @@ dirty_dozen,machiavellianism,rational_agent,baseline,4.252777777777777,2.1055555
 dirty_dozen,overall,rational_agent,baseline,3.850925925925926,2.7944444444444447,4.936249999999998,,,,9-point agreement scale; manipulation check only
 dirty_dozen,psychopathy,rational_agent,baseline,3.475,2.0,4.950000000000001,,,,9-point agreement scale; manipulation check only
 dirty_dozen,narcissism,rational_agent,baseline,3.825,2.15,5.5,,,,9-point agreement scale; manipulation check only
-crt,proportion_correct,rational_agent,jev,0.989,0.975,0.9984999999999999,crt_proportion_correct,0.413,high,
+crt,proportion_correct,rational_agent,jev,0.9956666666666667,0.9870000000000001,1.0,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
+crt,proportion_correct_all6,rational_agent,jev,0.989,0.975,0.9984999999999999,,,,all six items; no single human benchmark covers these
 crt,probability_mass_on_lure,rational_agent,jev,0.007000000000000002,0.0,0.016666666666666673,,,,
 fluid_reasoning,accuracy,rational_agent,jev,0.8984155266377489,0.8010518532421309,0.9721088852741631,,,,accuracy on an authored ICAR-format item set; not an IQ score
 fluid_reasoning,accuracy_steps_1,rational_agent,jev,0.9996666666666667,0.999,1.0,,,,
@@ -404,7 +410,7 @@ ultimatum_responder,prob_reject_offer_7,rational_agent,jev,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_8,rational_agent,jev,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_9,rational_agent,jev,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_10,rational_agent,jev,0.0,,,,,,
-ultimatum_responder,prob_reject_low_offer,rational_agent,jev,0.043,,,ultimatum_rejection_low_offer,0.5,medium,
+ultimatum_responder,prob_reject_low_offer,rational_agent,jev,0.001,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10
 trust_trustee,return_share_sent_2,rational_agent,jev,0.0,,,,,,
 trust_trustee,return_share_sent_5,rational_agent,jev,0.0,,,trust_return_share,0.37,high,
 trust_trustee,return_share_sent_10,rational_agent,jev,0.0,,,,,,
@@ -419,16 +425,16 @@ framing,prob_certain_loss_frame,rational_agent,jev,0.79,,,framing_loss_certain,0
 framing,framing_swing,rational_agent,jev,-0.050000000000000044,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
 allais,prob_certain_pair1,rational_agent,jev,0.36400000000000005,,,allais_p1_certain,0.8,high,
 allais,prob_safer_pair2,rational_agent,jev,0.617,,,allais_p2_certain,0.35,high,
-allais,independence_violation,rational_agent,jev,0.139412,,,,,,joint probability of the A-then-D pattern that violates independence
+allais,independence_violation,rational_agent,jev,0.139412,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
 conjunction,prob_fallacy_forced_choice,rational_agent,jev,0.018000000000000002,,,conjunction_fallacy_rate,0.85,high,
 conjunction_axiom,p_single,rational_agent,jev,0.225,,,,,,
 conjunction_axiom,p_conjunction,rational_agent,jev,0.2870000000000001,,,,,,
 conjunction_axiom,axiom_margin,rational_agent,jev,-0.06200000000000008,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
 base_rate,prob_correct_band,rational_agent,jev,0.631,,,base_rate_correct_band,0.15,medium,
 base_rate,prob_lure_band,rational_agent,jev,0.007,,,,,,
-anchoring,estimate_low_anchor,rational_agent,jev,23.815000000000005,,,anchoring_low_median,25.0,medium,
-anchoring,estimate_high_anchor,rational_agent,jev,25.450000000000003,,,anchoring_high_median,45.0,medium,
-anchoring,anchoring_effect,rational_agent,jev,1.634999999999998,,,,,,human gap is about 20 points
+anchoring,estimate_low_anchor,rational_agent,jev,23.815000000000005,,,anchoring_low_median,25.0,approximate,
+anchoring,estimate_high_anchor,rational_agent,jev,25.450000000000003,,,anchoring_high_median,45.0,approximate,
+anchoring,anchoring_effect,rational_agent,jev,1.634999999999998,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
 sunk_cost,prob_continue,rational_agent,jev,0.005000000000000001,,,sunk_cost_continue,0.85,medium,
 holt_laury,expected_safe_choices,rational_agent,jev,2.876,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
 discounting,prob_patient_7d,rational_agent,jev,0.65025,0.6085,0.6920000000000001,,,,
@@ -436,12 +442,12 @@ discounting,prob_patient_30d,rational_agent,jev,0.49824999999999997,0.4049999999
 discounting,prob_patient_180d,rational_agent,jev,0.44275,0.35850000000000004,0.5085,,,,
 present_bias,prob_patient_immediate_frontend,rational_agent,jev,0.37,,,,,,
 present_bias,prob_patient_delayed_frontend,rational_agent,jev,0.645,,,,,,
-present_bias,present_bias_gap,rational_agent,jev,0.275,,,present_bias_reversal,0.3,approximate,positive means more patient when both options are delayed
+present_bias,present_bias_gap,rational_agent,jev,0.275,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
 beauty_contest,expected_guess,rational_agent,jev,0.0,,,beauty_contest_mean,36.0,medium,
 beauty_contest,mass_at_33,rational_agent,jev,0.0,,,,,,
 beauty_contest,mass_at_22,rational_agent,jev,0.0,,,,,,
 beauty_contest,mass_at_0,rational_agent,jev,1.0,,,,,,
-money_request,expected_request,rational_agent,jev,17.446999999999996,,,money_request_modal,17.0,high,
+money_request,expected_request,rational_agent,jev,17.446999999999996,,,money_request_modal,17.0,high,the model's mean request against the human mode
 money_request,mass_level0_20,rational_agent,jev,0.23399999999999999,,,,,,
 money_request,mass_level1_19,rational_agent,jev,0.44499999999999995,,,,,,
 money_request,mass_level2_18,rational_agent,jev,0.040999999999999995,,,,,,
@@ -455,7 +461,8 @@ dirty_dozen,machiavellianism,rational_agent,jev,5.362250000000001,4.538500000000
 dirty_dozen,overall,rational_agent,jev,5.0729999999999995,4.4874125,5.584922916666666,,,,9-point agreement scale; manipulation check only
 dirty_dozen,psychopathy,rational_agent,jev,5.263999999999999,4.50075,5.895499999999999,,,,9-point agreement scale; manipulation check only
 dirty_dozen,narcissism,rational_agent,jev,4.59275,3.2469999999999994,5.35175,,,,9-point agreement scale; manipulation check only
-crt,proportion_correct,typical_human,baseline,0.5,0.16666666666666666,0.8333333333333334,crt_proportion_correct,0.413,high,
+crt,proportion_correct,typical_human,baseline,0.0,0.0,0.0,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
+crt,proportion_correct_all6,typical_human,baseline,0.5,0.16666666666666666,0.8333333333333334,,,,all six items; no single human benchmark covers these
 crt,probability_mass_on_lure,typical_human,baseline,0.5,0.16666666666666666,0.8333333333333334,,,,
 fluid_reasoning,accuracy,typical_human,baseline,0.8888888888888888,0.7222222222222222,1.0,,,,accuracy on an authored ICAR-format item set; not an IQ score
 fluid_reasoning,accuracy_steps_1,typical_human,baseline,1.0,1.0,1.0,,,,
@@ -480,7 +487,7 @@ ultimatum_responder,prob_reject_offer_7,typical_human,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_8,typical_human,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_9,typical_human,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_10,typical_human,baseline,0.0,,,,,,
-ultimatum_responder,prob_reject_low_offer,typical_human,baseline,1.0,,,ultimatum_rejection_low_offer,0.5,medium,
+ultimatum_responder,prob_reject_low_offer,typical_human,baseline,1.0,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10
 trust_trustee,return_share_sent_2,typical_human,baseline,0.5,,,,,,
 trust_trustee,return_share_sent_5,typical_human,baseline,0.3333333333333333,,,trust_return_share,0.37,high,
 trust_trustee,return_share_sent_10,typical_human,baseline,0.5,,,,,,
@@ -495,16 +502,16 @@ framing,prob_certain_loss_frame,typical_human,baseline,0.0,,,framing_loss_certai
 framing,framing_swing,typical_human,baseline,1.0,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
 allais,prob_certain_pair1,typical_human,baseline,1.0,,,allais_p1_certain,0.8,high,
 allais,prob_safer_pair2,typical_human,baseline,1.0,,,allais_p2_certain,0.35,high,
-allais,independence_violation,typical_human,baseline,0.0,,,,,,joint probability of the A-then-D pattern that violates independence
+allais,independence_violation,typical_human,baseline,0.0,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
 conjunction,prob_fallacy_forced_choice,typical_human,baseline,1.0,,,conjunction_fallacy_rate,0.85,high,
 conjunction_axiom,p_single,typical_human,baseline,0.7,,,,,,
 conjunction_axiom,p_conjunction,typical_human,baseline,1.0,,,,,,
 conjunction_axiom,axiom_margin,typical_human,baseline,-0.30000000000000004,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
 base_rate,prob_correct_band,typical_human,baseline,0.0,,,base_rate_correct_band,0.15,medium,
 base_rate,prob_lure_band,typical_human,baseline,1.0,,,,,,
-anchoring,estimate_low_anchor,typical_human,baseline,20.0,,,anchoring_low_median,25.0,medium,
-anchoring,estimate_high_anchor,typical_human,baseline,30.0,,,anchoring_high_median,45.0,medium,
-anchoring,anchoring_effect,typical_human,baseline,10.0,,,,,,human gap is about 20 points
+anchoring,estimate_low_anchor,typical_human,baseline,20.0,,,anchoring_low_median,25.0,approximate,
+anchoring,estimate_high_anchor,typical_human,baseline,30.0,,,anchoring_high_median,45.0,approximate,
+anchoring,anchoring_effect,typical_human,baseline,10.0,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
 sunk_cost,prob_continue,typical_human,baseline,1.0,,,sunk_cost_continue,0.85,medium,
 holt_laury,expected_safe_choices,typical_human,baseline,5.4,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
 discounting,prob_patient_7d,typical_human,baseline,0.75,0.25,1.0,,,,
@@ -512,12 +519,12 @@ discounting,prob_patient_30d,typical_human,baseline,0.0,0.0,0.0,,,,
 discounting,prob_patient_180d,typical_human,baseline,0.0,0.0,0.0,,,,
 present_bias,prob_patient_immediate_frontend,typical_human,baseline,0.0,,,,,,
 present_bias,prob_patient_delayed_frontend,typical_human,baseline,1.0,,,,,,
-present_bias,present_bias_gap,typical_human,baseline,1.0,,,present_bias_reversal,0.3,approximate,positive means more patient when both options are delayed
+present_bias,present_bias_gap,typical_human,baseline,1.0,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
 beauty_contest,expected_guess,typical_human,baseline,33.0,,,beauty_contest_mean,36.0,medium,
 beauty_contest,mass_at_33,typical_human,baseline,1.0,,,,,,
 beauty_contest,mass_at_22,typical_human,baseline,0.0,,,,,,
 beauty_contest,mass_at_0,typical_human,baseline,0.0,,,,,,
-money_request,expected_request,typical_human,baseline,17.0,,,money_request_modal,17.0,high,
+money_request,expected_request,typical_human,baseline,17.0,,,money_request_modal,17.0,high,the model's mean request against the human mode
 money_request,mass_level0_20,typical_human,baseline,0.0,,,,,,
 money_request,mass_level1_19,typical_human,baseline,0.0,,,,,,
 money_request,mass_level2_18,typical_human,baseline,0.0,,,,,,
@@ -531,7 +538,8 @@ dirty_dozen,machiavellianism,typical_human,baseline,3.725,2.45,5.225,,,,9-point 
 dirty_dozen,overall,typical_human,baseline,3.783333333333333,2.891666666666667,4.691666666666666,,,,9-point agreement scale; manipulation check only
 dirty_dozen,psychopathy,typical_human,baseline,2.925,2.0,4.7749999999999995,,,,9-point agreement scale; manipulation check only
 dirty_dozen,narcissism,typical_human,baseline,4.7,3.5,5.7,,,,9-point agreement scale; manipulation check only
-crt,proportion_correct,typical_human,jev,0.5531001001001,0.30150000000000005,0.7779334334334335,crt_proportion_correct,0.413,high,
+crt,proportion_correct,typical_human,jev,0.32653353353353354,0.024000000000000004,0.6006006006006006,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
+crt,proportion_correct_all6,typical_human,jev,0.5531001001001,0.30150000000000005,0.7779334334334335,,,,all six items; no single human benchmark covers these
 crt,probability_mass_on_lure,typical_human,jev,0.4068913913913914,0.18189139139139135,0.6683333333333333,,,,
 fluid_reasoning,accuracy,typical_human,jev,0.7210555555555556,0.5719416666666668,0.8530041666666666,,,,accuracy on an authored ICAR-format item set; not an IQ score
 fluid_reasoning,accuracy_steps_1,typical_human,jev,0.8936666666666667,0.697,1.0,,,,
@@ -556,7 +564,7 @@ ultimatum_responder,prob_reject_offer_7,typical_human,jev,0.10599999999999998,,,
 ultimatum_responder,prob_reject_offer_8,typical_human,jev,0.20499999999999993,,,,,,
 ultimatum_responder,prob_reject_offer_9,typical_human,jev,0.29100000000000004,,,,,,
 ultimatum_responder,prob_reject_offer_10,typical_human,jev,0.036,,,,,,
-ultimatum_responder,prob_reject_low_offer,typical_human,jev,0.9460000000000001,,,ultimatum_rejection_low_offer,0.5,medium,
+ultimatum_responder,prob_reject_low_offer,typical_human,jev,0.915,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10
 trust_trustee,return_share_sent_2,typical_human,jev,0.5226893560226893,,,,,,
 trust_trustee,return_share_sent_5,typical_human,jev,0.48588588588588594,,,trust_return_share,0.37,high,
 trust_trustee,return_share_sent_10,typical_human,jev,0.4892000000000001,,,,,,
@@ -571,16 +579,16 @@ framing,prob_certain_loss_frame,typical_human,jev,0.674,,,framing_loss_certain,0
 framing,framing_swing,typical_human,jev,0.29699999999999993,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
 allais,prob_certain_pair1,typical_human,jev,0.817,,,allais_p1_certain,0.8,high,
 allais,prob_safer_pair2,typical_human,jev,0.687,,,allais_p2_certain,0.35,high,
-allais,independence_violation,typical_human,jev,0.255721,,,,,,joint probability of the A-then-D pattern that violates independence
+allais,independence_violation,typical_human,jev,0.255721,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
 conjunction,prob_fallacy_forced_choice,typical_human,jev,0.932,,,conjunction_fallacy_rate,0.85,high,
 conjunction_axiom,p_single,typical_human,jev,0.244,,,,,,
 conjunction_axiom,p_conjunction,typical_human,jev,0.633,,,,,,
 conjunction_axiom,axiom_margin,typical_human,jev,-0.389,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
 base_rate,prob_correct_band,typical_human,jev,0.248,,,base_rate_correct_band,0.15,medium,
 base_rate,prob_lure_band,typical_human,jev,0.2,,,,,,
-anchoring,estimate_low_anchor,typical_human,jev,19.707207207207208,,,anchoring_low_median,25.0,medium,
-anchoring,estimate_high_anchor,typical_human,jev,26.659159159159163,,,anchoring_high_median,45.0,medium,
-anchoring,anchoring_effect,typical_human,jev,6.951951951951955,,,,,,human gap is about 20 points
+anchoring,estimate_low_anchor,typical_human,jev,19.707207207207208,,,anchoring_low_median,25.0,approximate,
+anchoring,estimate_high_anchor,typical_human,jev,26.659159159159163,,,anchoring_high_median,45.0,approximate,
+anchoring,anchoring_effect,typical_human,jev,6.951951951951955,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
 sunk_cost,prob_continue,typical_human,jev,0.8140000000000001,,,sunk_cost_continue,0.85,medium,
 holt_laury,expected_safe_choices,typical_human,jev,3.984,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
 discounting,prob_patient_7d,typical_human,jev,0.1775,0.13825,0.21450000000000002,,,,
@@ -588,12 +596,12 @@ discounting,prob_patient_30d,typical_human,jev,0.18325000000000002,0.1305,0.2360
 discounting,prob_patient_180d,typical_human,jev,0.12200000000000001,0.07350000000000001,0.1975,,,,
 present_bias,prob_patient_immediate_frontend,typical_human,jev,0.07100000000000001,,,,,,
 present_bias,prob_patient_delayed_frontend,typical_human,jev,0.23900000000000005,,,,,,
-present_bias,present_bias_gap,typical_human,jev,0.16800000000000004,,,present_bias_reversal,0.3,approximate,positive means more patient when both options are delayed
+present_bias,present_bias_gap,typical_human,jev,0.16800000000000004,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
 beauty_contest,expected_guess,typical_human,jev,39.462159434914206,,,beauty_contest_mean,36.0,medium,
 beauty_contest,mass_at_33,typical_human,jev,0.07164480322906154,,,,,,
 beauty_contest,mass_at_22,typical_human,jev,0.009081735620585268,,,,,,
 beauty_contest,mass_at_0,typical_human,jev,0.0,,,,,,
-money_request,expected_request,typical_human,jev,17.125,,,money_request_modal,17.0,high,
+money_request,expected_request,typical_human,jev,17.125,,,money_request_modal,17.0,high,the model's mean request against the human mode
 money_request,mass_level0_20,typical_human,jev,0.11500000000000002,,,,,,
 money_request,mass_level1_19,typical_human,jev,0.373,,,,,,
 money_request,mass_level2_18,typical_human,jev,0.1,,,,,,

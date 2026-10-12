@@ -5,7 +5,8 @@ public domain — a deliberate choice, since the widely used commercial
 inventories (NEO-PI-R, 16PF, MMPI) are copyrighted and could not be reproduced
 in a public repository.
 
-Each factor has four items, two of which are reverse-keyed. The reverse-keyed
+Each factor has four items, two of which are reverse-keyed (openness has
+three, as in the published Mini-IPIP). The reverse-keyed
 items double as a consistency check: a respondent answering the content rather
 than the surface wording must reverse its answers on them.
 """

@@ -111,6 +111,17 @@ def _cmd_run(args: argparse.Namespace) -> int:
     return 0
 
 
+def _default_out(run: Path, committed: Path) -> Path:
+    """Where output goes when no --out is given.
+
+    A simulated run never writes over the committed results: its tables and
+    figures go to results/simulated/ instead, which is gitignored.
+    """
+    if "simulated" in run.name:
+        return committed.parent / "simulated" / committed.name
+    return committed
+
+
 def _cmd_analyse(args: argparse.Namespace) -> int:
     from .analysis import analyse_run, latest_run
 
@@ -118,7 +129,7 @@ def _cmd_analyse(args: argparse.Namespace) -> int:
     if path is None:
         print(f"No run files in {RAW_DIR}. Run `jevbench run` first.", file=sys.stderr)
         return 1
-    analyse_run(path, Path(args.out) if args.out else TABLES_DIR)
+    analyse_run(path, Path(args.out) if args.out else _default_out(path, TABLES_DIR))
     return 0
 
 
@@ -130,7 +141,7 @@ def _cmd_figures(args: argparse.Namespace) -> int:
     if path is None:
         print(f"No run files in {RAW_DIR}. Run `jevbench run` first.", file=sys.stderr)
         return 1
-    build_figures(path, Path(args.out) if args.out else FIGURES_DIR)
+    build_figures(path, Path(args.out) if args.out else _default_out(path, FIGURES_DIR))
     return 0
 
 

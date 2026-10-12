@@ -159,10 +159,10 @@ def test_shafir_options_match_the_ml2_protocol_wording() -> None:
 
 
 def test_categorization_stimulus_matches_its_documented_structure() -> None:
-    """The docstring claims: Group 1 shares exactly one feature with the target and
-    each other; Group 2 shares no feature with all five, but overlaps the target by
-    3/2/2/2 features. Both are load-bearing claims about a hand-built stimulus, so
-    they're checked directly rather than trusted."""
+    """The docstring claims: one feature is common to Group 1 and the target; no
+    feature is common to Group 2 and the target, which overlap it by 3/2/2/2; and
+    all eight exemplars are distinct, with no hint in the prompt. These are
+    load-bearing claims about a hand-built stimulus, so they're checked directly."""
     probe = categorization()[0]
     target = _features(probe.state["target"])
     group1 = [_features(m) for m in probe.state["group_1"]]
@@ -171,6 +171,8 @@ def test_categorization_stimulus_matches_its_documented_structure() -> None:
     assert len(group1) == len(group2) == 4
     assert len(set(group1)) == 4, "Group 1 members must be pairwise distinct"
     assert len(set(group2)) == 4, "Group 2 members must be pairwise distinct"
+    assert not set(group1) & set(group2), "no exemplar may appear in both groups"
+    assert set(probe.state) == {"task", "target", "group_1", "group_2"}, "no cue in the prompt"
 
     # Group 1: exactly one dimension is uniform across target + all four members.
     uniform_dims = [i for i in range(4) if len({target[i], *[m[i] for m in group1]}) == 1]

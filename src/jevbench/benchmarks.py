@@ -33,7 +33,7 @@ BENCHMARKS: dict[str, Benchmark] = {
     for b in [
         Benchmark(
             "crt_proportion_correct",
-            "mean proportion of CRT items answered correctly",
+            "mean proportion of Frederick's three CRT items answered correctly",
             0.413,
             "proportion",
             "Frederick (2005), J. Econ. Perspectives 19(4):25-42, n=3,428",
@@ -46,7 +46,7 @@ BENCHMARKS: dict[str, Benchmark] = {
             "mean share of pie given by dictator",
             0.283,
             "share of pie",
-            "Engel (2011), Experimental Economics 14:583-610; meta-analysis of 616 studies",
+            "Engel (2011), Experimental Economics 14:583-610; meta-analysis of 616 treatments from 129 papers",
             "high",
             "The distribution is strongly bimodal: ~36% give nothing and ~17% give exactly half. "
             "The mean alone is a poor summary; compare the full histogram.",
@@ -80,12 +80,14 @@ BENCHMARKS: dict[str, Benchmark] = {
         ),
         Benchmark(
             "ultimatum_rejection_low_offer",
-            "rejection rate for offers below 20% of pie",
+            "rejection rate for an offer of 10% of the pie",
             0.50,
             "proportion",
             "Camerer (2003), Behavioral Game Theory, ch. 2",
             "medium",
-            "Rejection falls steeply as the offer rises; near-zero at an equal split.",
+            "Camerer reports offers below 20% rejected about half the time; compared "
+            "here with the $1-of-$10 offer only. Rejection falls steeply as the offer "
+            "rises; near-zero at an equal split.",
         ),
         Benchmark(
             "trust_sender_share",
@@ -104,8 +106,8 @@ BENCHMARKS: dict[str, Benchmark] = {
             "share of tripled amount",
             "Johnson & Mislin (2011), J. Economic Psychology 32:865-889",
             "high",
-            "Returns average slightly less than the amount originally sent, so senders "
-            "roughly break even.",
+            "Trustees return about 37% of the tripled amount, roughly what was sent, "
+            "so trusting roughly breaks even.",
         ),
         Benchmark(
             "pgg_round1_share",
@@ -173,12 +175,15 @@ BENCHMARKS: dict[str, Benchmark] = {
         ),
         Benchmark(
             "base_rate_correct_band",
-            "giving an answer in the correct 0-10% band",
+            "giving a Bayesian (approximately correct) answer",
             0.15,
             "proportion",
             "Eddy (1982) in Judgment Under Uncertainty; Gigerenzer & Hoffrage (1995), Psych. Review 102:684-704",
             "medium",
-            "Eddy reported ~95% of physicians answering 70-80%. The normative answer is 7.8%.",
+            "Approximate comparator: Gigerenzer & Hoffrage report about 16% Bayesian "
+            "answers in the probability format, which is not the same measure as a "
+            "0-10% band. Eddy reported ~95% of physicians answering 70-80%. The "
+            "normative answer is 7.8%.",
         ),
         Benchmark(
             "anchoring_low_median",
@@ -186,8 +191,9 @@ BENCHMARKS: dict[str, Benchmark] = {
             25.0,
             "percent",
             "Tversky & Kahneman (1974), Science 185:1124-1131",
-            "medium",
-            "",
+            "approximate",
+            "Different question (T&K asked African UN countries with a wheel-of-fortune "
+            "anchor of 10 or 65); compare the gap between anchors, not the levels.",
         ),
         Benchmark(
             "anchoring_high_median",
@@ -195,8 +201,9 @@ BENCHMARKS: dict[str, Benchmark] = {
             45.0,
             "percent",
             "Tversky & Kahneman (1974), Science 185:1124-1131",
-            "medium",
-            "The 20-point gap between anchors is the effect of interest.",
+            "approximate",
+            "The 20-point gap between anchors is the effect of interest; the levels "
+            "are not comparable.",
         ),
         Benchmark(
             "sunk_cost_continue",
@@ -235,17 +242,8 @@ BENCHMARKS: dict[str, Benchmark] = {
             "Arad & Rubinstein (2012), American Economic Review 102:3561-3573",
             "high",
             "Observed distribution roughly: 20 -> 6%, 19 -> 12%, 18 -> 30%, 17 -> 32%. "
-            "Equilibrium play is mixed and concentrated on 15-17.",
-        ),
-        Benchmark(
-            "present_bias_reversal",
-            "preference reversal between immediate and delayed front end",
-            0.30,
-            "proportion",
-            "Thaler (1981), Economics Letters 8:201-207; Frederick, Loewenstein & O'Donoghue (2002), JEL 40:351-401",
-            "approximate",
-            "Magnitude varies widely with amounts and delays; direction (more patience when "
-            "both options are delayed) is the robust finding, not the level.",
+            "Equilibrium play is mixed and concentrated on 15-17. This is the human "
+            "mode; the model's figure is its mean request, so read it as a rough guide.",
         ),
         Benchmark(
             "mini_ipip_extraversion",

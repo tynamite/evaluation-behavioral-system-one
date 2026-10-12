@@ -3,6 +3,8 @@ repos:
     rev: v5.0.0
     hooks:
       - id: check-added-large-files
+        # The committed raw run files are up to ~8 MB each.
+        args: [--maxkb=10000]
       - id: check-merge-conflict
       - id: check-toml
       - id: check-yaml

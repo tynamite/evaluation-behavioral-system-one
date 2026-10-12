@@ -106,8 +106,10 @@ def test_decision_chart_shows_all_three_series_on_every_row(built: list[Path]) -
     page = next(p for p in built if p.stem == "jev-decisions").read_text()
     for series in ("people", "neutral", "typical"):
         assert len(re.findall(rf'data-series="{series}"', page)) == 7
-    # Pinned: the cognitive reflection row is 0.41 people, 0.99 and 0.55 for Jev.
-    assert 'data-series="neutral" data-value="0.9892"' in page
+    # Pinned: the cognitive reflection row (Frederick's three items) is 0.41
+    # people, 0.99 and 0.33 for Jev.
+    assert 'data-series="neutral" data-value="0.9947"' in page
+    assert 'data-series="typical" data-value="0.3265"' in page
 
 
 def test_scatter_legend_matches_where_the_highlighted_model_sits(built: list[Path]) -> None:

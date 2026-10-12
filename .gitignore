@@ -23,6 +23,7 @@ htmlcov/
 
 # Run outputs that are regenerated (raw API responses ARE committed, see data/raw/README.md)
 results/**/*.tmp
+results/simulated/
 *.log
 
 # OS / editor

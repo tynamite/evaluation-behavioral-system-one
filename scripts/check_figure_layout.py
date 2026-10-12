@@ -14,6 +14,7 @@ Exits non-zero if any overlap is found.
 from __future__ import annotations
 
 import sys
+import tempfile
 from dataclasses import asdict
 from pathlib import Path
 
@@ -87,8 +88,9 @@ def main(argv: list[str]) -> int:
     df = load_records(run)
     sdf = pd.DataFrame([asdict(s) for s in compute_stats(df)])
     odf = order_effects(df)
-    out = ROOT / "results" / "figures"
-    out.mkdir(parents=True, exist_ok=True)
+    # Draw into a scratch directory: this only measures layout, and must not
+    # leave files beside the committed figures.
+    out = Path(tempfile.mkdtemp(prefix="jevbench-layout-"))
 
     builders = {
         "fig1_vs_human": lambda: plots.fig_vs_human(sdf, out),

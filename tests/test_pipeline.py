@@ -228,3 +228,14 @@ def test_analysis_summary_counts_unmeasurable_apart_from_unparsed(tmp_path: Path
     assert summary["n_baseline_not_measurable"] == 1
     assert summary["n_baseline_unparsed"] == 1
     assert summary["baseline_cells"] == 1
+
+
+def test_simulated_run_never_writes_over_committed_results() -> None:
+    from jevbench.cli import _default_out
+    from jevbench.config import FIGURES_DIR, TABLES_DIR
+
+    sim = Path("data/raw/run_simulated_20260101T000000Z.jsonl")
+    live = Path("data/raw/run_live_20260918T230710Z.jsonl")
+    assert _default_out(sim, TABLES_DIR) == TABLES_DIR.parent / "simulated" / "tables"
+    assert _default_out(sim, FIGURES_DIR) == FIGURES_DIR.parent / "simulated" / "figures"
+    assert _default_out(live, TABLES_DIR) == TABLES_DIR

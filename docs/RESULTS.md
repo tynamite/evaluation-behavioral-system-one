@@ -7,13 +7,14 @@ Models: `anthropic/claude-sonnet-5`, `typesafe/jev-1.13-20260917`
 Records: 9,360 (0 transport errors, excluded)  
 Total cost: $2.8304 (Jev arm $0.0882)
 
-All values are probability mass, computed from the returned distributions rather than from the point answers. Human values are literature reference points, not a matched control group — see [BENCHMARKS.md](BENCHMARKS.md).
+Every table below is the Jev arm only; the chat baseline and the other System One models are compared in `results/comparison/`. Values are probability mass, computed from the returned distributions rather than from the point answers. Human values are literature reference points, not a matched control group — see [BENCHMARKS.md](BENCHMARKS.md).
 
 ## Cognitive reflection
 
 | Measure | Neutral | As typical human | As rational agent | Antisocial | Human |
 |---|---:|---:|---:|---:|---:|
-| CRT correct | 0.99 | 0.55 | 0.99 | 0.93 | 0.41 |
+| CRT correct (Frederick's 3 items) | 0.99 | 0.33 | 1.00 | 0.91 | 0.41 |
+| CRT correct (all 6 items) | 0.99 | 0.55 | 0.99 | 0.93 | — |
 | CRT mass on intuitive lure | 0.01 | 0.41 | 0.01 | 0.05 | — |
 
 ## Fluid reasoning by depth
@@ -37,7 +38,7 @@ Accuracy on an authored ICAR-format item set. **Not an IQ score.**
 | Dictator: mass on giving nothing | 0.62 | 0.02 | 1.00 | 1.00 | 0.36 |
 | Dictator: mass on giving half | 0.18 | 0.10 | 0.00 | 0.00 | 0.17 |
 | Ultimatum: offer share | 0.42 | 0.45 | 0.05 | 0.11 | 0.40 |
-| Ultimatum: reject a low offer | 0.66 | 0.95 | 0.04 | 0.23 | 0.50 |
+| Ultimatum: reject a $1 offer | 0.48 | 0.92 | 0.00 | 0.09 | 0.50 |
 | Trust: share sent | 0.37 | 0.48 | 0.05 | 0.08 | 0.50 |
 | Trust: share returned | 0.30 | 0.49 | 0.00 | 0.00 | 0.37 |
 | Public goods: contribution | 0.38 | 0.52 | 0.05 | 0.01 | 0.50 |
@@ -54,8 +55,8 @@ Accuracy on an authored ICAR-format item set. **Not an IQ score.**
 | Allais: independence violation | 0.24 | 0.26 | 0.14 | 0.17 | — |
 | Conjunction fallacy (forced choice) | 0.09 | 0.93 | 0.02 | 0.26 | 0.85 |
 | Conjunction axiom margin (negative = violation) | -0.09 | -0.39 | -0.06 | -0.07 | — |
-| Base rate: correct band | 0.61 | 0.25 | 0.63 | 0.58 | 0.15 |
-| Anchoring effect (human ≈ 20 points) | 1.36 | 6.95 | 1.63 | 0.13 | — |
+| Base rate: 0-10% band (vs Bayesian answers) | 0.61 | 0.25 | 0.63 | 0.58 | 0.15 |
+| Anchoring gap (human ≈ 20 points) | 1.36 | 6.95 | 1.63 | 0.13 | — |
 | Sunk cost: continue | 0.01 | 0.81 | 0.01 | 0.10 | 0.85 |
 
 ## Risk, time and strategic depth
@@ -63,10 +64,10 @@ Accuracy on an authored ICAR-format item set. **Not an IQ score.**
 | Measure | Neutral | As typical human | As rational agent | Antisocial | Human |
 |---|---:|---:|---:|---:|---:|
 | Holt–Laury safe choices (risk neutral = 4) | 2.06 | 3.98 | 2.88 | 1.32 | 5.20 |
-| Present-bias gap | 0.35 | 0.17 | 0.28 | 0.48 | 0.30 |
+| Present-bias gap (direction only) | 0.35 | 0.17 | 0.28 | 0.48 | — |
 | p-beauty: expected guess | 15.61 | 39.46 | 0.00 | 28.68 | 36.00 |
 | p-beauty: mass on equilibrium (0) | 0.40 | 0.00 | 1.00 | 0.17 | — |
-| 11-20 game: expected request | 18.04 | 17.12 | 17.45 | 18.20 | 17.00 |
+| 11-20 game: expected request | 18.05 | 17.12 | 17.45 | 18.20 | 17.00 |
 
 ## Personality and Dark Triad
 
@@ -91,7 +92,7 @@ Multiple-choice items only (332 probe × persona cells): their options are shuff
 - Mean total-variation distance across reorderings: **0.0615**
 - Median: 0.0351
 - 95th percentile: 0.2010
-- Same measure on the 136 unshuffled cells (the noise floor): 0.0271
+- Same measure on the 136 unshuffled cells (replicates with nothing reordered, a rough noise floor): 0.0271
 - Largest single probe: 0.3053 (`discount_30d_100`)
 
 Most order-sensitive probes:

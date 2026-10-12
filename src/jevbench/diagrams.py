@@ -420,7 +420,7 @@ DECISION_MEASURES = [
         "proportion_correct",
         "crt_proportion_correct",
         "Cognitive reflection test",
-        "6 trick questions (bat and ball) · correct",
+        "Frederick's 3 trick questions (bat and ball) · correct",
     ),
     (
         "framing",
@@ -486,7 +486,7 @@ GAME_MEASURES = [
         "prob_reject_low_offer",
         "ultimatum_rejection_low_offer",
         "Ultimatum game, responding",
-        "Offered $0 or $1 of $10 · rejects",
+        "Offered $1 of $10 · rejects",
     ),
     (
         "trust_sender",
@@ -594,7 +594,8 @@ def fig_jev_vs_people(sdf: pd.DataFrame, which: str, persona: str) -> Figure:
         body=body,
         source="Jev: mean of the probability distributions returned over 10 repeats, run of 18 Sep 2026. "
         "Human results: published studies or meta-analyses, listed in docs/BENCHMARKS.md; different people, "
-        "decades and stakes, so a gap of a few points is not meaningful.",
+        "decades and stakes, so a gap of a few points is not meaningful. The base-rate human figure counts "
+        "Bayesian answers, a looser match to the band.",
     )
 
 
@@ -718,7 +719,8 @@ def fig_jev_decisions(sdf: pd.DataFrame) -> Figure:
         body="\n".join(out),
         source="Jev: mean of the probability distributions returned over 10 repeats, run of 18 Sep 2026. "
         "Human results: published studies or meta-analyses, listed in docs/BENCHMARKS.md; different people, "
-        "decades and stakes, so a gap of a few points is not meaningful.",
+        "decades and stakes, so a gap of a few points is not meaningful. The base-rate human figure counts "
+        "Bayesian answers, a looser match to the band.",
     )
 
 
@@ -1390,7 +1392,7 @@ def fig_models_scatter(fdf: pd.DataFrame) -> Figure:
         height=ly0 + 50,
         body="\n".join(out),
         source="Axes zoomed to the data: 0.15–0.55 across, 0.05–0.35 up, not from zero. Jev and Claude Sonnet 5 "
-        "run 18 Sep 2026, all others 12 Oct 2026; 14 measures on a shared 0–1 scale, 10 replicates or samples "
+        "run 18 Sep 2026, all others 12 Oct 2026; 14 probability-scale measures (each 0–1), 10 replicates or samples "
         "per cell. Distance alone is not a ranking: see the framing figure.",
     )
 
@@ -1688,7 +1690,7 @@ def fig_health() -> Figure:
             "GPT-6 Luna refused 4%",
             "240 calls → HTTP 502",
             "Refusals reported as a 502",
-            "client retried them 5 times",
+            "client tried each 5 times",
             "Counted as refusals",
             "never retried; in health.csv",
             "focal",
@@ -1704,7 +1706,7 @@ def fig_health() -> Figure:
         ),
         (
             "Haiku 5.5 replied with nothing",
-            "183 calls, finish = length",
+            "183 calls in a discarded run",
             "Reasoning used the cap",
             "all 512 tokens, no answer",
             "Cap raised and recorded",
@@ -2213,8 +2215,9 @@ def _order_notes(rows: list[tuple[str, str, float, float]]) -> str:
     notes = []
     for name, _sub, floor, shuffled in rows:
         if floor < 0.0005:
+            whose = f"{name}'" if name.endswith("s") else f"{name}'s"
             notes.append(
-                f"{name}'s floor is 0 because it returns the identical distribution on every repeat "
+                f"{whose} floor is 0 because it returns the identical distribution on every repeat "
                 "when nothing is shuffled."
             )
         elif shuffled < floor:

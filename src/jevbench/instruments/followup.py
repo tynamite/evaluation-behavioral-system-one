@@ -247,14 +247,17 @@ def choosing_vs_rejecting() -> list[Probe]:
 def categorization() -> list[Probe]:
     """Norenzayan, Smith, Kim & Nisbett (2002), Study 2, "belongs to" condition.
 
-    Artificial stimuli with 4 binary features, matching the paradigm's logical
-    structure exactly: Group 1's members share exactly one feature with each
-    other and the target (a usable classification rule); Group 2's members
-    share no single feature with the target and each other, but one member
-    resembles the target closely overall and the rest moderately — a
-    family-resemblance group with no rule. Original pooled proportion
-    choosing the rule-based group: 0.67 — `norenzayan_rule_based` in
-    `benchmarks.py`.
+    Artificial stimuli matching the paradigm's logical structure as the Many
+    Labs 2 protocol describes it: four binary features. In Group 1 one feature
+    (colour: red) is common to every member and the target, a usable rule. In
+    Group 2 no feature is common to every member and the target, but one member
+    shares three features with the target and three share two: a family
+    resemblance with no rule. Original pooled proportion choosing the
+    rule-based group: 0.67, `norenzayan_rule_based` in `benchmarks.py`.
+
+    The committed 12 Oct 2026 runs used a version in which one Group 2 member
+    duplicated a Group 1 member, and a note in the prompt described the
+    structure; README "Known issues in the committed data" has the detail.
     """
     target = "Colour: red. Shape: round. Size: large. Surface: glossy."
     group1 = [
@@ -265,7 +268,7 @@ def categorization() -> list[Probe]:
     ]
     group2 = [
         "Colour: red. Shape: round. Size: small. Surface: glossy.",
-        "Colour: red. Shape: angular. Size: large. Surface: matte.",
+        "Colour: blue. Shape: round. Size: small. Surface: glossy.",
         "Colour: blue. Shape: round. Size: large. Surface: matte.",
         "Colour: blue. Shape: angular. Size: large. Surface: glossy.",
     ]
@@ -277,12 +280,6 @@ def categorization() -> list[Probe]:
         "target": target,
         "group_1": group1,
         "group_2": group2,
-        "note": (
-            "Every Group 1 mineral shares exactly one feature (colour: red) with each "
-            "other and with the target mineral. No single feature is shared by every "
-            "Group 2 mineral and the target, but the Group 2 minerals resemble the "
-            "target closely overall."
-        ),
     }
     return [
         binary_choice(

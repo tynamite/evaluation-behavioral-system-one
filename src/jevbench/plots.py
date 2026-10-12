@@ -531,7 +531,7 @@ def fig_persona(sdf: pd.DataFrame, out: Path) -> Path:
     _titles(
         fig,
         "Persona steerability across self-report and economic choices",
-        "Arrow length is the effect of one sentence of persona text. Left: does the persona "
+        "Arrow length is the effect of a short persona instruction. Left: does the persona "
         "take hold. Right: does it reach consequential choices.",
         y=1.0,
     )

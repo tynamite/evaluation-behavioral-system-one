@@ -28,9 +28,17 @@ class Persona:
     `neutral` is the control: the model is asked the item with no framing at
     all. `typical_human` is the condition of interest — it asks for the modal
     human response. `rational_agent` is the opposing anchor, asking for the
-    game-theoretic or normatively correct answer. Contrasting all three
-    separates 'what the model does by default' from 'what the model can
-    represent about humans when asked', which a single condition cannot.
+    game-theoretic or normatively correct answer, and `antisocial` asks for a
+    dark-triad persona. Contrasting them separates 'what the model does by
+    default' from 'what the model can represent about humans when asked',
+    which a single condition cannot.
+
+    `typical_human` also says "not the textbook-correct answer", which steers
+    away from the normative answer on items that have one, so part of any move
+    toward people under it may be compliance rather than knowledge of human
+    error. `typical_human_plain` asks the same thing without that clause, so the
+    two can be told apart. It was added after the committed runs (18 Sep
+    and 12 Oct 2026), which do not include it.
     """
 
     key: str
@@ -51,6 +59,15 @@ PERSONAS: dict[str, Persona] = {
             "Answer the way a typical human participant in a psychology or economics "
             "experiment would actually answer — not the textbook-correct answer, and "
             "not an idealised one. Give the response the average person would give."
+        ),
+    ),
+    "typical_human_plain": Persona(
+        key="typical_human_plain",
+        label="As a typical human (no steer)",
+        preamble=(
+            "Answer the way a typical human participant in a psychology or economics "
+            "experiment would actually answer. Give the response the average person "
+            "would give."
         ),
     ),
     "antisocial": Persona(

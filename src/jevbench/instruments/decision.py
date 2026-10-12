@@ -41,7 +41,7 @@ def framing() -> list[Probe]:
                 "be saved and a 2/3 probability that no people will be saved."
             ),
         },
-        state={"scenario": preamble, "frame": "gain"},
+        state={"scenario": preamble},
         scoring="binary",
         frame="gain",
         certain_option="program_a",
@@ -57,7 +57,7 @@ def framing() -> list[Probe]:
                 "and a 2/3 probability that 600 people will die."
             ),
         },
-        state={"scenario": preamble, "frame": "loss"},
+        state={"scenario": preamble},
         scoring="binary",
         frame="loss",
         certain_option="program_c",
@@ -185,7 +185,6 @@ def anchoring() -> list[Probe]:
                         f"First consider: is the percentage of UN member states that are "
                         f"African countries higher or lower than {anchor}%?"
                     ),
-                    "anchor_value": anchor,
                 },
                 scoring="banded_estimate",
                 anchor=anchor,
@@ -196,22 +195,35 @@ def anchoring() -> list[Probe]:
 
 
 def sunk_cost() -> list[Probe]:
-    """Sunk-cost fallacy (Arkes & Blumer 1985). The prior spend is normatively irrelevant."""
+    """Sunk-cost fallacy: Arkes & Blumer (1985), Experiment 3, Question 3A, verbatim.
+
+    41 of 48 respondents chose to finish the plane (0.85), the human value this
+    item is compared with. The committed runs (18 Sep and 12 Oct 2026) used a
+    paraphrase that added "will now certainly lose money", which removed the
+    uncertainty the original effect rests on; README "Known issues in the
+    committed data" has the detail.
+    """
     return [
         binary_choice(
             probe_id="sunk_cost",
             instrument="sunk_cost",
-            instructions="What do you do?",
+            instructions=(
+                "Should you invest the last 10% of the research funds to finish your "
+                "radar-blank plane?"
+            ),
             options={
-                "continue": "Continue the project and spend the remaining $1 million",
-                "abandon": "Abandon the project and keep the remaining $1 million",
+                "continue": "Yes, invest the last 10% and finish the plane",
+                "abandon": "No, do not invest the last 10%",
             },
             state={
                 "scenario": (
-                    "Your company has spent $9 million of a $10 million budget developing a "
-                    "product. A competitor has just launched a product that is better and "
-                    "cheaper than yours will be. Market research says your product will now "
-                    "certainly lose money if completed."
+                    "As the president of an airline company, you have invested 10 million "
+                    "dollars of the company's money into a research project. The purpose was "
+                    "to build a plane that would not be detected by conventional radar, in "
+                    "other words, a radar-blank plane. When the project is 90% completed, "
+                    "another firm begins marketing a plane that cannot be detected by radar. "
+                    "Also, it is apparent that their plane is much faster and far more "
+                    "economical than the plane your company is building."
                 )
             },
             scoring="binary",
