@@ -51,7 +51,7 @@ def test_dumbbell_axis_is_never_truncated() -> None:
 
 
 def test_dumbbell_refuses_too_many_rows() -> None:
-    rows = [(f"r{i}", 0.1, 0.2) for i in range(9)]
+    rows = [(f"r{i}", "what was asked", 0.1, 0.2) for i in range(9)]
     with pytest.raises(ValueError, match="4-8 rows"):
         dumbbell(rows, ref_name="a", focal_name="b", axis_title="x", step=0.2, order_note="")
 
@@ -88,3 +88,15 @@ def test_scatter_labels_never_overlap() -> None:
     for i, a in enumerate(boxes):
         for b in boxes[i + 1 :]:
             assert not _overlaps(a, b)
+
+
+def test_framing_figure_plots_the_real_swings(built: list[Path]) -> None:
+    # Pinned against results/comparison/measures.csv: d1 swings 54 then 56 points,
+    # Jev 29 then 30. An operator-precedence slip once drew every row negative.
+    page = next(p for p in built if p.stem == "framing-contrast").read_text()
+    refs = [float(v) for v in re.findall(r'data-series="reference" data-value="([-\d.]+)"', page)]
+    focal = [float(v) for v in re.findall(r'data-series="focal" data-value="([-\d.]+)"', page)]
+    pairs = list(zip(refs, focal, strict=True))
+    assert any(abs(a - 53.8) < 0.1 and abs(b - 56.1) < 0.1 for a, b in pairs)  # d1
+    assert any(abs(a - 29.5) < 0.1 and abs(b - 29.7) < 0.1 for a, b in pairs)  # Jev
+    assert sum(1 for a, _b in pairs if a < 0) == 2  # only Microsoft and Drex reverse it

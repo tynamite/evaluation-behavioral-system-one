@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>One call returns the whole distribution, not just an answer</title>
+  <title>Jev 1.13&#x27;s answer distribution in the dictator game</title>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,12 +37,12 @@
 </head>
 <body>
   <div class="frame">
-    <p class="eyebrow">Bar chart · what a single call returns</p>
-    <h1>One call returns the whole distribution, not just an answer</h1>
-    <p class="subtitle">Jev&#x27;s probability over every allocation in the dictator game, from a single request. A chat model has to be asked the same question many times to estimate this, and still mixes in sampling noise.</p>
+    <p class="eyebrow">Dictator game · no instruction</p>
+    <h1>Jev 1.13&#x27;s answer distribution in the dictator game</h1>
+    <p class="subtitle">The game: you are given $10 and decide how much to give an anonymous stranger, who cannot respond. Each call to Jev returns a probability for every amount from $0 to $10; the bars average 10 calls. A chat model gives one amount per call, so it would have to be asked many times and its answers counted to estimate the same shape.</p>
     <div class="diagram-container">
       <svg viewBox="0 0 1000 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="dictator-distribution-title dictator-distribution-desc">
-        <title id="dictator-distribution-title">One call returns the whole distribution, not just an answer</title>
+        <title id="dictator-distribution-title">Jev 1.13&#x27;s answer distribution in the dictator game</title>
         <desc id="dictator-distribution-desc">Bar chart of Jev&#x27;s returned probability of giving each amount out of ten dollars in the dictator game; most mass on giving nothing, a second peak at an even split.</desc>
         <defs>
           <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
@@ -95,7 +95,7 @@
 <text x="760" y="302.6" fill="#2d3142" font-size="15" font-family="'Instrument Serif', serif" text-anchor="middle" font-style="italic">people: 17% split evenly</text>
       </svg>
     </div>
-    <p class="source">Neutral framing, mean of 10 returned distributions, run of 18 Sep 2026. $6–10 pooled to keep the chart to seven bars. Human rates: Engel (2011) meta-analysis.</p>
+    <p class="source">Mean of 10 returned distributions, run of 18 Sep 2026. $6 to $10 are pooled into one bar. Human shares: Engel (2011) meta-analysis of dictator-game experiments.</p>
   </div>
 </body>
 </html>

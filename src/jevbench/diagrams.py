@@ -204,7 +204,7 @@ ROW_LAYOUT = {4: (88, 96), 5: (64, 96), 6: (64, 76), 7: (52, 72), 8: (48, 68)}
 
 
 def dumbbell(
-    rows: list[tuple[str, float, float]],
+    rows: list[tuple[str, str, float, float]],
     *,
     ref_name: str,
     focal_name: str,
@@ -214,38 +214,48 @@ def dumbbell(
     domain: tuple[float, float] | None = None,
     order_note: str,
     reference_line: tuple[float, str] | None = None,
+    label_col: int = 300,
 ) -> str:
-    """Rows of (label, reference value, focal value) inside `0 0 1000 500`."""
+    """Rows of (name, what was asked and measured, reference, focal) inside `0 0 1000 500`.
+
+    The label column is wider than the type reference's 200px because every row
+    carries a second line saying what the test was and what the number counts:
+    the rows do not all point the same way (some count correct answers, others
+    the error), and without that line a reader cannot tell which.
+    """
     n = len(rows)
     if not 4 <= n <= 8:
         raise ValueError(f"dumbbell takes 4-8 rows, got {n}")
     pitch, y0 = ROW_LAYOUT[n]
-    vals = [v for _, a, b in rows for v in (a, b)]
+    vals = [v for _, _, a, b in rows for v in (a, b)]
     if reference_line:
         vals.append(reference_line[0])
     floor, ceil = domain or _domain(vals, step)
+    L, R = label_col, 960
+    for name, sub, _a, _b in rows:
+        if text_width(name, 11) > L - 24 or text_width(sub, 9) > L - 24:
+            raise ValueError(f"row label does not fit the label column: {name!r} / {sub!r}")
 
     def px(v: float) -> int:
-        return round(200 + (v - floor) / (ceil - floor) * 760)
+        return round(L + (v - floor) / (ceil - floor) * (R - L))
 
     out: list[str] = []
     ticks = [floor + i * step for i in range(round((ceil - floor) / step) + 1)]
     for t in ticks:
         x = px(t)
-        is_axis = abs(t - floor) < 1e-9
-        if not is_axis:
+        if abs(t - floor) >= 1e-9:
             out.append(
                 f'<line x1="{x}" y1="56" x2="{x}" y2="408" stroke="{ink(0.08)}" stroke-width="0.8"/>'
             )
         out.append(
             _t(x, 440, fmt.format(t), anchor="middle", extra=f' data-tick="x" data-value="{t:g}"')
         )
-    out.append(f'<line x1="200" y1="40" x2="200" y2="420" stroke="{ink(0.25)}" stroke-width="1"/>')
+    out.append(f'<line x1="{L}" y1="40" x2="{L}" y2="420" stroke="{ink(0.25)}" stroke-width="1"/>')
     if floor < 0 < ceil:
         out.append(
             f'<line x1="{px(0)}" y1="40" x2="{px(0)}" y2="420" stroke="{ink(0.25)}" stroke-width="1"/>'
         )
-    out.append(_t(580, 456, axis_title.upper(), size=7, anchor="middle", spacing="0.14em"))
+    out.append(_t((L + R) / 2, 456, axis_title.upper(), size=7, anchor="middle", spacing="0.14em"))
 
     if reference_line:
         v, label = reference_line
@@ -259,7 +269,7 @@ def dumbbell(
         )
         out.append(_t(x, 37, label, anchor="middle", fill=INK, spacing="0.06em"))
 
-    for i, (label, a, b) in enumerate(rows):
+    for i, (name, sub, a, b) in enumerate(rows):
         y = y0 + i * pitch
         xa, xb = px(a), px(b)
         close = abs(xa - xb) < 16
@@ -289,12 +299,15 @@ def dumbbell(
         else:
             # The floor exception, by drawn width rather than anchor: a left label
             # that would reach into the row-label column goes above its dot.
-            if xl - 12 - text_width(fmt.format(left), 8, mono=True) < 196:
+            if xl - 12 - text_width(fmt.format(left), 8, mono=True) < L - 4:
                 out.append(_t(xl, y - 10, fmt.format(left), anchor="middle", halo=True))
             else:
                 out.append(_t(xl - 12, y + 4, fmt.format(left), anchor="end", halo=True))
             out.append(_t(xr + 12, y + 4, fmt.format(right), halo=True))
-        out.append(_t(188, y + 4, label, size=11, fill=INK, family=SANS, anchor="end", weight=600))
+        out.append(
+            _t(L - 12, y - 1, name, size=11, fill=INK, family=SANS, anchor="end", weight=600)
+        )
+        out.append(_t(L - 12, y + 12, sub, size=9, fill=MUTED, family=SANS, anchor="end"))
 
     keys = [
         f'<circle cx="104" cy="493" r="5" fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"/>',
@@ -310,41 +323,116 @@ def dumbbell(
 
 # -- figure builders -------------------------------------------------------------
 
+# (instrument, statistic, benchmark key, test name, what was asked · what the number counts)
 DECISION_MEASURES = [
-    ("crt", "proportion_correct", "crt_proportion_correct", "Cognitive reflection"),
-    ("framing", "prob_certain_gain_frame", "framing_gain_certain", "Framing: gain"),
-    ("framing", "prob_certain_loss_frame", "framing_loss_certain", "Framing: loss"),
-    ("allais", "prob_certain_pair1", "allais_p1_certain", "Allais certainty"),
+    (
+        "crt",
+        "proportion_correct",
+        "crt_proportion_correct",
+        "Cognitive reflection test",
+        "6 trick questions (bat and ball) · correct",
+    ),
+    (
+        "framing",
+        "prob_certain_gain_frame",
+        "framing_gain_certain",
+        "Framing, worded as gains",
+        "Disease problem, '200 saved' · picks sure option",
+    ),
+    (
+        "framing",
+        "prob_certain_loss_frame",
+        "framing_loss_certain",
+        "Framing, worded as losses",
+        "Same problem, '400 die' · picks sure option",
+    ),
+    (
+        "allais",
+        "prob_certain_pair1",
+        "allais_p1_certain",
+        "Certainty effect (Allais)",
+        "$3,000 for sure vs 80% of $4,000 · picks sure",
+    ),
     (
         "conjunction",
         "prob_fallacy_forced_choice",
         "conjunction_fallacy_rate",
         "Conjunction fallacy",
+        "Linda problem · picks 'teller and feminist'",
     ),
-    ("base_rate", "prob_correct_band", "base_rate_correct_band", "Base rate"),
-    ("sunk_cost", "prob_continue", "sunk_cost_continue", "Sunk cost"),
+    (
+        "base_rate",
+        "prob_correct_band",
+        "base_rate_correct_band",
+        "Base rates (mammogram)",
+        "Cancer risk after a positive test · right band",
+    ),
+    (
+        "sunk_cost",
+        "prob_continue",
+        "sunk_cost_continue",
+        "Sunk cost",
+        "$9m spent, product now sure to lose · carries on",
+    ),
 ]
 
 GAME_MEASURES = [
-    ("dictator", "mean_share", "dictator_mean_share", "Dictator giving"),
-    ("ultimatum_proposer", "mean_share", "ultimatum_mean_offer", "Ultimatum offer"),
+    (
+        "dictator",
+        "mean_share",
+        "dictator_mean_share",
+        "Dictator game",
+        "Give part of $10 to a stranger · share given",
+    ),
+    (
+        "ultimatum_proposer",
+        "mean_share",
+        "ultimatum_mean_offer",
+        "Ultimatum game, proposing",
+        "Offer a split of $10 · share offered",
+    ),
     (
         "ultimatum_responder",
         "prob_reject_low_offer",
         "ultimatum_rejection_low_offer",
-        "Reject low offer",
+        "Ultimatum game, responding",
+        "Offered $0 or $1 of $10 · rejects",
     ),
-    ("trust_sender", "mean_share", "trust_sender_share", "Trust sent"),
-    ("trust_trustee", "return_share_sent_5", "trust_return_share", "Trust returned"),
-    ("public_goods", "mean_share", "pgg_round1_share", "Public goods"),
-    ("prisoners_dilemma", "cooperation_one_shot", "pd_cooperation_oneshot", "PD cooperate"),
+    (
+        "trust_sender",
+        "mean_share",
+        "trust_sender_share",
+        "Trust game, sending",
+        "Send part of $10, tripled on arrival · share sent",
+    ),
+    (
+        "trust_trustee",
+        "return_share_sent_5",
+        "trust_return_share",
+        "Trust game, returning",
+        "Sent $5, received $15 · share returned",
+    ),
+    (
+        "public_goods",
+        "mean_share",
+        "pgg_round1_share",
+        "Public goods game",
+        "4 players, shared pot doubled · share put in",
+    ),
+    (
+        "prisoners_dilemma",
+        "cooperation_one_shot",
+        "pd_cooperation_oneshot",
+        "Prisoner's dilemma",
+        "One round, anonymous · cooperates",
+    ),
 ]
 
-DECISION_LABELS = {
-    "Cognitive reflection": "share correct",
-    "Framing: gain": "picks the sure option",
-    "Framing: loss": "picks the sure option",
-}
+
+def _prompt(key: str) -> str:
+    from .instruments import PERSONAS
+
+    return PERSONAS[key].preamble
 
 
 def _stat(sdf: pd.DataFrame, inst: str, stat: str, persona: str, arm: str = "jev") -> float:
@@ -361,34 +449,43 @@ def _stat(sdf: pd.DataFrame, inst: str, stat: str, persona: str, arm: str = "jev
 
 def fig_jev_vs_people(sdf: pd.DataFrame, which: str, persona: str) -> Figure:
     measures = DECISION_MEASURES if which == "decisions" else GAME_MEASURES
-    rows = [(label, BENCHMARKS[b].value, _stat(sdf, i, s, persona)) for i, s, b, label in measures]
+    rows = [
+        (name, sub, BENCHMARKS[b].value, _stat(sdf, i, s, persona))
+        for i, s, b, name, sub in measures
+    ]
     as_person = persona == "typical_human"
     slug = f"jev-{which}-{'typical' if as_person else 'neutral'}"
-    focal = "Jev, as a typical person" if as_person else "Jev, answering neutrally"
-    if which == "decisions":
-        title = (
-            "Asked to answer like a person, it makes people's mistakes"
-            if as_person
-            else "Left to itself, Jev does not make people's mistakes"
-        )
+    focal = (
+        "Jev 1.13, told to answer like a typical person"
+        if as_person
+        else "Jev 1.13, no instruction"
+    )
+    tests = "seven decision-making tests" if which == "decisions" else "five economic games"
+    if as_person:
+        title = "Jev 1.13 vs. published human results, told to answer like a typical person"
         subtitle = (
-            "One added sentence — answer the way a typical participant would — and Jev lands near "
-            "the published human rate on almost every classic decision anomaly."
-            if as_person
-            else "Seven classic decision anomalies. Under neutral framing Jev sits near the normative "
-            "answer, far from the published human rate, on all but the framing items."
+            f"The same {tests} as the no-instruction chart, with this sentence added before each: "
+            f"\u201c{_prompt('typical_human')}\u201d"
+        )
+    elif which == "decisions":
+        title = f"Jev 1.13 vs. published human results: {tests}"
+        subtitle = (
+            "Classic problems from behavioural economics, asked with no instruction about how to answer. "
+            "Each row says what was asked and which answer is being counted; some rows count the correct "
+            "answer, others the typical human error. Jev's value is the probability it puts on that answer."
         )
     else:
-        title = "In the money games, it gives less than people do"
+        title = f"Jev 1.13 vs. published human results: {tests}"
         subtitle = (
-            "Share given or sent, and rates of rejecting and cooperating, in five economic games. "
-            "Positive giving is not equilibrium play: Jev lands nearer people than game theory."
+            "One-shot, anonymous games played for a hypothetical $10, asked with no instruction about how to "
+            "answer. Each row says what the player could do and what the number measures. Jev's value is the "
+            "expected share, or the probability of the choice, from its returned distribution."
         )
     body = dumbbell(
         rows,
-        ref_name="Published human rate",
+        ref_name="Published human result",
         focal_name=focal,
-        axis_title="probability or share of the endowment",
+        axis_title="share of answers, or share of the money",
         step=0.2,
         fmt="{:.2f}",
         domain=(0.0, 1.0),
@@ -396,48 +493,51 @@ def fig_jev_vs_people(sdf: pd.DataFrame, which: str, persona: str) -> Figure:
     )
     return Figure(
         slug=slug,
-        eyebrow="Dumbbell · Jev 1.13 against people",
+        eyebrow=f"{'Decision-making tests' if which == 'decisions' else 'Economic games'} · "
+        f"{'told to answer like a typical person' if as_person else 'no instruction'}",
         title=title,
         subtitle=subtitle,
-        desc=f"Dumbbell chart comparing Jev's answers, {'asked to answer as a typical person' if as_person else 'under neutral framing'}, with published human rates on {len(rows)} {'decision anomalies' if which == 'decisions' else 'economic-game measures'}.",
+        desc=f"Dumbbell chart comparing Jev 1.13's answers{', told to answer like a typical person,' if as_person else ''} with published human results on {len(rows)} measures from {tests}.",
         width=1000,
         height=510,
         body=body,
-        source="Jev values: mean of the returned probability distributions over 10 replicates, run of 18 Sep 2026. "
-        "Human values: published single studies or meta-analyses (docs/BENCHMARKS.md); separate samples, not a control group.",
+        source="Jev: mean of the probability distributions returned over 10 repeats, run of 18 Sep 2026. "
+        "Human results: published studies or meta-analyses, listed in docs/BENCHMARKS.md; different people, "
+        "decades and stakes, so a gap of a few points is not meaningful.",
     )
 
 
 def fig_antisocial(sdf: pd.DataFrame) -> Figure:
     rows = [
-        (label, _stat(sdf, i, s, "neutral"), _stat(sdf, i, s, "antisocial"))
-        for i, s, _b, label in GAME_MEASURES
+        (name, sub, _stat(sdf, i, s, "neutral"), _stat(sdf, i, s, "antisocial"))
+        for i, s, _b, name, sub in GAME_MEASURES
     ]
     dt_n = _stat(sdf, "dirty_dozen", "overall", "neutral")
     dt_a = _stat(sdf, "dirty_dozen", "overall", "antisocial")
     body = dumbbell(
         rows,
-        ref_name="Answering neutrally",
-        focal_name="With an antisocial persona",
-        axis_title="probability or share of the endowment",
+        ref_name="No instruction",
+        focal_name="With the antisocial persona",
+        axis_title="share of answers, or share of the money",
         step=0.2,
         domain=(0.0, 1.0),
         order_note="ROWS IN BATTERY ORDER",
     )
     return Figure(
         slug="persona-antisocial",
-        eyebrow="Dumbbell · persona steerability",
-        title="A persona reaches the money, not just the self-description",
+        eyebrow="Economic games · antisocial persona",
+        title="Jev 1.13 in five economic games: no instruction vs. an antisocial persona",
         subtitle=(
-            f"An antisocial persona moved Jev's Dark Triad self-report from {dt_n:.1f} to {dt_a:.1f} on a "
-            "9-point scale — the manipulation check. It also collapsed giving in every game."
+            f"The same games, with this sentence added before each: \u201c{_prompt('antisocial')}\u201d "
+            f"As a check that the persona took hold, Jev's score on the Dark Triad questionnaire rose from "
+            f"{dt_n:.1f} to {dt_a:.1f} out of 9."
         ),
-        desc="Dumbbell chart of Jev's choices in seven economic-game measures answering neutrally and with an antisocial persona; giving falls in every game.",
+        desc="Dumbbell chart of Jev 1.13's choices in five economic games with no instruction and with an antisocial persona.",
         width=1000,
         height=510,
         body=body,
-        source="Mean of returned distributions, 10 replicates per cell, run of 18 Sep 2026. The persona is a prompt "
-        "manipulation: it shows what the model can be induced to output, not what it is.",
+        source="Mean of returned distributions over 10 repeats, run of 18 Sep 2026. The persona is a prompt: it shows "
+        "what the model can be made to output, not a trait it has.",
     )
 
 
@@ -529,64 +629,78 @@ def fig_dictator(df: pd.DataFrame) -> Figure:
     )
     return Figure(
         slug="dictator-distribution",
-        eyebrow="Bar chart · what a single call returns",
-        title="One call returns the whole distribution, not just an answer",
+        eyebrow="Dictator game · no instruction",
+        title="Jev 1.13's answer distribution in the dictator game",
         subtitle=(
-            "Jev's probability over every allocation in the dictator game, from a single request. A chat model "
-            "has to be asked the same question many times to estimate this, and still mixes in sampling noise."
+            "The game: you are given $10 and decide how much to give an anonymous stranger, who cannot respond. "
+            "Each call to Jev returns a probability for every amount from $0 to $10; the bars average 10 calls. "
+            "A chat model gives one amount per call, so it would have to be asked many times and its answers "
+            "counted to estimate the same shape."
         ),
         desc="Bar chart of Jev's returned probability of giving each amount out of ten dollars in the dictator game; most mass on giving nothing, a second peak at an even split.",
         width=1000,
         height=480,
         body="\n".join(out),
-        source="Neutral framing, mean of 10 returned distributions, run of 18 Sep 2026. $6–10 pooled to keep the chart "
-        "to seven bars. Human rates: Engel (2011) meta-analysis.",
+        source="Mean of 10 returned distributions, run of 18 Sep 2026. $6 to $10 are pooled into one bar. "
+        "Human shares: Engel (2011) meta-analysis of dictator-game experiments.",
     )
 
 
 def fig_order_effects(odf: pd.DataFrame) -> Figure:
-    edges = [0.0, 0.025, 0.05, 0.10, 0.15, 0.20, 0.31]
+    """Shuffled multiple-choice cells against the unshuffled floor, as shares of each group."""
+    edges = [0.0, 0.025, 0.05, 0.10, 0.15, 0.20]
     names = ["< 0.025", "0.025–0.05", "0.05–0.10", "0.10–0.15", "0.15–0.20", "≥ 0.20"]
-    tv = odf["mean_tv_distance"]
-    counts = [int(((tv >= lo) & (tv < hi)).sum()) for lo, hi in itertools.pairwise(edges)]
-    counts[-1] = int((tv >= 0.20).sum())
-    n = len(tv)
-    ceil = int(math.ceil(max(counts) / 50) * 50)
+
+    def shares(tv: pd.Series) -> list[float]:
+        n = len(tv)
+        bands = [((tv >= lo) & (tv < hi)).sum() for lo, hi in itertools.pairwise(edges)]
+        bands.append((tv >= edges[-1]).sum())
+        return [float(b) / n for b in bands]
+
+    sh = odf[odf["shuffled"]]["mean_tv_distance"]
+    un = odf[~odf["shuffled"]]["mean_tv_distance"]
+    s_sh, s_un = shares(sh), shares(un)
+    ceil = 0.6
 
     def y(v: float) -> float:
         return 420 - v / ceil * 380
 
-    pitch, bar = 140, 96
-    x0 = 80 + (880 - pitch * len(counts)) / 2
+    pitch, bar, gap = 140, 48, 4
+    x0 = 80 + (880 - pitch * len(names)) / 2
     out: list[str] = []
-    for t in range(0, ceil + 1, 50):
+    for t in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6]:
         if t:
             out.append(
                 f'<line x1="80" y1="{y(t):g}" x2="960" y2="{y(t):g}" stroke="{ink(0.08)}" stroke-width="0.8"/>'
             )
-        out.append(_t(72, y(t) + 3, str(t), anchor="end", extra=f' data-tick="y" data-value="{t}"'))
+        out.append(
+            _t(72, y(t) + 3, f"{t:.0%}", anchor="end", extra=f' data-tick="y" data-value="{t:g}"')
+        )
     out.append(f'<line x1="80" y1="420" x2="960" y2="420" stroke="{ink(0.25)}" stroke-width="1"/>')
     out.append(f'<line x1="80" y1="40" x2="80" y2="420" stroke="{ink(0.25)}" stroke-width="1"/>')
-    for i, (name, c) in enumerate(zip(names, counts, strict=True)):
+    for i, name in enumerate(names):
         cx = x0 + i * pitch + pitch / 2
-        bx, by = cx - bar / 2, y(c)
-        focal = i == 0
-        out.append(
-            f'<rect x="{bx:g}" y="{by:.1f}" width="{bar}" height="{420 - by:.1f}" fill="{PAPER}"/>'
-        )
-        out.append(
-            f'<rect data-value="{c}" x="{bx:g}" y="{by:.1f}" width="{bar}" height="{420 - by:.1f}" '
-            f'fill="{accent(0.12) if focal else muted(0.15)}" stroke="{ACCENT if focal else MUTED}" stroke-width="1"/>'
-        )
-        out.append(
-            _t(cx, by - 8, f"{c}  ·  {c / n:.0%}", anchor="middle", fill=ACCENT if focal else MUTED)
-        )
+        for v, bx, fill, stroke, label_fill in (
+            (s_sh[i], cx - bar - gap / 2, accent(0.12), ACCENT, ACCENT),
+            (s_un[i], cx + gap / 2, muted(0.15), MUTED, MUTED),
+        ):
+            by = y(v)
+            out.append(
+                f'<rect x="{bx:g}" y="{by:.1f}" width="{bar}" height="{420 - by:.1f}" fill="{PAPER}"/>'
+            )
+            out.append(
+                f'<rect data-value="{v:.4f}" x="{bx:g}" y="{by:.1f}" width="{bar}" height="{420 - by:.1f}" '
+                f'fill="{fill}" stroke="{stroke}" stroke-width="1"/>'
+            )
+            out.append(
+                _t(bx + bar / 2, by - 6, f"{v:.0%}", anchor="middle", fill=label_fill, halo=True)
+            )
         out.append(_t(cx, 440, name, size=11, family=SANS, fill=INK, anchor="middle", weight=600))
     out.append(
         _t(
             24,
             230,
-            "PROBE × PERSONA CELLS",
+            "SHARE OF CELLS IN EACH GROUP",
             size=7,
             spacing="0.14em",
             anchor="middle",
@@ -597,25 +711,39 @@ def fig_order_effects(odf: pd.DataFrame) -> Figure:
         _t(
             520,
             458,
-            "TOTAL-VARIATION DISTANCE BETWEEN ORDERINGS",
+            "HOW MUCH THE ANSWER DISTRIBUTION CHANGED BETWEEN REPEATS",
             size=7,
             spacing="0.14em",
             anchor="middle",
         )
     )
+    out.append(_legend(1000, 470, []))
+    k1 = f"Multiple-choice, options shuffled ({len(sh)} cells, mean {sh.mean():.3f})"
+    k2 = f"Likert and yes/no, never shuffled ({len(un)} cells, mean {un.mean():.3f})"
+    out.append(
+        f'<rect x="104" y="496" width="16" height="10" rx="2" fill="{accent(0.12)}" stroke="{ACCENT}" stroke-width="1"/>'
+    )
+    out.append(_t(128, 505, k1, size=9, family=SANS, fill=INK))
+    x2 = 128 + text_width(k1, 9) + 40
+    out.append(
+        f'<rect x="{x2:g}" y="496" width="16" height="10" rx="2" fill="{muted(0.15)}" stroke="{MUTED}" stroke-width="1"/>'
+    )
+    out.append(_t(x2 + 24, 505, k2, size=9, family=SANS, fill=INK))
     return Figure(
         slug="order-effects",
-        eyebrow="Bar chart · option-order sensitivity",
-        title="Shuffling the options barely moves the answer",
+        eyebrow="Option order · all four prompts",
+        title="How much Jev 1.13's answers change when the order of the options is shuffled",
         subtitle=(
-            f"How far the returned distribution moved between replicates with the options in a different order, "
-            f"for each of {n} probe-and-persona cells. 0 means nothing changed; mean {tv.mean():.3f}, median {tv.median():.3f}."
+            "Each item was asked 10 times. For multiple-choice items the options were put in a new random order "
+            "every time; Likert and yes/no items were left as they were, so they show how much the answers vary "
+            "with nothing changed. The measure is total-variation distance between two answer distributions: "
+            "0 means identical, 1 means no overlap at all."
         ),
-        desc="Bar chart of how many probe-and-persona cells fall in each band of total-variation distance between option orderings; most are under 0.05.",
+        desc="Grouped bar chart comparing how much Jev 1.13's answers changed between repeats for multiple-choice items with shuffled options and for unshuffled Likert and yes/no items.",
         width=1000,
-        height=480,
+        height=520,
         body="\n".join(out),
-        source="Options independently permuted per replicate, 10 replicates per cell, run of 18 Sep 2026. "
+        source="Mean distance over all pairs of the 10 repeats, per item and prompt; run of 18 Sep 2026. "
         "Bands are unequal: finer near zero, where most cells sit.",
     )
 
@@ -634,6 +762,18 @@ SHORT = {
     "anthropic/claude-haiku-5.5": "Claude Haiku 5.5",
 }
 
+
+MAKER = {
+    "typesafe": "TypeSafe",
+    "openai": "OpenAI",
+    "microsoft": "Microsoft",
+    "perplexity": "Perplexity",
+    "inception": "Inception",
+    "liquid": "Liquid AI",
+    "upstage": "Upstage",
+    "nace-ai": "Nace AI",
+    "anthropic": "Anthropic",
+}
 
 Box = tuple[float, float, float, float]  # x0, y0, x1, y1
 
@@ -839,7 +979,7 @@ def fig_models_scatter(fdf: pd.DataFrame) -> Figure:
         f'<rect x="{tag_box[0]:g}" y="{tag_box[1]:g}" width="{tw:g}" height="12" rx="2" fill="{PAPER}"/>'
     )
     out.append(_t(nx + 4, ny, tag, spacing="0.06em"))
-    note = "closer to people when asked"
+    note = "below the line: closer to people when told"
     note_x, note_y = X(0.53), Y(0.075)
     note_box = (note_x - text_width(note, 15) * 0.8, note_y - 16, note_x, note_y + 4)
     out.append(
@@ -935,15 +1075,24 @@ def fig_models_scatter(fdf: pd.DataFrame) -> Figure:
         f'<circle cx="412" cy="{ly0 + 31}" r="6" fill="{accent(0.15)}" stroke="{ACCENT}" stroke-width="1.2"/>'
     )
     out.append(
-        _t(424, ly0 + 35, f"{focal[0]}: the one that did not move", size=9, family=SANS, fill=INK)
+        _t(
+            424,
+            ly0 + 35,
+            f"{focal[0]}: the only model above the line",
+            size=9,
+            family=SANS,
+            fill=INK,
+        )
     )
     return Figure(
         slug="models-scatter",
-        eyebrow="Scatter · eleven models against people",
-        title="Every model but one gets closer to people when asked",
+        eyebrow="Eleven models · no instruction vs. told to answer like a typical person",
+        title="Distance from published human results, with and without the \u2018typical person\u2019 instruction",
         subtitle=(
-            "Each point is a model: mean distance from the published human rate over 14 measures, answering "
-            "neutrally (across) and when asked to answer as a typical person (up). Lower is closer to people."
+            "Each point is one model. Distance is the mean absolute difference from the published human result "
+            "over the 14 measures in the decision-making and economic-game charts, each on a 0\u20131 scale, so 0 "
+            "would mean identical to people. Across: no instruction. Up: told to answer like a typical person. "
+            "Points below the dashed line moved closer to people when told."
         ),
         desc="Scatter of eleven models' mean distance from human values answering neutrally versus as a typical person; all but Drex 1.5 fall below the no-change line.",
         width=1000,
@@ -964,10 +1113,9 @@ def fig_framing(mdf: pd.DataFrame) -> Figure:
 
     def contrast(model: str, p: str) -> float:
         t = s[p]
-        return (
-            _cell(t, "Framing: certain (gain)", model)
-            - _cell(t, "Framing: certain (loss)", model) * 100
-        )
+        gain = _cell(t, "Framing: certain (gain)", model)
+        loss = _cell(t, "Framing: certain (loss)", model)
+        return (gain - loss) * 100
 
     human = (
         float(
@@ -978,13 +1126,21 @@ def fig_framing(mdf: pd.DataFrame) -> Figure:
     )
     keep = [m for m in mdf.columns if m in SHORT and "anthropic" not in m and "mercury" not in m]
     rows = sorted(
-        [(SHORT[m], contrast(m, "neutral"), contrast(m, "typical_human")) for m in keep],
-        key=lambda r: -r[2],
+        [
+            (
+                SHORT[m],
+                f"{MAKER[m.split('/')[0]]} · System One model",
+                contrast(m, "neutral"),
+                contrast(m, "typical_human"),
+            )
+            for m in keep
+        ],
+        key=lambda r: -r[3],
     )
     body = dumbbell(
         rows,
-        ref_name="Answering neutrally",
-        focal_name="As a typical person",
+        ref_name="No instruction",
+        focal_name="Told to answer like a typical person",
         axis_title="gain-frame minus loss-frame rate of picking the sure option, in points",
         step=20,
         fmt="{:.0f}",
@@ -993,18 +1149,23 @@ def fig_framing(mdf: pd.DataFrame) -> Figure:
     )
     return Figure(
         slug="framing-contrast",
-        eyebrow="Dumbbell · the effect, not the level",
-        title="Being close to people is not the same as behaving like them",
+        eyebrow="Framing effect · eight System One models",
+        title="Size of the framing effect by model, in the disease problem",
         subtitle=(
-            "The framing reversal: people pick the sure option 72% of the time when it is framed as a gain and "
-            "22% as a loss. Solar Decide Flash is the model closest to human levels overall, yet shows almost no reversal."
+            "The same choice between a sure and a risky programme against a disease, worded once as lives saved "
+            "and once as lives lost. People pick the sure option 72% of the time in the gain wording and 22% in "
+            "the loss wording, a 50-point swing. Each row is a model's swing in points; below zero, it picks the "
+            "sure option more often in the loss wording, the reverse of people. Solar Decide Flash, which has the "
+            "smallest overall distance from human results in the scatter, swings 9 points with no "
+            "instruction and 4 when told to answer like a typical person."
         ),
         desc="Dumbbell chart of eight System One models' framing reversal in points, answering neutrally and as a typical person, against the human value of 50.",
         width=1000,
         height=510,
         body=body,
-        source="Eight System One models; the chart holds at most eight rows, so Mercury Decide (19 → 34) is listed here "
-        "instead. Chat models saturate: Sonnet 5 100 → 100, Haiku 5.5 0 → 100. Human rates: Tversky & Kahneman (1981).",
+        source="The chart holds eight rows, so Mercury Decide (19 with no instruction, 34 as a typical person) is "
+        "given here. The two chat models swing all or nothing: Claude Sonnet 5 100 and 100, Claude Haiku 5.5 0 and "
+        "100. Human rates: Tversky & Kahneman (1981). Jev run 18 Sep 2026, others 12 Oct 2026.",
     )
 
 
@@ -1083,10 +1244,8 @@ def fig_process() -> Figure:
         f'<line x1="{cols[4] + w // 2}" y1="328" x2="{cols[4] + w // 2}" y2="232" stroke="{LINK}" stroke-width="1" stroke-dasharray="5,4" marker-end="url(#arrow-link)"/>'
     )
     # Nodes.
-    a.append(_node(cols[0], mid - h // 2, w, h, "Battery item", "147 probes", tag="ITEM"))
-    a.append(
-        _node(cols[1], mid - h // 2, w, h, "Four framings", "4 personas × 10 reps", tag="PROMPT")
-    )
+    a.append(_node(cols[0], mid - h // 2, w, h, "One test item", "e.g. bat and ball", tag="ITEM"))
+    a.append(_node(cols[1], mid - h // 2, w, h, "Four prompts", "listed above", tag="PROMPT"))
     a.append(
         _node(
             cols[2],
@@ -1094,12 +1253,12 @@ def fig_process() -> Figure:
             w,
             h,
             "System One model",
-            "1 call → probabilities",
+            "10 × full distribution",
             kind="focal",
-            tag="TYPED",
+            tag="SYSTEM ONE",
         )
     )
-    a.append(_node(cols[2], bot - h // 2, w, h, "Chat model", "10 samples → counted", tag="CHAT"))
+    a.append(_node(cols[2], bot - h // 2, w, h, "Chat model", "10 × one answer", tag="CHAT"))
     a.append(
         _node(
             cols[3],
@@ -1107,7 +1266,7 @@ def fig_process() -> Figure:
             w,
             h,
             "One distribution",
-            "per probe × persona",
+            "per item and prompt",
             kind="store",
             tag="CELL",
         )
@@ -1118,20 +1277,20 @@ def fig_process() -> Figure:
             mid - h // 2,
             w,
             h,
-            "Statistic vs people",
+            "Compared with people",
             "distance · correlation",
             tag="RESULT",
         )
     )
     a.append(
-        _node(cols[4], 328, w, h, "Published rate", "human reference", kind="external", tag="DATA")
+        _node(cols[4], 328, w, h, "Human result", "published study", kind="external", tag="DATA")
     )
     # Two callouts carry the cost asymmetry.
     a.append(
         _t(
             cols[2] + w / 2,
             top - h // 2 - 16,
-            "reports its own distribution — $0.09 a grid",
+            "distributions averaged: $0.09 for the run",
             size=15,
             family=SERIF,
             fill=INK,
@@ -1143,7 +1302,7 @@ def fig_process() -> Figure:
         _t(
             cols[2] + w / 2,
             bot + h // 2 + 26,
-            "pays ten times to estimate one — $2.74",
+            "answers counted: $2.74 for the same run",
             size=15,
             family=SERIF,
             fill=INK,
@@ -1153,7 +1312,7 @@ def fig_process() -> Figure:
     )
     a.append(_legend(W, 452, []))
     legend = [
-        (accent(0.08), ACCENT, "System One path", 0),
+        (accent(0.08), ACCENT, "System One model path", 0),
         (WHITE, INK, "Step", 1),
         (ink(0.05), MUTED, "Stored result", 0),
         (ink(0.03), ink(0.30), "External data", 0),
@@ -1167,18 +1326,22 @@ def fig_process() -> Figure:
         x += int(24 + text_width(label, 9) + 40)
     return Figure(
         slug="how-it-works",
-        eyebrow="Process · how one item becomes a number",
-        title="Two ways to get a distribution out of a model",
+        eyebrow="Method",
+        title="How each test item is run and scored",
         subtitle=(
-            "Every item is asked under four framings. A System One model returns a probability for every answer in "
-            "one call; a chat model has to be sampled ten times and its answers counted. Both end as one distribution "
-            "per cell, compared with the published human rate."
+            "Each item is asked under four prompts: no instruction, \u2018answer like a typical person\u2019, "
+            "\u2018answer like a rational agent\u2019 and an antisocial persona. Each model is asked "
+            "every item ten times under each prompt. A System One model returns a probability for every possible "
+            "answer on each call, and the ten distributions are averaged. A chat model returns one answer per call, "
+            "and the ten answers are counted. Either way the result is one distribution per item and prompt, "
+            "compared with the published human result for that test."
         ),
         desc="Process diagram: a battery item is framed four ways, answered either by a System One model in one call or by a chat model sampled ten times, reduced to one distribution per cell, and compared with a published human rate.",
         width=W,
         height=H,
         body="\n".join(a),
-        source="Costs are for the identical 4,680-call grid on 18 Sep 2026: Jev $0.09, Claude Sonnet 5 resampled $2.74.",
+        source="Costs are for the same 4,680 questions on 18 Sep 2026 (117 items × 4 prompts × 10): Jev 1.13 "
+        "$0.09, Claude Sonnet 5 $2.74. The battery has 147 items since 30 follow-up items were added.",
     )
 
 
@@ -1225,7 +1388,7 @@ def fig_health() -> Figure:
         a.append(
             f'<line x1="{cols[1] + w}" y1="{cy}" x2="{cols[2]}" y2="{cy}" stroke="{MUTED}" stroke-width="1" marker-end="url(#arrow)"/>'
         )
-    for x, head in zip(cols, ["WHAT HEALTH.CSV SHOWED", "WHY", "WHAT CHANGED"], strict=True):
+    for x, head in zip(cols, ["WHAT THE COUNTS SHOWED", "WHY", "WHAT CHANGED"], strict=True):
         a.append(_t(x, 44, head, size=7, spacing="0.14em"))
     for y, (n1, s1, n2, s2, n3, s3, kind3) in zip(ys, rows, strict=True):
         a.append(_node(cols[0], y, w, h, n1, s1))
@@ -1245,11 +1408,13 @@ def fig_health() -> Figure:
         x += int(24 + text_width(label, 9) + 40)
     return Figure(
         slug="health-checks",
-        eyebrow="Process · silent holes caught before they became results",
-        title="What the health table caught on the multi-model run",
+        eyebrow="Data quality · 12 Oct multi-model run",
+        title="Three problems found by the per-model error checks, and what was done",
         subtitle=(
-            "A reply that arrives but cannot be used is not a transport error, so it is invisible unless something "
-            "counts it. Three such holes turned up on the 12 Oct run; two were bugs in this repository."
+            "For each model the comparison counts errors, refusals, replies that could not be matched to an answer, "
+            "and items left with no usable answer (results/comparison/health.csv). A reply that arrives but cannot "
+            "be used is not a network error, so nothing would flag it without these counts. Two of the three "
+            "problems were bugs in this repository."
         ),
         desc="Process diagram of three problems the health table caught: GPT-6 Luna Decisions refusals, the Solar models' option cap, and Claude Haiku 5.5 truncating on reasoning, each with its cause and fix.",
         width=W,

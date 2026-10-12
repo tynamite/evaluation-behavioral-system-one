@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>What the health table caught on the multi-model run</title>
+  <title>Three problems found by the per-model error checks, and what was done</title>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,12 +37,12 @@
 </head>
 <body>
   <div class="frame">
-    <p class="eyebrow">Process · silent holes caught before they became results</p>
-    <h1>What the health table caught on the multi-model run</h1>
-    <p class="subtitle">A reply that arrives but cannot be used is not a transport error, so it is invisible unless something counts it. Three such holes turned up on the 12 Oct run; two were bugs in this repository.</p>
+    <p class="eyebrow">Data quality · 12 Oct multi-model run</p>
+    <h1>Three problems found by the per-model error checks, and what was done</h1>
+    <p class="subtitle">For each model the comparison counts errors, refusals, replies that could not be matched to an answer, and items left with no usable answer (results/comparison/health.csv). A reply that arrives but cannot be used is not a network error, so nothing would flag it without these counts. Two of the three problems were bugs in this repository.</p>
     <div class="diagram-container">
       <svg viewBox="0 0 960 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="health-checks-title health-checks-desc">
-        <title id="health-checks-title">What the health table caught on the multi-model run</title>
+        <title id="health-checks-title">Three problems found by the per-model error checks, and what was done</title>
         <desc id="health-checks-desc">Process diagram of three problems the health table caught: GPT-6 Luna Decisions refusals, the Solar models&#x27; option cap, and Claude Haiku 5.5 truncating on reasoning, each with its cause and fix.</desc>
         <defs>
           <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
@@ -56,7 +56,7 @@
 <line x1="620" y1="196" x2="656" y2="196" stroke="#4f5d75" stroke-width="1" marker-end="url(#arrow)"/>
 <line x1="304" y1="296" x2="340" y2="296" stroke="#4f5d75" stroke-width="1" marker-end="url(#arrow)"/>
 <line x1="620" y1="296" x2="656" y2="296" stroke="#4f5d75" stroke-width="1" marker-end="url(#arrow)"/>
-<text x="24" y="44" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" letter-spacing="0.14em">WHAT HEALTH.CSV SHOWED</text>
+<text x="24" y="44" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" letter-spacing="0.14em">WHAT THE COUNTS SHOWED</text>
 <text x="340" y="44" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" letter-spacing="0.14em">WHY</text>
 <text x="656" y="44" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" letter-spacing="0.14em">WHAT CHANGED</text>
 <rect x="24" y="64" width="280" height="64" rx="6" fill="#f5f5f5"/>
