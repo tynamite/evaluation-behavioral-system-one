@@ -11,6 +11,7 @@
   "n_errors": 0,
   "n_baseline_unparsed": 9,
   "baseline_unparsed_rate": 0.0019,
+  "n_baseline_not_measurable": 0,
   "baseline_cells": 468,
   "baseline_cells_below_full_samples": 4,
   "baseline_cells_with_no_usable_sample": 0,

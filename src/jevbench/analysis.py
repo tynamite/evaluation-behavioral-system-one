@@ -1105,7 +1105,12 @@ def analyse_run(path: Path, out_dir: Path) -> dict[str, Any]:
     # it is not a transport error, so counting only errors hides it entirely. An
     # earlier run lost 4.8% of the baseline arm that way, concentrated on the
     # items the model reasoned longest about — a systematic gap, not noise.
+    # Proportion items asked of a chat model are left unscored on purpose (see
+    # `_reread_chat_replies`); they are counted apart, not as parse failures.
     base = df[df["arm"] == "baseline"]
+    not_measurable = int(base["not_measurable"].sum()) if "not_measurable" in base else 0
+    if "not_measurable" in base:
+        base = base[~base["not_measurable"].astype(bool)]
     unparsed = int((base["error"].isna() & base["value"].isna()).sum()) if len(base) else 0
     coverage: dict[str, int] = {}
     if len(base):
@@ -1127,6 +1132,7 @@ def analyse_run(path: Path, out_dir: Path) -> dict[str, Any]:
         "n_errors": n_err,
         "n_baseline_unparsed": unparsed,
         "baseline_unparsed_rate": round(unparsed / len(base), 4) if len(base) else 0.0,
+        "n_baseline_not_measurable": not_measurable,
         **coverage,
         "total_cost_usd": round(cost, 4),
         "personas": sorted(df["persona"].unique()),
