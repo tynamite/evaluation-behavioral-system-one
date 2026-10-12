@@ -66,6 +66,9 @@ def muted(a: float) -> str:
     return f"rgba(79,93,117,{a})"
 
 
+# The small credit in each figure's bottom-right corner, inside the PNG export.
+WATERMARK = "github.com/tynamite"
+
 SANS = "'Geist', system-ui, sans-serif"
 MONO = "'Geist Mono', ui-monospace, monospace"
 SERIF = "'Instrument Serif', serif"
@@ -125,7 +128,10 @@ class Figure:
       min-height: 100vh; display: flex; align-items: center; justify-content: center;
       padding: 3rem 2rem;
     }}
-    .frame {{ max-width: {self.width + 80}px; width: 100%; padding: 32px 40px; background: var(--color-paper); }}
+    .frame {{ max-width: {self.width + 80}px; width: 100%; padding: 32px 40px; background: var(--color-paper);
+      position: relative; }}
+    .mark {{ position: absolute; right: 40px; bottom: 12px; font-family: var(--font-mono); font-size: 0.6rem;
+      letter-spacing: 0.14em; color: var(--color-muted); opacity: 0.55; }}
     .diagram-container {{ width: 100%; overflow-x: auto; }}
     .eyebrow {{
       font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500;
@@ -163,6 +169,7 @@ class Figure:
       </svg>
     </div>
     <p class="source">{esc(self.source)}</p>
+    <p class="mark" aria-hidden="true">{WATERMARK}</p>
   </div>
 </body>
 </html>

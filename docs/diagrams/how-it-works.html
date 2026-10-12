@@ -16,7 +16,10 @@
       min-height: 100vh; display: flex; align-items: center; justify-content: center;
       padding: 3rem 2rem;
     }
-    .frame { max-width: 1040px; width: 100%; padding: 32px 40px; background: var(--color-paper); }
+    .frame { max-width: 1040px; width: 100%; padding: 32px 40px; background: var(--color-paper);
+      position: relative; }
+    .mark { position: absolute; right: 40px; bottom: 12px; font-family: var(--font-mono); font-size: 0.6rem;
+      letter-spacing: 0.14em; color: var(--color-muted); opacity: 0.55; }
     .diagram-container { width: 100%; overflow-x: auto; }
     .eyebrow {
       font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500;
@@ -146,6 +149,7 @@
       </svg>
     </div>
     <p class="source">Costs are for the same 4,680 questions on 18 Sep 2026 (117 items × 4 prompts × 10): Jev 1.13 $0.09, Claude Sonnet 5 $2.74. The battery has 147 items since 30 follow-up items were added.</p>
+    <p class="mark" aria-hidden="true">github.com/tynamite</p>
   </div>
 </body>
 </html>

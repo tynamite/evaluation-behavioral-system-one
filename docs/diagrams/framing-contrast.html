@@ -16,7 +16,10 @@
       min-height: 100vh; display: flex; align-items: center; justify-content: center;
       padding: 3rem 2rem;
     }
-    .frame { max-width: 1080px; width: 100%; padding: 32px 40px; background: var(--color-paper); }
+    .frame { max-width: 1080px; width: 100%; padding: 32px 40px; background: var(--color-paper);
+      position: relative; }
+    .mark { position: absolute; right: 40px; bottom: 12px; font-family: var(--font-mono); font-size: 0.6rem;
+      letter-spacing: 0.14em; color: var(--color-muted); opacity: 0.55; }
     .diagram-container { width: 100%; overflow-x: auto; }
     .eyebrow {
       font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500;
@@ -139,6 +142,7 @@
       </svg>
     </div>
     <p class="source">The chart holds eight rows, so Mercury Decide (19 with no instruction, 34 as a typical person) and Decider v1.1 27B (17 and 45) are given here. The two chat models swing all or nothing: Claude Sonnet 5 100 and 100, Claude Haiku 5.5 0 and 100. Human rates: Tversky &amp; Kahneman (1981). Jev run 18 Sep 2026, others 12 Oct 2026.</p>
+    <p class="mark" aria-hidden="true">github.com/tynamite</p>
   </div>
 </body>
 </html>

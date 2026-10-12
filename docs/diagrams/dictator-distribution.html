@@ -16,7 +16,10 @@
       min-height: 100vh; display: flex; align-items: center; justify-content: center;
       padding: 3rem 2rem;
     }
-    .frame { max-width: 1080px; width: 100%; padding: 32px 40px; background: var(--color-paper); }
+    .frame { max-width: 1080px; width: 100%; padding: 32px 40px; background: var(--color-paper);
+      position: relative; }
+    .mark { position: absolute; right: 40px; bottom: 12px; font-family: var(--font-mono); font-size: 0.6rem;
+      letter-spacing: 0.14em; color: var(--color-muted); opacity: 0.55; }
     .diagram-container { width: 100%; overflow-x: auto; }
     .eyebrow {
       font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500;
@@ -156,6 +159,7 @@
       </svg>
     </div>
     <p class="source">People: Engel (2011), Experimental Economics 14:583-610, Figure 2; 20,813 dictators in 328 treatments, bars read from the figure&#x27;s labels. Jev: mean of 10 returned distributions, no instruction, run of 18 Sep 2026.</p>
+    <p class="mark" aria-hidden="true">github.com/tynamite</p>
   </div>
 </body>
 </html>
