@@ -1095,7 +1095,9 @@ def analyse_run(path: Path, out_dir: Path) -> dict[str, Any]:
         "personas": sorted(df["persona"].unique()),
         "arms": sorted(df["arm"].unique()),
         "n_statistics": len(sdf),
-        "mean_order_tv": float(odf[odf["shuffled"]]["mean_tv_distance"].mean()) if len(odf) else None,
+        "mean_order_tv": float(odf[odf["shuffled"]]["mean_tv_distance"].mean())
+        if len(odf)
+        else None,
         "mean_unshuffled_tv": float(odf[~odf["shuffled"]]["mean_tv_distance"].mean())
         if len(odf) and (~odf["shuffled"]).any()
         else None,
