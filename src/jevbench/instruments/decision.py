@@ -200,8 +200,7 @@ def sunk_cost() -> list[Probe]:
     41 of 48 respondents chose to finish the plane (0.85), the human value this
     item is compared with. The committed runs (18 Sep and 12 Oct 2026) used a
     paraphrase that added "will now certainly lose money", which removed the
-    uncertainty the original effect rests on; README "Known issues in the
-    committed data" has the detail.
+    uncertainty the original effect rests on; docs/LEARNINGS.md has the detail.
     """
     return [
         binary_choice(

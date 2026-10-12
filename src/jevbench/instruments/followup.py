@@ -257,7 +257,7 @@ def categorization() -> list[Probe]:
 
     The committed 12 Oct 2026 runs used a version in which one Group 2 member
     duplicated a Group 1 member, and a note in the prompt described the
-    structure; README "Known issues in the committed data" has the detail.
+    structure; docs/LEARNINGS.md has the detail.
     """
     target = "Colour: red. Shape: round. Size: large. Surface: glossy."
     group1 = [

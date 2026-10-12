@@ -9,9 +9,7 @@ baseline (Claude Sonnet 5), and a second chat baseline (Claude Haiku 5.5).
 The same caveats as the main write-up apply in full: this is a hobby project,
 the human values are not a control group, and **no claims are made about any
 model, company or product.** These are numbers recorded from a public API on
-two days (Sep 18 and Oct 12, 2026), and how they were produced. The committed
-runs predate several method fixes; see
-[Known issues in the committed data](../README.md#known-issues-in-the-committed-data).
+two days (Sep 18 and Oct 12, 2026), and how they were produced.
 
 ## What was run
 
@@ -165,8 +163,7 @@ probability-scale measures (each on 0–1), and the correlation `r` with them ac
 
 The cognitive reflection measure is Frederick's three items and the ultimatum
 rejection measure the $1 offer, to match what the human values measure (see
-[BENCHMARKS.md](BENCHMARKS.md)); an earlier version of this table used all six
-CRT items and the $0 and $1 offers, and ranked Solar Decide Flash first.
+[BENCHMARKS.md](BENCHMARKS.md)).
 
 The pattern from the main write-up holds across every model: **answering
 neutrally, none of them looks like people** (no correlation better than +0.20,
@@ -228,7 +225,7 @@ first.
   every model, System One or chat, abandons the project (≤ 0.07, people 0.85).
   The committed runs used a paraphrase of the item that made the loss certain,
   which may account for some of this; see
-  [Known issues](../README.md#known-issues-in-the-committed-data).
+  [LEARNINGS.md](LEARNINGS.md#method-flaws-found-in-an-audit-before-publishing).
 - **Only Clef reproduces the conjunction fallacy unprompted**, at 0.87 against
   people's 0.85; Solar Decide Flash (0.70) and Clef Flash (0.62) come part of
   the way and every other model stays at 0.25 or below. Asked to answer as a

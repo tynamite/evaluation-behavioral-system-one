@@ -238,7 +238,7 @@ class BatteryRunner:
         # Same seeded shuffle as the System One arm, so on a given replicate
         # both arms see the options in the same order. The committed runs (18 Sep
         # and 12 Oct 2026) did not shuffle here, and listed every scored item's correct option
-        # first; README "Known issues in the committed data" has the detail.
+        # first; docs/LEARNINGS.md has the detail.
         if self.randomise_options:
             rng = random.Random(f"{self.seed}|{probe.probe_id}|{persona_key}|{sample}")
             prepared = permute_options(prepared, rng)

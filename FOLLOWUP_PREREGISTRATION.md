@@ -12,7 +12,7 @@ matters and what it does and doesn't establish.*
 > be executable on this item pool (Amendment 3, section 10), none of the
 > options in 10.3 has been chosen, and no follow-up result is reported
 > anywhere in this repository yet. Two items were corrected after those runs
-> (see the README's "Known issues in the committed data").
+> (see [docs/LEARNINGS.md](docs/LEARNINGS.md)).
 
 Date: 2026-09-19
 Model under test: `typesafe/jev-1.13` (or whatever is current when run)

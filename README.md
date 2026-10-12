@@ -12,10 +12,7 @@ with an ordinary chat model and published human values as comparison points.
 > and 12 October 2026, and a description of how they were produced. Everything
 > is recomputable from `data/raw/`. It is not peer reviewed, it uses instruments
 > well outside the contexts they were validated in, and it is probably wrong
-> somewhere — several bugs and method flaws were already found and fixed along
-> the way, some of them after the committed runs (see
-> [Known issues in the committed data](#known-issues-in-the-committed-data)). Full
-> caveats in [PREREGISTRATION.md](PREREGISTRATION.md#what-this-is-and-what-it-is-not).
+> somewhere. Full caveats in [PREREGISTRATION.md](PREREGISTRATION.md#what-this-is-and-what-it-is-not).
 > Not affiliated with or endorsed by anyone. Corrections welcome.
 
 ---
@@ -155,7 +152,7 @@ writing them down first was to be held to them:
 | H4: framing reversal much weaker than humans (< 25 points) | **29 points** — weaker than the human ~50, but larger than I predicted |
 | H5: independently elicited probabilities obey P(A∧B) ≤ P(A) | **Violated**, margin **−0.09** under neutral framing and **−0.39** when asked to answer like a person |
 | H8: accuracy falls as reasoning depth grows (> 15 points) | **10 points** from 1-step to 3+-step items under neutral framing |
-| H6: option order barely matters (mean TV < 0.05) | **0.062** mean, median 0.035, on the multiple-choice items whose options were shuffled. Answers move 0.027 between replicates with nothing reordered, a rough noise floor, so a large part of that may be noise. An earlier version of this table reported 0.051 by mistakenly averaging in Likert and yes/no items, which are never shuffled |
+| H6: option order barely matters (mean TV < 0.05) | **0.062** mean, median 0.035, on the multiple-choice items whose options were shuffled. Answers move 0.027 between replicates with nothing reordered, a rough noise floor, so a large part of that may be noise |
 
 H7 (Jev's distribution is more stable across replicates than the resampled
 chat model's) was never tested: the analysis to compare the two spreads was not
@@ -248,8 +245,8 @@ jevbench run --replicates 10 --baseline-samples 10 \
   --personas neutral typical_human rational_agent antisocial
 ```
 
-It will not reproduce the committed numbers exactly: the method fixes under
-[Known issues](#known-issues-in-the-committed-data) apply to every new run.
+It will not reproduce the committed numbers exactly, because the battery has
+been refined since; [docs/LEARNINGS.md](docs/LEARNINGS.md) lists what changed.
 
 A new run is written to `data/raw/` and is not analysed into the committed
 results unless you ask: pass it with `--run`, and give `--out` a directory of
@@ -400,43 +397,18 @@ instrument requires them to be mutually blind.
 **Order randomisation.** In the System One arm, the options of every `Choice`
 item are independently permuted per replicate, which is what makes the
 order-invariance claim testable rather than assumed. `Score` and yes/no items
-have a fixed order. The committed chat-arm runs were not shuffled (see Known
-issues); from now on the chat arm gets the same permutation as the System One
+have a fixed order. The chat arm gets the same permutation as the System One
 arm on the same replicate.
 
 **Reverse-keyed items.** Each Big Five factor carries both forward and
 reverse-keyed items, so answering the surface wording rather than the content
 is detectable.
 
-**Bugs found the hard way.** Three defects in the comparison arm, all the same
-shape: a reply arrives, fails to parse, and disappears without being counted as
-an error. The first capped replies at 8 tokens, truncating the chat model into
-null content on 490 of 4,680 calls. The second raised that cap only to 64, which
-still truncated 239, leaving 224 unresolved. Neither failed at random — both concentrated on the numeric
-items where the model reasons before answering, so the affected runs would have
-compared Jev against a baseline missing precisely its hardest cases. The third
-matched option text by substring, so on the p-beauty contest, whose options are
-the integers 0–100, a reply of `"100"` could resolve to `"1"`.
-
-All three are regression-tested, the cap is now 512 tokens by default and
-configurable (`JEVBENCH_BASELINE_MAX_TOKENS`; Haiku 5.5 needed 4,096), and `summary.json`
-reports unresolved replies and per-cell sample coverage so this class of gap
-cannot go uncounted again. The committed run has no transport errors and 9
-unresolved replies (0.19%), against 224 (4.8%) before the fix; even at 512,
-8 Sonnet replies were cut off by the cap. Re-running moved no Jev headline
-result by more than 0.04, but chat-arm results moved by up to 0.20, so the
-earlier chat numbers would have been wrong, not just incomplete. Nothing was
-counting unresolved replies at the time; that counter should have existed from
-the first run.
-
-A later audit found three smaller misreadings, now fixed and re-read from the
-stored replies: a reply echoing the option line (`$1: Offer $1, keep $9`) was
-read for its last amount, a reply declining the true/false format ("I can't
-answer this with true or false") was read as *false*, and the follow-up
-items that ask a chat model for a proportion as a true/false reply were scored
-as if a vote were an estimate. Two Sonnet cells moved, neither reported here;
+**Reading chat replies.** A chat model answers in text, so its reply has to be
+read for the option it names; unreadable replies are dropped and counted, never
+guessed, and `summary.json` reports them with per-cell sample coverage.
 [docs/MODELS.md](docs/MODELS.md#how-a-chat-models-reply-becomes-an-answer)
-has the detail.
+describes each step.
 
 The typed arm has never returned an answer that could not be read, across
 about 57,600 calls to ten System One models: a typed decision is a
@@ -444,50 +416,8 @@ distribution, so there is no text to misread. What did go wrong there was
 visible: 240 refusals from one model and 80 calls one route rejected, each
 recorded as such ([docs/MODELS.md](docs/MODELS.md#read-the-health-table-first)).
 
-## Known issues in the committed data
-
-An audit before publishing found flaws in how some items were put to the
-models. They are fixed in the code, but the committed runs (18 Sep and 12 Oct
-2026) predate the fixes, and a re-run is pending. Until then, read the affected
-numbers with these in mind:
-
-1. **The chat arm saw options in a fixed order.** Only the System One arm was
-   shuffled. On every item with a right answer, the chat models saw the
-   correct option listed first. Chat-arm accuracy on those items may be
-   inflated, and the two arms are not on equal terms.
-2. **Two items labelled their own condition.** The framing items carried
-   `"frame": "gain"` / `"loss"` in the state sent to every model, chat arm
-   included, and the anchoring items carried `"anchor_value"` alongside the
-   anchor question. Labels like these tell a model which manipulation it is
-   in.
-3. **The sunk-cost item was a paraphrase, not Arkes & Blumer's wording.** It
-   said the product would "now certainly lose money", which removes the
-   uncertainty the original effect depends on and makes abandoning clearly
-   right. The near-zero continuation under neutral framing, for every model,
-   may owe a lot to that. The item now uses the original radar-blank-plane
-   wording (Experiment 3, Question 3A).
-4. **The 11-20 game hinted at its strategy.** The option for 20 was labelled
-   "the largest amount, but never earns the bonus". Options are now plain.
-5. **The categorisation follow-up item had a duplicated exemplar and a note
-   explaining its structure** (12 Oct runs only; no result from it is
-   reported). One Group 2 member was identical to a Group 1 member, and the
-   prompt described which group shares a rule. Both are fixed, following the
-   Many Labs 2 protocol.
-6. **The `typical_human` instruction steers as well as asks**, as quoted above.
-   A neutral version is added for the next run.
-7. **Two deviations from the preregistered analysis plan.** It promised 95%
-   bootstrap intervals; `statistics.csv` carries them for the multi-item
-   measures, but no document reports them. And it said the only exclusions
-   would be transport errors; chat replies that could not be read, model
-   refusals, and chat replies to the proportion items (which a true/false reply
-   cannot answer) are excluded too, each counted in `summary.json` or
-   `health.csv`.
-
-The benchmark comparisons were also tightened before publishing, and the
-committed tables are recomputed with them: the CRT human value covers only
-Frederick's three items, so the comparison now uses those three (all six are
-reported separately); the ultimatum rejection value is compared with the $1
-offer only; and an unsourced present-bias reference value was dropped.
+**Learnings.** The bugs found and method fixes made along the way, and what
+each one changed, are written up in [docs/LEARNINGS.md](docs/LEARNINGS.md).
 
 ## Limitations
 

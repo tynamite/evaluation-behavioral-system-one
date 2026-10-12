@@ -2,13 +2,6 @@
 
 *A small personal experiment. September 2026.*
 
-> [!NOTE]
-> The committed run predates several method fixes (the chat arm saw options
-> unshuffled, and some items differed from the published wording). They are
-> listed in the README under
-> [Known issues in the committed data](../README.md#known-issues-in-the-committed-data);
-> a re-run is pending, and the numbers below may move when it lands.
-
 ---
 
 **In one line:** a model built for fast, non-deliberative decisions does not
@@ -148,7 +141,7 @@ are under irrelevant changes in wording seems worth knowing.
   there are no norms and no standardisation sample.
 - **Nobody involved is an expert** in psychometrics or experimental economics,
   this was not peer reviewed, and several bugs and method flaws were found and
-  fixed along the way (README, "Known issues"). There may be more.
+  fixed along the way ([LEARNINGS.md](LEARNINGS.md)). There may be more.
 - **One model, one route, one day (18 Sep 2026).** Several results move a lot with wording,
   which is itself a reason not to generalise from any single number.
 
