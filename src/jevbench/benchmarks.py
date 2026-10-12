@@ -466,5 +466,29 @@ BENCHMARKS: dict[str, Benchmark] = {
 }
 
 
+# The full human distribution of dictator giving, as fractions of 20,813
+# dictators in 328 treatments, read from the bar labels of Engel (2011), Figure 2
+# ("Distribution of Individual Give Rates"; working-paper version, MPI Collective
+# Goods Preprint 2010/07, p. 8). Engel bins the share given into eleven bars at
+# 0, 0.1, ..., 1, which on a $10 endowment are $0, $1, ..., $10. The labels sum
+# to 1.000, and the three the text states (0.3611, 0.1674, 0.0544) match.
+DICTATOR_HUMAN_DISTRIBUTION: dict[str, float] = {
+    "$0": 0.3611,
+    "$1": 0.0914,
+    "$2": 0.0881,
+    "$3": 0.0891,
+    "$4": 0.0723,
+    "$5": 0.1674,
+    "$6": 0.0389,
+    "$7": 0.0197,
+    "$8": 0.0107,
+    "$9": 0.0070,
+    "$10": 0.0544,
+}
+DICTATOR_HUMAN_SOURCE = (
+    "Engel (2011), Experimental Economics 14:583-610, Figure 2; 20,813 dictators in 328 treatments"
+)
+
+
 def get(key: str) -> Benchmark | None:
     return BENCHMARKS.get(key)
