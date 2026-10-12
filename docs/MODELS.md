@@ -25,7 +25,7 @@ one day, and how they were produced.
 | `upstage/solar-decide-flash-20261008` | System One | Oct 12 | 5,880 | $0.14 |
 | `nace-ai/drex-v1.5-20261009` | System One | Oct 12 | 5,880 | $0.03 |
 | `anthropic/claude-haiku-5.5` | chat, resampled | Oct 12 | 5,880 | $0.68 |
-| `upstage/solar-decide-20260928` | System One | *in progress — see below* | | |
+| `upstage/solar-decide-20260928` | System One | Oct 12, **partial** — not compared | 4,770 of 5,880 | $0.11 |
 
 The Oct 12 runs are 147 probes × 4 personas × 10 replicates; the committed
 Sep 18 run predates the 30 follow-up items and has 117 probes. Every measure
@@ -34,8 +34,15 @@ compared below comes from items present in both.
 Reproduce:
 
 ```bash
-jevbench compare data/raw/run_live_20260918T230710Z.jsonl data/raw/run_live_20261012*.jsonl
+jevbench compare data/raw/run_live_20260918T230710Z.jsonl \
+  $(ls data/raw/run_live_20261012*.jsonl | grep -v '_upstage--solar-decide.jsonl')
 ```
+
+**Solar Decide is incomplete.** The provider throttled it to about 25 calls a
+minute, and the run was stopped by a time limit at 81% (4,770 of 5,880
+records). Its file is committed as recorded, but it is left out of every
+comparison here until it is finished with `jevbench run --resume`; a partial
+grid would compare it on a different set of cells from everyone else.
 
 ## Read the health table first
 
