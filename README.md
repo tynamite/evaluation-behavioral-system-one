@@ -71,9 +71,16 @@ comparison-arm replies (0.19%) could not be resolved to an option, and every
 cell retained at least 5 of its 10 samples. Full tables in
 [docs/RESULTS.md](docs/RESULTS.md).
 
+The charts below put Jev next to three other System One models from the
+[model comparison](docs/MODELS.md) — GPT-6 Luna Decisions, Cloudflare's Clef
+and Liquid AI's d1 — so its results can be read against its peers'. The text is
+about Jev; each chart links a Jev-only version, and all twelve models are in
+docs/MODELS.md.
+
 ### Under neutral framing it does not look like human System 1
 
-![Jev against people on seven decision-making tests, with and without the typical-person instruction](results/figures/jev-decisions.png)
+![Four System One models against people on seven decision-making tests, with and without the typical-person instruction](results/figures/models-decisions.png)
+<sub>Jev only: [jev-decisions.png](results/figures/jev-decisions.png)</sub>
 
 On most classic biases it sits closer to the normative answer than the published
 human value. It answered the Cognitive Reflection Test at **0.99** probability
@@ -83,7 +90,8 @@ project in the sunk-cost item with probability **0.01** (human ≈ 0.85), got th
 base-rate item's correct band at **0.61** (human ≈ 0.15), and moved **1.4
 percentage points** between anchoring conditions where humans move about 20.
 
-![Jev against people in the economic games](results/figures/jev-games-neutral.png)
+![Four System One models against people in the economic games](results/figures/models-games.png)
+<sub>Jev only: [jev-games-neutral.png](results/figures/jev-games-neutral.png)</sub>
 
 The social preferences are the exception: it gave **0.14** of the pie as
 dictator, offered **0.42** in the ultimatum game (human ≈ 0.40) and rejected low
@@ -108,7 +116,8 @@ contest. Asked to adopt an antisocial persona, Dark Triad self-report rose from
 across every game — dictator 0.14 → 0.00, trust sent 0.37 → 0.08, public goods
 0.38 → 0.01.
 
-![The antisocial persona in the economic games](results/figures/persona-antisocial.png)
+![The antisocial persona in the economic games, four models](results/figures/models-antisocial.png)
+<sub>Jev only: [persona-antisocial.png](results/figures/persona-antisocial.png)</sub>
 
 That the persona reaches consequential allocations and not just self-description
 is the part I found most interesting, and it is measurable here only because the
@@ -181,8 +190,11 @@ explanations of their reasoning". The Score handling is also right — the score
 0-indexed and defined as each level multiplied by its probability and summed,
 which is what `expected_level` computes.
 
-![What a single call returns](results/figures/dictator-distribution.png)
-![Option-order sensitivity](results/figures/order-effects.png)
+![What a single call returns, four models](results/figures/models-dictator.png)
+<sub>Jev only: [dictator-distribution.png](results/figures/dictator-distribution.png)</sub>
+
+![Option-order sensitivity, four models](results/figures/models-order-effects.png)
+<sub>Jev only: [order-effects.png](results/figures/order-effects.png)</sub>
 
 
 ## Running it yourself
@@ -209,7 +221,7 @@ needs `uv pip install -e ".[diagrams]"` and a Chromium; point
 
 ### Adding more models
 
-Results for eight more System One models and Claude Haiku 5.5 are in
+Results for nine more System One models and Claude Haiku 5.5 are in
 [docs/MODELS.md](docs/MODELS.md).
 
 Every System One model on OpenRouter's decisions route shares Jev's
