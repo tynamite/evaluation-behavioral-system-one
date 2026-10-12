@@ -8,6 +8,7 @@ import re
 import sys
 import threading
 import time
+from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict, dataclass, field
 from datetime import UTC, datetime
@@ -19,6 +20,8 @@ from .config import RAW_DIR, Config
 from .instruments import PERSONAS, Probe, all_probes, apply_persona, permute_options
 from .schema import Choice, Score
 from .simulator import SimulatorClient
+
+JobKey = tuple[str, str, str, int]  # (arm, probe_id, persona, replicate)
 
 
 @dataclass(slots=True)
@@ -77,6 +80,8 @@ class BatteryRunner:
         seed: int = 20260918,
         workers: int = 8,
         randomise_options: bool = True,
+        sink: Callable[[Record], None] | None = None,
+        done: set[JobKey] | None = None,
     ) -> None:
         self.config = config
         self.personas = personas or list(PERSONAS)
@@ -87,6 +92,16 @@ class BatteryRunner:
         self._lock = threading.Lock()
         self._done = 0
         self._cost = 0.0
+        # Each record goes to `sink` the moment it completes, so a run that is
+        # killed part-way keeps everything it has paid for; `done` lists what a
+        # previous attempt already has, which `--resume` then skips.
+        self.sink = sink
+        self.done = done or set()
+
+    def _emit(self, rec: Record) -> None:
+        if self.sink is not None:
+            with self._lock:
+                self.sink(rec)
 
     def _client(self) -> Any:
         if self.config.backend == "simulator":
@@ -112,6 +127,7 @@ class BatteryRunner:
             for p in probes
             for persona in self.personas
             for rep in range(self.replicates)
+            if ("jev", p.probe_id, persona, rep) not in self.done
         ]
         total = len(jobs)
         print(
@@ -127,6 +143,7 @@ class BatteryRunner:
                 for fut in as_completed(futures):
                     rec = fut.result()
                     records.append(rec)
+                    self._emit(rec)
                     self._tick(total, float(rec.usage.get("cost") or 0.0))
         finally:
             client.close()
@@ -188,7 +205,11 @@ class BatteryRunner:
         if self.config.backend == "simulator":
             return []
         jobs = [
-            (p, persona, s) for p in probes for persona in self.personas for s in range(samples)
+            (p, persona, s)
+            for p in probes
+            for persona in self.personas
+            for s in range(samples)
+            if ("baseline", p.probe_id, persona, s) not in self.done
         ]
         total = len(jobs)
         print(
@@ -203,6 +224,7 @@ class BatteryRunner:
                 for fut in as_completed(futures):
                     rec = fut.result()
                     records.append(rec)
+                    self._emit(rec)
                     self._tick(total, float(rec.usage.get("cost") or 0.0))
         finally:
             client.close()
@@ -271,6 +293,16 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
         return [json.loads(line) for line in fh if line.strip()]
 
 
+def _done_keys(path: Path) -> tuple[list[dict[str, Any]], set[JobKey]]:
+    """The records in an interrupted run worth keeping, and their job keys.
+
+    Records that ended in an error are dropped so `--resume` retries them,
+    rather than leaving the failure and its retry side by side in one file.
+    """
+    kept = [r for r in read_jsonl(path) if not r.get("error")]
+    return kept, {(r["arm"], r["probe_id"], r["persona"], int(r["replicate"])) for r in kept}
+
+
 def run_battery(
     config: Config,
     *,
@@ -280,34 +312,60 @@ def run_battery(
     baseline_samples: int = 0,
     workers: int = 8,
     out_dir: Path | None = None,
+    resume: Path | None = None,
 ) -> Path:
-    probes = all_probes(modules)
-    runner = BatteryRunner(config, personas=personas, replicates=replicates, workers=workers)
-    started = time.time()
-    # replicates=0 skips the System One arm, so a new chat model can be added
-    # as a baseline-only run without paying for the typed arm again.
-    records = runner.run_jev(probes) if replicates > 0 else []
-    if baseline_samples > 0:
-        records.extend(runner.run_baseline(probes, samples=baseline_samples))
-    if not records:
+    if replicates <= 0 and baseline_samples <= 0:
         raise RuntimeError("nothing to run: set --replicates or --baseline-samples above 0")
 
-    out_dir = out_dir or RAW_DIR
-    stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
-    tag = "simulated" if config.backend == "simulator" else "live"
-    # The timestamp still leads, so `latest_run` keeps sorting chronologically;
-    # the suffix names which models are in the file, so runs of several models
-    # can sit side by side in data/raw/.
-    arms = [config.model] if replicates > 0 else []
-    if baseline_samples > 0 and config.backend != "simulator":
-        arms.append(config.baseline_model)
-    path = out_dir / f"run_{tag}_{stamp}_{'+'.join(model_slug(m) for m in arms)}.jsonl"
-    write_jsonl(records, path)
+    if resume is not None:
+        path = resume
+        kept, done = _done_keys(path)
+        print(f"resuming {path.name}: keeping {len(kept)} completed records", file=sys.stderr)
+    else:
+        out_dir = out_dir or RAW_DIR
+        stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
+        tag = "simulated" if config.backend == "simulator" else "live"
+        # The timestamp still leads, so `latest_run` keeps sorting chronologically;
+        # the suffix names which models are in the file, so runs of several models
+        # can sit side by side in data/raw/.
+        arms = [config.model] if replicates > 0 else []
+        if baseline_samples > 0 and config.backend != "simulator":
+            arms.append(config.baseline_model)
+        path = out_dir / f"run_{tag}_{stamp}_{'+'.join(model_slug(m) for m in arms)}.jsonl"
+        kept, done = [], set()
 
-    total_cost = sum(float(r.usage.get("cost") or 0.0) for r in records)
-    errors = sum(1 for r in records if r.error)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8") as fh:
+        for row in kept:
+            fh.write(json.dumps(row, default=str) + "\n")
+        fh.flush()
+
+        def sink(rec: Record) -> None:
+            fh.write(json.dumps(asdict(rec), default=str) + "\n")
+            fh.flush()
+
+        probes = all_probes(modules)
+        runner = BatteryRunner(
+            config,
+            personas=personas,
+            replicates=replicates,
+            workers=workers,
+            sink=sink,
+            done=done,
+        )
+        started = time.time()
+        # replicates=0 skips the System One arm, so a new chat model can be added
+        # as a baseline-only run without paying for the typed arm again.
+        if replicates > 0:
+            runner.run_jev(probes)
+        if baseline_samples > 0:
+            runner.run_baseline(probes, samples=baseline_samples)
+
+    rows = read_jsonl(path)
+    total_cost = sum(float((r.get("usage") or {}).get("cost") or 0.0) for r in rows)
+    errors = sum(1 for r in rows if r.get("error"))
     print(
-        f"\nwrote {len(records)} records to {path.relative_to(path.parents[2])}\n"
+        f"\nwrote {len(rows)} records to {path.name}\n"
         f"elapsed {time.time() - started:.1f}s  total cost ${total_cost:.4f}  errors {errors}",
         file=sys.stderr,
     )

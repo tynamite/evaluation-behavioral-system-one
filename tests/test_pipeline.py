@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from dataclasses import replace
 from pathlib import Path
 
@@ -126,3 +127,23 @@ def test_compare_refuses_the_same_model_twice(tmp_path: Path) -> None:
     path = _two_simulated_runs(tmp_path)[0]
     with pytest.raises(ValueError, match="appears in both"):
         compare_runs([path, path], tmp_path / "cmp")
+
+
+def test_resume_finishes_an_interrupted_run_without_duplicates(tmp_path: Path) -> None:
+    cfg = Config.from_env(backend="simulator")
+    kwargs = {"modules": ["crt"], "replicates": 2, "personas": ["neutral"], "out_dir": tmp_path}
+    path = run_battery(cfg, **kwargs)  # type: ignore[arg-type]
+    full = path.read_text().splitlines()
+
+    # Keep the first half, as if the process had been killed, and turn one of
+    # the kept records into a failure that resuming should retry.
+    half = full[: len(full) // 2]
+    failed = json.loads(half[0])
+    failed["error"] = "retryable status 502"
+    path.write_text("\n".join([json.dumps(failed), *half[1:]]) + "\n")
+
+    run_battery(cfg, resume=path, **kwargs)  # type: ignore[arg-type]
+    df = load_records(path)
+    assert len(df) == len(full)
+    assert df["error"].isna().all()
+    assert not df.duplicated(["arm", "probe_id", "persona", "replicate"]).any()

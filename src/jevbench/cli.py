@@ -106,6 +106,7 @@ def _cmd_run(args: argparse.Namespace) -> int:
         replicates=args.replicates,
         baseline_samples=args.baseline_samples,
         workers=args.workers,
+        resume=Path(args.resume) if args.resume else None,
     )
     return 0
 
@@ -185,6 +186,11 @@ def main(argv: list[str] | None = None) -> int:
         help="resamples per probe for the autoregressive baseline arm (0 = skip)",
     )
     r.add_argument("--workers", type=int, default=8)
+    r.add_argument(
+        "--resume",
+        default=None,
+        help="continue an interrupted run file: keep its completed records, run the rest",
+    )
     r.add_argument("--model", default=None, help="System One model (default: JEVBENCH_MODEL)")
     r.add_argument(
         "--baseline-model",
