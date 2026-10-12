@@ -67,7 +67,7 @@ def muted(a: float) -> str:
 
 
 # The small credit in each figure's bottom-right corner, inside the PNG export.
-WATERMARK = "tynamite"
+WATERMARK = "GitHub/tynamite"
 
 SANS = "'Geist', system-ui, sans-serif"
 MONO = "'Geist Mono', ui-monospace, monospace"
