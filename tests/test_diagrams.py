@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 from jevbench.config import RAW_DIR, REPO_ROOT, TABLES_DIR
-from jevbench.diagrams import _domain, build_diagrams, dumbbell
+from jevbench.diagrams import ACCENT, _domain, build_diagrams, dumbbell
 
 COMMITTED_RUN = RAW_DIR / "run_live_20260918T230710Z.jsonl"
 
@@ -38,7 +38,7 @@ def test_at_most_two_focal_nodes_or_bars(built: list[Path]) -> None:
         if path.stem.startswith(("jev-", "persona-", "framing-")):
             continue
         boxes = re.findall(
-            r'<rect[^>]*width="(\d+(?:\.\d+)?)"[^>]*stroke="#bf4520"', path.read_text()
+            r'<rect[^>]*width="(\d+(?:\.\d+)?)"[^>]*stroke="' + ACCENT + '"', path.read_text()
         )
         focal = [w for w in boxes if float(w) >= 60]
         assert len(focal) <= 2, f"{path.name}: {len(focal)} accented nodes or bars"
