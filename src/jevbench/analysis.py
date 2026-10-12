@@ -44,6 +44,43 @@ def load_records(path: Path) -> pd.DataFrame:
             "Simulated output is structurally valid nonsense and must never be "
             "pooled with live data."
         )
+    return _reread_chat_replies(df)
+
+
+def _reread_chat_replies(df: pd.DataFrame) -> pd.DataFrame:
+    """Re-derive each chat reply's answer from its raw text with the current parser.
+
+    The run file keeps the raw reply, so a parser fix reaches committed runs
+    without editing them. Chat records for items that ask for a proportion
+    get no answer and are flagged `not_measurable` (see `noul_probe`), so
+    health.csv can count them apart from replies that failed to parse.
+    """
+    from .client import parse_option
+    from .instruments import PERSONAS, all_probes, apply_persona
+    from .runner import render_prompt
+
+    df["not_measurable"] = False
+    if "arm" not in df.columns or not (df["arm"] == "baseline").any():
+        return df
+    probes = {p.probe_id: p for p in all_probes(None)}
+    proportion = {pid for pid, p in probes.items() if p.meta.get("asks_for") == "proportion"}
+    flagged = (df["arm"] == "baseline") & df["probe_id"].isin(proportion)
+    df["not_measurable"] = flagged
+    df.loc[flagged, "value"] = None
+
+    options: dict[str, list[str]] = {}
+    for idx in df.index[(df["arm"] == "baseline") & ~flagged]:
+        row = df.loc[idx]
+        if isinstance(row.get("error"), str) or row["probe_id"] not in probes:
+            continue
+        meta = row["meta"] if isinstance(row["meta"], dict) else {}
+        if "raw_text" not in meta:
+            continue
+        pid = str(row["probe_id"])
+        if pid not in options:
+            prepared = apply_persona(probes[pid], PERSONAS[str(row["persona"])])
+            options[pid] = render_prompt(prepared)[1]
+        df.at[idx, "value"] = parse_option(meta["raw_text"], options[pid])
     return df
 
 

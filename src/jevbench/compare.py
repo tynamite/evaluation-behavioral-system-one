@@ -49,7 +49,12 @@ def _health(df: pd.DataFrame, arm: str, label: str, run_file: str) -> dict[str, 
     sel = df[df["arm"] == arm]
     err = sel["error"].notna() if "error" in sel.columns else pd.Series(False, index=sel.index)
     good = sel[~err & sel["value"].notna()]
-    cells = sel.groupby(["probe_id", "persona"]).size()
+    unmeasured = (
+        sel["not_measurable"].astype(bool)
+        if "not_measurable" in sel.columns
+        else pd.Series(False, index=sel.index)
+    )
+    cells = sel[~unmeasured].groupby(["probe_id", "persona"]).size()
     good_cells = good.groupby(["probe_id", "persona"]).size().reindex(cells.index, fill_value=0)
     # Errors by primitive: a model that does not implement one of Choice, Score
     # or Noul fails on every item of that kind, which shows up here as a kind
@@ -68,7 +73,10 @@ def _health(df: pd.DataFrame, arm: str, label: str, run_file: str) -> dict[str, 
         "n_refused": int(sel["error"].fillna("").str.startswith("refused").sum())
         if "error" in sel.columns
         else 0,
-        "n_unresolved": int((~err & sel["value"].isna()).sum()),
+        "n_unresolved": int((~err & ~unmeasured & sel["value"].isna()).sum()),
+        # Proportion items asked of a chat model as true/false have no answer
+        # to score (see `_reread_chat_replies`), which is not a parse failure.
+        "n_not_measurable": int(unmeasured.sum()),
         "cells": len(cells),
         "cells_with_no_usable_answer": int((good_cells == 0).sum()),
         "error_rate_by_kind": json.dumps(by_kind, sort_keys=True),

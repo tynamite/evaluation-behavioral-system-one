@@ -100,3 +100,30 @@ def test_an_option_at_the_end_of_a_sentence_still_matches() -> None:
 
 def test_a_decimal_does_not_match_its_integer_prefix() -> None:
     assert parse_option("33.5", NUMBERS) is None
+
+
+# Replies seen in the committed chat runs that an earlier parser misread.
+
+
+def test_echoed_option_line_takes_the_leading_key() -> None:
+    dollars = [f"${i}" for i in range(11)]
+    # The label after the colon names other amounts; the key before it is the answer.
+    assert parse_option("$1: Offer $1, keep $9", dollars) == "$1"
+    assert parse_option("$0: Contribute $0, keep $10", dollars) == "$0"
+    assert parse_option("pressure: pressure", ["pressure", "volume"]) == "pressure"
+
+
+def test_true_false_needs_a_bare_answer() -> None:
+    tf = ["true", "false"]
+    assert parse_option("**True**", tf) == "true"
+    assert parse_option("false.", tf) == "false"
+    # Declining the format is not an answer of "false".
+    assert parse_option("I can't answer that with true or false. Roughly 85%.", tf) is None
+    assert parse_option('I can\'t answer with only "true" or "false".', tf) is None
+
+
+def test_percentage_band_matches_without_its_percent_sign() -> None:
+    bands = ["0-35%", "35-45%", "45-55%", "55-65%"]
+    assert parse_option("45-55", bands) == "45-55%"
+    assert parse_option("35-45%", bands) == "35-45%"
+    assert parse_option("B", bands) is None

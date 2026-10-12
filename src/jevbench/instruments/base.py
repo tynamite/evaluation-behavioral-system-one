@@ -188,6 +188,11 @@ def binary_choice(
 def noul_probe(
     probe_id: str, instrument: str, instructions: str, *, state: Any = None, **meta: Any
 ) -> Probe:
+    # A System One model's P(true) can stand for "what proportion of people
+    # said yes?", but a chat model asked that and told to reply true or false
+    # has no way to give a number; analysis leaves those items out of the chat
+    # arm rather than read a majority vote as an estimate.
+    meta.setdefault("asks_for", "proportion" if "proportion" in instructions.lower() else "truth")
     return Probe(
         probe_id=probe_id,
         instrument=instrument,
