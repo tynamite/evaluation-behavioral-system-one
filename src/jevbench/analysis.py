@@ -66,7 +66,7 @@ def distributions(df: pd.DataFrame) -> dict[Key, Dist]:
         # Options absent from a given replicate contribute zero to the mean.
         dist = {k: float(np.sum(v)) / n for k, v in acc.items()}
         total = sum(dist.values()) or 1.0
-        out[(pid, persona, "jev")] = {k: v / total for k, v in dist.items()}
+        out[(str(pid), str(persona), "jev")] = {k: v / total for k, v in dist.items()}
 
     base = ok[ok["arm"] == "baseline"]
     for (pid, persona), grp in base.groupby(["probe_id", "persona"]):
@@ -77,7 +77,7 @@ def distributions(df: pd.DataFrame) -> dict[Key, Dist]:
         for v in vals:
             counts[str(v)] += 1.0
         n = float(len(vals))
-        out[(pid, persona, "baseline")] = {k: c / n for k, c in counts.items()}
+        out[(str(pid), str(persona), "baseline")] = {k: c / n for k, c in counts.items()}
     return out
 
 
