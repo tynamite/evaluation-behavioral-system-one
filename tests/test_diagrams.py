@@ -108,3 +108,16 @@ def test_decision_chart_shows_all_three_series_on_every_row(built: list[Path]) -
         assert len(re.findall(rf'data-series="{series}"', page)) == 7
     # Pinned: the cognitive reflection row is 0.41 people, 0.99 and 0.55 for Jev.
     assert 'data-series="neutral" data-value="0.9892"' in page
+
+
+def test_dictator_chart_uses_the_full_human_distribution(built: list[Path]) -> None:
+    from jevbench.benchmarks import DICTATOR_HUMAN_DISTRIBUTION
+
+    # Engel (2011) Figure 2: the labels sum to one, and the three the text states.
+    assert abs(sum(DICTATOR_HUMAN_DISTRIBUTION.values()) - 1) < 0.001
+    assert DICTATOR_HUMAN_DISTRIBUTION["$0"] == 0.3611
+    assert DICTATOR_HUMAN_DISTRIBUTION["$5"] == 0.1674
+    assert DICTATOR_HUMAN_DISTRIBUTION["$10"] == 0.0544
+    page = next(p for p in built if p.stem == "dictator-distribution").read_text()
+    assert len(re.findall(r'data-series="people"', page)) == 11
+    assert len(re.findall(r'data-series="jev"', page)) == 11

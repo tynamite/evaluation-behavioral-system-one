@@ -707,109 +707,146 @@ def fig_antisocial(sdf: pd.DataFrame) -> Figure:
 
 
 def fig_dictator(df: pd.DataFrame) -> Figure:
+    """People's full distribution of giving next to Jev's, one pair of bars per dollar.
+
+    Eleven categories breaks the bar type's eight-bar cap on purpose: pooling
+    $6 to $10, as an earlier version did, hid the 5% of people who give
+    everything, which is part of why the human distribution has three modes.
+    """
     from .analysis import distributions
+    from .benchmarks import DICTATOR_HUMAN_DISTRIBUTION, DICTATOR_HUMAN_SOURCE
 
     d = distributions(df).get(("dictator_allocation", "neutral", "jev"), {})
-    cats = [
-        ("$0", ["$0"]),
-        ("$1", ["$1"]),
-        ("$2", ["$2"]),
-        ("$3", ["$3"]),
-        ("$4", ["$4"]),
-        ("$5", ["$5"]),
-        ("$6–10", [f"${v}" for v in range(6, 11)]),
-    ]
-    vals = [(name, sum(d.get(k, 0.0) for k in keys)) for name, keys in cats]
-    focal_i = max(range(len(vals)), key=lambda i: vals[i][1])
-    floor, ceil = 0.0, 0.8
+    amounts = [f"${v}" for v in range(11)]
+    jev = [d.get(a, 0.0) for a in amounts]
+    people = [DICTATOR_HUMAN_DISTRIBUTION[a] for a in amounts]
+    ceil = 0.7
 
     def y(v: float) -> float:
-        return 420 - (v - floor) / (ceil - floor) * 380
+        return 420 - v / ceil * 380
 
-    pitch, bar = 120, 72
-    x0 = 80 + (880 - pitch * len(vals)) / 2
+    left, right = 80, 960
+    pitch = (right - left) / len(amounts)
+    bar, gap = 30, 2
     out: list[str] = []
-    for t in [0.0, 0.2, 0.4, 0.6, 0.8]:
-        if t > 0:
+    for i in range(8):
+        t = i * 0.1
+        if i:
             out.append(
-                f'<line x1="80" y1="{y(t):g}" x2="960" y2="{y(t):g}" stroke="{ink(0.08)}" stroke-width="0.8"/>'
+                f'<line x1="{left}" y1="{y(t):g}" x2="{right}" y2="{y(t):g}" stroke="{ink(0.08)}" stroke-width="0.8"/>'
             )
         out.append(
-            _t(72, y(t) + 3, f"{t:.1f}", anchor="end", extra=f' data-tick="y" data-value="{t:g}"')
+            _t(
+                left - 8,
+                y(t) + 3,
+                f"{t:.0%}",
+                anchor="end",
+                extra=f' data-tick="y" data-value="{t:g}"',
+            )
         )
-    out.append(f'<line x1="80" y1="420" x2="960" y2="420" stroke="{ink(0.25)}" stroke-width="1"/>')
-    out.append(f'<line x1="80" y1="40" x2="80" y2="420" stroke="{ink(0.25)}" stroke-width="1"/>')
-    for i, (name, v) in enumerate(vals):
-        cx = x0 + i * pitch + pitch / 2
-        bx, by, bh = cx - bar / 2, y(v), 420 - y(v)
-        focal = i == focal_i
-        out.append(
-            f'<rect x="{bx:g}" y="{by:.1f}" width="{bar}" height="{bh:.1f}" fill="{PAPER}"/>'
-        )
-        out.append(
-            f'<rect data-value="{v:.4f}" x="{bx:g}" y="{by:.1f}" width="{bar}" height="{bh:.1f}" '
-            f'fill="{JEV_PINK}" fill-opacity="{0.75 if focal else 0.4}" stroke="{JEV_PINK_EDGE}" stroke-width="1"/>'
-        )
-        out.append(
-            _t(cx, by - 8, f"{v:.2f}", anchor="middle", fill=JEV_PINK_EDGE if focal else INK)
-        )
-        out.append(_t(cx, 440, name, size=11, family=SANS, fill=INK, anchor="middle", weight=600))
+    out.append(
+        f'<line x1="{left}" y1="420" x2="{right}" y2="420" stroke="{ink(0.25)}" stroke-width="1"/>'
+    )
+    out.append(
+        f'<line x1="{left}" y1="40" x2="{left}" y2="420" stroke="{ink(0.25)}" stroke-width="1"/>'
+    )
+    for i, a in enumerate(amounts):
+        cx = left + pitch * (i + 0.5)
+        for series, v, bx, style in (
+            ("people", people[i], cx - bar - gap / 2, f'fill="{muted(0.18)}" stroke="{MUTED}"'),
+            (
+                "jev",
+                jev[i],
+                cx + gap / 2,
+                f'fill="{JEV_PINK}" fill-opacity="0.75" stroke="{JEV_PINK_EDGE}"',
+            ),
+        ):
+            by = y(v)
+            out.append(
+                f'<rect x="{bx:.1f}" y="{by:.1f}" width="{bar}" height="{420 - by:.1f}" fill="{PAPER}"/>'
+            )
+            out.append(
+                f'<rect data-series="{series}" data-value="{v:.4f}" x="{bx:.1f}" y="{by:.1f}" width="{bar}" '
+                f'height="{420 - by:.1f}" {style} stroke-width="1"/>'
+            )
+            out.append(
+                _t(
+                    bx + bar / 2,
+                    by - 5,
+                    f"{v * 100:.0f}",
+                    size=7.5,
+                    anchor="middle",
+                    fill=INK,
+                    halo=True,
+                )
+            )
+        out.append(_t(cx, 440, a, size=11, family=SANS, fill=INK, anchor="middle", weight=600))
     out.append(
         _t(
             24,
             230,
-            "PROBABILITY",
+            "SHARE OF DICTATORS / OF JEV'S PROBABILITY",
             size=7,
             spacing="0.14em",
             anchor="middle",
             extra=' transform="rotate(-90 24 230)"',
         )
     )
-    out.append(_t(520, 458, "AMOUNT GIVEN OUT OF $10", size=7, spacing="0.14em", anchor="middle"))
-    # Two editorial callouts carry the human comparison.
-    h0 = BENCHMARKS["dictator_share_zero"].value
-    h5 = BENCHMARKS["dictator_share_half"].value
-    c0 = x0 + pitch / 2
-    c5 = x0 + 5 * pitch + pitch / 2
     out.append(
         _t(
-            c0 + 52,
-            y(0.62) + 24,
-            f"people: {h0:.0%} give nothing",
-            size=15,
-            family=SERIF,
-            fill=INK,
-            extra=' font-style="italic"',
-        )
-    )
-    out.append(
-        _t(
-            c5,
-            y(vals[5][1]) - 30,
-            f"people: {h5:.0%} split evenly",
-            size=15,
-            family=SERIF,
-            fill=INK,
+            (left + right) / 2,
+            458,
+            "AMOUNT GIVEN TO THE STRANGER, OUT OF $10",
+            size=7,
+            spacing="0.14em",
             anchor="middle",
-            extra=' font-style="italic"',
         )
     )
+    out.append(_legend(1000, 470, []))
+    out.append(
+        f'<rect x="104" y="496" width="16" height="10" rx="2" fill="{muted(0.18)}" stroke="{MUTED}" stroke-width="1"/>'
+    )
+    out.append(
+        _t(
+            128,
+            505,
+            "People: share of 20,813 dictators in 328 treatments",
+            size=9,
+            family=SANS,
+            fill=INK,
+        )
+    )
+    kx = int(128 + text_width("People: share of 20,813 dictators in 328 treatments", 9) + 40)
+    out.append(
+        f'<rect x="{kx}" y="496" width="16" height="10" rx="2" fill="{JEV_PINK}" fill-opacity="0.75" stroke="{JEV_PINK_EDGE}" stroke-width="1"/>'
+    )
+    out.append(
+        _t(
+            kx + 24,
+            505,
+            "Jev 1.13, no instruction: probability it returns",
+            size=9,
+            family=SANS,
+            fill=INK,
+        )
+    )
+    out.append(_t(970, 524, "NUMBERS ABOVE BARS ARE PERCENT", anchor="end"))
     return Figure(
         slug="dictator-distribution",
         eyebrow="Dictator game · no instruction",
-        title="Jev 1.13's answer distribution in the dictator game",
+        title="How much people and Jev 1.13 give away in the dictator game",
         subtitle=(
             "The game: you are given $10 and decide how much to give an anonymous stranger, who cannot respond. "
-            "Each call to Jev returns a probability for every amount from $0 to $10; the bars average 10 calls. "
-            "A chat model gives one amount per call, so it would have to be asked many times and its answers "
-            "counted to estimate the same shape."
+            "People mostly give nothing (36%) or half (17%), and 5% give it all. Jev returns a probability for "
+            "every amount in a single call: it puts 62% on nothing and 18% on half, and almost none on giving "
+            "everything. A chat model would have to be asked many times to estimate a shape like this."
         ),
-        desc="Bar chart of Jev's returned probability of giving each amount out of ten dollars in the dictator game; most mass on giving nothing, a second peak at an even split.",
+        desc="Grouped bar chart comparing the distribution of amounts people give in the dictator game with the probabilities Jev 1.13 returns for each amount from zero to ten dollars.",
         width=1000,
-        height=480,
+        height=540,
         body="\n".join(out),
-        source="Mean of 10 returned distributions, run of 18 Sep 2026. $6 to $10 are pooled into one bar. "
-        "Human shares: Engel (2011) meta-analysis of dictator-game experiments.",
+        source=f"People: {DICTATOR_HUMAN_SOURCE}, bars read from the figure's labels. Jev: mean of 10 returned "
+        "distributions, no instruction, run of 18 Sep 2026.",
     )
 
 
