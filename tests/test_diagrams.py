@@ -192,3 +192,10 @@ def test_multi_model_runs_do_not_follow_the_focal_run(tmp_path: Path) -> None:
         moved, TABLES_DIR, REPO_ROOT / "results" / "comparison", tmp_path / "out"
     )
     assert any(p.stem == "models-dictator" for p in paths)
+
+
+def test_every_figure_carries_the_watermark(built: list[Path]) -> None:
+    from jevbench.diagrams import WATERMARK
+
+    for path in built:
+        assert f'<p class="mark" aria-hidden="true">{WATERMARK}</p>' in path.read_text(), path.stem

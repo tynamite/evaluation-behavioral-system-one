@@ -16,7 +16,10 @@
       min-height: 100vh; display: flex; align-items: center; justify-content: center;
       padding: 3rem 2rem;
     }
-    .frame { max-width: 1080px; width: 100%; padding: 32px 40px; background: var(--color-paper); }
+    .frame { max-width: 1080px; width: 100%; padding: 32px 40px; background: var(--color-paper);
+      position: relative; }
+    .mark { position: absolute; right: 40px; bottom: 12px; font-family: var(--font-mono); font-size: 0.6rem;
+      letter-spacing: 0.14em; color: var(--color-muted); opacity: 0.55; }
     .diagram-container { width: 100%; overflow-x: auto; }
     .eyebrow {
       font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500;
@@ -229,6 +232,7 @@
       </svg>
     </div>
     <p class="source">Mean of returned distributions over 10 repeats; Jev run 18 Sep 2026, the others 12 Oct 2026. The tick is people with no persona, for scale. A persona is a prompt: it shows what a model can be made to output, not a trait it has.</p>
+    <p class="mark" aria-hidden="true">tynamite</p>
   </div>
 </body>
 </html>

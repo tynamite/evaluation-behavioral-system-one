@@ -16,7 +16,10 @@
       min-height: 100vh; display: flex; align-items: center; justify-content: center;
       padding: 3rem 2rem;
     }
-    .frame { max-width: 1080px; width: 100%; padding: 32px 40px; background: var(--color-paper); }
+    .frame { max-width: 1080px; width: 100%; padding: 32px 40px; background: var(--color-paper);
+      position: relative; }
+    .mark { position: absolute; right: 40px; bottom: 12px; font-family: var(--font-mono); font-size: 0.6rem;
+      letter-spacing: 0.14em; color: var(--color-muted); opacity: 0.55; }
     .diagram-container { width: 100%; overflow-x: auto; }
     .eyebrow {
       font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500;
@@ -118,6 +121,7 @@
       </svg>
     </div>
     <p class="source">Mean distance over all pairs of the 10 repeats, per item and prompt; run of 18 Sep 2026. Bands are unequal: finer near zero, where most cells sit.</p>
+    <p class="mark" aria-hidden="true">tynamite</p>
   </div>
 </body>
 </html>
