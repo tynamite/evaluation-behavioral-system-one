@@ -1019,7 +1019,15 @@ def compute_stats(df: pd.DataFrame) -> list[Stat]:
 
 
 def order_effects(df: pd.DataFrame) -> pd.DataFrame:
-    """H6: how much does permuting option order move the distribution?"""
+    """H6: how much does permuting option order move the distribution?
+
+    Only Choice items have their options shuffled (`permute_options` leaves
+    Score and Noul items alone), so only those cells measure an order effect;
+    `shuffled` marks them. The unshuffled cells are kept because they measure
+    something else worth having: how much the distribution moves between
+    replicates when nothing changes at all, the floor any order effect sits on.
+    An earlier version averaged both together, which understated H6.
+    """
     rows = []
     jev = df[(df["arm"] == "jev") & (df["error"].isna())] if "error" in df.columns else df
     for (pid, persona), grp in jev.groupby(["probe_id", "persona"]):
@@ -1027,10 +1035,13 @@ def order_effects(df: pd.DataFrame) -> pd.DataFrame:
         if len(ds) < 2:
             continue
         pair_tv = [tv_distance(ds[i], ds[j]) for i in range(len(ds)) for j in range(i + 1, len(ds))]
+        orders = grp["option_order"] if "option_order" in grp.columns else pd.Series(dtype=object)
+        shuffled = bool(orders.notna().any() and any(o for o in orders if isinstance(o, list)))
         rows.append(
             {
                 "probe_id": pid,
                 "persona": persona,
+                "shuffled": shuffled,
                 "n_replicates": len(ds),
                 "mean_tv_distance": float(np.mean(pair_tv)),
                 "max_tv_distance": float(np.max(pair_tv)),
@@ -1084,7 +1095,10 @@ def analyse_run(path: Path, out_dir: Path) -> dict[str, Any]:
         "personas": sorted(df["persona"].unique()),
         "arms": sorted(df["arm"].unique()),
         "n_statistics": len(sdf),
-        "mean_order_tv": float(odf["mean_tv_distance"].mean()) if len(odf) else None,
+        "mean_order_tv": float(odf[odf["shuffled"]]["mean_tv_distance"].mean()) if len(odf) else None,
+        "mean_unshuffled_tv": float(odf[~odf["shuffled"]]["mean_tv_distance"].mean())
+        if len(odf) and (~odf["shuffled"]).any()
+        else None,
     }
     (out_dir / "summary.json").write_text(json.dumps(summary, indent=2))
 

@@ -27,5 +27,6 @@
     "jev"
   ],
   "n_statistics": 608,
-  "mean_order_tv": 0.05153822412155746
+  "mean_order_tv": 0.061546184738955824,
+  "mean_unshuffled_tv": 0.027107026143790857
 }

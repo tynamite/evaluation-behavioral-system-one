@@ -86,9 +86,12 @@ The Dark Triad scale is a **manipulation check**, not a diagnostic claim.
 
 ## Option-order sensitivity
 
-- Mean total-variation distance across reorderings: **0.0515**
-- Median: 0.0287
-- 95th percentile: 0.1878
+Multiple-choice items only (332 probe × persona cells): their options are shuffled per replicate. Likert and yes/no items are not shuffled, so they measure replicate-to-replicate variation with nothing changed instead.
+
+- Mean total-variation distance across reorderings: **0.0615**
+- Median: 0.0351
+- 95th percentile: 0.2010
+- Same measure on the 136 unshuffled cells (the noise floor): 0.0271
 - Largest single probe: 0.3053 (`discount_30d_100`)
 
 Most order-sensitive probes:

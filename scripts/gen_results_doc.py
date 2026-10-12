@@ -148,9 +148,17 @@ def main(argv: list[str]) -> int:
 
     L.append("## Option-order sensitivity\n")
     if len(odf):
+        floor = odf[~odf.shuffled]
+        odf = odf[odf.shuffled]
+        L.append(f"Multiple-choice items only ({len(odf)} probe × persona cells): their options are "
+                 "shuffled per replicate. Likert and yes/no items are not shuffled, so they measure "
+                 "replicate-to-replicate variation with nothing changed instead.\n")
         L.append(f"- Mean total-variation distance across reorderings: **{odf.mean_tv_distance.mean():.4f}**")
         L.append(f"- Median: {odf.mean_tv_distance.median():.4f}")
         L.append(f"- 95th percentile: {odf.mean_tv_distance.quantile(0.95):.4f}")
+        if len(floor):
+            L.append(f"- Same measure on the {len(floor)} unshuffled cells (the noise floor): "
+                     f"{floor.mean_tv_distance.mean():.4f}")
         L.append(f"- Largest single probe: {odf.mean_tv_distance.max():.4f} "
                  f"(`{odf.loc[odf.mean_tv_distance.idxmax(), 'probe_id']}`)")
         worst = odf.nlargest(5, "mean_tv_distance")[["probe_id", "persona", "mean_tv_distance"]]

@@ -124,7 +124,7 @@ the point of writing them down first was to be held to them.
 | Framing reversal much weaker than humans (< 25 points) | **29 points** — weaker than the human ~50, but larger than I predicted |
 | Independently elicited probabilities obey P(A∧B) ≤ P(A) | **Violated**, margin **−0.09** under neutral framing and **−0.39** when asked to answer like a person |
 | Accuracy falls as reasoning depth grows (> 15 points) | **10 points** from 1-step to 3+-step items under neutral framing |
-| Option order barely matters (mean TV < 0.05) | **0.051** mean, median 0.028 — small, but above the line I drew |
+| Option order barely matters (mean TV < 0.05) | **0.062** mean, median 0.035, on the multiple-choice items whose options were shuffled. Answers move 0.027 between replicates even with nothing changed, so roughly half of that is noise. An earlier version of this table reported 0.051 by mistakenly averaging in Likert and yes/no items, which are never shuffled |
 
 The conjunction result looked like the most interesting thing here until I read
 the documentation properly. Asked side by side, the model picked the single
