@@ -8,6 +8,9 @@ on:
 
 permissions:
   contents: read
+  # gitleaks-action lists a pull request's commits to scan them, which needs
+  # this; without it every pull_request run of the secrets job fails with a 403.
+  pull-requests: read
 
 jobs:
   quality:
