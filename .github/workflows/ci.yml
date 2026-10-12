@@ -15,12 +15,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
       - uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
+          cache-dependency-glob: pyproject.toml
 
+      # The runner's system Python is externally managed (PEP 668), so install
+      # into a venv and put it on PATH for the steps that follow.
       - name: Install
-        run: uv pip install --system -e ".[dev]"
+        run: |
+          uv venv .venv
+          echo "$PWD/.venv/bin" >> "$GITHUB_PATH"
+          uv pip install --python .venv -e ".[dev]"
 
       - name: Lint
         run: |
