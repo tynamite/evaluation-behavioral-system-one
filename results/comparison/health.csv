@@ -10,3 +10,4 @@ openai/gpt-6-luna-decisions-20261006,System One,run_live_20261012T090247Z_openai
 anthropic/claude-haiku-5.5,"chat, resampled",run_live_20261012T091817Z_anthropic--claude-haiku-5.5.jsonl,5880,0,0,3,440,544,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.6796
 upstage/solar-decide-20260928,System One,run_live_20261012T102816Z_upstage--solar-decide.jsonl,5880,40,0,0,0,588,4,"{""choice"": 0.0106, ""noul"": 0.0, ""score"": 0.0}",0.1367
 cloudflare/clef-flash,System One,run_live_20261012T172939Z_cloudflare--clef-flash.jsonl,5880,0,0,0,0,588,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.0659
+cloudflare/clef,System One,run_live_20261012T175656Z_cloudflare--clef.jsonl,5880,0,0,0,0,588,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.4159

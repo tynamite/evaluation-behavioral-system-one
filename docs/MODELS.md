@@ -1,7 +1,7 @@
 # More models through the same battery
 
 The [main write-up](../README.md) is about one System One model, TypeSafe's
-Jev. Since then, eight more models have appeared on OpenRouter's decisions
+Jev. Since then, nine more models have appeared on OpenRouter's decisions
 route, all on the same `/v1/systemone` contract, so the battery runs on them
 unchanged. This page puts them side by side with Jev, the original chat
 baseline (Claude Sonnet 5), and a second chat baseline (Claude Haiku 5.5).
@@ -24,8 +24,12 @@ one day, and how they were produced.
 | `liquid/d1-20260930` | System One | Oct 12 | 5,880 | $0.04 |
 | `upstage/solar-decide-flash-20261008` | System One | Oct 12 | 5,880 | $0.14 |
 | `cloudflare/clef-flash` | System One | Oct 12 | 5,880 | $0.07 |
+| `cloudflare/clef` | System One | Oct 12 | 5,880 | $0.42 |
 | `upstage/solar-decide-20260928` | System One | Oct 12 (resumed after an interruption) | 5,880 | $0.14 |
 | `anthropic/claude-haiku-5.5` | chat, resampled | Oct 12 | 5,880 | $0.68 |
+
+The README's main charts carry four of these models — Jev, GPT-6 Luna
+Decisions, Clef and d1 — and this page has all of them.
 
 Drex 1.5 (`nace-ai/drex-v1.5-20261009`) was run on Oct 12 too and has since
 been replaced in the comparison by Cloudflare's Clef Flash; its run file stays
@@ -80,16 +84,17 @@ first Sonnet runs. The cap is now configurable and recorded per record; the
 committed Haiku run used 4,096 and has 3 unresolved replies (0.06%), against
 Sonnet's 9 at 512. The truncated run was discarded, not mixed in.
 
-**Not in the table: Clef Flash's endpoint intermittently rejects one item.**
+**Not in the table: both Clef endpoints intermittently reject one item.**
 The runner logged this one as errors, and they were cleared before the run
-was committed, so `health.csv` shows Clef Flash with none. On the
+was committed, so `health.csv` shows neither with any. On the
 average-speed reasoning item, half of the first 40 calls came back HTTP 400
 with Cloudflare reporting the request itself as malformed. The same request,
 with the same option order, succeeded on other attempts, so this is the
 provider's fault rather than the item's; `jevbench run --resume` retried the
-failures until all 40 succeeded, over seven passes. The committed run has no
-errors. Clef Flash is also served under an undated name, like
-Microsoft-Decision-1 (see the limitations).
+failures until all 40 succeeded, over seven passes. Clef did the same on the
+same item (11 of 40 calls, four passes). Both committed runs have no errors.
+Both are also served under undated names, like Microsoft-Decision-1 (see the
+limitations).
 
 ### How a chat model's reply becomes an answer
 
@@ -141,6 +146,7 @@ a shared 0–1 scale, and the correlation `r` with them across measures
 |---|---|---|---|---|
 | Solar Decide Flash | **0.21** | +0.20 | **0.11** | +0.76 |
 | Clef Flash | 0.23 | +0.07 | 0.18 | +0.45 |
+| Clef | 0.29 | −0.02 | 0.16 | +0.69 |
 | d1 | 0.32 | +0.09 | 0.19 | +0.66 |
 | Jev 1.13 | 0.32 | −0.15 | 0.14 | +0.76 |
 | Mercury Decide | 0.33 | −0.06 | 0.20 | +0.54 |
@@ -175,10 +181,10 @@ in the gain frame and 22% in the loss frame, a 50-point reversal; the main
 write-up already argues that the contrast, not either level, is the robust
 quantity. Gain minus loss, in points:
 
-| | Human | d1 | Solar | Mercury | Jev | Decider | Luna | Solar Flash | Clef Flash | MS-Decision-1 | Sonnet 5 | Haiku 5.5 |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Neutral | 50 | **54** | 80 | 19 | 29 | 17 | 3 | 9 | 0 | −48 | 100 | 0 |
-| As typical human | 50 | 56 | **50** | 34 | 30 | 45 | 21 | 4 | 17 | −10 | 100 | 100 |
+| | Human | d1 | Solar | Mercury | Jev | Clef | Decider | Luna | Solar Flash | Clef Flash | MS-Decision-1 | Sonnet 5 | Haiku 5.5 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Neutral | 50 | **54** | 80 | 19 | 29 | 27 | 17 | 3 | 9 | 0 | −48 | 100 | 0 |
+| As typical human | 50 | 56 | **50** | 34 | 30 | 23 | 45 | 21 | 4 | 17 | −10 | 100 | 100 |
 
 On the effect itself, Solar Decide Flash shows almost none, Clef Flash none
 without an instruction and a third of it when asked to answer as a person, d1 reproduces it
@@ -206,20 +212,25 @@ first.
   41%, every other model 79% or more). It is a fine-tune of Qwen3.5-9B.
 - **The sunk-cost item is the one nothing reproduces under neutral framing**:
   every model, System One or chat, abandons the project (≤ 0.07, people 0.85).
-- **No model reproduces the conjunction fallacy unprompted** except Solar
-  Decide Flash (0.70) and Clef Flash (0.62); asked to answer as a person, all
-  but Luna (0.50) reach 0.83 or more, against people's 0.85.
+- **Only Clef reproduces the conjunction fallacy unprompted**, at 0.87 against
+  people's 0.85; Solar Decide Flash (0.70) and Clef Flash (0.62) come part of
+  the way and every other model stays at 0.25 or below. Asked to answer as a
+  person, all but Luna (0.50) reach 0.83 or more.
+- **Clef and Clef Flash differ the way the Solar pair do.** The 27B model does
+  not hedge: it shows about half the human framing effect under both prompts
+  (27 and 23 points) where Flash shows none.
 
 ## Limitations specific to this comparison
 
 1. **Two dates.** Jev and Sonnet were run on Sep 18 and everything else on
    Oct 12. Jev is pinned to a dated version, but the route and gateway may have
    changed in between.
-2. **Microsoft-Decision-1 and Clef Flash are not reproducible.**
+2. **Microsoft-Decision-1, Clef and Clef Flash are not reproducible.**
    Microsoft-Decision-1's listing says its weights are updated continually
    while the API stays the same; the served name carries a date that does not
-   change when they are. Clef Flash is served as `cloudflare/clef-flash` with no
-   date at all, so a later run may meet a different model under the same name.
+   change when they are. Clef and Clef Flash are served as `cloudflare/clef` and
+   `cloudflare/clef-flash` with no date at all, so a later run may meet a
+   different model under the same name.
 3. **One summary number is not a ranking**, for the reason above. It is
    reported because it is what the existing analysis computes, not because it
    orders the models.

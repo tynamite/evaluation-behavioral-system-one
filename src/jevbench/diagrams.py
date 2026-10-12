@@ -963,6 +963,7 @@ SHORT = {
     "upstage/solar-decide-flash-20261008": "Solar Decide Flash",
     "nace-ai/drex-v1.5-20261009": "Drex 1.5",
     "cloudflare/clef-flash": "Clef Flash",
+    "cloudflare/clef": "Clef",
     "anthropic/claude-sonnet-5": "Claude Sonnet 5",
     "anthropic/claude-haiku-5.5": "Claude Haiku 5.5",
 }
@@ -1112,6 +1113,11 @@ def place_labels(
             leaders.append(leader)
         out[name] = (lx, ly + size * 0.35, anchor, box, leader)
     return out
+
+
+def _count(n: int) -> str:
+    words = "zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen"
+    return words.split()[n] if n < 16 else str(n)
 
 
 def fig_models_scatter(fdf: pd.DataFrame) -> Figure:
@@ -1317,7 +1323,7 @@ def fig_models_scatter(fdf: pd.DataFrame) -> Figure:
     out.append(_t(hx + 12, ly0 + 35, "Claude Haiku 5.5", size=9, family=SANS, fill=INK))
     return Figure(
         slug="models-scatter",
-        eyebrow="Eleven models · no instruction vs. told to answer like a typical person",
+        eyebrow=f"{_count(len(pts)).capitalize()} models · no instruction vs. told to answer like a typical person",
         title="Distance from published human results, with and without the \u2018typical person\u2019 instruction",
         subtitle=(
             "Each point is one model. Distance is the mean absolute difference from the published human result "
@@ -1325,7 +1331,8 @@ def fig_models_scatter(fdf: pd.DataFrame) -> Figure:
             "would mean identical to people. Across: no instruction. Up: told to answer like a typical person. "
             "Points below the dashed line moved closer to people when told."
         ),
-        desc="Scatter of eleven models' mean distance from human values answering neutrally versus as a typical person; all eleven fall below the no-change line.",
+        desc=f"Scatter of {_count(len(pts))} models' mean distance from human values answering neutrally versus as a "
+        f"typical person; {len([p for p in pts if p[2] < p[1]])} fall below the no-change line.",
         width=1000,
         height=ly0 + 50,
         body="\n".join(out),
@@ -1355,7 +1362,12 @@ def fig_framing(mdf: pd.DataFrame) -> Figure:
         )
         * 100
     )
-    keep = [m for m in mdf.columns if m in SHORT and "anthropic" not in m and "mercury" not in m]
+    # Eight rows fit; the two middling models without a distinct swing go in the source line.
+    keep = [
+        m
+        for m in mdf.columns
+        if m in SHORT and "anthropic" not in m and "mercury" not in m and "pplx-decider" not in m
+    ]
     rows = sorted(
         [
             (
@@ -1396,8 +1408,8 @@ def fig_framing(mdf: pd.DataFrame) -> Figure:
         width=1000,
         height=510,
         body=body,
-        source="The chart holds eight rows, so Mercury Decide (19 with no instruction, 34 as a typical person) is "
-        "given here. The two chat models swing all or nothing: Claude Sonnet 5 100 and 100, Claude Haiku 5.5 0 and "
+        source="The chart holds eight rows, so Mercury Decide (19 with no instruction, 34 as a typical person) and "
+        "Decider v1.1 27B (17 and 45) are given here. The two chat models swing all or nothing: Claude Sonnet 5 100 and 100, Claude Haiku 5.5 0 and "
         "100. Human rates: Tversky & Kahneman (1981). Jev run 18 Sep 2026, others 12 Oct 2026.",
     )
 
@@ -1696,6 +1708,378 @@ def fig_health() -> Figure:
 # -- build and export ----------------------------------------------------------------
 
 
+# -- main charts, several models ------------------------------------------------
+
+# The models the README's main charts carry, each in its own colour. Jev keeps
+# its hot pink; the others are dark enough to read on paper and far enough apart
+# in hue to tell apart at a dot's size. Everything else is in the scatter and
+# docs/MODELS.md.
+MAIN_MODELS = [
+    ("typesafe/jev-1.13-20260917", JEV_PINK),
+    ("openai/gpt-6-luna-decisions-20261006", "#2e5aa8"),
+    ("cloudflare/clef", ACCENT),
+    ("liquid/d1-20260930", "#6b4c9a"),
+]
+
+
+def _mstat(cdf: pd.DataFrame, inst: str, stat: str, persona: str, model: str) -> float:
+    sel = cdf[
+        (cdf.instrument == inst)
+        & (cdf.statistic == stat)
+        & (cdf.persona == persona)
+        & (cdf.model == model)
+    ]
+    if not len(sel):
+        raise KeyError(f"{inst}/{stat}/{persona}/{model} not in the comparison statistics")
+    return float(sel["value"].iloc[0])
+
+
+def _model_key(out: list[str], x: float, y: float, label: str, colour: str) -> float:
+    edge = INK if colour == JEV_PINK else colour
+    out.append(
+        f'<circle cx="{x:g}" cy="{y:g}" r="4.5" fill="{colour}" stroke="{edge}" stroke-width="1"/>'
+    )
+    out.append(_t(x + 10, y + 4, label, size=9, family=SANS, fill=INK))
+    return x + 10 + text_width(label, 9) + 32
+
+
+def _model_dots(
+    rows: list[tuple[str, str, float, dict[str, dict[str, float]]]],
+    panels: list[tuple[str, str]],
+    axis_title: str,
+) -> str:
+    """Rows of tests, one panel per prompt; in each, a tick for people and a dot per model.
+
+    Each model keeps its own line within the row, in a fixed order, so dots
+    never cover one another however close the values; a hairline from the
+    people tick to each dot is that model's gap from people.
+    """
+    n = len(rows)
+    pitch, y0 = 52, 96
+    spans = [(312, 612), (648, 948)][: len(panels)]
+    offsets = [-10.5, -3.5, 3.5, 10.5]
+    last = y0 + (n - 1) * pitch
+    out: list[str] = []
+    for (key, header), (a, b) in zip(panels, spans, strict=True):
+        out.append(_t((a + b) / 2, 52, header, size=7, spacing="0.14em", anchor="middle", fill=INK))
+        for i in range(5):
+            t = i * 0.25
+            x = a + t * (b - a)
+            out.append(
+                f'<line x1="{x:g}" y1="66" x2="{x:g}" y2="{last + 22}" stroke="{ink(0.25 if i == 0 else 0.08)}" stroke-width="{1 if i == 0 else 0.8}"/>'
+            )
+            out.append(
+                _t(
+                    x,
+                    last + 38,
+                    f"{t:.2f}",
+                    anchor="middle",
+                    extra=f' data-tick="x" data-value="{t:g}"',
+                )
+            )
+        for k, (_name, _sub, human, vals) in enumerate(rows):
+            y = y0 + k * pitch
+            xh = a + human * (b - a)
+            for (model, _colour), dy in zip(MAIN_MODELS, offsets, strict=True):
+                v = vals[key][model]
+                xv = a + v * (b - a)
+                out.append(
+                    f'<line x1="{xh:.1f}" y1="{y + dy}" x2="{xv:.1f}" y2="{y + dy}" stroke="{ink(0.25)}" stroke-width="0.8"/>'
+                )
+            out.append(
+                f'<line data-series="people" data-value="{human:.4f}" x1="{xh:.1f}" y1="{y - 16}" x2="{xh:.1f}" y2="{y + 16}" stroke="{MUTED}" stroke-width="2"/>'
+            )
+            for (model, colour), dy in zip(MAIN_MODELS, offsets, strict=True):
+                v = vals[key][model]
+                edge = INK if colour == JEV_PINK else colour
+                out.append(
+                    f'<circle data-series="{esc(SHORT[model])}" data-panel="{key}" data-value="{v:.4f}" '
+                    f'cx="{a + v * (b - a):.1f}" cy="{y + dy}" r="3.5" fill="{colour}" stroke="{edge}" stroke-width="1"/>'
+                )
+    for k, (name, sub, _h, _v) in enumerate(rows):
+        y = y0 + k * pitch
+        out.append(_t(288, y - 1, name, size=11, fill=INK, family=SANS, anchor="end", weight=600))
+        out.append(_t(288, y + 12, sub, size=9, fill=MUTED, family=SANS, anchor="end"))
+    out.append(
+        _t(
+            (spans[0][0] + spans[-1][1]) / 2,
+            last + 54,
+            axis_title,
+            size=7,
+            anchor="middle",
+            spacing="0.14em",
+        )
+    )
+    ly = last + 66
+    out.append(_legend(1000, ly, []))
+    out.append(
+        f'<line x1="104" y1="{ly + 24}" x2="104" y2="{ly + 38}" stroke="{MUTED}" stroke-width="2"/>'
+    )
+    out.append(_t(116, ly + 35, "Published human result", size=9, family=SANS, fill=INK))
+    x = 116 + text_width("Published human result", 9) + 40
+    for model, colour in MAIN_MODELS:
+        x = _model_key(out, x, ly + 31, SHORT[model], colour)
+    out.append(_t(970, ly + 35, "DOTS TOP TO BOTTOM IN LEGEND ORDER", anchor="end"))
+    return "\n".join(out)
+
+
+_MODELS_SOURCE = (
+    "Each model: mean of the probability distributions returned over 10 repeats. Jev run 18 Sep 2026, the "
+    "others 12 Oct 2026. Human results: published studies or meta-analyses, listed in docs/BENCHMARKS.md. "
+    "Eight more models are in the scatter and docs/MODELS.md."
+)
+
+
+def fig_models_tests(cdf: pd.DataFrame, which: str) -> Figure:
+    measures = DECISION_MEASURES if which == "decisions" else GAME_MEASURES
+    panels = [
+        ("neutral", "NO INSTRUCTION"),
+        ("typical_human", "TOLD TO ANSWER LIKE A TYPICAL PERSON"),
+    ]
+    rows = [
+        (
+            name,
+            sub,
+            BENCHMARKS[b].value,
+            {p: {m: _mstat(cdf, i, s, p, m) for m, _c in MAIN_MODELS} for p, _h in panels},
+        )
+        for i, s, b, name, sub in measures
+    ]
+    names = ", ".join(SHORT[m] for m, _c in MAIN_MODELS[:-1]) + f" and {SHORT[MAIN_MODELS[-1][0]]}"
+    if which == "decisions":
+        title = "Four System One models vs. published human results on seven decision-making tests"
+        what = (
+            "Classic problems from behavioural economics. Each row says what was asked and which answer is "
+            "counted; some rows count the correct answer, others the typical human error."
+        )
+    else:
+        title = "Four System One models vs. published human results in five economic games"
+        what = (
+            "One-shot, anonymous games for a hypothetical $10. Each row says what the player could do and what "
+            "the number measures."
+        )
+    return Figure(
+        slug=f"models-{which}",
+        eyebrow=f"{'Decision-making tests' if which == 'decisions' else 'Economic games'} · four models",
+        title=title,
+        subtitle=(
+            f"{what} Left, asked with no instruction; right, with this sentence added first: "
+            f"\u201c{_prompt('typical_human')}\u201d The tick is people; each dot is a model's probability on "
+            "that answer, or its expected share."
+        ),
+        desc=f"Dot chart of {len(rows)} {which} measures in two panels, no instruction and told to answer like a "
+        f"typical person, comparing {names} with the published human result.",
+        width=1000,
+        height=y_end(len(rows)),
+        body=_model_dots(rows, panels, "SHARE OF ANSWERS, OR SHARE OF THE MONEY"),
+        source=_MODELS_SOURCE,
+    )
+
+
+def y_end(n: int) -> int:
+    """Height of a `_model_dots` chart with n rows: rows, axis, legend."""
+    return 96 + (n - 1) * 52 + 66 + 48
+
+
+def fig_models_antisocial(cdf: pd.DataFrame) -> Figure:
+    panels = [("neutral", "NO INSTRUCTION"), ("antisocial", "ANTISOCIAL PERSONA")]
+    rows = [
+        (
+            name,
+            sub,
+            BENCHMARKS[b].value,
+            {p: {m: _mstat(cdf, i, s, p, m) for m, _c in MAIN_MODELS} for p, _h in panels},
+        )
+        for i, s, b, name, sub in GAME_MEASURES
+    ]
+    dd = "; ".join(
+        f"{SHORT[m]} {_mstat(cdf, 'dirty_dozen', 'overall', 'neutral', m):.1f} to "
+        f"{_mstat(cdf, 'dirty_dozen', 'overall', 'antisocial', m):.1f}"
+        for m, _c in MAIN_MODELS
+    )
+    return Figure(
+        slug="models-antisocial",
+        eyebrow="Economic games · antisocial persona · four models",
+        title="Four System One models in five economic games: no instruction vs. an antisocial persona",
+        subtitle=(
+            f"Right, the same games with this sentence added first: \u201c{_prompt('antisocial')}\u201d "
+            f"As a check that the persona took hold, the Dark Triad score out of 9 rose: {dd}."
+        ),
+        desc="Dot chart of seven economic-game measures for four System One models, with no instruction and with "
+        "an antisocial persona, against the published human result.",
+        width=1000,
+        height=y_end(len(rows)),
+        body=_model_dots(rows, panels, "SHARE OF ANSWERS, OR SHARE OF THE MONEY"),
+        source="Mean of returned distributions over 10 repeats; Jev run 18 Sep 2026, the others 12 Oct 2026. "
+        "The tick is people with no persona, for scale. A persona is a prompt: it shows what a model can be "
+        "made to output, not a trait it has.",
+    )
+
+
+def fig_models_dictator(runs: dict[str, pd.DataFrame]) -> Figure:
+    """People's distribution of giving behind each model's, one small panel per model."""
+    from .analysis import distributions
+    from .benchmarks import DICTATOR_HUMAN_DISTRIBUTION, DICTATOR_HUMAN_SOURCE
+
+    amounts = [f"${v}" for v in range(11)]
+    people = [DICTATOR_HUMAN_DISTRIBUTION[a] for a in amounts]
+    dists = {
+        m: [
+            distributions(runs[m]).get(("dictator_allocation", "neutral", "jev"), {}).get(a, 0.0)
+            for a in amounts
+        ]
+        for m, _c in MAIN_MODELS
+    }
+    top = max(max(people), *(max(v) for v in dists.values()))
+    ceil = max(0.4, math.ceil(top * 5) / 5)
+    cells = [(70, 60), (550, 60), (70, 280), (550, 280)]
+    w, h = 400, 150
+    out: list[str] = []
+    for (model, colour), (x0, y0) in zip(MAIN_MODELS, cells, strict=True):
+        base = y0 + h
+
+        def y(v: float, base: float = base) -> float:
+            return base - v / ceil * h
+
+        out.append(_t(x0, y0 - 14, SHORT[model], size=12, family=SANS, fill=INK, weight=600))
+        for t in (0.0, ceil / 2, ceil):
+            if t:
+                out.append(
+                    f'<line x1="{x0}" y1="{y(t):.1f}" x2="{x0 + w}" y2="{y(t):.1f}" stroke="{ink(0.08)}" stroke-width="0.8"/>'
+                )
+            out.append(
+                _t(
+                    x0 - 6,
+                    y(t) + 3,
+                    f"{t:.0%}",
+                    anchor="end",
+                    extra=f' data-tick="y" data-value="{t:g}"',
+                )
+            )
+        out.append(
+            f'<line x1="{x0}" y1="{base}" x2="{x0 + w}" y2="{base}" stroke="{ink(0.25)}" stroke-width="1"/>'
+        )
+        pitch = w / len(amounts)
+        bar = 14
+        edge = JEV_PINK_EDGE if colour == JEV_PINK else colour
+        for i, a in enumerate(amounts):
+            cx = x0 + pitch * (i + 0.5)
+            for series, v, bx, style in (
+                ("people", people[i], cx - bar - 1, f'fill="{muted(0.18)}" stroke="{MUTED}"'),
+                (
+                    SHORT[model],
+                    dists[model][i],
+                    cx + 1,
+                    f'fill="{colour}" fill-opacity="0.75" stroke="{edge}"',
+                ),
+            ):
+                by = y(v)
+                out.append(
+                    f'<rect data-series="{esc(series)}" data-value="{v:.4f}" x="{bx:.1f}" y="{by:.1f}" '
+                    f'width="{bar}" height="{base - by:.1f}" {style} stroke-width="1"/>'
+                )
+            out.append(_t(cx, base + 14, a, size=8, anchor="middle"))
+    out.append(
+        _t(
+            520,
+            466,
+            "AMOUNT GIVEN TO THE STRANGER, OUT OF $10",
+            size=7,
+            spacing="0.14em",
+            anchor="middle",
+        )
+    )
+    out.append(_legend(1000, 476, []))
+    out.append(
+        f'<rect x="104" y="500" width="16" height="10" rx="2" fill="{muted(0.18)}" stroke="{MUTED}" stroke-width="1"/>'
+    )
+    label = "People: share of 20,813 dictators in 328 treatments"
+    out.append(_t(128, 509, label, size=9, family=SANS, fill=INK))
+    sx = 128 + text_width(label, 9) + 40
+    for _m, colour in MAIN_MODELS:
+        edge = JEV_PINK_EDGE if colour == JEV_PINK else colour
+        out.append(
+            f'<rect x="{sx:g}" y="500" width="10" height="10" rx="2" fill="{colour}" fill-opacity="0.75" stroke="{edge}" stroke-width="1"/>'
+        )
+        sx += 13
+    out.append(
+        _t(
+            sx + 8,
+            509,
+            "The model's returned probability, no instruction",
+            size=9,
+            family=SANS,
+            fill=INK,
+        )
+    )
+    return Figure(
+        slug="models-dictator",
+        eyebrow="Dictator game · no instruction · four models",
+        title="Four System One models' answer distributions in the dictator game, against people's",
+        subtitle=(
+            "You are given $10 and decide how much to give an anonymous stranger, who cannot respond. Grey: the "
+            "share of people giving each amount. Coloured: the probability each model returns for that amount, "
+            "averaged over 10 calls. People have three peaks, at nothing, half and everything."
+        ),
+        desc="Four small bar charts, one per System One model, each showing the model's probability of giving "
+        "each amount from $0 to $10 next to the share of people who give it.",
+        width=1000,
+        height=520,
+        body="\n".join(out),
+        source=f"Same scale in every panel. Models: mean of 10 returned distributions; Jev run 18 Sep 2026, the "
+        f"others 12 Oct 2026. People: {DICTATOR_HUMAN_SOURCE}.",
+    )
+
+
+def fig_models_order(runs: dict[str, pd.DataFrame]) -> Figure:
+    from .analysis import order_effects
+
+    odfs = {m: order_effects(runs[m]) for m, _c in MAIN_MODELS}
+    # Jev's run predates the 30 follow-up items, so compare on the items all four share.
+    common = set.intersection(*(set(o["probe_id"]) for o in odfs.values()))
+    rows = []
+    for m, _c in MAIN_MODELS:
+        o = odfs[m][odfs[m]["probe_id"].isin(common)]
+        sh, un = o[o["shuffled"]]["mean_tv_distance"], o[~o["shuffled"]]["mean_tv_distance"]
+        rows.append(
+            (
+                SHORT[m],
+                f"{len(sh)} shuffled cells · {len(un)} unshuffled",
+                float(un.mean()),
+                float(sh.mean()),
+            )
+        )
+    rows.sort(key=lambda r: r[3])
+    body = dumbbell(
+        rows,
+        ref_name="Never shuffled: the floor",
+        focal_name="Options shuffled",
+        row_ref_fill={"Jev 1.13": (JEV_PINK, "Jev, never shuffled")},
+        row_focal_fill={"Jev 1.13": (JEV_PROMPT, "Jev, shuffled")},
+        axis_title="mean change in the answer distribution between repeats (total-variation distance)",
+        step=0.05,
+        fmt="{:.3f}",
+        order_note="ROWS BY THE SHUFFLED VALUE",
+    )
+    return Figure(
+        slug="models-order-effects",
+        eyebrow="Option order · four models",
+        title="How much four System One models' answers change when the options are shuffled",
+        subtitle=(
+            "Each item was asked 10 times. Multiple-choice options were put in a new random order every time; "
+            "Likert and yes/no items were left as they were, so they show how much the answers move with nothing "
+            "changed. The gap between the two is the order effect. 0 means identical distributions, 1 no overlap."
+        ),
+        desc="Dumbbell chart of four System One models' mean answer change between repeats, for shuffled "
+        "multiple-choice items and for never-shuffled items.",
+        width=1000,
+        height=510,
+        body=body,
+        source=f"Mean distance over all pairs of the 10 repeats, per item and prompt, on the {len(common)} items "
+        "all four runs share. Jev run 18 Sep 2026, the others 12 Oct 2026.",
+    )
+
+
 def build_diagrams(
     run_path: Path, tables_dir: Path, comparison_dir: Path, out_dir: Path
 ) -> list[Path]:
@@ -1706,6 +2090,15 @@ def build_diagrams(
     fdf = pd.read_csv(comparison_dir / "fidelity.csv")
     mdf = pd.read_csv(comparison_dir / "measures.csv")
     df = load_records(run_path)
+    # The multi-model charts read each main model's statistics from the
+    # comparison, and its run file (named in health.csv) for distributions.
+    cdf = pd.read_csv(comparison_dir / "statistics.csv")
+    files = dict(
+        zip(
+            *pd.read_csv(comparison_dir / "health.csv")[["model", "run_file"]].T.values, strict=True
+        )
+    )
+    runs = {m: load_records(run_path.parent / files[m]) for m, _c in MAIN_MODELS}
 
     figures = [
         fig_process(),
@@ -1714,6 +2107,11 @@ def build_diagrams(
         fig_antisocial(sdf),
         fig_dictator(df),
         fig_order_effects(odf),
+        fig_models_tests(cdf, "decisions"),
+        fig_models_tests(cdf, "games"),
+        fig_models_antisocial(cdf),
+        fig_models_dictator(runs),
+        fig_models_order(runs),
         fig_models_scatter(fdf),
         fig_framing(mdf),
         fig_health(),

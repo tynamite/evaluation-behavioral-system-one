@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Four System One models vs. published human results in five economic games</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper: #f5f5f5; --color-ink: #2d3142; --color-muted: #4f5d75;
+      --font-sans: 'Geist', system-ui, sans-serif; --font-serif: 'Instrument Serif', serif; --font-mono: 'Geist Mono', ui-monospace, monospace;
+    }
+    body {
+      font-family: var(--font-sans); background: var(--color-paper); color: var(--color-ink);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 3rem 2rem;
+    }
+    .frame { max-width: 1080px; width: 100%; padding: 32px 40px; background: var(--color-paper); }
+    .diagram-container { width: 100%; overflow-x: auto; }
+    .eyebrow {
+      font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-muted);
+      margin-bottom: 0.5rem;
+    }
+    h1 {
+      font-family: var(--font-serif); font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem);
+      font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.5rem;
+    }
+    .subtitle { color: var(--color-muted); font-size: 0.95rem; line-height: 1.45;
+      max-width: 60rem; margin-bottom: 1.5rem; }
+    .source { font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-muted);
+      border-top: 1px solid rgba(45,49,66,0.12); margin-top: 1rem; padding-top: 0.75rem; line-height: 1.5; }
+    svg { width: 100%; min-width: 1000px; display: block; }
+    @media print { .diagram-container { overflow-x: visible; } svg { min-width: 0; } }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Economic games · four models</p>
+    <h1>Four System One models vs. published human results in five economic games</h1>
+    <p class="subtitle">One-shot, anonymous games for a hypothetical $10. Each row says what the player could do and what the number measures. Left, asked with no instruction; right, with this sentence added first: “Answer the way a typical human participant in a psychology or economics experiment would actually answer — not the textbook-correct answer, and not an idealised one. Give the response the average person would give.” The tick is people; each dot is a model&#x27;s probability on that answer, or its expected share.</p>
+    <div class="diagram-container">
+      <svg viewBox="0 0 1000 522" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="models-games-title models-games-desc">
+        <title id="models-games-title">Four System One models vs. published human results in five economic games</title>
+        <desc id="models-games-desc">Dot chart of 7 games measures in two panels, no instruction and told to answer like a typical person, comparing Jev 1.13, GPT-6 Luna Decisions, Clef and d1 with the published human result.</desc>
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
+          <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#157a6e"/></marker>
+          <marker id="arrow-link" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#2e5aa8"/></marker>
+        </defs>
+        <rect width="100%" height="100%" fill="#f5f5f5"/>
+<text x="462" y="52" fill="#2d3142" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.14em">NO INSTRUCTION</text>
+<line x1="312" y1="66" x2="312" y2="430" stroke="rgba(45,49,66,0.25)" stroke-width="1"/>
+<text x="312" y="446" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0">0.00</text>
+<line x1="387" y1="66" x2="387" y2="430" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="387" y="446" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.25">0.25</text>
+<line x1="462" y1="66" x2="462" y2="430" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="462" y="446" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.5">0.50</text>
+<line x1="537" y1="66" x2="537" y2="430" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="537" y="446" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.75">0.75</text>
+<line x1="612" y1="66" x2="612" y2="430" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="612" y="446" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="1">1.00</text>
+<line x1="396.9" y1="85.5" x2="355.3" y2="85.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="396.9" y1="92.5" x2="431.2" y2="92.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="396.9" y1="99.5" x2="435.4" y2="99.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="396.9" y1="106.5" x2="377.0" y2="106.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line data-series="people" data-value="0.2830" x1="396.9" y1="80" x2="396.9" y2="112" stroke="#4f5d75" stroke-width="2"/>
+<circle data-series="Jev 1.13" data-panel="neutral" data-value="0.1445" cx="355.3" cy="85.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
+<circle data-series="GPT-6 Luna Decisions" data-panel="neutral" data-value="0.3975" cx="431.2" cy="92.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
+<circle data-series="Clef" data-panel="neutral" data-value="0.4114" cx="435.4" cy="99.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
+<circle data-series="d1" data-panel="neutral" data-value="0.2165" cx="377.0" cy="106.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<line x1="432.0" y1="137.5" x2="436.8" y2="137.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="432.0" y1="144.5" x2="457.4" y2="144.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="432.0" y1="151.5" x2="432.4" y2="151.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="432.0" y1="158.5" x2="451.9" y2="158.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line data-series="people" data-value="0.4000" x1="432.0" y1="132" x2="432.0" y2="164" stroke="#4f5d75" stroke-width="2"/>
+<circle data-series="Jev 1.13" data-panel="neutral" data-value="0.4161" cx="436.8" cy="137.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
+<circle data-series="GPT-6 Luna Decisions" data-panel="neutral" data-value="0.4847" cx="457.4" cy="144.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
+<circle data-series="Clef" data-panel="neutral" data-value="0.4015" cx="432.4" cy="151.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
+<circle data-series="d1" data-panel="neutral" data-value="0.4665" cx="451.9" cy="158.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<line x1="462.0" y1="189.5" x2="510.1" y2="189.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="462.0" y1="196.5" x2="337.2" y2="196.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="462.0" y1="203.5" x2="570.0" y2="203.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="462.0" y1="210.5" x2="586.5" y2="210.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line data-series="people" data-value="0.5000" x1="462.0" y1="184" x2="462.0" y2="216" stroke="#4f5d75" stroke-width="2"/>
+<circle data-series="Jev 1.13" data-panel="neutral" data-value="0.6605" cx="510.1" cy="189.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
+<circle data-series="GPT-6 Luna Decisions" data-panel="neutral" data-value="0.0840" cx="337.2" cy="196.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
+<circle data-series="Clef" data-panel="neutral" data-value="0.8600" cx="570.0" cy="203.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
+<circle data-series="d1" data-panel="neutral" data-value="0.9150" cx="586.5" cy="210.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<line x1="462.0" y1="241.5" x2="423.6" y2="241.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="462.0" y1="248.5" x2="369.8" y2="248.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="462.0" y1="255.5" x2="462.0" y2="255.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="462.0" y1="262.5" x2="320.7" y2="262.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line data-series="people" data-value="0.5000" x1="462.0" y1="236" x2="462.0" y2="268" stroke="#4f5d75" stroke-width="2"/>
+<circle data-series="Jev 1.13" data-panel="neutral" data-value="0.3720" cx="423.6" cy="241.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
+<circle data-series="GPT-6 Luna Decisions" data-panel="neutral" data-value="0.1925" cx="369.8" cy="248.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
+<circle data-series="Clef" data-panel="neutral" data-value="0.4999" cx="462.0" cy="255.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
+<circle data-series="d1" data-panel="neutral" data-value="0.0291" cx="320.7" cy="262.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<line x1="423.0" y1="293.5" x2="402.3" y2="293.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="423.0" y1="300.5" x2="465.5" y2="300.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="423.0" y1="307.5" x2="413.8" y2="307.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="423.0" y1="314.5" x2="454.9" y2="314.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line data-series="people" data-value="0.3700" x1="423.0" y1="288" x2="423.0" y2="320" stroke="#4f5d75" stroke-width="2"/>
+<circle data-series="Jev 1.13" data-panel="neutral" data-value="0.3011" cx="402.3" cy="293.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
+<circle data-series="GPT-6 Luna Decisions" data-panel="neutral" data-value="0.5117" cx="465.5" cy="300.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
+<circle data-series="Clef" data-panel="neutral" data-value="0.3393" cx="413.8" cy="307.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
+<circle data-series="d1" data-panel="neutral" data-value="0.4763" cx="454.9" cy="314.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<line x1="462.0" y1="345.5" x2="425.9" y2="345.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="462.0" y1="352.5" x2="473.4" y2="352.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="462.0" y1="359.5" x2="413.1" y2="359.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="462.0" y1="366.5" x2="319.1" y2="366.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line data-series="people" data-value="0.5000" x1="462.0" y1="340" x2="462.0" y2="372" stroke="#4f5d75" stroke-width="2"/>
+<circle data-series="Jev 1.13" data-panel="neutral" data-value="0.3796" cx="425.9" cy="345.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
+<circle data-series="GPT-6 Luna Decisions" data-panel="neutral" data-value="0.5380" cx="473.4" cy="352.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
+<circle data-series="Clef" data-panel="neutral" data-value="0.3371" cx="413.1" cy="359.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
+<circle data-series="d1" data-panel="neutral" data-value="0.0236" cx="319.1" cy="366.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<line x1="423.0" y1="397.5" x2="320.7" y2="397.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="423.0" y1="404.5" x2="355.8" y2="404.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="423.0" y1="411.5" x2="317.1" y2="411.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="423.0" y1="418.5" x2="316.4" y2="418.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line data-series="people" data-value="0.3700" x1="423.0" y1="392" x2="423.0" y2="424" stroke="#4f5d75" stroke-width="2"/>
+<circle data-series="Jev 1.13" data-panel="neutral" data-value="0.0290" cx="320.7" cy="397.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
+<circle data-series="GPT-6 Luna Decisions" data-panel="neutral" data-value="0.1460" cx="355.8" cy="404.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
+<circle data-series="Clef" data-panel="neutral" data-value="0.0171" cx="317.1" cy="411.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
+<circle data-series="d1" data-panel="neutral" data-value="0.0147" cx="316.4" cy="418.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<text x="798" y="52" fill="#2d3142" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.14em">TOLD TO ANSWER LIKE A TYPICAL PERSON</text>
+<line x1="648" y1="66" x2="648" y2="430" stroke="rgba(45,49,66,0.25)" stroke-width="1"/>
+<text x="648" y="446" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0">0.00</text>
+<line x1="723" y1="66" x2="723" y2="430" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="723" y="446" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.25">0.25</text>
+<line x1="798" y1="66" x2="798" y2="430" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="798" y="446" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.5">0.50</text>
+<line x1="873" y1="66" x2="873" y2="430" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="873" y="446" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.75">0.75</text>
+<line x1="948" y1="66" x2="948" y2="430" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="948" y="446" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="1">1.00</text>
+<line x1="732.9" y1="85.5" x2="729.0" y2="85.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="732.9" y1="92.5" x2="766.7" y2="92.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="732.9" y1="99.5" x2="761.0" y2="99.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="732.9" y1="106.5" x2="745.8" y2="106.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line data-series="people" data-value="0.2830" x1="732.9" y1="80" x2="732.9" y2="112" stroke="#4f5d75" stroke-width="2"/>
+<circle data-series="Jev 1.13" data-panel="typical_human" data-value="0.2699" cx="729.0" cy="85.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
+<circle data-series="GPT-6 Luna Decisions" data-panel="typical_human" data-value="0.3957" cx="766.7" cy="92.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
+<circle data-series="Clef" data-panel="typical_human" data-value="0.3768" cx="761.0" cy="99.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
+<circle data-series="d1" data-panel="typical_human" data-value="0.3261" cx="745.8" cy="106.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<line x1="768.0" y1="137.5" x2="782.4" y2="137.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="768.0" y1="144.5" x2="793.8" y2="144.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="768.0" y1="151.5" x2="771.3" y2="151.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="768.0" y1="158.5" x2="793.3" y2="158.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line data-series="people" data-value="0.4000" x1="768.0" y1="132" x2="768.0" y2="164" stroke="#4f5d75" stroke-width="2"/>
+<circle data-series="Jev 1.13" data-panel="typical_human" data-value="0.4479" cx="782.4" cy="137.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
+<circle data-series="GPT-6 Luna Decisions" data-panel="typical_human" data-value="0.4859" cx="793.8" cy="144.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
+<circle data-series="Clef" data-panel="typical_human" data-value="0.4111" cx="771.3" cy="151.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
+<circle data-series="d1" data-panel="typical_human" data-value="0.4842" cx="793.3" cy="158.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<line x1="798.0" y1="189.5" x2="931.8" y2="189.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="798.0" y1="196.5" x2="756.6" y2="196.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="798.0" y1="203.5" x2="933.6" y2="203.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="798.0" y1="210.5" x2="937.2" y2="210.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line data-series="people" data-value="0.5000" x1="798.0" y1="184" x2="798.0" y2="216" stroke="#4f5d75" stroke-width="2"/>
+<circle data-series="Jev 1.13" data-panel="typical_human" data-value="0.9460" cx="931.8" cy="189.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
+<circle data-series="GPT-6 Luna Decisions" data-panel="typical_human" data-value="0.3620" cx="756.6" cy="196.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
+<circle data-series="Clef" data-panel="typical_human" data-value="0.9519" cx="933.6" cy="203.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
+<circle data-series="d1" data-panel="typical_human" data-value="0.9641" cx="937.2" cy="210.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<line x1="798.0" y1="241.5" x2="790.7" y2="241.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="798.0" y1="248.5" x2="795.1" y2="248.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="798.0" y1="255.5" x2="790.1" y2="255.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="798.0" y1="262.5" x2="669.4" y2="262.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line data-series="people" data-value="0.5000" x1="798.0" y1="236" x2="798.0" y2="268" stroke="#4f5d75" stroke-width="2"/>
+<circle data-series="Jev 1.13" data-panel="typical_human" data-value="0.4756" cx="790.7" cy="241.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
+<circle data-series="GPT-6 Luna Decisions" data-panel="typical_human" data-value="0.4904" cx="795.1" cy="248.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
+<circle data-series="Clef" data-panel="typical_human" data-value="0.4736" cx="790.1" cy="255.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
+<circle data-series="d1" data-panel="typical_human" data-value="0.0715" cx="669.4" cy="262.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<line x1="759.0" y1="293.5" x2="793.8" y2="293.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="759.0" y1="300.5" x2="787.3" y2="300.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="759.0" y1="307.5" x2="777.5" y2="307.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="759.0" y1="314.5" x2="790.6" y2="314.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line data-series="people" data-value="0.3700" x1="759.0" y1="288" x2="759.0" y2="320" stroke="#4f5d75" stroke-width="2"/>
+<circle data-series="Jev 1.13" data-panel="typical_human" data-value="0.4859" cx="793.8" cy="293.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
+<circle data-series="GPT-6 Luna Decisions" data-panel="typical_human" data-value="0.4645" cx="787.3" cy="300.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
+<circle data-series="Clef" data-panel="typical_human" data-value="0.4316" cx="777.5" cy="307.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
+<circle data-series="d1" data-panel="typical_human" data-value="0.4754" cx="790.6" cy="314.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<line x1="798.0" y1="345.5" x2="802.7" y2="345.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="798.0" y1="352.5" x2="791.9" y2="352.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="798.0" y1="359.5" x2="768.2" y2="359.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="798.0" y1="366.5" x2="732.2" y2="366.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line data-series="people" data-value="0.5000" x1="798.0" y1="340" x2="798.0" y2="372" stroke="#4f5d75" stroke-width="2"/>
+<circle data-series="Jev 1.13" data-panel="typical_human" data-value="0.5156" cx="802.7" cy="345.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
+<circle data-series="GPT-6 Luna Decisions" data-panel="typical_human" data-value="0.4797" cx="791.9" cy="352.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
+<circle data-series="Clef" data-panel="typical_human" data-value="0.4006" cx="768.2" cy="359.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
+<circle data-series="d1" data-panel="typical_human" data-value="0.2805" cx="732.2" cy="366.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<line x1="759.0" y1="397.5" x2="711.3" y2="397.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="759.0" y1="404.5" x2="734.4" y2="404.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="759.0" y1="411.5" x2="695.6" y2="411.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line x1="759.0" y1="418.5" x2="687.9" y2="418.5" stroke="rgba(45,49,66,0.25)" stroke-width="0.8"/>
+<line data-series="people" data-value="0.3700" x1="759.0" y1="392" x2="759.0" y2="424" stroke="#4f5d75" stroke-width="2"/>
+<circle data-series="Jev 1.13" data-panel="typical_human" data-value="0.2110" cx="711.3" cy="397.5" r="3.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
+<circle data-series="GPT-6 Luna Decisions" data-panel="typical_human" data-value="0.2880" cx="734.4" cy="404.5" r="3.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
+<circle data-series="Clef" data-panel="typical_human" data-value="0.1585" cx="695.6" cy="411.5" r="3.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
+<circle data-series="d1" data-panel="typical_human" data-value="0.1331" cx="687.9" cy="418.5" r="3.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<text x="288" y="95" fill="#2d3142" font-size="11" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="600">Dictator game</text>
+<text x="288" y="108" fill="#4f5d75" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Give part of $10 to a stranger · share given</text>
+<text x="288" y="147" fill="#2d3142" font-size="11" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="600">Ultimatum game, proposing</text>
+<text x="288" y="160" fill="#4f5d75" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Offer a split of $10 · share offered</text>
+<text x="288" y="199" fill="#2d3142" font-size="11" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="600">Ultimatum game, responding</text>
+<text x="288" y="212" fill="#4f5d75" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Offered $0 or $1 of $10 · rejects</text>
+<text x="288" y="251" fill="#2d3142" font-size="11" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="600">Trust game, sending</text>
+<text x="288" y="264" fill="#4f5d75" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Send part of $10, tripled on arrival · share sent</text>
+<text x="288" y="303" fill="#2d3142" font-size="11" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="600">Trust game, returning</text>
+<text x="288" y="316" fill="#4f5d75" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Sent $5, received $15 · share returned</text>
+<text x="288" y="355" fill="#2d3142" font-size="11" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="600">Public goods game</text>
+<text x="288" y="368" fill="#4f5d75" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="end">4 players, shared pot doubled · share put in</text>
+<text x="288" y="407" fill="#2d3142" font-size="11" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="600">Prisoner&#x27;s dilemma</text>
+<text x="288" y="420" fill="#4f5d75" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="end">One round, anonymous · cooperates</text>
+<text x="630" y="462" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.14em">SHARE OF ANSWERS, OR SHARE OF THE MONEY</text>
+<line x1="30" y1="474" x2="970" y2="474" stroke="rgba(45,49,66,0.1)" stroke-width="0.8"/>
+<text x="30" y="490" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" letter-spacing="0.14em">LEGEND</text>
+<line x1="104" y1="498" x2="104" y2="512" stroke="#4f5d75" stroke-width="2"/>
+<text x="116" y="509" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">Published human result</text>
+<circle cx="274.8" cy="505" r="4.5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
+<text x="284.8" y="509" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">Jev 1.13</text>
+<circle cx="360" cy="505" r="4.5" fill="#2e5aa8" stroke="#2e5aa8" stroke-width="1"/>
+<text x="370" y="509" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">GPT-6 Luna Decisions</text>
+<circle cx="510" cy="505" r="4.5" fill="#157a6e" stroke="#157a6e" stroke-width="1"/>
+<text x="520" y="509" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">Clef</text>
+<circle cx="573.6" cy="505" r="4.5" fill="#6b4c9a" stroke="#6b4c9a" stroke-width="1"/>
+<text x="583.6" y="509" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">d1</text>
+<text x="970" y="509" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">DOTS TOP TO BOTTOM IN LEGEND ORDER</text>
+      </svg>
+    </div>
+    <p class="source">Each model: mean of the probability distributions returned over 10 repeats. Jev run 18 Sep 2026, the others 12 Oct 2026. Human results: published studies or meta-analyses, listed in docs/BENCHMARKS.md. Eight more models are in the scatter and docs/MODELS.md.</p>
+  </div>
+</body>
+</html>

@@ -20,7 +20,7 @@ def built(tmp_path_factory: pytest.TempPathFactory) -> list[Path]:
 
 
 def test_every_figure_is_an_accessible_figure(built: list[Path]) -> None:
-    assert len(built) == 9
+    assert len(built) == 14
     for path in built:
         page = path.read_text()
         slug = path.stem
@@ -60,7 +60,7 @@ def test_every_model_in_the_scatter_is_named(built: list[Path]) -> None:
     page = next(p for p in built if p.stem == "models-scatter").read_text()
     points = set(re.findall(r'<circle data-name="([^"]+)"', page))
     labels = set(re.findall(r'data-name="([^"]+)" data-role="label"', page))
-    assert len(points) == 11
+    assert len(points) == 12
     assert labels == points
 
 
@@ -139,3 +139,29 @@ def test_dictator_chart_uses_the_full_human_distribution(built: list[Path]) -> N
     page = next(p for p in built if p.stem == "dictator-distribution").read_text()
     assert len(re.findall(r'data-series="people"', page)) == 11
     assert len(re.findall(r'data-series="jev"', page)) == 11
+
+
+def test_main_charts_carry_the_four_chosen_models(built: list[Path]) -> None:
+    import pandas as pd
+
+    from jevbench.diagrams import DECISION_MEASURES, MAIN_MODELS, SHORT
+
+    cdf = pd.read_csv(REPO_ROOT / "results" / "comparison" / "statistics.csv")
+    names = [SHORT[m] for m, _c in MAIN_MODELS]
+    assert names == ["Jev 1.13", "GPT-6 Luna Decisions", "Clef", "d1"]
+    page = next(p for p in built if p.stem == "models-decisions").read_text()
+    for (model, _c), name in zip(MAIN_MODELS, names, strict=True):
+        dots = re.findall(
+            rf'data-series="{re.escape(name)}" data-panel="neutral" data-value="([\d.]+)"', page
+        )
+        assert len(dots) == len(DECISION_MEASURES)
+        # The first row is the CRT; its dot is the comparison's value for that model.
+        crt = cdf[
+            (cdf.instrument == "crt")
+            & (cdf.statistic == "proportion_correct")
+            & (cdf.persona == "neutral")
+            & (cdf.model == model)
+        ]["value"].iloc[0]
+        assert abs(float(dots[0]) - crt) < 1e-3
+    dictator = next(p for p in built if p.stem == "models-dictator").read_text()
+    assert len(re.findall(r'data-series="people"', dictator)) == 4 * 11
