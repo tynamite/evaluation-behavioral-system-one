@@ -4,9 +4,9 @@ typesafe/jev-1.13-20260917,System One,run_live_20260918T230710Z.jsonl,4680,0,0,0
 liquid/d1-20260930,System One,run_live_20261012T083017Z_liquid--d1.jsonl,5880,0,0,0,0,588,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.0381
 microsoft/microsoft-decision-1-20261009,System One,run_live_20261012T083057Z_microsoft--microsoft-decision-1.jsonl,5880,0,0,0,0,588,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.0385
 perplexity/pplx-decider-v1.1-27b-20261006,System One,run_live_20261012T083114Z_perplexity--pplx-decider-v1.1-27b.jsonl,5880,0,0,0,0,588,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.0261
-nace-ai/drex-v1.5-20261009,System One,run_live_20261012T083120Z_nace-ai--drex-v1.5.jsonl,5880,0,0,0,0,588,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.0345
 inception/mercury-decide-20260930,System One,run_live_20261012T083122Z_inception--mercury-decide.jsonl,5880,0,0,0,0,588,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.0262
 upstage/solar-decide-flash-20261008,System One,run_live_20261012T083737Z_upstage--solar-decide-flash.jsonl,5880,40,0,0,0,588,4,"{""choice"": 0.0106, ""noul"": 0.0, ""score"": 0.0}",0.1367
 openai/gpt-6-luna-decisions-20261006,System One,run_live_20261012T090247Z_openai--gpt-6-luna-decisions.jsonl,5880,240,240,0,0,588,24,"{""choice"": 0.0, ""noul"": 0.4423, ""score"": 0.0063}",0.1343
 anthropic/claude-haiku-5.5,"chat, resampled",run_live_20261012T091817Z_anthropic--claude-haiku-5.5.jsonl,5880,0,0,3,440,544,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.6796
 upstage/solar-decide-20260928,System One,run_live_20261012T102816Z_upstage--solar-decide.jsonl,5880,40,0,0,0,588,4,"{""choice"": 0.0106, ""noul"": 0.0, ""score"": 0.0}",0.1367
+cloudflare/clef-flash,System One,run_live_20261012T172939Z_cloudflare--clef-flash.jsonl,5880,0,0,0,0,588,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.0659
