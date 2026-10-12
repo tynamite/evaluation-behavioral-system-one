@@ -24,6 +24,7 @@ import html
 import itertools
 import math
 import os
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -1019,6 +1020,7 @@ SHORT = {
     "cloudflare/clef-flash": "Clef Flash",
     "cloudflare/clef": "Clef",
     "anthropic/claude-sonnet-5": "Claude Sonnet 5",
+    "anthropic/claude-sonnet-5.5": "Claude Sonnet 5.5",
     "anthropic/claude-haiku-5.5": "Claude Haiku 5.5",
 }
 
@@ -2308,15 +2310,20 @@ def export_pngs(html_paths: list[Path], out_dir: Path, scale: int = 2) -> list[P
 def main(argv: Any = None) -> int:
     import argparse
 
+    from .analysis import primary_run
     from .config import RAW_DIR, REPO_ROOT, TABLES_DIR
 
     ap = argparse.ArgumentParser(description="build the editorial figures")
-    ap.add_argument("--run", default=str(RAW_DIR / "run_live_20260918T230710Z.jsonl"))
+    ap.add_argument("--run", default=None, help="the Jev run (default: the newest run with Jev)")
     ap.add_argument("--no-png", action="store_true")
     args = ap.parse_args(argv)
+    run = Path(args.run) if args.run else primary_run(RAW_DIR)
+    if run is None:
+        print(f"No run with Jev in {RAW_DIR}.", file=sys.stderr)
+        return 1
     html_dir = REPO_ROOT / "docs" / "diagrams"
     paths = build_diagrams(
-        Path(args.run), TABLES_DIR, REPO_ROOT / "results" / "comparison", html_dir
+        run, TABLES_DIR, REPO_ROOT / "results" / "comparison", html_dir
     )
     for p in paths:
         print(f"wrote {p.relative_to(REPO_ROOT)}")

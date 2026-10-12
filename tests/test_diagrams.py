@@ -7,10 +7,11 @@ from pathlib import Path
 
 import pytest
 
+from jevbench.analysis import primary_run
 from jevbench.config import RAW_DIR, REPO_ROOT, TABLES_DIR
 from jevbench.diagrams import ACCENT, _domain, build_diagrams, dumbbell
 
-COMMITTED_RUN = RAW_DIR / "run_live_20260918T230710Z.jsonl"
+COMMITTED_RUN = primary_run(RAW_DIR)
 
 
 @pytest.fixture(scope="module")

@@ -31,9 +31,20 @@ Key = tuple[str, str, str]  # (probe_id, persona, arm)
 FREDERICK_CRT = frozenset({"crt_bat_ball", "crt_widgets", "crt_lilypads"})
 
 
-def latest_run(raw_dir: Path) -> Path | None:
-    runs = sorted(raw_dir.glob("run_*.jsonl"))
-    return runs[-1] if runs else None
+def latest_run(raw_dir: Path, model: str | None = None) -> Path | None:
+    """The newest run file, optionally only those whose name carries `model`.
+
+    Names are run_<live|simulated>_<timestamp>_<models>.jsonl, so files are
+    ordered by their timestamp rather than by name, which would put every
+    simulated run after every live one.
+    """
+    runs = [p for p in raw_dir.glob("run_*.jsonl") if model is None or model in p.name]
+    return max(runs, key=lambda p: (p.name.split("_")[2:3], p.name)) if runs else None
+
+
+def primary_run(raw_dir: Path) -> Path | None:
+    """The run the write-up is about: the newest one that includes Jev."""
+    return latest_run(raw_dir, "typesafe--jev") or latest_run(raw_dir)
 
 
 def load_records(path: Path) -> pd.DataFrame:
