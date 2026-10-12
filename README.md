@@ -73,7 +73,7 @@ cell retained at least 5 of its 10 samples. Full tables in
 
 ### Under neutral framing it does not look like human System 1
 
-![Jev against people on decision anomalies](results/figures/jev-decisions-neutral.png)
+![Jev against people on seven decision-making tests, with and without the typical-person instruction](results/figures/jev-decisions.png)
 
 On most classic biases it sits closer to the normative answer than the published
 human value. It answered the Cognitive Reflection Test at **0.99** probability
@@ -92,15 +92,13 @@ does land near people rather than near game theory.
 
 ### Asked to answer like a person, it moves a long way
 
-![Jev asked to answer as a typical person](results/figures/jev-decisions-typical.png)
-![The antisocial persona in the economic games](results/figures/persona-antisocial.png)
-
 One sentence — *answer the way a typical human participant would actually
 answer* — moved CRT accuracy from **0.99 to 0.55** and lure mass from **0.01 to
 0.41**. Sunk-cost continuation went from **0.01 to 0.81** against a human
-reference of 0.85. The conjunction fallacy went from **0.10 to 0.93** against
+reference of 0.85. The conjunction fallacy went from **0.09 to 0.93** against
 0.85. Whatever else that is, the model has a usable representation of how people
-get these problems wrong.
+get these problems wrong. The decision-making chart above shows both conditions
+side by side.
 
 The other two conditions move it just as far in their own directions. Asked to
 answer as a rational agent, it put **all** its mass on giving nothing in the
@@ -109,6 +107,8 @@ contest. Asked to adopt an antisocial persona, Dark Triad self-report rose from
 **5.0 to 8.6** on a 9-point scale (the manipulation check), and giving collapsed
 across every game — dictator 0.14 → 0.00, trust sent 0.37 → 0.08, public goods
 0.38 → 0.01.
+
+![The antisocial persona in the economic games](results/figures/persona-antisocial.png)
 
 That the persona reaches consequential allocations and not just self-description
 is the part I found most interesting, and it is measurable here only because the
@@ -128,7 +128,7 @@ the point of writing them down first was to be held to them.
 
 The conjunction result looked like the most interesting thing here until I read
 the documentation properly. Asked side by side, the model picked the single
-statement over the conjunction (fallacy mass 0.10). Asked as two independent
+statement over the conjunction (fallacy mass 0.09). Asked as two independent
 probability questions, it assigned the conjunction *higher* probability than its
 own component. That is the shape of the original human finding — but it is also
 already documented behaviour, not a discovery. See the next section.

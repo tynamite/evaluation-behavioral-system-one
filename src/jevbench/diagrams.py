@@ -507,6 +507,133 @@ def fig_jev_vs_people(sdf: pd.DataFrame, which: str, persona: str) -> Figure:
     )
 
 
+SERIES_2 = "#5e7a9b"  # the style guide's dusty-blue series slot, for a second focal series
+
+
+def fig_jev_decisions(sdf: pd.DataFrame) -> Figure:
+    """Three series per row: people, Jev with no instruction, Jev told to answer like a person.
+
+    The dumbbell takes two series, so this is its dot-plot sibling: one hairline
+    spanning the three values, a hollow dot for people and two solid colours for
+    the two Jev conditions, and the numbers in a table column at the right
+    rather than beside the dots, where three labels per row would collide.
+    """
+    rows = [
+        (
+            name,
+            sub,
+            BENCHMARKS[b].value,
+            _stat(sdf, i, s, "neutral"),
+            _stat(sdf, i, s, "typical_human"),
+        )
+        for i, s, b, name, sub in DECISION_MEASURES
+    ]
+    n = len(rows)
+    pitch, y0 = ROW_LAYOUT[n]
+    L, R = 300, 820
+    cols = [(874, "PEOPLE"), (922, "NO INSTR."), (970, "AS PERSON")]
+
+    def px(v: float) -> float:
+        return L + v * (R - L)
+
+    out: list[str] = []
+    for i in range(6):
+        t = i * 0.2
+        x = px(t)
+        if i:
+            out.append(
+                f'<line x1="{x:g}" y1="56" x2="{x:g}" y2="408" stroke="{ink(0.08)}" stroke-width="0.8"/>'
+            )
+        out.append(
+            _t(x, 440, f"{t:.2f}", anchor="middle", extra=f' data-tick="x" data-value="{t:g}"')
+        )
+    out.append(f'<line x1="{L}" y1="40" x2="{L}" y2="420" stroke="{ink(0.25)}" stroke-width="1"/>')
+    out.append(
+        _t(
+            (L + R) / 2,
+            456,
+            "SHARE OF ANSWERS THAT ARE THE ONE NAMED UNDER EACH TEST",
+            size=7,
+            anchor="middle",
+            spacing="0.14em",
+        )
+    )
+    # Column heads are the series marks themselves, so the table needs no words.
+    hy = y0 - 30
+    out.append(
+        f'<line x1="{cols[0][0] - 8}" y1="{hy - 7}" x2="{cols[0][0] - 8}" y2="{hy + 7}" stroke="{MUTED}" stroke-width="2"/>'
+    )
+    out.append(
+        f'<circle cx="{cols[1][0] - 8}" cy="{hy}" r="5" fill="{SERIES_2}" stroke="{INK}" stroke-width="1"/>'
+    )
+    out.append(
+        f'<circle cx="{cols[2][0] - 8}" cy="{hy}" r="5" fill="{ACCENT}" stroke="{INK}" stroke-width="1"/>'
+    )
+    for k, (name, sub, h, neu, typ) in enumerate(rows):
+        y = y0 + k * pitch
+        xh, xn, xt = px(h), px(neu), px(typ)
+        # Each Jev condition sits on its own line just above or below the row, joined
+        # to the people tick, so its hairline is its gap from people and no two
+        # dots can cover each other however close the values are.
+        for xv, dy in ((xn, -7), (xt, 7)):
+            out.append(
+                f'<line x1="{xh:.1f}" y1="{y + dy}" x2="{xv:.1f}" y2="{y + dy}" stroke="{ink(0.35)}" stroke-width="1"/>'
+            )
+        out.append(
+            f'<line data-series="people" data-value="{h:.4f}" x1="{xh:.1f}" y1="{y - 14}" x2="{xh:.1f}" y2="{y + 14}" stroke="{MUTED}" stroke-width="2"/>'
+        )
+        out.append(
+            f'<circle data-series="neutral" data-value="{neu:.4f}" cx="{xn:.1f}" cy="{y - 7}" r="5" fill="{SERIES_2}" stroke="{INK}" stroke-width="1"/>'
+        )
+        out.append(
+            f'<circle data-series="typical" data-value="{typ:.4f}" cx="{xt:.1f}" cy="{y + 7}" r="5" fill="{ACCENT}" stroke="{INK}" stroke-width="1"/>'
+        )
+        for (x, _h), v in zip(cols, (h, neu, typ), strict=True):
+            out.append(_t(x, y + 4, f"{v:.2f}", anchor="end", fill=INK))
+        out.append(
+            _t(L - 12, y - 1, name, size=11, fill=INK, family=SANS, anchor="end", weight=600)
+        )
+        out.append(_t(L - 12, y + 12, sub, size=9, fill=MUTED, family=SANS, anchor="end"))
+    out.append(_legend(1000, 462, []))
+    keys = [
+        ("Published human result", f'fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"'),
+        ("Jev 1.13, no instruction", f'fill="{SERIES_2}" stroke="{INK}" stroke-width="1"'),
+        (
+            "Jev 1.13, told to answer like a typical person",
+            f'fill="{ACCENT}" stroke="{INK}" stroke-width="1"',
+        ),
+    ]
+    x = 104
+    for i, (label, style) in enumerate(keys):
+        if i == 0:
+            out.append(
+                f'<line x1="{x}" y1="486" x2="{x}" y2="500" stroke="{MUTED}" stroke-width="2"/>'
+            )
+        else:
+            out.append(f'<circle cx="{x}" cy="493" r="5" {style}/>')
+        out.append(_t(x + 12, 497, label, size=9, family=SANS, fill=INK))
+        x += int(12 + text_width(label, 9) + 36)
+    out.append(_t(970, 497, "ROWS IN BATTERY ORDER", anchor="end"))
+    return Figure(
+        slug="jev-decisions",
+        eyebrow="Decision-making tests · Jev 1.13",
+        title="Jev 1.13 vs. published human results on seven decision-making tests",
+        subtitle=(
+            "Classic problems from behavioural economics, each asked two ways: with no instruction, and with this "
+            f"sentence added first: \u201c{_prompt('typical_human')}\u201d Each row says what was asked and which "
+            "answer is counted; some rows count the correct answer, others the typical human error. Jev's value is "
+            "the probability it puts on that answer."
+        ),
+        desc="Dot chart of seven decision-making tests comparing the published human result with Jev 1.13 asked with no instruction and told to answer like a typical person.",
+        width=1000,
+        height=510,
+        body="\n".join(out),
+        source="Jev: mean of the probability distributions returned over 10 repeats, run of 18 Sep 2026. "
+        "Human results: published studies or meta-analyses, listed in docs/BENCHMARKS.md; different people, "
+        "decades and stakes, so a gap of a few points is not meaningful.",
+    )
+
+
 def fig_antisocial(sdf: pd.DataFrame) -> Figure:
     rows = [
         (name, sub, _stat(sdf, i, s, "neutral"), _stat(sdf, i, s, "antisocial"))
@@ -1440,8 +1567,7 @@ def build_diagrams(
 
     figures = [
         fig_process(),
-        fig_jev_vs_people(sdf, "decisions", "neutral"),
-        fig_jev_vs_people(sdf, "decisions", "typical_human"),
+        fig_jev_decisions(sdf),
         fig_jev_vs_people(sdf, "games", "neutral"),
         fig_antisocial(sdf),
         fig_dictator(df),
