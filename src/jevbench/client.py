@@ -27,6 +27,19 @@ from .schema import DecisionResponse, Question
 RETRY_STATUS = {408, 429, 500, 502, 503, 504, 529}
 
 
+class Refusal(RuntimeError):
+    """The model declined to answer. A behaviour to count, not a fault to retry.
+
+    The decisions route reports an upstream refusal as HTTP 502, the same
+    status as a gateway fault, so the body is the only thing that tells them
+    apart. Retrying a refusal returns the same refusal and burns the backoff.
+    """
+
+
+def _is_refusal(status: int, body: str) -> bool:
+    return status == 502 and "refused to answer" in body
+
+
 class DecisionBackend(Protocol):
     def decide(self, state: Any, questions: dict[str, Question]) -> DecisionResponse: ...
 
@@ -73,6 +86,8 @@ class SystemOneClient:
                 started = time.monotonic()
                 resp = self._client.post(url, headers=self._headers(), json=payload)
                 elapsed = time.monotonic() - started
+                if _is_refusal(resp.status_code, resp.text):
+                    raise Refusal(f"refused: {redact(resp.text[:300], self._key)}")
                 if resp.status_code in RETRY_STATUS:
                     raise httpx.HTTPStatusError(
                         f"retryable status {resp.status_code}", request=resp.request, response=resp
@@ -109,7 +124,10 @@ class SystemOneClient:
         distribution from the chat model — that asymmetry is the point of the
         project. It is resampled instead (see `BatteryRunner.run_baseline`).
 
-        `max_tokens` is generous rather than minimal. An earlier version capped
+        `max_tokens` is generous rather than minimal, and configurable
+        (`JEVBENCH_BASELINE_MAX_TOKENS`) because models that reason before
+        answering spend it on reasoning first: Claude Haiku 5.5 used all 512 on
+        reasoning in 3% of calls and returned empty content. An earlier version capped
         it at 8, and a second at 64; both truncated the reply into
         `content: null` on exactly the items the model found hardest, which is a
         systematic hole rather than random loss. The model reasons before
@@ -120,7 +138,7 @@ class SystemOneClient:
             "model": self.config.baseline_model,
             "messages": [{"role": "user", "content": prompt}],
             "temperature": 1.0,
-            "max_tokens": 512,
+            "max_tokens": self.config.baseline_max_tokens,
         }
         obj = self._post(self.config.chat_url, payload)
         choices = obj.get("choices") or []
@@ -131,6 +149,7 @@ class SystemOneClient:
             "raw_text": text,
             "parsed": parse_option(text, options),
             "finish_reason": finish,
+            "max_tokens": self.config.baseline_max_tokens,
             "usage": obj.get("usage", {}),
         }
 

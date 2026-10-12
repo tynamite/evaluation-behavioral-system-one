@@ -65,6 +65,9 @@ def _health(df: pd.DataFrame, arm: str, label: str, run_file: str) -> dict[str, 
         "run_file": run_file,
         "n_records": len(sel),
         "n_errors": int(err.sum()),
+        "n_refused": int(sel["error"].fillna("").str.startswith("refused").sum())
+        if "error" in sel.columns
+        else 0,
         "n_unresolved": int((~err & sel["value"].isna()).sum()),
         "cells": len(cells),
         "cells_with_no_usable_answer": int((good_cells == 0).sum()),

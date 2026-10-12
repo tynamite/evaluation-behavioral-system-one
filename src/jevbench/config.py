@@ -31,6 +31,7 @@ class Config:
     api_key: str | None = None
     timeout: float = 60.0
     max_retries: int = 5
+    baseline_max_tokens: int = 512
 
     @classmethod
     def from_env(cls, backend: str | None = None) -> Config:
@@ -55,6 +56,7 @@ class Config:
             api_key=key,
             timeout=float(os.getenv("JEVBENCH_TIMEOUT", "60")),
             max_retries=int(os.getenv("JEVBENCH_MAX_RETRIES", "5")),
+            baseline_max_tokens=int(os.getenv("JEVBENCH_BASELINE_MAX_TOKENS", "512")),
         )
 
     def require_key(self) -> str:

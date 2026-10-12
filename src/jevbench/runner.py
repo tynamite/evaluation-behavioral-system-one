@@ -231,6 +231,7 @@ class BatteryRunner:
                     **probe.meta,
                     "raw_text": out["raw_text"],
                     "finish_reason": out.get("finish_reason"),
+                    "max_tokens": out.get("max_tokens"),
                 },
                 usage=out.get("usage", {}),
                 timestamp=now,
