@@ -1,0 +1,146 @@
+# More models through the same battery
+
+The [main write-up](../README.md) is about one System One model, TypeSafe's
+Jev. Since then, eight more models have appeared on OpenRouter's decisions
+route, all on the same `/v1/systemone` contract, so the battery runs on them
+unchanged. This page puts them side by side with Jev, the original chat
+baseline (Claude Sonnet 5), and a second chat baseline (Claude Haiku 5.5).
+
+The same caveats as the main write-up apply in full: this is a hobby project,
+the human values are not a control group, and **no claims are made about any
+model, company or product.** These are numbers recorded from a public API on
+one day, and how they were produced.
+
+## What was run
+
+| Model | Type | Run | Records | Cost |
+|---|---|---|---|---|
+| `typesafe/jev-1.13-20260917` | System One | Sep 18 (committed run) | 4,680 | $0.09 |
+| `anthropic/claude-sonnet-5` | chat, resampled | Sep 18 (committed run) | 4,680 | $2.74 |
+| `openai/gpt-6-luna-decisions-20261006` | System One | Oct 12 | 5,880 | $0.13 |
+| `microsoft/microsoft-decision-1-20261009` | System One | Oct 12 | 5,880 | $0.04 |
+| `perplexity/pplx-decider-v1.1-27b-20261006` | System One | Oct 12 | 5,880 | $0.03 |
+| `inception/mercury-decide-20260930` | System One | Oct 12 | 5,880 | $0.03 |
+| `liquid/d1-20260930` | System One | Oct 12 | 5,880 | $0.04 |
+| `upstage/solar-decide-flash-20261008` | System One | Oct 12 | 5,880 | $0.14 |
+| `nace-ai/drex-v1.5-20261009` | System One | Oct 12 | 5,880 | $0.03 |
+| `anthropic/claude-haiku-5.5` | chat, resampled | Oct 12 | 5,880 | $0.68 |
+| `upstage/solar-decide-20260928` | System One | *in progress — see below* | | |
+
+The Oct 12 runs are 147 probes × 4 personas × 10 replicates; the committed
+Sep 18 run predates the 30 follow-up items and has 117 probes. Every measure
+compared below comes from items present in both.
+
+Reproduce:
+
+```bash
+jevbench compare data/raw/run_live_20260918T230710Z.jsonl data/raw/run_live_20261012*.jsonl
+```
+
+## Read the health table first
+
+[`results/comparison/health.csv`](../results/comparison/health.csv) exists to
+stop silent holes being read as results, and on this run it caught three, two
+of which were bugs in this repository.
+
+**GPT-6 Luna Decisions refuses some items.** 240 of its 5,880 calls (4%) came
+back `OpenAI refused to answer question "answer"`: the custody case, the trolley
+estimates, the false-consensus and choosing/rejecting estimates, and a Dirty
+Dozen item. The route reports a refusal as HTTP 502, so the client first logged
+these as transport errors and retried each one five times. A refusal is now
+recorded as one and never retried. None of the refused items feeds the
+comparison below, but 44% of this model's yes/no (`Noul`) items are refused, so
+it has no score on the follow-up study's estimate items.
+
+**Solar Decide Flash cannot answer the p-beauty contest.** That item has 101
+options (0–100), and the route rejects a `Choice` with more than 26. This is a
+documented limit of the route rather than a model behaviour, and it costs one
+item.
+
+**Haiku 5.5 truncated on its own reasoning.** It reasons before answering, and
+the reasoning counts against the reply cap: on the first run 183 calls spent
+all 512 tokens on reasoning and returned nothing, concentrated on the numeric
+estimate items — the same shape of hole the main write-up describes for the
+first Sonnet runs. The cap is now configurable and recorded per record; the
+committed Haiku run used 4,096 and has 9 unresolved replies (0.15%), against
+Sonnet's 9 at 512. The truncated run was discarded, not mixed in.
+
+## Closeness to human values
+
+![Models against human values](../results/comparison/fig_models_vs_human.png)
+
+Mean absolute distance from the published human value over the 14 measures on
+a shared 0–1 scale, and the correlation `r` with them across measures
+([`fidelity.csv`](../results/comparison/fidelity.csv)):
+
+| Model | Neutral: distance | Neutral: r | As typical human: distance | As typical human: r |
+|---|---|---|---|---|
+| Solar Decide Flash | **0.21** | +0.20 | **0.11** | +0.76 |
+| Drex 1.5 | 0.27 | +0.00 | 0.29 | −0.10 |
+| d1 | 0.32 | +0.09 | 0.19 | +0.66 |
+| Jev 1.13 | 0.32 | −0.15 | 0.14 | +0.76 |
+| Mercury Decide | 0.33 | −0.06 | 0.20 | +0.54 |
+| GPT-6 Luna Decisions | 0.34 | −0.38 | 0.19 | +0.11 |
+| Decider v1.1 27B | 0.34 | −0.42 | 0.15 | +0.67 |
+| Claude Sonnet 5 | 0.35 | +0.02 | 0.17 | +0.83 |
+| Microsoft-Decision-1 | 0.37 | −0.62 | 0.18 | +0.59 |
+| Claude Haiku 5.5 | 0.49 | −0.54 | 0.18 | +0.88 |
+
+The pattern from the main write-up holds across every model: **answering
+neutrally, none of them looks like people** (no correlation better than +0.20,
+several strongly negative), and **one sentence asking for a typical human
+moves nearly all of them a long way toward people.** Two do not move: Drex 1.5
+gets no closer, and GPT-6 Luna Decisions gets closer on average but without
+learning which effects are strong (r +0.11).
+
+### Why the top of that table should not be read as a ranking
+
+Solar Decide Flash comes out closest, and the reason matters more than the
+ranking. Its answers sit nearer 0.5 than any other model's, and most of the
+human reference values sit in the middle of the scale too — on average 0.18
+from 0.5. A model that hedges everywhere therefore scores a small distance
+without reproducing any effect.
+
+The framing reversal shows it. Humans pick the certain option 72% of the time
+in the gain frame and 22% in the loss frame, a 50-point reversal; the main
+write-up already argues that the contrast, not either level, is the robust
+quantity. Gain minus loss, in points:
+
+| | Human | d1 | Mercury | Jev | Decider | Luna | Solar Flash | Drex | MS-Decision-1 | Sonnet 5 | Haiku 5.5 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Neutral | 50 | **54** | 19 | 29 | 17 | 3 | 9 | −8 | −48 | 100 | 0 |
+| As typical human | 50 | **56** | 34 | 30 | 45 | 21 | 4 | −51 | −10 | 100 | 100 |
+
+On the effect itself, Solar Decide Flash shows almost none, d1 reproduces it
+almost exactly, the two chat models show it at full strength or not at all
+(resampled answers saturate at 0 or 1), and Drex 1.5 and Microsoft-Decision-1
+reverse it. Distance from human levels and reproduction of human effects are
+different questions, and this battery's one summary number answers only the
+first.
+
+### Other things worth noting
+
+- **Haiku 5.5 is the most extreme answerer in the set**, furthest from 0.5 both
+  answering neutrally and as a typical human. Asked to answer as a typical person, it gets the cognitive
+  reflection items right only 6% of the time (people: 41%), and continues the
+  sunk-cost project every time.
+- **The sunk-cost item is the one nothing reproduces under neutral framing**:
+  every model, System One or chat, abandons the project (≤ 0.07, people 0.85).
+- **No model reproduces the conjunction fallacy unprompted** except Drex 1.5
+  (0.58) and Solar Decide Flash (0.70); asked to answer as a person, all but
+  Luna (0.50) and Drex (0.61) reach 0.83 or more, against people's 0.85.
+
+## Limitations specific to this comparison
+
+1. **Two dates.** Jev and Sonnet were run on Sep 18 and everything else on
+   Oct 12. Jev is pinned to a dated version, but the route and gateway may have
+   changed in between.
+2. **Microsoft-Decision-1 is not reproducible.** Its listing says its weights
+   are updated continually while the API stays the same; the served name
+   carries a date that does not change when they are.
+3. **One summary number is not a ranking**, for the reason above. It is
+   reported because it is what the existing analysis computes, not because it
+   orders the models.
+4. **Fourteen measures** is a small base for a correlation; an `r` of ±0.2 is
+   indistinguishable from none.
+5. Everything in the [main limitations](../README.md#limitations) applies.

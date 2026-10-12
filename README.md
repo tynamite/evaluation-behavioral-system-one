@@ -201,6 +201,9 @@ jevbench figures
 
 ### Adding more models
 
+Results for eight more System One models and Claude Haiku 5.5 are in
+[docs/MODELS.md](docs/MODELS.md).
+
 Every System One model on OpenRouter's decisions route shares Jev's
 `/v1/systemone` contract, so any of them can be run through the same battery,
 one run file per model. Chat models go in the baseline arm, and
