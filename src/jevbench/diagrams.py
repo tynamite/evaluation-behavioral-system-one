@@ -41,6 +41,11 @@ SOFT = "#5a6580"
 ACCENT = "#bf4520"
 LINK = "#2e5aa8"
 WHITE = "#ffffff"
+# Jev with no instruction is hot pink in every chart. The pink is too light to
+# be a mark's only edge (2.4:1 on paper), so pink dots keep an ink outline and
+# pink bars take the deeper JEV_PINK_EDGE (4.6:1), which also serves as text.
+JEV_PINK = "#ff69b4"
+JEV_PINK_EDGE = "#d6126f"
 
 
 def ink(a: float) -> str:
@@ -208,6 +213,9 @@ def dumbbell(
     *,
     ref_name: str,
     focal_name: str,
+    ref_fill: str | None = None,
+    focal_fill: str = ACCENT,
+    row_ref_fill: dict[str, tuple[str, str]] | None = None,
     axis_title: str,
     step: float,
     fmt: str = "{:.2f}",
@@ -226,6 +234,13 @@ def dumbbell(
     n = len(rows)
     if not 4 <= n <= 8:
         raise ValueError(f"dumbbell takes 4-8 rows, got {n}")
+    # The reference end is hollow by default; a solid fill marks it as a series
+    # of its own (Jev with no instruction, in pink), still with an ink edge.
+    ref_style = (
+        f'fill="{ref_fill}" stroke="{INK}" stroke-width="1"'
+        if ref_fill
+        else f'fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"'
+    )
     pitch, y0 = ROW_LAYOUT[n]
     vals = [v for _, _, a, b in rows for v in (a, b)]
     if reference_line:
@@ -273,15 +288,22 @@ def dumbbell(
         y = y0 + i * pitch
         xa, xb = px(a), px(b)
         close = abs(xa - xb) < 16
-        r = 4 if close else 6
+        row_style = ref_style
+        if row_ref_fill and name in row_ref_fill:
+            row_style = f'fill="{row_ref_fill[name][0]}" stroke="{INK}" stroke-width="1"'
+        # A pair too close to separate horizontally is split vertically instead,
+        # one dot just above the row and one just below, so neither hides the
+        # other; the positions along the axis stay exact.
+        r = 5 if close else 6
+        ya, yb = (y - 6, y + 6) if close else (y, y)
         out.append(
-            f'<line x1="{xa}" y1="{y}" x2="{xb}" y2="{y}" stroke="{ink(0.55)}" stroke-width="1"/>'
+            f'<line x1="{xa}" y1="{ya}" x2="{xb}" y2="{yb}" stroke="{ink(0.55)}" stroke-width="1"/>'
         )
         out.append(
-            f'<circle data-series="reference" data-value="{a:.4f}" cx="{xa}" cy="{y}" r="{r}" fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"/>'
+            f'<circle data-series="reference" data-value="{a:.4f}" cx="{xa}" cy="{ya}" r="{r}" {row_style}/>'
         )
         out.append(
-            f'<circle data-series="focal" data-value="{b:.4f}" cx="{xb}" cy="{y}" r="{r}" fill="{ACCENT}" stroke="{INK}" stroke-width="1"/>'
+            f'<circle data-series="focal" data-value="{b:.4f}" cx="{xb}" cy="{yb}" r="{r}" fill="{focal_fill}" stroke="{INK}" stroke-width="1"/>'
         )
         left, right = (a, b) if xa <= xb else (b, a)
         xl, xr = min(xa, xb), max(xa, xb)
@@ -290,7 +312,7 @@ def dumbbell(
             out.append(
                 _t(
                     (xa + xb) / 2,
-                    y - 10,
+                    y - 16,
                     f"{fmt.format(a)} · {fmt.format(b)}",
                     anchor="middle",
                     halo=True,
@@ -310,13 +332,21 @@ def dumbbell(
         out.append(_t(L - 12, y + 12, sub, size=9, fill=MUTED, family=SANS, anchor="end"))
 
     keys = [
-        f'<circle cx="104" cy="493" r="5" fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"/>',
+        f'<circle cx="104" cy="493" r="5" {ref_style}/>',
         _t(116, 497, ref_name, size=9, family=SANS, fill=INK),
-        f'<circle cx="{132 + text_width(ref_name, 9) + 24:g}" cy="493" r="5" fill="{ACCENT}" stroke="{INK}" stroke-width="1"/>',
+        f'<circle cx="{132 + text_width(ref_name, 9) + 24:g}" cy="493" r="5" fill="{focal_fill}" stroke="{INK}" stroke-width="1"/>',
         _t(132 + text_width(ref_name, 9) + 36, 497, focal_name, size=9, family=SANS, fill=INK),
     ]
     out.append(_legend(1000, 462, [], ""))
     out.extend(keys)
+    if row_ref_fill:
+        kx = int(132 + text_width(ref_name, 9) + 36 + text_width(focal_name, 9) + 40)
+        for fill, label in row_ref_fill.values():
+            out.append(
+                f'<circle cx="{kx}" cy="493" r="5" fill="{fill}" stroke="{INK}" stroke-width="1"/>'
+            )
+            out.append(_t(kx + 12, 497, label, size=9, family=SANS, fill=INK))
+            kx += int(12 + text_width(label, 9) + 36)
     out.append(_t(970, 497, order_note, anchor="end"))
     return "\n".join(out)
 
@@ -485,6 +515,7 @@ def fig_jev_vs_people(sdf: pd.DataFrame, which: str, persona: str) -> Figure:
         rows,
         ref_name="Published human result",
         focal_name=focal,
+        focal_fill=ACCENT if as_person else JEV_PINK,
         axis_title="share of answers, or share of the money",
         step=0.2,
         fmt="{:.2f}",
@@ -505,9 +536,6 @@ def fig_jev_vs_people(sdf: pd.DataFrame, which: str, persona: str) -> Figure:
         "Human results: published studies or meta-analyses, listed in docs/BENCHMARKS.md; different people, "
         "decades and stakes, so a gap of a few points is not meaningful.",
     )
-
-
-SERIES_2 = "#5e7a9b"  # the style guide's dusty-blue series slot, for a second focal series
 
 
 def fig_jev_decisions(sdf: pd.DataFrame) -> Figure:
@@ -564,7 +592,7 @@ def fig_jev_decisions(sdf: pd.DataFrame) -> Figure:
         f'<line x1="{cols[0][0] - 8}" y1="{hy - 7}" x2="{cols[0][0] - 8}" y2="{hy + 7}" stroke="{MUTED}" stroke-width="2"/>'
     )
     out.append(
-        f'<circle cx="{cols[1][0] - 8}" cy="{hy}" r="5" fill="{SERIES_2}" stroke="{INK}" stroke-width="1"/>'
+        f'<circle cx="{cols[1][0] - 8}" cy="{hy}" r="5" fill="{JEV_PINK}" stroke="{INK}" stroke-width="1"/>'
     )
     out.append(
         f'<circle cx="{cols[2][0] - 8}" cy="{hy}" r="5" fill="{ACCENT}" stroke="{INK}" stroke-width="1"/>'
@@ -583,7 +611,7 @@ def fig_jev_decisions(sdf: pd.DataFrame) -> Figure:
             f'<line data-series="people" data-value="{h:.4f}" x1="{xh:.1f}" y1="{y - 14}" x2="{xh:.1f}" y2="{y + 14}" stroke="{MUTED}" stroke-width="2"/>'
         )
         out.append(
-            f'<circle data-series="neutral" data-value="{neu:.4f}" cx="{xn:.1f}" cy="{y - 7}" r="5" fill="{SERIES_2}" stroke="{INK}" stroke-width="1"/>'
+            f'<circle data-series="neutral" data-value="{neu:.4f}" cx="{xn:.1f}" cy="{y - 7}" r="5" fill="{JEV_PINK}" stroke="{INK}" stroke-width="1"/>'
         )
         out.append(
             f'<circle data-series="typical" data-value="{typ:.4f}" cx="{xt:.1f}" cy="{y + 7}" r="5" fill="{ACCENT}" stroke="{INK}" stroke-width="1"/>'
@@ -597,7 +625,7 @@ def fig_jev_decisions(sdf: pd.DataFrame) -> Figure:
     out.append(_legend(1000, 462, []))
     keys = [
         ("Published human result", f'fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"'),
-        ("Jev 1.13, no instruction", f'fill="{SERIES_2}" stroke="{INK}" stroke-width="1"'),
+        ("Jev 1.13, no instruction", f'fill="{JEV_PINK}" stroke="{INK}" stroke-width="1"'),
         (
             "Jev 1.13, told to answer like a typical person",
             f'fill="{ACCENT}" stroke="{INK}" stroke-width="1"',
@@ -643,8 +671,9 @@ def fig_antisocial(sdf: pd.DataFrame) -> Figure:
     dt_a = _stat(sdf, "dirty_dozen", "overall", "antisocial")
     body = dumbbell(
         rows,
-        ref_name="No instruction",
-        focal_name="With the antisocial persona",
+        ref_name="Jev 1.13, no instruction",
+        focal_name="Jev 1.13, antisocial persona",
+        ref_fill=JEV_PINK,
         axis_title="share of answers, or share of the money",
         step=0.2,
         domain=(0.0, 1.0),
@@ -710,9 +739,11 @@ def fig_dictator(df: pd.DataFrame) -> Figure:
         )
         out.append(
             f'<rect data-value="{v:.4f}" x="{bx:g}" y="{by:.1f}" width="{bar}" height="{bh:.1f}" '
-            f'fill="{accent(0.12) if focal else muted(0.15)}" stroke="{ACCENT if focal else MUTED}" stroke-width="1"/>'
+            f'fill="{JEV_PINK}" fill-opacity="{0.75 if focal else 0.4}" stroke="{JEV_PINK_EDGE}" stroke-width="1"/>'
         )
-        out.append(_t(cx, by - 8, f"{v:.2f}", anchor="middle", fill=ACCENT if focal else MUTED))
+        out.append(
+            _t(cx, by - 8, f"{v:.2f}", anchor="middle", fill=JEV_PINK_EDGE if focal else INK)
+        )
         out.append(_t(cx, 440, name, size=11, family=SANS, fill=INK, anchor="middle", weight=600))
     out.append(
         _t(
@@ -1142,6 +1173,8 @@ def fig_models_scatter(fdf: pd.DataFrame) -> Figure:
         out.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r}" fill="{PAPER}"/>')
         if is_focal:
             mark = f'fill="{accent(0.15)}" stroke="{ACCENT}" stroke-width="1.2"'
+        elif name == "Jev 1.13":
+            mark = f'fill="{JEV_PINK}" stroke="{INK}" stroke-width="1"'
         elif typ != "System One":
             mark = f'fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"'
         else:
@@ -1211,6 +1244,11 @@ def fig_models_scatter(fdf: pd.DataFrame) -> Figure:
             fill=INK,
         )
     )
+    jx = int(424 + text_width(f"{focal[0]}: the only model above the line", 9) + 40)
+    out.append(
+        f'<circle cx="{jx}" cy="{ly0 + 31}" r="5" fill="{JEV_PINK}" stroke="{INK}" stroke-width="1"/>'
+    )
+    out.append(_t(jx + 12, ly0 + 35, "Jev 1.13", size=9, family=SANS, fill=INK))
     return Figure(
         slug="models-scatter",
         eyebrow="Eleven models · no instruction vs. told to answer like a typical person",
@@ -1268,6 +1306,7 @@ def fig_framing(mdf: pd.DataFrame) -> Figure:
         rows,
         ref_name="No instruction",
         focal_name="Told to answer like a typical person",
+        row_ref_fill={"Jev 1.13": (JEV_PINK, "Jev 1.13, no instruction")},
         axis_title="gain-frame minus loss-frame rate of picking the sure option, in points",
         step=20,
         fmt="{:.0f}",
