@@ -635,6 +635,139 @@ SHORT = {
 }
 
 
+Box = tuple[float, float, float, float]  # x0, y0, x1, y1
+
+
+def _overlaps(a: Box, b: Box, pad: float = 0.0) -> bool:
+    return not (
+        a[2] + pad <= b[0] or b[2] + pad <= a[0] or a[3] + pad <= b[1] or b[3] + pad <= a[1]
+    )
+
+
+def _segment_hits(x0: float, y0: float, x1: float, y1: float, box: Box) -> bool:
+    for i in range(1, 40):
+        t = i / 40
+        x, y = x0 + (x1 - x0) * t, y0 + (y1 - y0) * t
+        if box[0] <= x <= box[2] and box[1] <= y <= box[3]:
+            return True
+    return False
+
+
+def _segments_cross(
+    a: tuple[float, float, float, float], b: tuple[float, float, float, float]
+) -> bool:
+    def orient(px: float, py: float, qx: float, qy: float, rx: float, ry: float) -> float:
+        return (qx - px) * (ry - py) - (qy - py) * (rx - px)
+
+    d1 = orient(b[0], b[1], b[2], b[3], a[0], a[1])
+    d2 = orient(b[0], b[1], b[2], b[3], a[2], a[3])
+    d3 = orient(a[0], a[1], a[2], a[3], b[0], b[1])
+    d4 = orient(a[0], a[1], a[2], a[3], b[2], b[3])
+    return (d1 * d2 < 0) and (d3 * d4 < 0)
+
+
+def _box_distance(box: Box, x: float, y: float) -> float:
+    dx = max(box[0] - x, 0.0, x - box[2])
+    dy = max(box[1] - y, 0.0, y - box[3])
+    return math.hypot(dx, dy)
+
+
+def place_labels(
+    points: list[tuple[str, float, float, float]],
+    *,
+    size: float,
+    bounds: Box,
+    reserved: list[Box],
+) -> dict[str, tuple[float, float, str, Box, tuple[float, float, float, float] | None]]:
+    """Put a label on every point with no label touching a point, a label or a leader.
+
+    Greedy, most crowded point first: try positions round the point at growing
+    distances, take the nearest that collides with nothing, and draw a hairline
+    leader whenever the label had to move away from its point.
+    """
+    h = size + 5
+    marks: list[Box] = [(x - r - 3, y - r - 3, x + r + 3, y + r + 3) for _, x, y, r in points]
+    placed: list[Box] = list(reserved)
+    leaders: list[tuple[float, float, float, float]] = []
+    out: dict[str, tuple[float, float, str, Box, tuple[float, float, float, float] | None]] = {}
+
+    def crowd(p: tuple[str, float, float, float]) -> int:
+        return sum(
+            1 for o in points if o is not p and abs(o[1] - p[1]) < 90 and abs(o[2] - p[2]) < 40
+        )
+
+    for name, cx, cy, r in sorted(points, key=lambda p: -crowd(p)):
+        w = text_width(name, size) + 6
+        best = None
+        for d in (
+            r + 6,
+            r + 18,
+            r + 32,
+            r + 48,
+            r + 66,
+            r + 88,
+            r + 112,
+            r + 140,
+            r + 172,
+            r + 210,
+        ):
+            for ux, uy in ((1, 0), (-1, 0), (0, -1), (0, 1), (1, -1), (-1, -1), (1, 1), (-1, 1)):
+                lx = cx + ux * d
+                ly = cy + uy * d
+                if ux > 0:
+                    box = (lx, ly - h / 2, lx + w, ly + h / 2)
+                    anchor = "start"
+                elif ux < 0:
+                    box = (lx - w, ly - h / 2, lx, ly + h / 2)
+                    anchor = "end"
+                else:
+                    box = (lx - w / 2, ly - h / 2, lx + w / 2, ly + h / 2)
+                    anchor = "middle"
+                if (
+                    box[0] < bounds[0]
+                    or box[2] > bounds[2]
+                    or box[1] < bounds[1]
+                    or box[3] > bounds[3]
+                ):
+                    continue
+                if any(_overlaps(box, m) for m in marks) or any(
+                    _overlaps(box, q, 3) for q in placed
+                ):
+                    continue
+                leader = None
+                if d > r + 10:
+                    # The leader runs from the point's edge to the nearest edge of the label.
+                    tx = min(max(cx, box[0]), box[2])
+                    ty = min(max(cy, box[1]), box[3])
+                    dist = math.hypot(tx - cx, ty - cy) or 1.0
+                    sx, sy = cx + (tx - cx) / dist * (r + 1), cy + (ty - cy) / dist * (r + 1)
+                    leader = (sx, sy, tx, ty)
+                    others = [m for m, p in zip(marks, points, strict=True) if p[0] != name]
+                    if any(_segment_hits(*leader, m) for m in others + placed):
+                        continue
+                    if any(_segments_cross(leader, q) for q in leaders):
+                        continue
+                # A label without a leader must read as its own point's: nearer to
+                # it than to any other point. A leader makes the pairing explicit.
+                own = _box_distance(box, cx, cy)
+                if leader is None and any(
+                    _box_distance(box, ox, oy) < own + 6 for on, ox, oy, _r in points if on != name
+                ):
+                    continue
+                if best is None or d < best[0]:
+                    best = (d, lx, ly, anchor, box, leader)
+            if best is not None:
+                break
+        if best is None:
+            raise ValueError(f"no room to label {name!r}")
+        _, lx, ly, anchor, box, leader = best
+        placed.append(box)
+        if leader:
+            leaders.append(leader)
+        out[name] = (lx, ly + size * 0.35, anchor, box, leader)
+    return out
+
+
 def fig_models_scatter(fdf: pd.DataFrame) -> Figure:
     piv = fdf.pivot(index="model", columns="persona", values="mae")
     types = {str(m): str(t) for m, t in zip(fdf["model"], fdf["type"], strict=False)}
@@ -644,120 +777,165 @@ def fig_models_scatter(fdf: pd.DataFrame) -> Figure:
     ]
     if len(pts) > 30:
         raise ValueError("scatter caps at 30 points")
-    lim = 0.6
+    # The axes are zoomed to where the models are, so every one can be named;
+    # the source line states the bounds, as the scatter honesty rule asks.
+    x0, x1, y0, y1 = 0.15, 0.55, 0.05, 0.35
+    left, right, top, bottom = 80, 960, 40, 520
 
     def X(v: float) -> float:
-        return 80 + v / lim * 880
+        return left + (v - x0) / (x1 - x0) * (right - left)
 
     def Y(v: float) -> float:
-        return 420 - v / lim * 380
+        return bottom - (v - y0) / (y1 - y0) * (bottom - top)
 
     focal = max(pts, key=lambda p: p[2] - p[1])  # the one that moved least (or moved away)
-    labelled = {focal[0], "Jev 1.13", "Solar Decide Flash", "Claude Haiku 5.5"}
     out: list[str] = []
-    for t in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6]:
-        if t:
+    for i in range(9):
+        t = round(x0 + i * 0.05, 2)
+        if i:
             out.append(
-                f'<line x1="{X(t):g}" y1="40" x2="{X(t):g}" y2="420" stroke="{ink(0.08)}" stroke-width="0.8"/>'
-            )
-            out.append(
-                f'<line x1="80" y1="{Y(t):g}" x2="960" y2="{Y(t):g}" stroke="{ink(0.08)}" stroke-width="0.8"/>'
+                f'<line x1="{X(t):g}" y1="{top}" x2="{X(t):g}" y2="{bottom}" stroke="{ink(0.08)}" stroke-width="0.8"/>'
             )
         out.append(
-            _t(X(t), 440, f"{t:.1f}", anchor="middle", extra=f' data-tick="x" data-value="{t:g}"')
+            _t(
+                X(t),
+                bottom + 20,
+                f"{t:.2f}",
+                anchor="middle",
+                extra=f' data-tick="x" data-value="{t:g}"',
+            )
         )
+    for i in range(7):
+        t = round(y0 + i * 0.05, 2)
+        if i:
+            out.append(
+                f'<line x1="{left}" y1="{Y(t):g}" x2="{right}" y2="{Y(t):g}" stroke="{ink(0.08)}" stroke-width="0.8"/>'
+            )
         out.append(
-            _t(72, Y(t) + 3, f"{t:.1f}", anchor="end", extra=f' data-tick="y" data-value="{t:g}"')
+            _t(
+                left - 8,
+                Y(t) + 3,
+                f"{t:.2f}",
+                anchor="end",
+                extra=f' data-tick="y" data-value="{t:g}"',
+            )
         )
-    out.append(f'<line x1="80" y1="420" x2="960" y2="420" stroke="{ink(0.25)}" stroke-width="1"/>')
-    out.append(f'<line x1="80" y1="40" x2="80" y2="420" stroke="{ink(0.25)}" stroke-width="1"/>')
+    out.append(
+        f'<line x1="{left}" y1="{bottom}" x2="{right}" y2="{bottom}" stroke="{ink(0.25)}" stroke-width="1"/>'
+    )
+    out.append(
+        f'<line x1="{left}" y1="{top}" x2="{left}" y2="{bottom}" stroke="{ink(0.25)}" stroke-width="1"/>'
+    )
     # The no-change diagonal: below it, asking for a typical person brought the model closer to people.
     out.append(
-        f'<line x1="{X(0):g}" y1="{Y(0):g}" x2="{X(0.6):g}" y2="{Y(0.6):g}" stroke="{ink(0.25)}" stroke-width="1" stroke-dasharray="4,3"/>'
+        f'<line x1="{X(0.15):g}" y1="{Y(0.15):g}" x2="{X(0.35):g}" y2="{Y(0.35):g}" stroke="{ink(0.35)}" stroke-width="1" stroke-dasharray="4,3"/>'
     )
-    nx, ny = X(0.50) - 8, Y(0.50) - 10
+    tag = "NO CHANGE"
+    tw = text_width(tag, 8, True) + 8
+    # Beside the line where it meets the top of the plot, below and right of it.
+    nx, ny = X(0.335) + 8, Y(0.335) + 6
+    tag_box = (nx, ny - 9, nx + tw, ny + 3)
     out.append(
-        f'<rect x="{nx - text_width("NO CHANGE", 8, True) - 4:g}" y="{ny - 9:g}" width="{text_width("NO CHANGE", 8, True) + 8:g}" height="12" rx="2" fill="{PAPER}"/>'
+        f'<rect x="{tag_box[0]:g}" y="{tag_box[1]:g}" width="{tw:g}" height="12" rx="2" fill="{PAPER}"/>'
     )
-    out.append(_t(nx, ny, "NO CHANGE", spacing="0.06em", anchor="end"))
+    out.append(_t(nx + 4, ny, tag, spacing="0.06em"))
+    note = "closer to people when asked"
+    note_x, note_y = X(0.53), Y(0.075)
+    note_box = (note_x - text_width(note, 15) * 0.8, note_y - 16, note_x, note_y + 4)
     out.append(
         _t(
-            X(0.40),
-            Y(0.05),
-            "closer to people when asked",
+            note_x,
+            note_y,
+            note,
             size=15,
             family=SERIF,
             fill=INK,
+            anchor="end",
             extra=' font-style="italic"',
         )
     )
+
+    size = 10.0
+    marks = [(n, X(xn), Y(yt), 6.0 if n == focal[0] else 5.0) for n, xn, yt, _ in pts]
+    labels = place_labels(
+        marks,
+        size=size,
+        bounds=(left + 4, top + 4, right - 4, bottom - 4),
+        reserved=[tag_box, note_box],
+    )
+    for _lx, _ly, _anchor, _box, leader in labels.values():
+        if leader:
+            out.append(
+                f'<line x1="{leader[0]:.1f}" y1="{leader[1]:.1f}" x2="{leader[2]:.1f}" y2="{leader[3]:.1f}" stroke="{ink(0.45)}" stroke-width="0.8"/>'
+            )
     for name, xn, yt, typ in sorted(pts, key=lambda p: p[0] == focal[0]):
         cx, cy = X(xn), Y(yt)
         is_focal = name == focal[0]
-        chat = typ != "System One"
         r = 6 if is_focal else 5
         out.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r}" fill="{PAPER}"/>')
         if is_focal:
             mark = f'fill="{accent(0.15)}" stroke="{ACCENT}" stroke-width="1.2"'
-        elif chat:
+        elif typ != "System One":
             mark = f'fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"'
         else:
             mark = f'fill="{muted(0.20)}" stroke="{MUTED}" stroke-width="1"'
         out.append(
             f'<circle data-name="{esc(name)}" data-x="{xn:.4f}" data-y="{yt:.4f}" cx="{cx:.1f}" cy="{cy:.1f}" r="{r}" {mark}/>'
         )
-        if name in labelled:
-            lab = name.upper()
-            w = text_width(lab, 8, True) + 8
-            crowded = any(
-                0 < X(o[1]) - cx < w + 16 and abs(Y(o[2]) - cy) < 20 for o in pts if o[0] != name
+    for name, (lx, ly, anchor, box, _leader) in labels.items():
+        out.append(
+            f'<rect x="{box[0]:.1f}" y="{box[1]:.1f}" width="{box[2] - box[0]:.1f}" height="{box[3] - box[1]:.1f}" rx="2" fill="{PAPER}"/>'
+        )
+        out.append(
+            _t(
+                round(lx + (3 if anchor == "start" else -3 if anchor == "end" else 0), 1),
+                round(ly, 1),
+                name,
+                size=size,
+                family=SANS,
+                fill=INK,
+                weight=500,
+                anchor=anchor,
+                extra=f' data-name="{esc(name)}" data-role="label"',
             )
-            if crowded:
-                lx, ly, anchor = cx - 10, cy + 3, "end"
-                rx = lx - w + 4
-            else:
-                lx, ly, anchor = cx + 10, cy - 8, "start"
-                rx = lx - 4
-            out.append(
-                f'<rect x="{rx:.1f}" y="{ly - 9:.1f}" width="{w:g}" height="12" rx="2" fill="{PAPER}"/>'
-            )
-            out.append(
-                _t(
-                    round(lx, 1),
-                    round(ly, 1),
-                    lab,
-                    fill=INK,
-                    spacing="0.06em",
-                    anchor=anchor,
-                    extra=f' data-name="{esc(name)}" data-role="label"',
-                )
-            )
+        )
+    mid_y = (top + bottom) / 2
     out.append(
         _t(
             24,
-            230,
+            mid_y,
             "AS A TYPICAL PERSON",
             size=7,
             spacing="0.14em",
             anchor="middle",
-            extra=' transform="rotate(-90 24 230)"',
+            extra=f' transform="rotate(-90 24 {mid_y:g})"',
         )
     )
-    out.append(_t(520, 458, "ANSWERING NEUTRALLY", size=7, spacing="0.14em", anchor="middle"))
-    out.append(_legend(1000, 470, []))
     out.append(
-        f'<circle cx="104" cy="501" r="5" fill="{muted(0.20)}" stroke="{MUTED}" stroke-width="1"/>'
+        _t(
+            (left + right) / 2,
+            bottom + 38,
+            "ANSWERING NEUTRALLY",
+            size=7,
+            spacing="0.14em",
+            anchor="middle",
+        )
     )
-    out.append(_t(116, 505, "System One model", size=9, family=SANS, fill=INK))
+    ly0 = bottom + 50
+    out.append(_legend(1000, ly0, []))
     out.append(
-        f'<circle cx="244" cy="501" r="5" fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"/>'
+        f'<circle cx="104" cy="{ly0 + 31}" r="5" fill="{muted(0.20)}" stroke="{MUTED}" stroke-width="1"/>'
     )
-    out.append(_t(256, 505, "Chat model, resampled", size=9, family=SANS, fill=INK))
+    out.append(_t(116, ly0 + 35, "System One model", size=9, family=SANS, fill=INK))
     out.append(
-        f'<circle cx="412" cy="501" r="6" fill="{accent(0.15)}" stroke="{ACCENT}" stroke-width="1.2"/>'
+        f'<circle cx="244" cy="{ly0 + 31}" r="5" fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"/>'
+    )
+    out.append(_t(256, ly0 + 35, "Chat model, resampled", size=9, family=SANS, fill=INK))
+    out.append(
+        f'<circle cx="412" cy="{ly0 + 31}" r="6" fill="{accent(0.15)}" stroke="{ACCENT}" stroke-width="1.2"/>'
     )
     out.append(
-        _t(424, 505, f"{focal[0]}: the one that did not move", size=9, family=SANS, fill=INK)
+        _t(424, ly0 + 35, f"{focal[0]}: the one that did not move", size=9, family=SANS, fill=INK)
     )
     return Figure(
         slug="models-scatter",
@@ -769,10 +947,11 @@ def fig_models_scatter(fdf: pd.DataFrame) -> Figure:
         ),
         desc="Scatter of eleven models' mean distance from human values answering neutrally versus as a typical person; all but Drex 1.5 fall below the no-change line.",
         width=1000,
-        height=520,
+        height=ly0 + 50,
         body="\n".join(out),
-        source="Jev and Claude Sonnet 5 run 18 Sep 2026, all others 12 Oct 2026; 14 measures on a shared 0–1 scale, "
-        "10 replicates or samples per cell. Distance alone is not a ranking: see the framing figure.",
+        source="Axes zoomed to the data: 0.15–0.55 across, 0.05–0.35 up, not from zero. Jev and Claude Sonnet 5 "
+        "run 18 Sep 2026, all others 12 Oct 2026; 14 measures on a shared 0–1 scale, 10 replicates or samples "
+        "per cell. Distance alone is not a ranking: see the framing figure.",
     )
 
 

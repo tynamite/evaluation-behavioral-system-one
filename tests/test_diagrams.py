@@ -54,3 +54,37 @@ def test_dumbbell_refuses_too_many_rows() -> None:
     rows = [(f"r{i}", 0.1, 0.2) for i in range(9)]
     with pytest.raises(ValueError, match="4-8 rows"):
         dumbbell(rows, ref_name="a", focal_name="b", axis_title="x", step=0.2, order_note="")
+
+
+def test_every_model_in_the_scatter_is_named(built: list[Path]) -> None:
+    page = next(p for p in built if p.stem == "models-scatter").read_text()
+    points = set(re.findall(r'<circle data-name="([^"]+)"', page))
+    labels = set(re.findall(r'data-name="([^"]+)" data-role="label"', page))
+    assert len(points) == 11
+    assert labels == points
+
+
+def test_scatter_labels_never_overlap() -> None:
+    from jevbench.diagrams import _overlaps, place_labels
+
+    # The real figure's layout, cluster included: every label must find room.
+    xy = [
+        (385, 352),
+        (478, 236),
+        (548, 299),
+        (549, 334),
+        (560, 293),
+        (575, 301),
+        (581, 325),
+        (598, 310),
+        (617, 303),
+        (707, 328),
+        (792, 306),
+    ]
+    pts = [(f"Model number {i}", float(x), float(y), 5.0) for i, (x, y) in enumerate(xy)]
+    placed = place_labels(pts, size=10, bounds=(84, 44, 956, 516), reserved=[])
+    boxes = [b for _x, _y, _a, b, _l in placed.values()]
+    assert len(boxes) == 11
+    for i, a in enumerate(boxes):
+        for b in boxes[i + 1 :]:
+            assert not _overlaps(a, b)
