@@ -4308,3 +4308,455 @@ false_consensus,false_consensus_gap,typical_human,anthropic/claude-haiku-5.5,0.6
 false_consensus_estimate,wearer_predicts_wear,typical_human,anthropic/claude-haiku-5.5,1.0,,,false_consensus_wearer_predicts_wear,0.614,medium,,"chat, resampled"
 false_consensus_estimate,nonwearer_predicts_wear,typical_human,anthropic/claude-haiku-5.5,0.5,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,"chat, resampled"
 false_consensus_estimate,false_consensus_gap,typical_human,anthropic/claude-haiku-5.5,0.5,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,"chat, resampled"
+crt,proportion_correct,antisocial,upstage/solar-decide-20260928,0.9447339251236467,0.8837012044966374,0.9848950849157063,crt_proportion_correct,0.413,high,,System One
+crt,probability_mass_on_lure,antisocial,upstage/solar-decide-20260928,0.0373494110255228,0.005540365855266842,0.08617810123852641,,,,,System One
+fluid_reasoning,accuracy,antisocial,upstage/solar-decide-20260928,0.9469376317016267,0.9066115338063984,0.9804697444020488,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,antisocial,upstage/solar-decide-20260928,0.8583196574116991,0.7223509722350973,0.9870426,,,,,System One
+fluid_reasoning,accuracy_steps_2,antisocial,upstage/solar-decide-20260928,0.9773111310248611,0.9579995142275596,0.9947391494673697,,,,,System One
+fluid_reasoning,accuracy_steps_3,antisocial,upstage/solar-decide-20260928,0.9744470022757368,0.9289409354525765,0.998043456877817,,,,,System One
+fluid_reasoning,accuracy_steps_4,antisocial,upstage/solar-decide-20260928,0.8924612981574297,0.8041904020952011,0.9807321942196583,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,antisocial,upstage/solar-decide-20260928,-0.09790829950441404,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,antisocial,upstage/solar-decide-20260928,0.04045899381640248,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,antisocial,upstage/solar-decide-20260928,0.9277445289021885,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,antisocial,upstage/solar-decide-20260928,0.0034879986048005573,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,antisocial,upstage/solar-decide-20260928,0.042295246918098765,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,antisocial,upstage/solar-decide-20260928,0.0024408917086241964,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,antisocial,upstage/solar-decide-20260928,0.02401141960456784,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,antisocial,upstage/solar-decide-20260928,0.06151650000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,antisocial,upstage/solar-decide-20260928,0.0012730000000000003,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,antisocial,upstage/solar-decide-20260928,0.0013506999999999998,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,antisocial,upstage/solar-decide-20260928,0.0056592000000000005,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,antisocial,upstage/solar-decide-20260928,0.0017224000000000002,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,antisocial,upstage/solar-decide-20260928,0.004011499999999999,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,antisocial,upstage/solar-decide-20260928,0.0011505,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,antisocial,upstage/solar-decide-20260928,0.0034403999999999997,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,antisocial,upstage/solar-decide-20260928,0.0017133,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,antisocial,upstage/solar-decide-20260928,0.0015277,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,antisocial,upstage/solar-decide-20260928,0.003603600000000001,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,antisocial,upstage/solar-decide-20260928,0.031394750000000006,,,ultimatum_rejection_low_offer,0.5,medium,,System One
+trust_trustee,return_share_sent_2,antisocial,upstage/solar-decide-20260928,0.060343175862729664,,,,,,,System One
+trust_trustee,return_share_sent_5,antisocial,upstage/solar-decide-20260928,0.04109448666666667,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,antisocial,upstage/solar-decide-20260928,0.0299827619931048,,,,,,,System One
+public_goods_conditional,contribution_low,antisocial,upstage/solar-decide-20260928,0.0002756999999999999,,,,,,,System One
+public_goods_conditional,contribution_mid,antisocial,upstage/solar-decide-20260928,0.0076014522804356876,,,,,,,System One
+public_goods_conditional,contribution_high,antisocial,upstage/solar-decide-20260928,0.0032629619577771744,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,antisocial,upstage/solar-decide-20260928,0.012973099999999998,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,antisocial,upstage/solar-decide-20260928,0.020332499999999996,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,antisocial,upstage/solar-decide-20260928,0.012891099999999996,,,,,,,System One
+framing,prob_certain_gain_frame,antisocial,upstage/solar-decide-20260928,0.16163729999999998,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,antisocial,upstage/solar-decide-20260928,0.21209580000000003,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,antisocial,upstage/solar-decide-20260928,-0.050458500000000045,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,antisocial,upstage/solar-decide-20260928,0.1049396,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,antisocial,upstage/solar-decide-20260928,0.07634959999999999,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,antisocial,upstage/solar-decide-20260928,0.09692750351584,,,,,,joint probability of the A-then-D pattern that violates independence,System One
+conjunction,prob_fallacy_forced_choice,antisocial,upstage/solar-decide-20260928,0.20802420000000002,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,antisocial,upstage/solar-decide-20260928,0.4002001,,,,,,,System One
+conjunction_axiom,p_conjunction,antisocial,upstage/solar-decide-20260928,0.5574374000000002,,,,,,,System One
+conjunction_axiom,axiom_margin,antisocial,upstage/solar-decide-20260928,-0.1572373000000002,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,antisocial,upstage/solar-decide-20260928,0.9950135990027199,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,antisocial,upstage/solar-decide-20260928,0.0004677000935400187,,,,,,,System One
+anchoring,estimate_low_anchor,antisocial,upstage/solar-decide-20260928,30.099108730178255,,,anchoring_low_median,25.0,medium,,System One
+anchoring,estimate_high_anchor,antisocial,upstage/solar-decide-20260928,34.61431888429566,,,anchoring_high_median,45.0,medium,,System One
+anchoring,anchoring_effect,antisocial,upstage/solar-decide-20260928,4.515210154117408,,,,,,human gap is about 20 points,System One
+sunk_cost,prob_continue,antisocial,upstage/solar-decide-20260928,0.9024607,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,antisocial,upstage/solar-decide-20260928,2.2948953000000003,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,antisocial,upstage/solar-decide-20260928,0.290290975,0.2506349,0.337031325,,,,,System One
+discounting,prob_patient_30d,antisocial,upstage/solar-decide-20260928,0.27258705000000005,0.171117,0.3995911750000001,,,,,System One
+discounting,prob_patient_180d,antisocial,upstage/solar-decide-20260928,0.385131725,0.3380561,0.461195625,,,,,System One
+present_bias,prob_patient_immediate_frontend,antisocial,upstage/solar-decide-20260928,0.0898548,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,antisocial,upstage/solar-decide-20260928,0.4935771000000001,,,,,,,System One
+present_bias,present_bias_gap,antisocial,upstage/solar-decide-20260928,0.4037223000000001,,,present_bias_reversal,0.3,approximate,positive means more patient when both options are delayed,System One
+money_request,expected_request,antisocial,upstage/solar-decide-20260928,16.119247835774352,,,money_request_modal,17.0,high,,System One
+money_request,mass_level0_20,antisocial,upstage/solar-decide-20260928,0.4643422393026718,,,,,,,System One
+money_request,mass_level1_19,antisocial,upstage/solar-decide-20260928,0.012915303874591163,,,,,,,System One
+money_request,mass_level2_18,antisocial,upstage/solar-decide-20260928,0.012927303878191163,,,,,,,System One
+money_request,mass_level3_17,antisocial,upstage/solar-decide-20260928,0.024061407218422166,,,,,,,System One
+mini_ipip,extraversion,antisocial,upstage/solar-decide-20260928,3.6558500435660095,2.0950157347632414,4.811259707403659,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,antisocial,upstage/solar-decide-20260928,1.0454596757545334,1.0206525547309069,1.0643498197350079,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,antisocial,upstage/solar-decide-20260928,1.6560485312788642,1.1408237056644661,2.56759778608899,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,antisocial,upstage/solar-decide-20260928,1.6395058926953514,1.0873109825378036,2.1917008028528993,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,antisocial,upstage/solar-decide-20260928,3.536270851710584,2.0468346304323903,4.7532907683233905,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,antisocial,upstage/solar-decide-20260928,8.78139632814802,8.724092764980849,8.831003060310454,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,antisocial,upstage/solar-decide-20260928,8.79713943557167,8.751514319894037,8.845312827739845,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,antisocial,upstage/solar-decide-20260928,8.770223507800665,8.715207520166182,8.820353540332365,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,antisocial,upstage/solar-decide-20260928,8.839798470766326,8.72793776111927,8.930190670546216,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,antisocial,upstage/solar-decide-20260928,6.7646904999999995,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,antisocial,upstage/solar-decide-20260928,1.7465710253428972,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,antisocial,upstage/solar-decide-20260928,5.0181194746571025,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+moral_typecasting_estimate,responsibility_man,antisocial,upstage/solar-decide-20260928,5.4631255,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting_estimate,responsibility_baby,antisocial,upstage/solar-decide-20260928,2.704674952337476,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting_estimate,agency_responsibility_gap,antisocial,upstage/solar-decide-20260928,2.7584505476625245,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,antisocial,upstage/solar-decide-20260928,6.720512372051238,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,antisocial,upstage/solar-decide-20260928,6.62742655097062,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,antisocial,upstage/solar-decide-20260928,0.09308582108061803,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+position_power_estimate,power_long_line,antisocial,upstage/solar-decide-20260928,5.776005055201011,,,position_power_long_line,5.01,medium,,System One
+position_power_estimate,power_short_line,antisocial,upstage/solar-decide-20260928,4.9625328,,,position_power_short_line,4.62,medium,,System One
+position_power_estimate,position_power_gap,antisocial,upstage/solar-decide-20260928,0.8134722552010114,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,antisocial,upstage/solar-decide-20260928,0.8228204,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,antisocial,upstage/solar-decide-20260928,0.7574517000000001,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,antisocial,upstage/solar-decide-20260928,1.5802721000000002,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+choosing_rejecting_estimate,prob_award_extreme,antisocial,upstage/solar-decide-20260928,0.5587099,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting_estimate,prob_deny_extreme,antisocial,upstage/solar-decide-20260928,0.4994704,,,shafir_deny_extreme,0.55,medium,,System One
+categorization,prob_rule_based,antisocial,upstage/solar-decide-20260928,0.15526969999999998,,,norenzayan_rule_based,0.67,medium,,System One
+categorization_estimate,prob_rule_based,antisocial,upstage/solar-decide-20260928,0.5899291999999999,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,antisocial,upstage/solar-decide-20260928,43.87551591265477,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,antisocial,upstage/solar-decide-20260928,52.19352553064745,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,antisocial,upstage/solar-decide-20260928,-8.31800961799268,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+incidental_anchors_estimate,estimate_p97,antisocial,upstage/solar-decide-20260928,55.184694305408286,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors_estimate,estimate_p17,antisocial,upstage/solar-decide-20260928,52.7193989780601,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors_estimate,anchor_gap,antisocial,upstage/solar-decide-20260928,2.465295327348187,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,antisocial,upstage/solar-decide-20260928,0.9426401,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,antisocial,upstage/solar-decide-20260928,0.033731000000000004,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,antisocial,upstage/solar-decide-20260928,0.9089091,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+knobe_estimate,prob_harm_intentional,antisocial,upstage/solar-decide-20260928,0.9009198999999999,,,knobe_harm_intentional,0.82,medium,,System One
+knobe_estimate,prob_help_intentional,antisocial,upstage/solar-decide-20260928,0.4691223000000001,,,knobe_help_intentional,0.23,medium,,System One
+trolley,prob_switch_permissible,antisocial,upstage/solar-decide-20260928,0.9573077,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,antisocial,upstage/solar-decide-20260928,0.6952836,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,antisocial,upstage/solar-decide-20260928,0.2620241,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+trolley_estimate,prob_switch_permissible,antisocial,upstage/solar-decide-20260928,0.7320393000000001,,,trolley_switch_permissible,0.89,medium,,System One
+trolley_estimate,prob_push_permissible,antisocial,upstage/solar-decide-20260928,0.498463,,,trolley_push_permissible,0.11,medium,,System One
+false_consensus,wearer_predicts_wear,antisocial,upstage/solar-decide-20260928,0.2663535,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,antisocial,upstage/solar-decide-20260928,0.2320474,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,antisocial,upstage/solar-decide-20260928,0.034306100000000034,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+false_consensus_estimate,wearer_predicts_wear,antisocial,upstage/solar-decide-20260928,0.5558732,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus_estimate,nonwearer_predicts_wear,antisocial,upstage/solar-decide-20260928,0.39848960000000005,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus_estimate,false_consensus_gap,antisocial,upstage/solar-decide-20260928,0.1573835999999999,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt,proportion_correct,neutral,upstage/solar-decide-20260928,0.9107798955822023,0.854542992799103,0.9663007981064647,crt_proportion_correct,0.413,high,,System One
+crt,probability_mass_on_lure,neutral,upstage/solar-decide-20260928,0.027163555169516577,0.008845583576428357,0.056776998623482816,,,,,System One
+fluid_reasoning,accuracy,neutral,upstage/solar-decide-20260928,0.8611924093822821,0.7069560513382636,0.9725416012732346,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,neutral,upstage/solar-decide-20260928,0.9495754315024788,0.9174594082540591,0.977292995458599,,,,,System One
+fluid_reasoning,accuracy_steps_2,neutral,upstage/solar-decide-20260928,0.9653072159199415,0.9318131822161798,0.993551364338384,,,,,System One
+fluid_reasoning,accuracy_steps_3,neutral,upstage/solar-decide-20260928,0.7026890118803707,0.31877416002638037,0.9785281035624416,,,,,System One
+fluid_reasoning,accuracy_steps_4,neutral,upstage/solar-decide-20260928,0.971035347845699,0.9506879,0.9913827956913979,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,neutral,upstage/solar-decide-20260928,0.18725390051870183,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,neutral,upstage/solar-decide-20260928,0.2469222087688836,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,neutral,upstage/solar-decide-20260928,0.48334609333843725,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,neutral,upstage/solar-decide-20260928,0.39134375653750264,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,neutral,upstage/solar-decide-20260928,0.10974178292253493,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,neutral,upstage/solar-decide-20260928,0.006395261918578575,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,neutral,upstage/solar-decide-20260928,0.01572230786115393,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,neutral,upstage/solar-decide-20260928,0.17343510000000004,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,neutral,upstage/solar-decide-20260928,0.10378870000000003,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,neutral,upstage/solar-decide-20260928,0.11184100000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,neutral,upstage/solar-decide-20260928,0.04659660000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,neutral,upstage/solar-decide-20260928,0.0093738,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,neutral,upstage/solar-decide-20260928,0.09131600000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,neutral,upstage/solar-decide-20260928,0.10977199999999998,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,neutral,upstage/solar-decide-20260928,0.07120679999999999,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,neutral,upstage/solar-decide-20260928,0.132287,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,neutral,upstage/solar-decide-20260928,0.0896386,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,neutral,upstage/solar-decide-20260928,0.064529,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,neutral,upstage/solar-decide-20260928,0.13861190000000004,,,ultimatum_rejection_low_offer,0.5,medium,,System One
+trust_trustee,return_share_sent_2,neutral,upstage/solar-decide-20260928,0.0005575335563467559,,,,,,,System One
+trust_trustee,return_share_sent_5,neutral,upstage/solar-decide-20260928,0.011993234532656787,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,neutral,upstage/solar-decide-20260928,0.011477203443161036,,,,,,,System One
+public_goods_conditional,contribution_low,neutral,upstage/solar-decide-20260928,0.0017189215470293923,,,,,,,System One
+public_goods_conditional,contribution_mid,neutral,upstage/solar-decide-20260928,0.008648350864835088,,,,,,,System One
+public_goods_conditional,contribution_high,neutral,upstage/solar-decide-20260928,0.015287127643563825,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,neutral,upstage/solar-decide-20260928,0.0369443,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,neutral,upstage/solar-decide-20260928,0.20864509999999997,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,neutral,upstage/solar-decide-20260928,0.08139290000000002,,,,,,,System One
+framing,prob_certain_gain_frame,neutral,upstage/solar-decide-20260928,0.9947368000000001,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,neutral,upstage/solar-decide-20260928,0.19701869999999996,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,neutral,upstage/solar-decide-20260928,0.7977181000000001,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,neutral,upstage/solar-decide-20260928,0.0023419,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,neutral,upstage/solar-decide-20260928,0.003993599999999999,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,neutral,upstage/solar-decide-20260928,0.00233254738816,,,,,,joint probability of the A-then-D pattern that violates independence,System One
+conjunction,prob_fallacy_forced_choice,neutral,upstage/solar-decide-20260928,0.24785,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,neutral,upstage/solar-decide-20260928,0.08803410000000002,,,,,,,System One
+conjunction_axiom,p_conjunction,neutral,upstage/solar-decide-20260928,0.1548289,,,,,,,System One
+conjunction_axiom,axiom_margin,neutral,upstage/solar-decide-20260928,-0.06679479999999997,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,neutral,upstage/solar-decide-20260928,0.8014395404318622,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,neutral,upstage/solar-decide-20260928,0.002390700717210215,,,,,,,System One
+anchoring,estimate_low_anchor,neutral,upstage/solar-decide-20260928,27.966362889908865,,,anchoring_low_median,25.0,medium,,System One
+anchoring,estimate_high_anchor,neutral,upstage/solar-decide-20260928,30.002045000613503,,,anchoring_high_median,45.0,medium,,System One
+anchoring,anchoring_effect,neutral,upstage/solar-decide-20260928,2.035682110704638,,,,,,human gap is about 20 points,System One
+sunk_cost,prob_continue,neutral,upstage/solar-decide-20260928,0.0712323,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,neutral,upstage/solar-decide-20260928,3.9043987,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,neutral,upstage/solar-decide-20260928,0.9001451250000001,0.8580948,0.9355279,,,,,System One
+discounting,prob_patient_30d,neutral,upstage/solar-decide-20260928,0.8605389750000001,0.83495895,0.8960248000000001,,,,,System One
+discounting,prob_patient_180d,neutral,upstage/solar-decide-20260928,0.8325662,0.75899,0.9061424,,,,,System One
+present_bias,prob_patient_immediate_frontend,neutral,upstage/solar-decide-20260928,0.48157300000000003,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,neutral,upstage/solar-decide-20260928,0.43104529999999996,,,,,,,System One
+present_bias,present_bias_gap,neutral,upstage/solar-decide-20260928,-0.050527700000000064,,,present_bias_reversal,0.3,approximate,positive means more patient when both options are delayed,System One
+money_request,expected_request,neutral,upstage/solar-decide-20260928,13.519313548068645,,,money_request_modal,17.0,high,,System One
+money_request,mass_level0_20,neutral,upstage/solar-decide-20260928,0.11274058872594112,,,,,,,System One
+money_request,mass_level1_19,neutral,upstage/solar-decide-20260928,0.02217079778292022,,,,,,,System One
+money_request,mass_level2_18,neutral,upstage/solar-decide-20260928,0.01401329859867014,,,,,,,System One
+money_request,mass_level3_17,neutral,upstage/solar-decide-20260928,0.035316596468340344,,,,,,,System One
+mini_ipip,extraversion,neutral,upstage/solar-decide-20260928,3.3216001704461036,3.159600408808493,3.4949347066359238,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,neutral,upstage/solar-decide-20260928,2.266238076678674,1.5156894149645677,2.9146950414054995,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,neutral,upstage/solar-decide-20260928,3.2208611374440226,2.4694406804317257,4.189789181229632,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,neutral,upstage/solar-decide-20260928,2.1430105270525224,1.12175035014065,3.1642707039643945,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,neutral,upstage/solar-decide-20260928,2.510142661651285,1.5429926583250464,3.1346160283120734,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,neutral,upstage/solar-decide-20260928,4.842443815887915,4.613833070232043,4.966466345856662,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,neutral,upstage/solar-decide-20260928,5.221951053001561,4.929516539371396,5.592050296034865,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,neutral,upstage/solar-decide-20260928,5.429890102038715,4.909147865914787,6.409230252190019,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,neutral,upstage/solar-decide-20260928,5.393519241078051,5.09375937219648,5.692630627298904,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,neutral,upstage/solar-decide-20260928,6.770405645918871,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,neutral,upstage/solar-decide-20260928,1.0259141922257422,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,neutral,upstage/solar-decide-20260928,5.744491453693128,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+moral_typecasting_estimate,responsibility_man,neutral,upstage/solar-decide-20260928,5.999114099822821,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting_estimate,responsibility_baby,neutral,upstage/solar-decide-20260928,1.1788533821146616,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting_estimate,agency_responsibility_gap,neutral,upstage/solar-decide-20260928,4.820260717708159,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,neutral,upstage/solar-decide-20260928,5.994375697750279,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,neutral,upstage/solar-decide-20260928,4.009602799039721,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,neutral,upstage/solar-decide-20260928,1.984772898710558,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+position_power_estimate,power_long_line,neutral,upstage/solar-decide-20260928,5.608076256769497,,,position_power_long_line,5.01,medium,,System One
+position_power_estimate,power_short_line,neutral,upstage/solar-decide-20260928,4.400953459904654,,,position_power_short_line,4.62,medium,,System One
+position_power_estimate,position_power_gap,neutral,upstage/solar-decide-20260928,1.2071227968648426,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,neutral,upstage/solar-decide-20260928,0.6963776,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,neutral,upstage/solar-decide-20260928,0.9239091,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,neutral,upstage/solar-decide-20260928,1.6202867,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+choosing_rejecting_estimate,prob_award_extreme,neutral,upstage/solar-decide-20260928,0.3160911,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting_estimate,prob_deny_extreme,neutral,upstage/solar-decide-20260928,0.4189179,,,shafir_deny_extreme,0.55,medium,,System One
+categorization,prob_rule_based,neutral,upstage/solar-decide-20260928,0.4621231,,,norenzayan_rule_based,0.67,medium,,System One
+categorization_estimate,prob_rule_based,neutral,upstage/solar-decide-20260928,0.5452704,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,neutral,upstage/solar-decide-20260928,37.33406823340682,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,neutral,upstage/solar-decide-20260928,29.335227999999997,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,neutral,upstage/solar-decide-20260928,7.9988402334068205,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+incidental_anchors_estimate,estimate_p97,neutral,upstage/solar-decide-20260928,50.61340787268158,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors_estimate,estimate_p17,neutral,upstage/solar-decide-20260928,50.234543226545675,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors_estimate,anchor_gap,neutral,upstage/solar-decide-20260928,0.3788646461359022,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,neutral,upstage/solar-decide-20260928,0.4697758,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,neutral,upstage/solar-decide-20260928,0.0302201,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,neutral,upstage/solar-decide-20260928,0.4395557,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+knobe_estimate,prob_harm_intentional,neutral,upstage/solar-decide-20260928,0.792721,,,knobe_harm_intentional,0.82,medium,,System One
+knobe_estimate,prob_help_intentional,neutral,upstage/solar-decide-20260928,0.2458551,,,knobe_help_intentional,0.23,medium,,System One
+trolley,prob_switch_permissible,neutral,upstage/solar-decide-20260928,0.893707,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,neutral,upstage/solar-decide-20260928,0.0159724,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,neutral,upstage/solar-decide-20260928,0.8777346,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+trolley_estimate,prob_switch_permissible,neutral,upstage/solar-decide-20260928,0.7613985999999999,,,trolley_switch_permissible,0.89,medium,,System One
+trolley_estimate,prob_push_permissible,neutral,upstage/solar-decide-20260928,0.12949650000000001,,,trolley_push_permissible,0.11,medium,,System One
+false_consensus,wearer_predicts_wear,neutral,upstage/solar-decide-20260928,0.49263959999999996,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,neutral,upstage/solar-decide-20260928,0.1421499,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,neutral,upstage/solar-decide-20260928,0.35048969999999996,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+false_consensus_estimate,wearer_predicts_wear,neutral,upstage/solar-decide-20260928,0.514356,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus_estimate,nonwearer_predicts_wear,neutral,upstage/solar-decide-20260928,0.360658,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus_estimate,false_consensus_gap,neutral,upstage/solar-decide-20260928,0.15369800000000006,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt,proportion_correct,rational_agent,upstage/solar-decide-20260928,0.9401578607167503,0.9147980637121642,0.9574500327626391,crt_proportion_correct,0.413,high,,System One
+crt,probability_mass_on_lure,rational_agent,upstage/solar-decide-20260928,0.024229753673614105,0.015065367335066878,0.03380309009395135,,,,,System One
+fluid_reasoning,accuracy,rational_agent,upstage/solar-decide-20260928,0.841515937394634,0.688597017456973,0.9665380518003022,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,rational_agent,upstage/solar-decide-20260928,0.9529045711822061,0.9338596066140393,0.9653371069325786,,,,,System One
+fluid_reasoning,accuracy_steps_2,rational_agent,upstage/solar-decide-20260928,0.8883944648330909,0.7376329162371578,0.9811203635304505,,,,,System One
+fluid_reasoning,accuracy_steps_3,rational_agent,upstage/solar-decide-20260928,0.7238695573267385,0.3234900706994788,0.9946661715938312,,,,,System One
+fluid_reasoning,accuracy_steps_4,rational_agent,upstage/solar-decide-20260928,0.9455597346355404,0.9007956702387011,0.9903237990323799,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,rational_agent,upstage/solar-decide-20260928,0.17977053000906706,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,rational_agent,upstage/solar-decide-20260928,0.037825567565113516,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,rational_agent,upstage/solar-decide-20260928,0.9405411881082376,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,rational_agent,upstage/solar-decide-20260928,0.008572101714420346,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,rational_agent,upstage/solar-decide-20260928,0.0003579503221552899,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,rational_agent,upstage/solar-decide-20260928,0.021428452857071713,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,rational_agent,upstage/solar-decide-20260928,0.04948063989612799,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,rational_agent,upstage/solar-decide-20260928,0.04061060000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,rational_agent,upstage/solar-decide-20260928,0.08606540000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,rational_agent,upstage/solar-decide-20260928,0.09075710000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,rational_agent,upstage/solar-decide-20260928,0.0683951,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,rational_agent,upstage/solar-decide-20260928,0.09190020000000002,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,rational_agent,upstage/solar-decide-20260928,0.0508059,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,rational_agent,upstage/solar-decide-20260928,0.08142690000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,rational_agent,upstage/solar-decide-20260928,0.08181679999999998,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,rational_agent,upstage/solar-decide-20260928,0.039958,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,rational_agent,upstage/solar-decide-20260928,0.06300470000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,rational_agent,upstage/solar-decide-20260928,0.0521676,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,rational_agent,upstage/solar-decide-20260928,0.063338,,,ultimatum_rejection_low_offer,0.5,medium,,System One
+trust_trustee,return_share_sent_2,rational_agent,upstage/solar-decide-20260928,0.04312930000000001,,,,,,,System One
+trust_trustee,return_share_sent_5,rational_agent,upstage/solar-decide-20260928,0.03554946799634747,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,rational_agent,upstage/solar-decide-20260928,0.010384645192322595,,,,,,,System One
+public_goods_conditional,contribution_low,rational_agent,upstage/solar-decide-20260928,0.044356161128767786,,,,,,,System One
+public_goods_conditional,contribution_mid,rational_agent,upstage/solar-decide-20260928,0.04365181436518144,,,,,,,System One
+public_goods_conditional,contribution_high,rational_agent,upstage/solar-decide-20260928,0.00690722069072207,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,rational_agent,upstage/solar-decide-20260928,0.019486700000000003,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,rational_agent,upstage/solar-decide-20260928,0.149299,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,rational_agent,upstage/solar-decide-20260928,0.05501199999999998,,,,,,,System One
+framing,prob_certain_gain_frame,rational_agent,upstage/solar-decide-20260928,0.686094,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,rational_agent,upstage/solar-decide-20260928,0.5050717,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,rational_agent,upstage/solar-decide-20260928,0.18102229999999997,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,rational_agent,upstage/solar-decide-20260928,0.0827029,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,rational_agent,upstage/solar-decide-20260928,0.0013575,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,rational_agent,upstage/solar-decide-20260928,0.08259063081325001,,,,,,joint probability of the A-then-D pattern that violates independence,System One
+conjunction,prob_fallacy_forced_choice,rational_agent,upstage/solar-decide-20260928,0.002692,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,rational_agent,upstage/solar-decide-20260928,0.0933466,,,,,,,System One
+conjunction_axiom,p_conjunction,rational_agent,upstage/solar-decide-20260928,0.1490193,,,,,,,System One
+conjunction_axiom,axiom_margin,rational_agent,upstage/solar-decide-20260928,-0.05567269999999999,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,rational_agent,upstage/solar-decide-20260928,0.5220752610376306,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,rational_agent,upstage/solar-decide-20260928,0.004476602238301119,,,,,,,System One
+anchoring,estimate_low_anchor,rational_agent,upstage/solar-decide-20260928,30.003089001853404,,,anchoring_low_median,25.0,medium,,System One
+anchoring,estimate_high_anchor,rational_agent,upstage/solar-decide-20260928,30.009234252770277,,,anchoring_high_median,45.0,medium,,System One
+anchoring,anchoring_effect,rational_agent,upstage/solar-decide-20260928,0.006145250916873124,,,,,,human gap is about 20 points,System One
+sunk_cost,prob_continue,rational_agent,upstage/solar-decide-20260928,0.0924645,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,rational_agent,upstage/solar-decide-20260928,4.0848554,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,rational_agent,upstage/solar-decide-20260928,0.9316490749999999,0.9059044500000001,0.9503942249999999,,,,,System One
+discounting,prob_patient_30d,rational_agent,upstage/solar-decide-20260928,0.94289405,0.913174,0.9726141,,,,,System One
+discounting,prob_patient_180d,rational_agent,upstage/solar-decide-20260928,0.8981815750000001,0.88131775,0.917573875,,,,,System One
+present_bias,prob_patient_immediate_frontend,rational_agent,upstage/solar-decide-20260928,0.7944104000000001,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,rational_agent,upstage/solar-decide-20260928,0.7895200000000001,,,,,,,System One
+present_bias,present_bias_gap,rational_agent,upstage/solar-decide-20260928,-0.0048903999999999614,,,present_bias_reversal,0.3,approximate,positive means more patient when both options are delayed,System One
+money_request,expected_request,rational_agent,upstage/solar-decide-20260928,13.687944268794425,,,money_request_modal,17.0,high,,System One
+money_request,mass_level0_20,rational_agent,upstage/solar-decide-20260928,0.1501603150160315,,,,,,,System One
+money_request,mass_level1_19,rational_agent,upstage/solar-decide-20260928,0.019846001984600195,,,,,,,System One
+money_request,mass_level2_18,rational_agent,upstage/solar-decide-20260928,0.012869901286990127,,,,,,,System One
+money_request,mass_level3_17,rational_agent,upstage/solar-decide-20260928,0.036300703630070354,,,,,,,System One
+mini_ipip,extraversion,rational_agent,upstage/solar-decide-20260928,3.595278476417877,2.9682294181691375,4.222327534666617,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,rational_agent,upstage/solar-decide-20260928,2.0734947256838687,1.4173438692927913,2.729645582074946,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,rational_agent,upstage/solar-decide-20260928,2.880873192098167,1.3692644734445252,4.392481910751809,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,rational_agent,upstage/solar-decide-20260928,2.47226979357332,1.9801884040088118,2.850296067228163,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,rational_agent,upstage/solar-decide-20260928,3.333284764269105,1.9105289189567267,4.6808680733632215,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,rational_agent,upstage/solar-decide-20260928,4.873043113959899,4.808353275844988,4.969261630891884,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,rational_agent,upstage/solar-decide-20260928,5.191312342166591,4.902850925787114,5.602632417326141,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,rational_agent,upstage/solar-decide-20260928,4.923797125053416,4.887108622624896,4.9589741655995585,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,rational_agent,upstage/solar-decide-20260928,5.7770967874864585,5.079346549097904,6.6579949541034225,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,rational_agent,upstage/solar-decide-20260928,6.768829800000001,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,rational_agent,upstage/solar-decide-20260928,1.1032655206531041,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,rational_agent,upstage/solar-decide-20260928,5.6655642793468965,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+moral_typecasting_estimate,responsibility_man,rational_agent,upstage/solar-decide-20260928,5.409494104747052,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting_estimate,responsibility_baby,rational_agent,upstage/solar-decide-20260928,1.9437608000000004,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting_estimate,agency_responsibility_gap,rational_agent,upstage/solar-decide-20260928,3.4657333047470518,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,rational_agent,upstage/solar-decide-20260928,4.51249320249864,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,rational_agent,upstage/solar-decide-20260928,3.9515366193853523,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,rational_agent,upstage/solar-decide-20260928,0.5609565831132879,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+position_power_estimate,power_long_line,rational_agent,upstage/solar-decide-20260928,5.413753982750797,,,position_power_long_line,5.01,medium,,System One
+position_power_estimate,power_short_line,rational_agent,upstage/solar-decide-20260928,4.428064457193554,,,position_power_short_line,4.62,medium,,System One
+position_power_estimate,position_power_gap,rational_agent,upstage/solar-decide-20260928,0.9856895255572429,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,rational_agent,upstage/solar-decide-20260928,0.4297292,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,rational_agent,upstage/solar-decide-20260928,0.8494929,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,rational_agent,upstage/solar-decide-20260928,1.2792221,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+choosing_rejecting_estimate,prob_award_extreme,rational_agent,upstage/solar-decide-20260928,0.5140426,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting_estimate,prob_deny_extreme,rational_agent,upstage/solar-decide-20260928,0.47862150000000003,,,shafir_deny_extreme,0.55,medium,,System One
+categorization,prob_rule_based,rational_agent,upstage/solar-decide-20260928,0.24262,,,norenzayan_rule_based,0.67,medium,,System One
+categorization_estimate,prob_rule_based,rational_agent,upstage/solar-decide-20260928,0.6370694,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,rational_agent,upstage/solar-decide-20260928,39.48061675,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,rational_agent,upstage/solar-decide-20260928,43.3082670075199,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,rational_agent,upstage/solar-decide-20260928,-3.827650257519899,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+incidental_anchors_estimate,estimate_p97,rational_agent,upstage/solar-decide-20260928,51.740228022068415,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors_estimate,estimate_p17,rational_agent,upstage/solar-decide-20260928,52.56862225,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors_estimate,anchor_gap,rational_agent,upstage/solar-decide-20260928,-0.8283942279315823,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,rational_agent,upstage/solar-decide-20260928,0.22075150000000002,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,rational_agent,upstage/solar-decide-20260928,0.017489399999999995,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,rational_agent,upstage/solar-decide-20260928,0.20326210000000003,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+knobe_estimate,prob_harm_intentional,rational_agent,upstage/solar-decide-20260928,0.8370288,,,knobe_harm_intentional,0.82,medium,,System One
+knobe_estimate,prob_help_intentional,rational_agent,upstage/solar-decide-20260928,0.45142040000000005,,,knobe_help_intentional,0.23,medium,,System One
+trolley,prob_switch_permissible,rational_agent,upstage/solar-decide-20260928,0.8996618,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,rational_agent,upstage/solar-decide-20260928,0.07477170000000001,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,rational_agent,upstage/solar-decide-20260928,0.8248901,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+trolley_estimate,prob_switch_permissible,rational_agent,upstage/solar-decide-20260928,0.7245891,,,trolley_switch_permissible,0.89,medium,,System One
+trolley_estimate,prob_push_permissible,rational_agent,upstage/solar-decide-20260928,0.1667683,,,trolley_push_permissible,0.11,medium,,System One
+false_consensus,wearer_predicts_wear,rational_agent,upstage/solar-decide-20260928,0.35724910000000004,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,rational_agent,upstage/solar-decide-20260928,0.1213446,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,rational_agent,upstage/solar-decide-20260928,0.23590450000000004,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+false_consensus_estimate,wearer_predicts_wear,rational_agent,upstage/solar-decide-20260928,0.5004346,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus_estimate,nonwearer_predicts_wear,rational_agent,upstage/solar-decide-20260928,0.3869056,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus_estimate,false_consensus_gap,rational_agent,upstage/solar-decide-20260928,0.11352899999999994,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt,proportion_correct,typical_human,upstage/solar-decide-20260928,0.3256364243265471,0.16355653998030992,0.5136482701890251,crt_proportion_correct,0.413,high,,System One
+crt,probability_mass_on_lure,typical_human,upstage/solar-decide-20260928,0.6206597251782154,0.3868575517157362,0.814442431812325,,,,,System One
+fluid_reasoning,accuracy,typical_human,upstage/solar-decide-20260928,0.692105357641775,0.5541135628729229,0.811057308100417,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,typical_human,upstage/solar-decide-20260928,0.7199710141417227,0.35527809341657196,0.923818884763777,,,,,System One
+fluid_reasoning,accuracy_steps_2,typical_human,upstage/solar-decide-20260928,0.8331867626761918,0.6751928003617661,0.9402303326658522,,,,,System One
+fluid_reasoning,accuracy_steps_3,typical_human,upstage/solar-decide-20260928,0.6441229801527485,0.47053832827925995,0.8069732475155311,,,,,System One
+fluid_reasoning,accuracy_steps_4,typical_human,upstage/solar-decide-20260928,0.3950009790001958,0.00048290009658001935,0.7895190579038116,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,typical_human,upstage/solar-decide-20260928,0.13120847868954144,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,typical_human,upstage/solar-decide-20260928,0.29564318043568194,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,typical_human,upstage/solar-decide-20260928,0.007245899275410073,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,typical_human,upstage/solar-decide-20260928,0.005651099434890057,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,typical_human,upstage/solar-decide-20260928,0.48663897198338324,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,typical_human,upstage/solar-decide-20260928,0.4808645138270974,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,typical_human,upstage/solar-decide-20260928,0.4184768836953768,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,typical_human,upstage/solar-decide-20260928,0.9419419,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,typical_human,upstage/solar-decide-20260928,0.91693,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,typical_human,upstage/solar-decide-20260928,0.3177566,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,typical_human,upstage/solar-decide-20260928,0.33967120000000006,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,typical_human,upstage/solar-decide-20260928,0.09770450000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,typical_human,upstage/solar-decide-20260928,0.11414199999999997,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,typical_human,upstage/solar-decide-20260928,0.08985250000000002,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,typical_human,upstage/solar-decide-20260928,0.10701560000000003,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,typical_human,upstage/solar-decide-20260928,0.08238890000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,typical_human,upstage/solar-decide-20260928,0.10811830000000004,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,typical_human,upstage/solar-decide-20260928,0.04533020000000001,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,typical_human,upstage/solar-decide-20260928,0.92943595,,,ultimatum_rejection_low_offer,0.5,medium,,System One
+trust_trustee,return_share_sent_2,typical_human,upstage/solar-decide-20260928,0.4035948789215364,,,,,,,System One
+trust_trustee,return_share_sent_5,typical_human,upstage/solar-decide-20260928,0.40756500515366556,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,typical_human,upstage/solar-decide-20260928,0.46896610310338965,,,,,,,System One
+public_goods_conditional,contribution_low,typical_human,upstage/solar-decide-20260928,0.3403101820930546,,,,,,,System One
+public_goods_conditional,contribution_mid,typical_human,upstage/solar-decide-20260928,0.49756716975671694,,,,,,,System One
+public_goods_conditional,contribution_high,typical_human,upstage/solar-decide-20260928,0.691882590811741,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,typical_human,upstage/solar-decide-20260928,0.7420352,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,typical_human,upstage/solar-decide-20260928,0.9266838,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,typical_human,upstage/solar-decide-20260928,0.1108638,,,,,,,System One
+framing,prob_certain_gain_frame,typical_human,upstage/solar-decide-20260928,0.8995959,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,typical_human,upstage/solar-decide-20260928,0.40089779999999997,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,typical_human,upstage/solar-decide-20260928,0.49869810000000003,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,typical_human,upstage/solar-decide-20260928,0.9991099,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,typical_human,upstage/solar-decide-20260928,0.6543393,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,typical_human,upstage/solar-decide-20260928,0.34535302741093,,,,,,joint probability of the A-then-D pattern that violates independence,System One
+conjunction,prob_fallacy_forced_choice,typical_human,upstage/solar-decide-20260928,0.9012916000000001,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,typical_human,upstage/solar-decide-20260928,0.5124819,,,,,,,System One
+conjunction_axiom,p_conjunction,typical_human,upstage/solar-decide-20260928,0.7407159,,,,,,,System One
+conjunction_axiom,axiom_margin,typical_human,upstage/solar-decide-20260928,-0.22823399999999994,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,typical_human,upstage/solar-decide-20260928,0.42148895785110413,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,typical_human,upstage/solar-decide-20260928,0.4940295505970449,,,,,,,System One
+anchoring,estimate_low_anchor,typical_human,upstage/solar-decide-20260928,19.42193861561228,,,anchoring_low_median,25.0,medium,,System One
+anchoring,estimate_high_anchor,typical_human,upstage/solar-decide-20260928,67.19160465748139,,,anchoring_high_median,45.0,medium,,System One
+anchoring,anchoring_effect,typical_human,upstage/solar-decide-20260928,47.769666041869115,,,,,,human gap is about 20 points,System One
+sunk_cost,prob_continue,typical_human,upstage/solar-decide-20260928,0.878449,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,typical_human,upstage/solar-decide-20260928,5.6551569,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,typical_human,upstage/solar-decide-20260928,0.3289215,0.197017325,0.43885525000000003,,,,,System One
+discounting,prob_patient_30d,typical_human,upstage/solar-decide-20260928,0.33378165,0.27820725,0.38935605,,,,,System One
+discounting,prob_patient_180d,typical_human,upstage/solar-decide-20260928,0.444519175,0.26370762499999995,0.62168135,,,,,System One
+present_bias,prob_patient_immediate_frontend,typical_human,upstage/solar-decide-20260928,0.0625617,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,typical_human,upstage/solar-decide-20260928,0.5262169999999999,,,,,,,System One
+present_bias,present_bias_gap,typical_human,upstage/solar-decide-20260928,0.46365529999999994,,,present_bias_reversal,0.3,approximate,positive means more patient when both options are delayed,System One
+money_request,expected_request,typical_human,upstage/solar-decide-20260928,13.5706702,,,money_request_modal,17.0,high,,System One
+money_request,mass_level0_20,typical_human,upstage/solar-decide-20260928,0.1066378,,,,,,,System One
+money_request,mass_level1_19,typical_human,upstage/solar-decide-20260928,0.0249845,,,,,,,System One
+money_request,mass_level2_18,typical_human,upstage/solar-decide-20260928,0.0175649,,,,,,,System One
+money_request,mass_level3_17,typical_human,upstage/solar-decide-20260928,0.035821900000000004,,,,,,,System One
+mini_ipip,extraversion,typical_human,upstage/solar-decide-20260928,3.336764360591553,2.91505775,3.6845263501136474,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,typical_human,upstage/solar-decide-20260928,3.498630846547012,2.8852894112554663,4.038320109340109,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,typical_human,upstage/solar-decide-20260928,3.548489835181315,2.9186528504027667,4.453531000484048,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,typical_human,upstage/solar-decide-20260928,2.7334736953424867,2.3407445159255484,3.304035873513632,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,typical_human,upstage/solar-decide-20260928,3.6501857565372564,2.9638297328110927,4.336174325616501,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,typical_human,upstage/solar-decide-20260928,3.724680935907466,2.5756530259132937,4.873708845901637,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,typical_human,upstage/solar-decide-20260928,4.605610797087839,3.7693761491747226,5.442074895329886,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,typical_human,upstage/solar-decide-20260928,3.882570050663364,3.1042170591341245,4.734481990639351,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,typical_human,upstage/solar-decide-20260928,6.2095814046926865,5.448406553765858,6.717548471620775,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,typical_human,upstage/solar-decide-20260928,5.738429778471066,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,typical_human,upstage/solar-decide-20260928,1.0438332043833203,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,typical_human,upstage/solar-decide-20260928,4.694596574087746,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+moral_typecasting_estimate,responsibility_man,typical_human,upstage/solar-decide-20260928,6.351704635170464,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting_estimate,responsibility_baby,typical_human,upstage/solar-decide-20260928,1.3087220617444124,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting_estimate,agency_responsibility_gap,typical_human,upstage/solar-decide-20260928,5.042982573426051,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,typical_human,upstage/solar-decide-20260928,5.770463345907332,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,typical_human,upstage/solar-decide-20260928,4.8112238811223875,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,typical_human,upstage/solar-decide-20260928,0.959239464784944,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+position_power_estimate,power_long_line,typical_human,upstage/solar-decide-20260928,5.671814867181486,,,position_power_long_line,5.01,medium,,System One
+position_power_estimate,power_short_line,typical_human,upstage/solar-decide-20260928,4.2766691276669135,,,position_power_short_line,4.62,medium,,System One
+position_power_estimate,position_power_gap,typical_human,upstage/solar-decide-20260928,1.3951457395145725,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,typical_human,upstage/solar-decide-20260928,0.6531579,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,typical_human,upstage/solar-decide-20260928,0.7497590000000001,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,typical_human,upstage/solar-decide-20260928,1.4029169000000001,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+choosing_rejecting_estimate,prob_award_extreme,typical_human,upstage/solar-decide-20260928,0.5903155000000001,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting_estimate,prob_deny_extreme,typical_human,upstage/solar-decide-20260928,0.5789913,,,shafir_deny_extreme,0.55,medium,,System One
+categorization,prob_rule_based,typical_human,upstage/solar-decide-20260928,0.23730590000000001,,,norenzayan_rule_based,0.67,medium,,System One
+categorization_estimate,prob_rule_based,typical_human,upstage/solar-decide-20260928,0.8345674999999999,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,typical_human,upstage/solar-decide-20260928,50.10039547992091,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,typical_human,upstage/solar-decide-20260928,50.04180875836176,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,typical_human,upstage/solar-decide-20260928,0.05858672155915201,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+incidental_anchors_estimate,estimate_p97,typical_human,upstage/solar-decide-20260928,52.822992846897854,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors_estimate,estimate_p17,typical_human,upstage/solar-decide-20260928,49.5386615,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors_estimate,anchor_gap,typical_human,upstage/solar-decide-20260928,3.284331346897851,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,typical_human,upstage/solar-decide-20260928,0.5838166,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,typical_human,upstage/solar-decide-20260928,0.096255,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,typical_human,upstage/solar-decide-20260928,0.48756160000000004,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+knobe_estimate,prob_harm_intentional,typical_human,upstage/solar-decide-20260928,0.8767571,,,knobe_harm_intentional,0.82,medium,,System One
+knobe_estimate,prob_help_intentional,typical_human,upstage/solar-decide-20260928,0.6241445999999999,,,knobe_help_intentional,0.23,medium,,System One
+trolley,prob_switch_permissible,typical_human,upstage/solar-decide-20260928,0.9723451000000001,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,typical_human,upstage/solar-decide-20260928,0.10318150000000001,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,typical_human,upstage/solar-decide-20260928,0.8691636,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+trolley_estimate,prob_switch_permissible,typical_human,upstage/solar-decide-20260928,0.8339497,,,trolley_switch_permissible,0.89,medium,,System One
+trolley_estimate,prob_push_permissible,typical_human,upstage/solar-decide-20260928,0.15315310000000001,,,trolley_push_permissible,0.11,medium,,System One
+false_consensus,wearer_predicts_wear,typical_human,upstage/solar-decide-20260928,0.47538340000000007,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,typical_human,upstage/solar-decide-20260928,0.4184772,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,typical_human,upstage/solar-decide-20260928,0.05690620000000007,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+false_consensus_estimate,wearer_predicts_wear,typical_human,upstage/solar-decide-20260928,0.6179906,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus_estimate,nonwearer_predicts_wear,typical_human,upstage/solar-decide-20260928,0.4059678,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus_estimate,false_consensus_gap,typical_human,upstage/solar-decide-20260928,0.21202279999999996,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One

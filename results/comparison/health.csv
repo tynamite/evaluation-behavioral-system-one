@@ -9,3 +9,4 @@ inception/mercury-decide-20260930,System One,run_live_20261012T083122Z_inception
 upstage/solar-decide-flash-20261008,System One,run_live_20261012T083737Z_upstage--solar-decide-flash.jsonl,5880,40,0,0,588,4,"{""choice"": 0.0106, ""noul"": 0.0, ""score"": 0.0}",0.1367
 openai/gpt-6-luna-decisions-20261006,System One,run_live_20261012T090247Z_openai--gpt-6-luna-decisions.jsonl,5880,240,240,0,588,24,"{""choice"": 0.0, ""noul"": 0.4423, ""score"": 0.0063}",0.1343
 anthropic/claude-haiku-5.5,"chat, resampled",run_live_20261012T091817Z_anthropic--claude-haiku-5.5.jsonl,5880,0,0,9,588,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.6796
+upstage/solar-decide-20260928,System One,run_live_20261012T102816Z_upstage--solar-decide.jsonl,5880,40,0,0,588,4,"{""choice"": 0.0106, ""noul"": 0.0, ""score"": 0.0}",0.1367

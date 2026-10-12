@@ -24,8 +24,8 @@ one day, and how they were produced.
 | `liquid/d1-20260930` | System One | Oct 12 | 5,880 | $0.04 |
 | `upstage/solar-decide-flash-20261008` | System One | Oct 12 | 5,880 | $0.14 |
 | `nace-ai/drex-v1.5-20261009` | System One | Oct 12 | 5,880 | $0.03 |
+| `upstage/solar-decide-20260928` | System One | Oct 12 (resumed after an interruption) | 5,880 | $0.14 |
 | `anthropic/claude-haiku-5.5` | chat, resampled | Oct 12 | 5,880 | $0.68 |
-| `upstage/solar-decide-20260928` | System One | Oct 12, **partial** — not compared | 4,770 of 5,880 | $0.11 |
 
 The Oct 12 runs are 147 probes × 4 personas × 10 replicates; the committed
 Sep 18 run predates the 30 follow-up items and has 117 probes. Every measure
@@ -34,15 +34,16 @@ compared below comes from items present in both.
 Reproduce:
 
 ```bash
-jevbench compare data/raw/run_live_20260918T230710Z.jsonl \
-  $(ls data/raw/run_live_20261012*.jsonl | grep -v '_upstage--solar-decide.jsonl')
+jevbench compare data/raw/run_live_20260918T230710Z.jsonl data/raw/run_live_20261012*.jsonl
 ```
 
-**Solar Decide is incomplete.** The provider throttled it to about 25 calls a
-minute, and the run was stopped by a time limit at 81% (4,770 of 5,880
-records). Its file is committed as recorded, but it is left out of every
-comparison here until it is finished with `jevbench run --resume`; a partial
-grid would compare it on a different set of cells from everyone else.
+Solar Decide was throttled by its provider to about 25 calls a minute, and its
+first attempt was stopped by a time limit at 62% with nothing saved, because
+records were only written at the end of a run. The runner now writes each
+record as it completes; the second attempt was stopped at 81% and finished
+with `jevbench run --resume`, which keeps completed records and reruns only
+the missing or failed ones. The committed file is the complete grid with no
+duplicates.
 
 ## Read the health table first
 
@@ -59,10 +60,10 @@ recorded as one and never retried. None of the refused items feeds the
 comparison below, but 44% of this model's yes/no (`Noul`) items are refused, so
 it has no score on the follow-up study's estimate items.
 
-**Solar Decide Flash cannot answer the p-beauty contest.** That item has 101
+**Neither Solar model can answer the p-beauty contest.** That item has 101
 options (0–100), and the route rejects a `Choice` with more than 26. This is a
-documented limit of the route rather than a model behaviour, and it costs one
-item.
+documented limit of the route rather than a model behaviour, and it costs each
+of them one item.
 
 **Haiku 5.5 truncated on its own reasoning.** It reasons before answering, and
 the reasoning counts against the reply cap: on the first run 183 calls spent
@@ -91,6 +92,7 @@ a shared 0–1 scale, and the correlation `r` with them across measures
 | Decider v1.1 27B | 0.34 | −0.42 | 0.15 | +0.67 |
 | Claude Sonnet 5 | 0.35 | +0.02 | 0.17 | +0.83 |
 | Microsoft-Decision-1 | 0.37 | −0.62 | 0.18 | +0.59 |
+| Solar Decide | 0.43 | −0.13 | 0.15 | +0.79 |
 | Claude Haiku 5.5 | 0.49 | −0.54 | 0.18 | +0.88 |
 
 The pattern from the main write-up holds across every model: **answering
@@ -113,13 +115,14 @@ in the gain frame and 22% in the loss frame, a 50-point reversal; the main
 write-up already argues that the contrast, not either level, is the robust
 quantity. Gain minus loss, in points:
 
-| | Human | d1 | Mercury | Jev | Decider | Luna | Solar Flash | Drex | MS-Decision-1 | Sonnet 5 | Haiku 5.5 |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| Neutral | 50 | **54** | 19 | 29 | 17 | 3 | 9 | −8 | −48 | 100 | 0 |
-| As typical human | 50 | **56** | 34 | 30 | 45 | 21 | 4 | −51 | −10 | 100 | 100 |
+| | Human | d1 | Solar | Mercury | Jev | Decider | Luna | Solar Flash | Drex | MS-Decision-1 | Sonnet 5 | Haiku 5.5 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Neutral | 50 | **54** | 80 | 19 | 29 | 17 | 3 | 9 | −8 | −48 | 100 | 0 |
+| As typical human | 50 | 56 | **50** | 34 | 30 | 45 | 21 | 4 | −51 | −10 | 100 | 100 |
 
 On the effect itself, Solar Decide Flash shows almost none, d1 reproduces it
-almost exactly, the two chat models show it at full strength or not at all
+almost exactly under both framings, Solar Decide lands on it exactly when asked
+to answer as a person, the two chat models show it at full strength or not at all
 (resampled answers saturate at 0 or 1), and Drex 1.5 and Microsoft-Decision-1
 reverse it. Distance from human levels and reproduction of human effects are
 different questions, and this battery's one summary number answers only the
@@ -127,10 +130,16 @@ first.
 
 ### Other things worth noting
 
-- **Haiku 5.5 is the most extreme answerer in the set**, furthest from 0.5 both
-  answering neutrally and as a typical human. Asked to answer as a typical person, it gets the cognitive
-  reflection items right only 6% of the time (people: 41%), and continues the
-  sunk-cost project every time.
+- **The two Solar models are opposites despite sharing a base model** (both
+  are built on Solar Mini 4). Answering neutrally, Flash hedges toward 0.5 on
+  everything and lands nearest people, while Solar Decide is the furthest of
+  any System One model: it plays the games almost as game theory prescribes,
+  sending 1% in the trust game and contributing 2% to the public good (people:
+  about half). Asked to answer as a person, both move close to people.
+- **Haiku 5.5 is the most extreme answerer when asked to be a typical person**,
+  furthest from 0.5 of any model (answering neutrally, only Solar Decide is more
+  extreme). In that framing it gets the cognitive reflection items right only 6%
+  of the time (people: 41%), and continues the sunk-cost project every time.
 - **The sunk-cost item is the one nothing reproduces under neutral framing**:
   every model, System One or chat, abandons the project (≤ 0.07, people 0.85).
 - **No model reproduces the conjunction fallacy unprompted** except Drex 1.5
