@@ -51,6 +51,8 @@ duplicates.
 stop silent holes being read as results, and on this run it caught three, two
 of which were bugs in this repository.
 
+![What the health table caught](../results/figures/health-checks.png)
+
 **GPT-6 Luna Decisions refuses some items.** 240 of its 5,880 calls (4%) came
 back `OpenAI refused to answer question "answer"`: the custody case, the trolley
 estimates, the false-consensus and choosing/rejecting estimates, and a Dirty
@@ -75,7 +77,7 @@ Sonnet's 9 at 512. The truncated run was discarded, not mixed in.
 
 ## Closeness to human values
 
-![Models against human values](../results/comparison/fig_models_vs_human.png)
+![Models against human values](../results/figures/models-scatter.png)
 
 Mean absolute distance from the published human value over the 14 measures on
 a shared 0–1 scale, and the correlation `r` with them across measures
@@ -103,6 +105,8 @@ gets no closer, and GPT-6 Luna Decisions gets closer on average but without
 learning which effects are strong (r +0.11).
 
 ### Why the top of that table should not be read as a ranking
+
+![The framing reversal by model](../results/figures/framing-contrast.png)
 
 Solar Decide Flash comes out closest, and the reason matters more than the
 ranking. Its answers sit nearer 0.5 than any other model's, and most of the

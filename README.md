@@ -50,6 +50,8 @@ worth doing.
 The contrast showed up in the run itself, at **$0.09 against $2.74** for the
 identical grid.
 
+![How one item becomes a number](results/figures/how-it-works.png)
+
 The comparison arm returns near-identical answers on most items: 90% of its
 cells had all ten samples agree. That is genuine low-entropy behaviour rather
 than a defect — temperature is demonstrably active, and genuinely ambiguous
@@ -71,7 +73,7 @@ cell retained at least 5 of its 10 samples. Full tables in
 
 ### Under neutral framing it does not look like human System 1
 
-![Jev against human reference values](results/figures/fig1_vs_human.png)
+![Jev against people on decision anomalies](results/figures/jev-decisions-neutral.png)
 
 On most classic biases it sits closer to the normative answer than the published
 human value. It answered the Cognitive Reflection Test at **0.99** probability
@@ -81,7 +83,7 @@ project in the sunk-cost item with probability **0.01** (human ≈ 0.85), got th
 base-rate item's correct band at **0.61** (human ≈ 0.15), and moved **1.4
 percentage points** between anchoring conditions where humans move about 20.
 
-![Gap from human reference values](results/figures/fig2_gap_from_human.png)
+![Jev against people in the economic games](results/figures/jev-games-neutral.png)
 
 The social preferences are the exception: it gave **0.14** of the pie as
 dictator, offered **0.42** in the ultimatum game (human ≈ 0.40) and rejected low
@@ -90,8 +92,8 @@ does land near people rather than near game theory.
 
 ### Asked to answer like a person, it moves a long way
 
-![Persona steerability](results/figures/fig3_persona.png)
-![Cognitive reflection across personas](results/figures/fig4_reflection.png)
+![Jev asked to answer as a typical person](results/figures/jev-decisions-typical.png)
+![The antisocial persona in the economic games](results/figures/persona-antisocial.png)
 
 One sentence — *answer the way a typical human participant would actually
 answer* — moved CRT accuracy from **0.99 to 0.55** and lure mass from **0.01 to
@@ -179,8 +181,8 @@ explanations of their reasoning". The Score handling is also right — the score
 0-indexed and defined as each level multiplied by its probability and summed,
 which is what `expected_level` computes.
 
-![Answer distributions](results/figures/fig5_distributions.png)
-![Option-order sensitivity](results/figures/fig6_order_effects.png)
+![What a single call returns](results/figures/dictator-distribution.png)
+![Option-order sensitivity](results/figures/order-effects.png)
 
 
 ## Running it yourself
@@ -198,6 +200,12 @@ jevbench run --replicates 10 --baseline-samples 10
 jevbench analyse
 jevbench figures
 ```
+
+The figures in this README are drawn by `jevbench diagrams` in the house style of
+[diagram-design](https://github.com/cathrynlavery/diagram-design): one HTML file
+per figure in `docs/diagrams/`, rendered to PNG in `results/figures/`. PNG export
+needs `uv pip install -e ".[diagrams]"` and a Chromium; point
+`JEVBENCH_CHROMIUM` at an existing one to skip the download.
 
 ### Adding more models
 
@@ -223,7 +231,7 @@ jevbench compare data/raw/run_live_*.jsonl       # -> results/comparison/
 the results on the model that actually served each arm. It writes
 `health.csv` (read it first: a model that rejects one primitive shows up there
 as an error rate of 1.0 for that kind), `fidelity.csv`, `measures.csv` and
-`fig_models_vs_human.png`. To analyse one of the new runs on its own without
+`fig_models_vs_human.png`; the editorial figures come from `jevbench diagrams`. To analyse one of the new runs on its own without
 overwriting the committed results, give `analyse` and `figures` an `--out`
 directory.
 
@@ -257,7 +265,9 @@ src/jevbench/
   simulator.py     deterministic offline backend for CI
   runner.py        concurrent execution, one JSONL record per observation
   analysis.py      statistics; both arms reduced to comparable distributions
-  plots.py         figures
+  plots.py         analysis figures (matplotlib)
+  diagrams.py      the editorial figures in the README, diagram-design style
+  compare.py       several models' runs side by side
   benchmarks.py    28 human reference values, each with source + reliability
   instruments/     the battery
 scripts/           doc generators, and the figure layout checker

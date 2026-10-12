@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Two ways to get a distribution out of a model</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper: #f5f5f5; --color-ink: #2d3142; --color-muted: #4f5d75;
+      --font-sans: 'Geist', system-ui, sans-serif; --font-serif: 'Instrument Serif', serif; --font-mono: 'Geist Mono', ui-monospace, monospace;
+    }
+    body {
+      font-family: var(--font-sans); background: var(--color-paper); color: var(--color-ink);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 3rem 2rem;
+    }
+    .frame { max-width: 1040px; width: 100%; padding: 32px 40px; background: var(--color-paper); }
+    .diagram-container { width: 100%; overflow-x: auto; }
+    .eyebrow {
+      font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-muted);
+      margin-bottom: 0.5rem;
+    }
+    h1 {
+      font-family: var(--font-serif); font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem);
+      font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.5rem;
+    }
+    .subtitle { color: var(--color-muted); font-size: 0.95rem; line-height: 1.45;
+      max-width: 60rem; margin-bottom: 1.5rem; }
+    .source { font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-muted);
+      border-top: 1px solid rgba(45,49,66,0.12); margin-top: 1rem; padding-top: 0.75rem; line-height: 1.5; }
+    svg { width: 100%; min-width: 960px; display: block; }
+    @media print { .diagram-container { overflow-x: visible; } svg { min-width: 0; } }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Process · how one item becomes a number</p>
+    <h1>Two ways to get a distribution out of a model</h1>
+    <p class="subtitle">Every item is asked under four framings. A System One model returns a probability for every answer in one call; a chat model has to be sampled ten times and its answers counted. Both end as one distribution per cell, compared with the published human rate.</p>
+    <div class="diagram-container">
+      <svg viewBox="0 0 960 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="how-it-works-title how-it-works-desc">
+        <title id="how-it-works-title">Two ways to get a distribution out of a model</title>
+        <desc id="how-it-works-desc">Process diagram: a battery item is framed four ways, answered either by a System One model in one call or by a chat model sampled ten times, reduced to one distribution per cell, and compared with a published human rate.</desc>
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
+          <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#bf4520"/></marker>
+          <marker id="arrow-link" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#2e5aa8"/></marker>
+        </defs>
+        <rect width="100%" height="100%" fill="#f5f5f5"/>
+<line x1="184" y1="200" x2="212" y2="200" stroke="#4f5d75" stroke-width="1" marker-end="url(#arrow)"/>
+<path d="M372 188 H378 Q386 188 386 180 V112 Q386 104 394 104 H400" fill="none" stroke="#bf4520" stroke-width="1.2" marker-end="url(#arrow-accent)"/>
+<path d="M372 212 H378 Q386 212 386 220 V288 Q386 296 394 296 H400" fill="none" stroke="#4f5d75" stroke-width="1" marker-end="url(#arrow)"/>
+<path d="M560 104 H566 Q574 104 574 112 V180 Q574 188 582 188 H588" fill="none" stroke="#bf4520" stroke-width="1.2" marker-end="url(#arrow-accent)"/>
+<path d="M560 296 H566 Q574 296 574 288 V220 Q574 212 582 212 H588" fill="none" stroke="#4f5d75" stroke-width="1" marker-end="url(#arrow)"/>
+<line x1="748" y1="200" x2="776" y2="200" stroke="#4f5d75" stroke-width="1" marker-end="url(#arrow)"/>
+<line x1="856" y1="328" x2="856" y2="232" stroke="#2e5aa8" stroke-width="1" stroke-dasharray="5,4" marker-end="url(#arrow-link)"/>
+<rect x="24" y="168" width="160" height="64" rx="6" fill="#f5f5f5"/>
+<rect x="24" y="168" width="160" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<rect x="32" y="174" width="32" height="12" rx="2" fill="transparent" stroke="rgba(45,49,66,0.4)" stroke-width="0.8"/>
+<text x="48" y="183" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">ITEM</text>
+<text x="104" y="208" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="middle" font-weight="600">Battery item</text>
+<text x="104" y="224" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">147 probes</text>
+<rect x="212" y="168" width="160" height="64" rx="6" fill="#f5f5f5"/>
+<rect x="212" y="168" width="160" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<rect x="220" y="174" width="40" height="12" rx="2" fill="transparent" stroke="rgba(45,49,66,0.4)" stroke-width="0.8"/>
+<text x="240" y="183" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">PROMPT</text>
+<text x="292" y="208" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="middle" font-weight="600">Four framings</text>
+<text x="292" y="224" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">4 personas × 10 reps</text>
+<rect x="400" y="72" width="160" height="64" rx="6" fill="#f5f5f5"/>
+<rect x="400" y="72" width="160" height="64" rx="6" fill="rgba(191,69,32,0.08)" stroke="#bf4520" stroke-width="1"/>
+<rect x="408" y="78" width="36" height="12" rx="2" fill="transparent" stroke="rgba(191,69,32,0.4)" stroke-width="0.8"/>
+<text x="426" y="87" fill="#bf4520" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">TYPED</text>
+<text x="480" y="112" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="middle" font-weight="600">System One model</text>
+<text x="480" y="128" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">1 call → probabilities</text>
+<rect x="400" y="264" width="160" height="64" rx="6" fill="#f5f5f5"/>
+<rect x="400" y="264" width="160" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<rect x="408" y="270" width="32" height="12" rx="2" fill="transparent" stroke="rgba(45,49,66,0.4)" stroke-width="0.8"/>
+<text x="424" y="279" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">CHAT</text>
+<text x="480" y="304" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="middle" font-weight="600">Chat model</text>
+<text x="480" y="320" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">10 samples → counted</text>
+<rect x="588" y="168" width="160" height="64" rx="6" fill="#f5f5f5"/>
+<rect x="588" y="168" width="160" height="64" rx="6" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1"/>
+<rect x="596" y="174" width="32" height="12" rx="2" fill="transparent" stroke="rgba(45,49,66,0.4)" stroke-width="0.8"/>
+<text x="612" y="183" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">CELL</text>
+<text x="668" y="208" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="middle" font-weight="600">One distribution</text>
+<text x="668" y="224" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">per probe × persona</text>
+<rect x="776" y="168" width="160" height="64" rx="6" fill="#f5f5f5"/>
+<rect x="776" y="168" width="160" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<rect x="784" y="174" width="40" height="12" rx="2" fill="transparent" stroke="rgba(45,49,66,0.4)" stroke-width="0.8"/>
+<text x="804" y="183" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">RESULT</text>
+<text x="856" y="208" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="middle" font-weight="600">Statistic vs people</text>
+<text x="856" y="224" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">distance · correlation</text>
+<rect x="776" y="328" width="160" height="64" rx="6" fill="#f5f5f5"/>
+<rect x="776" y="328" width="160" height="64" rx="6" fill="rgba(45,49,66,0.03)" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<rect x="784" y="334" width="32" height="12" rx="2" fill="transparent" stroke="rgba(45,49,66,0.4)" stroke-width="0.8"/>
+<text x="800" y="343" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">DATA</text>
+<text x="856" y="368" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="middle" font-weight="600">Published rate</text>
+<text x="856" y="384" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">human reference</text>
+<text x="480" y="56" fill="#2d3142" font-size="15" font-family="'Instrument Serif', serif" text-anchor="middle" font-style="italic">reports its own distribution — $0.09 a grid</text>
+<text x="480" y="354" fill="#2d3142" font-size="15" font-family="'Instrument Serif', serif" text-anchor="middle" font-style="italic">pays ten times to estimate one — $2.74</text>
+<line x1="30" y1="452" x2="930" y2="452" stroke="rgba(45,49,66,0.1)" stroke-width="0.8"/>
+<text x="30" y="468" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" letter-spacing="0.14em">LEGEND</text>
+<rect x="104" y="482" width="16" height="10" rx="2" fill="rgba(191,69,32,0.08)" stroke="#bf4520" stroke-width="1"/>
+<text x="128" y="491" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">System One path</text>
+<rect x="249" y="482" width="16" height="10" rx="2" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<text x="273" y="491" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">Step</text>
+<rect x="334" y="482" width="16" height="10" rx="2" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1"/>
+<text x="358" y="491" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">Stored result</text>
+<rect x="468" y="482" width="16" height="10" rx="2" fill="rgba(45,49,66,0.03)" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<text x="492" y="491" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">External data</text>
+      </svg>
+    </div>
+    <p class="source">Costs are for the identical 4,680-call grid on 18 Sep 2026: Jev $0.09, Claude Sonnet 5 resampled $2.74.</p>
+  </div>
+</body>
+</html>

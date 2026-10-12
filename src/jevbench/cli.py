@@ -134,6 +134,15 @@ def _cmd_figures(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_diagrams(args: argparse.Namespace) -> int:
+    from .diagrams import main as diagrams_main
+
+    argv = ["--run", args.run] if args.run else []
+    if args.no_png:
+        argv.append("--no-png")
+    return diagrams_main(argv)
+
+
 def _cmd_compare(args: argparse.Namespace) -> int:
     from .compare import compare_runs
     from .plots import fig_model_comparison
@@ -208,6 +217,13 @@ def main(argv: list[str] | None = None) -> int:
     f.add_argument("--run", default=None)
     f.add_argument("--out", default=None, help=f"output directory (default: {FIGURES_DIR.name}/)")
     f.set_defaults(func=_cmd_figures)
+
+    g = sub.add_parser(
+        "diagrams", help="build the editorial figures (HTML, plus PNG via Playwright)"
+    )
+    g.add_argument("--run", default=None, help="the Jev run the single-model figures read")
+    g.add_argument("--no-png", action="store_true", help="write the HTML only")
+    g.set_defaults(func=_cmd_diagrams)
 
     c = sub.add_parser("compare", help="put several models' runs side by side")
     c.add_argument("runs", nargs="+", help="run .jsonl files, one per model")
