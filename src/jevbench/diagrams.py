@@ -2512,9 +2512,9 @@ def main(argv: Any = None) -> int:
     ap.add_argument("--run", default=None, help="the Jev run (default: the newest run with Jev)")
     ap.add_argument("--no-png", action="store_true")
     args = ap.parse_args(argv)
-    run = Path(args.run) if args.run else primary_run(RAW_DIR)
+    run = Path(args.run) if args.run else primary_run(RAW_DIR, live_only=True)
     if run is None:
-        print(f"No run with Jev in {RAW_DIR}.", file=sys.stderr)
+        print(f"No live run with Jev in {RAW_DIR}.", file=sys.stderr)
         return 1
     html_dir = REPO_ROOT / "docs" / "diagrams"
     paths = build_diagrams(run, TABLES_DIR, REPO_ROOT / "results" / "comparison", html_dir)

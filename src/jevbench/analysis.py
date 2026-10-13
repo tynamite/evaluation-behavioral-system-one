@@ -42,8 +42,18 @@ def latest_run(raw_dir: Path, model: str | None = None) -> Path | None:
     return max(runs, key=lambda p: (p.name.split("_")[2:3], p.name)) if runs else None
 
 
-def primary_run(raw_dir: Path) -> Path | None:
-    """The run the write-up is about: the newest one that includes Jev."""
+def primary_run(raw_dir: Path, live_only: bool = False) -> Path | None:
+    """The run the write-up is about: the newest one that includes Jev.
+
+    Anything that writes committed files (the editorial diagrams, RESULTS.md)
+    passes `live_only`, so a simulated run left in data/raw/ can never stand in
+    for the live one there.
+    """
+    if live_only:
+        live = [p for p in raw_dir.glob("run_live_*.jsonl")]
+        jev = [p for p in live if "typesafe--jev" in p.name]
+        pool = jev or live
+        return max(pool, key=lambda p: (p.name.split("_")[2:3], p.name)) if pool else None
     return latest_run(raw_dir, "typesafe--jev") or latest_run(raw_dir)
 
 

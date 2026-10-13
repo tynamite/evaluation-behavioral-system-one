@@ -53,9 +53,9 @@ cells: the trolley, Knobe, categorisation, false-consensus and
 choosing/rejecting (custody case) estimates, the false-consensus choices
 themselves, and one Dirty Dozen item (`dd_09`). The route reports a refusal as
 HTTP 502; the client records it as a refusal and does not retry it. None of
-the refused items feeds the comparison below, but 37% of this model's yes/no
-(`Noul`) items are refused, so it has no score on the follow-up study's
-estimate items.
+the refused items feeds the comparison below, but 37% of its yes/no (`Noul`)
+calls are refused, leaving it with no answer in 25 item × prompt cells, mostly
+the follow-up study's estimate items.
 
 **Neither Solar model can answer the p-beauty contest.** That item has 101
 options (0–100), and the route rejects a `Choice` with more than 26. This is a
@@ -80,7 +80,7 @@ in text, so the chat arm's results depend on how that text is read, and the
 [how-it-works figure](../results/figures/how-it-works.png) shows each step:
 
 - **The prompt lists the options and asks for exactly one key** and nothing
-  else. Haiku 5.5 replied with exactly a key 99.5% of the time, Sonnet 5.5
+  else. Haiku 5.5 replied with exactly a key 99% of the time, Sonnet 5.5
   91%; most of Sonnet's other replies reason first and then commit.
 - **A reply that is not exactly a key is read for the option it names**: the
   last one mentioned, so reasoning that restates the problem's numbers before
@@ -146,8 +146,9 @@ next (+0.54 to +0.68); Jev, Clef, Clef Flash, d1 and Mercury Decide only partly
 textbook-correct answer", most System One models fit people a little less well
 (Jev's r falls from +0.39 to +0.25, Decider's from +0.68 to +0.54), which says
 part of their move toward people was the instruction's push. Sonnet 5.5,
-Solar Decide and, slightly, Clef Flash go the other way and fit people *better*
-without it (Sonnet's distance falls from 0.20 to 0.15). GPT-6 Luna Decisions reverses: with the
+Solar Decide go the other way and fit people *better* without it (Sonnet's
+distance falls from 0.20 to 0.15), and Clef Flash's correlation rises
+slightly. GPT-6 Luna Decisions reverses: with the
 plain instruction its correlation is −0.31.
 
 ### Why the top of that table should not be read as a ranking
@@ -175,8 +176,8 @@ Gain minus loss, in points:
 No System One model shows the human effect without being asked, and only
 Solar Decide comes near it when asked. Solar Decide Flash and Clef Flash, the
 two closest to people by distance, show almost none in any condition;
-Microsoft-Decision-1 reverses it; the chat models show it at full strength or
-not at all (resampled answers saturate at 0 or 1). Distance from human levels
+Microsoft-Decision-1 reverses it; the chat models are near all or nothing once
+asked to be a person, 90 to 100 points (resampled answers saturate at 0 or 1). Distance from human levels
 and reproduction of human effects are different questions, and this battery's
 one summary number answers only the first.
 

@@ -11,7 +11,7 @@ from jevbench.analysis import primary_run
 from jevbench.config import RAW_DIR, REPO_ROOT, TABLES_DIR
 from jevbench.diagrams import ACCENT, _domain, build_diagrams, dumbbell
 
-COMMITTED_RUN = primary_run(RAW_DIR)
+COMMITTED_RUN = primary_run(RAW_DIR, live_only=True)
 
 
 @pytest.fixture(scope="module")

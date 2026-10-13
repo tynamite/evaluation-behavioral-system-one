@@ -62,13 +62,13 @@ predate the fixes:
 4. **The 11-20 game hinted at its strategy.** The option for 20 was labelled
    "the largest amount, but never earns the bonus". Options are now plain.
 5. **The categorisation follow-up item had a duplicated exemplar and a note
-   explaining its structure** (12 Oct runs only; no result from it is
+   explaining its structure** (the archived 12 Oct runs only; no result from it is
    reported). One Group 2 member was identical to a Group 1 member, and the
    prompt described which group shares a rule. Both are fixed, following the
    Many Labs 2 protocol.
 6. **The `typical_human` instruction steers as well as asks**: "not the textbook-correct answer" tells the model
-   which way to move on items with a right answer.
-   A neutral version is added for the next run.
+   which way to move on items with a right answer. A version without the
+   clause was added and is reported alongside it ("no steer").
 7. **Two deviations from the preregistered analysis plan.** It promised 95%
    bootstrap intervals; `statistics.csv` carries them for the multi-item
    measures, but no document reports them. And it said the only exclusions
@@ -116,7 +116,8 @@ being shuffled.
 - **Option-order effects were first averaged over the wrong items.** An early
   version reported a mean total-variation distance of 0.051 by averaging in
   Likert and yes/no items, which are never shuffled. On the shuffled
-  multiple-choice items alone it is 0.062.
+  multiple-choice items alone it was 0.062 in the first run (0.058 in the
+  re-run).
 - **The model comparison changed order when the benchmarks were tightened.**
   With all six CRT items and both the $0 and $1 ultimatum offers, Solar Decide
   Flash came out closest to people under neutral framing; on the like-for-like

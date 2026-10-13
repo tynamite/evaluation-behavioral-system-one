@@ -54,7 +54,7 @@ def persona_table(sdf: pd.DataFrame, rows: list[tuple[str, str, str]], arm: str 
 
 
 def main(argv: list[str]) -> int:
-    run = Path(argv[1]) if len(argv) > 1 else primary_run(ROOT / "data" / "raw")
+    run = Path(argv[1]) if len(argv) > 1 else primary_run(ROOT / "data" / "raw", live_only=True)
     if run is None:
         print("no run file found", file=sys.stderr)
         return 1

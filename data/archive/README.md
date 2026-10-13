@@ -3,7 +3,7 @@
 The runs the first version of this write-up was based on, kept so its
 numbers stay recomputable. They predate the method fixes described in
 [docs/LEARNINGS.md](../../docs/LEARNINGS.md) and are not used by any current
-table, figure or document.
+table or figure; LEARNINGS.md compares the re-run against them.
 
 | File | What it is |
 |---|---|

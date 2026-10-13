@@ -51,12 +51,12 @@ identical grid.
 
 ![How one item becomes a number](results/figures/how-it-works.png)
 
-The comparison arm returns near-identical answers on most items: in 85% of its
+The comparison arm returns near-identical answers on most items: in 83% of its
 cells all ten samples agreed. That is genuine low-entropy behaviour rather than
 a defect — temperature is demonstrably active, and genuinely ambiguous items do
 come back mixed. Two caveats follow that the cost comparison alone obscures.
 Ten samples cannot resolve a probability finer than 0.1, and ten agreeing
-samples license "at least 0.78" at 95%, not 1.00. And the arms do not measure
+samples license "at least 0.78" at 95% (a Jeffreys interval), not 1.00. And the arms do not measure
 the same quantity: Jev reports a credence, whereas resampling recovers a
 sampling frequency, and a model can be internally uncertain while emitting the
 same token every time. The cost asymmetry is real; the graded-versus-saturated
@@ -64,7 +64,7 @@ contrast is partly an artifact of comparing two different things.
 
 ## What I observed
 
-14,700 observations at $8.98, recorded on 12 October 2026: 147 probes × 5
+14,700 observations at $8.98, recorded on 12–13 October 2026: 147 probes × 5
 prompt conditions × 10 replicates through Jev, plus the same grid through
 `claude-sonnet-5.5`, resampled ten times per cell. No transport errors; 9 of
 6,800 scorable comparison-arm replies (0.13%) could not be resolved to an
@@ -427,10 +427,10 @@ guessed, and `summary.json` reports them with per-cell sample coverage.
 describes each step.
 
 The typed arm has never returned an answer that could not be read, across
-about 57,600 calls to ten System One models: a typed decision is a
-distribution, so there is no text to misread. What did go wrong there was
-visible: 240 refusals from one model and 80 calls one route rejected, each
-recorded as such ([docs/MODELS.md](docs/MODELS.md#read-the-health-table-first)).
+73,500 calls to ten System One models: a typed decision is a distribution,
+so there is no text to misread. What did go wrong there was visible: 250
+refusals from one model and 100 calls the route rejected (the p-beauty item,
+for both Solar models), each recorded as such ([docs/MODELS.md](docs/MODELS.md#read-the-health-table-first)).
 
 **Learnings.** The bugs found and method fixes made along the way, and what
 each one changed, are written up in [docs/LEARNINGS.md](docs/LEARNINGS.md).

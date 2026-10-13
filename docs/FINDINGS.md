@@ -96,7 +96,7 @@ with a right answer. Asked the same thing without that clause:
 | Conjunction fallacy | 0.93 | **0.87** | 0.85 |
 | Dictator game, share given | 0.27 | **0.28** | 0.28 |
 
-Without the steer, the reasoning errors are roughly halved, while the
+Without the steer, the reasoning errors shrink by roughly a third, while the
 conjunction fallacy and the game play hardly change. The CRT and base-rate
 "human" answers are partly the instruction telling the model to be wrong; the
 conjunction fallacy and the fair-minded game play look more like the model's
@@ -163,7 +163,7 @@ decisions are under irrelevant changes in wording seems worth knowing.
 - **Nobody involved is an expert** in psychometrics or experimental economics,
   this was not peer reviewed, and several bugs and method flaws were found and
   fixed along the way ([LEARNINGS.md](LEARNINGS.md)). There may be more.
-- **One model, one route, one run (12 Oct 2026).** Several results move a lot
+- **One model, one route, one run (12–13 Oct 2026).** Several results move a lot
   with wording, which is itself a reason not to generalise from any single
   number.
 
