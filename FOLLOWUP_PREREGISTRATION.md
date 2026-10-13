@@ -15,9 +15,12 @@ matters and what it does and doesn't establish.*
 > the README (H4: estimating is more accurate on average, p = 0.047 for Jev on
 > the registered absolute errors but 0.17 with errors scaled to each item's
 > range, a check added after seeing the data; H3: no model reproduces the
-> original anchoring gap). One deviation:
-> section 1 names Many Labs 2 as the human reference, but Many Labs 2 reports
-> only replicated effect sizes, not per-condition values, so H4 is scored
+> original anchoring gap). Two deviations. First, H4 covers only the 15
+> statistics of the newly built items: the six items reused from the first
+> project (section 4.1) were never given the population question section 8.1
+> specifies, so they are not in the test. Second, section 1 names Many Labs 2
+> as the human reference, but Many Labs 2 reports only replicated effect
+> sizes, not per-condition values, so H4 is scored
 > against the original studies' published values (as its protocol quotes
 > them). The estimate items were asked under every prompt in those runs;
 > section 8.1 makes them a population question, so the battery now asks them

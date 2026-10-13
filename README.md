@@ -197,7 +197,9 @@ do not exist in the item pool. Two others could:
   the preregistered test just passes, but the result is fragile. Over 15
   statistics, each compared with the original study's published value (Many
   Labs 2 reports only effect sizes, not the per-condition values this needs),
-  estimate is closer on only **8 of 15**. The preregistered one-sided Wilcoxon
+  estimate is closer on only **8 of 15**. The registered pool also included
+  six items reused from the first project; they were never given a population
+  question, so they are missing from the test. The preregistered one-sided Wilcoxon
   test on the absolute errors gives **p = 0.047**. Those errors are in each
   item's own units, though, so the two percentage items and the 1–7 ratings
   outweigh the proportions. With each error scaled to its item's range, a

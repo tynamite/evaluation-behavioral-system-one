@@ -217,7 +217,8 @@ The follow-up study's items are each asked two ways: as the item itself with the
 typical-person prompt ("simulate"), and as a population question with no persona
 ("estimate"). Its preregistered H4 predicts that estimating is more accurate.
 Each statistic is compared with the original study's published value (Many
-Labs 2 reports only effect sizes). The preregistered test is a one-sided
+Labs 2 reports only effect sizes). The six items the study reused from the
+first project are missing: they were never given a population question. The preregistered test is a one-sided
 Wilcoxon signed-rank test on the absolute errors, in each item's own units, so
 the percentage items and the 1–7 ratings weigh most. The mean errors, and the
 second p value, scale each error to its item's range instead; that check was

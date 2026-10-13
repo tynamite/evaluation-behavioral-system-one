@@ -191,7 +191,10 @@ def main(argv: list[str]) -> int:
                  "preregistered. Those units differ (proportions, 1–7 ratings, percentage bands), so "
                  "the raw test weighs the ratings and percentages most; as a post-hoc check the same "
                  "test is repeated with each error divided by its scale's range (1, 6 and 100), and "
-                 "the mean errors below are on that scaled footing.\n")
+                 "the mean errors below are on that scaled footing. The six items reused from the first "
+                 "project (CRT, framing, conjunction, sunk cost, Allais, base rate) belong to the "
+                 "preregistered pool but were never given a population question, so they are "
+                 "missing here.\n")
         L.append("| Item | Statistic | Published | Simulate | Estimate | Error (simulate) | "
                  "Error (estimate) | Scaled (simulate) | Scaled (estimate) |")
         L.append("|---|---|---:|---:|---:|---:|---:|---:|---:|")
@@ -208,9 +211,12 @@ def main(argv: list[str]) -> int:
             hs = h4_summary(simulate_vs_estimate(sdf, simulate=sim, estimate=est))
             if "estimate_closer" not in hs:
                 continue  # e.g. runs that ask estimate items with no persona only
+            def p(v: float | None) -> str:
+                return "n/a (every pair tied)" if v is None else f"{v:.3f}"
+
             L.append(f"\n- {label.capitalize()}: estimate closer on {hs['estimate_closer']} of "
-                     f"{hs['n']}; one-sided Wilcoxon p = {hs['wilcoxon_p_one_sided']:.3f} on the raw "
-                     f"errors ({hs['wilcoxon_p_scaled']:.3f} scaled, post-hoc); mean scaled error "
+                     f"{hs['n']}; one-sided Wilcoxon p = {p(hs['wilcoxon_p_one_sided'])} on the raw "
+                     f"errors ({p(hs['wilcoxon_p_scaled'])} scaled, post-hoc); mean scaled error "
                      f"{hs['mean_scaled_error_simulate']:.3f} (simulate) vs "
                      f"{hs['mean_scaled_error_estimate']:.3f} (estimate)")
         L.append("")
