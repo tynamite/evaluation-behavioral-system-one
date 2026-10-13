@@ -263,3 +263,6 @@ def test_h4_chart_keeps_small_changes_visible_and_renders_all_ties() -> None:
     )
     fig = fig_h4(h4)
     assert "TIED · 2 OF 2" in fig.body and "n/a" in fig.subtitle
+    # One surviving pair: drawn, with no test.
+    one = fig_h4(h4.iloc[:1])
+    assert "TIED · 1 OF 1" in one.body and "p = n/a" in one.subtitle

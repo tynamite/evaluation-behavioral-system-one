@@ -2394,7 +2394,8 @@ def fig_h4(h4: pd.DataFrame) -> Figure:
     from .analysis import h4_summary
 
     def _p(v: float | None) -> str:
-        return "n/a (every pair tied)" if v is None else f"{v:.3f}"
+        # No test: every pair tied, or too few pairs to rank.
+        return "n/a" if v is None else f"{v:.3f}"
 
     t = h4.assign(gain=h4["scaled_error_simulate"] - h4["scaled_error_estimate"])
     closer = t[t["gain"] > 0].sort_values("gain", ascending=False)
@@ -2491,8 +2492,10 @@ def fig_h4(h4: pd.DataFrame) -> Figure:
     )
     rule = int(rows_bottom + 46)
     out.append(_legend(1000, rule, []))
-    k1 = f"Simulate: answers as a typical person (mean {summary['mean_scaled_error_simulate']:.2f})"
-    k2 = f"Estimate: predicts the population's answer (mean {summary['mean_scaled_error_estimate']:.2f})"
+    k1 = f"Simulate: answers as a typical person (mean {t['scaled_error_simulate'].mean():.2f})"
+    k2 = (
+        f"Estimate: predicts the population's answer (mean {t['scaled_error_estimate'].mean():.2f})"
+    )
     ky = rule + 31
     out.append(
         f'<circle cx="104" cy="{ky - 4}" r="5" fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"/>'
@@ -2508,16 +2511,16 @@ def fig_h4(h4: pd.DataFrame) -> Figure:
         eyebrow="Follow-up study · H4 · Jev 1.13",
         title=(
             f"Predicting how people answer beats playing one, for Jev 1.13, on "
-            f"{summary['estimate_closer']} of {summary['n']}"
+            f"{len(closer)} of {len(t)}"
         ),
         subtitle=(
             f"Each statistic was measured two ways: the item asked under the typical-person prompt "
             f"(simulate), and a question with no persona asking for the population's answer itself: "
             f"the share who chose an option, or the average rating, percentage or prediction "
             f"(estimate). Estimating came closer to the original study's value on "
-            f"{summary['estimate_closer']} of {summary['n']}. Preregistered one-sided Wilcoxon test on "
-            f"the absolute errors: p = {_p(summary['wilcoxon_p_one_sided'])}; on the errors as drawn "
-            f"here, scaled to each item's range: p = {_p(summary['wilcoxon_p_scaled'])}."
+            f"{len(closer)} of {len(t)}. Preregistered one-sided Wilcoxon test on "
+            f"the absolute errors: p = {_p(summary.get('wilcoxon_p_one_sided'))}; on the errors as drawn "
+            f"here, scaled to each item's range: p = {_p(summary.get('wilcoxon_p_scaled'))}."
         ),
         desc=(
             "Dot chart with one row per statistic, showing how far Jev 1.13's simulated answer and its "
@@ -2649,7 +2652,6 @@ def build_diagrams(
         fig_antisocial(sdf),
         fig_dictator(df),
         fig_order_effects(odf),
-        fig_h4(pd.read_csv(tables_dir / "followup_h4.csv")),
         fig_models_tests(cdf, "decisions"),
         fig_models_tests(cdf, "games"),
         fig_models_antisocial(cdf),
@@ -2659,6 +2661,12 @@ def build_diagrams(
         fig_framing(mdf),
         fig_health(),
     ]
+    # Follow-up H4 is drawn only when the run has paired items to draw.
+    h4_path = tables_dir / "followup_h4.csv"
+    if h4_path.exists() and h4_path.stat().st_size:
+        h4 = pd.read_csv(h4_path)
+        if len(h4):
+            figures.insert(7, fig_h4(h4))
     out_dir.mkdir(parents=True, exist_ok=True)
     paths = []
     for f in figures:
