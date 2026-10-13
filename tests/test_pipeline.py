@@ -264,3 +264,14 @@ def test_committed_outputs_need_a_live_jev_run(tmp_path: Path) -> None:
     (tmp_path / "run_live_20261012T225927Z_cloudflare--clef.jsonl").touch()
     (tmp_path / "run_simulated_20261013T094732Z_typesafe--jev-1.13.jsonl").touch()
     assert primary_run(tmp_path, live_only=True) is None
+
+
+def test_primary_run_recognises_jev_under_either_backend(tmp_path: Path) -> None:
+    from jevbench.analysis import primary_run
+
+    (tmp_path / "run_live_20261012T225927Z_cloudflare--clef.jsonl").touch()
+    native = tmp_path / "run_live_20261013T120000Z_jev-1.13.0.jsonl"
+    native.touch()
+    # The native TypeSafe backend's slug has no "typesafe--" prefix.
+    assert primary_run(tmp_path, live_only=True) == native
+    assert primary_run(tmp_path) == native

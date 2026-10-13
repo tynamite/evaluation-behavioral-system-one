@@ -42,18 +42,29 @@ def latest_run(raw_dir: Path, model: str | None = None) -> Path | None:
     return max(runs, key=lambda p: (p.name.split("_")[2:3], p.name)) if runs else None
 
 
+def _has_jev(run: Path) -> bool:
+    """Whether a run file holds Jev, under either backend's model slug.
+
+    Names are run_<tag>_<timestamp>_<slug>[+<slug>].jsonl: the OpenRouter slug
+    is `typesafe--jev-...`, the native TypeSafe one `jev-...`.
+    """
+    parts = run.stem.split("_", 3)
+    slugs = parts[3].split("+") if len(parts) == 4 else []
+    return any(s.startswith(("typesafe--jev", "jev-")) for s in slugs)
+
+
 def primary_run(raw_dir: Path, live_only: bool = False) -> Path | None:
     """The run the write-up is about: the newest one that includes Jev.
 
     Anything that writes committed files (the editorial diagrams, RESULTS.md)
     passes `live_only`, so a simulated run left in data/raw/ can never stand in
-    for the live one there.
+    for the live one there, and nor can another model's run.
     """
-    if live_only:
-        # No fallback to another model here: these callers label the run as Jev.
-        jev = [p for p in raw_dir.glob("run_live_*.jsonl") if "typesafe--jev" in p.name]
-        return max(jev, key=lambda p: (p.name.split("_")[2:3], p.name)) if jev else None
-    return latest_run(raw_dir, "typesafe--jev") or latest_run(raw_dir)
+    pattern = "run_live_*.jsonl" if live_only else "run_*.jsonl"
+    jev = [p for p in raw_dir.glob(pattern) if _has_jev(p)]
+    if jev:
+        return max(jev, key=lambda p: (p.name.split("_")[2:3], p.name))
+    return None if live_only else latest_run(raw_dir)
 
 
 def load_records(path: Path) -> pd.DataFrame:
