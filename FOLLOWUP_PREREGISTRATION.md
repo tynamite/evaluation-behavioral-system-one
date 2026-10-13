@@ -13,10 +13,13 @@ matters and what it does and doesn't establish.*
 > (Amendment 3, section 10), so H1 and H2 are untested and none of the options
 > in 10.3 has been chosen. H3 and H4 do not need the pairs and are reported in
 > the README (H4: estimating is more accurate on average, not significantly
-> for Jev; H3: no model reproduces the original anchoring gap). The estimate
-> items were asked under every prompt in those runs; section 8.1 makes them a
-> population question, so the battery now asks them with no persona, and the
-> H4 test uses those records.
+> for Jev; H3: no model reproduces the original anchoring gap). One deviation:
+> section 1 names Many Labs 2 as the human reference, but Many Labs 2 reports
+> only replicated effect sizes, not per-condition values, so H4 is scored
+> against the original studies' published values (as its protocol quotes
+> them). The estimate items were asked under every prompt in those runs;
+> section 8.1 makes them a population question, so the battery now asks them
+> with no persona, and the H4 test uses the no-persona records.
 
 Date: 2026-09-19
 Model under test: `typesafe/jev-1.13` (or whatever is current when run)

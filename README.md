@@ -194,8 +194,9 @@ fame hypotheses (H1, H2) could not be run, because the matched pairs they needed
 do not exist in the item pool. Two others could:
 
 - **H4: estimate is more accurate than simulate.** The direction holds but the
-  evidence is weak. Over 15 Many Labs 2 statistics, with each error scaled to its
-  item's range, Jev's mean error is **0.15** when estimating against **0.22**
+  evidence is weak. Over 15 statistics, each compared with the original study's
+  published value (Many Labs 2 reports only effect sizes, not the per-condition
+  values this needs) and scaled to its item's range, Jev's mean error is **0.15** when estimating against **0.22**
   when simulating, but estimate is closer on only **8 of 15** items (one-sided
   Wilcoxon p = 0.17); the gain comes almost entirely from three items,
   categorisation and the two custody-case questions. Across the ten System One models, estimating has the lower

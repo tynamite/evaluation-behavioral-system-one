@@ -109,9 +109,9 @@ The follow-up items, reported apart: 0.0252 on 55 shuffled cells, 0.0205 on 95 u
 
 ## Follow-up H4: simulate or estimate
 
-Each Many Labs 2 statistic measured two ways: the item asked with the typical-person prompt (simulate), and its population question asked with no persona (estimate). Errors are distances from the Many Labs 2 value divided by the scale's range (1 for proportions, 6 for 1–7 ratings, 100 for percentage bands).
+Each follow-up statistic measured two ways: the item asked with the typical-person prompt (simulate), and its population question asked with no persona (estimate). Errors are distances from the original study's published value (Many Labs 2 reports only effect sizes, not per-condition values), divided by the scale's range (1 for proportions, 6 for 1–7 ratings, 100 for percentage bands).
 
-| Item | Statistic | Many Labs 2 | Simulate | Estimate | Error (simulate) | Error (estimate) |
+| Item | Statistic | Published | Simulate | Estimate | Error (simulate) | Error (estimate) |
 |---|---|---:|---:|---:|---:|---:|
 | categorization | prob_rule_based | 0.67 | 0.09 | 0.53 | 0.581 | 0.143 |
 | choosing_rejecting | prob_award_extreme | 0.64 | 0.13 | 0.36 | 0.512 | 0.276 |
@@ -131,5 +131,7 @@ Each Many Labs 2 statistic measured two ways: the item asked with the typical-pe
 
 - As preregistered: estimate closer on 8 of 15; mean error 0.221 (simulate) vs 0.154 (estimate); one-sided Wilcoxon p = 0.165
 
-- Simulate without the steer: estimate closer on 10 of 15; mean error 0.225 (simulate) vs 0.154 (estimate); one-sided Wilcoxon p = 0.115
+- Simulate without the steer, estimate with no persona: estimate closer on 10 of 15; mean error 0.225 (simulate) vs 0.154 (estimate); one-sided Wilcoxon p = 0.115
+
+- Both asked under the steer-free typical-person prompt (exploratory): estimate closer on 12 of 15; mean error 0.225 (simulate) vs 0.134 (estimate); one-sided Wilcoxon p = 0.011
 

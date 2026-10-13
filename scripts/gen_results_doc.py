@@ -184,18 +184,23 @@ def main(argv: list[str]) -> int:
     h4 = simulate_vs_estimate(sdf)
     if len(h4):
         L.append("## Follow-up H4: simulate or estimate\n")
-        L.append("Each Many Labs 2 statistic measured two ways: the item asked with the typical-person "
+        L.append("Each follow-up statistic measured two ways: the item asked with the typical-person "
                  "prompt (simulate), and its population question asked with no persona (estimate). "
-                 "Errors are distances from the Many Labs 2 value divided by the scale's range "
+                 "Errors are distances from the original study's published value (Many Labs 2 "
+                 "reports only effect sizes, not per-condition values), divided by the scale's range "
                  "(1 for proportions, 6 for 1–7 ratings, 100 for percentage bands).\n")
-        L.append("| Item | Statistic | Many Labs 2 | Simulate | Estimate | Error (simulate) | Error (estimate) |")
+        L.append("| Item | Statistic | Published | Simulate | Estimate | Error (simulate) | Error (estimate) |")
         L.append("|---|---|---:|---:|---:|---:|---:|")
         for _, r in h4.iterrows():
             L.append(f"| {r.instrument} | {r.statistic} | {r.human:.2f} | {r.simulate:.2f} | "
                      f"{r.estimate:.2f} | {r.error_simulate:.3f} | {r.error_estimate:.3f} |")
-        for label, sim in (("as preregistered", "typical_human"),
-                           ("simulate without the steer", "typical_human_plain")):
-            hs = h4_summary(simulate_vs_estimate(sdf, simulate=sim))
+        for label, sim, est in (
+            ("as preregistered", "typical_human", "neutral"),
+            ("simulate without the steer, estimate with no persona", "typical_human_plain", "neutral"),
+            ("both asked under the steer-free typical-person prompt (exploratory)",
+             "typical_human_plain", "typical_human_plain"),
+        ):
+            hs = h4_summary(simulate_vs_estimate(sdf, simulate=sim, estimate=est))
             L.append(f"\n- {label.capitalize()}: estimate closer on {hs['estimate_closer']} of "
                      f"{hs['n']}; mean error {hs['mean_error_simulate']:.3f} (simulate) vs "
                      f"{hs['mean_error_estimate']:.3f} (estimate); one-sided Wilcoxon p = "

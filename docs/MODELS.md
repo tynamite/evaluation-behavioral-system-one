@@ -216,7 +216,8 @@ one summary number answers only the first.
 The follow-up study's items are each asked two ways: as the item itself with the
 typical-person prompt ("simulate"), and as a population question with no persona
 ("estimate"). Its preregistered H4 predicts that estimating is more accurate.
-Mean error over 15 Many Labs 2 statistics, each scaled to its item's range, and
+Mean error over 15 statistics, each against the original study's published value
+(Many Labs 2 reports only effect sizes) and scaled to its item's range, and
 the one-sided Wilcoxon signed-rank test the preregistration names
 ([`followup_h4.csv`](../results/comparison/followup_h4.csv)):
 

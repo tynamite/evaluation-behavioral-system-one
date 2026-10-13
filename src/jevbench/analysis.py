@@ -1192,8 +1192,11 @@ def simulate_vs_estimate(
     As preregistered, "simulate" is the item asked with the typical-person
     prompt and "estimate" is its population question ("what proportion of
     participants...") with no persona. Errors are absolute distances from the
-    Many Labs 2 value, divided by the scale's range so the three scales can be
-    pooled. Rows with either value missing (a refusal) are dropped.
+    item's benchmark, divided by the scale's range so the three scales can be
+    pooled. The benchmarks are the original studies' published values, as Many
+    Labs 2's protocol quotes them; Many Labs 2 reports only replicated effect
+    sizes, not the per-condition values this needs (see benchmarks.py). Rows
+    with either value missing (a refusal) are dropped.
     """
     rows: list[dict[str, Any]] = []
     if not len(sdf) or "instrument" not in sdf.columns:

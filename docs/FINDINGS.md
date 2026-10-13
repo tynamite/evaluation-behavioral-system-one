@@ -132,12 +132,14 @@ experiment does not test that.
 A follow-up study, preregistered separately, asked 15 items from the Many Labs 2
 replication project two ways: as the item itself, with the typical-person
 instruction ("simulate"), and as a question about the population with no
-persona — "what proportion of participants chose…" ("estimate").
+persona — "what proportion of participants chose…" ("estimate"). Each was
+compared with the original study's published value; Many Labs 2 reports only
+effect sizes, not the per-condition values this needs.
 
 | | Simulate | Estimate |
 |---|---|---|
 | Mean error, scaled to each item's range | 0.22 | **0.15** |
-| Items where it is closer to Many Labs 2 | 7 of 15 | **8 of 15** |
+| Items where it is closer to the published value | 7 of 15 | **8 of 15** |
 
 Estimating is better on average, as predicted, but the edge comes almost
 entirely from three items (categorisation and two custody-case questions), and
