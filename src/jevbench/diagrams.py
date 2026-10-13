@@ -2477,7 +2477,7 @@ def fig_h4(h4: pd.DataFrame) -> Figure:
     rule = int(rows_bottom + 46)
     out.append(_legend(1000, rule, []))
     k1 = f"Simulate: answers as a typical person (mean {summary['mean_scaled_error_simulate']:.2f})"
-    k2 = f"Estimate: says what share of people chose it (mean {summary['mean_scaled_error_estimate']:.2f})"
+    k2 = f"Estimate: predicts the population's answer (mean {summary['mean_scaled_error_estimate']:.2f})"
     ky = rule + 31
     out.append(
         f'<circle cx="104" cy="{ky - 4}" r="5" fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"/>'
@@ -2492,13 +2492,14 @@ def fig_h4(h4: pd.DataFrame) -> Figure:
         slug="followup-h4",
         eyebrow="Follow-up study · H4 · Jev 1.13",
         title=(
-            f"Estimating what people choose beats playing one, for Jev 1.13, on "
+            f"Predicting how people answer beats playing one, for Jev 1.13, on "
             f"{summary['estimate_closer']} of {summary['n']}"
         ),
         subtitle=(
             f"Each statistic was measured two ways: the item asked under the typical-person prompt "
-            f"(simulate), and a question with no persona asking what share of participants chose that "
-            f"answer (estimate). Estimating came closer to the original study's value on "
+            f"(simulate), and a question with no persona asking for the population's answer itself: "
+            f"the share who chose an option, or the average rating, percentage or prediction "
+            f"(estimate). Estimating came closer to the original study's value on "
             f"{summary['estimate_closer']} of {summary['n']}. Preregistered one-sided Wilcoxon test on "
             f"the absolute errors: p = {summary['wilcoxon_p_one_sided']:.3f}; on the errors as drawn "
             f"here, scaled to each item's range: p = {summary['wilcoxon_p_scaled']:.3f}."
