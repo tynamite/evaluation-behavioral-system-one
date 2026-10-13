@@ -245,3 +245,21 @@ def test_h4_chart_puts_ties_in_their_own_group() -> None:
     assert "ESTIMATE CLOSER · 2 OF 4" in body
     assert "SIMULATE CLOSER · 1 OF 4" in body
     assert "TIED · 1 OF 4" in body
+
+
+def test_h4_chart_keeps_small_changes_visible_and_renders_all_ties() -> None:
+    import pandas as pd
+
+    from jevbench.diagrams import _signed, fig_h4
+
+    assert _signed(0.00017) == "+0.0002" and _signed(-0.25) == "-0.25" and _signed(0) == "0"
+    h4 = pd.DataFrame(
+        {
+            "instrument": ["a", "b"],
+            "statistic": ["s", "s"],
+            **{c: [0.2, 0.3] for c in ("error_simulate", "error_estimate")},
+            **{c: [0.2, 0.3] for c in ("scaled_error_simulate", "scaled_error_estimate")},
+        }
+    )
+    fig = fig_h4(h4)
+    assert "TIED · 2 OF 2" in fig.body and "n/a" in fig.subtitle

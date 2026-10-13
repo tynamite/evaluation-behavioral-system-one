@@ -2377,6 +2377,13 @@ H4_LABELS = {
 }
 
 
+def _signed(v: float) -> str:
+    """A signed change, with enough decimals that a nonzero one never reads as zero."""
+    if v == 0:
+        return "0"
+    return f"{v:+.2f}" if abs(v) >= 0.005 else f"{v:+.1g}"
+
+
 def fig_h4(h4: pd.DataFrame) -> Figure:
     """Follow-up H4 for Jev: each statistic's error simulated and estimated, closer one first.
 
@@ -2385,6 +2392,9 @@ def fig_h4(h4: pd.DataFrame) -> Figure:
     errors, and both p values are quoted.
     """
     from .analysis import h4_summary
+
+    def _p(v: float | None) -> str:
+        return "n/a (every pair tied)" if v is None else f"{v:.3f}"
 
     t = h4.assign(gain=h4["scaled_error_simulate"] - h4["scaled_error_estimate"])
     closer = t[t["gain"] > 0].sort_values("gain", ascending=False)
@@ -2439,7 +2449,7 @@ def fig_h4(h4: pd.DataFrame) -> Figure:
                 _t(
                     970,
                     y,
-                    f"{-r['gain']:+.2f}",
+                    _signed(-r["gain"]),
                     anchor="end",
                     fill=ACCENT if better else MUTED,
                     weight=600 if better else None,
@@ -2506,8 +2516,8 @@ def fig_h4(h4: pd.DataFrame) -> Figure:
             f"the share who chose an option, or the average rating, percentage or prediction "
             f"(estimate). Estimating came closer to the original study's value on "
             f"{summary['estimate_closer']} of {summary['n']}. Preregistered one-sided Wilcoxon test on "
-            f"the absolute errors: p = {summary['wilcoxon_p_one_sided']:.3f}; on the errors as drawn "
-            f"here, scaled to each item's range: p = {summary['wilcoxon_p_scaled']:.3f}."
+            f"the absolute errors: p = {_p(summary['wilcoxon_p_one_sided'])}; on the errors as drawn "
+            f"here, scaled to each item's range: p = {_p(summary['wilcoxon_p_scaled'])}."
         ),
         desc=(
             "Dot chart with one row per statistic, showing how far Jev 1.13's simulated answer and its "
