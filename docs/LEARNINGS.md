@@ -133,6 +133,11 @@ following, among other claims that did not check out against the code:
   divided each error by its item's range, which changes the test's ranks, and
   gave p = 0.17 for Jev. The registered test gave 0.047. Both are now
   reported, the scaled one as a check chosen after seeing the data.
+- **The trust game's missing $10 also hid Sonnet's answers.** Under the
+  typical-person prompt, Sonnet 5.5 answered "$10" six times on the last
+  returning item; with no such option those replies could not be read, and
+  they were 6 of its 9 unresolved replies. With $10 on the menu they resolve,
+  and Sonnet's unresolved count is 3.
 - **H4 was first tested on part of its item pool.** The preregistration's
   pool includes six items reused from the first project, but their
   population questions had never been built. They were built and asked of the

@@ -1336,7 +1336,8 @@ def fig_followup_elicitations(sdf: pd.DataFrame, out: Path) -> Path | None:
         fig,
         "The follow-up battery: eight effects, sourced from ML2's protocol or the original papers",
         "Own answer, simulated-human answer, and a direct population estimate, against the "
-        "original study's own number (N=64-207 per item — see FOLLOWUP_PREREGISTRATION.md).",
+        "original study's own number (N=64-207 per item — see FOLLOWUP_PREREGISTRATION.md). The "
+        "six items reused from the first study are in the H4 chart (followup-h4.png).",
         y=1.14,
     )
     fig.subplots_adjust(top=0.72)
