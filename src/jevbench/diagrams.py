@@ -2349,6 +2349,8 @@ def fig_models_dictator(runs: dict[str, pd.DataFrame]) -> Figure:
     )
 
 
+H4_SLUG = "followup-h4"
+
 # Follow-up H4 rows: (instrument, statistic) -> what the statistic counts.
 H4_LABELS = {
     ("allais", "prob_certain_pair1"): "Allais: the certain $3,000",
@@ -2395,7 +2397,9 @@ def fig_h4(h4: pd.DataFrame) -> Figure:
 
     def _p(v: float | None) -> str:
         # No test: every pair tied, or too few pairs to rank.
-        return "n/a" if v is None else f"{v:.3f}"
+        if v is None:
+            return ": n/a"
+        return " < 0.001" if v < 0.0005 else f" = {v:.3f}"
 
     t = h4.assign(gain=h4["scaled_error_simulate"] - h4["scaled_error_estimate"])
     closer = t[t["gain"] > 0].sort_values("gain", ascending=False)
@@ -2507,7 +2511,7 @@ def fig_h4(h4: pd.DataFrame) -> Figure:
     )
     out.append(_t(x2 + 12, ky, k2, size=9, family=SANS, fill=INK))
     return Figure(
-        slug="followup-h4",
+        slug=H4_SLUG,
         eyebrow="Follow-up study · H4 · Jev 1.13",
         title=(
             f"Predicting how people answer beats playing one, for Jev 1.13, on "
@@ -2519,8 +2523,8 @@ def fig_h4(h4: pd.DataFrame) -> Figure:
             f"the share who chose an option, or the average rating, percentage or prediction "
             f"(estimate). Estimating came closer to the original study's value on "
             f"{len(closer)} of {len(t)}. Preregistered one-sided Wilcoxon test on "
-            f"the absolute errors: p = {_p(summary.get('wilcoxon_p_one_sided'))}; on the errors as drawn "
-            f"here, scaled to each item's range: p = {_p(summary.get('wilcoxon_p_scaled'))}."
+            f"the absolute errors: p{_p(summary.get('wilcoxon_p_one_sided'))}; on the errors as drawn "
+            f"here, scaled to each item's range: p{_p(summary.get('wilcoxon_p_scaled'))}."
         ),
         desc=(
             "Dot chart with one row per statistic, showing how far Jev 1.13's simulated answer and its "
@@ -2663,10 +2667,12 @@ def build_diagrams(
     ]
     # Follow-up H4 is drawn only when the run has paired items to draw.
     h4_path = tables_dir / "followup_h4.csv"
-    if h4_path.exists() and h4_path.stat().st_size:
-        h4 = pd.read_csv(h4_path)
-        if len(h4):
-            figures.insert(7, fig_h4(h4))
+    h4 = pd.read_csv(h4_path) if h4_path.exists() and h4_path.stat().st_size else pd.DataFrame()
+    if len(h4):
+        figures.insert(7, fig_h4(h4))
+    else:
+        # Leave no chart from an earlier run behind.
+        (out_dir / f"{H4_SLUG}.html").unlink(missing_ok=True)
     out_dir.mkdir(parents=True, exist_ok=True)
     paths = []
     for f in figures:
@@ -2718,8 +2724,11 @@ def main(argv: Any = None) -> int:
     for p in paths:
         print(f"wrote {p.relative_to(REPO_ROOT)}")
     if not args.no_png:
-        for p in export_pngs(paths, REPO_ROOT / "results" / "figures"):
+        png_dir = REPO_ROOT / "results" / "figures"
+        for p in export_pngs(paths, png_dir):
             print(f"wrote {p.relative_to(REPO_ROOT)}")
+        if not (html_dir / f"{H4_SLUG}.html").exists():
+            (png_dir / f"{H4_SLUG}.png").unlink(missing_ok=True)
     return 0
 
 

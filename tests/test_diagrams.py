@@ -265,4 +265,37 @@ def test_h4_chart_keeps_small_changes_visible_and_renders_all_ties() -> None:
     assert "TIED · 2 OF 2" in fig.body and "n/a" in fig.subtitle
     # One surviving pair: drawn, with no test.
     one = fig_h4(h4.iloc[:1])
-    assert "TIED · 1 OF 1" in one.body and "p = n/a" in one.subtitle
+    assert "TIED · 1 OF 1" in one.body and "p: n/a" in one.subtitle
+
+
+def test_h4_chart_is_removed_when_a_run_has_no_pairs(tmp_path: Path) -> None:
+    import shutil
+
+    tables = tmp_path / "tables"
+    shutil.copytree(TABLES_DIR, tables)
+    (tables / "followup_h4.csv").unlink()
+    out = tmp_path / "diagrams"
+    out.mkdir()
+    (out / "followup-h4.html").write_text("stale")
+    paths = build_diagrams(COMMITTED_RUN, tables, REPO_ROOT / "results" / "comparison", out)
+    assert len(paths) == 15 and not (out / "followup-h4.html").exists()
+
+
+def test_h4_chart_never_prints_a_zero_p_value() -> None:
+    import pandas as pd
+
+    from jevbench.diagrams import fig_h4
+
+    n = 23
+    h4 = pd.DataFrame(
+        {
+            "instrument": [f"i{k}" for k in range(n)],
+            "statistic": ["s"] * n,
+            "error_simulate": [0.5 + k / 100 for k in range(n)],
+            "error_estimate": [0.1] * n,
+            "scaled_error_simulate": [0.5 + k / 100 for k in range(n)],
+            "scaled_error_estimate": [0.1] * n,
+        }
+    )
+    sub = fig_h4(h4).subtitle
+    assert "p < 0.001" in sub and "0.000" not in sub
