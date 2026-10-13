@@ -2388,7 +2388,8 @@ def fig_h4(h4: pd.DataFrame) -> Figure:
 
     t = h4.assign(gain=h4["scaled_error_simulate"] - h4["scaled_error_estimate"])
     closer = t[t["gain"] > 0].sort_values("gain", ascending=False)
-    worse = t[t["gain"] <= 0].sort_values("gain", ascending=False)
+    worse = t[t["gain"] < 0].sort_values("gain", ascending=False)
+    tied = t[t["gain"] == 0]
     summary = h4_summary(h4)
     L, R, pitch = 300, 880, 22
     vals = [*t["scaled_error_simulate"], *t["scaled_error_estimate"]]
@@ -2400,10 +2401,14 @@ def fig_h4(h4: pd.DataFrame) -> Figure:
     out: list[str] = []
     y = 64
     rows_top = y - 20
-    for label, part in (
+    groups = [
         (f"ESTIMATE CLOSER · {len(closer)} OF {len(t)}", closer),
         (f"SIMULATE CLOSER · {len(worse)} OF {len(t)}", worse),
-    ):
+        (f"TIED · {len(tied)} OF {len(t)}", tied),
+    ]
+    for label, part in groups:
+        if not len(part):
+            continue
         out.append(_t(L - 12, y, label, size=7, spacing="0.14em", anchor="end", fill=INK))
         y += 22
         for _, r in part.iterrows():

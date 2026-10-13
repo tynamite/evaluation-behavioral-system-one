@@ -223,3 +223,25 @@ def test_h4_chart_draws_every_pair_from_the_table(built: list[Path]) -> None:
             float(v) for v in re.findall(rf'data-series="{series}" data-value="([^"]+)"', page)
         )
         assert drawn == pytest.approx(sorted(h4[f"scaled_error_{series}"]), abs=1e-4)
+
+
+def test_h4_chart_puts_ties_in_their_own_group() -> None:
+    import pandas as pd
+
+    from jevbench.diagrams import fig_h4
+
+    rows = [("a", 0.3, 0.1), ("b", 0.1, 0.3), ("c", 0.2, 0.2), ("d", 0.4, 0.2)]
+    h4 = pd.DataFrame(
+        {
+            "instrument": [r[0] for r in rows],
+            "statistic": ["s"] * len(rows),
+            "error_simulate": [r[1] for r in rows],
+            "error_estimate": [r[2] for r in rows],
+            "scaled_error_simulate": [r[1] for r in rows],
+            "scaled_error_estimate": [r[2] for r in rows],
+        }
+    )
+    body = fig_h4(h4).body
+    assert "ESTIMATE CLOSER · 2 OF 4" in body
+    assert "SIMULATE CLOSER · 1 OF 4" in body
+    assert "TIED · 1 OF 4" in body
