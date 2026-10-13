@@ -2703,6 +2703,15 @@ def check_editorial_run(df: pd.DataFrame) -> None:
     dates = set(jev["timestamp"].dropna().astype(str).str[:10]) if "timestamp" in jev else set()
     if not dates or not dates <= EDITORIAL_DATES:
         problems.append(f"dates {', '.join(sorted(dates)) or 'none'} (labelled 12-13 Oct 2026)")
+    # Every prompt and every core item; the follow-up battery is optional.
+    from .instruments import MODULES, PERSONAS, all_probes
+
+    personas = set(jev["persona"])
+    if missing := sorted(set(PERSONAS) - personas):
+        problems.append(f"no records under {', '.join(missing)}")
+    core = {p.probe_id for p in all_probes([m for m in MODULES if m != "followup"])}
+    if missing_items := core - set(jev["probe_id"]):
+        problems.append(f"{len(missing_items)} of the {len(core)} core items missing")
     if problems:
         raise ValueError(
             "the editorial figures are labelled for the committed run and would misdescribe "

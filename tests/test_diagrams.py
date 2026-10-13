@@ -332,3 +332,17 @@ def test_diagrams_refuse_a_run_their_labels_would_misdescribe(tmp_path: Path) ->
                 dst.write(line)
     with pytest.raises(ValueError, match="3 replicates"):
         build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", tmp_path / "out")
+
+
+def test_diagrams_refuse_a_run_missing_a_prompt(tmp_path: Path) -> None:
+    import json
+
+    from jevbench.diagrams import build_diagrams_for_run
+
+    run = tmp_path / "run_live_20261013T000000Z_typesafe--jev-1.13.jsonl"
+    with COMMITTED_RUN.open() as src, run.open("w") as dst:
+        for line in src:
+            if json.loads(line)["persona"] == "neutral":
+                dst.write(line)
+    with pytest.raises(ValueError, match="no records under"):
+        build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", tmp_path / "out")
