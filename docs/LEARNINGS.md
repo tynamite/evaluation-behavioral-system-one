@@ -120,7 +120,7 @@ being shuffled.
 - **The model comparison changed order when the benchmarks were tightened.**
   With all six CRT items and both the $0 and $1 ultimatum offers, Solar Decide
   Flash came out closest to people under neutral framing; on the like-for-like
-  measures Clef Flash does. Neither is a ranking (see
+  measures Clef Flash did, and in the re-run the two tie. Neither is a ranking (see
   [MODELS.md](MODELS.md#why-the-top-of-that-table-should-not-be-read-as-a-ranking)).
 - **Refusals were first logged as transport errors.** One model's route reports
   a refusal as HTTP 502, so each was tried five times before being recorded.

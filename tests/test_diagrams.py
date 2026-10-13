@@ -21,7 +21,7 @@ def built(tmp_path_factory: pytest.TempPathFactory) -> list[Path]:
 
 
 def test_every_figure_is_an_accessible_figure(built: list[Path]) -> None:
-    assert len(built) == 14
+    assert len(built) == 15
     for path in built:
         page = path.read_text()
         slug = path.stem
@@ -92,14 +92,14 @@ def test_scatter_labels_never_overlap() -> None:
 
 
 def test_framing_figure_plots_the_real_swings(built: list[Path]) -> None:
-    # Pinned against results/comparison/measures.csv: d1 swings 54 then 56 points,
-    # Jev 29 then 30. An operator-precedence slip once drew every row negative.
+    # Pinned against results/comparison/measures.csv: d1 swings 24 then 31 points,
+    # Jev 1 then 4. An operator-precedence slip once drew every row negative.
     page = next(p for p in built if p.stem == "framing-contrast").read_text()
     refs = [float(v) for v in re.findall(r'data-series="reference" data-value="([-\d.]+)"', page)]
     focal = [float(v) for v in re.findall(r'data-series="focal" data-value="([-\d.]+)"', page)]
     pairs = list(zip(refs, focal, strict=True))
-    assert any(abs(a - 53.8) < 0.1 and abs(b - 56.1) < 0.1 for a, b in pairs)  # d1
-    assert any(abs(a - 29.5) < 0.1 and abs(b - 29.7) < 0.1 for a, b in pairs)  # Jev
+    assert any(abs(a - 23.9) < 0.1 and abs(b - 31.1) < 0.1 for a, b in pairs)  # d1
+    assert any(abs(a - 0.6) < 0.1 and abs(b - 4.1) < 0.1 for a, b in pairs)  # Jev
     assert sum(1 for a, _b in pairs if a < 0) == 1  # only Microsoft-Decision-1 reverses it
 
 
@@ -108,9 +108,18 @@ def test_decision_chart_shows_all_three_series_on_every_row(built: list[Path]) -
     for series in ("people", "neutral", "typical"):
         assert len(re.findall(rf'data-series="{series}"', page)) == 7
     # Pinned: the cognitive reflection row (Frederick's three items) is 0.41
-    # people, 0.99 and 0.33 for Jev.
-    assert 'data-series="neutral" data-value="0.9947"' in page
-    assert 'data-series="typical" data-value="0.3265"' in page
+    # people, 0.99 and 0.32 for Jev.
+    assert 'data-series="neutral" data-value="0.9950"' in page
+    assert 'data-series="typical" data-value="0.3183"' in page
+
+
+def test_steer_chart_compares_the_two_typical_person_prompts(built: list[Path]) -> None:
+    page = next(p for p in built if p.stem == "jev-steer").read_text()
+    for series in ("people", "plain", "typical"):
+        assert len(re.findall(rf'data-series="{series}"', page)) == 7
+    # Without "not the textbook-correct answer", Jev gets 0.53 of the CRT right.
+    assert 'data-series="plain" data-value="0.5310"' in page
+    assert 'data-series="typical" data-value="0.3183"' in page
 
 
 def test_scatter_legend_matches_where_the_highlighted_model_sits(built: list[Path]) -> None:

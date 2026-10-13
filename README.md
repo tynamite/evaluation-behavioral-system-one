@@ -368,7 +368,7 @@ src/jevbench/
   instruments/     the battery
 scripts/           doc generators (RESULTS.md, BENCHMARKS.md), the figure
                    layout checker, and the follow-up study's reports
-tests/             139 tests, all runnable with no API key
+tests/             140 tests, all runnable with no API key
 data/raw/          committed raw records — every number is recomputable
 data/archive/      the runs behind an earlier version of this write-up
 results/           generated tables and figures

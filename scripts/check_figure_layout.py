@@ -29,7 +29,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from jevbench import plots  # noqa: E402
-from jevbench.analysis import compute_stats, primary_run, load_records, order_effects  # noqa: E402
+from jevbench.analysis import compute_stats, load_records, order_effects, primary_run  # noqa: E402
 
 # Ignore sub-pixel touching; only report overlaps a reader would notice.
 MIN_OVERLAP_PX = 2.0
