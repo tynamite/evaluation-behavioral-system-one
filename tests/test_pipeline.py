@@ -153,7 +153,7 @@ def test_resume_finishes_an_interrupted_run_without_duplicates(tmp_path: Path) -
 def test_proportion_items_are_flagged() -> None:
     probes = {p.probe_id: p for p in all_probes(None)}
     proportion = {pid for pid, p in probes.items() if p.meta.get("asks_for") == "proportion"}
-    assert len(proportion) == 11
+    assert len(proportion) == 21
     assert all(probes[pid].question.kind == "noul" for pid in proportion)
     # Linda's statements are truth claims, which a true/false reply can answer.
     assert probes["conjunction_p_single"].meta["asks_for"] == "truth"
@@ -275,3 +275,96 @@ def test_primary_run_recognises_jev_under_either_backend(tmp_path: Path) -> None
     # The native TypeSafe backend's slug has no "typesafe--" prefix.
     assert primary_run(tmp_path, live_only=True) == native
     assert primary_run(tmp_path) == native
+
+
+def test_analyse_removes_a_stale_h4_table(tmp_path: Path) -> None:
+    from jevbench.analysis import analyse_run
+    from jevbench.config import Config
+    from jevbench.runner import run_battery
+
+    out = tmp_path / "tables"
+    out.mkdir()
+    (out / "followup_h4.csv").write_text("left over from another run\n")
+    path = run_battery(
+        Config.from_env(backend="simulator"),
+        modules=["crt"],
+        replicates=1,
+        baseline_samples=0,
+        out_dir=tmp_path / "raw",
+    )
+    analyse_run(path, out)
+    assert not (out / "followup_h4.csv").exists()
+
+
+def test_h4_pairs_the_reused_items_with_their_estimates(tmp_path: Path) -> None:
+    """The six items reused from the first project enter H4 beside the new ones."""
+    from dataclasses import asdict
+
+    import pandas as pd
+
+    from jevbench.analysis import compute_stats, simulate_vs_estimate
+
+    cfg = Config.from_env(backend="simulator")
+    path = run_battery(
+        cfg,
+        modules=["crt", "decision", "followup"],
+        replicates=1,
+        personas=["neutral", "typical_human"],
+        out_dir=tmp_path,
+    )
+    sdf = pd.DataFrame([asdict(s) for s in compute_stats(load_records(path))])
+    table = simulate_vs_estimate(sdf)
+    pairs = set(zip(table["instrument"], table["statistic"], strict=True))
+    assert {
+        ("allais", "prob_certain_pair1"),
+        ("allais", "prob_safer_pair2"),
+        ("base_rate", "prob_correct_band"),
+        ("conjunction", "prob_fallacy_forced_choice"),
+        ("crt", "proportion_correct"),
+        ("framing", "prob_certain_gain_frame"),
+        ("framing", "prob_certain_loss_frame"),
+        ("sunk_cost", "prob_continue"),
+    } <= pairs
+    assert len(pairs) == 23
+
+
+def test_crt_scores_ignore_the_crt_population_questions(tmp_path: Path) -> None:
+    """`crt_*_estimate` probes share the CRT prefix but are not CRT items."""
+    from dataclasses import asdict
+
+    import pandas as pd
+
+    from jevbench.analysis import compute_stats
+
+    cfg = Config.from_env(backend="simulator")
+
+    def crt_stats(modules: list[str]) -> pd.DataFrame:
+        path = run_battery(
+            cfg, modules=modules, replicates=1, personas=["neutral"], out_dir=tmp_path / modules[-1]
+        )
+        sdf = pd.DataFrame([asdict(s) for s in compute_stats(load_records(path))])
+        return sdf[sdf.instrument == "crt"].set_index("statistic")["value"]
+
+    pd.testing.assert_series_equal(crt_stats(["crt"]), crt_stats(["crt", "followup"]))
+
+
+def test_crt_estimate_needs_all_three_frederick_items(tmp_path: Path) -> None:
+    """A refused CRT population question drops the pair rather than averaging fewer items."""
+    from dataclasses import asdict
+
+    import pandas as pd
+
+    from jevbench.analysis import compute_stats
+
+    cfg = Config.from_env(backend="simulator")
+    path = run_battery(
+        cfg, modules=["crt", "followup"], replicates=1, personas=["neutral"], out_dir=tmp_path
+    )
+    df = load_records(path)
+
+    def has_crt_estimate(records: pd.DataFrame) -> bool:
+        sdf = pd.DataFrame([asdict(s) for s in compute_stats(records)])
+        return bool((sdf.instrument == "crt_estimate").any())
+
+    assert has_crt_estimate(df)
+    assert not has_crt_estimate(df[df.probe_id != "crt_widgets_estimate"])

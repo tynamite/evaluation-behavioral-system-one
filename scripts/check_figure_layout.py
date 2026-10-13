@@ -29,7 +29,13 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from jevbench import plots  # noqa: E402
-from jevbench.analysis import compute_stats, load_records, order_effects, primary_run  # noqa: E402
+from jevbench.analysis import (  # noqa: E402
+    compute_stats,
+    core_order_cells,
+    load_records,
+    order_effects,
+    primary_run,
+)
 
 # Ignore sub-pixel touching; only report overlaps a reader would notice.
 MIN_OVERLAP_PX = 2.0
@@ -87,7 +93,7 @@ def main(argv: list[str]) -> int:
         return 1
     df = load_records(run)
     sdf = pd.DataFrame([asdict(s) for s in compute_stats(df)])
-    odf = order_effects(df)
+    odf = core_order_cells(order_effects(df))
     # Draw into a scratch directory: this only measures layout, and must not
     # leave files beside the committed figures.
     out = Path(tempfile.mkdtemp(prefix="jevbench-layout-"))
@@ -101,7 +107,7 @@ def main(argv: list[str]) -> int:
         "fig6_order_effects": lambda: plots.fig_order_effects(odf, out),
         "fig7_human_fidelity": lambda: plots.fig_human_fidelity(sdf, out),
         # These two return None (no figure at all) when the run has no data for the
-        # follow-up battery — true of the committed live run, which predates it.
+        # follow-up battery, e.g. a run made with --modules that leaves it out.
         "fig8_followup_elicitations": lambda: plots.fig_followup_elicitations(sdf, out),
         "fig9_followup_currency": lambda: plots.fig_followup_currency(sdf, out),
     }

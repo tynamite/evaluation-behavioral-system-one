@@ -8,7 +8,7 @@ from dataclasses import replace
 from pathlib import Path
 
 from .config import COMPARISON_DIR, FIGURES_DIR, RAW_DIR, TABLES_DIR, Config
-from .instruments import MODULES, PERSONAS, all_probes
+from .instruments import MODULES, PERSONAS, all_probes, asked_under
 
 
 def _with_models(cfg: Config, args: argparse.Namespace) -> Config:
@@ -90,7 +90,8 @@ def _cmd_probes(args: argparse.Namespace) -> int:
     print(f"{len(probes)} probes across {len(counts)} instruments")
     for name, n in sorted(counts.items()):
         print(f"  {name:28s} {n:3d}")
-    n_calls = len(probes) * len(args.personas or PERSONAS) * args.replicates
+    personas = args.personas or list(PERSONAS)
+    n_calls = sum(asked_under(p, k) for p in probes for k in personas) * args.replicates
     print(f"\nJev arm would issue {n_calls} calls at {args.replicates} replicate(s).")
     return 0
 

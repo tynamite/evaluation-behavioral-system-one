@@ -35,6 +35,7 @@ off with the same machinery already used for that item's own/simulate answer.
 
 from __future__ import annotations
 
+from . import cognitive, decision
 from .base import Probe, binary_choice, noul_probe, score_probe
 
 RESPONSIBILITY_SCALE = [
@@ -548,6 +549,67 @@ def false_consensus() -> list[Probe]:
     return probes
 
 
+def _estimate_of(item: Probe, target: str) -> Probe:
+    """The population question for a reused item: what share chose `target`?
+
+    Section 8.1 of the follow-up preregistration: for a `Choice` item,
+    "estimate" is a `Noul` asking for the proportion who gave one named option,
+    the option the item's human value counts. The participant's question and
+    options go in the state unchanged, so only the instruction differs.
+    """
+    criteria = item.question.criteria
+    assert isinstance(criteria, dict), f"{item.probe_id} is not a Choice item"
+    return noul_probe(
+        probe_id=f"{item.probe_id}_estimate",
+        instrument=f"{item.instrument}_estimate",
+        instructions=(
+            "In a real study, participants were given this question and chose one of "
+            "these options. What proportion of participants chose this option: "
+            f'"{criteria[target]}"?'
+        ),
+        state={**(item.state or {}), "question": item.question.instructions, "options": criteria},
+        target=target,
+    )
+
+
+def reused_estimates() -> list[Probe]:
+    """Population questions for the six items reused from the first project (section 4.1).
+
+    The items themselves are asked in their own modules, unchanged; only their
+    estimate twins live here. Each targets the option its human value counts:
+    the correct answer for Frederick's three CRT items (the benchmark covers
+    those three only), the certain programme in each framing problem, the
+    certain or higher-probability gamble in each Allais pair, the conjunction
+    for Linda, the 0-10% band for the mammogram problem, and finishing the
+    plane for sunk cost. These were added after the 12-13 Oct 2026 runs and
+    asked in a separate run (data/raw/README.md).
+    """
+    by_id = {
+        p.probe_id: p
+        for p in (
+            *cognitive.probes(),
+            *decision.framing(),
+            *decision.allais(),
+            *decision.conjunction(),
+            *decision.base_rate(),
+            *decision.sunk_cost(),
+        )
+    }
+    targets = {
+        "crt_bat_ball": "$0.05",
+        "crt_widgets": "5 minutes",
+        "crt_lilypads": "47 days",
+        "framing_gain": "program_a",
+        "framing_loss": "program_c",
+        "allais_problem1": "option_a",
+        "allais_problem2": "option_c",
+        "conjunction_forced_choice": "teller_and_feminist",
+        "base_rate_mammogram": "0-10%",
+        "sunk_cost": "continue",
+    }
+    return [_estimate_of(by_id[pid], target) for pid, target in targets.items()]
+
+
 def probes() -> list[Probe]:
     return [
         *moral_typecasting(),
@@ -558,4 +620,5 @@ def probes() -> list[Probe]:
         *intentional_side_effects(),
         *trolley_dilemma(),
         *false_consensus(),
+        *reused_estimates(),
     ]

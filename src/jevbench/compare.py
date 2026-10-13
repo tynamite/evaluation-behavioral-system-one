@@ -30,7 +30,13 @@ from typing import Any
 
 import pandas as pd
 
-from .analysis import compute_stats, human_fidelity, load_records
+from .analysis import (
+    compute_stats,
+    h4_summary,
+    human_fidelity,
+    load_records,
+    simulate_vs_estimate,
+)
 from .benchmarks import BENCHMARKS
 
 SYSTEM_ONE = "System One"
@@ -147,17 +153,34 @@ def compare_runs(paths: list[Path], out_dir: Path) -> dict[str, pd.DataFrame]:
     mdf = pd.DataFrame(rows)
     hdf = pd.DataFrame(health)
 
+    # Follow-up H4 per System One model: estimate vs simulate. A chat model's
+    # estimate items are not measurable (a true/false reply is not a proportion).
+    h4_rows = []
+    for model in sorted(m for m, t in types.items() if t == SYSTEM_ONE):
+        for simulate in ("typical_human", "typical_human_plain"):
+            table = simulate_vs_estimate(sdf, simulate=simulate, estimate="neutral", arm=model)
+            if len(table):
+                h4_rows.append({"model": model, "simulate": simulate, **h4_summary(table)})
+    h4df = pd.DataFrame(h4_rows)
+
     out_dir.mkdir(parents=True, exist_ok=True)
     hdf.to_csv(out_dir / "health.csv", index=False)
     fdf.to_csv(out_dir / "fidelity.csv", index=False)
     mdf.to_csv(out_dir / "measures.csv", index=False)
     sdf.rename(columns={"arm": "model"}).to_csv(out_dir / "statistics.csv", index=False)
+    h4df.to_csv(out_dir / "followup_h4.csv", index=False)
 
     with pd.option_context("display.width", 160, "display.max_columns", 20):
         print(hdf.drop(columns=["run_file"]).to_string(index=False))
         print()
         if len(fdf):
             print(fdf.round(3).to_string(index=False))
-    for name in ("health.csv", "fidelity.csv", "measures.csv", "statistics.csv"):
+    for name in ("health.csv", "fidelity.csv", "measures.csv", "statistics.csv", "followup_h4.csv"):
         print(f"wrote {out_dir / name}")
-    return {"health": hdf, "fidelity": fdf, "measures": mdf, "statistics": sdf}
+    return {
+        "health": hdf,
+        "fidelity": fdf,
+        "measures": mdf,
+        "statistics": sdf,
+        "followup_h4": h4df,
+    }

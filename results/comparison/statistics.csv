@@ -133,7 +133,7 @@ ultimatum_responder,prob_reject_offer_10,neutral,anthropic/claude-sonnet-5.5,0.0
 ultimatum_responder,prob_reject_low_offer,neutral,anthropic/claude-sonnet-5.5,0.0,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,"chat, resampled"
 trust_trustee,return_share_sent_2,neutral,anthropic/claude-sonnet-5.5,0.4833333333333334,,,,,,,"chat, resampled"
 trust_trustee,return_share_sent_5,neutral,anthropic/claude-sonnet-5.5,0.36666666666666664,,,trust_return_share,0.37,high,,"chat, resampled"
-trust_trustee,return_share_sent_10,neutral,anthropic/claude-sonnet-5.5,0.5,,,,,,,"chat, resampled"
+trust_trustee,return_share_sent_10,neutral,anthropic/claude-sonnet-5.5,0.48333333333333334,,,,,,,"chat, resampled"
 public_goods_conditional,contribution_low,neutral,anthropic/claude-sonnet-5.5,0.01,,,,,,,"chat, resampled"
 public_goods_conditional,contribution_mid,neutral,anthropic/claude-sonnet-5.5,0.5,,,,,,,"chat, resampled"
 public_goods_conditional,contribution_high,neutral,anthropic/claude-sonnet-5.5,0.9,,,,,,,"chat, resampled"
@@ -343,7 +343,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human,anthropic/claude-sonnet-5
 ultimatum_responder,prob_reject_low_offer,typical_human,anthropic/claude-sonnet-5.5,1.0,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,"chat, resampled"
 trust_trustee,return_share_sent_2,typical_human,anthropic/claude-sonnet-5.5,0.4166666666666667,,,,,,,"chat, resampled"
 trust_trustee,return_share_sent_5,typical_human,anthropic/claude-sonnet-5.5,0.3333333333333333,,,trust_return_share,0.37,high,,"chat, resampled"
-trust_trustee,return_share_sent_10,typical_human,anthropic/claude-sonnet-5.5,0.5,,,,,,,"chat, resampled"
+trust_trustee,return_share_sent_10,typical_human,anthropic/claude-sonnet-5.5,0.3333333333333333,,,,,,,"chat, resampled"
 public_goods_conditional,contribution_low,typical_human,anthropic/claude-sonnet-5.5,0.11000000000000001,,,,,,,"chat, resampled"
 public_goods_conditional,contribution_mid,typical_human,anthropic/claude-sonnet-5.5,0.5,,,,,,,"chat, resampled"
 public_goods_conditional,contribution_high,typical_human,anthropic/claude-sonnet-5.5,0.89,,,,,,,"chat, resampled"
@@ -448,7 +448,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human_plain,anthropic/claude-so
 ultimatum_responder,prob_reject_low_offer,typical_human_plain,anthropic/claude-sonnet-5.5,1.0,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,"chat, resampled"
 trust_trustee,return_share_sent_2,typical_human_plain,anthropic/claude-sonnet-5.5,0.4166666666666667,,,,,,,"chat, resampled"
 trust_trustee,return_share_sent_5,typical_human_plain,anthropic/claude-sonnet-5.5,0.3333333333333333,,,trust_return_share,0.37,high,,"chat, resampled"
-trust_trustee,return_share_sent_10,typical_human_plain,anthropic/claude-sonnet-5.5,0.48000000000000004,,,,,,,"chat, resampled"
+trust_trustee,return_share_sent_10,typical_human_plain,anthropic/claude-sonnet-5.5,0.36666666666666664,,,,,,,"chat, resampled"
 public_goods_conditional,contribution_low,typical_human_plain,anthropic/claude-sonnet-5.5,0.1,,,,,,,"chat, resampled"
 public_goods_conditional,contribution_mid,typical_human_plain,anthropic/claude-sonnet-5.5,0.5,,,,,,,"chat, resampled"
 public_goods_conditional,contribution_high,typical_human_plain,anthropic/claude-sonnet-5.5,0.9,,,,,,,"chat, resampled"
@@ -553,7 +553,7 @@ ultimatum_responder,prob_reject_offer_10,antisocial,typesafe/jev-1.13-20260917,0
 ultimatum_responder,prob_reject_low_offer,antisocial,typesafe/jev-1.13-20260917,0.09799999999999998,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,antisocial,typesafe/jev-1.13-20260917,0.0055000000000000005,,,,,,,System One
 trust_trustee,return_share_sent_5,antisocial,typesafe/jev-1.13-20260917,0.004609218436873747,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,antisocial,typesafe/jev-1.13-20260917,0.005600000000000002,,,,,,,System One
+trust_trustee,return_share_sent_10,antisocial,typesafe/jev-1.13-20260917,0.0061456245824983305,,,,,,,System One
 public_goods_conditional,contribution_low,antisocial,typesafe/jev-1.13-20260917,0.020820820820820825,,,,,,,System One
 public_goods_conditional,contribution_mid,antisocial,typesafe/jev-1.13-20260917,0.023323323323323326,,,,,,,System One
 public_goods_conditional,contribution_high,antisocial,typesafe/jev-1.13-20260917,0.04234234234234235,,,,,,,System One
@@ -671,7 +671,7 @@ ultimatum_responder,prob_reject_offer_10,neutral,typesafe/jev-1.13-20260917,0.00
 ultimatum_responder,prob_reject_low_offer,neutral,typesafe/jev-1.13-20260917,0.489,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,neutral,typesafe/jev-1.13-20260917,0.3356666666666667,,,,,,,System One
 trust_trustee,return_share_sent_5,neutral,typesafe/jev-1.13-20260917,0.29973333333333324,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,neutral,typesafe/jev-1.13-20260917,0.2572572572572573,,,,,,,System One
+trust_trustee,return_share_sent_10,neutral,typesafe/jev-1.13-20260917,0.28021354688021366,,,,,,,System One
 public_goods_conditional,contribution_low,neutral,typesafe/jev-1.13-20260917,0.15556670010030088,,,,,,,System One
 public_goods_conditional,contribution_mid,neutral,typesafe/jev-1.13-20260917,0.2245245245245245,,,,,,,System One
 public_goods_conditional,contribution_high,neutral,typesafe/jev-1.13-20260917,0.2730730730730731,,,,,,,System One
@@ -760,6 +760,14 @@ false_consensus,false_consensus_gap,neutral,typesafe/jev-1.13-20260917,-0.030000
 false_consensus_estimate,wearer_predicts_wear,neutral,typesafe/jev-1.13-20260917,0.369,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
 false_consensus_estimate,nonwearer_predicts_wear,neutral,typesafe/jev-1.13-20260917,0.354,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
 false_consensus_estimate,false_consensus_gap,neutral,typesafe/jev-1.13-20260917,0.015000000000000013,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt_estimate,proportion_correct,neutral,typesafe/jev-1.13-20260917,0.463,,,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+framing_estimate,prob_certain_gain_frame,neutral,typesafe/jev-1.13-20260917,0.678,,,framing_gain_certain,0.72,high,,System One
+framing_estimate,prob_certain_loss_frame,neutral,typesafe/jev-1.13-20260917,0.591,,,framing_loss_certain,0.22,high,,System One
+allais_estimate,prob_certain_pair1,neutral,typesafe/jev-1.13-20260917,0.713,,,allais_p1_certain,0.8,high,,System One
+allais_estimate,prob_safer_pair2,neutral,typesafe/jev-1.13-20260917,0.631,,,allais_p2_certain,0.35,high,,System One
+conjunction_estimate,prob_fallacy_forced_choice,neutral,typesafe/jev-1.13-20260917,0.657,,,conjunction_fallacy_rate,0.85,high,,System One
+base_rate_estimate,prob_correct_band,neutral,typesafe/jev-1.13-20260917,0.21699999999999994,,,base_rate_correct_band,0.15,medium,,System One
+sunk_cost_estimate,prob_continue,neutral,typesafe/jev-1.13-20260917,0.348,,,sunk_cost_continue,0.85,medium,,System One
 crt,proportion_correct,rational_agent,typesafe/jev-1.13-20260917,0.9956666666666667,0.9870000000000001,1.0,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
 crt,proportion_correct_all6,rational_agent,typesafe/jev-1.13-20260917,0.9885,0.9736666666666666,0.9983333333333334,,,,all six items; no single human benchmark covers these,System One
 crt,probability_mass_on_lure,rational_agent,typesafe/jev-1.13-20260917,0.007333333333333335,0.0,0.017666666666666667,,,,,System One
@@ -907,7 +915,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human,typesafe/jev-1.13-2026091
 ultimatum_responder,prob_reject_low_offer,typical_human,typesafe/jev-1.13-20260917,0.915,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,typical_human,typesafe/jev-1.13-20260917,0.522,,,,,,,System One
 trust_trustee,return_share_sent_5,typical_human,typesafe/jev-1.13-20260917,0.48688688688688686,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,typical_human,typesafe/jev-1.13-20260917,0.4884,,,,,,,System One
+trust_trustee,return_share_sent_10,typical_human,typesafe/jev-1.13-20260917,0.4727333333333333,,,,,,,System One
 public_goods_conditional,contribution_low,typical_human,typesafe/jev-1.13-20260917,0.1866866866866867,,,,,,,System One
 public_goods_conditional,contribution_mid,typical_human,typesafe/jev-1.13-20260917,0.4741741741741742,,,,,,,System One
 public_goods_conditional,contribution_high,typical_human,typesafe/jev-1.13-20260917,0.7514028056112225,,,,,,,System One
@@ -1025,7 +1033,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human_plain,typesafe/jev-1.13-2
 ultimatum_responder,prob_reject_low_offer,typical_human_plain,typesafe/jev-1.13-20260917,0.9309999999999999,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,typical_human_plain,typesafe/jev-1.13-20260917,0.536,,,,,,,System One
 trust_trustee,return_share_sent_5,typical_human_plain,typesafe/jev-1.13-20260917,0.5014028056112226,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,typical_human_plain,typesafe/jev-1.13-20260917,0.4981999999999999,,,,,,,System One
+trust_trustee,return_share_sent_10,typical_human_plain,typesafe/jev-1.13-20260917,0.483983983983984,,,,,,,System One
 public_goods_conditional,contribution_low,typical_human_plain,typesafe/jev-1.13-20260917,0.19650000000000004,,,,,,,System One
 public_goods_conditional,contribution_mid,typical_human_plain,typesafe/jev-1.13-20260917,0.48360000000000003,,,,,,,System One
 public_goods_conditional,contribution_high,typical_human_plain,typesafe/jev-1.13-20260917,0.7751751751751752,,,,,,,System One
@@ -1458,7 +1466,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human,anthropic/claude-haiku-5.
 ultimatum_responder,prob_reject_low_offer,typical_human,anthropic/claude-haiku-5.5,1.0,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,"chat, resampled"
 trust_trustee,return_share_sent_2,typical_human,anthropic/claude-haiku-5.5,0.5,,,,,,,"chat, resampled"
 trust_trustee,return_share_sent_5,typical_human,anthropic/claude-haiku-5.5,0.42,,,trust_return_share,0.37,high,,"chat, resampled"
-trust_trustee,return_share_sent_10,typical_human,anthropic/claude-haiku-5.5,0.49,,,,,,,"chat, resampled"
+trust_trustee,return_share_sent_10,typical_human,anthropic/claude-haiku-5.5,0.5,,,,,,,"chat, resampled"
 public_goods_conditional,contribution_low,typical_human,anthropic/claude-haiku-5.5,0.29000000000000004,,,,,,,"chat, resampled"
 public_goods_conditional,contribution_mid,typical_human,anthropic/claude-haiku-5.5,0.5,,,,,,,"chat, resampled"
 public_goods_conditional,contribution_high,typical_human,anthropic/claude-haiku-5.5,0.85,,,,,,,"chat, resampled"
@@ -1563,7 +1571,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human_plain,anthropic/claude-ha
 ultimatum_responder,prob_reject_low_offer,typical_human_plain,anthropic/claude-haiku-5.5,1.0,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,"chat, resampled"
 trust_trustee,return_share_sent_2,typical_human_plain,anthropic/claude-haiku-5.5,0.5,,,,,,,"chat, resampled"
 trust_trustee,return_share_sent_5,typical_human_plain,anthropic/claude-haiku-5.5,0.39333333333333337,,,trust_return_share,0.37,high,,"chat, resampled"
-trust_trustee,return_share_sent_10,typical_human_plain,anthropic/claude-haiku-5.5,0.44000000000000006,,,,,,,"chat, resampled"
+trust_trustee,return_share_sent_10,typical_human_plain,anthropic/claude-haiku-5.5,0.49,,,,,,,"chat, resampled"
 public_goods_conditional,contribution_low,typical_human_plain,anthropic/claude-haiku-5.5,0.27,,,,,,,"chat, resampled"
 public_goods_conditional,contribution_mid,typical_human_plain,anthropic/claude-haiku-5.5,0.5,,,,,,,"chat, resampled"
 public_goods_conditional,contribution_high,typical_human_plain,anthropic/claude-haiku-5.5,0.8400000000000001,,,,,,,"chat, resampled"
@@ -1668,7 +1676,7 @@ ultimatum_responder,prob_reject_offer_10,antisocial,openai/gpt-6-luna-decisions-
 ultimatum_responder,prob_reject_low_offer,antisocial,openai/gpt-6-luna-decisions-20261006,0.030000000000000006,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,antisocial,openai/gpt-6-luna-decisions-20261006,0.0023333333333333335,,,,,,,System One
 trust_trustee,return_share_sent_5,antisocial,openai/gpt-6-luna-decisions-20261006,0.022266666666666667,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,antisocial,openai/gpt-6-luna-decisions-20261006,0.0058,,,,,,,System One
+trust_trustee,return_share_sent_10,antisocial,openai/gpt-6-luna-decisions-20261006,0.012600000000000002,,,,,,,System One
 public_goods_conditional,contribution_low,antisocial,openai/gpt-6-luna-decisions-20261006,0.0427,,,,,,,System One
 public_goods_conditional,contribution_mid,antisocial,openai/gpt-6-luna-decisions-20261006,0.06699999999999998,,,,,,,System One
 public_goods_conditional,contribution_high,antisocial,openai/gpt-6-luna-decisions-20261006,0.16220000000000004,,,,,,,System One
@@ -1773,7 +1781,7 @@ ultimatum_responder,prob_reject_offer_10,neutral,openai/gpt-6-luna-decisions-202
 ultimatum_responder,prob_reject_low_offer,neutral,openai/gpt-6-luna-decisions-20261006,0.0,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,neutral,openai/gpt-6-luna-decisions-20261006,0.4881666666666667,,,,,,,System One
 trust_trustee,return_share_sent_5,neutral,openai/gpt-6-luna-decisions-20261006,0.5117333333333334,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,neutral,openai/gpt-6-luna-decisions-20261006,0.563,,,,,,,System One
+trust_trustee,return_share_sent_10,neutral,openai/gpt-6-luna-decisions-20261006,0.5611999999999999,,,,,,,System One
 public_goods_conditional,contribution_low,neutral,openai/gpt-6-luna-decisions-20261006,0.25549999999999995,,,,,,,System One
 public_goods_conditional,contribution_mid,neutral,openai/gpt-6-luna-decisions-20261006,0.5153,,,,,,,System One
 public_goods_conditional,contribution_high,neutral,openai/gpt-6-luna-decisions-20261006,0.8402999999999998,,,,,,,System One
@@ -1855,6 +1863,9 @@ false_consensus,wearer_predicts_wear,neutral,openai/gpt-6-luna-decisions-2026100
 false_consensus_estimate,wearer_predicts_wear,neutral,openai/gpt-6-luna-decisions-20261006,0.5199999999999999,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
 false_consensus_estimate,nonwearer_predicts_wear,neutral,openai/gpt-6-luna-decisions-20261006,0.53,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
 false_consensus_estimate,false_consensus_gap,neutral,openai/gpt-6-luna-decisions-20261006,-0.01000000000000012,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt_estimate,proportion_correct,neutral,openai/gpt-6-luna-decisions-20261006,0.5033333333333333,,,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+framing_estimate,prob_certain_loss_frame,neutral,openai/gpt-6-luna-decisions-20261006,0.5,,,framing_loss_certain,0.22,high,,System One
+allais_estimate,prob_safer_pair2,neutral,openai/gpt-6-luna-decisions-20261006,0.5,,,allais_p2_certain,0.35,high,,System One
 crt,proportion_correct,rational_agent,openai/gpt-6-luna-decisions-20261006,0.8913333333333334,0.7200000000000001,0.9970000000000002,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
 crt,proportion_correct_all6,rational_agent,openai/gpt-6-luna-decisions-20261006,0.7943333333333333,0.6315,0.9308333333333333,,,,all six items; no single human benchmark covers these,System One
 crt,probability_mass_on_lure,rational_agent,openai/gpt-6-luna-decisions-20261006,0.09350000000000001,0.018333333333333337,0.19700000000000004,,,,,System One
@@ -1884,7 +1895,7 @@ ultimatum_responder,prob_reject_offer_10,rational_agent,openai/gpt-6-luna-decisi
 ultimatum_responder,prob_reject_low_offer,rational_agent,openai/gpt-6-luna-decisions-20261006,0.009999999999999998,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,rational_agent,openai/gpt-6-luna-decisions-20261006,0.006833333333333334,,,,,,,System One
 trust_trustee,return_share_sent_5,rational_agent,openai/gpt-6-luna-decisions-20261006,0.019000000000000006,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,rational_agent,openai/gpt-6-luna-decisions-20261006,0.0122,,,,,,,System One
+trust_trustee,return_share_sent_10,rational_agent,openai/gpt-6-luna-decisions-20261006,0.0074333333333333335,,,,,,,System One
 public_goods_conditional,contribution_low,rational_agent,openai/gpt-6-luna-decisions-20261006,0.007600000000000001,,,,,,,System One
 public_goods_conditional,contribution_mid,rational_agent,openai/gpt-6-luna-decisions-20261006,0.012500000000000002,,,,,,,System One
 public_goods_conditional,contribution_high,rational_agent,openai/gpt-6-luna-decisions-20261006,0.015900000000000004,,,,,,,System One
@@ -1995,7 +2006,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human,openai/gpt-6-luna-decisio
 ultimatum_responder,prob_reject_low_offer,typical_human,openai/gpt-6-luna-decisions-20261006,0.1,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,typical_human,openai/gpt-6-luna-decisions-20261006,0.4691666666666667,,,,,,,System One
 trust_trustee,return_share_sent_5,typical_human,openai/gpt-6-luna-decisions-20261006,0.46446666666666664,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,typical_human,openai/gpt-6-luna-decisions-20261006,0.469,,,,,,,System One
+trust_trustee,return_share_sent_10,typical_human,openai/gpt-6-luna-decisions-20261006,0.47173333333333317,,,,,,,System One
 public_goods_conditional,contribution_low,typical_human,openai/gpt-6-luna-decisions-20261006,0.3067,,,,,,,System One
 public_goods_conditional,contribution_mid,typical_human,openai/gpt-6-luna-decisions-20261006,0.5001,,,,,,,System One
 public_goods_conditional,contribution_high,typical_human,openai/gpt-6-luna-decisions-20261006,0.8684,,,,,,,System One
@@ -2113,7 +2124,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human_plain,openai/gpt-6-luna-d
 ultimatum_responder,prob_reject_low_offer,typical_human_plain,openai/gpt-6-luna-decisions-20261006,0.08400000000000002,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,typical_human_plain,openai/gpt-6-luna-decisions-20261006,0.4798333333333333,,,,,,,System One
 trust_trustee,return_share_sent_5,typical_human_plain,openai/gpt-6-luna-decisions-20261006,0.46826666666666666,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,typical_human_plain,openai/gpt-6-luna-decisions-20261006,0.48250000000000015,,,,,,,System One
+trust_trustee,return_share_sent_10,typical_human_plain,openai/gpt-6-luna-decisions-20261006,0.5393666666666667,,,,,,,System One
 public_goods_conditional,contribution_low,typical_human_plain,openai/gpt-6-luna-decisions-20261006,0.2975,,,,,,,System One
 public_goods_conditional,contribution_mid,typical_human_plain,openai/gpt-6-luna-decisions-20261006,0.5005,,,,,,,System One
 public_goods_conditional,contribution_high,typical_human_plain,openai/gpt-6-luna-decisions-20261006,0.8542,,,,,,,System One
@@ -2229,7 +2240,7 @@ ultimatum_responder,prob_reject_offer_10,antisocial,liquid/d1-20260930,0.0758581
 ultimatum_responder,prob_reject_low_offer,antisocial,liquid/d1-20260930,0.17573717620475815,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,antisocial,liquid/d1-20260930,0.019476869327334275,,,,,,,System One
 trust_trustee,return_share_sent_5,antisocial,liquid/d1-20260930,0.051349532604738554,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,antisocial,liquid/d1-20260930,0.027456458745924325,,,,,,,System One
+trust_trustee,return_share_sent_10,antisocial,liquid/d1-20260930,0.032702522678004706,,,,,,,System One
 public_goods_conditional,contribution_low,antisocial,liquid/d1-20260930,0.01036025812197414,,,,,,,System One
 public_goods_conditional,contribution_mid,antisocial,liquid/d1-20260930,0.02786210946205288,,,,,,,System One
 public_goods_conditional,contribution_high,antisocial,liquid/d1-20260930,0.0608035297357097,,,,,,,System One
@@ -2347,7 +2358,7 @@ ultimatum_responder,prob_reject_offer_10,neutral,liquid/d1-20260930,0.0059783484
 ultimatum_responder,prob_reject_low_offer,neutral,liquid/d1-20260930,0.828520568143128,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,neutral,liquid/d1-20260930,0.434873082301141,,,,,,,System One
 trust_trustee,return_share_sent_5,neutral,liquid/d1-20260930,0.4740137170441113,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,neutral,liquid/d1-20260930,0.5069203892114067,,,,,,,System One
+trust_trustee,return_share_sent_10,neutral,liquid/d1-20260930,0.4988486034563593,,,,,,,System One
 public_goods_conditional,contribution_low,neutral,liquid/d1-20260930,0.013404662262029379,,,,,,,System One
 public_goods_conditional,contribution_mid,neutral,liquid/d1-20260930,0.1859343090707047,,,,,,,System One
 public_goods_conditional,contribution_high,neutral,liquid/d1-20260930,0.6512536441109937,,,,,,,System One
@@ -2436,6 +2447,14 @@ false_consensus,false_consensus_gap,neutral,liquid/d1-20260930,0.120196164671709
 false_consensus_estimate,wearer_predicts_wear,neutral,liquid/d1-20260930,0.45326184801538616,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
 false_consensus_estimate,nonwearer_predicts_wear,neutral,liquid/d1-20260930,0.20293536566691597,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
 false_consensus_estimate,false_consensus_gap,neutral,liquid/d1-20260930,0.2503264823484702,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt_estimate,proportion_correct,neutral,liquid/d1-20260930,0.6840970553382397,,,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+framing_estimate,prob_certain_gain_frame,neutral,liquid/d1-20260930,0.3602033487196256,,,framing_gain_certain,0.72,high,,System One
+framing_estimate,prob_certain_loss_frame,neutral,liquid/d1-20260930,0.6796354290371811,,,framing_loss_certain,0.22,high,,System One
+allais_estimate,prob_certain_pair1,neutral,liquid/d1-20260930,0.8132268464486719,,,allais_p1_certain,0.8,high,,System One
+allais_estimate,prob_safer_pair2,neutral,liquid/d1-20260930,0.7440188199140761,,,allais_p2_certain,0.35,high,,System One
+conjunction_estimate,prob_fallacy_forced_choice,neutral,liquid/d1-20260930,0.8239588715246263,,,conjunction_fallacy_rate,0.85,high,,System One
+base_rate_estimate,prob_correct_band,neutral,liquid/d1-20260930,0.26075247731078893,,,base_rate_correct_band,0.15,medium,,System One
+sunk_cost_estimate,prob_continue,neutral,liquid/d1-20260930,0.645187181507528,,,sunk_cost_continue,0.85,medium,,System One
 crt,proportion_correct,rational_agent,liquid/d1-20260930,0.960733694120686,0.8877295622933729,0.9985561735228102,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
 crt,proportion_correct_all6,rational_agent,liquid/d1-20260930,0.843190658579112,0.7144270989176559,0.9678315556696142,,,,all six items; no single human benchmark covers these,System One
 crt,probability_mass_on_lure,rational_agent,liquid/d1-20260930,0.07555684990599175,0.005547842840545107,0.19143190328739712,,,,,System One
@@ -2465,7 +2484,7 @@ ultimatum_responder,prob_reject_offer_10,rational_agent,liquid/d1-20260930,0.000
 ultimatum_responder,prob_reject_low_offer,rational_agent,liquid/d1-20260930,0.0019365571217230804,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,rational_agent,liquid/d1-20260930,0.0016118245099261928,,,,,,,System One
 trust_trustee,return_share_sent_5,rational_agent,liquid/d1-20260930,0.0036475799749590906,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,rational_agent,liquid/d1-20260930,0.0030042871671404022,,,,,,,System One
+trust_trustee,return_share_sent_10,rational_agent,liquid/d1-20260930,0.004580898148039208,,,,,,,System One
 public_goods_conditional,contribution_low,rational_agent,liquid/d1-20260930,0.0030766433301231645,,,,,,,System One
 public_goods_conditional,contribution_mid,rational_agent,liquid/d1-20260930,0.0032158721967273677,,,,,,,System One
 public_goods_conditional,contribution_high,rational_agent,liquid/d1-20260930,0.04070124002571934,,,,,,,System One
@@ -2583,7 +2602,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human,liquid/d1-20260930,0.0235
 ultimatum_responder,prob_reject_low_offer,typical_human,liquid/d1-20260930,0.9448592892124624,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,typical_human,liquid/d1-20260930,0.4508908424473284,,,,,,,System One
 trust_trustee,return_share_sent_5,typical_human,liquid/d1-20260930,0.47535734371200716,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,typical_human,liquid/d1-20260930,0.5154292114950418,,,,,,,System One
+trust_trustee,return_share_sent_10,typical_human,liquid/d1-20260930,0.5086335927005253,,,,,,,System One
 public_goods_conditional,contribution_low,typical_human,liquid/d1-20260930,0.07272830955515744,,,,,,,System One
 public_goods_conditional,contribution_mid,typical_human,liquid/d1-20260930,0.4141795296994877,,,,,,,System One
 public_goods_conditional,contribution_high,typical_human,liquid/d1-20260930,0.6318701009877207,,,,,,,System One
@@ -2701,7 +2720,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human_plain,liquid/d1-20260930,
 ultimatum_responder,prob_reject_low_offer,typical_human_plain,liquid/d1-20260930,0.9645761839297253,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,typical_human_plain,liquid/d1-20260930,0.4290403324893633,,,,,,,System One
 trust_trustee,return_share_sent_5,typical_human_plain,liquid/d1-20260930,0.5167533344834034,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,typical_human_plain,liquid/d1-20260930,0.5202580320252528,,,,,,,System One
+trust_trustee,return_share_sent_10,typical_human_plain,liquid/d1-20260930,0.500156630836585,,,,,,,System One
 public_goods_conditional,contribution_low,typical_human_plain,liquid/d1-20260930,0.06870803770903129,,,,,,,System One
 public_goods_conditional,contribution_mid,typical_human_plain,liquid/d1-20260930,0.4085001518078234,,,,,,,System One
 public_goods_conditional,contribution_high,typical_human_plain,liquid/d1-20260930,0.6579179270176821,,,,,,,System One
@@ -2819,7 +2838,7 @@ ultimatum_responder,prob_reject_offer_10,antisocial,microsoft/microsoft-decision
 ultimatum_responder,prob_reject_low_offer,antisocial,microsoft/microsoft-decision-1-20261009,0.048151479389679966,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,antisocial,microsoft/microsoft-decision-1-20261009,0.027319229052612772,,,,,,,System One
 trust_trustee,return_share_sent_5,antisocial,microsoft/microsoft-decision-1-20261009,0.04166747388003955,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,antisocial,microsoft/microsoft-decision-1-20261009,0.026856786664536083,,,,,,,System One
+trust_trustee,return_share_sent_10,antisocial,microsoft/microsoft-decision-1-20261009,0.035602548092631144,,,,,,,System One
 public_goods_conditional,contribution_low,antisocial,microsoft/microsoft-decision-1-20261009,0.02876094456105841,,,,,,,System One
 public_goods_conditional,contribution_mid,antisocial,microsoft/microsoft-decision-1-20261009,0.04844868585726372,,,,,,,System One
 public_goods_conditional,contribution_high,antisocial,microsoft/microsoft-decision-1-20261009,0.06150463530866579,,,,,,,System One
@@ -2937,7 +2956,7 @@ ultimatum_responder,prob_reject_offer_10,neutral,microsoft/microsoft-decision-1-
 ultimatum_responder,prob_reject_low_offer,neutral,microsoft/microsoft-decision-1-20261009,0.33541997777312604,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,neutral,microsoft/microsoft-decision-1-20261009,0.3299178846883063,,,,,,,System One
 trust_trustee,return_share_sent_5,neutral,microsoft/microsoft-decision-1-20261009,0.2836357430956049,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,neutral,microsoft/microsoft-decision-1-20261009,0.1289953669137433,,,,,,,System One
+trust_trustee,return_share_sent_10,neutral,microsoft/microsoft-decision-1-20261009,0.12419827696434776,,,,,,,System One
 public_goods_conditional,contribution_low,neutral,microsoft/microsoft-decision-1-20261009,0.31910496857085946,,,,,,,System One
 public_goods_conditional,contribution_mid,neutral,microsoft/microsoft-decision-1-20261009,0.4192469114551788,,,,,,,System One
 public_goods_conditional,contribution_high,neutral,microsoft/microsoft-decision-1-20261009,0.439816861780894,,,,,,,System One
@@ -3026,6 +3045,14 @@ false_consensus,false_consensus_gap,neutral,microsoft/microsoft-decision-1-20261
 false_consensus_estimate,wearer_predicts_wear,neutral,microsoft/microsoft-decision-1-20261009,0.7095079973806129,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
 false_consensus_estimate,nonwearer_predicts_wear,neutral,microsoft/microsoft-decision-1-20261009,0.5338585592136937,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
 false_consensus_estimate,false_consensus_gap,neutral,microsoft/microsoft-decision-1-20261009,0.17564943816691914,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt_estimate,proportion_correct,neutral,microsoft/microsoft-decision-1-20261009,0.7504098133379631,,,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+framing_estimate,prob_certain_gain_frame,neutral,microsoft/microsoft-decision-1-20261009,0.7227867113304957,,,framing_gain_certain,0.72,high,,System One
+framing_estimate,prob_certain_loss_frame,neutral,microsoft/microsoft-decision-1-20261009,0.6506274496216528,,,framing_loss_certain,0.22,high,,System One
+allais_estimate,prob_certain_pair1,neutral,microsoft/microsoft-decision-1-20261009,0.6223730049694508,,,allais_p1_certain,0.8,high,,System One
+allais_estimate,prob_safer_pair2,neutral,microsoft/microsoft-decision-1-20261009,0.45028586734367976,,,allais_p2_certain,0.35,high,,System One
+conjunction_estimate,prob_fallacy_forced_choice,neutral,microsoft/microsoft-decision-1-20261009,0.7652176049519446,,,conjunction_fallacy_rate,0.85,high,,System One
+base_rate_estimate,prob_correct_band,neutral,microsoft/microsoft-decision-1-20261009,0.5523659719821534,,,base_rate_correct_band,0.15,medium,,System One
+sunk_cost_estimate,prob_continue,neutral,microsoft/microsoft-decision-1-20261009,0.19063147854127344,,,sunk_cost_continue,0.85,medium,,System One
 crt,proportion_correct,rational_agent,microsoft/microsoft-decision-1-20261009,0.9524656448748701,0.8614360415678566,0.9980824390074249,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
 crt,proportion_correct_all6,rational_agent,microsoft/microsoft-decision-1-20261009,0.9077762073793337,0.8250987153614128,0.975289441373147,,,,all six items; no single human benchmark covers these,System One
 crt,probability_mass_on_lure,rational_agent,microsoft/microsoft-decision-1-20261009,0.03927127903361194,0.009150288423263405,0.08333987502075334,,,,,System One
@@ -3055,7 +3082,7 @@ ultimatum_responder,prob_reject_offer_10,rational_agent,microsoft/microsoft-deci
 ultimatum_responder,prob_reject_low_offer,rational_agent,microsoft/microsoft-decision-1-20261009,0.00642000489824619,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,rational_agent,microsoft/microsoft-decision-1-20261009,0.010165390431921658,,,,,,,System One
 trust_trustee,return_share_sent_5,rational_agent,microsoft/microsoft-decision-1-20261009,0.01141671868133135,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,rational_agent,microsoft/microsoft-decision-1-20261009,0.00788164748444936,,,,,,,System One
+trust_trustee,return_share_sent_10,rational_agent,microsoft/microsoft-decision-1-20261009,0.00531365477611121,,,,,,,System One
 public_goods_conditional,contribution_low,rational_agent,microsoft/microsoft-decision-1-20261009,0.031219316797207193,,,,,,,System One
 public_goods_conditional,contribution_mid,rational_agent,microsoft/microsoft-decision-1-20261009,0.17390521395220349,,,,,,,System One
 public_goods_conditional,contribution_high,rational_agent,microsoft/microsoft-decision-1-20261009,0.10081994653160324,,,,,,,System One
@@ -3173,7 +3200,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human,microsoft/microsoft-decis
 ultimatum_responder,prob_reject_low_offer,typical_human,microsoft/microsoft-decision-1-20261009,0.6730343343322681,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,typical_human,microsoft/microsoft-decision-1-20261009,0.40847784550185134,,,,,,,System One
 trust_trustee,return_share_sent_5,typical_human,microsoft/microsoft-decision-1-20261009,0.46320533951659226,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,typical_human,microsoft/microsoft-decision-1-20261009,0.4735482241058465,,,,,,,System One
+trust_trustee,return_share_sent_10,typical_human,microsoft/microsoft-decision-1-20261009,0.4681262361723743,,,,,,,System One
 public_goods_conditional,contribution_low,typical_human,microsoft/microsoft-decision-1-20261009,0.2675718277073184,,,,,,,System One
 public_goods_conditional,contribution_mid,typical_human,microsoft/microsoft-decision-1-20261009,0.41705622756075755,,,,,,,System One
 public_goods_conditional,contribution_high,typical_human,microsoft/microsoft-decision-1-20261009,0.49219766677864324,,,,,,,System One
@@ -3291,7 +3318,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human_plain,microsoft/microsoft
 ultimatum_responder,prob_reject_low_offer,typical_human_plain,microsoft/microsoft-decision-1-20261009,0.6303578813641083,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,typical_human_plain,microsoft/microsoft-decision-1-20261009,0.4295875693255982,,,,,,,System One
 trust_trustee,return_share_sent_5,typical_human_plain,microsoft/microsoft-decision-1-20261009,0.4649847821203774,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,typical_human_plain,microsoft/microsoft-decision-1-20261009,0.4812339522605204,,,,,,,System One
+trust_trustee,return_share_sent_10,typical_human_plain,microsoft/microsoft-decision-1-20261009,0.45645670664599675,,,,,,,System One
 public_goods_conditional,contribution_low,typical_human_plain,microsoft/microsoft-decision-1-20261009,0.255714128610668,,,,,,,System One
 public_goods_conditional,contribution_mid,typical_human_plain,microsoft/microsoft-decision-1-20261009,0.4179476900292207,,,,,,,System One
 public_goods_conditional,contribution_high,typical_human_plain,microsoft/microsoft-decision-1-20261009,0.5072239412943337,,,,,,,System One
@@ -3409,7 +3436,7 @@ ultimatum_responder,prob_reject_offer_10,antisocial,perplexity/pplx-decider-v1.1
 ultimatum_responder,prob_reject_low_offer,antisocial,perplexity/pplx-decider-v1.1-27b-20261006,0.3015663725238795,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,antisocial,perplexity/pplx-decider-v1.1-27b-20261006,0.06228955137822675,,,,,,,System One
 trust_trustee,return_share_sent_5,antisocial,perplexity/pplx-decider-v1.1-27b-20261006,0.07491877609871908,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,antisocial,perplexity/pplx-decider-v1.1-27b-20261006,0.056952005956878285,,,,,,,System One
+trust_trustee,return_share_sent_10,antisocial,perplexity/pplx-decider-v1.1-27b-20261006,0.07720363375029134,,,,,,,System One
 public_goods_conditional,contribution_low,antisocial,perplexity/pplx-decider-v1.1-27b-20261006,0.0533559476349554,,,,,,,System One
 public_goods_conditional,contribution_mid,antisocial,perplexity/pplx-decider-v1.1-27b-20261006,0.10497217960393972,,,,,,,System One
 public_goods_conditional,contribution_high,antisocial,perplexity/pplx-decider-v1.1-27b-20261006,0.17422281015222896,,,,,,,System One
@@ -3527,7 +3554,7 @@ ultimatum_responder,prob_reject_offer_10,neutral,perplexity/pplx-decider-v1.1-27
 ultimatum_responder,prob_reject_low_offer,neutral,perplexity/pplx-decider-v1.1-27b-20261006,0.4678991188146157,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,neutral,perplexity/pplx-decider-v1.1-27b-20261006,0.469946715542324,,,,,,,System One
 trust_trustee,return_share_sent_5,neutral,perplexity/pplx-decider-v1.1-27b-20261006,0.521669228024136,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,neutral,perplexity/pplx-decider-v1.1-27b-20261006,0.5021852053515611,,,,,,,System One
+trust_trustee,return_share_sent_10,neutral,perplexity/pplx-decider-v1.1-27b-20261006,0.5090625326273603,,,,,,,System One
 public_goods_conditional,contribution_low,neutral,perplexity/pplx-decider-v1.1-27b-20261006,0.10851392975277266,,,,,,,System One
 public_goods_conditional,contribution_mid,neutral,perplexity/pplx-decider-v1.1-27b-20261006,0.4203637110419999,,,,,,,System One
 public_goods_conditional,contribution_high,neutral,perplexity/pplx-decider-v1.1-27b-20261006,0.7261238611214687,,,,,,,System One
@@ -3616,6 +3643,14 @@ false_consensus,false_consensus_gap,neutral,perplexity/pplx-decider-v1.1-27b-202
 false_consensus_estimate,wearer_predicts_wear,neutral,perplexity/pplx-decider-v1.1-27b-20261006,0.4831125770093932,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
 false_consensus_estimate,nonwearer_predicts_wear,neutral,perplexity/pplx-decider-v1.1-27b-20261006,0.27466912215963035,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
 false_consensus_estimate,false_consensus_gap,neutral,perplexity/pplx-decider-v1.1-27b-20261006,0.20844345484976284,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt_estimate,proportion_correct,neutral,perplexity/pplx-decider-v1.1-27b-20261006,0.504518634183769,,,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+framing_estimate,prob_certain_gain_frame,neutral,perplexity/pplx-decider-v1.1-27b-20261006,0.513398776525852,,,framing_gain_certain,0.72,high,,System One
+framing_estimate,prob_certain_loss_frame,neutral,perplexity/pplx-decider-v1.1-27b-20261006,0.44493803378251034,,,framing_loss_certain,0.22,high,,System One
+allais_estimate,prob_certain_pair1,neutral,perplexity/pplx-decider-v1.1-27b-20261006,0.48840420782142385,,,allais_p1_certain,0.8,high,,System One
+allais_estimate,prob_safer_pair2,neutral,perplexity/pplx-decider-v1.1-27b-20261006,0.4794684531845901,,,allais_p2_certain,0.35,high,,System One
+conjunction_estimate,prob_fallacy_forced_choice,neutral,perplexity/pplx-decider-v1.1-27b-20261006,0.77649966916641,,,conjunction_fallacy_rate,0.85,high,,System One
+base_rate_estimate,prob_correct_band,neutral,perplexity/pplx-decider-v1.1-27b-20261006,0.33010771335479666,,,base_rate_correct_band,0.15,medium,,System One
+sunk_cost_estimate,prob_continue,neutral,perplexity/pplx-decider-v1.1-27b-20261006,0.4551827585524662,,,sunk_cost_continue,0.85,medium,,System One
 crt,proportion_correct,rational_agent,perplexity/pplx-decider-v1.1-27b-20261006,0.999381416892815,0.9990291291007988,0.9995998993087086,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
 crt,proportion_correct_all6,rational_agent,perplexity/pplx-decider-v1.1-27b-20261006,0.9904247114678668,0.9731880916787315,0.999381416892815,,,,all six items; no single human benchmark covers these,System One
 crt,probability_mass_on_lure,rational_agent,perplexity/pplx-decider-v1.1-27b-20261006,0.0012242301240737337,0.0002520818317416867,0.0027968969732958884,,,,,System One
@@ -3645,7 +3680,7 @@ ultimatum_responder,prob_reject_offer_10,rational_agent,perplexity/pplx-decider-
 ultimatum_responder,prob_reject_low_offer,rational_agent,perplexity/pplx-decider-v1.1-27b-20261006,0.0007814542764522095,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,rational_agent,perplexity/pplx-decider-v1.1-27b-20261006,0.0016237296414139174,,,,,,,System One
 trust_trustee,return_share_sent_5,rational_agent,perplexity/pplx-decider-v1.1-27b-20261006,0.0021198172014980474,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,rational_agent,perplexity/pplx-decider-v1.1-27b-20261006,0.0024022971422323638,,,,,,,System One
+trust_trustee,return_share_sent_10,rational_agent,perplexity/pplx-decider-v1.1-27b-20261006,0.002742036659508383,,,,,,,System One
 public_goods_conditional,contribution_low,rational_agent,perplexity/pplx-decider-v1.1-27b-20261006,0.007815772203812577,,,,,,,System One
 public_goods_conditional,contribution_mid,rational_agent,perplexity/pplx-decider-v1.1-27b-20261006,0.02330574503867878,,,,,,,System One
 public_goods_conditional,contribution_high,rational_agent,perplexity/pplx-decider-v1.1-27b-20261006,0.07382151648764515,,,,,,,System One
@@ -3763,7 +3798,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human,perplexity/pplx-decider-v
 ultimatum_responder,prob_reject_low_offer,typical_human,perplexity/pplx-decider-v1.1-27b-20261006,0.9037327715705722,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,typical_human,perplexity/pplx-decider-v1.1-27b-20261006,0.4544287360973605,,,,,,,System One
 trust_trustee,return_share_sent_5,typical_human,perplexity/pplx-decider-v1.1-27b-20261006,0.459893547710182,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,typical_human,perplexity/pplx-decider-v1.1-27b-20261006,0.484432970735791,,,,,,,System One
+trust_trustee,return_share_sent_10,typical_human,perplexity/pplx-decider-v1.1-27b-20261006,0.5022053935179903,,,,,,,System One
 public_goods_conditional,contribution_low,typical_human,perplexity/pplx-decider-v1.1-27b-20261006,0.18760629894602793,,,,,,,System One
 public_goods_conditional,contribution_mid,typical_human,perplexity/pplx-decider-v1.1-27b-20261006,0.47670780369356425,,,,,,,System One
 public_goods_conditional,contribution_high,typical_human,perplexity/pplx-decider-v1.1-27b-20261006,0.7547624531365345,,,,,,,System One
@@ -3881,7 +3916,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human_plain,perplexity/pplx-dec
 ultimatum_responder,prob_reject_low_offer,typical_human_plain,perplexity/pplx-decider-v1.1-27b-20261006,0.9105213823859785,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,typical_human_plain,perplexity/pplx-decider-v1.1-27b-20261006,0.45735225678249286,,,,,,,System One
 trust_trustee,return_share_sent_5,typical_human_plain,perplexity/pplx-decider-v1.1-27b-20261006,0.46308461553336316,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,typical_human_plain,perplexity/pplx-decider-v1.1-27b-20261006,0.4728158748362982,,,,,,,System One
+trust_trustee,return_share_sent_10,typical_human_plain,perplexity/pplx-decider-v1.1-27b-20261006,0.49262194577251095,,,,,,,System One
 public_goods_conditional,contribution_low,typical_human_plain,perplexity/pplx-decider-v1.1-27b-20261006,0.18861014762127037,,,,,,,System One
 public_goods_conditional,contribution_mid,typical_human_plain,perplexity/pplx-decider-v1.1-27b-20261006,0.4825441867192657,,,,,,,System One
 public_goods_conditional,contribution_high,typical_human_plain,perplexity/pplx-decider-v1.1-27b-20261006,0.7707028048901254,,,,,,,System One
@@ -3999,7 +4034,7 @@ ultimatum_responder,prob_reject_offer_10,antisocial,inception/mercury-decide-202
 ultimatum_responder,prob_reject_low_offer,antisocial,inception/mercury-decide-20260930,0.873500942953736,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,antisocial,inception/mercury-decide-20260930,0.012984500518364687,,,,,,,System One
 trust_trustee,return_share_sent_5,antisocial,inception/mercury-decide-20260930,0.022824005392090802,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,antisocial,inception/mercury-decide-20260930,0.02097265060238327,,,,,,,System One
+trust_trustee,return_share_sent_10,antisocial,inception/mercury-decide-20260930,0.036053641342772905,,,,,,,System One
 public_goods_conditional,contribution_low,antisocial,inception/mercury-decide-20260930,0.010480423636916248,,,,,,,System One
 public_goods_conditional,contribution_mid,antisocial,inception/mercury-decide-20260930,0.036351189402900705,,,,,,,System One
 public_goods_conditional,contribution_high,antisocial,inception/mercury-decide-20260930,0.052683019786054865,,,,,,,System One
@@ -4117,7 +4152,7 @@ ultimatum_responder,prob_reject_offer_10,neutral,inception/mercury-decide-202609
 ultimatum_responder,prob_reject_low_offer,neutral,inception/mercury-decide-20260930,0.5842413880757897,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,neutral,inception/mercury-decide-20260930,0.3698413932967432,,,,,,,System One
 trust_trustee,return_share_sent_5,neutral,inception/mercury-decide-20260930,0.3845038864864927,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,neutral,inception/mercury-decide-20260930,0.4406282169291486,,,,,,,System One
+trust_trustee,return_share_sent_10,neutral,inception/mercury-decide-20260930,0.43426369636463674,,,,,,,System One
 public_goods_conditional,contribution_low,neutral,inception/mercury-decide-20260930,0.1349291169695355,,,,,,,System One
 public_goods_conditional,contribution_mid,neutral,inception/mercury-decide-20260930,0.4802914816854947,,,,,,,System One
 public_goods_conditional,contribution_high,neutral,inception/mercury-decide-20260930,0.5814358478174431,,,,,,,System One
@@ -4206,6 +4241,14 @@ false_consensus,false_consensus_gap,neutral,inception/mercury-decide-20260930,0.
 false_consensus_estimate,wearer_predicts_wear,neutral,inception/mercury-decide-20260930,0.5926665999540697,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
 false_consensus_estimate,nonwearer_predicts_wear,neutral,inception/mercury-decide-20260930,0.46879062662624377,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
 false_consensus_estimate,false_consensus_gap,neutral,inception/mercury-decide-20260930,0.1238759733278259,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt_estimate,proportion_correct,neutral,inception/mercury-decide-20260930,0.8948199909684297,,,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+framing_estimate,prob_certain_gain_frame,neutral,inception/mercury-decide-20260930,0.6770156097007477,,,framing_gain_certain,0.72,high,,System One
+framing_estimate,prob_certain_loss_frame,neutral,inception/mercury-decide-20260930,0.4472097893845343,,,framing_loss_certain,0.22,high,,System One
+allais_estimate,prob_certain_pair1,neutral,inception/mercury-decide-20260930,0.4968790626626244,,,allais_p1_certain,0.8,high,,System One
+allais_estimate,prob_safer_pair2,neutral,inception/mercury-decide-20260930,0.8780448195701192,,,allais_p2_certain,0.35,high,,System One
+conjunction_estimate,prob_fallacy_forced_choice,neutral,inception/mercury-decide-20260930,0.8920581653946382,,,conjunction_fallacy_rate,0.85,high,,System One
+base_rate_estimate,prob_correct_band,neutral,inception/mercury-decide-20260930,0.06331862482283618,,,base_rate_correct_band,0.15,medium,,System One
+sunk_cost_estimate,prob_continue,neutral,inception/mercury-decide-20260930,0.220611443485923,,,sunk_cost_continue,0.85,medium,,System One
 crt,proportion_correct,rational_agent,inception/mercury-decide-20260930,0.9992768140400036,0.9990454118727262,0.9994505469510649,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
 crt,proportion_correct_all6,rational_agent,inception/mercury-decide-20260930,0.9893811260653109,0.9695988976294639,0.9995080231249619,,,,all six items; no single human benchmark covers these,System One
 crt,probability_mass_on_lure,rational_agent,inception/mercury-decide-20260930,0.010124487338352283,0.0002010991759539357,0.02971250456646418,,,,,System One
@@ -4235,7 +4278,7 @@ ultimatum_responder,prob_reject_offer_10,rational_agent,inception/mercury-decide
 ultimatum_responder,prob_reject_low_offer,rational_agent,inception/mercury-decide-20260930,0.0009058095424660442,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,rational_agent,inception/mercury-decide-20260930,0.0002777446334827324,,,,,,,System One
 trust_trustee,return_share_sent_5,rational_agent,inception/mercury-decide-20260930,0.00017638772530817175,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,rational_agent,inception/mercury-decide-20260930,0.00023150021570502455,,,,,,,System One
+trust_trustee,return_share_sent_10,rational_agent,inception/mercury-decide-20260930,0.00032131972653797424,,,,,,,System One
 public_goods_conditional,contribution_low,rational_agent,inception/mercury-decide-20260930,0.031142794239560283,,,,,,,System One
 public_goods_conditional,contribution_mid,rational_agent,inception/mercury-decide-20260930,0.08512685978380422,,,,,,,System One
 public_goods_conditional,contribution_high,rational_agent,inception/mercury-decide-20260930,0.06858944330494257,,,,,,,System One
@@ -4353,7 +4396,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human,inception/mercury-decide-
 ultimatum_responder,prob_reject_low_offer,typical_human,inception/mercury-decide-20260930,0.9239753206226377,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,typical_human,inception/mercury-decide-20260930,0.4846513678227338,,,,,,,System One
 trust_trustee,return_share_sent_5,typical_human,inception/mercury-decide-20260930,0.4512300535936796,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,typical_human,inception/mercury-decide-20260930,0.4832078213555024,,,,,,,System One
+trust_trustee,return_share_sent_10,typical_human,inception/mercury-decide-20260930,0.4790839431255499,,,,,,,System One
 public_goods_conditional,contribution_low,typical_human,inception/mercury-decide-20260930,0.16297199809632176,,,,,,,System One
 public_goods_conditional,contribution_mid,typical_human,inception/mercury-decide-20260930,0.4984503532115065,,,,,,,System One
 public_goods_conditional,contribution_high,typical_human,inception/mercury-decide-20260930,0.8711397451581202,,,,,,,System One
@@ -4471,7 +4514,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human_plain,inception/mercury-d
 ultimatum_responder,prob_reject_low_offer,typical_human_plain,inception/mercury-decide-20260930,0.9295595866351091,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,typical_human_plain,inception/mercury-decide-20260930,0.48883600009854034,,,,,,,System One
 trust_trustee,return_share_sent_5,typical_human_plain,inception/mercury-decide-20260930,0.4908320655977606,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,typical_human_plain,inception/mercury-decide-20260930,0.4683111069186874,,,,,,,System One
+trust_trustee,return_share_sent_10,typical_human_plain,inception/mercury-decide-20260930,0.4960539528796434,,,,,,,System One
 public_goods_conditional,contribution_low,typical_human_plain,inception/mercury-decide-20260930,0.1790217311317486,,,,,,,System One
 public_goods_conditional,contribution_mid,typical_human_plain,inception/mercury-decide-20260930,0.49810609101328973,,,,,,,System One
 public_goods_conditional,contribution_high,typical_human_plain,inception/mercury-decide-20260930,0.8747716717615834,,,,,,,System One
@@ -4589,7 +4632,7 @@ ultimatum_responder,prob_reject_offer_10,antisocial,upstage/solar-decide-flash-2
 ultimatum_responder,prob_reject_low_offer,antisocial,upstage/solar-decide-flash-20261008,0.5552241,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,antisocial,upstage/solar-decide-flash-20261008,0.0661350399468373,,,,,,,System One
 trust_trustee,return_share_sent_5,antisocial,upstage/solar-decide-flash-20261008,0.06999795933374146,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,antisocial,upstage/solar-decide-flash-20261008,0.08134882746046902,,,,,,,System One
+trust_trustee,return_share_sent_10,antisocial,upstage/solar-decide-flash-20261008,0.0827892516122585,,,,,,,System One
 public_goods_conditional,contribution_low,antisocial,upstage/solar-decide-flash-20261008,0.27628275,,,,,,,System One
 public_goods_conditional,contribution_mid,antisocial,upstage/solar-decide-flash-20261008,0.28018423198157694,,,,,,,System One
 public_goods_conditional,contribution_high,antisocial,upstage/solar-decide-flash-20261008,0.3931550306844969,,,,,,,System One
@@ -4703,7 +4746,7 @@ ultimatum_responder,prob_reject_offer_10,neutral,upstage/solar-decide-flash-2026
 ultimatum_responder,prob_reject_low_offer,neutral,upstage/solar-decide-flash-20261008,0.1503333,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,neutral,upstage/solar-decide-flash-20261008,0.3280531333333334,,,,,,,System One
 trust_trustee,return_share_sent_5,neutral,upstage/solar-decide-flash-20261008,0.23654993763164794,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,neutral,upstage/solar-decide-flash-20261008,0.31462660000000003,,,,,,,System One
+trust_trustee,return_share_sent_10,neutral,upstage/solar-decide-flash-20261008,0.2498281865635786,,,,,,,System One
 public_goods_conditional,contribution_low,neutral,upstage/solar-decide-flash-20261008,0.3296635240672951,,,,,,,System One
 public_goods_conditional,contribution_mid,neutral,upstage/solar-decide-flash-20261008,0.46331078633107864,,,,,,,System One
 public_goods_conditional,contribution_high,neutral,upstage/solar-decide-flash-20261008,0.4982633305210008,,,,,,,System One
@@ -4788,6 +4831,14 @@ false_consensus,false_consensus_gap,neutral,upstage/solar-decide-flash-20261008,
 false_consensus_estimate,wearer_predicts_wear,neutral,upstage/solar-decide-flash-20261008,0.5846851,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
 false_consensus_estimate,nonwearer_predicts_wear,neutral,upstage/solar-decide-flash-20261008,0.4838655,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
 false_consensus_estimate,false_consensus_gap,neutral,upstage/solar-decide-flash-20261008,0.10081959999999995,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt_estimate,proportion_correct,neutral,upstage/solar-decide-flash-20261008,0.24077273333333335,,,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+framing_estimate,prob_certain_gain_frame,neutral,upstage/solar-decide-flash-20261008,0.41896300000000003,,,framing_gain_certain,0.72,high,,System One
+framing_estimate,prob_certain_loss_frame,neutral,upstage/solar-decide-flash-20261008,0.37472049999999996,,,framing_loss_certain,0.22,high,,System One
+allais_estimate,prob_certain_pair1,neutral,upstage/solar-decide-flash-20261008,0.27039219999999997,,,allais_p1_certain,0.8,high,,System One
+allais_estimate,prob_safer_pair2,neutral,upstage/solar-decide-flash-20261008,0.26187970000000005,,,allais_p2_certain,0.35,high,,System One
+conjunction_estimate,prob_fallacy_forced_choice,neutral,upstage/solar-decide-flash-20261008,0.4117909,,,conjunction_fallacy_rate,0.85,high,,System One
+base_rate_estimate,prob_correct_band,neutral,upstage/solar-decide-flash-20261008,0.23769480000000004,,,base_rate_correct_band,0.15,medium,,System One
+sunk_cost_estimate,prob_continue,neutral,upstage/solar-decide-flash-20261008,0.41530949999999994,,,sunk_cost_continue,0.85,medium,,System One
 crt,proportion_correct,rational_agent,upstage/solar-decide-flash-20261008,0.8779691809578648,0.832576950226915,0.9264667926466793,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
 crt,proportion_correct_all6,rational_agent,upstage/solar-decide-flash-20261008,0.860099735076703,0.7928103913587222,0.9119404166833313,,,,all six items; no single human benchmark covers these,System One
 crt,probability_mass_on_lure,rational_agent,upstage/solar-decide-flash-20261008,0.06137618695807571,0.01714490026873684,0.11835364337869796,,,,,System One
@@ -4817,7 +4868,7 @@ ultimatum_responder,prob_reject_offer_10,rational_agent,upstage/solar-decide-fla
 ultimatum_responder,prob_reject_low_offer,rational_agent,upstage/solar-decide-flash-20261008,0.10684349999999998,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,rational_agent,upstage/solar-decide-flash-20261008,0.11806536111895556,,,,,,,System One
 trust_trustee,return_share_sent_5,rational_agent,upstage/solar-decide-flash-20261008,0.09318079340960332,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,rational_agent,upstage/solar-decide-flash-20261008,0.19184244,,,,,,,System One
+trust_trustee,return_share_sent_10,rational_agent,upstage/solar-decide-flash-20261008,0.11699118169911817,,,,,,,System One
 public_goods_conditional,contribution_low,rational_agent,upstage/solar-decide-flash-20261008,0.07875990637202808,,,,,,,System One
 public_goods_conditional,contribution_mid,rational_agent,upstage/solar-decide-flash-20261008,0.09935609999999997,,,,,,,System One
 public_goods_conditional,contribution_high,rational_agent,upstage/solar-decide-flash-20261008,0.25174246517424653,,,,,,,System One
@@ -4931,7 +4982,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human,upstage/solar-decide-flas
 ultimatum_responder,prob_reject_low_offer,typical_human,upstage/solar-decide-flash-20261008,0.2310285,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,typical_human,upstage/solar-decide-flash-20261008,0.3062148193785181,,,,,,,System One
 trust_trustee,return_share_sent_5,typical_human,upstage/solar-decide-flash-20261008,0.3492330428731591,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,typical_human,upstage/solar-decide-flash-20261008,0.35923660369464144,,,,,,,System One
+trust_trustee,return_share_sent_10,typical_human,upstage/solar-decide-flash-20261008,0.42190958447570825,,,,,,,System One
 public_goods_conditional,contribution_low,typical_human,upstage/solar-decide-flash-20261008,0.3713562614068784,,,,,,,System One
 public_goods_conditional,contribution_mid,typical_human,upstage/solar-decide-flash-20261008,0.5373798412139523,,,,,,,System One
 public_goods_conditional,contribution_high,typical_human,upstage/solar-decide-flash-20261008,0.7226984609206155,,,,,,,System One
@@ -5045,7 +5096,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human_plain,upstage/solar-decid
 ultimatum_responder,prob_reject_low_offer,typical_human_plain,upstage/solar-decide-flash-20261008,0.2986214,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,typical_human_plain,upstage/solar-decide-flash-20261008,0.3428297676163101,,,,,,,System One
 trust_trustee,return_share_sent_5,typical_human_plain,upstage/solar-decide-flash-20261008,0.4120964357526205,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,typical_human_plain,upstage/solar-decide-flash-20261008,0.2962970585188235,,,,,,,System One
+trust_trustee,return_share_sent_10,typical_human_plain,upstage/solar-decide-flash-20261008,0.383249639949784,,,,,,,System One
 public_goods_conditional,contribution_low,typical_human_plain,upstage/solar-decide-flash-20261008,0.3197247801376099,,,,,,,System One
 public_goods_conditional,contribution_mid,typical_human_plain,upstage/solar-decide-flash-20261008,0.5250541574945842,,,,,,,System One
 public_goods_conditional,contribution_high,typical_human_plain,upstage/solar-decide-flash-20261008,0.64721362,,,,,,,System One
@@ -5159,7 +5210,7 @@ ultimatum_responder,prob_reject_offer_10,antisocial,upstage/solar-decide-2026092
 ultimatum_responder,prob_reject_low_offer,antisocial,upstage/solar-decide-20260928,0.0013279,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,antisocial,upstage/solar-decide-20260928,0.06097679552869243,,,,,,,System One
 trust_trustee,return_share_sent_5,antisocial,upstage/solar-decide-20260928,0.03914134550506423,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,antisocial,upstage/solar-decide-20260928,0.020826292082629202,,,,,,,System One
+trust_trustee,return_share_sent_10,antisocial,upstage/solar-decide-20260928,0.039711028579975244,,,,,,,System One
 public_goods_conditional,contribution_low,antisocial,upstage/solar-decide-20260928,0.0005206802082720833,,,,,,,System One
 public_goods_conditional,contribution_mid,antisocial,upstage/solar-decide-20260928,0.004848352909011745,,,,,,,System One
 public_goods_conditional,contribution_high,antisocial,upstage/solar-decide-20260928,0.0006477101295420259,,,,,,,System One
@@ -5273,7 +5324,7 @@ ultimatum_responder,prob_reject_offer_10,neutral,upstage/solar-decide-20260928,0
 ultimatum_responder,prob_reject_low_offer,neutral,upstage/solar-decide-20260928,0.09855980000000002,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,neutral,upstage/solar-decide-20260928,0.0003456336098402212,,,,,,,System One
 trust_trustee,return_share_sent_5,neutral,upstage/solar-decide-20260928,0.015502368835702171,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,neutral,upstage/solar-decide-20260928,0.0005673203971242782,,,,,,,System One
+trust_trustee,return_share_sent_10,neutral,upstage/solar-decide-20260928,0.010481112096222418,,,,,,,System One
 public_goods_conditional,contribution_low,neutral,upstage/solar-decide-20260928,0.023903002390300236,,,,,,,System One
 public_goods_conditional,contribution_mid,neutral,upstage/solar-decide-20260928,0.0045349440814496725,,,,,,,System One
 public_goods_conditional,contribution_high,neutral,upstage/solar-decide-20260928,0.024422454422454422,,,,,,,System One
@@ -5358,6 +5409,14 @@ false_consensus,false_consensus_gap,neutral,upstage/solar-decide-20260928,0.3303
 false_consensus_estimate,wearer_predicts_wear,neutral,upstage/solar-decide-20260928,0.5128254,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
 false_consensus_estimate,nonwearer_predicts_wear,neutral,upstage/solar-decide-20260928,0.34638979999999997,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
 false_consensus_estimate,false_consensus_gap,neutral,upstage/solar-decide-20260928,0.16643560000000002,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt_estimate,proportion_correct,neutral,upstage/solar-decide-20260928,0.4491597,,,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+framing_estimate,prob_certain_gain_frame,neutral,upstage/solar-decide-20260928,0.7496758,,,framing_gain_certain,0.72,high,,System One
+framing_estimate,prob_certain_loss_frame,neutral,upstage/solar-decide-20260928,0.2497718,,,framing_loss_certain,0.22,high,,System One
+allais_estimate,prob_certain_pair1,neutral,upstage/solar-decide-20260928,0.4211094,,,allais_p1_certain,0.8,high,,System One
+allais_estimate,prob_safer_pair2,neutral,upstage/solar-decide-20260928,0.34202869999999996,,,allais_p2_certain,0.35,high,,System One
+conjunction_estimate,prob_fallacy_forced_choice,neutral,upstage/solar-decide-20260928,0.7625759999999999,,,conjunction_fallacy_rate,0.85,high,,System One
+base_rate_estimate,prob_correct_band,neutral,upstage/solar-decide-20260928,0.24571730000000003,,,base_rate_correct_band,0.15,medium,,System One
+sunk_cost_estimate,prob_continue,neutral,upstage/solar-decide-20260928,0.350277,,,sunk_cost_continue,0.85,medium,,System One
 crt,proportion_correct,rational_agent,upstage/solar-decide-20260928,0.9589141271736744,0.9418875825662748,0.9817691036461792,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
 crt,proportion_correct_all6,rational_agent,upstage/solar-decide-20260928,0.937539610901915,0.9119377915390521,0.960314153094468,,,,all six items; no single human benchmark covers these,System One
 crt,probability_mass_on_lure,rational_agent,upstage/solar-decide-20260928,0.0284215551649791,0.014831616544847406,0.04309454357150808,,,,,System One
@@ -5387,7 +5446,7 @@ ultimatum_responder,prob_reject_offer_10,rational_agent,upstage/solar-decide-202
 ultimatum_responder,prob_reject_low_offer,rational_agent,upstage/solar-decide-20260928,0.10241870000000002,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,rational_agent,upstage/solar-decide-20260928,0.03547606064281818,,,,,,,System One
 trust_trustee,return_share_sent_5,rational_agent,upstage/solar-decide-20260928,0.045492595136295284,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,rational_agent,upstage/solar-decide-20260928,0.01821620275134193,,,,,,,System One
+trust_trustee,return_share_sent_10,rational_agent,upstage/solar-decide-20260928,0.05648031842650744,,,,,,,System One
 public_goods_conditional,contribution_low,rational_agent,upstage/solar-decide-20260928,0.017424930454958274,,,,,,,System One
 public_goods_conditional,contribution_mid,rational_agent,upstage/solar-decide-20260928,0.03454476418133491,,,,,,,System One
 public_goods_conditional,contribution_high,rational_agent,upstage/solar-decide-20260928,0.006350780635078064,,,,,,,System One
@@ -5501,7 +5560,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human,upstage/solar-decide-2026
 ultimatum_responder,prob_reject_low_offer,typical_human,upstage/solar-decide-20260928,0.9819059000000001,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,typical_human,upstage/solar-decide-20260928,0.4172943166666667,,,,,,,System One
 trust_trustee,return_share_sent_5,typical_human,upstage/solar-decide-20260928,0.40758792666666654,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,typical_human,upstage/solar-decide-20260928,0.44279120427912033,,,,,,,System One
+trust_trustee,return_share_sent_10,typical_human,upstage/solar-decide-20260928,0.4781030811436415,,,,,,,System One
 public_goods_conditional,contribution_low,typical_human,upstage/solar-decide-20260928,0.2957949891589978,,,,,,,System One
 public_goods_conditional,contribution_mid,typical_human,upstage/solar-decide-20260928,0.48509509254754646,,,,,,,System One
 public_goods_conditional,contribution_high,typical_human,upstage/solar-decide-20260928,0.7243064802774078,,,,,,,System One
@@ -5615,7 +5674,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human_plain,upstage/solar-decid
 ultimatum_responder,prob_reject_low_offer,typical_human_plain,upstage/solar-decide-20260928,0.998829,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,typical_human_plain,upstage/solar-decide-20260928,0.398021348249588,,,,,,,System One
 trust_trustee,return_share_sent_5,typical_human_plain,upstage/solar-decide-20260928,0.49749865691680106,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,typical_human_plain,upstage/solar-decide-20260928,0.4489121553263535,,,,,,,System One
+trust_trustee,return_share_sent_10,typical_human_plain,upstage/solar-decide-20260928,0.4623154915928635,,,,,,,System One
 public_goods_conditional,contribution_low,typical_human_plain,upstage/solar-decide-20260928,0.3170438334087667,,,,,,,System One
 public_goods_conditional,contribution_mid,typical_human_plain,upstage/solar-decide-20260928,0.49112401266279626,,,,,,,System One
 public_goods_conditional,contribution_high,typical_human_plain,upstage/solar-decide-20260928,0.5612790000000001,,,,,,,System One
@@ -5729,7 +5788,7 @@ ultimatum_responder,prob_reject_offer_10,antisocial,cloudflare/clef-flash,0.0411
 ultimatum_responder,prob_reject_low_offer,antisocial,cloudflare/clef-flash,0.11707999999999999,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,antisocial,cloudflare/clef-flash,0.08064150515697607,,,,,,,System One
 trust_trustee,return_share_sent_5,antisocial,cloudflare/clef-flash,0.17438133333333333,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,antisocial,cloudflare/clef-flash,0.09568299999999999,,,,,,,System One
+trust_trustee,return_share_sent_10,antisocial,cloudflare/clef-flash,0.13460533333333333,,,,,,,System One
 public_goods_conditional,contribution_low,antisocial,cloudflare/clef-flash,0.2394363661819709,,,,,,,System One
 public_goods_conditional,contribution_mid,antisocial,cloudflare/clef-flash,0.2157318317297113,,,,,,,System One
 public_goods_conditional,contribution_high,antisocial,cloudflare/clef-flash,0.19227599999999997,,,,,,,System One
@@ -5847,7 +5906,7 @@ ultimatum_responder,prob_reject_offer_10,neutral,cloudflare/clef-flash,0.0357,,,
 ultimatum_responder,prob_reject_low_offer,neutral,cloudflare/clef-flash,0.37818,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,neutral,cloudflare/clef-flash,0.43053222408873965,,,,,,,System One
 trust_trustee,return_share_sent_5,neutral,cloudflare/clef-flash,0.46974908673972754,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,neutral,cloudflare/clef-flash,0.49200328029522655,,,,,,,System One
+trust_trustee,return_share_sent_10,neutral,cloudflare/clef-flash,0.47598274528628953,,,,,,,System One
 public_goods_conditional,contribution_low,neutral,cloudflare/clef-flash,0.3645649999999999,,,,,,,System One
 public_goods_conditional,contribution_mid,neutral,cloudflare/clef-flash,0.403612,,,,,,,System One
 public_goods_conditional,contribution_high,neutral,cloudflare/clef-flash,0.3992498799807969,,,,,,,System One
@@ -5936,6 +5995,14 @@ false_consensus,false_consensus_gap,neutral,cloudflare/clef-flash,-0.08651999999
 false_consensus_estimate,wearer_predicts_wear,neutral,cloudflare/clef-flash,0.17085999999999996,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
 false_consensus_estimate,nonwearer_predicts_wear,neutral,cloudflare/clef-flash,0.40946,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
 false_consensus_estimate,false_consensus_gap,neutral,cloudflare/clef-flash,-0.23860000000000003,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt_estimate,proportion_correct,neutral,cloudflare/clef-flash,0.5819166666666667,,,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+framing_estimate,prob_certain_gain_frame,neutral,cloudflare/clef-flash,0.47196,,,framing_gain_certain,0.72,high,,System One
+framing_estimate,prob_certain_loss_frame,neutral,cloudflare/clef-flash,0.8615299999999999,,,framing_loss_certain,0.22,high,,System One
+allais_estimate,prob_certain_pair1,neutral,cloudflare/clef-flash,0.3539800000000001,,,allais_p1_certain,0.8,high,,System One
+allais_estimate,prob_safer_pair2,neutral,cloudflare/clef-flash,0.56909,,,allais_p2_certain,0.35,high,,System One
+conjunction_estimate,prob_fallacy_forced_choice,neutral,cloudflare/clef-flash,0.33948999999999996,,,conjunction_fallacy_rate,0.85,high,,System One
+base_rate_estimate,prob_correct_band,neutral,cloudflare/clef-flash,0.21768,,,base_rate_correct_band,0.15,medium,,System One
+sunk_cost_estimate,prob_continue,neutral,cloudflare/clef-flash,0.15829999999999997,,,sunk_cost_continue,0.85,medium,,System One
 crt,proportion_correct,rational_agent,cloudflare/clef-flash,0.7974955023610889,0.5821265701256101,0.990900909909009,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
 crt,proportion_correct_all6,rational_agent,cloudflare/clef-flash,0.6925706614810538,0.4942741040371508,0.8673081606677174,,,,all six items; no single human benchmark covers these,System One
 crt,probability_mass_on_lure,rational_agent,cloudflare/clef-flash,0.16481528427912462,0.03614445478277998,0.3724870893671494,,,,,System One
@@ -5965,7 +6032,7 @@ ultimatum_responder,prob_reject_offer_10,rational_agent,cloudflare/clef-flash,0.
 ultimatum_responder,prob_reject_low_offer,rational_agent,cloudflare/clef-flash,0.04456,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,rational_agent,cloudflare/clef-flash,0.09380281408442252,,,,,,,System One
 trust_trustee,return_share_sent_5,rational_agent,cloudflare/clef-flash,0.16200666666666666,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,rational_agent,cloudflare/clef-flash,0.09949203047817129,,,,,,,System One
+trust_trustee,return_share_sent_10,rational_agent,cloudflare/clef-flash,0.14212733333333333,,,,,,,System One
 public_goods_conditional,contribution_low,rational_agent,cloudflare/clef-flash,0.28677867786778677,,,,,,,System One
 public_goods_conditional,contribution_mid,rational_agent,cloudflare/clef-flash,0.32134285371414856,,,,,,,System One
 public_goods_conditional,contribution_high,rational_agent,cloudflare/clef-flash,0.2825502214844961,,,,,,,System One
@@ -6083,7 +6150,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human,cloudflare/clef-flash,0.0
 ultimatum_responder,prob_reject_low_offer,typical_human,cloudflare/clef-flash,0.59078,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,typical_human,cloudflare/clef-flash,0.4959416666666667,,,,,,,System One
 trust_trustee,return_share_sent_5,typical_human,cloudflare/clef-flash,0.5061143668620116,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,typical_human,cloudflare/clef-flash,0.49933794041463725,,,,,,,System One
+trust_trustee,return_share_sent_10,typical_human,cloudflare/clef-flash,0.4823190956700304,,,,,,,System One
 public_goods_conditional,contribution_low,typical_human,cloudflare/clef-flash,0.35076,,,,,,,System One
 public_goods_conditional,contribution_mid,typical_human,cloudflare/clef-flash,0.402932,,,,,,,System One
 public_goods_conditional,contribution_high,typical_human,cloudflare/clef-flash,0.4261835710142609,,,,,,,System One
@@ -6201,7 +6268,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human_plain,cloudflare/clef-fla
 ultimatum_responder,prob_reject_low_offer,typical_human_plain,cloudflare/clef-flash,0.6798,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,typical_human_plain,cloudflare/clef-flash,0.5090524813899918,,,,,,,System One
 trust_trustee,return_share_sent_5,typical_human_plain,cloudflare/clef-flash,0.5171472756602541,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,typical_human_plain,cloudflare/clef-flash,0.507444,,,,,,,System One
+trust_trustee,return_share_sent_10,typical_human_plain,cloudflare/clef-flash,0.48756832786710397,,,,,,,System One
 public_goods_conditional,contribution_low,typical_human_plain,cloudflare/clef-flash,0.354572,,,,,,,System One
 public_goods_conditional,contribution_mid,typical_human_plain,cloudflare/clef-flash,0.3969912707856293,,,,,,,System One
 public_goods_conditional,contribution_high,typical_human_plain,cloudflare/clef-flash,0.423116,,,,,,,System One
@@ -6319,7 +6386,7 @@ ultimatum_responder,prob_reject_offer_10,antisocial,cloudflare/clef,0.0298,,,,,,
 ultimatum_responder,prob_reject_low_offer,antisocial,cloudflare/clef,0.043399999999999994,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,antisocial,cloudflare/clef,0.03903333333333333,,,,,,,System One
 trust_trustee,return_share_sent_5,antisocial,cloudflare/clef,0.09353333333333332,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,antisocial,cloudflare/clef,0.0468946894689469,,,,,,,System One
+trust_trustee,return_share_sent_10,antisocial,cloudflare/clef,0.06376666666666667,,,,,,,System One
 public_goods_conditional,contribution_low,antisocial,cloudflare/clef,0.05295470452954705,,,,,,,System One
 public_goods_conditional,contribution_mid,antisocial,cloudflare/clef,0.09155084491550847,,,,,,,System One
 public_goods_conditional,contribution_high,antisocial,cloudflare/clef,0.14572211499034912,,,,,,,System One
@@ -6437,7 +6504,7 @@ ultimatum_responder,prob_reject_offer_10,neutral,cloudflare/clef,0.0161999999999
 ultimatum_responder,prob_reject_low_offer,neutral,cloudflare/clef,0.76428,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,neutral,cloudflare/clef,0.3041637497083042,,,,,,,System One
 trust_trustee,return_share_sent_5,neutral,cloudflare/clef,0.3364395651275488,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,neutral,cloudflare/clef,0.22185559588445272,,,,,,,System One
+trust_trustee,return_share_sent_10,neutral,cloudflare/clef,0.31992467419924675,,,,,,,System One
 public_goods_conditional,contribution_low,neutral,cloudflare/clef,0.19444950045504092,,,,,,,System One
 public_goods_conditional,contribution_mid,neutral,cloudflare/clef,0.479995,,,,,,,System One
 public_goods_conditional,contribution_high,neutral,cloudflare/clef,0.6799118079372857,,,,,,,System One
@@ -6526,6 +6593,14 @@ false_consensus,false_consensus_gap,neutral,cloudflare/clef,0.10937999999999998,
 false_consensus_estimate,wearer_predicts_wear,neutral,cloudflare/clef,0.4678000000000001,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
 false_consensus_estimate,nonwearer_predicts_wear,neutral,cloudflare/clef,0.4405,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
 false_consensus_estimate,false_consensus_gap,neutral,cloudflare/clef,0.027300000000000102,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt_estimate,proportion_correct,neutral,cloudflare/clef,0.6094833333333334,,,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+framing_estimate,prob_certain_gain_frame,neutral,cloudflare/clef,0.8273999999999999,,,framing_gain_certain,0.72,high,,System One
+framing_estimate,prob_certain_loss_frame,neutral,cloudflare/clef,0.3882999999999999,,,framing_loss_certain,0.22,high,,System One
+allais_estimate,prob_certain_pair1,neutral,cloudflare/clef,0.7094000000000001,,,allais_p1_certain,0.8,high,,System One
+allais_estimate,prob_safer_pair2,neutral,cloudflare/clef,0.48952999999999997,,,allais_p2_certain,0.35,high,,System One
+conjunction_estimate,prob_fallacy_forced_choice,neutral,cloudflare/clef,0.6893,,,conjunction_fallacy_rate,0.85,high,,System One
+base_rate_estimate,prob_correct_band,neutral,cloudflare/clef,0.15712000000000004,,,base_rate_correct_band,0.15,medium,,System One
+sunk_cost_estimate,prob_continue,neutral,cloudflare/clef,0.13209999999999997,,,sunk_cost_continue,0.85,medium,,System One
 crt,proportion_correct,rational_agent,cloudflare/clef,0.9324730459074649,0.8477,0.990419137722395,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
 crt,proportion_correct_all6,rational_agent,cloudflare/clef,0.9421133094596135,0.8993281896203992,0.980444688700412,,,,all six items; no single human benchmark covers these,System One
 crt,probability_mass_on_lure,rational_agent,cloudflare/clef,0.032243357491312026,0.005883438054367181,0.07833330108623558,,,,,System One
@@ -6555,7 +6630,7 @@ ultimatum_responder,prob_reject_offer_10,rational_agent,cloudflare/clef,0.012179
 ultimatum_responder,prob_reject_low_offer,rational_agent,cloudflare/clef,0.018800000000000004,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,rational_agent,cloudflare/clef,0.027763890277638908,,,,,,,System One
 trust_trustee,return_share_sent_5,rational_agent,cloudflare/clef,0.07153009726861205,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,rational_agent,cloudflare/clef,0.0253923822853144,,,,,,,System One
+trust_trustee,return_share_sent_10,rational_agent,cloudflare/clef,0.035251678635487727,,,,,,,System One
 public_goods_conditional,contribution_low,rational_agent,cloudflare/clef,0.07449999999999998,,,,,,,System One
 public_goods_conditional,contribution_mid,rational_agent,cloudflare/clef,0.07902790279027903,,,,,,,System One
 public_goods_conditional,contribution_high,rational_agent,cloudflare/clef,0.13665,,,,,,,System One
@@ -6673,7 +6748,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human,cloudflare/clef,0.0917999
 ultimatum_responder,prob_reject_low_offer,typical_human,cloudflare/clef,0.9239,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,typical_human,cloudflare/clef,0.45077158950771595,,,,,,,System One
 trust_trustee,return_share_sent_5,typical_human,cloudflare/clef,0.4458809176183523,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,typical_human,cloudflare/clef,0.4262149028077754,,,,,,,System One
+trust_trustee,return_share_sent_10,typical_human,cloudflare/clef,0.4539531100510369,,,,,,,System One
 public_goods_conditional,contribution_low,typical_human,cloudflare/clef,0.2921892189218921,,,,,,,System One
 public_goods_conditional,contribution_mid,typical_human,cloudflare/clef,0.47499250074992505,,,,,,,System One
 public_goods_conditional,contribution_high,typical_human,cloudflare/clef,0.6297659999999999,,,,,,,System One
@@ -6791,7 +6866,7 @@ ultimatum_responder,prob_reject_offer_10,typical_human_plain,cloudflare/clef,0.0
 ultimatum_responder,prob_reject_low_offer,typical_human_plain,cloudflare/clef,0.9363,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
 trust_trustee,return_share_sent_2,typical_human_plain,cloudflare/clef,0.43815000000000004,,,,,,,System One
 trust_trustee,return_share_sent_5,typical_human_plain,cloudflare/clef,0.44592200000000004,,,trust_return_share,0.37,high,,System One
-trust_trustee,return_share_sent_10,typical_human_plain,cloudflare/clef,0.43366099999999996,,,,,,,System One
+trust_trustee,return_share_sent_10,typical_human_plain,cloudflare/clef,0.46022935626896017,,,,,,,System One
 public_goods_conditional,contribution_low,typical_human_plain,cloudflare/clef,0.28655121039106485,,,,,,,System One
 public_goods_conditional,contribution_mid,typical_human_plain,cloudflare/clef,0.4826717328267174,,,,,,,System One
 public_goods_conditional,contribution_high,typical_human_plain,cloudflare/clef,0.6414010381764899,,,,,,,System One

@@ -4,8 +4,8 @@
 
 Run file: `run_live_20261012T225915Z_typesafe--jev-1.13+anthropic--claude-sonnet-5.5.jsonl`  
 Models: `anthropic/claude-sonnet-5.5`, `typesafe/jev-1.13-20260917`  
-Records: 14,700 (0 transport errors, excluded)  
-Total cost: $8.9769 (Jev arm $0.1397)
+Records: 14,800 (0 transport errors, excluded)  
+Total cost: $8.9857 (Jev arm $0.1418)
 
 Every table below is the Jev arm only; the chat baseline and the other System One models are compared in `results/comparison/`. Values are probability mass, computed from the returned distributions rather than from the point answers. Human values are literature reference points, not a matched control group — see [BENCHMARKS.md](BENCHMARKS.md).
 
@@ -87,12 +87,12 @@ The Dark Triad scale is a **manipulation check**, not a diagnostic claim.
 
 ## Option-order sensitivity
 
-Multiple-choice items only (470 probe × persona cells): their options are shuffled per replicate. Likert and yes/no items are not shuffled, so they measure replicate-to-replicate variation with nothing changed instead.
+The core battery's multiple-choice items (415 probe × persona cells), the set H6 was written for: their options are shuffled per replicate. Likert and yes/no items are not shuffled, so they measure replicate-to-replicate variation with nothing changed instead.
 
-- Mean total-variation distance across reorderings: **0.0581**
-- Median: 0.0371
-- 95th percentile: 0.1960
-- Same measure on the 265 unshuffled cells (replicates with nothing reordered, a rough noise floor): 0.0244
+- Mean total-variation distance across reorderings: **0.0627**
+- Median: 0.0411
+- 95th percentile: 0.1994
+- Same measure on the 170 unshuffled cells (replicates with nothing reordered, a rough noise floor): 0.0266
 - Largest single probe: 0.3129 (`discount_30d_100`)
 
 Most order-sensitive probes:
@@ -104,4 +104,42 @@ Most order-sensitive probes:
 | `discount_30d_60` | neutral | 0.2753 |
 | `discount_30d_60` | rational_agent | 0.2742 |
 | `discount_30d_75` | neutral | 0.2673 |
+
+The follow-up items, reported apart: 0.0252 on 55 shuffled cells, 0.0197 on 105 unshuffled ones.
+
+## Follow-up H4: simulate or estimate
+
+Each follow-up statistic measured two ways: the item asked with the typical-person prompt (simulate), and its population question asked with no persona (estimate). Errors are distances from the original study's published value (Many Labs 2 reports only effect sizes, not per-condition values), in the item's own units, as preregistered. Those units differ (proportions, 1–7 ratings, percentage bands), so the raw test weighs the ratings and percentages most; as a post-hoc check the same test is repeated with each error divided by its scale's range (1, 6 and 100), and the mean errors below are on that scaled footing. The population questions for the six items reused from the first project (CRT, framing, conjunction, sunk cost, Allais, base rate) were asked on 13 October 2026, after the main run.
+
+| Item | Statistic | Published | Simulate | Estimate | Error (simulate) | Error (estimate) | Scaled (simulate) | Scaled (estimate) |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| categorization | prob_rule_based | 0.67 | 0.09 | 0.53 | 0.581 | 0.143 | 0.581 | 0.143 |
+| choosing_rejecting | prob_award_extreme | 0.64 | 0.13 | 0.36 | 0.512 | 0.276 | 0.512 | 0.276 |
+| choosing_rejecting | prob_deny_extreme | 0.55 | 0.96 | 0.60 | 0.414 | 0.048 | 0.414 | 0.048 |
+| false_consensus | nonwearer_predicts_wear | 0.30 | 0.29 | 0.35 | 0.019 | 0.050 | 0.019 | 0.050 |
+| false_consensus | wearer_predicts_wear | 0.61 | 0.32 | 0.37 | 0.298 | 0.245 | 0.298 | 0.245 |
+| incidental_anchors | estimate_p17 | 51.90 | 48.35 | 49.97 | 3.550 | 1.930 | 0.036 | 0.019 |
+| incidental_anchors | estimate_p97 | 58.10 | 48.64 | 49.71 | 9.460 | 8.392 | 0.095 | 0.084 |
+| knobe | prob_harm_intentional | 0.82 | 0.86 | 0.74 | 0.045 | 0.078 | 0.045 | 0.078 |
+| knobe | prob_help_intentional | 0.23 | 0.01 | 0.61 | 0.216 | 0.377 | 0.216 | 0.377 |
+| moral_typecasting | responsibility_baby | 3.86 | 1.20 | 1.84 | 2.657 | 2.020 | 0.443 | 0.337 |
+| moral_typecasting | responsibility_man | 5.29 | 5.52 | 5.73 | 0.233 | 0.441 | 0.039 | 0.073 |
+| position_power | power_long_line | 5.01 | 3.55 | 3.55 | 1.462 | 1.463 | 0.244 | 0.244 |
+| position_power | power_short_line | 4.62 | 3.67 | 4.22 | 0.954 | 0.400 | 0.159 | 0.067 |
+| trolley | prob_push_permissible | 0.11 | 0.00 | 0.23 | 0.110 | 0.122 | 0.110 | 0.122 |
+| trolley | prob_switch_permissible | 0.89 | 1.00 | 0.75 | 0.110 | 0.144 | 0.110 | 0.144 |
+| allais | prob_certain_pair1 | 0.80 | 0.82 | 0.71 | 0.019 | 0.087 | 0.019 | 0.087 |
+| allais | prob_safer_pair2 | 0.35 | 0.69 | 0.63 | 0.344 | 0.281 | 0.344 | 0.281 |
+| base_rate | prob_correct_band | 0.15 | 0.23 | 0.22 | 0.081 | 0.067 | 0.081 | 0.067 |
+| conjunction | prob_fallacy_forced_choice | 0.85 | 0.93 | 0.66 | 0.079 | 0.193 | 0.079 | 0.193 |
+| crt | proportion_correct | 0.41 | 0.32 | 0.46 | 0.095 | 0.050 | 0.095 | 0.050 |
+| framing | prob_certain_gain_frame | 0.72 | 0.89 | 0.68 | 0.166 | 0.042 | 0.166 | 0.042 |
+| framing | prob_certain_loss_frame | 0.22 | 0.84 | 0.59 | 0.625 | 0.371 | 0.625 | 0.371 |
+| sunk_cost | prob_continue | 0.85 | 0.17 | 0.35 | 0.675 | 0.502 | 0.675 | 0.502 |
+
+- As preregistered: estimate closer on 14 of 23; one-sided Wilcoxon p = 0.015 on the raw errors (0.043 scaled, post-hoc); mean scaled error 0.235 (simulate) vs 0.170 (estimate)
+
+- Simulate without the steer, estimate with no persona: estimate closer on 16 of 23; one-sided Wilcoxon p = 0.005 on the raw errors (0.021 scaled, post-hoc); mean scaled error 0.248 (simulate) vs 0.170 (estimate)
+
+- Both asked under the steer-free typical-person prompt (exploratory): estimate closer on 12 of 15; one-sided Wilcoxon p = 0.003 on the raw errors (0.011 scaled, post-hoc); mean scaled error 0.225 (simulate) vs 0.134 (estimate)
 

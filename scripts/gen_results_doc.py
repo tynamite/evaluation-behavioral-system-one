@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from jevbench.analysis import (  # noqa: E402
-    compute_stats, primary_run, load_records, order_effects,
+    compute_stats, h4_summary, load_records, order_effects, primary_run, simulate_vs_estimate,
 )
 from jevbench.benchmarks import BENCHMARKS  # noqa: E402
 from dataclasses import asdict  # noqa: E402
@@ -152,26 +152,74 @@ def main(argv: list[str]) -> int:
 
     L.append("## Option-order sensitivity\n")
     if len(odf):
+        followup = odf[odf.followup]
+        odf = odf[~odf.followup]
         floor = odf[~odf.shuffled]
         odf = odf[odf.shuffled]
-        L.append(f"Multiple-choice items only ({len(odf)} probe × persona cells): their options are "
-                 "shuffled per replicate. Likert and yes/no items are not shuffled, so they measure "
-                 "replicate-to-replicate variation with nothing changed instead.\n")
-        L.append(f"- Mean total-variation distance across reorderings: **{odf.mean_tv_distance.mean():.4f}**")
-        L.append(f"- Median: {odf.mean_tv_distance.median():.4f}")
-        L.append(f"- 95th percentile: {odf.mean_tv_distance.quantile(0.95):.4f}")
-        if len(floor):
-            L.append(f"- Same measure on the {len(floor)} unshuffled cells (replicates with nothing reordered, a rough noise floor): "
-                     f"{floor.mean_tv_distance.mean():.4f}")
-        L.append(f"- Largest single probe: {odf.mean_tv_distance.max():.4f} "
-                 f"(`{odf.loc[odf.mean_tv_distance.idxmax(), 'probe_id']}`)")
-        worst = odf.nlargest(5, "mean_tv_distance")[["probe_id", "persona", "mean_tv_distance"]]
-        L.append("\nMost order-sensitive probes:\n")
-        L.append("| Probe | Persona | Mean TV distance |")
-        L.append("|---|---|---:|")
-        for _, r in worst.iterrows():
-            L.append(f"| `{r.probe_id}` | {r.persona} | {r.mean_tv_distance:.4f} |")
+        if len(odf):  # a follow-up-only run has no core cells
+            L.append(f"The core battery's multiple-choice items ({len(odf)} probe × persona cells), the "
+                     "set H6 was written for: their options are shuffled per replicate. Likert and "
+                     "yes/no items are not shuffled, so they measure replicate-to-replicate variation "
+                     "with nothing changed instead.\n")
+            L.append(f"- Mean total-variation distance across reorderings: **{odf.mean_tv_distance.mean():.4f}**")
+            L.append(f"- Median: {odf.mean_tv_distance.median():.4f}")
+            L.append(f"- 95th percentile: {odf.mean_tv_distance.quantile(0.95):.4f}")
+            if len(floor):
+                L.append(f"- Same measure on the {len(floor)} unshuffled cells (replicates with nothing reordered, a rough noise floor): "
+                         f"{floor.mean_tv_distance.mean():.4f}")
+            L.append(f"- Largest single probe: {odf.mean_tv_distance.max():.4f} "
+                     f"(`{odf.loc[odf.mean_tv_distance.idxmax(), 'probe_id']}`)")
+            worst = odf.nlargest(5, "mean_tv_distance")[["probe_id", "persona", "mean_tv_distance"]]
+            L.append("\nMost order-sensitive probes:\n")
+            L.append("| Probe | Persona | Mean TV distance |")
+            L.append("|---|---|---:|")
+            for _, r in worst.iterrows():
+                L.append(f"| `{r.probe_id}` | {r.persona} | {r.mean_tv_distance:.4f} |")
+        if len(followup):
+            fs, fu = followup[followup.shuffled], followup[~followup.shuffled]
+            L.append(f"\nThe follow-up items, reported apart: {fs.mean_tv_distance.mean():.4f} on "
+                     f"{len(fs)} shuffled cells, {fu.mean_tv_distance.mean():.4f} on {len(fu)} "
+                     "unshuffled ones.")
     L.append("")
+
+    h4 = simulate_vs_estimate(sdf)
+    if len(h4):
+        L.append("## Follow-up H4: simulate or estimate\n")
+        L.append("Each follow-up statistic measured two ways: the item asked with the typical-person "
+                 "prompt (simulate), and its population question asked with no persona (estimate). "
+                 "Errors are distances from the original study's published value (Many Labs 2 "
+                 "reports only effect sizes, not per-condition values), in the item's own units, as "
+                 "preregistered. Those units differ (proportions, 1–7 ratings, percentage bands), so "
+                 "the raw test weighs the ratings and percentages most; as a post-hoc check the same "
+                 "test is repeated with each error divided by its scale's range (1, 6 and 100), and "
+                 "the mean errors below are on that scaled footing. The population questions for the "
+                 "six items reused from the first project (CRT, framing, conjunction, sunk cost, "
+                 "Allais, base rate) were asked on 13 October 2026, after the main run.\n")
+        L.append("| Item | Statistic | Published | Simulate | Estimate | Error (simulate) | "
+                 "Error (estimate) | Scaled (simulate) | Scaled (estimate) |")
+        L.append("|---|---|---:|---:|---:|---:|---:|---:|---:|")
+        for _, r in h4.iterrows():
+            L.append(f"| {r.instrument} | {r.statistic} | {r.human:.2f} | {r.simulate:.2f} | "
+                     f"{r.estimate:.2f} | {r.error_simulate:.3f} | {r.error_estimate:.3f} | "
+                     f"{r.scaled_error_simulate:.3f} | {r.scaled_error_estimate:.3f} |")
+        for label, sim, est in (
+            ("as preregistered", "typical_human", "neutral"),
+            ("simulate without the steer, estimate with no persona", "typical_human_plain", "neutral"),
+            ("both asked under the steer-free typical-person prompt (exploratory)",
+             "typical_human_plain", "typical_human_plain"),
+        ):
+            hs = h4_summary(simulate_vs_estimate(sdf, simulate=sim, estimate=est))
+            if "estimate_closer" not in hs:
+                continue  # e.g. runs that ask estimate items with no persona only
+            def p(v: float | None) -> str:
+                return "n/a (every pair tied)" if v is None else f"{v:.3f}"
+
+            L.append(f"\n- {label.capitalize()}: estimate closer on {hs['estimate_closer']} of "
+                     f"{hs['n']}; one-sided Wilcoxon p = {p(hs['wilcoxon_p_one_sided'])} on the raw "
+                     f"errors ({p(hs['wilcoxon_p_scaled'])} scaled, post-hoc); mean scaled error "
+                     f"{hs['mean_scaled_error_simulate']:.3f} (simulate) vs "
+                     f"{hs['mean_scaled_error_estimate']:.3f} (estimate)")
+        L.append("")
 
     out = ROOT / "docs" / "RESULTS.md"
     out.write_text("\n".join(L) + "\n", encoding="utf-8")

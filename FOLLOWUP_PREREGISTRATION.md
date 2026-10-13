@@ -10,8 +10,24 @@ matters and what it does and doesn't establish.*
 > 12–13 Oct 2026 run, Jev's included, contains them; two of them were
 > corrected before those runs (see [docs/LEARNINGS.md](docs/LEARNINGS.md)).
 > The matched-pairs design turned out not to be executable on this item pool
-> (Amendment 3, section 10), none of the options in 10.3 has been chosen, and
-> no follow-up result is reported anywhere in this repository yet.
+> (Amendment 3, section 10), so H1 and H2 are untested and none of the options
+> in 10.3 has been chosen. H3 and H4 do not need the pairs and are reported in
+> the README (H4: estimating is more accurate for Jev, p = 0.015 on the
+> registered absolute errors and 0.043 with errors scaled to each item's
+> range, a check added after seeing the data; H3: no model reproduces the
+> original anchoring gap). The population questions for the six items reused
+> from the first project (section 4.1) were missed when the battery was built;
+> they were added and asked of the System One models on 13 October 2026, in a
+> separate 1,000-call run appended to the same files, so H4 covers all 23
+> statistics. Section 4.1 lists the CRT as six items, but its human value
+> (0.41 correct) is Frederick's three-item score, and the other three items
+> have none; only Frederick's three were given population questions, and the
+> CRT enters H4 as that three-item score. One deviation: section 1 names Many
+> Labs 2 as the human reference, but Many Labs 2 reports only replicated
+> effect sizes, not per-condition values, so H4 is scored against the original
+> studies' published values (as its protocol quotes them). The estimate items were asked under every prompt in those runs;
+> section 8.1 makes them a population question, so the battery now asks them
+> with no persona, and the H4 test uses the no-persona records.
 
 Date: 2026-09-19
 Model under test: `typesafe/jev-1.13` (or whatever is current when run)

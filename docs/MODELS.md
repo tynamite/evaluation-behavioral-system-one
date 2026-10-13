@@ -14,7 +14,9 @@ model, company or product.** These are numbers recorded from a public API on
 ## What was run
 
 Every model got the same grid: 147 probes × 5 prompts × 10 replicates, 7,350
-calls.
+calls. On 13 October the ten System One models were also asked the ten
+population questions added to the follow-up study (no persona, 10 replicates:
+100 calls each, appended to the same files); the costs below include them.
 
 | Model | Type | Cost |
 |---|---|---|
@@ -47,14 +49,16 @@ stop silent holes being read as results.
 
 ![What the health table caught](../results/figures/health-checks.png)
 
-**GPT-6 Luna Decisions refuses some items.** 250 of its 7,350 calls (3%) came
-back `OpenAI refused to answer question "answer"`, across 25 item × prompt
+**GPT-6 Luna Decisions refuses some items.** 300 of its 7,450 calls (4%) came
+back `OpenAI refused to answer question "answer"`, across 30 item × prompt
 cells: the trolley, Knobe, categorisation, false-consensus and
-choosing/rejecting (custody case) estimates, the false-consensus choices
+choosing/rejecting (custody case) estimates, five of the ten population
+questions added later (framing gain, Allais pair 1, Linda, base rate, sunk
+cost), the false-consensus choices
 themselves, and one Dirty Dozen item (`dd_09`). The route reports a refusal as
 HTTP 502; the client records it as a refusal and does not retry it. None of
-the refused items feeds the comparison below, but 37% of its yes/no (`Noul`)
-calls are refused, leaving it with no answer in 25 item × prompt cells, mostly
+the refused items feeds the comparison below, but 39% of its yes/no (`Noul`)
+calls are refused, leaving it with no answer in 30 item × prompt cells, mostly
 the follow-up study's estimate items.
 
 **Neither Solar model can answer the p-beauty contest.** That item has 101
@@ -210,6 +214,41 @@ one summary number answers only the first.
 - **Clef and Clef Flash differ the way the Solar pair do.** Clef (listed on
   OpenRouter as built on Qwen3.8-27B) does not hedge: it shows about half the
   human framing effect with no instruction (26 points) where Flash shows none.
+
+## Simulate or estimate (follow-up H4)
+
+The follow-up study's items are each asked two ways: as the item itself with the
+typical-person prompt ("simulate"), and as a population question with no persona
+("estimate"). Its preregistered H4 predicts that estimating is more accurate.
+Each statistic is compared with the original study's published value (Many
+Labs 2 reports only effect sizes): 15 from the new items and 8 from the six
+items reused from the first project, whose population questions were asked on
+13 October. The preregistered test is a one-sided Wilcoxon signed-rank test on
+the absolute errors, in each item's own units, so the percentage items and the
+1–7 ratings weigh most. The mean errors, and the second p value, scale each
+error to its item's range instead; that check was chosen after seeing the data
+([`followup_h4.csv`](../results/comparison/followup_h4.csv)):
+
+| Model | Simulate: scaled error | Estimate: scaled error | Estimate closer | p (preregistered) | p (scaled) |
+|---|---|---|---|---|---|
+| GPT-6 Luna Decisions | 0.19 | 0.15 | 11 of 13 | 0.011 | 0.073 |
+| Jev 1.13 | 0.23 | 0.17 | 14 of 23 | 0.015 | 0.043 |
+| Mercury Decide | 0.23 | 0.20 | 17 of 23 | 0.026 | 0.071 |
+| d1 | 0.24 | 0.18 | 13 of 23 | 0.071 | 0.111 |
+| Solar Decide | 0.16 | 0.13 | 15 of 23 | 0.143 | 0.188 |
+| Decider v1.1 27B | 0.15 | 0.14 | 12 of 23 | 0.343 | 0.435 |
+| Clef | 0.20 | 0.16 | 12 of 23 | 0.377 | 0.250 |
+| Solar Decide Flash | 0.16 | 0.18 | 11 of 23 | 0.482 | 0.710 |
+| Microsoft-Decision-1 | 0.18 | 0.19 | 13 of 23 | 0.506 | 0.458 |
+| Clef Flash | 0.23 | 0.26 | 11 of 23 | 0.542 | 0.710 |
+
+Estimating has the lower mean scaled error for seven of the ten models; for
+Solar Decide Flash, Microsoft-Decision-1 and Clef Flash it is higher. Three
+clear p < 0.05 on the preregistered test, and only Jev clears it on the scaled
+one. The ten tests share their items, so they are not independent evidence.
+GPT-6 Luna Decisions has only 13 pairs because its refusals leave ten
+statistics without an estimate. The chat models are left out: a true/false
+reply cannot carry a proportion.
 
 ## Limitations specific to this comparison
 

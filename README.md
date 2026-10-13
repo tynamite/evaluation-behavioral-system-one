@@ -64,9 +64,11 @@ contrast is partly an artifact of comparing two different things.
 
 ## What I observed
 
-14,700 observations at $8.98, recorded on 12–13 October 2026: 147 probes × 5
+14,800 observations at $8.99, recorded on 12–13 October 2026: 147 probes × 5
 prompt conditions × 10 replicates through Jev, plus the same grid through
-`claude-sonnet-5.5`, resampled ten times per cell. No transport errors; 9 of
+`claude-sonnet-5.5`, resampled ten times per cell, and 100 more calls on 13
+October for the population questions added to the follow-up study (see
+below). No transport errors; 9 of
 6,800 scorable comparison-arm replies (0.13%) could not be resolved to an
 option, and every cell kept at least 4 of its 10 samples. Full tables in
 [docs/RESULTS.md](docs/RESULTS.md).
@@ -175,13 +177,52 @@ of writing them down first was to be held to them:
 |---|---|
 | H5: independently elicited probabilities obey P(A∧B) ≤ P(A) | **Violated**, margin **−0.09** with no instruction and **−0.38** when asked to answer like a person |
 | H8: accuracy falls as reasoning depth grows (> 15 points) | **9 points** from 1-step to 3+-step items with no instruction |
-| H6: option order barely matters (mean TV < 0.05) | **0.058** mean, median 0.037, on the multiple-choice items whose options were shuffled. Answers move 0.024 between replicates with nothing reordered, a rough noise floor, so a large part of that may be noise |
+| H6: option order barely matters (mean TV < 0.05) | **0.063** mean, median 0.041, on the core battery's multiple-choice items, whose options were shuffled. Answers move 0.027 between replicates with nothing reordered, a rough noise floor, so a large part of that may be noise. The follow-up items, which H6 was not written for, move less (0.025) |
 
 H4 predicted a framing reversal much weaker than people's (under 25 points); it
 is 1 point. H7 (Jev's distribution is more stable across replicates than the
 resampled chat model's) was never tested: the analysis to compare the two
 spreads was not built. H11 was exploratory, with no direction, and is not
 reported.
+
+### The follow-up study: estimating people beats imitating them, a little
+
+A second preregistration,
+[FOLLOWUP_PREREGISTRATION.md](FOLLOWUP_PREREGISTRATION.md), added 30 items from
+the Many Labs 2 replication project, each asked two ways: as the item itself
+under the typical-person prompt ("simulate"), and as a population question with
+no persona — "what proportion of participants chose…" ("estimate"). Its central
+fame hypotheses (H1, H2) could not be run, because the matched pairs they needed
+do not exist in the item pool. Two others could:
+
+- **H4: estimate is more accurate than simulate.** It holds for Jev, but
+  only modestly. The test covers 23 statistics, each compared with the original
+  study's published value (Many Labs 2 reports only effect sizes, not the
+  per-condition values this needs):
+  15 from the new items and 8 from the six items reused from the first project
+  (CRT, framing, Linda, sunk cost, Allais, base rate). The reused items'
+  population questions were built and asked on 13 October, after the main run.
+  Estimate is closer on **14 of 23**. The preregistered one-sided Wilcoxon test
+  on the absolute errors gives **p = 0.015**. Those errors are in each item's
+  own units, so the two percentage items and the 1–7 ratings outweigh the
+  proportions. Scaled to each item's range instead, a check I chose after
+  seeing the data, Jev's mean error is **0.17** when estimating against
+  **0.23** when simulating, and p = 0.043. Across the ten System One models,
+  estimating has the lower mean scaled error for **seven**. Three pass the
+  preregistered test (GPT-6 Luna Decisions, Jev and Mercury Decide), and only
+  Jev passes the scaled one.
+  The main run also asked the new items' population questions under every
+  prompt; inside the steer-free typical-person prompt, Jev's estimates beat
+  its simulated answers on 12 of 15 (p = 0.003; 0.01 scaled). That is not the
+  preregistered comparison, and the battery now asks population questions with
+  no persona.
+- **H3: the model reproduces the original anchoring effect, not the replication.**
+  It does not. The original incidental-anchoring study found a 6.2-point gap;
+  Many Labs 2 found almost none. No System One model reaches 3 points in the
+  original's direction, simulated or estimated; the largest is 2.6 (Jev: 0.3
+  and −0.3).
+
+The full table is in [docs/RESULTS.md](docs/RESULTS.md#follow-up-h4-simulate-or-estimate).
 
 The conjunction result looked like the most interesting thing here until I read
 the documentation properly. Asked side by side, the model picked the single
@@ -368,7 +409,7 @@ src/jevbench/
   instruments/     the battery
 scripts/           doc generators (RESULTS.md, BENCHMARKS.md), the figure
                    layout checker, and the follow-up study's reports
-tests/             140 tests, all runnable with no API key
+tests/             146 tests, all runnable with no API key
 data/raw/          committed raw records — every number is recomputable
 data/archive/      the runs behind an earlier version of this write-up
 results/           generated tables and figures
@@ -427,8 +468,8 @@ guessed, and `summary.json` reports them with per-cell sample coverage.
 describes each step.
 
 The typed arm has never returned an answer that could not be read, across
-73,500 calls to ten System One models: a typed decision is a distribution,
-so there is no text to misread. What did go wrong there was visible: 250
+74,500 calls to ten System One models: a typed decision is a distribution,
+so there is no text to misread. What did go wrong there was visible: 300
 refusals from one model and 100 calls the route rejected (the p-beauty item,
 for both Solar models), each recorded as such ([docs/MODELS.md](docs/MODELS.md#read-the-health-table-first)).
 

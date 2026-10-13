@@ -13,7 +13,7 @@ from . import (
     risk_time,
     strategic,
 )
-from .base import PERSONAS, Persona, Probe, apply_persona, permute_options
+from .base import PERSONAS, Persona, Probe, apply_persona, asked_under, permute_options
 
 MODULES = {
     "crt": cognitive,
@@ -51,5 +51,6 @@ __all__ = [
     "Probe",
     "all_probes",
     "apply_persona",
+    "asked_under",
     "permute_options",
 ]

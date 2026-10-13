@@ -15,6 +15,20 @@ from .base import Probe, binary_choice
 PIE = 10
 
 
+def _return_grid(received: int) -> list[int]:
+    """The amounts a trustee can return.
+
+    Whole dollars up to $15. For $30 that would be 31 options, more than one
+    route accepts (26), so it goes in $2 steps plus $15: every focal return
+    stays selectable — $10 (the sender breaks even), $15 (half) and $20
+    (equal payoffs). The first runs used $3 steps, which had neither $10 nor
+    $20; trust_return_10 was re-run with this grid for every model on 13 Oct 2026.
+    """
+    if received <= 15:
+        return list(range(received + 1))
+    return sorted({*range(0, received + 1, 2), received // 2})
+
+
 def _money_options(lo: int, hi: int, unit: str = "$") -> dict[str, str]:
     return {f"{unit}{v}": f"Keep {unit}{PIE - v} and give {unit}{v}" for v in range(lo, hi + 1)}
 
@@ -132,8 +146,7 @@ def trust() -> list[Probe]:
                     f"How much of the ${received} do you return?"
                 ),
                 options={
-                    f"${v}": f"Return ${v}, keep ${received - v}"
-                    for v in range(0, received + 1, max(1, received // 10))
+                    f"${v}": f"Return ${v}, keep ${received - v}" for v in _return_grid(received)
                 },
                 state={
                     "game": "trust",
