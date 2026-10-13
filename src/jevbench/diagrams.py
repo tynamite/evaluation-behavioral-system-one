@@ -2619,6 +2619,16 @@ def _order_notes(rows: list[tuple[str, str, float, float]]) -> str:
     return " ".join(notes) + (" " if notes else "")
 
 
+def _shown_path(path: Path) -> str:
+    """A run's path as a reader can find it: repo-relative when inside the repo."""
+    from .config import REPO_ROOT
+
+    try:
+        return str(path.resolve().relative_to(REPO_ROOT.resolve()))
+    except ValueError:
+        return str(path)
+
+
 def build_diagrams(
     run_path: Path,
     tables_dir: Path,
@@ -2670,7 +2680,7 @@ def build_diagrams(
     h4_path = tables_dir / "followup_h4.csv"
     h4 = pd.read_csv(h4_path) if h4_path.exists() and h4_path.stat().st_size else pd.DataFrame()
     if len(h4):
-        figures.insert(7, fig_h4(h4, f"data/raw/{run_path.name}"))
+        figures.insert(7, fig_h4(h4, _shown_path(run_path)))
     else:
         # Leave no chart from an earlier run behind.
         (out_dir / f"{H4_SLUG}.html").unlink(missing_ok=True)
@@ -2708,16 +2718,20 @@ def check_editorial_run(df: pd.DataFrame) -> None:
     if missing := sorted(set(PERSONAS) - set(jev["persona"])):
         problems.append(f"no records under {', '.join(missing)}")
     ok = jev[jev["error"].isna()] if "error" in jev else jev
-    reps = ok.groupby(["probe_id", "persona"])["replicate"].nunique()
+    cells = ok.groupby(["probe_id", "persona"])["replicate"]
+    distinct, rows = cells.nunique(), cells.size()
     core = [p.probe_id for p in all_probes([m for m in MODULES if m != "followup"])]
-    short = sum(
-        int(reps.get((pid, persona), 0) < EDITORIAL_REPLICATES)
+    off = sum(
+        int(
+            distinct.get((pid, persona), 0) != EDITORIAL_REPLICATES
+            or rows.get((pid, persona), 0) != EDITORIAL_REPLICATES
+        )
         for pid in core
         for persona in PERSONAS
     )
-    if short:
+    if off:
         problems.append(
-            f"{short} of {len(core) * len(PERSONAS)} core item-and-prompt cells have fewer than "
+            f"{off} of {len(core) * len(PERSONAS)} core item-and-prompt cells do not have exactly "
             f"{EDITORIAL_REPLICATES} successful repeats"
         )
     if problems:

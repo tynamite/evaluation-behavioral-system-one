@@ -330,7 +330,7 @@ def test_diagrams_refuse_a_run_their_labels_would_misdescribe(tmp_path: Path) ->
             r = json.loads(line)
             if r["replicate"] < 3:  # a default three-replicate run
                 dst.write(line)
-    with pytest.raises(ValueError, match="fewer than 10 successful repeats"):
+    with pytest.raises(ValueError, match="do not have exactly 10 successful repeats"):
         build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", tmp_path / "out")
 
 
@@ -363,10 +363,25 @@ def test_diagrams_refuse_a_run_with_a_failed_repeat(tmp_path: Path) -> None:
                 r["error"], r["probabilities"], failed = "refused: test", None, True
                 line = json.dumps(r) + "\n"
             dst.write(line)
-    with pytest.raises(ValueError, match=r"1 of \d+ core item-and-prompt cells have fewer than 10"):
+    with pytest.raises(
+        ValueError, match=r"1 of \d+ core item-and-prompt cells do not have exactly 10"
+    ):
         build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", tmp_path / "out")
 
 
 def test_h4_chart_cites_the_run_it_was_drawn_from(built: list[Path]) -> None:
     page = next(p for p in built if p.stem == "followup-h4").read_text()
     assert f"data/raw/{COMMITTED_RUN.name}" in page
+
+
+def test_diagrams_refuse_duplicated_repeats(tmp_path: Path) -> None:
+    """A duplicated record is not one of the 10 repeats the figures claim."""
+    from jevbench.diagrams import build_diagrams_for_run
+
+    run = tmp_path / "run_live_20261013T000000Z_typesafe--jev-1.13.jsonl"
+    lines = COMMITTED_RUN.read_text().splitlines(keepends=True)
+    run.write_text("".join(lines) + lines[0])  # the first record (a Jev one), twice
+    with pytest.raises(
+        ValueError, match=r"1 of \d+ core item-and-prompt cells do not have exactly"
+    ):
+        build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", tmp_path / "out")
