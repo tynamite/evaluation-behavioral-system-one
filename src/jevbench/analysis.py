@@ -292,7 +292,8 @@ def compute_stats(df: pd.DataFrame) -> list[Stat]:
             # Frederick's (2005) benchmark is for his three items only; the other
             # three come from Toplak et al. (2014) and are reported apart, so the
             # human comparison is like for like.
-            crt = [p for p in meta if p.startswith("crt_")]
+            # The CRT items themselves, not their population questions (follow-up H4).
+            crt = [p for p in meta if p.startswith("crt_") and not p.endswith("_estimate")]
             corr, lure, corr3 = [], [], []
             for pid in crt:
                 d = g(pid)

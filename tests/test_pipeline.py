@@ -326,3 +326,23 @@ def test_h4_pairs_the_reused_items_with_their_estimates(tmp_path: Path) -> None:
         ("sunk_cost", "prob_continue"),
     } <= pairs
     assert len(pairs) == 23
+
+
+def test_crt_scores_ignore_the_crt_population_questions(tmp_path: Path) -> None:
+    """`crt_*_estimate` probes share the CRT prefix but are not CRT items."""
+    from dataclasses import asdict
+
+    import pandas as pd
+
+    from jevbench.analysis import compute_stats
+
+    cfg = Config.from_env(backend="simulator")
+
+    def crt_stats(modules: list[str]) -> pd.DataFrame:
+        path = run_battery(
+            cfg, modules=modules, replicates=1, personas=["neutral"], out_dir=tmp_path / modules[-1]
+        )
+        sdf = pd.DataFrame([asdict(s) for s in compute_stats(load_records(path))])
+        return sdf[sdf.instrument == "crt"].set_index("statistic")["value"]
+
+    pd.testing.assert_series_equal(crt_stats(["crt"]), crt_stats(["crt", "followup"]))

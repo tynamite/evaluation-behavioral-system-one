@@ -14,8 +14,8 @@ Every table below is the Jev arm only; the chat baseline and the other System On
 | Measure | Neutral | As typical human | As typical human (no steer) | As rational agent | Antisocial | Human |
 |---|---:|---:|---:|---:|---:|---:|
 | CRT correct (Frederick's 3 items) | 0.99 | 0.32 | 0.53 | 1.00 | 0.91 | 0.41 |
-| CRT correct (all 6 items) | 0.66 | 0.55 | 0.71 | 0.99 | 0.93 | — |
-| CRT mass on intuitive lure | 0.00 | 0.41 | 0.27 | 0.01 | 0.05 | — |
+| CRT correct (all 6 items) | 0.99 | 0.55 | 0.71 | 0.99 | 0.93 | — |
+| CRT mass on intuitive lure | 0.01 | 0.41 | 0.27 | 0.01 | 0.05 | — |
 
 ## Fluid reasoning by depth
 
