@@ -12,8 +12,10 @@ matters and what it does and doesn't establish.*
 > The matched-pairs design turned out not to be executable on this item pool
 > (Amendment 3, section 10), so H1 and H2 are untested and none of the options
 > in 10.3 has been chosen. H3 and H4 do not need the pairs and are reported in
-> the README (H4: estimating is more accurate on average, not significantly
-> for Jev; H3: no model reproduces the original anchoring gap). One deviation:
+> the README (H4: estimating is more accurate on average, p = 0.047 for Jev on
+> the registered absolute errors but 0.17 with errors scaled to each item's
+> range, a check added after seeing the data; H3: no model reproduces the
+> original anchoring gap). One deviation:
 > section 1 names Many Labs 2 as the human reference, but Many Labs 2 reports
 > only replicated effect sizes, not per-condition values, so H4 is scored
 > against the original studies' published values (as its protocol quotes

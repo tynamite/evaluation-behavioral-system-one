@@ -216,29 +216,33 @@ one summary number answers only the first.
 The follow-up study's items are each asked two ways: as the item itself with the
 typical-person prompt ("simulate"), and as a population question with no persona
 ("estimate"). Its preregistered H4 predicts that estimating is more accurate.
-Mean error over 15 statistics, each against the original study's published value
-(Many Labs 2 reports only effect sizes) and scaled to its item's range, and
-the one-sided Wilcoxon signed-rank test the preregistration names
+Each statistic is compared with the original study's published value (Many
+Labs 2 reports only effect sizes). The preregistered test is a one-sided
+Wilcoxon signed-rank test on the absolute errors, in each item's own units, so
+the percentage items and the 1–7 ratings weigh most. The mean errors, and the
+second p value, scale each error to its item's range instead; that check was
+chosen after seeing the data
 ([`followup_h4.csv`](../results/comparison/followup_h4.csv)):
 
-| Model | Simulate: error | Estimate: error | Estimate closer | p |
-|---|---|---|---|---|
-| d1 | 0.22 | 0.16 | 11 of 15 | 0.021 |
-| Jev 1.13 | 0.22 | 0.15 | 8 of 15 | 0.165 |
-| Mercury Decide | 0.20 | 0.15 | 12 of 15 | 0.047 |
-| Solar Decide | 0.15 | 0.12 | 11 of 15 | 0.151 |
-| Decider v1.1 27B | 0.13 | 0.10 | 9 of 15 | 0.211 |
-| Solar Decide Flash | 0.16 | 0.13 | 9 of 15 | 0.339 |
-| Clef | 0.16 | 0.14 | 7 of 15 | 0.445 |
-| Clef Flash | 0.21 | 0.20 | 8 of 15 | 0.339 |
-| Microsoft-Decision-1 | 0.14 | 0.14 | 9 of 15 | 0.423 |
-| GPT-6 Luna Decisions | 0.14 | 0.15 | 8 of 10 | 0.216 |
+| Model | Simulate: scaled error | Estimate: scaled error | Estimate closer | p (preregistered) | p (scaled) |
+|---|---|---|---|---|---|
+| Mercury Decide | 0.20 | 0.15 | 12 of 15 | 0.015 | 0.047 |
+| GPT-6 Luna Decisions | 0.14 | 0.15 | 8 of 10 | 0.024 | 0.216 |
+| d1 | 0.22 | 0.16 | 11 of 15 | 0.032 | 0.021 |
+| Jev 1.13 | 0.22 | 0.15 | 8 of 15 | 0.047 | 0.165 |
+| Solar Decide | 0.15 | 0.12 | 11 of 15 | 0.115 | 0.151 |
+| Solar Decide Flash | 0.16 | 0.13 | 9 of 15 | 0.180 | 0.339 |
+| Decider v1.1 27B | 0.13 | 0.10 | 9 of 15 | 0.195 | 0.211 |
+| Clef Flash | 0.21 | 0.20 | 8 of 15 | 0.262 | 0.339 |
+| Microsoft-Decision-1 | 0.14 | 0.14 | 9 of 15 | 0.467 | 0.423 |
+| Clef | 0.16 | 0.14 | 7 of 15 | 0.555 | 0.445 |
 
-Estimating has the lower mean error for nine of the ten models, but only d1 and
-Mercury Decide clear p < 0.05 on their own, and with ten models tested two or
-more would do so by chance about 9% of the time. GPT-6 Luna Decisions is the
-exception, and has only 10 pairs because its refusals leave five statistics
-without an estimate. The chat models are left
+Estimating has the lower mean scaled error for nine of the ten models. Four
+clear p < 0.05 on the preregistered test and two on the scaled one, and only
+Mercury Decide and d1 clear both. With ten models tested, two or more would
+pass by chance about 9% of the time. GPT-6 Luna Decisions is the exception on
+the scaled error, and has only 10 pairs because its refusals leave five
+statistics without an estimate. The chat models are left
 out: a true/false reply cannot carry a proportion.
 
 ## Limitations specific to this comparison

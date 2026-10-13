@@ -1191,9 +1191,11 @@ def simulate_vs_estimate(
 
     As preregistered, "simulate" is the item asked with the typical-person
     prompt and "estimate" is its population question ("what proportion of
-    participants...") with no persona. Errors are absolute distances from the
-    item's benchmark, divided by the scale's range so the three scales can be
-    pooled. The benchmarks are the original studies' published values, as Many
+    participants...") with no persona. As preregistered, errors are absolute
+    distances from the item's benchmark, in the item's own units. The
+    ``scaled_error_*`` columns divide them by the scale's range so that the
+    three scales weigh alike; that is a post-hoc check, not the registered
+    test. The benchmarks are the original studies' published values, as Many
     Labs 2's protocol quotes them; Many Labs 2 reports only replicated effect
     sizes, not the per-condition values this needs (see benchmarks.py). Rows
     with either value missing (a refusal) are dropped.
@@ -1224,27 +1226,39 @@ def simulate_vs_estimate(
                 "human": human,
                 "simulate": sim,
                 "estimate": est,
-                "error_simulate": abs(sim - human) / scale,
-                "error_estimate": abs(est - human) / scale,
+                "error_simulate": abs(sim - human),
+                "error_estimate": abs(est - human),
+                "scaled_error_simulate": abs(sim - human) / scale,
+                "scaled_error_estimate": abs(est - human) / scale,
             }
         )
     return pd.DataFrame(rows)
 
 
 def h4_summary(table: pd.DataFrame) -> dict[str, float | int | None]:
-    """Counts, mean scaled errors and the preregistered one-sided Wilcoxon signed-rank test."""
+    """Counts, mean errors and the preregistered one-sided Wilcoxon signed-rank test.
+
+    The registered test is on the raw absolute errors; ``wilcoxon_p_scaled``
+    repeats it on the range-scaled errors as a post-hoc check.
+    """
     if len(table) < 2:
         return {"n": len(table)}
     from scipy.stats import wilcoxon
 
+    def one_sided(diff: pd.Series) -> float | None:
+        return float(wilcoxon(diff, alternative="less").pvalue) if (diff != 0).any() else None
+
     diff = table["error_estimate"] - table["error_simulate"]
-    p = float(wilcoxon(diff, alternative="less").pvalue) if (diff != 0).any() else None
+    scaled = table["scaled_error_estimate"] - table["scaled_error_simulate"]
     return {
         "n": len(table),
         "estimate_closer": int((diff < 0).sum()),
         "mean_error_simulate": float(table["error_simulate"].mean()),
         "mean_error_estimate": float(table["error_estimate"].mean()),
-        "wilcoxon_p_one_sided": p,
+        "wilcoxon_p_one_sided": one_sided(diff),
+        "mean_scaled_error_simulate": float(table["scaled_error_simulate"].mean()),
+        "mean_scaled_error_estimate": float(table["scaled_error_estimate"].mean()),
+        "wilcoxon_p_scaled": one_sided(scaled),
     }
 
 

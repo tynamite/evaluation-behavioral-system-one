@@ -38,8 +38,11 @@
   "followup_h4": {
     "n": 15,
     "estimate_closer": 8,
-    "mean_error_simulate": 0.22129555555555552,
-    "mean_error_estimate": 0.1537897858970081,
-    "wilcoxon_p_one_sided": 0.165130615234375
+    "mean_error_simulate": 1.3747333333333336,
+    "mean_error_estimate": 1.0752820487153811,
+    "wilcoxon_p_one_sided": 0.04730224609375,
+    "mean_scaled_error_simulate": 0.22129555555555552,
+    "mean_scaled_error_estimate": 0.1537897858970081,
+    "wilcoxon_p_scaled": 0.165130615234375
   }
 }

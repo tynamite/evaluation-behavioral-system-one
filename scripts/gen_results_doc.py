@@ -187,13 +187,18 @@ def main(argv: list[str]) -> int:
         L.append("Each follow-up statistic measured two ways: the item asked with the typical-person "
                  "prompt (simulate), and its population question asked with no persona (estimate). "
                  "Errors are distances from the original study's published value (Many Labs 2 "
-                 "reports only effect sizes, not per-condition values), divided by the scale's range "
-                 "(1 for proportions, 6 for 1–7 ratings, 100 for percentage bands).\n")
-        L.append("| Item | Statistic | Published | Simulate | Estimate | Error (simulate) | Error (estimate) |")
-        L.append("|---|---|---:|---:|---:|---:|---:|")
+                 "reports only effect sizes, not per-condition values), in the item's own units, as "
+                 "preregistered. Those units differ (proportions, 1–7 ratings, percentage bands), so "
+                 "the raw test weighs the ratings and percentages most; as a post-hoc check the same "
+                 "test is repeated with each error divided by its scale's range (1, 6 and 100), and "
+                 "the mean errors below are on that scaled footing.\n")
+        L.append("| Item | Statistic | Published | Simulate | Estimate | Error (simulate) | "
+                 "Error (estimate) | Scaled (simulate) | Scaled (estimate) |")
+        L.append("|---|---|---:|---:|---:|---:|---:|---:|---:|")
         for _, r in h4.iterrows():
             L.append(f"| {r.instrument} | {r.statistic} | {r.human:.2f} | {r.simulate:.2f} | "
-                     f"{r.estimate:.2f} | {r.error_simulate:.3f} | {r.error_estimate:.3f} |")
+                     f"{r.estimate:.2f} | {r.error_simulate:.3f} | {r.error_estimate:.3f} | "
+                     f"{r.scaled_error_simulate:.3f} | {r.scaled_error_estimate:.3f} |")
         for label, sim, est in (
             ("as preregistered", "typical_human", "neutral"),
             ("simulate without the steer, estimate with no persona", "typical_human_plain", "neutral"),
@@ -204,9 +209,10 @@ def main(argv: list[str]) -> int:
             if "estimate_closer" not in hs:
                 continue  # e.g. runs that ask estimate items with no persona only
             L.append(f"\n- {label.capitalize()}: estimate closer on {hs['estimate_closer']} of "
-                     f"{hs['n']}; mean error {hs['mean_error_simulate']:.3f} (simulate) vs "
-                     f"{hs['mean_error_estimate']:.3f} (estimate); one-sided Wilcoxon p = "
-                     f"{hs['wilcoxon_p_one_sided']:.3f}")
+                     f"{hs['n']}; one-sided Wilcoxon p = {hs['wilcoxon_p_one_sided']:.3f} on the raw "
+                     f"errors ({hs['wilcoxon_p_scaled']:.3f} scaled, post-hoc); mean scaled error "
+                     f"{hs['mean_scaled_error_simulate']:.3f} (simulate) vs "
+                     f"{hs['mean_scaled_error_estimate']:.3f} (estimate)")
         L.append("")
 
     out = ROOT / "docs" / "RESULTS.md"

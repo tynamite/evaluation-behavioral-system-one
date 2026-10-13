@@ -193,17 +193,22 @@ no persona — "what proportion of participants chose…" ("estimate"). Its cent
 fame hypotheses (H1, H2) could not be run, because the matched pairs they needed
 do not exist in the item pool. Two others could:
 
-- **H4: estimate is more accurate than simulate.** The direction holds but the
-  evidence is weak. Over 15 statistics, each compared with the original study's
-  published value (Many Labs 2 reports only effect sizes, not the per-condition
-  values this needs) and scaled to its item's range, Jev's mean error is **0.15** when estimating against **0.22**
-  when simulating, but estimate is closer on only **8 of 15** items (one-sided
-  Wilcoxon p = 0.17); the gain comes almost entirely from three items,
-  categorisation and the two custody-case questions. Across the ten System One models, estimating has the lower
-  mean error for **nine**, significantly so for two (d1 and Mercury Decide).
+- **H4: estimate is more accurate than simulate.** The direction holds, and
+  the preregistered test just passes, but the result is fragile. Over 15
+  statistics, each compared with the original study's published value (Many
+  Labs 2 reports only effect sizes, not the per-condition values this needs),
+  estimate is closer on only **8 of 15**. The preregistered one-sided Wilcoxon
+  test on the absolute errors gives **p = 0.047**. Those errors are in each
+  item's own units, though, so the two percentage items and the 1–7 ratings
+  outweigh the proportions. With each error scaled to its item's range, a
+  check I chose after seeing the data, Jev's mean error is **0.15** when
+  estimating against **0.22** when simulating, and p = 0.17. Across the ten
+  System One models, estimating has the lower mean scaled error for **nine**,
+  and four pass the preregistered test (Mercury Decide, d1, GPT-6 Luna
+  Decisions and Jev).
   The committed run also asked the population question under every prompt;
   inside the steer-free typical-person prompt, Jev's estimates beat its
-  simulated answers on 12 of 15 (p = 0.01). That is not the preregistered
+  simulated answers on 12 of 15 (p = 0.003; 0.01 scaled). That is not the preregistered
   comparison, and the battery now asks population questions with no persona.
 - **H3: the model reproduces the original anchoring effect, not the replication.**
   It does not. The original incidental-anchoring study found a 6.2-point gap;

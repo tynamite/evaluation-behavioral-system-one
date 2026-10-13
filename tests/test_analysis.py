@@ -158,7 +158,7 @@ def test_refuses_to_pool_simulated_with_live_records(tmp_path: Path) -> None:
         load_records(path)
 
 
-def test_simulate_vs_estimate_scales_errors_and_pairs_the_right_cells() -> None:
+def test_simulate_vs_estimate_errors_raw_and_scaled_and_pairs_the_right_cells() -> None:
     from jevbench.analysis import h4_summary, simulate_vs_estimate
 
     rows = [
@@ -173,7 +173,7 @@ def test_simulate_vs_estimate_scales_errors_and_pairs_the_right_cells() -> None:
             0.99,
             "norenzayan_rule_based",
         ),
-        # incidental anchor on a 0-100 scale: human 58.1; errors divided by 100.
+        # incidental anchor on a 0-100 scale: human 58.1; scaled errors divided by 100.
         ("incidental_anchors", "estimate_p97", "typical_human", 48.1, "incidental_anchor_p97"),
         ("incidental_anchors_estimate", "estimate_p97", "neutral", 63.1, "incidental_anchor_p97"),
     ]
@@ -193,7 +193,10 @@ def test_simulate_vs_estimate_scales_errors_and_pairs_the_right_cells() -> None:
     table = simulate_vs_estimate(sdf).set_index("instrument")
     assert table.loc["categorization", "error_simulate"] == pytest.approx(0.60)
     assert table.loc["categorization", "error_estimate"] == pytest.approx(0.10)
-    assert table.loc["incidental_anchors", "error_simulate"] == pytest.approx(0.10)
-    assert table.loc["incidental_anchors", "error_estimate"] == pytest.approx(0.05)
+    # The preregistered errors stay in the item's units; the scaled ones divide by the range.
+    assert table.loc["incidental_anchors", "error_simulate"] == pytest.approx(10.0)
+    assert table.loc["incidental_anchors", "error_estimate"] == pytest.approx(5.0)
+    assert table.loc["incidental_anchors", "scaled_error_simulate"] == pytest.approx(0.10)
+    assert table.loc["incidental_anchors", "scaled_error_estimate"] == pytest.approx(0.05)
     summary = h4_summary(table.reset_index())
     assert summary["n"] == 2 and summary["estimate_closer"] == 2

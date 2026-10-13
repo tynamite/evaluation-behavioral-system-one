@@ -128,6 +128,11 @@ following, among other claims that did not check out against the code:
   not written for and which move less. The core battery's figure is 0.063, up
   from 0.058 with them; H6 fails either way.
 - **The analysis figures left out the no-steer prompt.** They now include it.
+- **H4 was first reported on a scale the preregistration did not name.** It
+  registers the absolute error against the human value; the first report
+  divided each error by its item's range, which changes the test's ranks, and
+  gave p = 0.17 for Jev. The registered test gives 0.047. Both are now
+  reported, the scaled one as a check chosen after seeing the data.
 
 ## Smaller corrections
 

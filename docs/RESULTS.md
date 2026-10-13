@@ -109,29 +109,29 @@ The follow-up items, reported apart: 0.0252 on 55 shuffled cells, 0.0205 on 95 u
 
 ## Follow-up H4: simulate or estimate
 
-Each follow-up statistic measured two ways: the item asked with the typical-person prompt (simulate), and its population question asked with no persona (estimate). Errors are distances from the original study's published value (Many Labs 2 reports only effect sizes, not per-condition values), divided by the scale's range (1 for proportions, 6 for 1–7 ratings, 100 for percentage bands).
+Each follow-up statistic measured two ways: the item asked with the typical-person prompt (simulate), and its population question asked with no persona (estimate). Errors are distances from the original study's published value (Many Labs 2 reports only effect sizes, not per-condition values), in the item's own units, as preregistered. Those units differ (proportions, 1–7 ratings, percentage bands), so the raw test weighs the ratings and percentages most; as a post-hoc check the same test is repeated with each error divided by its scale's range (1, 6 and 100), and the mean errors below are on that scaled footing.
 
-| Item | Statistic | Published | Simulate | Estimate | Error (simulate) | Error (estimate) |
-|---|---|---:|---:|---:|---:|---:|
-| categorization | prob_rule_based | 0.67 | 0.09 | 0.53 | 0.581 | 0.143 |
-| choosing_rejecting | prob_award_extreme | 0.64 | 0.13 | 0.36 | 0.512 | 0.276 |
-| choosing_rejecting | prob_deny_extreme | 0.55 | 0.96 | 0.60 | 0.414 | 0.048 |
-| false_consensus | nonwearer_predicts_wear | 0.30 | 0.29 | 0.35 | 0.019 | 0.050 |
-| false_consensus | wearer_predicts_wear | 0.61 | 0.32 | 0.37 | 0.298 | 0.245 |
-| incidental_anchors | estimate_p17 | 51.90 | 48.35 | 49.97 | 0.036 | 0.019 |
-| incidental_anchors | estimate_p97 | 58.10 | 48.64 | 49.71 | 0.095 | 0.084 |
-| knobe | prob_harm_intentional | 0.82 | 0.86 | 0.74 | 0.045 | 0.078 |
-| knobe | prob_help_intentional | 0.23 | 0.01 | 0.61 | 0.216 | 0.377 |
-| moral_typecasting | responsibility_baby | 3.86 | 1.20 | 1.84 | 0.443 | 0.337 |
-| moral_typecasting | responsibility_man | 5.29 | 5.52 | 5.73 | 0.039 | 0.073 |
-| position_power | power_long_line | 5.01 | 3.55 | 3.55 | 0.244 | 0.244 |
-| position_power | power_short_line | 4.62 | 3.67 | 4.22 | 0.159 | 0.067 |
-| trolley | prob_push_permissible | 0.11 | 0.00 | 0.23 | 0.110 | 0.122 |
-| trolley | prob_switch_permissible | 0.89 | 1.00 | 0.75 | 0.110 | 0.144 |
+| Item | Statistic | Published | Simulate | Estimate | Error (simulate) | Error (estimate) | Scaled (simulate) | Scaled (estimate) |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| categorization | prob_rule_based | 0.67 | 0.09 | 0.53 | 0.581 | 0.143 | 0.581 | 0.143 |
+| choosing_rejecting | prob_award_extreme | 0.64 | 0.13 | 0.36 | 0.512 | 0.276 | 0.512 | 0.276 |
+| choosing_rejecting | prob_deny_extreme | 0.55 | 0.96 | 0.60 | 0.414 | 0.048 | 0.414 | 0.048 |
+| false_consensus | nonwearer_predicts_wear | 0.30 | 0.29 | 0.35 | 0.019 | 0.050 | 0.019 | 0.050 |
+| false_consensus | wearer_predicts_wear | 0.61 | 0.32 | 0.37 | 0.298 | 0.245 | 0.298 | 0.245 |
+| incidental_anchors | estimate_p17 | 51.90 | 48.35 | 49.97 | 3.550 | 1.930 | 0.036 | 0.019 |
+| incidental_anchors | estimate_p97 | 58.10 | 48.64 | 49.71 | 9.460 | 8.392 | 0.095 | 0.084 |
+| knobe | prob_harm_intentional | 0.82 | 0.86 | 0.74 | 0.045 | 0.078 | 0.045 | 0.078 |
+| knobe | prob_help_intentional | 0.23 | 0.01 | 0.61 | 0.216 | 0.377 | 0.216 | 0.377 |
+| moral_typecasting | responsibility_baby | 3.86 | 1.20 | 1.84 | 2.657 | 2.020 | 0.443 | 0.337 |
+| moral_typecasting | responsibility_man | 5.29 | 5.52 | 5.73 | 0.233 | 0.441 | 0.039 | 0.073 |
+| position_power | power_long_line | 5.01 | 3.55 | 3.55 | 1.462 | 1.463 | 0.244 | 0.244 |
+| position_power | power_short_line | 4.62 | 3.67 | 4.22 | 0.954 | 0.400 | 0.159 | 0.067 |
+| trolley | prob_push_permissible | 0.11 | 0.00 | 0.23 | 0.110 | 0.122 | 0.110 | 0.122 |
+| trolley | prob_switch_permissible | 0.89 | 1.00 | 0.75 | 0.110 | 0.144 | 0.110 | 0.144 |
 
-- As preregistered: estimate closer on 8 of 15; mean error 0.221 (simulate) vs 0.154 (estimate); one-sided Wilcoxon p = 0.165
+- As preregistered: estimate closer on 8 of 15; one-sided Wilcoxon p = 0.047 on the raw errors (0.165 scaled, post-hoc); mean scaled error 0.221 (simulate) vs 0.154 (estimate)
 
-- Simulate without the steer, estimate with no persona: estimate closer on 10 of 15; mean error 0.225 (simulate) vs 0.154 (estimate); one-sided Wilcoxon p = 0.115
+- Simulate without the steer, estimate with no persona: estimate closer on 10 of 15; one-sided Wilcoxon p = 0.024 on the raw errors (0.115 scaled, post-hoc); mean scaled error 0.225 (simulate) vs 0.154 (estimate)
 
-- Both asked under the steer-free typical-person prompt (exploratory): estimate closer on 12 of 15; mean error 0.225 (simulate) vs 0.134 (estimate); one-sided Wilcoxon p = 0.011
+- Both asked under the steer-free typical-person prompt (exploratory): estimate closer on 12 of 15; one-sided Wilcoxon p = 0.003 on the raw errors (0.011 scaled, post-hoc); mean scaled error 0.225 (simulate) vs 0.134 (estimate)
 

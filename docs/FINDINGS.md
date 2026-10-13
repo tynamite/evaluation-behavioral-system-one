@@ -141,10 +141,13 @@ effect sizes, not the per-condition values this needs.
 | Mean error, scaled to each item's range | 0.22 | **0.15** |
 | Items where it is closer to the published value | 7 of 15 | **8 of 15** |
 
-Estimating is better on average, as predicted, but the edge comes almost
-entirely from three items (categorisation and two custody-case questions), and
-the preregistered test does not reach significance (one-sided Wilcoxon p =
-0.17). The same direction shows up in nine of the ten System One models. The
+Estimating is better on average, as predicted, and the preregistered test, a
+one-sided Wilcoxon test on the absolute errors, just passes (p = 0.047). It
+is fragile. The errors are in each item's own units, so the two percentage
+items and the 1–7 ratings weigh most. Scaled to each item's range, which is a
+check chosen after seeing the data, the same test gives p = 0.17, and the edge
+comes mostly from three items (categorisation and two custody-case
+questions). The same direction shows up in nine of the ten System One models. The
 same study also predicted that a model would reproduce a famous effect at its
 original size rather than its replicated one; on the incidental-anchoring item
 it does not — no model reaches even half the original 6.2-point gap.
