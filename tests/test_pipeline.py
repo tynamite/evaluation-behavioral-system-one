@@ -368,3 +368,26 @@ def test_crt_estimate_needs_all_three_frederick_items(tmp_path: Path) -> None:
 
     assert has_crt_estimate(df)
     assert not has_crt_estimate(df[df.probe_id != "crt_widgets_estimate"])
+
+
+def test_runner_records_an_answer_on_unknown_options_as_an_error() -> None:
+    """A reply that puts probability on keys the question never offered is not used."""
+    from jevbench.instruments import all_probes
+    from jevbench.runner import BatteryRunner
+    from jevbench.schema import DecisionResponse
+
+    class Stub:
+        def decide(self, state: object, questions: object) -> DecisionResponse:
+            return DecisionResponse.parse(
+                {
+                    "model": "stub",
+                    "answers": {
+                        "answer": {"type": "choice", "choice": "zz", "probabilities": {"zz": 1.0}}
+                    },
+                }
+            )
+
+    probe = next(p for p in all_probes(["crt"]))
+    runner = BatteryRunner(Config.from_env(backend="simulator"), replicates=1)
+    rec = runner._one_jev(Stub(), probe, "neutral", 0)
+    assert rec.error and "not options" in rec.error

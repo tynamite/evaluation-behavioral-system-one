@@ -25,7 +25,7 @@ from .instruments import (
     asked_under,
     permute_options,
 )
-from .schema import Choice, Score
+from .schema import Choice, Score, allowed_keys, distribution_problem
 from .simulator import SimulatorClient
 
 JobKey = tuple[str, str, str, int]  # (arm, probe_id, persona, replicate)
@@ -167,6 +167,8 @@ class BatteryRunner:
         try:
             resp = client.decide(prepared.state, {"answer": prepared.question})
             ans = resp.answers["answer"]
+            if problem := distribution_problem(ans.probabilities, allowed_keys(prepared.question)):
+                raise ValueError(f"unusable answer: {problem}")
             return Record(
                 probe_id=probe.probe_id,
                 instrument=probe.instrument,

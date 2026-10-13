@@ -23,6 +23,7 @@ import numpy as np
 import pandas as pd
 
 from .benchmarks import BENCHMARKS
+from .schema import distribution_problem
 
 Dist = dict[str, float]
 Key = tuple[str, str, str]  # (probe_id, persona, arm)
@@ -126,14 +127,18 @@ def distributions(df: pd.DataFrame) -> dict[Key, Dist]:
     jev = ok[ok["arm"] == "jev"]
     for (pid, persona), grp in jev.groupby(["probe_id", "persona"]):
         acc: dict[str, list[float]] = defaultdict(list)
+        used = 0
         for probs in grp["probabilities"]:
-            if not probs:
+            # Records written before the parser checked distributions may hold
+            # an unusable one; it is left out, not averaged in.
+            if not isinstance(probs, dict) or distribution_problem(probs):
                 continue
+            used += 1
             for k, v in probs.items():
                 acc[k].append(float(v))
         if not acc:
             continue
-        n = float(len(grp))
+        n = float(used)
         # Options absent from a given replicate contribute zero to the mean.
         dist = {k: float(np.sum(v)) / n for k, v in acc.items()}
         total = sum(dist.values()) or 1.0

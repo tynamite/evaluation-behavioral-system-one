@@ -200,3 +200,17 @@ def test_simulate_vs_estimate_errors_raw_and_scaled_and_pairs_the_right_cells() 
     assert table.loc["incidental_anchors", "scaled_error_estimate"] == pytest.approx(0.05)
     summary = h4_summary(table.reset_index())
     assert summary["n"] == 2 and summary["estimate_closer"] == 2
+
+
+def test_distributions_leave_out_unusable_records() -> None:
+    """An old record with an unusable distribution is skipped, and not counted."""
+    from jevbench.analysis import distributions
+
+    df = pd.DataFrame(
+        [
+            {"probe_id": "p", "persona": "neutral", "arm": "jev", "error": None, "probabilities": d}
+            for d in ({"a": 1.0}, {"a": 0.0, "b": 1.0}, {}, {"a": 0.0, "b": 0.0}, {"a": -1.0})
+        ]
+    )
+    dist = distributions(df)[("p", "neutral", "jev")]
+    assert dist == pytest.approx({"a": 0.5, "b": 0.5})

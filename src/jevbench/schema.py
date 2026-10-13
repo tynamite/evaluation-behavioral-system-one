@@ -16,6 +16,7 @@ uncertainty. Here the distribution is read directly, in one call.
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass, field
 from typing import Any, Literal
 
@@ -96,6 +97,8 @@ class Answer:
         kind = obj.get("type")
         if kind == "noul":
             p = float(obj["noul"])
+            if not (math.isfinite(p) and 0.0 <= p <= 1.0):
+                raise ValueError(f"Answer to {qid!r} has a Noul probability outside [0, 1]: {p}")
             # Express a Noul as an explicit two-point distribution so that every
             # answer in the project has the same shape downstream.
             return cls(
@@ -111,9 +114,9 @@ class Answer:
                 qid=qid,
                 kind="choice",
                 value=str(obj["choice"]),
-                probabilities={
-                    str(k): float(v) for k, v in (obj.get("probabilities") or {}).items()
-                },
+                probabilities=_checked(
+                    qid, {str(k): float(v) for k, v in (obj.get("probabilities") or {}).items()}
+                ),
                 confidence=_opt_float(obj.get("confidence")),
                 raw=obj,
             )
@@ -122,14 +125,51 @@ class Answer:
                 qid=qid,
                 kind="score",
                 value=float(obj["score"]),
-                probabilities={
-                    str(k): float(v) for k, v in (obj.get("probabilities") or {}).items()
-                },
+                probabilities=_checked(
+                    qid, {str(k): float(v) for k, v in (obj.get("probabilities") or {}).items()}
+                ),
                 confidence=_opt_float(obj.get("confidence")),
                 legend=obj.get("legend"),
                 raw=obj,
             )
         raise ValueError(f"Unrecognised answer type {kind!r} for question {qid!r}")
+
+
+def distribution_problem(
+    probs: dict[str, float], allowed: set[str] | frozenset[str] | None = None
+) -> str | None:
+    """Why `probs` is not a usable answer distribution, or None if it is.
+
+    A reply can arrive without error and still carry nothing to analyse: no
+    probabilities, negative or non-finite ones, no mass at all, or keys that
+    are not the question's options. Averaging such a reply in would corrupt
+    the distribution it joins, so it is rejected rather than normalised.
+    """
+    if not probs:
+        return "no probabilities"
+    values = list(probs.values())
+    if not all(isinstance(v, (int, float)) and math.isfinite(v) and v >= 0 for v in values):
+        return "a probability that is negative or not a finite number"
+    if sum(values) <= 0:
+        return "probabilities that sum to zero"
+    if allowed is not None and (unknown := set(probs) - set(allowed)):
+        return f"keys that are not options: {sorted(unknown)[:3]}"
+    return None
+
+
+def allowed_keys(question: Choice | Score | Noul) -> frozenset[str]:
+    """The keys an answer to `question` may put probability on."""
+    if isinstance(question, Choice):
+        return frozenset(question.criteria)
+    if isinstance(question, Score):
+        return frozenset(str(i) for i in range(len(question.criteria)))
+    return frozenset({"true", "false"})
+
+
+def _checked(qid: str, probs: dict[str, float]) -> dict[str, float]:
+    if problem := distribution_problem(probs):
+        raise ValueError(f"Answer to {qid!r} has {problem}")
+    return probs
 
 
 def _opt_float(v: Any) -> float | None:
