@@ -1,7 +1,7 @@
 """Follow-up battery: fame vs. replicated effect size, on Many Labs 2 items.
 
 See `FOLLOWUP_PREREGISTRATION.md` at the repo root for the full design and its
-two amendments. Eight items in total, from two sources (Section 4.2 vs. 4.3):
+three amendments. Eight items in total, from two sources (Section 4.2 vs. 4.3):
 
 - Five items (moral_typecasting, position_power, choosing_rejecting,
   categorization, incidental_anchors) are newly sourced from ML2's own
