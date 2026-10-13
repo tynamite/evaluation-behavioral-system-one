@@ -2386,7 +2386,7 @@ def _signed(v: float) -> str:
     return f"{v:+.2f}" if abs(v) >= 0.005 else f"{v:+.1g}"
 
 
-def fig_h4(h4: pd.DataFrame) -> Figure:
+def fig_h4(h4: pd.DataFrame, run_name: str = "the run shown") -> Figure:
     """Follow-up H4 for Jev: each statistic's error simulated and estimated, closer one first.
 
     Errors are divided by each scale's range so proportions, 1-7 ratings and
@@ -2534,7 +2534,7 @@ def fig_h4(h4: pd.DataFrame) -> Figure:
         height=int(ky + 18),
         body="\n".join(out),
         source=(
-            "results/tables/followup_h4.csv; FOLLOWUP_PREREGISTRATION.md, H4. Human values are the "
+            f"H4 table from {run_name}; FOLLOWUP_PREREGISTRATION.md, H4. Human values are the "
             "original studies' published ones (Many Labs 2 reports only effect sizes). Errors are "
             "divided by each scale's range (1 for proportions, 6 for 1–7 ratings, 100 for percentage "
             "bands) so they share an axis; change is estimate minus simulate, so negative is better. "
@@ -2670,7 +2670,7 @@ def build_diagrams(
     h4_path = tables_dir / "followup_h4.csv"
     h4 = pd.read_csv(h4_path) if h4_path.exists() and h4_path.stat().st_size else pd.DataFrame()
     if len(h4):
-        figures.insert(7, fig_h4(h4))
+        figures.insert(7, fig_h4(h4, f"data/raw/{run_path.name}"))
     else:
         # Leave no chart from an earlier run behind.
         (out_dir / f"{H4_SLUG}.html").unlink(missing_ok=True)
