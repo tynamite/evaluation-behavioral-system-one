@@ -5192,7 +5192,7 @@ mini_ipip,extraversion,antisocial,upstage/solar-decide-20260928,3.99902163476636
 mini_ipip,agreeableness,antisocial,upstage/solar-decide-20260928,1.0642052366890282,1.0595059940494005,1.0689044793286562,mini_ipip_agreeableness,4.0,approximate,,System One
 mini_ipip,conscientiousness,antisocial,upstage/solar-decide-20260928,2.1161432589547418,1.1427391,3.0895474179094835,mini_ipip_conscientiousness,3.4,approximate,,System One
 mini_ipip,neuroticism,antisocial,upstage/solar-decide-20260928,2.0282217797614477,1.4612146,2.595228959522896,mini_ipip_neuroticism,2.8,approximate,,System One
-mini_ipip,openness,antisocial,upstage/solar-decide-20260928,3.2360290527941893,3.2360290527941893,3.2360290527941893,mini_ipip_openness,3.7,approximate,,System One
+mini_ipip,openness,antisocial,upstage/solar-decide-20260928,4.023194676397095,3.2360290527941893,4.8103603,mini_ipip_openness,3.7,approximate,,System One
 crt,proportion_correct,neutral,upstage/solar-decide-20260928,0.9101281084992698,0.8079467384106523,0.9742169922650977,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
 crt,proportion_correct_all6,neutral,upstage/solar-decide-20260928,0.9039046422188469,0.8478679153752336,0.9577994925177881,,,,all six items; no single human benchmark covers these,System One
 crt,probability_mass_on_lure,neutral,upstage/solar-decide-20260928,0.03002267221292469,0.010972318574695848,0.06072214533905912,,,,,System One
@@ -5251,7 +5251,7 @@ money_request,mass_level0_20,neutral,upstage/solar-decide-20260928,0.05812827674
 money_request,mass_level1_19,neutral,upstage/solar-decide-20260928,0.016032693586922567,,,,,,,System One
 money_request,mass_level2_18,neutral,upstage/solar-decide-20260928,0.01162869534852186,,,,,,,System One
 money_request,mass_level3_17,neutral,upstage/solar-decide-20260928,0.032470387011845195,,,,,,,System One
-mini_ipip,extraversion,neutral,upstage/solar-decide-20260928,2.9607290882586392,2.8431159156884087,3.07834226082887,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,extraversion,neutral,upstage/solar-decide-20260928,2.9856775316415294,2.843115915688409,3.07834226082887,mini_ipip_extraversion,3.2,approximate,,System One
 mini_ipip,agreeableness,neutral,upstage/solar-decide-20260928,2.724859694240409,2.5073153000000006,2.9424040884808176,mini_ipip_agreeableness,4.0,approximate,,System One
 mini_ipip,conscientiousness,neutral,upstage/solar-decide-20260928,2.6215791743158343,2.441708988341797,2.801449360289872,mini_ipip_conscientiousness,3.4,approximate,,System One
 mini_ipip,neuroticism,neutral,upstage/solar-decide-20260928,2.121399586636011,1.0014409008645404,3.2413582724074814,mini_ipip_neuroticism,2.8,approximate,,System One
@@ -5318,7 +5318,7 @@ mini_ipip,extraversion,rational_agent,upstage/solar-decide-20260928,3.6034149385
 mini_ipip,agreeableness,rational_agent,upstage/solar-decide-20260928,2.2627027153017454,1.564655030603491,2.9607504,mini_ipip_agreeableness,4.0,approximate,,System One
 mini_ipip,conscientiousness,rational_agent,upstage/solar-decide-20260928,2.6988245973105904,1.3280695015791497,4.069579693042031,mini_ipip_conscientiousness,3.4,approximate,,System One
 mini_ipip,neuroticism,rational_agent,upstage/solar-decide-20260928,2.0045917407688,1.4122797412279742,2.5969037403096262,mini_ipip_neuroticism,2.8,approximate,,System One
-mini_ipip,openness,rational_agent,upstage/solar-decide-20260928,2.680592668059267,2.680592668059267,2.680592668059267,mini_ipip_openness,3.7,approximate,,System One
+mini_ipip,openness,rational_agent,upstage/solar-decide-20260928,3.720363034029634,2.680592668059267,4.760133400000001,mini_ipip_openness,3.7,approximate,,System One
 crt,proportion_correct,typical_human,upstage/solar-decide-20260928,0.16117786173813167,0.024560402456040246,0.2758611827583548,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
 crt,proportion_correct_all6,typical_human,upstage/solar-decide-20260928,0.2965330628126355,0.15966344014407732,0.4507877023156052,,,,all six items; no single human benchmark covers these,System One
 crt,probability_mass_on_lure,typical_human,upstage/solar-decide-20260928,0.6280395265641375,0.4070869403026239,0.814831106084442,,,,,System One
@@ -5381,7 +5381,7 @@ mini_ipip,extraversion,typical_human,upstage/solar-decide-20260928,3.08962542660
 mini_ipip,agreeableness,typical_human,upstage/solar-decide-20260928,3.869735481833679,3.6880722688072276,4.05139869486013,mini_ipip_agreeableness,4.0,approximate,,System One
 mini_ipip,conscientiousness,typical_human,upstage/solar-decide-20260928,3.344285639003345,3.323499397049819,3.3650718809568714,mini_ipip_conscientiousness,3.4,approximate,,System One
 mini_ipip,neuroticism,typical_human,upstage/solar-decide-20260928,2.5382599851182235,2.1488177702364464,2.9277022,mini_ipip_neuroticism,2.8,approximate,,System One
-mini_ipip,openness,typical_human,upstage/solar-decide-20260928,3.6148450231092024,3.2119504444444447,4.01773960177396,mini_ipip_openness,3.7,approximate,,System One
+mini_ipip,openness,typical_human,upstage/solar-decide-20260928,3.6047336508869803,3.1917277000000004,4.01773960177396,mini_ipip_openness,3.7,approximate,,System One
 crt,proportion_correct,typical_human_plain,upstage/solar-decide-20260928,0.4332228779320815,0.019146905744071723,0.7333735733373573,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
 crt,proportion_correct_all6,typical_human_plain,upstage/solar-decide-20260928,0.5550490362249588,0.32378789258342305,0.7333202906993855,,,,all six items; no single human benchmark covers these,System One
 crt,probability_mass_on_lure,typical_human_plain,upstage/solar-decide-20260928,0.3822746524849015,0.18264070107688202,0.6425660242160994,,,,,System One
@@ -5444,7 +5444,7 @@ mini_ipip,extraversion,typical_human_plain,upstage/solar-decide-20260928,3.31266
 mini_ipip,agreeableness,typical_human_plain,upstage/solar-decide-20260928,3.9561182494686262,3.8929524892952485,4.019284009642004,mini_ipip_agreeableness,4.0,approximate,,System One
 mini_ipip,conscientiousness,typical_human_plain,upstage/solar-decide-20260928,3.4441518529874213,3.2649371059748424,3.6233666,mini_ipip_conscientiousness,3.4,approximate,,System One
 mini_ipip,neuroticism,typical_human_plain,upstage/solar-decide-20260928,2.7911813569342483,2.321680635663873,3.2606820782046233,mini_ipip_neuroticism,2.8,approximate,,System One
-mini_ipip,openness,typical_human_plain,upstage/solar-decide-20260928,3.923356415328717,3.923356415328717,3.923356415328717,mini_ipip_openness,3.7,approximate,,System One
+mini_ipip,openness,typical_human_plain,upstage/solar-decide-20260928,3.4958009508398096,3.0682454863509023,3.923356415328717,mini_ipip_openness,3.7,approximate,,System One
 crt,proportion_correct,antisocial,cloudflare/clef-flash,0.705546909782982,0.54956,0.9895807293489455,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
 crt,proportion_correct_all6,antisocial,cloudflare/clef-flash,0.6755240619883986,0.47684833950709926,0.8636970313411395,,,,all six items; no single human benchmark covers these,System One
 crt,probability_mass_on_lure,antisocial,cloudflare/clef-flash,0.19143875180883843,0.03562154394192407,0.3888931061802958,,,,,System One

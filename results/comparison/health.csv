@@ -8,6 +8,6 @@ microsoft/microsoft-decision-1-20261009,System One,run_live_20261012T225920Z_mic
 perplexity/pplx-decider-v1.1-27b-20261006,System One,run_live_20261012T225921Z_perplexity--pplx-decider-v1.1-27b.jsonl,7350,0,0,0,0,735,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.0324
 inception/mercury-decide-20260930,System One,run_live_20261012T225922Z_inception--mercury-decide.jsonl,7350,0,0,0,0,735,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.0326
 upstage/solar-decide-flash-20261008,System One,run_live_20261012T225924Z_upstage--solar-decide-flash.jsonl,7350,50,0,0,0,735,5,"{""choice"": 0.0106, ""noul"": 0.0, ""score"": 0.0}",0.1705
-upstage/solar-decide-20260928,System One,run_live_20261012T225925Z_upstage--solar-decide.jsonl,3819,50,0,0,0,382,5,"{""choice"": 0.0154, ""noul"": 0.0, ""score"": 0.0}",0.0863
+upstage/solar-decide-20260928,System One,run_live_20261012T225925Z_upstage--solar-decide.jsonl,3857,50,0,0,0,386,5,"{""choice"": 0.0154, ""noul"": 0.0, ""score"": 0.0}",0.0871
 cloudflare/clef-flash,System One,run_live_20261012T225926Z_cloudflare--clef-flash.jsonl,7350,0,0,0,0,735,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.0536
 cloudflare/clef,System One,run_live_20261012T225927Z_cloudflare--clef.jsonl,7350,0,0,0,0,735,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.1152
