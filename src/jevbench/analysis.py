@@ -1274,8 +1274,12 @@ def analyse_run(path: Path, out_dir: Path) -> dict[str, Any]:
     odf.to_csv(out_dir / "order_effects.csv", index=False)
 
     h4 = simulate_vs_estimate(sdf)
+    h4_path = out_dir / "followup_h4.csv"
     if len(h4):
-        h4.to_csv(out_dir / "followup_h4.csv", index=False)
+        h4.to_csv(h4_path, index=False)
+    else:
+        # No follow-up data in this run: never leave another run's table behind.
+        h4_path.unlink(missing_ok=True)
 
     n_err = int(df["error"].notna().sum()) if "error" in df.columns else 0
     cost = float(sum(float((u or {}).get("cost") or 0.0) for u in df["usage"]))

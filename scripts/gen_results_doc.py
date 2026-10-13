@@ -201,6 +201,8 @@ def main(argv: list[str]) -> int:
              "typical_human_plain", "typical_human_plain"),
         ):
             hs = h4_summary(simulate_vs_estimate(sdf, simulate=sim, estimate=est))
+            if "estimate_closer" not in hs:
+                continue  # e.g. runs that ask estimate items with no persona only
             L.append(f"\n- {label.capitalize()}: estimate closer on {hs['estimate_closer']} of "
                      f"{hs['n']}; mean error {hs['mean_error_simulate']:.3f} (simulate) vs "
                      f"{hs['mean_error_estimate']:.3f} (estimate); one-sided Wilcoxon p = "

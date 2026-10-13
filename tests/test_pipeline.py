@@ -275,3 +275,22 @@ def test_primary_run_recognises_jev_under_either_backend(tmp_path: Path) -> None
     # The native TypeSafe backend's slug has no "typesafe--" prefix.
     assert primary_run(tmp_path, live_only=True) == native
     assert primary_run(tmp_path) == native
+
+
+def test_analyse_removes_a_stale_h4_table(tmp_path: Path) -> None:
+    from jevbench.analysis import analyse_run
+    from jevbench.config import Config
+    from jevbench.runner import run_battery
+
+    out = tmp_path / "tables"
+    out.mkdir()
+    (out / "followup_h4.csv").write_text("left over from another run\n")
+    path = run_battery(
+        Config.from_env(backend="simulator"),
+        modules=["crt"],
+        replicates=1,
+        baseline_samples=0,
+        out_dir=tmp_path / "raw",
+    )
+    analyse_run(path, out)
+    assert not (out / "followup_h4.csv").exists()
