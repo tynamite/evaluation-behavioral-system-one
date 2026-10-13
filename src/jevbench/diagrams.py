@@ -2626,6 +2626,7 @@ def build_diagrams(
     out_dir: Path,
     raw_dir: Path | None = None,
 ) -> list[Path]:
+    """Build every figure. `tables_dir` must hold the analysis of `run_path`."""
     from .analysis import core_order_cells, load_records
 
     sdf = pd.read_csv(tables_dir / "statistics.csv")
@@ -2682,6 +2683,24 @@ def build_diagrams(
     return paths
 
 
+def build_diagrams_for_run(
+    run_path: Path, comparison_dir: Path, out_dir: Path, raw_dir: Path | None = None
+) -> list[Path]:
+    """Build every figure, the single-model ones from `run_path` analysed afresh.
+
+    Reading saved tables instead would let a figure show another run's numbers
+    whenever `--run` names a different run, or the tables were not rebuilt.
+    """
+    import tempfile
+
+    from .analysis import analyse_run
+
+    with tempfile.TemporaryDirectory(prefix="jevbench-diagrams-") as tmp:
+        tables = Path(tmp)
+        analyse_run(run_path, tables)
+        return build_diagrams(run_path, tables, comparison_dir, out_dir, raw_dir)
+
+
 def export_pngs(html_paths: list[Path], out_dir: Path, scale: int = 2) -> list[Path]:
     """Render each page's diagram, with its title and source line, to PNG."""
     from playwright.sync_api import sync_playwright
@@ -2709,7 +2728,7 @@ def main(argv: Any = None) -> int:
     import argparse
 
     from .analysis import primary_run
-    from .config import RAW_DIR, REPO_ROOT, TABLES_DIR
+    from .config import RAW_DIR, REPO_ROOT
 
     ap = argparse.ArgumentParser(description="build the editorial figures")
     ap.add_argument("--run", default=None, help="the Jev run (default: the newest run with Jev)")
@@ -2720,7 +2739,7 @@ def main(argv: Any = None) -> int:
         print(f"No live run with Jev in {RAW_DIR}.", file=sys.stderr)
         return 1
     html_dir = REPO_ROOT / "docs" / "diagrams"
-    paths = build_diagrams(run, TABLES_DIR, REPO_ROOT / "results" / "comparison", html_dir)
+    paths = build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", html_dir)
     for p in paths:
         print(f"wrote {p.relative_to(REPO_ROOT)}")
     if not args.no_png:

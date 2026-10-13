@@ -299,3 +299,21 @@ def test_h4_chart_never_prints_a_zero_p_value() -> None:
     )
     sub = fig_h4(h4).subtitle
     assert "p < 0.001" in sub and "0.000" not in sub
+
+
+def test_figures_follow_the_run_they_are_built_from(tmp_path: Path) -> None:
+    """A run without the follow-up items draws no H4 chart, whatever the saved tables say."""
+    import json
+
+    from jevbench.diagrams import build_diagrams_for_run
+    from jevbench.instruments import all_probes
+
+    followup = {p.probe_id for p in all_probes(["followup"])}
+    run = tmp_path / "run_live_20261013T000000Z_typesafe--jev-1.13.jsonl"
+    with COMMITTED_RUN.open() as src, run.open("w") as dst:
+        for line in src:
+            if line.strip() and json.loads(line)["probe_id"] not in followup:
+                dst.write(line)
+    paths = build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", tmp_path / "out")
+    assert len(paths) == 15
+    assert not (tmp_path / "out" / "followup-h4.html").exists()
