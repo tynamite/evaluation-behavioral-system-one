@@ -2046,14 +2046,125 @@ def y_end(n: int) -> int:
     return 96 + (n - 1) * 52 + 66 + 48
 
 
+def _model_shift_grid(
+    rows: list[tuple[str, str, float, dict[str, tuple[float, float]]]],
+    axis_title: str,
+) -> str:
+    """Small multiples: one column per model, one row per test.
+
+    Each cell is that model's own move, a line from its value with no
+    instruction (hollow) to its value under the prompt (filled), over a tick
+    for people. Read down a column for one model, across a row for one test;
+    no line ever has to be matched between panels.
+    """
+    n = len(rows)
+    pitch, y0 = 52, 96
+    w, gap, x_start = 128, 46, 320
+    last = y0 + (n - 1) * pitch
+    out: list[str] = []
+    for c, (model, colour) in enumerate(MAIN_MODELS):
+        a = x_start + c * (w + gap)
+        shape = MAIN_SHAPES[model]
+        name = SHORT[model]
+        out.append(_mark(shape, a + 5, 48, 4.5, _model_style(model, colour)))
+        out.append(_t(a + 16, 52, name, size=11, family=SANS, fill=INK, weight=600))
+        for t in (0.0, 0.5, 1.0):
+            x = a + t * w
+            out.append(
+                f'<line x1="{x:g}" y1="68" x2="{x:g}" y2="{last + 22}" stroke="{ink(0.25 if t == 0 else 0.08)}" stroke-width="{1 if t == 0 else 0.8}"/>'
+            )
+            out.append(
+                _t(
+                    x,
+                    last + 38,
+                    f"{t:.1f}",
+                    anchor="middle",
+                    extra=f' data-tick="x" data-value="{t:g}"',
+                )
+            )
+        for k, (_name, _sub, human, vals) in enumerate(rows):
+            y = y0 + k * pitch
+            before, after = vals[model]
+            xh, xb, xa = a + human * w, a + before * w, a + after * w
+            out.append(
+                f'<line data-series="people" data-value="{human:.4f}" x1="{xh:.1f}" y1="{y - 13}" x2="{xh:.1f}" y2="{y + 13}" stroke="{MUTED}" stroke-width="2"/>'
+            )
+            # The line stops short of the filled mark so it never shows through it.
+            if abs(xa - xb) > 9:
+                step = 7 if xa > xb else -7
+                out.append(
+                    f'<line x1="{xb:.1f}" y1="{y}" x2="{xa - step:.1f}" y2="{y}" stroke="{colour if colour != JEV_PINK else JEV_PINK_EDGE}" stroke-width="1.5"/>'
+                )
+            out.append(
+                _mark(
+                    shape,
+                    xb,
+                    y,
+                    4,
+                    f'data-series="{esc(name)}" data-panel="neutral" data-value="{before:.4f}" '
+                    f'fill="{PAPER}" stroke="{colour if colour != JEV_PINK else JEV_PINK_EDGE}" stroke-width="1.5"',
+                    title=f"{name} · no instruction · {before:.2f} (people {human:.2f})",
+                )
+            )
+            out.append(
+                _mark(
+                    shape,
+                    xa,
+                    y,
+                    4.5,
+                    f'data-series="{esc(name)}" data-panel="antisocial" data-value="{after:.4f}" '
+                    + _model_style(model, colour),
+                    title=f"{name} · antisocial persona · {after:.2f} (people {human:.2f})",
+                )
+            )
+    for k, (name, sub, _h, _v) in enumerate(rows):
+        y = y0 + k * pitch
+        out.append(_t(296, y - 1, name, size=11, fill=INK, family=SANS, anchor="end", weight=600))
+        out.append(_t(296, y + 12, sub, size=9, fill=MUTED, family=SANS, anchor="end"))
+    right = x_start + 3 * (w + gap) + w
+    out.append(
+        _t((x_start + right) / 2, last + 54, axis_title, size=7, anchor="middle", spacing="0.14em")
+    )
+    ly = last + 66
+    out.append(_legend(1000, ly, []))
+    out.append(
+        f'<line x1="104" y1="{ly + 24}" x2="104" y2="{ly + 38}" stroke="{MUTED}" stroke-width="2"/>'
+    )
+    x = 116
+    out.append(_t(x, ly + 35, "Published human result", size=9, family=SANS, fill=INK))
+    x += text_width("Published human result", 9) + 40
+    out.append(
+        f'<circle cx="{x}" cy="{ly + 31}" r="4" fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"/>'
+    )
+    out.append(_t(x + 10, ly + 35, "No instruction", size=9, family=SANS, fill=INK))
+    x += 10 + text_width("No instruction", 9) + 40
+    out.append(
+        f'<circle cx="{x}" cy="{ly + 31}" r="4.5" fill="{MUTED}" stroke="{MUTED}" stroke-width="1"/>'
+    )
+    out.append(
+        _t(
+            x + 10,
+            ly + 35,
+            "Antisocial persona, where the line ends",
+            size=9,
+            family=SANS,
+            fill=INK,
+        )
+    )
+    out.append(_t(970, ly + 35, "ONE COLUMN PER MODEL", anchor="end"))
+    return "\n".join(out)
+
+
 def fig_models_antisocial(cdf: pd.DataFrame) -> Figure:
-    panels = [("neutral", "NO INSTRUCTION"), ("antisocial", "ANTISOCIAL PERSONA")]
     rows = [
         (
             name,
             sub,
             BENCHMARKS[b].value,
-            {p: {m: _mstat(cdf, i, s, p, m) for m, _c in MAIN_MODELS} for p, _h in panels},
+            {
+                m: (_mstat(cdf, i, s, "neutral", m), _mstat(cdf, i, s, "antisocial", m))
+                for m, _c in MAIN_MODELS
+            },
         )
         for i, s, b, name, sub in GAME_MEASURES
     ]
@@ -2065,19 +2176,21 @@ def fig_models_antisocial(cdf: pd.DataFrame) -> Figure:
     return Figure(
         slug="models-antisocial",
         eyebrow="Economic games · antisocial persona · four models",
-        title="Four System One models in five economic games: no instruction vs. an antisocial persona",
+        title="What an antisocial persona does to four System One models\u2019 choices in economic games",
         subtitle=(
-            f"Right, the same games with this instruction added first: \u201c{_prompt('antisocial')}\u201d "
-            f"As a check that the persona took hold, the Dark Triad score out of 9 rose: {dd}."
+            f"Each line runs from a model's choice with no instruction (hollow) to its choice (filled) with this instruction "
+            f"added first: \u201c{_prompt('antisocial')}\u201d As a check that the persona took hold, the Dark "
+            f"Triad score out of 9 rose: {dd}."
         ),
-        desc="Dot chart of seven economic-game measures for four System One models, with no instruction and with "
-        "an antisocial persona, against the published human result.",
+        desc="Small multiples, one column per System One model and one row per economic-game measure, each an "
+        "line from the model's value with no instruction to its value with an antisocial persona, over the "
+        "published human result.",
         width=1000,
         height=y_end(len(rows)),
-        body=_model_dots(rows, panels, "SHARE OF ANSWERS, OR SHARE OF THE MONEY"),
-        source="Mean of returned distributions over 10 repeats; all models run 12–13 Oct 2026. "
-        "The tick is people with no persona, for scale. A persona is a prompt: it shows what a model can be "
-        "made to output, not a trait it has.",
+        body=_model_shift_grid(rows, "SHARE OF ANSWERS, OR SHARE OF THE MONEY"),
+        source="Mean of returned distributions over 10 repeats; all models run 12\u201313 Oct 2026. The tick is "
+        "people with no persona, for scale. A persona is a prompt: it shows what a model can be made to output, "
+        "not a trait it has.",
     )
 
 
