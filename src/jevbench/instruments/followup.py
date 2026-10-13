@@ -9,11 +9,12 @@ two amendments. Eight items in total, from two sources (Section 4.2 vs. 4.3):
   which specifies exactly which study, condition and dependent variable ML2
   itself replicated — the numbers are the original authors' own, quoted from
   that document, not paraphrased from a secondary source.
-- Three items (knobe, trolley, false_consensus) are Section 4.2: ML2 didn't
-  replicate them, so they're sourced from the original papers directly
-  instead, cross-checked against secondary sources rather than the papers'
-  own PDFs (not accessible here) — see each function's docstring for exactly
-  what that means for its wording.
+- Three items (knobe, trolley, false_consensus) are Section 4.2, sourced from
+  the original papers directly rather than from ML2's protocol (Amendment 3
+  later found that ML2 did replicate knobe and trolley; see `ml2_effects.py`),
+  cross-checked against secondary sources rather than the papers' own PDFs
+  (not accessible here) — see each function's docstring for exactly what that
+  means for its wording.
 
 Every item is built three ways:
 

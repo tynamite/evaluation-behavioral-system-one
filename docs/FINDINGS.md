@@ -130,9 +130,9 @@ experiment does not test that.
 ### 5. Asking it about people works slightly better than asking it to be one
 
 A follow-up study, preregistered separately, measured 23 statistics two ways
-(9 from effects in the Many Labs 2 replication project, 6 from three effects
-taken from their original papers, and 8 from six classic items reused from the
-first study): as the item itself, with the typical-person instruction
+(9 sourced from the Many Labs 2 replication project's protocol, 6 sourced from
+the original papers, and 8 from six classic items reused from the first
+study): as the item itself, with the typical-person instruction
 ("simulate"), and as a question about the population with no persona — "what
 proportion of participants chose…", or what rating they gave on average
 ("estimate"). Each was
