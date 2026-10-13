@@ -317,3 +317,18 @@ def test_figures_follow_the_run_they_are_built_from(tmp_path: Path) -> None:
     paths = build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", tmp_path / "out")
     assert len(paths) == 15
     assert not (tmp_path / "out" / "followup-h4.html").exists()
+
+
+def test_diagrams_refuse_a_run_their_labels_would_misdescribe(tmp_path: Path) -> None:
+    import json
+
+    from jevbench.diagrams import build_diagrams_for_run
+
+    run = tmp_path / "run_live_20261013T000000Z_typesafe--jev-1.13.jsonl"
+    with COMMITTED_RUN.open() as src, run.open("w") as dst:
+        for line in src:
+            r = json.loads(line)
+            if r["replicate"] < 3:  # a default three-replicate run
+                dst.write(line)
+    with pytest.raises(ValueError, match="3 replicates"):
+        build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", tmp_path / "out")

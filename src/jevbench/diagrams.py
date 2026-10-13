@@ -2683,6 +2683,33 @@ def build_diagrams(
     return paths
 
 
+# The editorial figures name the run they show in their titles and source
+# lines; a run must match these to be drawn by them.
+EDITORIAL_MODEL = "typesafe/jev-1.13-20260917"
+EDITORIAL_REPLICATES = 10
+EDITORIAL_DATES = frozenset({"2026-10-12", "2026-10-13"})
+
+
+def check_editorial_run(df: pd.DataFrame) -> None:
+    """Refuse a run the figures' fixed labels would misdescribe."""
+    jev = df[df["arm"] == "jev"]
+    problems = []
+    models = sorted(set(jev["model"].dropna()))
+    if models != [EDITORIAL_MODEL]:
+        problems.append(f"model {', '.join(models) or 'none'} (labelled {EDITORIAL_MODEL})")
+    reps = int(jev["replicate"].max()) + 1 if len(jev) else 0
+    if reps != EDITORIAL_REPLICATES:
+        problems.append(f"{reps} replicates (labelled {EDITORIAL_REPLICATES})")
+    dates = set(jev["timestamp"].dropna().astype(str).str[:10]) if "timestamp" in jev else set()
+    if not dates or not dates <= EDITORIAL_DATES:
+        problems.append(f"dates {', '.join(sorted(dates)) or 'none'} (labelled 12-13 Oct 2026)")
+    if problems:
+        raise ValueError(
+            "the editorial figures are labelled for the committed run and would misdescribe "
+            "this one: " + "; ".join(problems) + ". Use `jevbench figures` for other runs."
+        )
+
+
 def build_diagrams_for_run(
     run_path: Path, comparison_dir: Path, out_dir: Path, raw_dir: Path | None = None
 ) -> list[Path]:
@@ -2693,8 +2720,9 @@ def build_diagrams_for_run(
     """
     import tempfile
 
-    from .analysis import analyse_run
+    from .analysis import analyse_run, load_records
 
+    check_editorial_run(load_records(run_path))
     with tempfile.TemporaryDirectory(prefix="jevbench-diagrams-") as tmp:
         tables = Path(tmp)
         analyse_run(run_path, tables)
@@ -2739,7 +2767,11 @@ def main(argv: Any = None) -> int:
         print(f"No live run with Jev in {RAW_DIR}.", file=sys.stderr)
         return 1
     html_dir = REPO_ROOT / "docs" / "diagrams"
-    paths = build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", html_dir)
+    try:
+        paths = build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", html_dir)
+    except ValueError as e:
+        print(f"{run.name}: {e}", file=sys.stderr)
+        return 1
     for p in paths:
         print(f"wrote {p.relative_to(REPO_ROOT)}")
     if not args.no_png:
