@@ -42,11 +42,11 @@
   <div class="frame">
     <p class="eyebrow">Method</p>
     <h1>How each test item is run and scored</h1>
-    <p class="subtitle">Each item is asked under four prompts: no instruction, ‘answer like a typical person’, ‘answer like a rational agent’ and an antisocial persona. Each model is asked every item ten times under each prompt. A System One model returns a probability for every possible answer on each call, and the ten distributions are averaged. A chat model returns one answer per call as text, which is read for the option it names, and the ten answers are counted. Either way the result is one distribution per item and prompt, compared with the published human result for that test.</p>
+    <p class="subtitle">Each item is asked under five prompts: no instruction, ‘answer like a typical person’ with and without ‘not the textbook-correct answer’, ‘answer like a rational agent’ and an antisocial persona. Each model is asked every item ten times under each prompt. A System One model returns a probability for every possible answer on each call, and the ten distributions are averaged. A chat model returns one answer per call as text, which is read for the option it names, and the ten answers are counted. Either way the result is one distribution per item and prompt, compared with the published human result for that test.</p>
     <div class="diagram-container">
       <svg viewBox="0 29 960 631" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="how-it-works-title how-it-works-desc">
         <title id="how-it-works-title">How each test item is run and scored</title>
-        <desc id="how-it-works-desc">Process diagram: a battery item is framed four ways, asked ten times of either a System One model or a chat model, whose text replies are read for an option key with unreadable ones dropped and counted, reduced to one distribution per cell, and compared with a published human rate.</desc>
+        <desc id="how-it-works-desc">Process diagram: a battery item is framed five ways, asked ten times of either a System One model or a chat model, whose text replies are read for an option key with unreadable ones dropped and counted, reduced to one distribution per cell, and compared with a published human rate.</desc>
         <defs>
           <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
           <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#157a6e"/></marker>
@@ -70,7 +70,7 @@
 <rect x="212" y="168" width="160" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
 <rect x="220" y="174" width="40" height="12" rx="2" fill="transparent" stroke="rgba(45,49,66,0.4)" stroke-width="0.8"/>
 <text x="240" y="183" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">PROMPT</text>
-<text x="292" y="208" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="middle" font-weight="600">Four prompts</text>
+<text x="292" y="208" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="middle" font-weight="600">Five prompts</text>
 <text x="292" y="224" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">listed above</text>
 <rect x="400" y="72" width="160" height="64" rx="6" fill="#f5f5f5"/>
 <rect x="400" y="72" width="160" height="64" rx="6" fill="rgba(21,122,110,0.08)" stroke="#157a6e" stroke-width="1"/>
@@ -102,8 +102,8 @@
 <text x="800" y="343" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">DATA</text>
 <text x="856" y="368" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="middle" font-weight="600">Human result</text>
 <text x="856" y="384" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">published study</text>
-<text x="480" y="56" fill="#2d3142" font-size="15" font-family="'Instrument Serif', serif" text-anchor="middle" font-style="italic">distributions averaged: $0.09 for the run</text>
-<text x="480" y="354" fill="#2d3142" font-size="15" font-family="'Instrument Serif', serif" text-anchor="middle" font-style="italic">answers counted: $2.74 for the same run</text>
+<text x="480" y="56" fill="#2d3142" font-size="15" font-family="'Instrument Serif', serif" text-anchor="middle" font-style="italic">distributions averaged: $0.14 for the run</text>
+<text x="480" y="354" fill="#2d3142" font-size="15" font-family="'Instrument Serif', serif" text-anchor="middle" font-style="italic">answers counted: $8.84 for the same run</text>
 <rect x="16" y="384" width="740" height="160" rx="8" fill="rgba(45,49,66,0.02)" stroke="rgba(45,49,66,0.18)" stroke-width="0.8" stroke-dasharray="4,3"/>
 <text x="28" y="402" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" letter-spacing="0.14em">CHAT MODEL PATH IN DETAIL: HOW A REPLY BECOMES AN ANSWER</text>
 <rect x="24" y="414" width="160" height="64" rx="6" fill="#f5f5f5"/>
@@ -118,14 +118,14 @@
 <rect x="220" y="420" width="28" height="12" rx="2" fill="transparent" stroke="rgba(45,49,66,0.4)" stroke-width="0.8"/>
 <text x="234" y="429" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">CAP</text>
 <text x="292" y="454" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="middle" font-weight="600">Room to reason</text>
-<text x="292" y="470" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">512 tokens; Haiku 4,096</text>
+<text x="292" y="470" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">up to 4,096 tokens</text>
 <line x1="372" y1="446" x2="400" y2="446" stroke="#4f5d75" stroke-width="1" marker-end="url(#arrow)"/>
 <rect x="400" y="414" width="160" height="64" rx="6" fill="#f5f5f5"/>
 <rect x="400" y="414" width="160" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
 <rect x="408" y="420" width="36" height="12" rx="2" fill="transparent" stroke="rgba(45,49,66,0.4)" stroke-width="0.8"/>
 <text x="426" y="429" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">PARSE</text>
 <text x="480" y="454" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="middle" font-weight="600">Reply read</text>
-<text x="480" y="470" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">exact key in 94–99%</text>
+<text x="480" y="470" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">exact key in 91–99%</text>
 <line x1="560" y1="446" x2="588" y2="446" stroke="#4f5d75" stroke-width="1" marker-end="url(#arrow)"/>
 <rect x="588" y="414" width="160" height="64" rx="6" fill="#f5f5f5"/>
 <rect x="588" y="414" width="160" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
@@ -134,7 +134,7 @@
 <text x="668" y="454" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="middle" font-weight="600">Unreadable: dropped</text>
 <text x="668" y="470" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">counted, not guessed</text>
 <text x="28" y="500" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="start">Not exactly a key? The last option the reply names counts, and a leading key wins: “$1: Offer $1, keep $9” is $1.</text>
-<text x="28" y="515" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="start">Unreadable (empty, cut off, no option named): Claude Sonnet 5, 9 of 4,680 replies; Claude Haiku 5.5, 3 of 5,440.</text>
+<text x="28" y="515" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="start">Unreadable (empty, cut off, no option named): Claude Sonnet 5.5, 9 of 6,800 replies; Claude Haiku 5.5, 16 of 6,800.</text>
 <text x="28" y="530" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="start">The 11 items asking what proportion of people said yes get no chat score: ten true/false replies are a vote.</text>
 <line x1="30" y1="576" x2="930" y2="576" stroke="rgba(45,49,66,0.1)" stroke-width="0.8"/>
 <text x="30" y="592" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" letter-spacing="0.14em">LEGEND</text>
@@ -148,7 +148,7 @@
 <text x="524" y="615" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">External data</text>
       </svg>
     </div>
-    <p class="source">Costs are for the same 4,680 questions on 18 Sep 2026 (117 items × 4 prompts × 10): Jev 1.13 $0.09, Claude Sonnet 5 $2.74. The battery has 147 items since 30 follow-up items were added.</p>
+    <p class="source">Costs are for the same 7,350 questions on 12–13 Oct 2026 (147 items × 5 prompts × 10): Jev 1.13 $0.14, Claude Sonnet 5.5 $8.84.</p>
     <p class="mark" aria-hidden="true">github.com/tynamite</p>
   </div>
 </body>

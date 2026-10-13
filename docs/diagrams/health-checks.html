@@ -40,7 +40,7 @@
 </head>
 <body>
   <div class="frame">
-    <p class="eyebrow">Data quality · 12 Oct multi-model run</p>
+    <p class="eyebrow">Data quality · all models</p>
     <h1>Three problems found by the per-model error checks, and what was done</h1>
     <p class="subtitle">For each model the comparison counts errors, refusals, replies that could not be matched to an answer, and items left with no usable answer (results/comparison/health.csv). A reply that arrives but cannot be used is not a network error, so nothing would flag it without these counts. Two of the three problems were bugs in this repository.</p>
     <div class="diagram-container">
@@ -64,8 +64,8 @@
 <text x="656" y="44" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" letter-spacing="0.14em">WHAT CHANGED</text>
 <rect x="24" y="64" width="280" height="64" rx="6" fill="#f5f5f5"/>
 <rect x="24" y="64" width="280" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
-<text x="164" y="100" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="middle" font-weight="600">GPT-6 Luna refused 4%</text>
-<text x="164" y="116" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">240 calls → HTTP 502</text>
+<text x="164" y="100" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="middle" font-weight="600">GPT-6 Luna refused 3%</text>
+<text x="164" y="116" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">250 calls → HTTP 502</text>
 <rect x="340" y="64" width="280" height="64" rx="6" fill="#f5f5f5"/>
 <rect x="340" y="64" width="280" height="64" rx="6" fill="rgba(45,49,66,0.03)" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
 <text x="480" y="100" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="middle" font-weight="600">Refusals reported as a 502</text>
@@ -77,7 +77,7 @@
 <rect x="24" y="164" width="280" height="64" rx="6" fill="#f5f5f5"/>
 <rect x="24" y="164" width="280" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
 <text x="164" y="200" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="middle" font-weight="600">Both Solar models lost an item</text>
-<text x="164" y="216" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">p-beauty contest, 40 calls</text>
+<text x="164" y="216" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">p-beauty contest, 50 calls</text>
 <rect x="340" y="164" width="280" height="64" rx="6" fill="#f5f5f5"/>
 <rect x="340" y="164" width="280" height="64" rx="6" fill="rgba(45,49,66,0.03)" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
 <text x="480" y="200" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="middle" font-weight="600">Route caps Choice at 26</text>
@@ -89,7 +89,7 @@
 <rect x="24" y="264" width="280" height="64" rx="6" fill="#f5f5f5"/>
 <rect x="24" y="264" width="280" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
 <text x="164" y="300" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="middle" font-weight="600">Haiku 5.5 replied with nothing</text>
-<text x="164" y="316" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">183 calls in a discarded run</text>
+<text x="164" y="316" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">183 calls in an early run</text>
 <rect x="340" y="264" width="280" height="64" rx="6" fill="#f5f5f5"/>
 <rect x="340" y="264" width="280" height="64" rx="6" fill="rgba(45,49,66,0.03)" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
 <text x="480" y="300" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="middle" font-weight="600">Reasoning used the cap</text>
@@ -97,7 +97,7 @@
 <rect x="656" y="264" width="280" height="64" rx="6" fill="#f5f5f5"/>
 <rect x="656" y="264" width="280" height="64" rx="6" fill="rgba(21,122,110,0.08)" stroke="#157a6e" stroke-width="1"/>
 <text x="796" y="300" fill="#2d3142" font-size="12" font-family="'Geist', system-ui, sans-serif" text-anchor="middle" font-weight="600">Cap raised and recorded</text>
-<text x="796" y="316" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">4,096 → 3 unresolved</text>
+<text x="796" y="316" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">4,096 → 16 unresolved</text>
 <line x1="30" y1="372" x2="930" y2="372" stroke="rgba(45,49,66,0.1)" stroke-width="0.8"/>
 <text x="30" y="388" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" letter-spacing="0.14em">LEGEND</text>
 <rect x="104" y="402" width="16" height="10" rx="2" fill="rgba(21,122,110,0.08)" stroke="#157a6e" stroke-width="1"/>
@@ -108,7 +108,7 @@
 <text x="460" y="411" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">Cause outside the repository&#x27;s control</text>
       </svg>
     </div>
-    <p class="source">results/comparison/health.csv. The truncated Haiku run was discarded and re-run, not mixed in.</p>
+    <p class="source">results/comparison/health.csv, runs of 12–13 Oct 2026. The truncated Haiku run was discarded, not mixed in.</p>
     <p class="mark" aria-hidden="true">github.com/tynamite</p>
   </div>
 </body>

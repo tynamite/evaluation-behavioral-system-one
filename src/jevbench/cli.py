@@ -220,7 +220,9 @@ def main(argv: list[str] | None = None) -> int:
     r.set_defaults(func=_cmd_run)
 
     a = sub.add_parser("analyse", help="compute statistics and write tables")
-    a.add_argument("--run", default=None, help="path to a run .jsonl (default: the newest run with Jev)")
+    a.add_argument(
+        "--run", default=None, help="path to a run .jsonl (default: the newest run with Jev)"
+    )
     a.add_argument("--out", default=None, help=f"output directory (default: {TABLES_DIR.name}/)")
     a.set_defaults(func=_cmd_analyse)
 

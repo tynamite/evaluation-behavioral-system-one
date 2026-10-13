@@ -463,7 +463,7 @@ DECISION_MEASURES = [
         "prob_continue",
         "sunk_cost_continue",
         "Sunk cost",
-        "$9m spent, product now sure to lose · carries on",
+        "Radar-blank plane 90% built, rival's is better · finishes it",
     ),
 ]
 
@@ -555,7 +555,7 @@ def fig_jev_vs_people(sdf: pd.DataFrame, which: str, persona: str) -> Figure:
     if as_person:
         title = "Jev 1.13 vs. published human results, told to answer like a typical person"
         subtitle = (
-            f"The same {tests} as the no-instruction chart, with this sentence added before each: "
+            f"The same {tests} as the no-instruction chart, with this instruction added before each: "
             f"\u201c{_prompt('typical_human')}\u201d"
         )
     elif which == "decisions":
@@ -593,35 +593,65 @@ def fig_jev_vs_people(sdf: pd.DataFrame, which: str, persona: str) -> Figure:
         width=1000,
         height=510,
         body=body,
-        source="Jev: mean of the probability distributions returned over 10 repeats, run of 18 Sep 2026. "
+        source="Jev: mean of the probability distributions returned over 10 repeats, run of 12–13 Oct 2026. "
         "Human results: published studies or meta-analyses, listed in docs/BENCHMARKS.md; different people, "
         "decades and stakes, so a gap of a few points is not meaningful. The base-rate human figure counts "
         "Bayesian answers, a looser match to the band.",
     )
 
 
-def fig_jev_decisions(sdf: pd.DataFrame) -> Figure:
-    """Three series per row: people, Jev with no instruction, Jev told to answer like a person.
+# A Jev condition as the dot chart draws it: persona, legend label, column head
+# and the circle's style. The plain typical-person prompt is a hollow ring in
+# the steered prompt's colour: the same instruction, minus one clause.
+SERIES = {"neutral": "neutral", "typical_human": "typical", "typical_human_plain": "plain"}
+NO_INSTRUCTION = (
+    "neutral",
+    "Jev 1.13, no instruction",
+    "NO INSTR.",
+    f'fill="{JEV_PINK}" stroke="{INK}" stroke-width="1"',
+)
+AS_PERSON = (
+    "typical_human",
+    "Jev 1.13, told to answer like a typical person",
+    "AS PERSON",
+    f'fill="{JEV_PROMPT}" stroke="{INK}" stroke-width="1"',
+)
+AS_PERSON_PLAIN = (
+    "typical_human_plain",
+    "Jev 1.13, same without \u2018not the textbook-correct answer\u2019",
+    "NO STEER",
+    f'fill="{PAPER}" stroke="{JEV_PROMPT}" stroke-width="2"',
+)
+
+
+def fig_jev_decisions(
+    sdf: pd.DataFrame,
+    first: tuple[str, str, str, str] = NO_INSTRUCTION,
+    second: tuple[str, str, str, str] = AS_PERSON,
+) -> Figure:
+    """Three series per row: people and two Jev conditions.
 
     The dumbbell takes two series, so this is its dot-plot sibling: one hairline
-    spanning the three values, a hollow dot for people and two solid colours for
-    the two Jev conditions, and the numbers in a table column at the right
-    rather than beside the dots, where three labels per row would collide.
+    spanning the three values, a tick for people and a dot for each Jev
+    condition, and the numbers in a table column at the right rather than
+    beside the dots, where three labels per row would collide. By default the
+    two conditions are no instruction and the typical-person prompt; the steer
+    figure compares the typical-person prompt with and without its steer.
     """
     rows = [
         (
             name,
             sub,
             BENCHMARKS[b].value,
-            _stat(sdf, i, s, "neutral"),
-            _stat(sdf, i, s, "typical_human"),
+            _stat(sdf, i, s, first[0]),
+            _stat(sdf, i, s, second[0]),
         )
         for i, s, b, name, sub in DECISION_MEASURES
     ]
     n = len(rows)
     pitch, y0 = ROW_LAYOUT[n]
     L, R = 300, 820
-    cols = [(874, "PEOPLE"), (922, "NO INSTR."), (970, "AS PERSON")]
+    cols = [(874, "PEOPLE"), (922, first[2]), (970, second[2])]
 
     def px(v: float) -> float:
         return L + v * (R - L)
@@ -653,12 +683,8 @@ def fig_jev_decisions(sdf: pd.DataFrame) -> Figure:
     out.append(
         f'<line x1="{cols[0][0] - 8}" y1="{hy - 7}" x2="{cols[0][0] - 8}" y2="{hy + 7}" stroke="{MUTED}" stroke-width="2"/>'
     )
-    out.append(
-        f'<circle cx="{cols[1][0] - 8}" cy="{hy}" r="5" fill="{JEV_PINK}" stroke="{INK}" stroke-width="1"/>'
-    )
-    out.append(
-        f'<circle cx="{cols[2][0] - 8}" cy="{hy}" r="5" fill="{JEV_PROMPT}" stroke="{INK}" stroke-width="1"/>'
-    )
+    out.append(f'<circle cx="{cols[1][0] - 8}" cy="{hy}" r="5" {first[3]}/>')
+    out.append(f'<circle cx="{cols[2][0] - 8}" cy="{hy}" r="5" {second[3]}/>')
     for k, (name, sub, h, neu, typ) in enumerate(rows):
         y = y0 + k * pitch
         xh, xn, xt = px(h), px(neu), px(typ)
@@ -673,10 +699,10 @@ def fig_jev_decisions(sdf: pd.DataFrame) -> Figure:
             f'<line data-series="people" data-value="{h:.4f}" x1="{xh:.1f}" y1="{y - 14}" x2="{xh:.1f}" y2="{y + 14}" stroke="{MUTED}" stroke-width="2"/>'
         )
         out.append(
-            f'<circle data-series="neutral" data-value="{neu:.4f}" cx="{xn:.1f}" cy="{y - 7}" r="5" fill="{JEV_PINK}" stroke="{INK}" stroke-width="1"/>'
+            f'<circle data-series="{SERIES[first[0]]}" data-value="{neu:.4f}" cx="{xn:.1f}" cy="{y - 7}" r="5" {first[3]}/>'
         )
         out.append(
-            f'<circle data-series="typical" data-value="{typ:.4f}" cx="{xt:.1f}" cy="{y + 7}" r="5" fill="{JEV_PROMPT}" stroke="{INK}" stroke-width="1"/>'
+            f'<circle data-series="{SERIES[second[0]]}" data-value="{typ:.4f}" cx="{xt:.1f}" cy="{y + 7}" r="5" {second[3]}/>'
         )
         for (x, _h), v in zip(cols, (h, neu, typ), strict=True):
             out.append(_t(x, y + 4, f"{v:.2f}", anchor="end", fill=INK))
@@ -687,11 +713,8 @@ def fig_jev_decisions(sdf: pd.DataFrame) -> Figure:
     out.append(_legend(1000, 462, []))
     keys = [
         ("Published human result", f'fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"'),
-        ("Jev 1.13, no instruction", f'fill="{JEV_PINK}" stroke="{INK}" stroke-width="1"'),
-        (
-            "Jev 1.13, told to answer like a typical person",
-            f'fill="{JEV_PROMPT}" stroke="{INK}" stroke-width="1"',
-        ),
+        (first[1], first[3]),
+        (second[1], second[3]),
     ]
     x = 104
     for i, (label, style) in enumerate(keys):
@@ -704,21 +727,38 @@ def fig_jev_decisions(sdf: pd.DataFrame) -> Figure:
         out.append(_t(x + 12, 497, label, size=9, family=SANS, fill=INK))
         x += int(12 + text_width(label, 9) + 36)
     out.append(_t(970, 497, "ROWS IN BATTERY ORDER", anchor="end"))
-    return Figure(
-        slug="jev-decisions",
-        eyebrow="Decision-making tests · Jev 1.13",
-        title="Jev 1.13 vs. published human results on seven decision-making tests",
-        subtitle=(
+    if first[0] == "neutral":
+        slug = "jev-decisions"
+        eyebrow = "Decision-making tests · Jev 1.13"
+        title = "Jev 1.13 vs. published human results on seven decision-making tests"
+        subtitle = (
             "Classic problems from behavioural economics, each asked two ways: with no instruction, and with this "
-            f"sentence added first: \u201c{_prompt('typical_human')}\u201d Each row says what was asked and which "
-            "answer is counted; some rows count the correct answer, others the typical human error. Jev's value is "
-            "the probability it puts on that answer."
-        ),
-        desc="Dot chart of seven decision-making tests comparing the published human result with Jev 1.13 asked with no instruction and told to answer like a typical person.",
+            f"instruction added first: \u201c{_prompt('typical_human')}\u201d Each row says what was asked and "
+            "which answer is counted; some rows count the correct answer, others the typical human error. Jev's "
+            "value is the probability it puts on that answer."
+        )
+        desc = "Dot chart of seven decision-making tests comparing the published human result with Jev 1.13 asked with no instruction and told to answer like a typical person."
+    else:
+        slug = "jev-steer"
+        eyebrow = "Decision-making tests · Jev 1.13 · the steer"
+        title = "How much of the move toward people comes from \u2018not the textbook-correct answer\u2019"
+        subtitle = (
+            "The typical-person instruction asks for a typical answer and also says \u201cnot the "
+            "textbook-correct answer\u201d. The plain version drops that clause: \u201c"
+            f"{_prompt('typical_human_plain')}\u201d Where the two dots differ, the clause, not the model's "
+            "picture of people, did part of the work."
+        )
+        desc = "Dot chart of seven decision-making tests comparing the published human result with Jev 1.13 under the typical-person instruction with and without the clause steering away from the textbook-correct answer."
+    return Figure(
+        slug=slug,
+        eyebrow=eyebrow,
+        title=title,
+        subtitle=subtitle,
+        desc=desc,
         width=1000,
         height=510,
         body="\n".join(out),
-        source="Jev: mean of the probability distributions returned over 10 repeats, run of 18 Sep 2026. "
+        source="Jev: mean of the probability distributions returned over 10 repeats, run of 12–13 Oct 2026. "
         "Human results: published studies or meta-analyses, listed in docs/BENCHMARKS.md; different people, "
         "decades and stakes, so a gap of a few points is not meaningful. The base-rate human figure counts "
         "Bayesian answers, a looser match to the band.",
@@ -748,7 +788,7 @@ def fig_antisocial(sdf: pd.DataFrame) -> Figure:
         eyebrow="Economic games · antisocial persona",
         title="Jev 1.13 in five economic games: no instruction vs. an antisocial persona",
         subtitle=(
-            f"The same games, with this sentence added before each: \u201c{_prompt('antisocial')}\u201d "
+            f"The same games, with this instruction added before each: \u201c{_prompt('antisocial')}\u201d "
             f"As a check that the persona took hold, Jev's score on the Dark Triad questionnaire rose from "
             f"{dt_n:.1f} to {dt_a:.1f} out of 9."
         ),
@@ -756,7 +796,7 @@ def fig_antisocial(sdf: pd.DataFrame) -> Figure:
         width=1000,
         height=510,
         body=body,
-        source="Mean of returned distributions over 10 repeats, run of 18 Sep 2026. The persona is a prompt: it shows "
+        source="Mean of returned distributions over 10 repeats, run of 12–13 Oct 2026. The persona is a prompt: it shows "
         "what the model can be made to output, not a trait it has.",
     )
 
@@ -893,15 +933,16 @@ def fig_dictator(df: pd.DataFrame) -> Figure:
         subtitle=(
             "The game: you are given $10 and decide how much to give an anonymous stranger, who cannot respond. "
             "People mostly give nothing (36%) or half (17%), and 5% give it all. Jev returns a probability for "
-            "every amount in a single call: it puts 62% on nothing and 18% on half, and almost none on giving "
-            "everything. A chat model would have to be asked many times to estimate a shape like this."
+            f"every amount in a single call: it puts {jev[0]:.0%} on nothing and {jev[5]:.0%} on half, and "
+            f"{jev[10]:.0%} on giving everything. A chat model would have to be asked many times to estimate a "
+            "shape like this."
         ),
         desc="Grouped bar chart comparing the distribution of amounts people give in the dictator game with the probabilities Jev 1.13 returns for each amount from zero to ten dollars.",
         width=1000,
         height=540,
         body="\n".join(out),
         source=f"People: {DICTATOR_HUMAN_SOURCE}, bars read from the figure's labels. Jev: mean of 10 returned "
-        "distributions, no instruction, run of 18 Sep 2026.",
+        "distributions, no instruction, run of 12–13 Oct 2026.",
     )
 
 
@@ -990,7 +1031,7 @@ def fig_order_effects(odf: pd.DataFrame) -> Figure:
     out.append(_t(x2 + 24, 505, k2, size=9, family=SANS, fill=INK))
     return Figure(
         slug="order-effects",
-        eyebrow="Option order · all four prompts",
+        eyebrow="Option order · all five prompts",
         title="How much Jev 1.13's answers change when the order of the options is shuffled",
         subtitle=(
             "Each item was asked 10 times. For multiple-choice items the options were put in a new random order "
@@ -1002,7 +1043,7 @@ def fig_order_effects(odf: pd.DataFrame) -> Figure:
         width=1000,
         height=520,
         body="\n".join(out),
-        source="Mean distance over all pairs of the 10 repeats, per item and prompt; run of 18 Sep 2026. "
+        source="Mean distance over all pairs of the 10 repeats, per item and prompt; run of 12–13 Oct 2026. "
         "Bands are unequal: finer near zero, where most cells sit.",
     )
 
@@ -1393,8 +1434,8 @@ def fig_models_scatter(fdf: pd.DataFrame) -> Figure:
         width=1000,
         height=ly0 + 50,
         body="\n".join(out),
-        source="Axes zoomed to the data: 0.15–0.55 across, 0.05–0.35 up, not from zero. Jev and Claude Sonnet 5 "
-        "run 18 Sep 2026, all others 12 Oct 2026; 14 probability-scale measures (each 0–1), 10 replicates or samples "
+        source="Axes zoomed to the data: 0.15–0.55 across, 0.05–0.35 up, not from zero. All models run "
+        "12–13 Oct 2026; 14 probability-scale measures (each 0–1), 10 replicates or samples "
         "per cell. Distance alone is not a ranking: see the framing figure.",
     )
 
@@ -1457,17 +1498,20 @@ def fig_framing(mdf: pd.DataFrame) -> Figure:
             "The same choice between a sure and a risky programme against a disease, worded once as lives saved "
             "and once as lives lost. People pick the sure option 72% of the time in the gain wording and 22% in "
             "the loss wording, a 50-point swing. Each row is a model's swing in points; below zero, it picks the "
-            "sure option more often in the loss wording, the reverse of people. Solar Decide Flash and Clef Flash, "
-            "the two closest to human results in the scatter with no instruction, swing 9 and 0 points with no "
-            "instruction and 4 and 17 when told to answer like a typical person."
+            "sure option more often in the loss wording, the reverse of people."
         ),
         desc="Dumbbell chart of eight System One models' framing reversal in points, answering neutrally and as a typical person, against the human value of 50.",
         width=1000,
         height=510,
         body=body,
-        source="The chart holds eight rows, so Mercury Decide (19 with no instruction, 34 as a typical person) and "
-        "Decider v1.1 27B (17 and 45) are given here. The two chat models swing all or nothing: Claude Sonnet 5 100 and 100, Claude Haiku 5.5 0 and "
-        "100. Human rates: Tversky & Kahneman (1981). Jev run 18 Sep 2026, others 12 Oct 2026.",
+        source="The chart holds eight rows, so the rest are given here, with no instruction and as a typical "
+        "person: "
+        + "; ".join(
+            f"{SHORT[m]} {contrast(m, 'neutral'):.0f} and {contrast(m, 'typical_human'):.0f}"
+            for m in mdf.columns
+            if m in SHORT and m not in keep
+        )
+        + ". Human rates: Tversky & Kahneman (1981). All models run 12\u201313 Oct 2026.",
     )
 
 
@@ -1547,7 +1591,7 @@ def fig_process() -> Figure:
     )
     # Nodes.
     a.append(_node(cols[0], mid - h // 2, w, h, "One test item", "e.g. bat and ball", tag="ITEM"))
-    a.append(_node(cols[1], mid - h // 2, w, h, "Four prompts", "listed above", tag="PROMPT"))
+    a.append(_node(cols[1], mid - h // 2, w, h, "Five prompts", "listed above", tag="PROMPT"))
     a.append(
         _node(
             cols[2],
@@ -1592,7 +1636,7 @@ def fig_process() -> Figure:
         _t(
             cols[2] + w / 2,
             top - h // 2 - 16,
-            "distributions averaged: $0.09 for the run",
+            "distributions averaged: $0.14 for the run",
             size=15,
             family=SERIF,
             fill=INK,
@@ -1604,7 +1648,7 @@ def fig_process() -> Figure:
         _t(
             cols[2] + w / 2,
             bot + h // 2 + 26,
-            "answers counted: $2.74 for the same run",
+            "answers counted: $8.84 for the same run",
             size=15,
             family=SERIF,
             fill=INK,
@@ -1631,8 +1675,8 @@ def fig_process() -> Figure:
     by = sy + 30
     steps = [
         ("Options listed", "'reply with one key'", "ASK"),
-        ("Room to reason", "512 tokens; Haiku 4,096", "CAP"),
-        ("Reply read", "exact key in 94–99%", "PARSE"),
+        ("Room to reason", "up to 4,096 tokens", "CAP"),
+        ("Reply read", "exact key in 91–99%", "PARSE"),
         ("Unreadable: dropped", "counted, not guessed", "GAP"),
     ]
     for i, (name, sub, tag) in enumerate(steps):
@@ -1643,7 +1687,7 @@ def fig_process() -> Figure:
         a.append(_node(cols[i], by, w, h, name, sub, tag=tag))
     notes = [
         "Not exactly a key? The last option the reply names counts, and a leading key wins: \u201c$1: Offer $1, keep $9\u201d is $1.",
-        "Unreadable (empty, cut off, no option named): Claude Sonnet 5, 9 of 4,680 replies; Claude Haiku 5.5, 3 of 5,440.",
+        "Unreadable (empty, cut off, no option named): Claude Sonnet 5.5, 9 of 6,800 replies; Claude Haiku 5.5, 16 of 6,800.",
         "The 11 items asking what proportion of people said yes get no chat score: ten true/false replies are a vote.",
     ]
     for j, line in enumerate(notes):
@@ -1667,19 +1711,20 @@ def fig_process() -> Figure:
         eyebrow="Method",
         title="How each test item is run and scored",
         subtitle=(
-            "Each item is asked under four prompts: no instruction, \u2018answer like a typical person\u2019, "
-            "\u2018answer like a rational agent\u2019 and an antisocial persona. Each model is asked "
+            "Each item is asked under five prompts: no instruction, \u2018answer like a typical person\u2019 "
+            "with and without \u2018not the textbook-correct answer\u2019, \u2018answer like a rational "
+            "agent\u2019 and an antisocial persona. Each model is asked "
             "every item ten times under each prompt. A System One model returns a probability for every possible "
             "answer on each call, and the ten distributions are averaged. A chat model returns one answer per call as text, "
             "which is read for the option it names, and the ten answers are counted. Either way the result is one distribution per item and prompt, "
             "compared with the published human result for that test."
         ),
-        desc="Process diagram: a battery item is framed four ways, asked ten times of either a System One model or a chat model, whose text replies are read for an option key with unreadable ones dropped and counted, reduced to one distribution per cell, and compared with a published human rate.",
+        desc="Process diagram: a battery item is framed five ways, asked ten times of either a System One model or a chat model, whose text replies are read for an option key with unreadable ones dropped and counted, reduced to one distribution per cell, and compared with a published human rate.",
         width=W,
         height=H,
         body="\n".join(a),
-        source="Costs are for the same 4,680 questions on 18 Sep 2026 (117 items × 4 prompts × 10): Jev 1.13 "
-        "$0.09, Claude Sonnet 5 $2.74. The battery has 147 items since 30 follow-up items were added.",
+        source="Costs are for the same 7,350 questions on 12\u201313 Oct 2026 (147 items \u00d7 5 prompts \u00d7 "
+        "10): Jev 1.13 $0.14, Claude Sonnet 5.5 $8.84.",
     )
 
 
@@ -1689,8 +1734,8 @@ def fig_health() -> Figure:
     cols = [24, 340, 656]
     rows = [
         (
-            "GPT-6 Luna refused 4%",
-            "240 calls → HTTP 502",
+            "GPT-6 Luna refused 3%",
+            "250 calls → HTTP 502",
             "Refusals reported as a 502",
             "client tried each 5 times",
             "Counted as refusals",
@@ -1699,7 +1744,7 @@ def fig_health() -> Figure:
         ),
         (
             "Both Solar models lost an item",
-            "p-beauty contest, 40 calls",
+            "p-beauty contest, 50 calls",
             "Route caps Choice at 26",
             "the item has 101 options",
             "Disclosed, not imputed",
@@ -1708,11 +1753,11 @@ def fig_health() -> Figure:
         ),
         (
             "Haiku 5.5 replied with nothing",
-            "183 calls in a discarded run",
+            "183 calls in an early run",
             "Reasoning used the cap",
             "all 512 tokens, no answer",
             "Cap raised and recorded",
-            "4,096 → 3 unresolved",
+            "4,096 → 16 unresolved",
             "focal",
         ),
     ]
@@ -1746,7 +1791,7 @@ def fig_health() -> Figure:
         x += int(24 + text_width(label, 9) + 40)
     return Figure(
         slug="health-checks",
-        eyebrow="Data quality · 12 Oct multi-model run",
+        eyebrow="Data quality · all models",
         title="Three problems found by the per-model error checks, and what was done",
         subtitle=(
             "For each model the comparison counts errors, refusals, replies that could not be matched to an answer, "
@@ -1758,7 +1803,8 @@ def fig_health() -> Figure:
         width=W,
         height=H,
         body="\n".join(a),
-        source="results/comparison/health.csv. The truncated Haiku run was discarded and re-run, not mixed in.",
+        source="results/comparison/health.csv, runs of 12\u201313 Oct 2026. The truncated Haiku run was discarded, "
+        "not mixed in.",
     )
 
 
@@ -1943,8 +1989,8 @@ def _model_dots(
 
 
 _MODELS_SOURCE = (
-    "Each model: mean of the probability distributions returned over 10 repeats. Jev run 18 Sep 2026, the "
-    "others 12 Oct 2026. Human results: published studies or meta-analyses, listed in docs/BENCHMARKS.md. "
+    "Each model: mean of the probability distributions returned over 10 repeats. All models run 12–13 Oct "
+    "2026. Human results: published studies or meta-analyses, listed in docs/BENCHMARKS.md. "
     "Eight more models are in the scatter and docs/MODELS.md."
 )
 
@@ -1982,7 +2028,7 @@ def fig_models_tests(cdf: pd.DataFrame, which: str) -> Figure:
         eyebrow=f"{'Decision-making tests' if which == 'decisions' else 'Economic games'} · four models",
         title=title,
         subtitle=(
-            f"{what} Left, asked with no instruction; right, with this sentence added first: "
+            f"{what} Left, asked with no instruction; right, with this instruction added first: "
             f"\u201c{_prompt('typical_human')}\u201d The tick is people; each mark is a model's probability on "
             "that answer, or its expected share."
         ),
@@ -2021,7 +2067,7 @@ def fig_models_antisocial(cdf: pd.DataFrame) -> Figure:
         eyebrow="Economic games · antisocial persona · four models",
         title="Four System One models in five economic games: no instruction vs. an antisocial persona",
         subtitle=(
-            f"Right, the same games with this sentence added first: \u201c{_prompt('antisocial')}\u201d "
+            f"Right, the same games with this instruction added first: \u201c{_prompt('antisocial')}\u201d "
             f"As a check that the persona took hold, the Dark Triad score out of 9 rose: {dd}."
         ),
         desc="Dot chart of seven economic-game measures for four System One models, with no instruction and with "
@@ -2029,7 +2075,7 @@ def fig_models_antisocial(cdf: pd.DataFrame) -> Figure:
         width=1000,
         height=y_end(len(rows)),
         body=_model_dots(rows, panels, "SHARE OF ANSWERS, OR SHARE OF THE MONEY"),
-        source="Mean of returned distributions over 10 repeats; Jev run 18 Sep 2026, the others 12 Oct 2026. "
+        source="Mean of returned distributions over 10 repeats; all models run 12–13 Oct 2026. "
         "The tick is people with no persona, for scale. A persona is a prompt: it shows what a model can be "
         "made to output, not a trait it has.",
     )
@@ -2150,8 +2196,8 @@ def fig_models_dictator(runs: dict[str, pd.DataFrame]) -> Figure:
         width=1000,
         height=520,
         body="\n".join(out),
-        source=f"Same scale in every panel. Models: mean of 10 returned distributions; Jev run 18 Sep 2026, the "
-        f"others 12 Oct 2026. People: {DICTATOR_HUMAN_SOURCE}.",
+        source=f"Same scale in every panel. Models: mean of 10 returned distributions; all models run "
+        f"12–13 Oct 2026. People: {DICTATOR_HUMAN_SOURCE}.",
     )
 
 
@@ -2208,7 +2254,7 @@ def fig_models_order(runs: dict[str, pd.DataFrame]) -> Figure:
         body=body,
         source=f"Mean distance over all pairs of the 10 repeats, per item and prompt, on the {len(common)} item-and-"
         f"prompt cells ({len(items)} items) all four runs share. {_order_notes(rows)}"
-        "Jev run 18 Sep 2026, the others 12 Oct 2026.",
+        "All models run 12–13 Oct 2026.",
     )
 
 
@@ -2262,6 +2308,7 @@ def build_diagrams(
     figures = [
         fig_process(),
         fig_jev_decisions(sdf),
+        fig_jev_decisions(sdf, AS_PERSON_PLAIN, AS_PERSON),
         fig_jev_vs_people(sdf, "games", "neutral"),
         fig_antisocial(sdf),
         fig_dictator(df),
@@ -2322,9 +2369,7 @@ def main(argv: Any = None) -> int:
         print(f"No run with Jev in {RAW_DIR}.", file=sys.stderr)
         return 1
     html_dir = REPO_ROOT / "docs" / "diagrams"
-    paths = build_diagrams(
-        run, TABLES_DIR, REPO_ROOT / "results" / "comparison", html_dir
-    )
+    paths = build_diagrams(run, TABLES_DIR, REPO_ROOT / "results" / "comparison", html_dir)
     for p in paths:
         print(f"wrote {p.relative_to(REPO_ROOT)}")
     if not args.no_png:
