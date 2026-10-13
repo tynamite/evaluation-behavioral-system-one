@@ -2349,6 +2349,200 @@ def fig_models_dictator(runs: dict[str, pd.DataFrame]) -> Figure:
     )
 
 
+H4_SLUG = "followup-h4"
+
+# Follow-up H4 rows: (instrument, statistic) -> what the statistic counts.
+H4_LABELS = {
+    ("allais", "prob_certain_pair1"): "Allais: the certain $3,000",
+    ("allais", "prob_safer_pair2"): "Allais: the 25% chance of $3,000",
+    ("base_rate", "prob_correct_band"): "Base rate: answer in the 0–10% band",
+    ("categorization", "prob_rule_based"): "Categorisation: the rule-based group",
+    ("choosing_rejecting", "prob_award_extreme"): "Custody: award the extreme parent",
+    ("choosing_rejecting", "prob_deny_extreme"): "Custody: deny the extreme parent",
+    ("conjunction", "prob_fallacy_forced_choice"): "Linda: the conjunction",
+    ("crt", "proportion_correct"): "CRT: correct, Frederick's three items",
+    ("false_consensus", "nonwearer_predicts_wear"): "False consensus: refusers' guess",
+    ("false_consensus", "wearer_predicts_wear"): "False consensus: wearers' guess",
+    ("framing", "prob_certain_gain_frame"): "Framing: certain programme, gains",
+    ("framing", "prob_certain_loss_frame"): "Framing: certain programme, losses",
+    ("incidental_anchors", "estimate_p17"): "Incidental anchor: low (17)",
+    ("incidental_anchors", "estimate_p97"): "Incidental anchor: high (97)",
+    ("knobe", "prob_harm_intentional"): "Knobe: harming was intentional",
+    ("knobe", "prob_help_intentional"): "Knobe: helping was intentional",
+    ("moral_typecasting", "responsibility_baby"): "Moral typecasting: baby harmed",
+    ("moral_typecasting", "responsibility_man"): "Moral typecasting: man harmed",
+    ("position_power", "power_long_line"): "Power: the long line",
+    ("position_power", "power_short_line"): "Power: the short line",
+    ("sunk_cost", "prob_continue"): "Sunk cost: finish the plane",
+    ("trolley", "prob_push_permissible"): "Trolley: pushing is permissible",
+    ("trolley", "prob_switch_permissible"): "Trolley: switching is permissible",
+}
+
+
+def _signed(v: float) -> str:
+    """A signed change, with enough decimals that a nonzero one never reads as zero."""
+    if v == 0:
+        return "0"
+    return f"{v:+.2f}" if abs(v) >= 0.005 else f"{v:+.1g}"
+
+
+def fig_h4(h4: pd.DataFrame) -> Figure:
+    """Follow-up H4 for Jev: each statistic's error simulated and estimated, closer one first.
+
+    Errors are divided by each scale's range so proportions, 1-7 ratings and
+    percentage bands can share one axis; the registered test uses the raw
+    errors, and both p values are quoted.
+    """
+    from .analysis import h4_summary
+
+    def _p(v: float | None) -> str:
+        # No test: every pair tied, or too few pairs to rank.
+        if v is None:
+            return ": n/a"
+        return " < 0.001" if v < 0.0005 else f" = {v:.3f}"
+
+    t = h4.assign(gain=h4["scaled_error_simulate"] - h4["scaled_error_estimate"])
+    closer = t[t["gain"] > 0].sort_values("gain", ascending=False)
+    worse = t[t["gain"] < 0].sort_values("gain", ascending=False)
+    tied = t[t["gain"] == 0]
+    summary = h4_summary(h4)
+    L, R, pitch = 300, 880, 22
+    vals = [*t["scaled_error_simulate"], *t["scaled_error_estimate"]]
+    floor, ceil = _domain(vals, 0.1)
+
+    def px(v: float) -> float:
+        return L + (v - floor) / (ceil - floor) * (R - L)
+
+    out: list[str] = []
+    y = 64
+    rows_top = y - 20
+    groups = [
+        (f"ESTIMATE CLOSER · {len(closer)} OF {len(t)}", closer),
+        (f"SIMULATE CLOSER · {len(worse)} OF {len(t)}", worse),
+        (f"TIED · {len(tied)} OF {len(t)}", tied),
+    ]
+    for label, part in groups:
+        if not len(part):
+            continue
+        out.append(_t(L - 12, y, label, size=7, spacing="0.14em", anchor="end", fill=INK))
+        y += 22
+        for _, r in part.iterrows():
+            name = H4_LABELS.get(
+                (r["instrument"], r["statistic"]), f"{r['instrument']}: {r['statistic']}"
+            )
+            if text_width(name, 10) > L - 24:
+                raise ValueError(f"row label does not fit the label column: {name!r}")
+            xs, xe = px(r["scaled_error_simulate"]), px(r["scaled_error_estimate"])
+            better = r["gain"] > 0
+            # A pair too close to tell apart is split vertically, as in the
+            # dumbbells, so neither dot hides the other; x stays exact.
+            ys, ye = (y - 8, y) if abs(xs - xe) < 9 else (y - 4, y - 4)
+            out.append(
+                f'<line x1="{xs:.1f}" y1="{ys}" x2="{xe:.1f}" y2="{ye}" '
+                f'stroke="{ACCENT if better else ink(0.45)}" stroke-width="{2 if better else 1}"/>'
+            )
+            out.append(
+                f'<circle data-series="simulate" data-value="{r["scaled_error_simulate"]:.4f}" '
+                f'cx="{xs:.1f}" cy="{ys}" r="4.5" fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"/>'
+            )
+            out.append(
+                f'<circle data-series="estimate" data-value="{r["scaled_error_estimate"]:.4f}" '
+                f'cx="{xe:.1f}" cy="{ye}" r="4.5" fill="{JEV_PINK}" stroke="{JEV_PINK_EDGE}" stroke-width="1"/>'
+            )
+            out.append(_t(L - 12, y, name, size=10, fill=INK, family=SANS, anchor="end"))
+            out.append(
+                _t(
+                    970,
+                    y,
+                    _signed(-r["gain"]),
+                    anchor="end",
+                    fill=ACCENT if better else MUTED,
+                    weight=600 if better else None,
+                )
+            )
+            y += pitch
+        y += 10
+    rows_bottom = y - 14
+    out.append(_t(970, rows_top + 2, "CHANGE", size=7, spacing="0.14em", anchor="end"))
+    ticks = [floor + i * 0.1 for i in range(round((ceil - floor) / 0.1) + 1)]
+    for v in ticks:
+        x = px(v)
+        if v > floor:
+            out.append(
+                f'<line x1="{x:.1f}" y1="{rows_top}" x2="{x:.1f}" y2="{rows_bottom}" stroke="{ink(0.08)}" stroke-width="0.8"/>'
+            )
+        out.append(
+            _t(
+                x,
+                rows_bottom + 18,
+                f"{v:.1f}",
+                anchor="middle",
+                extra=f' data-tick="x" data-value="{v:g}"',
+            )
+        )
+    out.insert(
+        0,
+        f'<line x1="{L}" y1="{rows_top}" x2="{L}" y2="{rows_bottom}" stroke="{ink(0.25)}" stroke-width="1"/>',
+    )
+    out.append(
+        _t(
+            (L + R) / 2,
+            rows_bottom + 34,
+            "DISTANCE FROM THE PUBLISHED VALUE, AS A SHARE OF THE SCALE",
+            size=7,
+            anchor="middle",
+            spacing="0.14em",
+        )
+    )
+    rule = int(rows_bottom + 46)
+    out.append(_legend(1000, rule, []))
+    k1 = f"Simulate: answers as a typical person (mean {t['scaled_error_simulate'].mean():.2f})"
+    k2 = (
+        f"Estimate: predicts the population's answer (mean {t['scaled_error_estimate'].mean():.2f})"
+    )
+    ky = rule + 31
+    out.append(
+        f'<circle cx="104" cy="{ky - 4}" r="5" fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"/>'
+    )
+    out.append(_t(116, ky, k1, size=9, family=SANS, fill=INK))
+    x2 = 116 + text_width(k1, 9) + 32
+    out.append(
+        f'<circle cx="{x2:g}" cy="{ky - 4}" r="5" fill="{JEV_PINK}" stroke="{JEV_PINK_EDGE}" stroke-width="1"/>'
+    )
+    out.append(_t(x2 + 12, ky, k2, size=9, family=SANS, fill=INK))
+    return Figure(
+        slug=H4_SLUG,
+        eyebrow="Follow-up study · H4 · Jev 1.13",
+        title=(
+            f"Predicting how people answer beats playing one, for Jev 1.13, on "
+            f"{len(closer)} of {len(t)}"
+        ),
+        subtitle=(
+            f"Each statistic was measured two ways: the item asked under the typical-person prompt "
+            f"(simulate), and a question with no persona asking for the population's answer itself: "
+            f"the share who chose an option, or the average rating, percentage or prediction "
+            f"(estimate). Estimating came closer to the original study's value on "
+            f"{len(closer)} of {len(t)}. Preregistered one-sided Wilcoxon test on "
+            f"the absolute errors: p{_p(summary.get('wilcoxon_p_one_sided'))}; on the errors as drawn "
+            f"here, scaled to each item's range: p{_p(summary.get('wilcoxon_p_scaled'))}."
+        ),
+        desc=(
+            "Dot chart with one row per statistic, showing how far Jev 1.13's simulated answer and its "
+            "population estimate land from the published human value, grouped by which came closer."
+        ),
+        width=1000,
+        height=int(ky + 18),
+        body="\n".join(out),
+        source=(
+            "results/tables/followup_h4.csv; FOLLOWUP_PREREGISTRATION.md, H4. Human values are the "
+            "original studies' published ones (Many Labs 2 reports only effect sizes). Errors are "
+            "divided by each scale's range (1 for proportions, 6 for 1–7 ratings, 100 for percentage "
+            "bands) so they share an axis; change is estimate minus simulate, so negative is better. "
+            "Runs of 12–13 Oct 2026."
+        ),
+    )
+
+
 def fig_models_order(runs: dict[str, pd.DataFrame]) -> Figure:
     from .analysis import core_order_cells, order_effects
 
@@ -2471,6 +2665,14 @@ def build_diagrams(
         fig_framing(mdf),
         fig_health(),
     ]
+    # Follow-up H4 is drawn only when the run has paired items to draw.
+    h4_path = tables_dir / "followup_h4.csv"
+    h4 = pd.read_csv(h4_path) if h4_path.exists() and h4_path.stat().st_size else pd.DataFrame()
+    if len(h4):
+        figures.insert(7, fig_h4(h4))
+    else:
+        # Leave no chart from an earlier run behind.
+        (out_dir / f"{H4_SLUG}.html").unlink(missing_ok=True)
     out_dir.mkdir(parents=True, exist_ok=True)
     paths = []
     for f in figures:
@@ -2522,8 +2724,11 @@ def main(argv: Any = None) -> int:
     for p in paths:
         print(f"wrote {p.relative_to(REPO_ROOT)}")
     if not args.no_png:
-        for p in export_pngs(paths, REPO_ROOT / "results" / "figures"):
+        png_dir = REPO_ROOT / "results" / "figures"
+        for p in export_pngs(paths, png_dir):
             print(f"wrote {p.relative_to(REPO_ROOT)}")
+        if not (html_dir / f"{H4_SLUG}.html").exists():
+            (png_dir / f"{H4_SLUG}.png").unlink(missing_ok=True)
     return 0
 
 

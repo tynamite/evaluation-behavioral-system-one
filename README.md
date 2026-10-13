@@ -222,6 +222,8 @@ do not exist in the item pool. Two others could:
   original's direction, simulated or estimated; the largest is 2.6 (Jev: 0.3
   and −0.3).
 
+![Jev's error on each of the 23 statistics, simulated and estimated](results/figures/followup-h4.png)
+
 The full table is in [docs/RESULTS.md](docs/RESULTS.md#follow-up-h4-simulate-or-estimate).
 
 The conjunction result looked like the most interesting thing here until I read

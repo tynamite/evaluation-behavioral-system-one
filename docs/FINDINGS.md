@@ -142,6 +142,8 @@ effect sizes, not the per-condition values this needs.
 | Mean error, scaled to each item's range | 0.23 | **0.17** |
 | Items where it is closer to the published value | 9 of 23 | **14 of 23** |
 
+![Jev's error on each of the 23 statistics, simulated and estimated](../results/figures/followup-h4.png)
+
 Estimating is better on average, as predicted, and the preregistered test, a
 one-sided Wilcoxon test on the absolute errors, passes (p = 0.015). The errors
 are in each item's own units, so the two percentage items and the 1–7 ratings

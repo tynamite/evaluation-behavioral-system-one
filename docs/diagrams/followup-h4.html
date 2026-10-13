@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Predicting how people answer beats playing one, for Jev 1.13, on 14 of 23</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper: #f5f5f5; --color-ink: #2d3142; --color-muted: #4f5d75;
+      --font-sans: 'Geist', system-ui, sans-serif; --font-serif: 'Instrument Serif', serif; --font-mono: 'Geist Mono', ui-monospace, monospace;
+    }
+    body {
+      font-family: var(--font-sans); background: var(--color-paper); color: var(--color-ink);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 3rem 2rem;
+    }
+    .frame { max-width: 1080px; width: 100%; padding: 32px 40px; background: var(--color-paper);
+      position: relative; }
+    .mark { position: absolute; right: 40px; bottom: 12px; font-family: var(--font-mono); font-size: 0.6rem;
+      letter-spacing: 0.14em; color: var(--color-muted); opacity: 0.55; }
+    .diagram-container { width: 100%; overflow-x: auto; }
+    .eyebrow {
+      font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-muted);
+      margin-bottom: 0.5rem;
+    }
+    h1 {
+      font-family: var(--font-serif); font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem);
+      font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.5rem;
+    }
+    .subtitle { color: var(--color-muted); font-size: 0.95rem; line-height: 1.45;
+      max-width: 60rem; margin-bottom: 1rem; }
+    .source { font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-muted);
+      border-top: 1px solid rgba(45,49,66,0.12); margin-top: 1rem; padding-top: 0.75rem; line-height: 1.5; }
+    svg { width: 100%; min-width: 1000px; display: block; }
+    @media print { .diagram-container { overflow-x: visible; } svg { min-width: 0; } }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Follow-up study · H4 · Jev 1.13</p>
+    <h1>Predicting how people answer beats playing one, for Jev 1.13, on 14 of 23</h1>
+    <p class="subtitle">Each statistic was measured two ways: the item asked under the typical-person prompt (simulate), and a question with no persona asking for the population&#x27;s answer itself: the share who chose an option, or the average rating, percentage or prediction (estimate). Estimating came closer to the original study&#x27;s value on 14 of 23. Preregistered one-sided Wilcoxon test on the absolute errors: p = 0.015; on the errors as drawn here, scaled to each item&#x27;s range: p = 0.043.</p>
+    <div class="diagram-container">
+      <svg viewBox="0 27 1000 688" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="followup-h4-title followup-h4-desc">
+        <title id="followup-h4-title">Predicting how people answer beats playing one, for Jev 1.13, on 14 of 23</title>
+        <desc id="followup-h4-desc">Dot chart with one row per statistic, showing how far Jev 1.13&#x27;s simulated answer and its population estimate land from the published human value, grouped by which came closer.</desc>
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
+          <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#157a6e"/></marker>
+          <marker id="arrow-link" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#2e5aa8"/></marker>
+        </defs>
+        <rect width="100%" height="100%" fill="#f5f5f5"/>
+<line x1="300" y1="44" x2="300" y2="620" stroke="rgba(45,49,66,0.25)" stroke-width="1"/>
+<text x="288" y="64" fill="#2d3142" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" letter-spacing="0.14em">ESTIMATE CLOSER · 14 OF 23</text>
+<line x1="781.4" y1="82" x2="418.5" y2="82" stroke="#157a6e" stroke-width="2"/>
+<circle data-series="simulate" data-value="0.5810" cx="781.4" cy="82" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.1430" cx="418.5" cy="82" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="86" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Categorisation: the rule-based group</text>
+<text x="970" y="86" fill="#157a6e" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" font-weight="600">-0.44</text>
+<line x1="643.0" y1="104" x2="339.8" y2="104" stroke="#157a6e" stroke-width="2"/>
+<circle data-series="simulate" data-value="0.4140" cx="643.0" cy="104" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.0480" cx="339.8" cy="104" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="108" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Custody: deny the extreme parent</text>
+<text x="970" y="108" fill="#157a6e" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" font-weight="600">-0.37</text>
+<line x1="817.9" y1="126" x2="607.4" y2="126" stroke="#157a6e" stroke-width="2"/>
+<circle data-series="simulate" data-value="0.6250" cx="817.9" cy="126" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.3710" cx="607.4" cy="126" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="130" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Framing: certain programme, losses</text>
+<text x="970" y="130" fill="#157a6e" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" font-weight="600">-0.25</text>
+<line x1="724.2" y1="148" x2="528.7" y2="148" stroke="#157a6e" stroke-width="2"/>
+<circle data-series="simulate" data-value="0.5120" cx="724.2" cy="148" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.2760" cx="528.7" cy="148" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="152" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Custody: award the extreme parent</text>
+<text x="970" y="152" fill="#157a6e" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" font-weight="600">-0.24</text>
+<line x1="859.3" y1="170" x2="715.9" y2="170" stroke="#157a6e" stroke-width="2"/>
+<circle data-series="simulate" data-value="0.6750" cx="859.3" cy="170" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.5020" cx="715.9" cy="170" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="174" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Sunk cost: finish the plane</text>
+<text x="970" y="174" fill="#157a6e" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" font-weight="600">-0.17</text>
+<line x1="437.5" y1="192" x2="334.8" y2="192" stroke="#157a6e" stroke-width="2"/>
+<circle data-series="simulate" data-value="0.1660" cx="437.5" cy="192" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.0420" cx="334.8" cy="192" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="196" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Framing: certain programme, gains</text>
+<text x="970" y="196" fill="#157a6e" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" font-weight="600">-0.12</text>
+<line x1="666.9" y1="214" x2="579.0" y2="214" stroke="#157a6e" stroke-width="2"/>
+<circle data-series="simulate" data-value="0.4428" cx="666.9" cy="214" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.3367" cx="579.0" cy="214" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="218" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Moral typecasting: baby harmed</text>
+<text x="970" y="218" fill="#157a6e" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" font-weight="600">-0.11</text>
+<line x1="431.7" y1="236" x2="355.2" y2="236" stroke="#157a6e" stroke-width="2"/>
+<circle data-series="simulate" data-value="0.1590" cx="431.7" cy="236" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.0667" cx="355.2" cy="236" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="240" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Power: the short line</text>
+<text x="970" y="240" fill="#157a6e" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" font-weight="600">-0.09</text>
+<line x1="585.0" y1="258" x2="532.8" y2="258" stroke="#157a6e" stroke-width="2"/>
+<circle data-series="simulate" data-value="0.3440" cx="585.0" cy="258" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.2810" cx="532.8" cy="258" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="262" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Allais: the 25% chance of $3,000</text>
+<text x="970" y="262" fill="#157a6e" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" font-weight="600">-0.06</text>
+<line x1="546.9" y1="280" x2="503.0" y2="280" stroke="#157a6e" stroke-width="2"/>
+<circle data-series="simulate" data-value="0.2980" cx="546.9" cy="280" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.2450" cx="503.0" cy="280" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="284" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">False consensus: wearers&#x27; guess</text>
+<text x="970" y="284" fill="#157a6e" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" font-weight="600">-0.05</text>
+<line x1="378.5" y1="302" x2="341.4" y2="302" stroke="#157a6e" stroke-width="2"/>
+<circle data-series="simulate" data-value="0.0947" cx="378.5" cy="302" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.0500" cx="341.4" cy="302" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="306" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">CRT: correct, Frederick&#x27;s three items</text>
+<text x="970" y="306" fill="#157a6e" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" font-weight="600">-0.04</text>
+<line x1="329.4" y1="324" x2="316.0" y2="324" stroke="#157a6e" stroke-width="2"/>
+<circle data-series="simulate" data-value="0.0355" cx="329.4" cy="324" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.0193" cx="316.0" cy="324" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="328" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Incidental anchor: low (17)</text>
+<text x="970" y="328" fill="#157a6e" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" font-weight="600">-0.02</text>
+<line x1="367.1" y1="346" x2="355.5" y2="346" stroke="#157a6e" stroke-width="2"/>
+<circle data-series="simulate" data-value="0.0810" cx="367.1" cy="346" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.0670" cx="355.5" cy="346" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="350" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Base rate: answer in the 0–10% band</text>
+<text x="970" y="350" fill="#157a6e" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" font-weight="600">-0.01</text>
+<line x1="378.4" y1="364" x2="369.5" y2="372" stroke="#157a6e" stroke-width="2"/>
+<circle data-series="simulate" data-value="0.0946" cx="378.4" cy="364" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.0839" cx="369.5" cy="372" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="372" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Incidental anchor: high (97)</text>
+<text x="970" y="372" fill="#157a6e" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" font-weight="600">-0.01</text>
+<text x="288" y="404" fill="#2d3142" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" letter-spacing="0.14em">SIMULATE CLOSER · 9 OF 23</text>
+<line x1="501.9" y1="418" x2="502.0" y2="426" stroke="rgba(45,49,66,0.45)" stroke-width="1"/>
+<circle data-series="simulate" data-value="0.2437" cx="501.9" cy="418" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.2438" cx="502.0" cy="426" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="426" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Power: the long line</text>
+<text x="970" y="426" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">+0.0002</text>
+<line x1="391.1" y1="444" x2="401.1" y2="444" stroke="rgba(45,49,66,0.45)" stroke-width="1"/>
+<circle data-series="simulate" data-value="0.1100" cx="391.1" cy="444" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.1220" cx="401.1" cy="444" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="448" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Trolley: pushing is permissible</text>
+<text x="970" y="448" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">+0.01</text>
+<line x1="315.7" y1="466" x2="341.4" y2="466" stroke="rgba(45,49,66,0.45)" stroke-width="1"/>
+<circle data-series="simulate" data-value="0.0190" cx="315.7" cy="466" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.0500" cx="341.4" cy="466" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="470" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">False consensus: refusers&#x27; guess</text>
+<text x="970" y="470" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">+0.03</text>
+<line x1="337.3" y1="488" x2="364.6" y2="488" stroke="rgba(45,49,66,0.45)" stroke-width="1"/>
+<circle data-series="simulate" data-value="0.0450" cx="337.3" cy="488" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.0780" cx="364.6" cy="488" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="492" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Knobe: harming was intentional</text>
+<text x="970" y="492" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">+0.03</text>
+<line x1="391.1" y1="510" x2="419.3" y2="510" stroke="rgba(45,49,66,0.45)" stroke-width="1"/>
+<circle data-series="simulate" data-value="0.1100" cx="391.1" cy="510" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.1440" cx="419.3" cy="510" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="514" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Trolley: switching is permissible</text>
+<text x="970" y="514" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">+0.03</text>
+<line x1="332.2" y1="532" x2="360.9" y2="532" stroke="rgba(45,49,66,0.45)" stroke-width="1"/>
+<circle data-series="simulate" data-value="0.0388" cx="332.2" cy="532" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.0735" cx="360.9" cy="532" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="536" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Moral typecasting: man harmed</text>
+<text x="970" y="536" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">+0.03</text>
+<line x1="315.7" y1="554" x2="372.1" y2="554" stroke="rgba(45,49,66,0.45)" stroke-width="1"/>
+<circle data-series="simulate" data-value="0.0190" cx="315.7" cy="554" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.0870" cx="372.1" cy="554" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="558" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Allais: the certain $3,000</text>
+<text x="970" y="558" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">+0.07</text>
+<line x1="365.5" y1="576" x2="459.9" y2="576" stroke="rgba(45,49,66,0.45)" stroke-width="1"/>
+<circle data-series="simulate" data-value="0.0790" cx="365.5" cy="576" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.1930" cx="459.9" cy="576" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="580" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Linda: the conjunction</text>
+<text x="970" y="580" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">+0.11</text>
+<line x1="479.0" y1="598" x2="612.4" y2="598" stroke="rgba(45,49,66,0.45)" stroke-width="1"/>
+<circle data-series="simulate" data-value="0.2160" cx="479.0" cy="598" r="4.5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="estimate" data-value="0.3770" cx="612.4" cy="598" r="4.5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="288" y="602" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Knobe: helping was intentional</text>
+<text x="970" y="602" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">+0.16</text>
+<text x="970" y="46" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" letter-spacing="0.14em">CHANGE</text>
+<text x="300" y="638" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0">0.0</text>
+<line x1="382.9" y1="44" x2="382.9" y2="620" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="382.857" y="638" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.1">0.1</text>
+<line x1="465.7" y1="44" x2="465.7" y2="620" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="465.714" y="638" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.2">0.2</text>
+<line x1="548.6" y1="44" x2="548.6" y2="620" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="548.571" y="638" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.3">0.3</text>
+<line x1="631.4" y1="44" x2="631.4" y2="620" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="631.429" y="638" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.4">0.4</text>
+<line x1="714.3" y1="44" x2="714.3" y2="620" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="714.286" y="638" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.5">0.5</text>
+<line x1="797.1" y1="44" x2="797.1" y2="620" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="797.143" y="638" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.6">0.6</text>
+<line x1="880.0" y1="44" x2="880.0" y2="620" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="880" y="638" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.7">0.7</text>
+<text x="590" y="654" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.14em">DISTANCE FROM THE PUBLISHED VALUE, AS A SHARE OF THE SCALE</text>
+<line x1="30" y1="666" x2="970" y2="666" stroke="rgba(45,49,66,0.1)" stroke-width="0.8"/>
+<text x="30" y="682" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" letter-spacing="0.14em">LEGEND</text>
+<circle cx="104" cy="693" r="5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<text x="116" y="697" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">Simulate: answers as a typical person (mean 0.23)</text>
+<circle cx="412.6" cy="693" r="5" fill="#ff69b4" stroke="#d6126f" stroke-width="1"/>
+<text x="424.6" y="697" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">Estimate: predicts the population&#x27;s answer (mean 0.17)</text>
+      </svg>
+    </div>
+    <p class="source">results/tables/followup_h4.csv; FOLLOWUP_PREREGISTRATION.md, H4. Human values are the original studies&#x27; published ones (Many Labs 2 reports only effect sizes). Errors are divided by each scale&#x27;s range (1 for proportions, 6 for 1–7 ratings, 100 for percentage bands) so they share an axis; change is estimate minus simulate, so negative is better. Runs of 12–13 Oct 2026.</p>
+    <p class="mark" aria-hidden="true">github.com/tynamite</p>
+  </div>
+</body>
+</html>

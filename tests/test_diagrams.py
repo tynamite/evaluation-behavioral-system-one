@@ -21,7 +21,7 @@ def built(tmp_path_factory: pytest.TempPathFactory) -> list[Path]:
 
 
 def test_every_figure_is_an_accessible_figure(built: list[Path]) -> None:
-    assert len(built) == 15
+    assert len(built) == 16
     for path in built:
         page = path.read_text()
         slug = path.stem
@@ -211,3 +211,91 @@ def test_every_figure_carries_the_watermark(built: list[Path]) -> None:
 
     for path in built:
         assert f'<p class="mark" aria-hidden="true">{WATERMARK}</p>' in path.read_text(), path.stem
+
+
+def test_h4_chart_draws_every_pair_from_the_table(built: list[Path]) -> None:
+    import pandas as pd
+
+    page = next(p for p in built if p.stem == "followup-h4").read_text()
+    h4 = pd.read_csv(TABLES_DIR / "followup_h4.csv")
+    for series in ("simulate", "estimate"):
+        drawn = sorted(
+            float(v) for v in re.findall(rf'data-series="{series}" data-value="([^"]+)"', page)
+        )
+        assert drawn == pytest.approx(sorted(h4[f"scaled_error_{series}"]), abs=1e-4)
+
+
+def test_h4_chart_puts_ties_in_their_own_group() -> None:
+    import pandas as pd
+
+    from jevbench.diagrams import fig_h4
+
+    rows = [("a", 0.3, 0.1), ("b", 0.1, 0.3), ("c", 0.2, 0.2), ("d", 0.4, 0.2)]
+    h4 = pd.DataFrame(
+        {
+            "instrument": [r[0] for r in rows],
+            "statistic": ["s"] * len(rows),
+            "error_simulate": [r[1] for r in rows],
+            "error_estimate": [r[2] for r in rows],
+            "scaled_error_simulate": [r[1] for r in rows],
+            "scaled_error_estimate": [r[2] for r in rows],
+        }
+    )
+    body = fig_h4(h4).body
+    assert "ESTIMATE CLOSER · 2 OF 4" in body
+    assert "SIMULATE CLOSER · 1 OF 4" in body
+    assert "TIED · 1 OF 4" in body
+
+
+def test_h4_chart_keeps_small_changes_visible_and_renders_all_ties() -> None:
+    import pandas as pd
+
+    from jevbench.diagrams import _signed, fig_h4
+
+    assert _signed(0.00017) == "+0.0002" and _signed(-0.25) == "-0.25" and _signed(0) == "0"
+    h4 = pd.DataFrame(
+        {
+            "instrument": ["a", "b"],
+            "statistic": ["s", "s"],
+            **{c: [0.2, 0.3] for c in ("error_simulate", "error_estimate")},
+            **{c: [0.2, 0.3] for c in ("scaled_error_simulate", "scaled_error_estimate")},
+        }
+    )
+    fig = fig_h4(h4)
+    assert "TIED · 2 OF 2" in fig.body and "n/a" in fig.subtitle
+    # One surviving pair: drawn, with no test.
+    one = fig_h4(h4.iloc[:1])
+    assert "TIED · 1 OF 1" in one.body and "p: n/a" in one.subtitle
+
+
+def test_h4_chart_is_removed_when_a_run_has_no_pairs(tmp_path: Path) -> None:
+    import shutil
+
+    tables = tmp_path / "tables"
+    shutil.copytree(TABLES_DIR, tables)
+    (tables / "followup_h4.csv").unlink()
+    out = tmp_path / "diagrams"
+    out.mkdir()
+    (out / "followup-h4.html").write_text("stale")
+    paths = build_diagrams(COMMITTED_RUN, tables, REPO_ROOT / "results" / "comparison", out)
+    assert len(paths) == 15 and not (out / "followup-h4.html").exists()
+
+
+def test_h4_chart_never_prints_a_zero_p_value() -> None:
+    import pandas as pd
+
+    from jevbench.diagrams import fig_h4
+
+    n = 23
+    h4 = pd.DataFrame(
+        {
+            "instrument": [f"i{k}" for k in range(n)],
+            "statistic": ["s"] * n,
+            "error_simulate": [0.5 + k / 100 for k in range(n)],
+            "error_estimate": [0.1] * n,
+            "scaled_error_simulate": [0.5 + k / 100 for k in range(n)],
+            "scaled_error_estimate": [0.1] * n,
+        }
+    )
+    sub = fig_h4(h4).subtitle
+    assert "p < 0.001" in sub and "0.000" not in sub
