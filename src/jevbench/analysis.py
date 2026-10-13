@@ -50,10 +50,9 @@ def primary_run(raw_dir: Path, live_only: bool = False) -> Path | None:
     for the live one there.
     """
     if live_only:
-        live = [p for p in raw_dir.glob("run_live_*.jsonl")]
-        jev = [p for p in live if "typesafe--jev" in p.name]
-        pool = jev or live
-        return max(pool, key=lambda p: (p.name.split("_")[2:3], p.name)) if pool else None
+        # No fallback to another model here: these callers label the run as Jev.
+        jev = [p for p in raw_dir.glob("run_live_*.jsonl") if "typesafe--jev" in p.name]
+        return max(jev, key=lambda p: (p.name.split("_")[2:3], p.name)) if jev else None
     return latest_run(raw_dir, "typesafe--jev") or latest_run(raw_dir)
 
 

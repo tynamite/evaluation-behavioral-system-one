@@ -255,3 +255,12 @@ def test_committed_outputs_never_read_a_simulated_run(tmp_path: Path) -> None:
     # ...but anything that writes committed files takes the newest live one.
     newest_live = primary_run(tmp_path, live_only=True)
     assert newest_live is not None and newest_live.name.startswith("run_live_20261012T225915Z")
+
+
+def test_committed_outputs_need_a_live_jev_run(tmp_path: Path) -> None:
+    from jevbench.analysis import primary_run
+
+    # Another model's live run must never stand in for Jev's.
+    (tmp_path / "run_live_20261012T225927Z_cloudflare--clef.jsonl").touch()
+    (tmp_path / "run_simulated_20261013T094732Z_typesafe--jev-1.13.jsonl").touch()
+    assert primary_run(tmp_path, live_only=True) is None
