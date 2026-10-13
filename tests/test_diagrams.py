@@ -299,3 +299,117 @@ def test_h4_chart_never_prints_a_zero_p_value() -> None:
     )
     sub = fig_h4(h4).subtitle
     assert "p < 0.001" in sub and "0.000" not in sub
+
+
+def test_figures_follow_the_run_they_are_built_from(tmp_path: Path) -> None:
+    """A run without the follow-up items draws no H4 chart, whatever the saved tables say."""
+    import json
+
+    from jevbench.diagrams import build_diagrams_for_run
+    from jevbench.instruments import all_probes
+
+    followup = {p.probe_id for p in all_probes(["followup"])}
+    run = tmp_path / "run_live_20261013T000000Z_typesafe--jev-1.13.jsonl"
+    with COMMITTED_RUN.open() as src, run.open("w") as dst:
+        for line in src:
+            if line.strip() and json.loads(line)["probe_id"] not in followup:
+                dst.write(line)
+    paths = build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", tmp_path / "out")
+    assert len(paths) == 15
+    assert not (tmp_path / "out" / "followup-h4.html").exists()
+
+
+def test_diagrams_refuse_a_run_their_labels_would_misdescribe(tmp_path: Path) -> None:
+    import json
+
+    from jevbench.diagrams import build_diagrams_for_run
+
+    run = tmp_path / "run_live_20261013T000000Z_typesafe--jev-1.13.jsonl"
+    with COMMITTED_RUN.open() as src, run.open("w") as dst:
+        for line in src:
+            r = json.loads(line)
+            if r["replicate"] < 3:  # a default three-replicate run
+                dst.write(line)
+    with pytest.raises(ValueError, match="do not have exactly 10 successful repeats"):
+        build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", tmp_path / "out")
+
+
+def test_diagrams_refuse_a_run_missing_a_prompt(tmp_path: Path) -> None:
+    import json
+
+    from jevbench.diagrams import build_diagrams_for_run
+
+    run = tmp_path / "run_live_20261013T000000Z_typesafe--jev-1.13.jsonl"
+    with COMMITTED_RUN.open() as src, run.open("w") as dst:
+        for line in src:
+            if json.loads(line)["persona"] == "neutral":
+                dst.write(line)
+    with pytest.raises(ValueError, match="no records under"):
+        build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", tmp_path / "out")
+
+
+def test_diagrams_refuse_a_run_with_a_failed_repeat(tmp_path: Path) -> None:
+    """A single errored call leaves a cell short of the 10 repeats the figures claim."""
+    import json
+
+    from jevbench.diagrams import build_diagrams_for_run
+
+    run = tmp_path / "run_live_20261013T000000Z_typesafe--jev-1.13.jsonl"
+    failed = False
+    with COMMITTED_RUN.open() as src, run.open("w") as dst:
+        for line in src:
+            r = json.loads(line)
+            if not failed and r["arm"] == "jev" and r["probe_id"] == "crt_bat_ball":
+                r["error"], r["probabilities"], failed = "refused: test", None, True
+                line = json.dumps(r) + "\n"
+            dst.write(line)
+    with pytest.raises(
+        ValueError, match=r"1 of \d+ core item-and-prompt cells do not have exactly 10"
+    ):
+        build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", tmp_path / "out")
+
+
+def test_h4_chart_cites_the_run_it_was_drawn_from(built: list[Path]) -> None:
+    page = next(p for p in built if p.stem == "followup-h4").read_text()
+    assert f"data/raw/{COMMITTED_RUN.name}" in page
+
+
+def test_diagrams_refuse_duplicated_repeats(tmp_path: Path) -> None:
+    """A duplicated record is not one of the 10 repeats the figures claim."""
+    from jevbench.diagrams import build_diagrams_for_run
+
+    run = tmp_path / "run_live_20261013T000000Z_typesafe--jev-1.13.jsonl"
+    lines = COMMITTED_RUN.read_text().splitlines(keepends=True)
+    run.write_text("".join(lines) + lines[0])  # the first record (a Jev one), twice
+    with pytest.raises(
+        ValueError, match=r"1 of \d+ core item-and-prompt cells do not have exactly"
+    ):
+        build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", tmp_path / "out")
+
+
+def test_diagrams_refuse_a_repeat_with_no_distribution(tmp_path: Path) -> None:
+    import json
+
+    from jevbench.diagrams import build_diagrams_for_run
+
+    run = tmp_path / "run_live_20261013T000000Z_typesafe--jev-1.13.jsonl"
+    done = False
+    with COMMITTED_RUN.open() as src, run.open("w") as dst:
+        for line in src:
+            r = json.loads(line)
+            if not done and r["arm"] == "jev" and r["probe_id"] == "crt_bat_ball":
+                r["probabilities"], done = {}, True
+                line = json.dumps(r) + "\n"
+            dst.write(line)
+    with pytest.raises(
+        ValueError, match=r"1 of \d+ core item-and-prompt cells do not have exactly"
+    ):
+        build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", tmp_path / "out")
+
+
+def test_shown_path_is_absolute_outside_the_repo(tmp_path: Path) -> None:
+    from jevbench.diagrams import _shown_path
+
+    assert _shown_path(COMMITTED_RUN) == f"data/raw/{COMMITTED_RUN.name}"
+    outside = tmp_path / "run.jsonl"
+    assert _shown_path(outside) == str(outside.resolve())

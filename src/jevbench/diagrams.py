@@ -2386,7 +2386,7 @@ def _signed(v: float) -> str:
     return f"{v:+.2f}" if abs(v) >= 0.005 else f"{v:+.1g}"
 
 
-def fig_h4(h4: pd.DataFrame) -> Figure:
+def fig_h4(h4: pd.DataFrame, run_name: str = "the run shown") -> Figure:
     """Follow-up H4 for Jev: each statistic's error simulated and estimated, closer one first.
 
     Errors are divided by each scale's range so proportions, 1-7 ratings and
@@ -2534,7 +2534,7 @@ def fig_h4(h4: pd.DataFrame) -> Figure:
         height=int(ky + 18),
         body="\n".join(out),
         source=(
-            "results/tables/followup_h4.csv; FOLLOWUP_PREREGISTRATION.md, H4. Human values are the "
+            f"H4 table from {run_name}; FOLLOWUP_PREREGISTRATION.md, H4. Human values are the "
             "original studies' published ones (Many Labs 2 reports only effect sizes). Errors are "
             "divided by each scale's range (1 for proportions, 6 for 1–7 ratings, 100 for percentage "
             "bands) so they share an axis; change is estimate minus simulate, so negative is better. "
@@ -2619,6 +2619,16 @@ def _order_notes(rows: list[tuple[str, str, float, float]]) -> str:
     return " ".join(notes) + (" " if notes else "")
 
 
+def _shown_path(path: Path) -> str:
+    """A run's path as a reader can find it: repo-relative when inside the repo."""
+    from .config import REPO_ROOT
+
+    try:
+        return str(path.resolve().relative_to(REPO_ROOT.resolve()))
+    except ValueError:
+        return str(path.resolve())
+
+
 def build_diagrams(
     run_path: Path,
     tables_dir: Path,
@@ -2626,6 +2636,7 @@ def build_diagrams(
     out_dir: Path,
     raw_dir: Path | None = None,
 ) -> list[Path]:
+    """Build every figure. `tables_dir` must hold the analysis of `run_path`."""
     from .analysis import core_order_cells, load_records
 
     sdf = pd.read_csv(tables_dir / "statistics.csv")
@@ -2669,7 +2680,7 @@ def build_diagrams(
     h4_path = tables_dir / "followup_h4.csv"
     h4 = pd.read_csv(h4_path) if h4_path.exists() and h4_path.stat().st_size else pd.DataFrame()
     if len(h4):
-        figures.insert(7, fig_h4(h4))
+        figures.insert(7, fig_h4(h4, _shown_path(run_path)))
     else:
         # Leave no chart from an earlier run behind.
         (out_dir / f"{H4_SLUG}.html").unlink(missing_ok=True)
@@ -2680,6 +2691,76 @@ def build_diagrams(
         p.write_text(f.html(), encoding="utf-8")
         paths.append(p)
     return paths
+
+
+# The editorial figures name the run they show in their titles and source
+# lines; a run must match these to be drawn by them.
+EDITORIAL_MODEL = "typesafe/jev-1.13-20260917"
+EDITORIAL_REPLICATES = 10
+EDITORIAL_DATES = frozenset({"2026-10-12", "2026-10-13"})
+
+
+def check_editorial_run(df: pd.DataFrame) -> None:
+    """Refuse a run the figures' fixed labels would misdescribe."""
+    jev = df[df["arm"] == "jev"]
+    problems = []
+    models = sorted(set(jev["model"].dropna()))
+    if models != [EDITORIAL_MODEL]:
+        problems.append(f"model {', '.join(models) or 'none'} (labelled {EDITORIAL_MODEL})")
+    dates = set(jev["timestamp"].dropna().astype(str).str[:10]) if "timestamp" in jev else set()
+    if dates != EDITORIAL_DATES:
+        problems.append(f"dates {', '.join(sorted(dates)) or 'none'} (labelled 12-13 Oct 2026)")
+    # Every core item under every prompt needs its full set of successful
+    # repeats, since the figures say "mean over 10 repeats"; the follow-up
+    # battery is optional.
+    from .instruments import MODULES, PERSONAS, all_probes
+
+    if missing := sorted(set(PERSONAS) - set(jev["persona"])):
+        problems.append(f"no records under {', '.join(missing)}")
+    # A repeat counts only with a usable distribution: a reply with no
+    # probabilities is skipped by the analysis, so it is not one of the 10.
+    usable = jev["probabilities"].map(lambda d: isinstance(d, dict) and bool(d))
+    ok = jev[usable & jev["error"].isna()] if "error" in jev else jev[usable]
+    cells = ok.groupby(["probe_id", "persona"])["replicate"]
+    distinct, rows = cells.nunique(), cells.size()
+    core = [p.probe_id for p in all_probes([m for m in MODULES if m != "followup"])]
+    off = sum(
+        int(
+            distinct.get((pid, persona), 0) != EDITORIAL_REPLICATES
+            or rows.get((pid, persona), 0) != EDITORIAL_REPLICATES
+        )
+        for pid in core
+        for persona in PERSONAS
+    )
+    if off:
+        problems.append(
+            f"{off} of {len(core) * len(PERSONAS)} core item-and-prompt cells do not have exactly "
+            f"{EDITORIAL_REPLICATES} successful repeats"
+        )
+    if problems:
+        raise ValueError(
+            "the editorial figures are labelled for the committed run and would misdescribe "
+            "this one: " + "; ".join(problems) + ". Use `jevbench figures` for other runs."
+        )
+
+
+def build_diagrams_for_run(
+    run_path: Path, comparison_dir: Path, out_dir: Path, raw_dir: Path | None = None
+) -> list[Path]:
+    """Build every figure, the single-model ones from `run_path` analysed afresh.
+
+    Reading saved tables instead would let a figure show another run's numbers
+    whenever `--run` names a different run, or the tables were not rebuilt.
+    """
+    import tempfile
+
+    from .analysis import analyse_run, load_records
+
+    check_editorial_run(load_records(run_path))
+    with tempfile.TemporaryDirectory(prefix="jevbench-diagrams-") as tmp:
+        tables = Path(tmp)
+        analyse_run(run_path, tables)
+        return build_diagrams(run_path, tables, comparison_dir, out_dir, raw_dir)
 
 
 def export_pngs(html_paths: list[Path], out_dir: Path, scale: int = 2) -> list[Path]:
@@ -2709,7 +2790,7 @@ def main(argv: Any = None) -> int:
     import argparse
 
     from .analysis import primary_run
-    from .config import RAW_DIR, REPO_ROOT, TABLES_DIR
+    from .config import RAW_DIR, REPO_ROOT
 
     ap = argparse.ArgumentParser(description="build the editorial figures")
     ap.add_argument("--run", default=None, help="the Jev run (default: the newest run with Jev)")
@@ -2720,7 +2801,11 @@ def main(argv: Any = None) -> int:
         print(f"No live run with Jev in {RAW_DIR}.", file=sys.stderr)
         return 1
     html_dir = REPO_ROOT / "docs" / "diagrams"
-    paths = build_diagrams(run, TABLES_DIR, REPO_ROOT / "results" / "comparison", html_dir)
+    try:
+        paths = build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", html_dir)
+    except ValueError as e:
+        print(f"{run.name}: {e}", file=sys.stderr)
+        return 1
     for p in paths:
         print(f"wrote {p.relative_to(REPO_ROOT)}")
     if not args.no_png:

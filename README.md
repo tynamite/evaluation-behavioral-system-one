@@ -323,6 +323,11 @@ README are a different set, drawn by `jevbench diagrams` in the house style of
 per figure in `docs/diagrams/`, rendered to PNG in `results/figures/`. PNG export
 needs `uv pip install -e ".[diagrams]"` and a Chromium: either run
 `playwright install chromium`, or point `JEVBENCH_CHROMIUM` at an existing one.
+The single-model figures are drawn from the run itself (the newest run with Jev,
+or the one `--run` names), analysed afresh, so they never show another run's
+numbers; the multi-model figures come from `jevbench compare`'s output. Their
+titles and source lines name the committed run (Jev 1.13, 10 repeats, 12–13 Oct
+2026), so `diagrams` refuses a run that differs; `jevbench figures` draws any run.
 
 ### Adding more models
 
