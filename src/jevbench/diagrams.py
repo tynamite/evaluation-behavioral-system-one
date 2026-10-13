@@ -2697,21 +2697,29 @@ def check_editorial_run(df: pd.DataFrame) -> None:
     models = sorted(set(jev["model"].dropna()))
     if models != [EDITORIAL_MODEL]:
         problems.append(f"model {', '.join(models) or 'none'} (labelled {EDITORIAL_MODEL})")
-    reps = int(jev["replicate"].max()) + 1 if len(jev) else 0
-    if reps != EDITORIAL_REPLICATES:
-        problems.append(f"{reps} replicates (labelled {EDITORIAL_REPLICATES})")
     dates = set(jev["timestamp"].dropna().astype(str).str[:10]) if "timestamp" in jev else set()
     if not dates or not dates <= EDITORIAL_DATES:
         problems.append(f"dates {', '.join(sorted(dates)) or 'none'} (labelled 12-13 Oct 2026)")
-    # Every prompt and every core item; the follow-up battery is optional.
+    # Every core item under every prompt needs its full set of successful
+    # repeats, since the figures say "mean over 10 repeats"; the follow-up
+    # battery is optional.
     from .instruments import MODULES, PERSONAS, all_probes
 
-    personas = set(jev["persona"])
-    if missing := sorted(set(PERSONAS) - personas):
+    if missing := sorted(set(PERSONAS) - set(jev["persona"])):
         problems.append(f"no records under {', '.join(missing)}")
-    core = {p.probe_id for p in all_probes([m for m in MODULES if m != "followup"])}
-    if missing_items := core - set(jev["probe_id"]):
-        problems.append(f"{len(missing_items)} of the {len(core)} core items missing")
+    ok = jev[jev["error"].isna()] if "error" in jev else jev
+    reps = ok.groupby(["probe_id", "persona"])["replicate"].nunique()
+    core = [p.probe_id for p in all_probes([m for m in MODULES if m != "followup"])]
+    short = sum(
+        int(reps.get((pid, persona), 0) < EDITORIAL_REPLICATES)
+        for pid in core
+        for persona in PERSONAS
+    )
+    if short:
+        problems.append(
+            f"{short} of {len(core) * len(PERSONAS)} core item-and-prompt cells have fewer than "
+            f"{EDITORIAL_REPLICATES} successful repeats"
+        )
     if problems:
         raise ValueError(
             "the editorial figures are labelled for the committed run and would misdescribe "

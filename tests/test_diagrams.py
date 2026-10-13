@@ -330,7 +330,7 @@ def test_diagrams_refuse_a_run_their_labels_would_misdescribe(tmp_path: Path) ->
             r = json.loads(line)
             if r["replicate"] < 3:  # a default three-replicate run
                 dst.write(line)
-    with pytest.raises(ValueError, match="3 replicates"):
+    with pytest.raises(ValueError, match="fewer than 10 successful repeats"):
         build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", tmp_path / "out")
 
 
@@ -345,4 +345,23 @@ def test_diagrams_refuse_a_run_missing_a_prompt(tmp_path: Path) -> None:
             if json.loads(line)["persona"] == "neutral":
                 dst.write(line)
     with pytest.raises(ValueError, match="no records under"):
+        build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", tmp_path / "out")
+
+
+def test_diagrams_refuse_a_run_with_a_failed_repeat(tmp_path: Path) -> None:
+    """A single errored call leaves a cell short of the 10 repeats the figures claim."""
+    import json
+
+    from jevbench.diagrams import build_diagrams_for_run
+
+    run = tmp_path / "run_live_20261013T000000Z_typesafe--jev-1.13.jsonl"
+    failed = False
+    with COMMITTED_RUN.open() as src, run.open("w") as dst:
+        for line in src:
+            r = json.loads(line)
+            if not failed and r["arm"] == "jev" and r["probe_id"] == "crt_bat_ball":
+                r["error"], r["probabilities"], failed = "refused: test", None, True
+                line = json.dumps(r) + "\n"
+            dst.write(line)
+    with pytest.raises(ValueError, match=r"1 of \d+ core item-and-prompt cells have fewer than 10"):
         build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", tmp_path / "out")
