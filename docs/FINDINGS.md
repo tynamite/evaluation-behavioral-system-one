@@ -133,9 +133,9 @@ A follow-up study, preregistered separately, measured 23 statistics two ways
 (9 sourced from the Many Labs 2 replication project's protocol, 6 sourced from
 the original papers, and 8 from six classic items reused from the first
 study): as the item itself, with the typical-person instruction
-("simulate"), and as a question about the population with no persona — "what
-proportion of participants chose…", or what rating they gave on average
-("estimate"). Each was
+("simulate"), and as a question about the population with no persona asking
+for the population's answer itself: the share who chose an option, or the
+average rating, percentage or prediction ("estimate"). Each was
 compared with the original study's published value; Many Labs 2 reports only
 effect sizes, not the per-condition values this needs.
 

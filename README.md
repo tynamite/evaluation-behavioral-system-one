@@ -192,9 +192,9 @@ A second preregistration,
 eight effects, five of them from the Many Labs 2 replication project's protocol
 and three (Knobe, trolley, false consensus) from the original papers. Each
 effect was measured two ways: as the item itself under the typical-person
-prompt ("simulate"), and as a population question with no persona — "what
-proportion of participants chose…", or what rating they gave on average
-("estimate"). Its central fame hypotheses (H1, H2) could not be run, because
+prompt ("simulate"), and as a population question with no persona asking for
+the population's answer itself: the share who chose an option, or the average
+rating, percentage or prediction ("estimate"). Its central fame hypotheses (H1, H2) could not be run, because
 the matched pairs they needed do not exist in the item pool. Two others could:
 
 - **H4: estimate is more accurate than simulate.** It holds for Jev, but
