@@ -2626,7 +2626,7 @@ def _shown_path(path: Path) -> str:
     try:
         return str(path.resolve().relative_to(REPO_ROOT.resolve()))
     except ValueError:
-        return str(path)
+        return str(path.resolve())
 
 
 def build_diagrams(
@@ -2708,7 +2708,7 @@ def check_editorial_run(df: pd.DataFrame) -> None:
     if models != [EDITORIAL_MODEL]:
         problems.append(f"model {', '.join(models) or 'none'} (labelled {EDITORIAL_MODEL})")
     dates = set(jev["timestamp"].dropna().astype(str).str[:10]) if "timestamp" in jev else set()
-    if not dates or not dates <= EDITORIAL_DATES:
+    if dates != EDITORIAL_DATES:
         problems.append(f"dates {', '.join(sorted(dates)) or 'none'} (labelled 12-13 Oct 2026)")
     # Every core item under every prompt needs its full set of successful
     # repeats, since the figures say "mean over 10 repeats"; the follow-up
@@ -2717,7 +2717,10 @@ def check_editorial_run(df: pd.DataFrame) -> None:
 
     if missing := sorted(set(PERSONAS) - set(jev["persona"])):
         problems.append(f"no records under {', '.join(missing)}")
-    ok = jev[jev["error"].isna()] if "error" in jev else jev
+    # A repeat counts only with a usable distribution: a reply with no
+    # probabilities is skipped by the analysis, so it is not one of the 10.
+    usable = jev["probabilities"].map(lambda d: isinstance(d, dict) and bool(d))
+    ok = jev[usable & jev["error"].isna()] if "error" in jev else jev[usable]
     cells = ok.groupby(["probe_id", "persona"])["replicate"]
     distinct, rows = cells.nunique(), cells.size()
     core = [p.probe_id for p in all_probes([m for m in MODULES if m != "followup"])]

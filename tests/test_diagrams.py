@@ -385,3 +385,31 @@ def test_diagrams_refuse_duplicated_repeats(tmp_path: Path) -> None:
         ValueError, match=r"1 of \d+ core item-and-prompt cells do not have exactly"
     ):
         build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", tmp_path / "out")
+
+
+def test_diagrams_refuse_a_repeat_with_no_distribution(tmp_path: Path) -> None:
+    import json
+
+    from jevbench.diagrams import build_diagrams_for_run
+
+    run = tmp_path / "run_live_20261013T000000Z_typesafe--jev-1.13.jsonl"
+    done = False
+    with COMMITTED_RUN.open() as src, run.open("w") as dst:
+        for line in src:
+            r = json.loads(line)
+            if not done and r["arm"] == "jev" and r["probe_id"] == "crt_bat_ball":
+                r["probabilities"], done = {}, True
+                line = json.dumps(r) + "\n"
+            dst.write(line)
+    with pytest.raises(
+        ValueError, match=r"1 of \d+ core item-and-prompt cells do not have exactly"
+    ):
+        build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", tmp_path / "out")
+
+
+def test_shown_path_is_absolute_outside_the_repo(tmp_path: Path) -> None:
+    from jevbench.diagrams import _shown_path
+
+    assert _shown_path(COMMITTED_RUN) == f"data/raw/{COMMITTED_RUN.name}"
+    outside = tmp_path / "run.jsonl"
+    assert _shown_path(outside) == str(outside.resolve())
