@@ -381,6 +381,7 @@ def test_runner_records_an_answer_on_unknown_options_as_an_error() -> None:
             return DecisionResponse.parse(
                 {
                     "model": "stub",
+                    "usage": {"cost": 0.01},
                     "answers": {
                         "answer": {"type": "choice", "choice": "zz", "probabilities": {"zz": 1.0}}
                     },
@@ -391,3 +392,24 @@ def test_runner_records_an_answer_on_unknown_options_as_an_error() -> None:
     runner = BatteryRunner(Config.from_env(backend="simulator"), replicates=1)
     rec = runner._one_jev(Stub(), probe, "neutral", 0)
     assert rec.error and "not options" in rec.error
+    # The call was served and billed: its model and cost are kept.
+    assert rec.model == "stub" and rec.usage == {"cost": 0.01}
+    assert rec.probabilities == {} and rec.value is None
+
+
+def test_runner_records_a_noul_outside_the_unit_interval_as_an_error() -> None:
+    from jevbench.instruments import all_probes
+    from jevbench.runner import BatteryRunner
+    from jevbench.schema import DecisionResponse, Noul
+
+    class Stub:
+        def decide(self, state: object, questions: object) -> DecisionResponse:
+            return DecisionResponse.parse(
+                {"model": "stub", "answers": {"answer": {"type": "noul", "noul": 1.5}}}
+            )
+
+    probe = next(p for p in all_probes() if isinstance(p.question, Noul))
+    rec = BatteryRunner(Config.from_env(backend="simulator"), replicates=1)._one_jev(
+        Stub(), probe, "neutral", 0
+    )
+    assert rec.error and "outside [0, 1]" in rec.error

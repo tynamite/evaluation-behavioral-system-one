@@ -97,8 +97,6 @@ class Answer:
         kind = obj.get("type")
         if kind == "noul":
             p = float(obj["noul"])
-            if not (math.isfinite(p) and 0.0 <= p <= 1.0):
-                raise ValueError(f"Answer to {qid!r} has a Noul probability outside [0, 1]: {p}")
             # Express a Noul as an explicit two-point distribution so that every
             # answer in the project has the same shape downstream.
             return cls(
@@ -114,9 +112,9 @@ class Answer:
                 qid=qid,
                 kind="choice",
                 value=str(obj["choice"]),
-                probabilities=_checked(
-                    qid, {str(k): float(v) for k, v in (obj.get("probabilities") or {}).items()}
-                ),
+                probabilities={
+                    str(k): float(v) for k, v in (obj.get("probabilities") or {}).items()
+                },
                 confidence=_opt_float(obj.get("confidence")),
                 raw=obj,
             )
@@ -125,9 +123,9 @@ class Answer:
                 qid=qid,
                 kind="score",
                 value=float(obj["score"]),
-                probabilities=_checked(
-                    qid, {str(k): float(v) for k, v in (obj.get("probabilities") or {}).items()}
-                ),
+                probabilities={
+                    str(k): float(v) for k, v in (obj.get("probabilities") or {}).items()
+                },
                 confidence=_opt_float(obj.get("confidence")),
                 legend=obj.get("legend"),
                 raw=obj,
@@ -141,7 +139,7 @@ def distribution_problem(
     """Why `probs` is not a usable answer distribution, or None if it is.
 
     A reply can arrive without error and still carry nothing to analyse: no
-    probabilities, ones outside [0, 1] or not finite, no mass at all, or keys that
+    probabilities, ones outside [0, 1] or not finite, a total far from 1, or keys that
     are not the question's options. Averaging such a reply in would corrupt
     the distribution it joins, so it is rejected rather than normalised.
     """
@@ -153,8 +151,10 @@ def distribution_problem(
         isinstance(v, (int, float)) and math.isfinite(v) and 0 <= v <= 1 + 1e-6 for v in values
     ):
         return "a probability outside [0, 1] or not a finite number"
-    if sum(values) <= 0:
-        return "probabilities that sum to zero"
+    # Returned values are rounded (two decimals in every committed run, where
+    # totals stray at most 0.01 from 1), so allow a little slack, not more.
+    if abs(sum(values) - 1.0) > 0.05:
+        return f"probabilities that sum to {sum(values):.3g}, not 1"
     if allowed is not None and (unknown := set(probs) - set(allowed)):
         return f"keys that are not options: {sorted(unknown)[:3]}"
     return None
@@ -167,12 +167,6 @@ def allowed_keys(question: Choice | Score | Noul) -> frozenset[str]:
     if isinstance(question, Score):
         return frozenset(str(i) for i in range(len(question.criteria)))
     return frozenset({"true", "false"})
-
-
-def _checked(qid: str, probs: dict[str, float]) -> dict[str, float]:
-    if problem := distribution_problem(probs):
-        raise ValueError(f"Answer to {qid!r} has {problem}")
-    return probs
 
 
 def _opt_float(v: Any) -> float | None:

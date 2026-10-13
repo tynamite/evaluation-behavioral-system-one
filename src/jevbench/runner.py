@@ -167,8 +167,9 @@ class BatteryRunner:
         try:
             resp = client.decide(prepared.state, {"answer": prepared.question})
             ans = resp.answers["answer"]
-            if problem := distribution_problem(ans.probabilities, allowed_keys(prepared.question)):
-                raise ValueError(f"unusable answer: {problem}")
+            # Checked here, after the response, so a rejected reply keeps the
+            # model that served it and the cost it ran up.
+            problem = distribution_problem(ans.probabilities, allowed_keys(prepared.question))
             return Record(
                 probe_id=probe.probe_id,
                 instrument=probe.instrument,
@@ -178,13 +179,14 @@ class BatteryRunner:
                 backend=self.config.backend,
                 model=resp.model,
                 kind=ans.kind,
-                value=ans.value,
-                probabilities=ans.probabilities,
+                value=None if problem else ans.value,
+                probabilities={} if problem else ans.probabilities,
                 confidence=ans.confidence,
                 legend=ans.legend,
                 option_order=prepared.meta.get("option_order"),
                 meta=probe.meta,
                 usage=resp.usage,
+                error=f"unusable answer: {problem}" if problem else None,
                 timestamp=now,
             )
         except Exception as exc:

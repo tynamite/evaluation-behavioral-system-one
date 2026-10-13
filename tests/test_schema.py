@@ -99,24 +99,27 @@ def test_parses_a_real_api_response() -> None:
     ("probs", "why"),
     [
         ({}, "no probabilities"),
-        ({"a": 0.0, "b": 0.0}, "sum to zero"),
+        ({"a": 0.0, "b": 0.0}, "sum to 0, not 1"),
+        ({"a": 0.1, "b": 0.1}, "sum to 0.2, not 1"),
         ({"a": -0.2, "b": 1.2}, "outside \\[0, 1\\] or not a finite number"),
-        ({"a": float("nan"), "b": 1.0}, "outside \\[0, 1\\] or not a finite number"),
         ({"a": 1.2, "b": 0.2}, "outside \\[0, 1\\] or not a finite number"),
+        ({"a": float("nan"), "b": 1.0}, "outside \\[0, 1\\] or not a finite number"),
         ({"a": float("inf"), "b": 0.0}, "outside \\[0, 1\\] or not a finite number"),
     ],
 )
-def test_parse_rejects_an_unusable_distribution(probs: dict[str, float], why: str) -> None:
-    with pytest.raises(ValueError, match=why):
-        Answer.parse("q", {"type": "choice", "choice": "a", "probabilities": probs})
-    with pytest.raises(ValueError, match=why):
-        Answer.parse("q", {"type": "score", "score": 1, "probabilities": probs})
+def test_unusable_distributions_are_named(probs: dict[str, float], why: str) -> None:
+    import re
+
+    from jevbench.schema import distribution_problem
+
+    assert re.search(why, distribution_problem(probs) or "")
 
 
-@pytest.mark.parametrize("p", [-0.1, 1.5, float("nan")])
-def test_parse_rejects_a_noul_outside_the_unit_interval(p: float) -> None:
-    with pytest.raises(ValueError, match="outside"):
-        Answer.parse("q", {"type": "noul", "noul": p})
+def test_rounded_distributions_are_usable() -> None:
+    from jevbench.schema import distribution_problem
+
+    assert distribution_problem({"a": 0.99, "b": 0.0}) is None  # two-decimal rounding
+    assert distribution_problem({"true": 0.16, "false": 0.84}) is None
 
 
 def test_distribution_keys_must_be_the_questions_options() -> None:

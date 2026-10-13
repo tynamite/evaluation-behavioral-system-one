@@ -82,16 +82,28 @@ def load_records(path: Path) -> pd.DataFrame:
     return _reread_chat_replies(_mark_unusable(df))
 
 
-def _record_keys(row: pd.Series) -> frozenset[str] | None:
-    """The keys a record's answer may use, from what the record itself was shown."""
+def _score_levels() -> dict[str, frozenset[str]]:
+    from .instruments import all_probes
+    from .schema import Score, allowed_keys
+
+    return {
+        p.probe_id: allowed_keys(p.question) for p in all_probes() if isinstance(p.question, Score)
+    }
+
+
+def _record_keys(row: pd.Series, score_levels: dict[str, frozenset[str]]) -> frozenset[str] | None:
+    """The keys a record's answer may use: what the question offered.
+
+    A Choice record lists the options it showed; a Score's levels come from the
+    question's definition, not from the legend the reply sent back.
+    """
     if row.get("kind") == "noul":
         return frozenset({"true", "false"})
+    if row.get("kind") == "score":
+        return score_levels.get(str(row.get("probe_id")))
     order = row.get("option_order")
     if isinstance(order, list) and order:
         return frozenset(str(k) for k in order)
-    legend = row.get("legend")
-    if isinstance(legend, dict) and legend:
-        return frozenset(str(k) for k in legend)
     return None
 
 
@@ -107,10 +119,11 @@ def _mark_unusable(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
     if "error" not in df.columns:
         df["error"] = None
+    levels = _score_levels()
     for i, row in df[(df["arm"] == "jev") & df["error"].isna()].iterrows():
         probs = row["probabilities"]
         problem = (
-            distribution_problem(probs, _record_keys(row))
+            distribution_problem(probs, _record_keys(row, levels))
             if isinstance(probs, dict)
             else "no probabilities"
         )
