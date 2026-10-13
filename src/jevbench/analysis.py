@@ -1248,6 +1248,11 @@ def h4_summary(table: pd.DataFrame) -> dict[str, float | int | None]:
     }
 
 
+def core_order_cells(odf: pd.DataFrame) -> pd.DataFrame:
+    """The order-effect cells H6 is about: the core battery, without the follow-up items."""
+    return odf[~odf["followup"].astype(bool)] if "followup" in odf.columns else odf
+
+
 def _order_split(odf: pd.DataFrame) -> dict[str, float | None]:
     """Mean order effect and noise floor for the core battery and the follow-up items."""
     out: dict[str, float | None] = {}

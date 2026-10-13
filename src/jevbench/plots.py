@@ -33,7 +33,13 @@ from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 from matplotlib.lines import Line2D
 
-from .analysis import compute_stats, distributions, load_records, order_effects
+from .analysis import (
+    compute_stats,
+    core_order_cells,
+    distributions,
+    load_records,
+    order_effects,
+)
 from .benchmarks import BENCHMARKS
 
 SURFACE = "#fcfcfb"
@@ -889,7 +895,7 @@ def build_figures(run_path: Path, out_dir: Path) -> list[Path]:
     out_dir.mkdir(parents=True, exist_ok=True)
     df = load_records(run_path)
     sdf = pd.DataFrame([asdict(s) for s in compute_stats(df)])
-    odf = order_effects(df)
+    odf = core_order_cells(order_effects(df))
     maybe_paths: list[Path | None] = [
         fig_vs_human(sdf, out_dir),
         fig_gap(sdf, out_dir),

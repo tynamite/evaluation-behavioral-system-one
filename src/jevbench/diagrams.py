@@ -2350,9 +2350,9 @@ def fig_models_dictator(runs: dict[str, pd.DataFrame]) -> Figure:
 
 
 def fig_models_order(runs: dict[str, pd.DataFrame]) -> Figure:
-    from .analysis import order_effects
+    from .analysis import core_order_cells, order_effects
 
-    odfs = {m: order_effects(runs[m]) for m, _c in MAIN_MODELS}
+    odfs = {m: core_order_cells(order_effects(runs[m])) for m, _c in MAIN_MODELS}
 
     # A refusal can drop a single cell (GPT-6 Luna Decisions refuses some
     # follow-up items), so average every model over the same (item, prompt) cells.
@@ -2401,7 +2401,8 @@ def fig_models_order(runs: dict[str, pd.DataFrame]) -> Figure:
         height=510,
         body=body,
         source=f"Mean distance over all pairs of the 10 repeats, per item and prompt, on the {len(common)} item-and-"
-        f"prompt cells ({len(items)} items) all four runs share. {_order_notes(rows)}"
+        f"prompt cells ({len(items)} items) all four runs share; the follow-up items are left out, as "
+        f"for H6. {_order_notes(rows)}"
         "All models run 12–13 Oct 2026.",
     )
 
@@ -2431,10 +2432,10 @@ def build_diagrams(
     out_dir: Path,
     raw_dir: Path | None = None,
 ) -> list[Path]:
-    from .analysis import load_records
+    from .analysis import core_order_cells, load_records
 
     sdf = pd.read_csv(tables_dir / "statistics.csv")
-    odf = pd.read_csv(tables_dir / "order_effects.csv")
+    odf = core_order_cells(pd.read_csv(tables_dir / "order_effects.csv"))
     fdf = pd.read_csv(comparison_dir / "fidelity.csv")
     mdf = pd.read_csv(comparison_dir / "measures.csv")
     df = load_records(run_path)
