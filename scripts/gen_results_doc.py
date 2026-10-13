@@ -191,10 +191,9 @@ def main(argv: list[str]) -> int:
                  "preregistered. Those units differ (proportions, 1–7 ratings, percentage bands), so "
                  "the raw test weighs the ratings and percentages most; as a post-hoc check the same "
                  "test is repeated with each error divided by its scale's range (1, 6 and 100), and "
-                 "the mean errors below are on that scaled footing. The six items reused from the first "
-                 "project (CRT, framing, conjunction, sunk cost, Allais, base rate) belong to the "
-                 "preregistered pool but were never given a population question, so they are "
-                 "missing here.\n")
+                 "the mean errors below are on that scaled footing. The population questions for the "
+                 "six items reused from the first project (CRT, framing, conjunction, sunk cost, "
+                 "Allais, base rate) were asked on 13 October 2026, after the main run.\n")
         L.append("| Item | Statistic | Published | Simulate | Estimate | Error (simulate) | "
                  "Error (estimate) | Scaled (simulate) | Scaled (estimate) |")
         L.append("|---|---|---:|---:|---:|---:|---:|---:|---:|")

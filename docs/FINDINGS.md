@@ -129,8 +129,9 @@ experiment does not test that.
 
 ### 5. Asking it about people works slightly better than asking it to be one
 
-A follow-up study, preregistered separately, asked 15 items from the Many Labs 2
-replication project two ways: as the item itself, with the typical-person
+A follow-up study, preregistered separately, measured 23 statistics two ways
+(15 from items in the Many Labs 2 replication project, 8 from six classic items
+reused from the first study): as the item itself, with the typical-person
 instruction ("simulate"), and as a question about the population with no
 persona — "what proportion of participants chose…" ("estimate"). Each was
 compared with the original study's published value; Many Labs 2 reports only
@@ -138,16 +139,15 @@ effect sizes, not the per-condition values this needs.
 
 | | Simulate | Estimate |
 |---|---|---|
-| Mean error, scaled to each item's range | 0.22 | **0.15** |
-| Items where it is closer to the published value | 7 of 15 | **8 of 15** |
+| Mean error, scaled to each item's range | 0.23 | **0.17** |
+| Items where it is closer to the published value | 9 of 23 | **14 of 23** |
 
 Estimating is better on average, as predicted, and the preregistered test, a
-one-sided Wilcoxon test on the absolute errors, just passes (p = 0.047). It
-is fragile. The errors are in each item's own units, so the two percentage
-items and the 1–7 ratings weigh most. Scaled to each item's range, which is a
-check chosen after seeing the data, the same test gives p = 0.17, and the edge
-comes mostly from three items (categorisation and two custody-case
-questions). The same direction shows up in nine of the ten System One models. The
+one-sided Wilcoxon test on the absolute errors, passes (p = 0.015). The errors
+are in each item's own units, so the two percentage items and the 1–7 ratings
+weigh most; scaled to each item's range, a check chosen after seeing the data,
+the same test gives p = 0.043. Across the ten System One models the direction
+holds for seven, and the preregistered test passes for three. The
 same study also predicted that a model would reproduce a famous effect at its
 original size rather than its replicated one; on the incidental-anchoring item
 it does not — no model reaches even half the original 6.2-point gap.

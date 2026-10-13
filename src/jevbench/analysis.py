@@ -1116,6 +1116,40 @@ def compute_stats(df: pd.DataFrame) -> list[Stat]:
                         "group does; original gap is 0.614 - 0.304 = 0.31",
                     )
 
+            # --- follow-up: estimates for the reused items -----------
+            # Each is P(true) for "what proportion chose this option?", named
+            # after the statistic its item reports so H4 can pair the two.
+            crt_est = [
+                prob_of(d, "true") for pid in sorted(FREDERICK_CRT) if (d := g(f"{pid}_estimate"))
+            ]
+            if crt_est:
+                add(
+                    "crt_estimate",
+                    "proportion_correct",
+                    persona,
+                    arm,
+                    float(np.mean(crt_est)),
+                    bench="crt_proportion_correct",
+                    note="Frederick's three items (bat and ball, widgets, lily pads)",
+                )
+            for pid, inst, stat, bench in (
+                ("framing_gain", "framing", "prob_certain_gain_frame", "framing_gain_certain"),
+                ("framing_loss", "framing", "prob_certain_loss_frame", "framing_loss_certain"),
+                ("allais_problem1", "allais", "prob_certain_pair1", "allais_p1_certain"),
+                ("allais_problem2", "allais", "prob_safer_pair2", "allais_p2_certain"),
+                (
+                    "conjunction_forced_choice",
+                    "conjunction",
+                    "prob_fallacy_forced_choice",
+                    "conjunction_fallacy_rate",
+                ),
+                ("base_rate_mammogram", "base_rate", "prob_correct_band", "base_rate_correct_band"),
+                ("sunk_cost", "sunk_cost", "prob_continue", "sunk_cost_continue"),
+            ):
+                d = g(f"{pid}_estimate")
+                if d:
+                    add(f"{inst}_estimate", stat, persona, arm, prob_of(d, "true"), bench=bench)
+
     return stats
 
 
@@ -1178,6 +1212,15 @@ FOLLOWUP_H4_PAIRS: list[tuple[str, str, float]] = [
     ("position_power", "power_short_line", 6.0),
     ("trolley", "prob_push_permissible", 1.0),
     ("trolley", "prob_switch_permissible", 1.0),
+    # The six items reused from the first project (section 4.1).
+    ("allais", "prob_certain_pair1", 1.0),
+    ("allais", "prob_safer_pair2", 1.0),
+    ("base_rate", "prob_correct_band", 1.0),
+    ("conjunction", "prob_fallacy_forced_choice", 1.0),
+    ("crt", "proportion_correct", 1.0),
+    ("framing", "prob_certain_gain_frame", 1.0),
+    ("framing", "prob_certain_loss_frame", 1.0),
+    ("sunk_cost", "prob_continue", 1.0),
 ]
 
 

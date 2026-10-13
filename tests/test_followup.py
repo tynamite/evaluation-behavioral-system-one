@@ -14,11 +14,13 @@ from __future__ import annotations
 import re
 
 from jevbench.benchmarks import BENCHMARKS
-from jevbench.instruments.followup import categorization, probes
+from jevbench.instruments import all_probes
+from jevbench.instruments.followup import categorization, probes, reused_estimates
 from jevbench.schema import Choice, Noul
 
 PROBES = probes()
 BY_ID = {p.probe_id: p for p in PROBES}
+ALL_BY_ID = {p.probe_id: p for p in all_probes(None)}
 
 
 def _features(description: str) -> tuple[str, ...]:
@@ -28,7 +30,7 @@ def _features(description: str) -> tuple[str, ...]:
 
 
 def test_probe_count_and_instruments() -> None:
-    assert len(PROBES) == 30
+    assert len(PROBES) == 40
     instruments = {p.instrument for p in PROBES}
     assert instruments == {
         "moral_typecasting",
@@ -47,6 +49,14 @@ def test_probe_count_and_instruments() -> None:
         "trolley_estimate",
         "false_consensus",
         "false_consensus_estimate",
+        # Estimates for the items reused from the first project; the items
+        # themselves are asked in their own modules.
+        "allais_estimate",
+        "base_rate_estimate",
+        "conjunction_estimate",
+        "crt_estimate",
+        "framing_estimate",
+        "sunk_cost_estimate",
     }
 
 
@@ -55,8 +65,8 @@ def test_every_estimate_probe_has_a_response_counterpart() -> None:
     assert estimate_ids, "expected at least one estimate probe"
     for eid in estimate_ids:
         base = eid[: -len("_estimate")]
-        assert base in BY_ID, f"{eid} has no response-condition counterpart {base!r}"
-        assert BY_ID[base].instrument != BY_ID[eid].instrument, (
+        assert base in ALL_BY_ID, f"{eid} has no response-condition counterpart {base!r}"
+        assert ALL_BY_ID[base].instrument != BY_ID[eid].instrument, (
             f"{base} and {eid} must be distinct instruments so they can be told apart in results"
         )
 
@@ -227,3 +237,16 @@ def test_false_consensus_frames_predict_more_of_own_choice() -> None:
     assert (
         BY_ID["false_consensus_nonwearer"].state["frame"] == "Suppose you refuse to wear the sign."
     )
+
+
+def test_reused_estimates_name_the_option_the_benchmark_counts() -> None:
+    """Section 8.1: the population question asks for the share choosing one named option."""
+    for est in reused_estimates():
+        item = ALL_BY_ID[est.probe_id.removesuffix("_estimate")]
+        assert isinstance(item.question, Choice) and isinstance(est.question, Noul)
+        target = est.meta["target"]
+        criteria = item.question.criteria
+        assert isinstance(criteria, dict) and target in criteria
+        assert f'"{criteria[target]}"' in est.question.instructions
+        assert est.state["options"] == criteria
+        assert est.meta["asks_for"] == "proportion"

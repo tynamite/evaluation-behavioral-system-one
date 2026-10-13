@@ -131,8 +131,13 @@ following, among other claims that did not check out against the code:
 - **H4 was first reported on a scale the preregistration did not name.** It
   registers the absolute error against the human value; the first report
   divided each error by its item's range, which changes the test's ranks, and
-  gave p = 0.17 for Jev. The registered test gives 0.047. Both are now
+  gave p = 0.17 for Jev. The registered test gave 0.047. Both are now
   reported, the scaled one as a check chosen after seeing the data.
+- **H4 was first tested on part of its item pool.** The preregistration's
+  pool includes six items reused from the first project, but their
+  population questions had never been built. They were built and asked of the
+  ten System One models on 13 October (1,000 calls), which moved Jev from 8 of
+  15 (p = 0.047) to 14 of 23 (p = 0.015).
 
 ## Smaller corrections
 

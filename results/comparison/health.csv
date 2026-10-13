@@ -1,13 +1,13 @@
 model,type,run_file,n_records,n_errors,n_refused,n_unresolved,n_not_measurable,cells,cells_with_no_usable_answer,error_rate_by_kind,cost_usd
 anthropic/claude-sonnet-5.5,"chat, resampled",run_live_20261012T225915Z_typesafe--jev-1.13+anthropic--claude-sonnet-5.5.jsonl,7350,0,0,3,550,680,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",8.8439
-typesafe/jev-1.13-20260917,System One,run_live_20261012T225915Z_typesafe--jev-1.13+anthropic--claude-sonnet-5.5.jsonl,7350,0,0,0,0,735,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.1399
+typesafe/jev-1.13-20260917,System One,run_live_20261012T225915Z_typesafe--jev-1.13+anthropic--claude-sonnet-5.5.jsonl,7450,0,0,0,0,745,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.1418
 anthropic/claude-haiku-5.5,"chat, resampled",run_live_20261012T225916Z_anthropic--claude-haiku-5.5.jsonl,7350,0,0,16,550,680,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.8363
-openai/gpt-6-luna-decisions-20261006,System One,run_live_20261012T225918Z_openai--gpt-6-luna-decisions.jsonl,7350,250,250,0,0,735,25,"{""choice"": 0.0, ""noul"": 0.3692, ""score"": 0.005}",0.1691
-liquid/d1-20260930,System One,run_live_20261012T225919Z_liquid--d1.jsonl,7350,0,0,0,0,735,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.0473
-microsoft/microsoft-decision-1-20261009,System One,run_live_20261012T225920Z_microsoft--microsoft-decision-1.jsonl,7350,0,0,0,0,735,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.048
-perplexity/pplx-decider-v1.1-27b-20261006,System One,run_live_20261012T225921Z_perplexity--pplx-decider-v1.1-27b.jsonl,7350,0,0,0,0,735,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.0325
-inception/mercury-decide-20260930,System One,run_live_20261012T225922Z_inception--mercury-decide.jsonl,7350,0,0,0,0,735,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.0328
-upstage/solar-decide-flash-20261008,System One,run_live_20261012T225924Z_upstage--solar-decide-flash.jsonl,7350,50,0,0,0,735,5,"{""choice"": 0.0106, ""noul"": 0.0, ""score"": 0.0}",0.1707
-upstage/solar-decide-20260928,System One,run_live_20261012T225925Z_upstage--solar-decide.jsonl,7350,50,0,0,0,735,5,"{""choice"": 0.0106, ""noul"": 0.0, ""score"": 0.0}",0.1707
-cloudflare/clef-flash,System One,run_live_20261012T225926Z_cloudflare--clef-flash.jsonl,7350,0,0,0,0,735,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.0538
-cloudflare/clef,System One,run_live_20261012T225927Z_cloudflare--clef.jsonl,7350,0,0,0,0,735,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.1151
+openai/gpt-6-luna-decisions-20261006,System One,run_live_20261012T225918Z_openai--gpt-6-luna-decisions.jsonl,7450,300,300,0,0,745,30,"{""choice"": 0.0, ""noul"": 0.3867, ""score"": 0.005}",0.1706
+liquid/d1-20260930,System One,run_live_20261012T225919Z_liquid--d1.jsonl,7450,0,0,0,0,745,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.0477
+microsoft/microsoft-decision-1-20261009,System One,run_live_20261012T225920Z_microsoft--microsoft-decision-1.jsonl,7450,0,0,0,0,745,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.0487
+perplexity/pplx-decider-v1.1-27b-20261006,System One,run_live_20261012T225921Z_perplexity--pplx-decider-v1.1-27b.jsonl,7450,0,0,0,0,745,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.033
+inception/mercury-decide-20260930,System One,run_live_20261012T225922Z_inception--mercury-decide.jsonl,7450,0,0,0,0,745,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.0332
+upstage/solar-decide-flash-20261008,System One,run_live_20261012T225924Z_upstage--solar-decide-flash.jsonl,7450,50,0,0,0,745,5,"{""choice"": 0.0106, ""noul"": 0.0, ""score"": 0.0}",0.1733
+upstage/solar-decide-20260928,System One,run_live_20261012T225925Z_upstage--solar-decide.jsonl,7450,50,0,0,0,745,5,"{""choice"": 0.0106, ""noul"": 0.0, ""score"": 0.0}",0.1733
+cloudflare/clef-flash,System One,run_live_20261012T225926Z_cloudflare--clef-flash.jsonl,7450,0,0,0,0,745,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.0545
+cloudflare/clef,System One,run_live_20261012T225927Z_cloudflare--clef.jsonl,7450,0,0,0,0,745,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.1167

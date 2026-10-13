@@ -4,11 +4,13 @@ allais_problem1,neutral,True,False,10,0.053777777777777765,0.12999999999999995
 allais_problem1,rational_agent,True,False,10,0.08399999999999999,0.18999999999999997
 allais_problem1,typical_human,True,False,10,0.04466666666666666,0.12
 allais_problem1,typical_human_plain,True,False,10,0.057333333333333326,0.12
+allais_problem1_estimate,neutral,False,True,10,0.0108888888888889,0.030000000000000027
 allais_problem2,antisocial,True,False,10,0.12088888888888889,0.24
 allais_problem2,neutral,True,False,10,0.08488888888888885,0.17999999999999997
 allais_problem2,rational_agent,True,False,10,0.17399999999999996,0.35
 allais_problem2,typical_human,True,False,10,0.07511111111111111,0.18000000000000005
 allais_problem2,typical_human_plain,True,False,10,0.07822222222222223,0.17000000000000004
+allais_problem2_estimate,neutral,False,True,10,0.012222222222222233,0.030000000000000027
 anchoring_high,antisocial,True,False,10,0.176,0.5
 anchoring_high,neutral,True,False,10,0.19733333333333336,0.45
 anchoring_high,rational_agent,True,False,10,0.15522222222222223,0.35
@@ -24,6 +26,7 @@ base_rate_mammogram,neutral,True,False,10,0.14044444444444446,0.3299999999999999
 base_rate_mammogram,rational_agent,True,False,10,0.15533333333333332,0.39999999999999997
 base_rate_mammogram,typical_human,True,False,10,0.12644444444444444,0.21000000000000002
 base_rate_mammogram,typical_human_plain,True,False,10,0.10755555555555556,0.3
+base_rate_mammogram_estimate,neutral,False,True,10,0.00733333333333334,0.020000000000000018
 beauty_contest_2_3,antisocial,True,False,10,0.07466666666666667,0.12
 beauty_contest_2_3,neutral,True,False,10,0.07655555555555556,0.135
 beauty_contest_2_3,rational_agent,True,False,10,0.0035555555555555575,0.010000000000000005
@@ -34,6 +37,7 @@ conjunction_forced_choice,neutral,True,False,10,0.029777777777777785,0.079999999
 conjunction_forced_choice,rational_agent,True,False,10,0.009555555555555562,0.030000000000000013
 conjunction_forced_choice,typical_human,True,False,10,0.016666666666666642,0.04999999999999997
 conjunction_forced_choice,typical_human_plain,True,False,10,0.03022222222222224,0.08000000000000004
+conjunction_forced_choice_estimate,neutral,False,True,10,0.008666666666666675,0.030000000000000027
 conjunction_p_conjunction,antisocial,False,False,10,0.011333333333333338,0.030000000000000013
 conjunction_p_conjunction,neutral,False,False,10,0.010000000000000009,0.020000000000000018
 conjunction_p_conjunction,rational_agent,False,False,10,0.016,0.05000000000000002
@@ -54,6 +58,7 @@ crt_bat_ball,neutral,True,False,10,0.007777777777777782,0.02000000000000001
 crt_bat_ball,rational_agent,True,False,10,0.00466666666666667,0.010000000000000005
 crt_bat_ball,typical_human,True,False,10,0.02000000000000001,0.040000000000000015
 crt_bat_ball,typical_human_plain,True,False,10,0.041333333333333354,0.10000000000000005
+crt_bat_ball_estimate,neutral,False,True,10,0.019999999999999987,0.04999999999999996
 crt_class_rank,antisocial,True,False,10,0.0035555555555555575,0.010000000000000005
 crt_class_rank,neutral,True,False,10,0.0,0.0
 crt_class_rank,rational_agent,True,False,10,0.0,0.0
@@ -64,6 +69,7 @@ crt_lilypads,neutral,True,False,10,0.0,0.0
 crt_lilypads,rational_agent,True,False,10,0.0,0.0
 crt_lilypads,typical_human,True,False,10,0.11144444444444442,0.21999999999999997
 crt_lilypads,typical_human_plain,True,False,10,0.08244444444444446,0.23000000000000004
+crt_lilypads_estimate,neutral,False,True,10,0.015333333333333341,0.05000000000000002
 crt_pig,antisocial,True,False,10,0.028666666666666677,0.08000000000000003
 crt_pig,neutral,True,False,10,0.016888888888888898,0.040000000000000015
 crt_pig,rational_agent,True,False,10,0.013111111111111108,0.039999999999999966
@@ -74,6 +80,7 @@ crt_widgets,neutral,True,False,10,0.0,0.0
 crt_widgets,rational_agent,True,False,10,0.0,0.0
 crt_widgets,typical_human,True,False,10,0.06166666666666666,0.14500000000000002
 crt_widgets,typical_human_plain,True,False,10,0.05244444444444444,0.12
+crt_widgets_estimate,neutral,False,True,10,0.008888888888888898,0.020000000000000018
 dd_01,antisocial,False,False,10,0.009333333333333341,0.030000000000000023
 dd_01,neutral,False,False,10,0.04011111111111113,0.09500000000000004
 dd_01,rational_agent,False,False,10,0.0448888888888889,0.08000000000000002
@@ -224,11 +231,13 @@ framing_gain,neutral,True,False,10,0.03888888888888889,0.07999999999999999
 framing_gain,rational_agent,True,False,10,0.07577777777777778,0.21999999999999997
 framing_gain,typical_human,True,False,10,0.04977777777777778,0.14999999999999997
 framing_gain,typical_human_plain,True,False,10,0.034222222222222216,0.07999999999999999
+framing_gain_estimate,neutral,False,True,10,0.0035555555555555588,0.010000000000000009
 framing_loss,antisocial,True,False,10,0.05777777777777777,0.16000000000000003
 framing_loss,neutral,True,False,10,0.019333333333333345,0.05000000000000002
 framing_loss,rational_agent,True,False,10,0.032,0.08999999999999998
 framing_loss,typical_human,True,False,10,0.025111111111111122,0.07000000000000003
 framing_loss,typical_human_plain,True,False,10,0.03111111111111112,0.11
+framing_loss_estimate,neutral,False,True,10,0.016222222222222235,0.06000000000000005
 holt_laury_01,antisocial,True,False,10,0.102,0.26
 holt_laury_01,neutral,True,False,10,0.030888888888888907,0.08000000000000004
 holt_laury_01,rational_agent,True,False,10,0.08488888888888887,0.19999999999999996
@@ -634,6 +643,7 @@ sunk_cost,neutral,True,False,10,0.00666666666666667,0.02000000000000001
 sunk_cost,rational_agent,True,False,10,0.010000000000000005,0.02000000000000001
 sunk_cost,typical_human,True,False,10,0.025111111111111105,0.07999999999999997
 sunk_cost,typical_human_plain,True,False,10,0.024,0.06999999999999998
+sunk_cost_estimate,neutral,False,True,10,0.01111111111111109,0.03999999999999995
 trolley_push,antisocial,True,True,10,0.026888888888888903,0.07000000000000003
 trolley_push,neutral,True,True,10,0.009111111111111115,0.02000000000000001
 trolley_push,rational_agent,True,True,10,0.01733333333333335,0.040000000000000036

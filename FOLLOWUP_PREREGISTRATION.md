@@ -12,13 +12,14 @@ matters and what it does and doesn't establish.*
 > The matched-pairs design turned out not to be executable on this item pool
 > (Amendment 3, section 10), so H1 and H2 are untested and none of the options
 > in 10.3 has been chosen. H3 and H4 do not need the pairs and are reported in
-> the README (H4: estimating is more accurate on average, p = 0.047 for Jev on
-> the registered absolute errors but 0.17 with errors scaled to each item's
+> the README (H4: estimating is more accurate for Jev, p = 0.015 on the
+> registered absolute errors and 0.043 with errors scaled to each item's
 > range, a check added after seeing the data; H3: no model reproduces the
-> original anchoring gap). Two deviations. First, H4 covers only the 15
-> statistics of the newly built items: the six items reused from the first
-> project (section 4.1) were never given the population question section 8.1
-> specifies, so they are not in the test. Second, section 1 names Many Labs 2
+> original anchoring gap). The population questions for the six items reused
+> from the first project (section 4.1) were missed when the battery was built;
+> they were added and asked of the System One models on 13 October 2026, in a
+> separate 1,000-call run appended to the same files, so H4 covers all 23
+> statistics. One deviation: section 1 names Many Labs 2
 > as the human reference, but Many Labs 2 reports only replicated effect
 > sizes, not per-condition values, so H4 is scored
 > against the original studies' published values (as its protocol quotes

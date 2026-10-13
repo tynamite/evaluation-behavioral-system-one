@@ -4,8 +4,8 @@
 
 Run file: `run_live_20261012T225915Z_typesafe--jev-1.13+anthropic--claude-sonnet-5.5.jsonl`  
 Models: `anthropic/claude-sonnet-5.5`, `typesafe/jev-1.13-20260917`  
-Records: 14,700 (0 transport errors, excluded)  
-Total cost: $8.9839 (Jev arm $0.1399)
+Records: 14,800 (0 transport errors, excluded)  
+Total cost: $8.9857 (Jev arm $0.1418)
 
 Every table below is the Jev arm only; the chat baseline and the other System One models are compared in `results/comparison/`. Values are probability mass, computed from the returned distributions rather than from the point answers. Human values are literature reference points, not a matched control group — see [BENCHMARKS.md](BENCHMARKS.md).
 
@@ -14,8 +14,8 @@ Every table below is the Jev arm only; the chat baseline and the other System On
 | Measure | Neutral | As typical human | As typical human (no steer) | As rational agent | Antisocial | Human |
 |---|---:|---:|---:|---:|---:|---:|
 | CRT correct (Frederick's 3 items) | 0.99 | 0.32 | 0.53 | 1.00 | 0.91 | 0.41 |
-| CRT correct (all 6 items) | 0.99 | 0.55 | 0.71 | 0.99 | 0.93 | — |
-| CRT mass on intuitive lure | 0.01 | 0.41 | 0.27 | 0.01 | 0.05 | — |
+| CRT correct (all 6 items) | 0.66 | 0.55 | 0.71 | 0.99 | 0.93 | — |
+| CRT mass on intuitive lure | 0.00 | 0.41 | 0.27 | 0.01 | 0.05 | — |
 
 ## Fluid reasoning by depth
 
@@ -105,11 +105,11 @@ Most order-sensitive probes:
 | `discount_30d_60` | rational_agent | 0.2742 |
 | `discount_30d_75` | neutral | 0.2673 |
 
-The follow-up items, reported apart: 0.0252 on 55 shuffled cells, 0.0205 on 95 unshuffled ones.
+The follow-up items, reported apart: 0.0252 on 55 shuffled cells, 0.0197 on 105 unshuffled ones.
 
 ## Follow-up H4: simulate or estimate
 
-Each follow-up statistic measured two ways: the item asked with the typical-person prompt (simulate), and its population question asked with no persona (estimate). Errors are distances from the original study's published value (Many Labs 2 reports only effect sizes, not per-condition values), in the item's own units, as preregistered. Those units differ (proportions, 1–7 ratings, percentage bands), so the raw test weighs the ratings and percentages most; as a post-hoc check the same test is repeated with each error divided by its scale's range (1, 6 and 100), and the mean errors below are on that scaled footing. The six items reused from the first project (CRT, framing, conjunction, sunk cost, Allais, base rate) belong to the preregistered pool but were never given a population question, so they are missing here.
+Each follow-up statistic measured two ways: the item asked with the typical-person prompt (simulate), and its population question asked with no persona (estimate). Errors are distances from the original study's published value (Many Labs 2 reports only effect sizes, not per-condition values), in the item's own units, as preregistered. Those units differ (proportions, 1–7 ratings, percentage bands), so the raw test weighs the ratings and percentages most; as a post-hoc check the same test is repeated with each error divided by its scale's range (1, 6 and 100), and the mean errors below are on that scaled footing. The population questions for the six items reused from the first project (CRT, framing, conjunction, sunk cost, Allais, base rate) were asked on 13 October 2026, after the main run.
 
 | Item | Statistic | Published | Simulate | Estimate | Error (simulate) | Error (estimate) | Scaled (simulate) | Scaled (estimate) |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
@@ -128,10 +128,18 @@ Each follow-up statistic measured two ways: the item asked with the typical-pers
 | position_power | power_short_line | 4.62 | 3.67 | 4.22 | 0.954 | 0.400 | 0.159 | 0.067 |
 | trolley | prob_push_permissible | 0.11 | 0.00 | 0.23 | 0.110 | 0.122 | 0.110 | 0.122 |
 | trolley | prob_switch_permissible | 0.89 | 1.00 | 0.75 | 0.110 | 0.144 | 0.110 | 0.144 |
+| allais | prob_certain_pair1 | 0.80 | 0.82 | 0.71 | 0.019 | 0.087 | 0.019 | 0.087 |
+| allais | prob_safer_pair2 | 0.35 | 0.69 | 0.63 | 0.344 | 0.281 | 0.344 | 0.281 |
+| base_rate | prob_correct_band | 0.15 | 0.23 | 0.22 | 0.081 | 0.067 | 0.081 | 0.067 |
+| conjunction | prob_fallacy_forced_choice | 0.85 | 0.93 | 0.66 | 0.079 | 0.193 | 0.079 | 0.193 |
+| crt | proportion_correct | 0.41 | 0.32 | 0.46 | 0.095 | 0.050 | 0.095 | 0.050 |
+| framing | prob_certain_gain_frame | 0.72 | 0.89 | 0.68 | 0.166 | 0.042 | 0.166 | 0.042 |
+| framing | prob_certain_loss_frame | 0.22 | 0.84 | 0.59 | 0.625 | 0.371 | 0.625 | 0.371 |
+| sunk_cost | prob_continue | 0.85 | 0.17 | 0.35 | 0.675 | 0.502 | 0.675 | 0.502 |
 
-- As preregistered: estimate closer on 8 of 15; one-sided Wilcoxon p = 0.047 on the raw errors (0.165 scaled, post-hoc); mean scaled error 0.221 (simulate) vs 0.154 (estimate)
+- As preregistered: estimate closer on 14 of 23; one-sided Wilcoxon p = 0.015 on the raw errors (0.043 scaled, post-hoc); mean scaled error 0.235 (simulate) vs 0.170 (estimate)
 
-- Simulate without the steer, estimate with no persona: estimate closer on 10 of 15; one-sided Wilcoxon p = 0.024 on the raw errors (0.115 scaled, post-hoc); mean scaled error 0.225 (simulate) vs 0.154 (estimate)
+- Simulate without the steer, estimate with no persona: estimate closer on 16 of 23; one-sided Wilcoxon p = 0.005 on the raw errors (0.021 scaled, post-hoc); mean scaled error 0.248 (simulate) vs 0.170 (estimate)
 
 - Both asked under the steer-free typical-person prompt (exploratory): estimate closer on 12 of 15; one-sided Wilcoxon p = 0.003 on the raw errors (0.011 scaled, post-hoc); mean scaled error 0.225 (simulate) vs 0.134 (estimate)
 

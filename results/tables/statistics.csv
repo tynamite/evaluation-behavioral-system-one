@@ -328,8 +328,8 @@ trolley,prob_switch_permissible,neutral,baseline,1.0,,,trolley_switch_permissibl
 trolley,prob_push_permissible,neutral,baseline,0.0,,,trolley_push_permissible,0.11,medium,
 trolley,switch_push_asymmetry,neutral,baseline,1.0,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78
 crt,proportion_correct,neutral,jev,0.995,0.985,1.0,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
-crt,proportion_correct_all6,neutral,jev,0.9913333333333333,0.9823333333333335,0.9983333333333334,,,,all six items; no single human benchmark covers these
-crt,probability_mass_on_lure,neutral,jev,0.005833333333333334,0.0,0.013166666666666667,,,,
+crt,proportion_correct_all6,neutral,jev,0.6608888888888889,0.3303333333333333,0.8872222222222221,,,,all six items; no single human benchmark covers these
+crt,probability_mass_on_lure,neutral,jev,0.003888888888888889,0.0,0.009666666666666667,,,,
 fluid_reasoning,accuracy,neutral,jev,0.9127777777777778,0.8247208333333332,0.9781138888888888,,,,accuracy on an authored ICAR-format item set; not an IQ score
 fluid_reasoning,accuracy_steps_1,neutral,jev,1.0,1.0,1.0,,,,
 fluid_reasoning,accuracy_steps_2,neutral,jev,0.8805000000000001,0.6648333333333333,1.0,,,,
@@ -445,6 +445,14 @@ false_consensus,false_consensus_gap,neutral,jev,-0.030000000000000054,,,,,,each 
 false_consensus_estimate,wearer_predicts_wear,neutral,jev,0.369,,,false_consensus_wearer_predicts_wear,0.614,medium,
 false_consensus_estimate,nonwearer_predicts_wear,neutral,jev,0.354,,,false_consensus_nonwearer_predicts_wear,0.304,medium,
 false_consensus_estimate,false_consensus_gap,neutral,jev,0.015000000000000013,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31
+crt_estimate,proportion_correct,neutral,jev,0.463,,,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
+framing_estimate,prob_certain_gain_frame,neutral,jev,0.678,,,framing_gain_certain,0.72,high,
+framing_estimate,prob_certain_loss_frame,neutral,jev,0.591,,,framing_loss_certain,0.22,high,
+allais_estimate,prob_certain_pair1,neutral,jev,0.713,,,allais_p1_certain,0.8,high,
+allais_estimate,prob_safer_pair2,neutral,jev,0.631,,,allais_p2_certain,0.35,high,
+conjunction_estimate,prob_fallacy_forced_choice,neutral,jev,0.657,,,conjunction_fallacy_rate,0.85,high,
+base_rate_estimate,prob_correct_band,neutral,jev,0.21699999999999994,,,base_rate_correct_band,0.15,medium,
+sunk_cost_estimate,prob_continue,neutral,jev,0.348,,,sunk_cost_continue,0.85,medium,
 crt,proportion_correct,rational_agent,baseline,1.0,1.0,1.0,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
 crt,proportion_correct_all6,rational_agent,baseline,1.0,1.0,1.0,,,,all six items; no single human benchmark covers these
 crt,probability_mass_on_lure,rational_agent,baseline,0.0,0.0,0.0,,,,

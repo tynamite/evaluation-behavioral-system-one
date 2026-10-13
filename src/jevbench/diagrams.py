@@ -1734,8 +1734,8 @@ def fig_health() -> Figure:
     cols = [24, 340, 656]
     rows = [
         (
-            "GPT-6 Luna refused 3%",
-            "250 calls → HTTP 502",
+            "GPT-6 Luna refused 4%",
+            "300 calls → HTTP 502",
             "Refusals reported as a 502",
             "client tried each 5 times",
             "Counted as refusals",

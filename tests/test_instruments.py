@@ -134,7 +134,7 @@ def test_estimate_items_are_asked_without_a_persona() -> None:
     from jevbench.instruments import asked_under
 
     estimates = [p for p in all_probes(["followup"]) if p.probe_id.endswith("_estimate")]
-    assert len(estimates) == 15
+    assert len(estimates) == 25
     for p in estimates:
         assert asked_under(p, "neutral")
         assert not any(asked_under(p, k) for k in PERSONAS if k != "neutral")

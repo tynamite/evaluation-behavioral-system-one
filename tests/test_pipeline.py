@@ -153,7 +153,7 @@ def test_resume_finishes_an_interrupted_run_without_duplicates(tmp_path: Path) -
 def test_proportion_items_are_flagged() -> None:
     probes = {p.probe_id: p for p in all_probes(None)}
     proportion = {pid for pid, p in probes.items() if p.meta.get("asks_for") == "proportion"}
-    assert len(proportion) == 11
+    assert len(proportion) == 21
     assert all(probes[pid].question.kind == "noul" for pid in proportion)
     # Linda's statements are truth claims, which a true/false reply can answer.
     assert probes["conjunction_p_single"].meta["asks_for"] == "truth"
@@ -294,3 +294,35 @@ def test_analyse_removes_a_stale_h4_table(tmp_path: Path) -> None:
     )
     analyse_run(path, out)
     assert not (out / "followup_h4.csv").exists()
+
+
+def test_h4_pairs_the_reused_items_with_their_estimates(tmp_path: Path) -> None:
+    """The six items reused from the first project enter H4 beside the new ones."""
+    from dataclasses import asdict
+
+    import pandas as pd
+
+    from jevbench.analysis import compute_stats, simulate_vs_estimate
+
+    cfg = Config.from_env(backend="simulator")
+    path = run_battery(
+        cfg,
+        modules=["crt", "decision", "followup"],
+        replicates=1,
+        personas=["neutral", "typical_human"],
+        out_dir=tmp_path,
+    )
+    sdf = pd.DataFrame([asdict(s) for s in compute_stats(load_records(path))])
+    table = simulate_vs_estimate(sdf)
+    pairs = set(zip(table["instrument"], table["statistic"], strict=True))
+    assert {
+        ("allais", "prob_certain_pair1"),
+        ("allais", "prob_safer_pair2"),
+        ("base_rate", "prob_correct_band"),
+        ("conjunction", "prob_fallacy_forced_choice"),
+        ("crt", "proportion_correct"),
+        ("framing", "prob_certain_gain_frame"),
+        ("framing", "prob_certain_loss_frame"),
+        ("sunk_cost", "prob_continue"),
+    } <= pairs
+    assert len(pairs) == 23

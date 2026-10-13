@@ -35,6 +35,14 @@ records.
 | `error` | transport error or refusal, if any (refusals start `refused:`); such records are excluded and counted |
 | `timestamp` | when the call completed (UTC) |
 
+The ten population questions the follow-up study's H4 needs for the six items
+reused from the first project (`crt_bat_ball_estimate`, `framing_gain_estimate`
+and so on) were missed when the battery was built. They were asked of the ten
+System One models on 13 October 2026, with no persona and 10 replicates, and
+the 100 records per model were appended to the same files; their `timestamp`
+tells them apart. The chat models were not asked them: a true/false reply
+cannot carry a proportion.
+
 The runs behind an earlier version of the write-up are in
 [data/archive/](../archive/README.md).
 
