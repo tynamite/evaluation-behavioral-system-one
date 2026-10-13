@@ -37,8 +37,8 @@ class Persona:
     away from the normative answer on items that have one, so part of any move
     toward people under it may be compliance rather than knowledge of human
     error. `typical_human_plain` asks the same thing without that clause, so the
-    two can be told apart. It was added after the committed runs (18 Sep
-    and 12 Oct 2026), which do not include it.
+    two can be told apart. It was added for the 12–13 Oct 2026 runs; the
+    archived earlier runs do not include it.
     """
 
     key: str

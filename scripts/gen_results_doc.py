@@ -18,15 +18,16 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from jevbench.analysis import (  # noqa: E402
-    compute_stats, latest_run, load_records, order_effects,
+    compute_stats, primary_run, load_records, order_effects,
 )
 from jevbench.benchmarks import BENCHMARKS  # noqa: E402
 from dataclasses import asdict  # noqa: E402
 
-PERSONA_ORDER = ["neutral", "typical_human", "rational_agent", "antisocial"]
+PERSONA_ORDER = ["neutral", "typical_human", "typical_human_plain", "rational_agent", "antisocial"]
 PERSONA_LABEL = {
     "neutral": "Neutral",
     "typical_human": "As typical human",
+    "typical_human_plain": "As typical human (no steer)",
     "rational_agent": "As rational agent",
     "antisocial": "Antisocial",
 }
@@ -53,7 +54,7 @@ def persona_table(sdf: pd.DataFrame, rows: list[tuple[str, str, str]], arm: str 
 
 
 def main(argv: list[str]) -> int:
-    run = Path(argv[1]) if len(argv) > 1 else latest_run(ROOT / "data" / "raw")
+    run = Path(argv[1]) if len(argv) > 1 else primary_run(ROOT / "data" / "raw", live_only=True)
     if run is None:
         print("no run file found", file=sys.stderr)
         return 1

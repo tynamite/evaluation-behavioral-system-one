@@ -29,7 +29,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from jevbench import plots  # noqa: E402
-from jevbench.analysis import compute_stats, latest_run, load_records, order_effects  # noqa: E402
+from jevbench.analysis import compute_stats, load_records, order_effects, primary_run  # noqa: E402
 
 # Ignore sub-pixel touching; only report overlaps a reader would notice.
 MIN_OVERLAP_PX = 2.0
@@ -81,7 +81,7 @@ def _overlaps(fig: plt.Figure) -> list[tuple[str, str, float]]:
 
 
 def main(argv: list[str]) -> int:
-    run = Path(argv[1]) if len(argv) > 1 else latest_run(ROOT / "data" / "raw")
+    run = Path(argv[1]) if len(argv) > 1 else primary_run(ROOT / "data" / "raw")
     if run is None:
         print("no run file found", file=sys.stderr)
         return 1

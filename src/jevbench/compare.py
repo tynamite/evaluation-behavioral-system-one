@@ -133,7 +133,7 @@ def compare_runs(paths: list[Path], out_dir: Path) -> dict[str, pd.DataFrame]:
 
     rows: list[dict[str, Any]] = []
     for inst, stat, bench, label in PROBABILITY_MEASURES:
-        for persona in ("neutral", "typical_human"):
+        for persona in ("neutral", "typical_human", "typical_human_plain"):
             sel = sdf[(sdf.instrument == inst) & (sdf.statistic == stat) & (sdf.persona == persona)]
             if not len(sel):
                 continue

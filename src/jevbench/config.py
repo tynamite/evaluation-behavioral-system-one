@@ -27,11 +27,11 @@ class Config:
     decisions_url: str = OPENROUTER_DECISIONS_URL
     chat_url: str = OPENROUTER_CHAT_URL
     model: str = "typesafe/jev-1.13"
-    baseline_model: str = "anthropic/claude-sonnet-5"
+    baseline_model: str = "anthropic/claude-sonnet-5.5"
     api_key: str | None = None
     timeout: float = 60.0
     max_retries: int = 5
-    baseline_max_tokens: int = 512
+    baseline_max_tokens: int = 4096
 
     @classmethod
     def from_env(cls, backend: str | None = None) -> Config:
@@ -52,11 +52,11 @@ class Config:
             decisions_url=url,
             chat_url=os.getenv("JEVBENCH_CHAT_URL", OPENROUTER_CHAT_URL),
             model=model,
-            baseline_model=os.getenv("JEVBENCH_BASELINE_MODEL", "anthropic/claude-sonnet-5"),
+            baseline_model=os.getenv("JEVBENCH_BASELINE_MODEL", "anthropic/claude-sonnet-5.5"),
             api_key=key,
             timeout=float(os.getenv("JEVBENCH_TIMEOUT", "60")),
             max_retries=int(os.getenv("JEVBENCH_MAX_RETRIES", "5")),
-            baseline_max_tokens=int(os.getenv("JEVBENCH_BASELINE_MAX_TOKENS", "512")),
+            baseline_max_tokens=int(os.getenv("JEVBENCH_BASELINE_MAX_TOKENS", "4096")),
         )
 
     def require_key(self) -> str:

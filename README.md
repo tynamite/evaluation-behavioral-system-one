@@ -8,8 +8,8 @@ with an ordinary chat model and published human values as comparison points.
 > an evaluation.** It is not research, not a product review, and not the work of
 > anyone with professional standing in psychometrics, experimental economics or
 > model evaluation. **No claims are made** about any model, company or product.
-> What follows is a set of numbers recorded from a public API on 18 September
-> and 12 October 2026, and a description of how they were produced. Everything
+> What follows is a set of numbers recorded from a public API on 12–13 October
+> 2026, and a description of how they were produced. Everything
 > is recomputable from `data/raw/`. It is not peer reviewed, it uses instruments
 > well outside the contexts they were validated in, and it is probably wrong
 > somewhere. Full caveats in [PREREGISTRATION.md](PREREGISTRATION.md#what-this-is-and-what-it-is-not).
@@ -46,29 +46,30 @@ every number here is computed from the returned distribution, never from the top
 answer — discarding the distribution would throw away the only reason this was
 worth doing.
 
-The contrast showed up in the run itself, at **$0.09 against $2.74** for the
+The contrast showed up in the run itself, at **$0.14 against $8.84** for the
 identical grid.
 
 ![How one item becomes a number](results/figures/how-it-works.png)
 
-The comparison arm returns near-identical answers on most items: 89% of its
-cells had all ten samples agree. That is genuine low-entropy behaviour rather
-than a defect — temperature is demonstrably active, and genuinely ambiguous
-items do come back mixed. Two caveats follow that the cost comparison alone
-obscures. Ten samples cannot resolve a probability finer than 0.1, and ten
-agreeing samples license "at least 0.78" at 95%, not 1.00. And the arms do not
-measure the same quantity: Jev reports a credence, whereas resampling recovers a
+The comparison arm returns near-identical answers on most items: in 83% of its
+cells all ten samples agreed. That is genuine low-entropy behaviour rather than
+a defect — temperature is demonstrably active, and genuinely ambiguous items do
+come back mixed. Two caveats follow that the cost comparison alone obscures.
+Ten samples cannot resolve a probability finer than 0.1, and ten agreeing
+samples license "at least 0.78" at 95% (a Jeffreys interval), not 1.00. And the arms do not measure
+the same quantity: Jev reports a credence, whereas resampling recovers a
 sampling frequency, and a model can be internally uncertain while emitting the
 same token every time. The cost asymmetry is real; the graded-versus-saturated
 contrast is partly an artifact of comparing two different things.
 
 ## What I observed
 
-9,360 observations at $2.83, recorded on 18 September 2026: 117 probes × 4
-persona conditions × 10 replicates through Jev, plus the same grid through
-`claude-sonnet-5`. No transport errors; 9 of 4,680 comparison-arm replies
-(0.19%) could not be resolved to an option, and every cell retained at least 5
-of its 10 samples. Full tables in [docs/RESULTS.md](docs/RESULTS.md).
+14,700 observations at $8.98, recorded on 12–13 October 2026: 147 probes × 5
+prompt conditions × 10 replicates through Jev, plus the same grid through
+`claude-sonnet-5.5`, resampled ten times per cell. No transport errors; 9 of
+6,800 scorable comparison-arm replies (0.13%) could not be resolved to an
+option, and every cell kept at least 4 of its 10 samples. Full tables in
+[docs/RESULTS.md](docs/RESULTS.md).
 
 Where a human value is quoted it is a published reference point, listed with
 its source in [docs/BENCHMARKS.md](docs/BENCHMARKS.md). Two are looser matches
@@ -82,7 +83,7 @@ and Liquid AI's d1 — so its results can be read against its peers'. The text i
 about Jev; each chart links a Jev-only version, and all twelve models are in
 docs/MODELS.md.
 
-### Under neutral framing it does not look like human System 1
+### With no instruction, it does not look like human System 1
 
 ![Four System One models against people on seven decision-making tests, with and without the typical-person instruction](results/figures/models-decisions.png)
 <sub>Jev only: [jev-decisions.png](results/figures/jev-decisions.png)</sub>
@@ -91,47 +92,70 @@ On most classic biases it sits closer to the normative answer than the published
 human value. On Frederick's three Cognitive Reflection Test items it put
 **0.99** probability mass on the correct answers (human reference ≈ 0.41), and
 across all six CRT items **0.01** on the intuitive lures the items are built to
-attract. It continued a losing project in the sunk-cost item with probability
-**0.01** (human ≈ 0.85), put **0.61** on the base-rate item's correct band
-(about 0.15 of people give a Bayesian answer), and moved **1.4 percentage
-points** between anchoring conditions where humans move about 20.
+attract. It continued the sunk-cost project with probability **0.04** (human ≈
+0.85), put **0.61** on the base-rate item's correct band (about 0.15 of people
+give a Bayesian answer), and moved **1.6 percentage points** between anchoring
+conditions where humans move about 20.
+
+It shows **no framing effect at all**: it picks the sure programme in the
+disease problem at 0.85 when it is worded as lives saved and 0.84 when worded
+as lives lost, where people go from 0.72 to 0.22.
 
 ![Four System One models against people in the economic games](results/figures/models-games.png)
 <sub>Jev only: [jev-games-neutral.png](results/figures/jev-games-neutral.png)</sub>
 
-The social preferences are a partial exception: it gave **0.14** of the pie as
-dictator (human ≈ 0.28), offered **0.42** in the ultimatum game (human ≈ 0.40)
-and rejected a $1 offer at **0.48** (human ≈ 0.50). Positive giving is not
+The social preferences are a partial exception: it gave **0.15** of the pie as
+dictator (human ≈ 0.28), offered **0.41** in the ultimatum game (human ≈ 0.40)
+and rejected a $1 offer at **0.49** (human ≈ 0.50). Positive giving is not
 equilibrium play, so on these items it lands nearer people than game theory.
 Not everywhere: it cooperated in a one-shot prisoner's dilemma at **0.03**,
 against people's 0.37.
 
-### Asked to answer like a person, it moves a long way
+### Asked to answer like a person, it moves on some effects and not others
 
 The `typical_human` condition puts this in front of every item, verbatim:
 
 > Answer the way a typical human participant in a psychology or economics experiment would actually answer — not the textbook-correct answer, and not an idealised one. Give the response the average person would give.
 
-That moved CRT accuracy on Frederick's items from **0.99 to 0.33** and lure mass
-from **0.01 to 0.41**. Sunk-cost continuation went from **0.01 to 0.81** against
-a human reference of 0.85. The conjunction fallacy went from **0.09 to 0.93**
-against 0.85. The decision-making chart above shows both conditions side by
-side.
+Some effects appear on request. The conjunction fallacy went from **0.10 to
+0.93** against people's 0.85, CRT accuracy fell from **0.99 to 0.32** (people
+0.41) with lure mass up from **0.01 to 0.41**, and the games moved almost onto
+the human values: dictator **0.27** (0.28), trust **0.48** (0.50), public goods
+**0.51** (0.50).
 
-Read that with the instruction's wording in mind. "Not the textbook-correct
-answer" does more than ask for a typical person: on any item with a right
-answer, it says which way to move. Some of the shift may be the model
-following that steer rather than knowing how people err. A version without the
-clause (`typical_human_plain`) is now in the battery to tell the two apart; no
-committed run includes it yet.
+Others do not. The framing effect stays absent (**0.89** and **0.84** sure
+choices, a 4-point swing against people's 50), and the sunk-cost item, in Arkes
+and Blumer's original wording, gets **0.17** continuation against people's
+0.85. Rejection of a $1 offer overshoots, at **0.92** against 0.50.
 
-The other two conditions move it just as far in their own directions. Asked to
-answer as a rational agent, it put **all** its mass on giving nothing in the
-dictator game and **all** of it on the Nash equilibrium of 0 in the p-beauty
-contest. Asked to adopt an antisocial persona, Dark Triad self-report rose from
-**5.0 to 8.6** on a 9-point scale (the manipulation check), and giving collapsed
-across every game — dictator 0.14 → 0.00, trust sent 0.37 → 0.08, public goods
-0.38 → 0.01.
+Across the 14 probability-scale measures, the typical-person instruction cuts
+Jev's mean distance from the human values from **0.31 to 0.18**, and its
+correlation with them goes from **−0.21 to +0.39**: closer, and partly in the
+right order, but only partly.
+
+### How much of that is the instruction's steer
+
+"Not the textbook-correct answer" does more than ask for a typical person: on
+any item with a right answer, it says which way to move. So the battery also
+asks the same thing without that clause:
+
+![Jev under the typical-person instruction with and without its steer](results/figures/jev-steer.png)
+
+Without the steer, CRT accuracy is **0.53** instead of 0.32 and lure mass
+**0.27** instead of 0.41, and the base-rate item's correct band gets **0.42**
+instead of 0.23. The conjunction fallacy barely moves (**0.87**), nor do the
+games. So the CRT and base-rate errors are partly the instruction telling the
+model to be wrong. The conjunction fallacy and the generous, fair-minded game
+play look more like the model's own picture of people.
+
+### The other prompts
+
+Asked to answer as a rational agent, it put **all** its mass on giving nothing
+in the dictator game and **all** of it on the Nash equilibrium of 0 in the
+p-beauty contest. Asked to adopt an antisocial persona, Dark Triad self-report
+rose from **5.0 to 8.6** on a 9-point scale (the manipulation check), and giving
+collapsed across every game — dictator 0.15 → 0.00, trust sent 0.38 → 0.07,
+public goods 0.38 → 0.01.
 
 ![The antisocial persona in the economic games, four models](results/figures/models-antisocial.png)
 <sub>Jev only: [persona-antisocial.png](results/figures/persona-antisocial.png)</sub>
@@ -143,24 +167,25 @@ output is a number.
 ### Where I was wrong
 
 [PREREGISTRATION.md](PREREGISTRATION.md) records eleven hypotheses, ten with a
-predicted direction, written down before any data was collected. Five held
-(H1, H2, H3, H9, H10). Four failed, which I am reporting because the point of
-writing them down first was to be held to them:
+predicted direction, written down before any data was collected. Six held
+(H1, H2, H3, H4, H9, H10). Three failed, which I am reporting because the point
+of writing them down first was to be held to them:
 
 | Expected | Observed |
 |---|---|
-| H4: framing reversal much weaker than humans (< 25 points) | **29 points** — weaker than the human ~50, but larger than I predicted |
-| H5: independently elicited probabilities obey P(A∧B) ≤ P(A) | **Violated**, margin **−0.09** under neutral framing and **−0.39** when asked to answer like a person |
-| H8: accuracy falls as reasoning depth grows (> 15 points) | **10 points** from 1-step to 3+-step items under neutral framing |
-| H6: option order barely matters (mean TV < 0.05) | **0.062** mean, median 0.035, on the multiple-choice items whose options were shuffled. Answers move 0.027 between replicates with nothing reordered, a rough noise floor, so a large part of that may be noise |
+| H5: independently elicited probabilities obey P(A∧B) ≤ P(A) | **Violated**, margin **−0.09** with no instruction and **−0.38** when asked to answer like a person |
+| H8: accuracy falls as reasoning depth grows (> 15 points) | **9 points** from 1-step to 3+-step items with no instruction |
+| H6: option order barely matters (mean TV < 0.05) | **0.058** mean, median 0.037, on the multiple-choice items whose options were shuffled. Answers move 0.024 between replicates with nothing reordered, a rough noise floor, so a large part of that may be noise |
 
-H7 (Jev's distribution is more stable across replicates than the resampled
-chat model's) was never tested: the analysis to compare the two spreads was not
-built. H11 was exploratory, with no direction, and is not reported.
+H4 predicted a framing reversal much weaker than people's (under 25 points); it
+is 1 point. H7 (Jev's distribution is more stable across replicates than the
+resampled chat model's) was never tested: the analysis to compare the two
+spreads was not built. H11 was exploratory, with no direction, and is not
+reported.
 
 The conjunction result looked like the most interesting thing here until I read
 the documentation properly. Asked side by side, the model picked the single
-statement over the conjunction (fallacy mass 0.09). Asked as two independent
+statement over the conjunction (fallacy mass 0.10). Asked as two independent
 probability questions, it assigned the conjunction *higher* probability than its
 own component. That is the shape of the original human finding — but it is also
 already documented behaviour, not a discovery. See the next section.
@@ -235,18 +260,10 @@ jevbench probes             # list the battery, call nothing
 jevbench run --replicates 10 --baseline-samples 10
 ```
 
-`jevbench run` now covers 147 probes and five persona conditions (the 30
-follow-up items and `typical_human_plain` were added after the first run). To
-run only the 117 probes and four personas of the committed run:
-
-```bash
-jevbench run --replicates 10 --baseline-samples 10 \
-  --modules crt dark_triad decision games personality reasoning risk_time strategic \
-  --personas neutral typical_human rational_agent antisocial
-```
-
-It will not reproduce the committed numbers exactly, because the battery has
-been refined since; [docs/LEARNINGS.md](docs/LEARNINGS.md) lists what changed.
+That is the committed run's grid: 147 probes × 5 prompts × 10 replicates
+through Jev, and the same through Claude Sonnet 5.5, resampled ten times. The
+chat arm's reply cap defaults to 4,096 tokens (`JEVBENCH_BASELINE_MAX_TOKENS`),
+because models that reason before answering spend it on reasoning first.
 
 A new run is written to `data/raw/` and is not analysed into the committed
 results unless you ask: pass it with `--run`, and give `--out` a directory of
@@ -281,18 +298,15 @@ jevbench doctor --model openai/gpt-6-luna-decisions liquid/d1 microsoft/microsof
 jevbench run --model liquid/d1 --replicates 10
 jevbench run --replicates 0 --baseline-model anthropic/claude-haiku-5.5 --baseline-samples 10
 
-jevbench compare data/raw/run_live_20260918T230710Z.jsonl \
-  $(ls data/raw/run_live_20261012*.jsonl | grep -v drex)   # -> results/comparison/
+jevbench compare data/raw/run_live_*.jsonl       # -> results/comparison/
 ```
-
-(Drex 1.5's run file is kept but left out of the comparison; see
-[docs/MODELS.md](docs/MODELS.md).)
 
 `compare` reduces each file with the single-run analysis unchanged, then joins
 the results on the model that actually served each arm. It writes
 `health.csv` (read it first: a model that rejects one primitive shows up there
 as an error rate of 1.0 for that kind), `fidelity.csv`, `measures.csv`,
-`statistics.csv` and `fig_models_vs_human.png`; the editorial figures come from `jevbench diagrams`. To analyse one of the new runs on its own without
+`statistics.csv` and `fig_models_vs_human.png`; the editorial figures come
+from `jevbench diagrams`. To analyse one of the new runs on its own without
 overwriting the committed results, give `analyse` and `figures` an `--out`
 directory.
 
@@ -313,13 +327,14 @@ Reproduce the committed analysis without spending anything — the raw records
 are committed:
 
 ```bash
-jevbench analyse --run data/raw/run_live_20260918T230710Z.jsonl
-python scripts/gen_results_doc.py data/raw/run_live_20260918T230710Z.jsonl
+jevbench analyse                       # the newest run with Jev in data/raw/
+jevbench compare data/raw/run_live_*.jsonl
+python scripts/gen_results_doc.py
 jevbench diagrams
 ```
 
-Give `analyse` the run explicitly: with no `--run` it takes the newest file in
-`data/raw/`, which is one of the other models' runs.
+The runs behind an earlier version of this write-up are kept in
+[data/archive/](data/archive/README.md).
 
 ### What is published
 
@@ -353,8 +368,9 @@ src/jevbench/
   instruments/     the battery
 scripts/           doc generators (RESULTS.md, BENCHMARKS.md), the figure
                    layout checker, and the follow-up study's reports
-tests/             139 tests, all runnable with no API key
+tests/             140 tests, all runnable with no API key
 data/raw/          committed raw records — every number is recomputable
+data/archive/      the runs behind an earlier version of this write-up
 results/           generated tables and figures
 docs/              findings, results, benchmarks, the model comparison and
                    the figure sources
@@ -411,10 +427,10 @@ guessed, and `summary.json` reports them with per-cell sample coverage.
 describes each step.
 
 The typed arm has never returned an answer that could not be read, across
-about 57,600 calls to ten System One models: a typed decision is a
-distribution, so there is no text to misread. What did go wrong there was
-visible: 240 refusals from one model and 80 calls one route rejected, each
-recorded as such ([docs/MODELS.md](docs/MODELS.md#read-the-health-table-first)).
+73,500 calls to ten System One models: a typed decision is a distribution,
+so there is no text to misread. What did go wrong there was visible: 250
+refusals from one model and 100 calls the route rejected (the p-beauty item,
+for both Solar models), each recorded as such ([docs/MODELS.md](docs/MODELS.md#read-the-health-table-first)).
 
 **Learnings.** The bugs found and method fixes made along the way, and what
 each one changed, are written up in [docs/LEARNINGS.md](docs/LEARNINGS.md).
@@ -439,8 +455,8 @@ ones that bound the numbers most:
    check, never a diagnostic claim.
 4. **The reasoning set is not an IQ test.** No norms, no standardisation
    sample; it reports accuracy on a fixed list of questions.
-5. **Each model run once, on one route.** Jev (`jev-1.13`) and Sonnet were run
-   on 18 September 2026, the other models on 12 October, all through a
+5. **Each model run once, on one route.** Every model was run on 12–13
+   October 2026, all through a
    third-party gateway via an alpha route that may move. `jevbench doctor` is
    there to say when it has.
 6. **Persona conditions are prompt manipulations**, not traits. They show what
@@ -449,7 +465,9 @@ ones that bound the numbers most:
    psychometric validation. Published instruments are used where a free one
    exists, and cited.
 8. **Results move a lot with wording.** Several headline numbers shift
-   substantially across the four framings, which is itself a reason to be
+   substantially across the five prompts, and an earlier version of the
+   battery showed a large framing effect that disappeared once a label naming
+   the condition was removed from the input. That is itself a reason to be
    careful generalising from any single one of them.
 
 ## Instrument provenance
@@ -465,7 +483,7 @@ do not appear.
 | Dark Triad Dirty Dozen | Jonason & Webster (2010) | free for research use |
 | Fluid reasoning | authored here, in ICAR format (Condon & Revelle 2014) | original items, no norms |
 | Economic games | Güth et al. (1982); Forsythe et al. (1994); Berg et al. (1995); Fehr & Gächter (2000) | paradigms, wording written here |
-| Decision anomalies | Kahneman & Tversky (1979); Tversky & Kahneman (1974, 1981, 1983); Arkes & Blumer (1985) | classic problems, cited; sunk cost verbatim since the fix above |
+| Decision anomalies | Kahneman & Tversky (1979); Tversky & Kahneman (1974, 1981, 1983); Arkes & Blumer (1985) | classic problems, cited; sunk cost in the original wording |
 | Risk and time | Holt & Laury (2002); Thaler (1981) | published designs |
 | Strategic games | Nagel (1995); Arad & Rubinstein (2012) | published designs |
 

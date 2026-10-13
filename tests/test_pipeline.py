@@ -239,3 +239,39 @@ def test_simulated_run_never_writes_over_committed_results() -> None:
     assert _default_out(sim, TABLES_DIR) == TABLES_DIR.parent / "simulated" / "tables"
     assert _default_out(sim, FIGURES_DIR) == FIGURES_DIR.parent / "simulated" / "figures"
     assert _default_out(live, TABLES_DIR) == TABLES_DIR
+
+
+def test_committed_outputs_never_read_a_simulated_run(tmp_path: Path) -> None:
+    from jevbench.analysis import primary_run
+
+    (
+        tmp_path / "run_live_20261012T225915Z_typesafe--jev-1.13+anthropic--claude-sonnet-5.5.jsonl"
+    ).touch()
+    (tmp_path / "run_live_20261012T225927Z_cloudflare--clef.jsonl").touch()
+    (tmp_path / "run_simulated_20261013T094732Z_typesafe--jev-1.13.jsonl").touch()
+    # analyse and figures take the newest Jev run, simulated or not (their
+    # output for a simulated run goes to results/simulated/)...
+    assert "simulated" in primary_run(tmp_path).name  # type: ignore[union-attr]
+    # ...but anything that writes committed files takes the newest live one.
+    newest_live = primary_run(tmp_path, live_only=True)
+    assert newest_live is not None and newest_live.name.startswith("run_live_20261012T225915Z")
+
+
+def test_committed_outputs_need_a_live_jev_run(tmp_path: Path) -> None:
+    from jevbench.analysis import primary_run
+
+    # Another model's live run must never stand in for Jev's.
+    (tmp_path / "run_live_20261012T225927Z_cloudflare--clef.jsonl").touch()
+    (tmp_path / "run_simulated_20261013T094732Z_typesafe--jev-1.13.jsonl").touch()
+    assert primary_run(tmp_path, live_only=True) is None
+
+
+def test_primary_run_recognises_jev_under_either_backend(tmp_path: Path) -> None:
+    from jevbench.analysis import primary_run
+
+    (tmp_path / "run_live_20261012T225927Z_cloudflare--clef.jsonl").touch()
+    native = tmp_path / "run_live_20261013T120000Z_jev-1.13.0.jsonl"
+    native.touch()
+    # The native TypeSafe backend's slug has no "typesafe--" prefix.
+    assert primary_run(tmp_path, live_only=True) == native
+    assert primary_run(tmp_path) == native

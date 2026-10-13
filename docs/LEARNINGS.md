@@ -6,7 +6,7 @@ nothing below is hidden, and every fix is regression-tested.
 
 ## The chat arm lost replies without counting them
 
-Before the first committed run (18 Sep 2026), the chat arm had three defects,
+Before the first run (18 Sep 2026), the chat arm had three defects,
 all the same shape: a reply arrives, fails to parse, and disappears without
 being counted as an error. The first capped replies at 8 tokens, truncating the
 chat model into null content on 490 of 4,680 calls. The second raised that cap
@@ -17,12 +17,12 @@ baseline missing precisely its hardest cases. The third matched option text by
 substring, so on the p-beauty contest, whose options are the integers 0–100, a
 reply of `"100"` could resolve to `"1"`.
 
-All three are regression-tested, the cap is now 512 tokens by default and
-configurable (`JEVBENCH_BASELINE_MAX_TOKENS`; Haiku 5.5 needed 4,096), and
+All three are regression-tested, the cap is now 4,096 tokens by default and
+configurable (`JEVBENCH_BASELINE_MAX_TOKENS`), and
 `summary.json` reports unresolved replies and per-cell sample coverage so this
-class of gap cannot go uncounted again. The committed run has no transport
+class of gap cannot go uncounted again. The 18 Sep run had no transport
 errors and 9 unresolved replies (0.19%), against 224 (4.8%) before the fix;
-even at 512, 8 Sonnet replies were cut off by the cap. Re-running moved no Jev
+even at 512 tokens, 8 Sonnet replies were cut off by the cap. Re-running moved no Jev
 headline result by more than 0.04, but chat-arm results moved by up to 0.20, so
 the earlier chat numbers would have been wrong, not just incomplete. Nothing
 was counting unresolved replies at the time; that counter should have existed
@@ -40,8 +40,9 @@ detail.
 ## Method flaws found in an audit before publishing
 
 An audit before publishing found flaws in how some items were put to the
-models. All are fixed in the code. The runs of 18 Sep and 12 Oct 2026 predate
-the fixes, so their numbers should be read with these in mind:
+models. All were fixed in the code, and every model was then re-run (see
+below); the earlier runs, now in [data/archive/](../data/archive/README.md),
+predate the fixes:
 
 1. **The chat arm saw options in a fixed order.** Only the System One arm was
    shuffled. On every item with a right answer, the chat models saw the
@@ -61,13 +62,13 @@ the fixes, so their numbers should be read with these in mind:
 4. **The 11-20 game hinted at its strategy.** The option for 20 was labelled
    "the largest amount, but never earns the bonus". Options are now plain.
 5. **The categorisation follow-up item had a duplicated exemplar and a note
-   explaining its structure** (12 Oct runs only; no result from it is
+   explaining its structure** (the archived 12 Oct runs only; no result from it is
    reported). One Group 2 member was identical to a Group 1 member, and the
    prompt described which group shares a rule. Both are fixed, following the
    Many Labs 2 protocol.
 6. **The `typical_human` instruction steers as well as asks**: "not the textbook-correct answer" tells the model
-   which way to move on items with a right answer.
-   A neutral version is added for the next run.
+   which way to move on items with a right answer. A version without the
+   clause was added and is reported alongside it ("no steer").
 7. **Two deviations from the preregistered analysis plan.** It promised 95%
    bootstrap intervals; `statistics.csv` carries them for the multi-item
    measures, but no document reports them. And it said the only exclusions
@@ -76,22 +77,51 @@ the fixes, so their numbers should be read with these in mind:
    cannot answer) are excluded too, each counted in `summary.json` or
    `health.csv`.
 
-The benchmark comparisons were also tightened before publishing, and the
-committed tables are recomputed with them: the CRT human value covers only
+The benchmark comparisons were also tightened before publishing: the CRT human value covers only
 Frederick's three items, so the comparison now uses those three (all six are
 reported separately); the ultimatum rejection value is compared with the $1
 offer only; and an unsourced present-bias reference value was dropped.
+
+## What the re-run changed
+
+Every model was re-run on 12–13 October 2026 with the fixes above, the
+plain typical-person prompt added, and Claude Sonnet 5.5 in place of Sonnet 5
+as the chat baseline. For Jev, the same measures before and after:
+
+| Jev 1.13 | Before the fixes | After |
+|---|---|---|
+| Framing swing, no instruction (people ≈ 50 points) | 29 points | **1 point** |
+| Framing swing, as a typical person | 30 points | **4 points** |
+| Sunk cost: continues, as a typical person (people 0.85) | 0.81 | **0.17** |
+| Sunk cost: continues, no instruction | 0.01 | 0.04 |
+| CRT correct, as a typical person (Frederick's 3 items) | 0.33 | 0.32 |
+| Conjunction fallacy, as a typical person | 0.93 | 0.93 |
+| Anchoring gap, as a typical person (people ≈ 20 points) | 7.0 points | 5.3 points |
+| Correlation with human values, as a typical person | +0.76 | **+0.39** |
+| Mean distance from human values, as a typical person | 0.13 | 0.18 |
+
+Two changes account for most of the difference. The framing effect came
+almost entirely from the `"frame"` label: without it, Jev picks the sure
+option equally often in both wordings. And the sunk-cost effect under the
+typical-person prompt came from the paraphrase: in Arkes and Blumer's own
+wording it nearly disappears. Hypothesis H4 (a framing effect much weaker than
+people's) failed in the first run and holds in the second.
+
+The chat-arm numbers changed too, but they cannot be compared before and
+after: the baseline model changed at the same time as its options started
+being shuffled.
 
 ## Smaller corrections
 
 - **Option-order effects were first averaged over the wrong items.** An early
   version reported a mean total-variation distance of 0.051 by averaging in
   Likert and yes/no items, which are never shuffled. On the shuffled
-  multiple-choice items alone it is 0.062.
+  multiple-choice items alone it was 0.062 in the first run (0.058 in the
+  re-run).
 - **The model comparison changed order when the benchmarks were tightened.**
   With all six CRT items and both the $0 and $1 ultimatum offers, Solar Decide
   Flash came out closest to people under neutral framing; on the like-for-like
-  measures Clef Flash does. Neither is a ranking (see
+  measures Clef Flash did, and in the re-run the two tie. Neither is a ranking (see
   [MODELS.md](MODELS.md#why-the-top-of-that-table-should-not-be-read-as-a-ranking)).
 - **Refusals were first logged as transport errors.** One model's route reports
   a refusal as HTTP 502, so each was tried five times before being recorded.

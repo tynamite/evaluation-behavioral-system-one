@@ -123,9 +123,9 @@ def _default_out(run: Path, committed: Path) -> Path:
 
 
 def _cmd_analyse(args: argparse.Namespace) -> int:
-    from .analysis import analyse_run, latest_run
+    from .analysis import analyse_run, primary_run
 
-    path = Path(args.run) if args.run else latest_run(RAW_DIR)
+    path = Path(args.run) if args.run else primary_run(RAW_DIR)
     if path is None:
         print(f"No run files in {RAW_DIR}. Run `jevbench run` first.", file=sys.stderr)
         return 1
@@ -134,10 +134,10 @@ def _cmd_analyse(args: argparse.Namespace) -> int:
 
 
 def _cmd_figures(args: argparse.Namespace) -> int:
-    from .analysis import latest_run
+    from .analysis import primary_run
     from .plots import build_figures
 
-    path = Path(args.run) if args.run else latest_run(RAW_DIR)
+    path = Path(args.run) if args.run else primary_run(RAW_DIR)
     if path is None:
         print(f"No run files in {RAW_DIR}. Run `jevbench run` first.", file=sys.stderr)
         return 1
@@ -220,7 +220,9 @@ def main(argv: list[str] | None = None) -> int:
     r.set_defaults(func=_cmd_run)
 
     a = sub.add_parser("analyse", help="compute statistics and write tables")
-    a.add_argument("--run", default=None, help="path to a run .jsonl (default: most recent)")
+    a.add_argument(
+        "--run", default=None, help="path to a run .jsonl (default: the newest run with Jev)"
+    )
     a.add_argument("--out", default=None, help=f"output directory (default: {TABLES_DIR.name}/)")
     a.set_defaults(func=_cmd_analyse)
 

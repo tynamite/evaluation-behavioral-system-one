@@ -6,13 +6,12 @@ new items below have been built — the git history is the evidence. The
 matters and what it does and doesn't establish.*
 
 > [!NOTE]
-> **Status, October 2026.** The 30 follow-up items are built, and the 12 Oct
-> 2026 runs of the other System One models and Claude Haiku 5.5 include them;
-> Jev has not yet been run on them. The matched-pairs design turned out not to
-> be executable on this item pool (Amendment 3, section 10), none of the
-> options in 10.3 has been chosen, and no follow-up result is reported
-> anywhere in this repository yet. Two items were corrected after those runs
-> (see [docs/LEARNINGS.md](docs/LEARNINGS.md)).
+> **Status, October 2026.** The 30 follow-up items are built, and every
+> 12–13 Oct 2026 run, Jev's included, contains them; two of them were
+> corrected before those runs (see [docs/LEARNINGS.md](docs/LEARNINGS.md)).
+> The matched-pairs design turned out not to be executable on this item pool
+> (Amendment 3, section 10), none of the options in 10.3 has been chosen, and
+> no follow-up result is reported anywhere in this repository yet.
 
 Date: 2026-09-19
 Model under test: `typesafe/jev-1.13` (or whatever is current when run)

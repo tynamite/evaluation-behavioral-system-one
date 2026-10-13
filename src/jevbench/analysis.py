@@ -31,9 +31,40 @@ Key = tuple[str, str, str]  # (probe_id, persona, arm)
 FREDERICK_CRT = frozenset({"crt_bat_ball", "crt_widgets", "crt_lilypads"})
 
 
-def latest_run(raw_dir: Path) -> Path | None:
-    runs = sorted(raw_dir.glob("run_*.jsonl"))
-    return runs[-1] if runs else None
+def latest_run(raw_dir: Path, model: str | None = None) -> Path | None:
+    """The newest run file, optionally only those whose name carries `model`.
+
+    Names are run_<live|simulated>_<timestamp>_<models>.jsonl, so files are
+    ordered by their timestamp rather than by name, which would put every
+    simulated run after every live one.
+    """
+    runs = [p for p in raw_dir.glob("run_*.jsonl") if model is None or model in p.name]
+    return max(runs, key=lambda p: (p.name.split("_")[2:3], p.name)) if runs else None
+
+
+def _has_jev(run: Path) -> bool:
+    """Whether a run file holds Jev, under either backend's model slug.
+
+    Names are run_<tag>_<timestamp>_<slug>[+<slug>].jsonl: the OpenRouter slug
+    is `typesafe--jev-...`, the native TypeSafe one `jev-...`.
+    """
+    parts = run.stem.split("_", 3)
+    slugs = parts[3].split("+") if len(parts) == 4 else []
+    return any(s.startswith(("typesafe--jev", "jev-")) for s in slugs)
+
+
+def primary_run(raw_dir: Path, live_only: bool = False) -> Path | None:
+    """The run the write-up is about: the newest one that includes Jev.
+
+    Anything that writes committed files (the editorial diagrams, RESULTS.md)
+    passes `live_only`, so a simulated run left in data/raw/ can never stand in
+    for the live one there, and nor can another model's run.
+    """
+    pattern = "run_live_*.jsonl" if live_only else "run_*.jsonl"
+    jev = [p for p in raw_dir.glob(pattern) if _has_jev(p)]
+    if jev:
+        return max(jev, key=lambda p: (p.name.split("_")[2:3], p.name))
+    return None if live_only else latest_run(raw_dir)
 
 
 def load_records(path: Path) -> pd.DataFrame:

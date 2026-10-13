@@ -1,33 +1,34 @@
 {
-  "run_file": "run_live_20260918T230710Z.jsonl",
+  "run_file": "run_live_20261012T225915Z_typesafe--jev-1.13+anthropic--claude-sonnet-5.5.jsonl",
   "backend": [
     "openrouter"
   ],
   "models": [
-    "anthropic/claude-sonnet-5",
+    "anthropic/claude-sonnet-5.5",
     "typesafe/jev-1.13-20260917"
   ],
-  "n_records": 9360,
+  "n_records": 14700,
   "n_errors": 0,
   "n_baseline_unparsed": 9,
-  "baseline_unparsed_rate": 0.0019,
-  "n_baseline_not_measurable": 0,
-  "baseline_cells": 468,
-  "baseline_cells_below_full_samples": 4,
+  "baseline_unparsed_rate": 0.0013,
+  "n_baseline_not_measurable": 550,
+  "baseline_cells": 680,
+  "baseline_cells_below_full_samples": 3,
   "baseline_cells_with_no_usable_sample": 0,
-  "baseline_min_usable_samples": 5,
-  "total_cost_usd": 2.8304,
+  "baseline_min_usable_samples": 4,
+  "total_cost_usd": 8.9769,
   "personas": [
     "antisocial",
     "neutral",
     "rational_agent",
-    "typical_human"
+    "typical_human",
+    "typical_human_plain"
   ],
   "arms": [
     "baseline",
     "jev"
   ],
-  "n_statistics": 616,
-  "mean_order_tv": 0.061546184738955824,
-  "mean_unshuffled_tv": 0.027107026143790857
+  "n_statistics": 1115,
+  "mean_order_tv": 0.058142316784869974,
+  "mean_unshuffled_tv": 0.024421383647798747
 }
