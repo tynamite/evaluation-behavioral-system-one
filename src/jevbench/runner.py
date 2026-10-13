@@ -186,7 +186,7 @@ class BatteryRunner:
                 option_order=prepared.meta.get("option_order"),
                 meta=probe.meta,
                 usage=resp.usage,
-                error=f"unusable answer: {problem}" if problem else None,
+                error=f"{UNUSABLE}{problem}" if problem else None,
                 timestamp=now,
             )
         except Exception as exc:
@@ -314,13 +314,22 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
         return [json.loads(line) for line in fh if line.strip()]
 
 
+# The error prefix for a reply that arrived and was billed but could not be used.
+UNUSABLE = "unusable answer: "
+
+
 def _done_keys(path: Path) -> tuple[list[dict[str, Any]], set[JobKey]]:
     """The records in an interrupted run worth keeping, and their job keys.
 
     Records that ended in an error are dropped so `--resume` retries them,
     rather than leaving the failure and its retry side by side in one file.
+    A reply that was served, billed and then rejected as unusable is kept as
+    it is: dropping it would lose its cost and its place in the health counts,
+    and retrying would pay for the same call again.
     """
-    kept = [r for r in read_jsonl(path) if not r.get("error")]
+    kept = [
+        r for r in read_jsonl(path) if not r.get("error") or str(r["error"]).startswith(UNUSABLE)
+    ]
     return kept, {(r["arm"], r["probe_id"], r["persona"], int(r["replicate"])) for r in kept}
 
 

@@ -413,3 +413,22 @@ def test_runner_records_a_noul_outside_the_unit_interval_as_an_error() -> None:
         Stub(), probe, "neutral", 0
     )
     assert rec.error and "outside [0, 1]" in rec.error
+
+
+def test_resume_keeps_a_billed_but_unusable_reply(tmp_path: Path) -> None:
+    """Resuming does not drop, or pay again for, a reply that was served and rejected."""
+    from jevbench.runner import UNUSABLE
+
+    cfg = Config.from_env(backend="simulator")
+    kwargs = {"modules": ["crt"], "replicates": 2, "personas": ["neutral"], "out_dir": tmp_path}
+    path = run_battery(cfg, **kwargs)  # type: ignore[arg-type]
+    lines = path.read_text().splitlines()
+    rejected = json.loads(lines[0])
+    rejected.update(error=f"{UNUSABLE}keys that are not options", usage={"cost": 0.01})
+    path.write_text("\n".join([json.dumps(rejected), *lines[1:]]) + "\n")
+
+    run_battery(cfg, resume=path, **kwargs)  # type: ignore[arg-type]
+    records = [json.loads(line) for line in path.read_text().splitlines()]
+    assert len(records) == len(lines)
+    kept = [r for r in records if r.get("error")]
+    assert len(kept) == 1 and kept[0]["usage"] == {"cost": 0.01}
