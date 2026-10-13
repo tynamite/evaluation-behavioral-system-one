@@ -32,7 +32,7 @@ each: 7,350 calls for $0.14. The same battery was put to an ordinary chat
 model, Claude Sonnet 5.5, for comparison, sampled ten times per cell for
 another 7,350 calls at $8.84.
 
-## Four findings
+## Five findings
 
 ### 1. By default, it is not human-like at all
 
@@ -126,6 +126,26 @@ speculative reading, offered as a hypothesis rather than a conclusion: a model
 asked to imitate a person may respond to cues that an effect is *supposed* to
 appear — a familiar phrasing, a label — more than to the situation itself. This
 experiment does not test that.
+
+### 5. Asking it about people works slightly better than asking it to be one
+
+A follow-up study, preregistered separately, asked 15 items from the Many Labs 2
+replication project two ways: as the item itself, with the typical-person
+instruction ("simulate"), and as a question about the population with no
+persona — "what proportion of participants chose…" ("estimate").
+
+| | Simulate | Estimate |
+|---|---|---|
+| Mean error, scaled to each item's range | 0.22 | **0.15** |
+| Items where it is closer to Many Labs 2 | 7 of 15 | **8 of 15** |
+
+Estimating is better on average, as predicted, but the edge comes almost
+entirely from three items (categorisation and two custody-case questions), and
+the preregistered test does not reach significance (one-sided Wilcoxon p =
+0.17). The same direction shows up in nine of the ten System One models. The
+same study also predicted that a model would reproduce a famous effect at its
+original size rather than its replicated one; on the incidental-anchoring item
+it does not — no model reaches even half the original 6.2-point gap.
 
 ## The unexpected part
 

@@ -17,7 +17,14 @@ from typing import Any
 
 from .client import SystemOneClient
 from .config import RAW_DIR, Config
-from .instruments import PERSONAS, Probe, all_probes, apply_persona, permute_options
+from .instruments import (
+    PERSONAS,
+    Probe,
+    all_probes,
+    apply_persona,
+    asked_under,
+    permute_options,
+)
 from .schema import Choice, Score
 from .simulator import SimulatorClient
 
@@ -126,12 +133,13 @@ class BatteryRunner:
             (p, persona, rep)
             for p in probes
             for persona in self.personas
+            if asked_under(p, persona)
             for rep in range(self.replicates)
             if ("jev", p.probe_id, persona, rep) not in self.done
         ]
         total = len(jobs)
         print(
-            f"Jev arm: {total} calls ({len(probes)} probes x {len(self.personas)} personas "
+            f"Jev arm: {total} calls ({len(probes)} probes x up to {len(self.personas)} personas "
             f"x {self.replicates} replicates)",
             file=sys.stderr,
         )
@@ -208,6 +216,7 @@ class BatteryRunner:
             (p, persona, s)
             for p in probes
             for persona in self.personas
+            if asked_under(p, persona)
             for s in range(samples)
             if ("baseline", p.probe_id, persona, s) not in self.done
         ]

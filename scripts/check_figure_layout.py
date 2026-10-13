@@ -101,7 +101,7 @@ def main(argv: list[str]) -> int:
         "fig6_order_effects": lambda: plots.fig_order_effects(odf, out),
         "fig7_human_fidelity": lambda: plots.fig_human_fidelity(sdf, out),
         # These two return None (no figure at all) when the run has no data for the
-        # follow-up battery — true of the committed live run, which predates it.
+        # follow-up battery, e.g. a run made with --modules that leaves it out.
         "fig8_followup_elicitations": lambda: plots.fig_followup_elicitations(sdf, out),
         "fig9_followup_currency": lambda: plots.fig_followup_currency(sdf, out),
     }

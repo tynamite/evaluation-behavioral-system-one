@@ -175,13 +175,42 @@ of writing them down first was to be held to them:
 |---|---|
 | H5: independently elicited probabilities obey P(A∧B) ≤ P(A) | **Violated**, margin **−0.09** with no instruction and **−0.38** when asked to answer like a person |
 | H8: accuracy falls as reasoning depth grows (> 15 points) | **9 points** from 1-step to 3+-step items with no instruction |
-| H6: option order barely matters (mean TV < 0.05) | **0.058** mean, median 0.037, on the multiple-choice items whose options were shuffled. Answers move 0.024 between replicates with nothing reordered, a rough noise floor, so a large part of that may be noise |
+| H6: option order barely matters (mean TV < 0.05) | **0.063** mean, median 0.041, on the core battery's multiple-choice items, whose options were shuffled. Answers move 0.027 between replicates with nothing reordered, a rough noise floor, so a large part of that may be noise. The follow-up items, which H6 was not written for, move less (0.025) |
 
 H4 predicted a framing reversal much weaker than people's (under 25 points); it
 is 1 point. H7 (Jev's distribution is more stable across replicates than the
 resampled chat model's) was never tested: the analysis to compare the two
 spreads was not built. H11 was exploratory, with no direction, and is not
 reported.
+
+### The follow-up study: estimating people beats imitating them, a little
+
+A second preregistration,
+[FOLLOWUP_PREREGISTRATION.md](FOLLOWUP_PREREGISTRATION.md), added 30 items from
+the Many Labs 2 replication project, each asked two ways: as the item itself
+under the typical-person prompt ("simulate"), and as a population question with
+no persona — "what proportion of participants chose…" ("estimate"). Its central
+fame hypotheses (H1, H2) could not be run, because the matched pairs they needed
+do not exist in the item pool. Two others could:
+
+- **H4: estimate is more accurate than simulate.** The direction holds but the
+  evidence is weak. Over 15 Many Labs 2 statistics, with each error scaled to its
+  item's range, Jev's mean error is **0.15** when estimating against **0.22**
+  when simulating, but estimate is closer on only **8 of 15** items (one-sided
+  Wilcoxon p = 0.17); the gain comes almost entirely from three items,
+  categorisation and the two custody-case questions. Across the ten System One models, estimating has the lower
+  mean error for **nine**, significantly so for two (d1 and Mercury Decide).
+  The committed run also asked the population question under every prompt;
+  inside the steer-free typical-person prompt, Jev's estimates beat its
+  simulated answers on 12 of 15 (p = 0.01). That is not the preregistered
+  comparison, and the battery now asks population questions with no persona.
+- **H3: the model reproduces the original anchoring effect, not the replication.**
+  It does not. The original incidental-anchoring study found a 6.2-point gap;
+  Many Labs 2 found almost none. No System One model reaches 3 points in the
+  original's direction, simulated or estimated; the largest is 2.6 (Jev: 0.3
+  and −0.3).
+
+The full table is in [docs/RESULTS.md](docs/RESULTS.md#follow-up-h4-simulate-or-estimate).
 
 The conjunction result looked like the most interesting thing here until I read
 the documentation properly. Asked side by side, the model picked the single
@@ -368,7 +397,7 @@ src/jevbench/
   instruments/     the battery
 scripts/           doc generators (RESULTS.md, BENCHMARKS.md), the figure
                    layout checker, and the follow-up study's reports
-tests/             140 tests, all runnable with no API key
+tests/             146 tests, all runnable with no API key
 data/raw/          committed raw records — every number is recomputable
 data/archive/      the runs behind an earlier version of this write-up
 results/           generated tables and figures

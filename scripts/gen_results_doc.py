@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from jevbench.analysis import (  # noqa: E402
-    compute_stats, primary_run, load_records, order_effects,
+    compute_stats, h4_summary, load_records, order_effects, primary_run, simulate_vs_estimate,
 )
 from jevbench.benchmarks import BENCHMARKS  # noqa: E402
 from dataclasses import asdict  # noqa: E402
@@ -152,11 +152,14 @@ def main(argv: list[str]) -> int:
 
     L.append("## Option-order sensitivity\n")
     if len(odf):
+        followup = odf[odf.followup]
+        odf = odf[~odf.followup]
         floor = odf[~odf.shuffled]
         odf = odf[odf.shuffled]
-        L.append(f"Multiple-choice items only ({len(odf)} probe × persona cells): their options are "
-                 "shuffled per replicate. Likert and yes/no items are not shuffled, so they measure "
-                 "replicate-to-replicate variation with nothing changed instead.\n")
+        L.append(f"The core battery's multiple-choice items ({len(odf)} probe × persona cells), the "
+                 "set H6 was written for: their options are shuffled per replicate. Likert and "
+                 "yes/no items are not shuffled, so they measure replicate-to-replicate variation "
+                 "with nothing changed instead.\n")
         L.append(f"- Mean total-variation distance across reorderings: **{odf.mean_tv_distance.mean():.4f}**")
         L.append(f"- Median: {odf.mean_tv_distance.median():.4f}")
         L.append(f"- 95th percentile: {odf.mean_tv_distance.quantile(0.95):.4f}")
@@ -171,7 +174,33 @@ def main(argv: list[str]) -> int:
         L.append("|---|---|---:|")
         for _, r in worst.iterrows():
             L.append(f"| `{r.probe_id}` | {r.persona} | {r.mean_tv_distance:.4f} |")
+        if len(followup):
+            fs, fu = followup[followup.shuffled], followup[~followup.shuffled]
+            L.append(f"\nThe follow-up items, reported apart: {fs.mean_tv_distance.mean():.4f} on "
+                     f"{len(fs)} shuffled cells, {fu.mean_tv_distance.mean():.4f} on {len(fu)} "
+                     "unshuffled ones.")
     L.append("")
+
+    h4 = simulate_vs_estimate(sdf)
+    if len(h4):
+        L.append("## Follow-up H4: simulate or estimate\n")
+        L.append("Each Many Labs 2 statistic measured two ways: the item asked with the typical-person "
+                 "prompt (simulate), and its population question asked with no persona (estimate). "
+                 "Errors are distances from the Many Labs 2 value divided by the scale's range "
+                 "(1 for proportions, 6 for 1–7 ratings, 100 for percentage bands).\n")
+        L.append("| Item | Statistic | Many Labs 2 | Simulate | Estimate | Error (simulate) | Error (estimate) |")
+        L.append("|---|---|---:|---:|---:|---:|---:|")
+        for _, r in h4.iterrows():
+            L.append(f"| {r.instrument} | {r.statistic} | {r.human:.2f} | {r.simulate:.2f} | "
+                     f"{r.estimate:.2f} | {r.error_simulate:.3f} | {r.error_estimate:.3f} |")
+        for label, sim in (("as preregistered", "typical_human"),
+                           ("simulate without the steer", "typical_human_plain")):
+            hs = h4_summary(simulate_vs_estimate(sdf, simulate=sim))
+            L.append(f"\n- {label.capitalize()}: estimate closer on {hs['estimate_closer']} of "
+                     f"{hs['n']}; mean error {hs['mean_error_simulate']:.3f} (simulate) vs "
+                     f"{hs['mean_error_estimate']:.3f} (estimate); one-sided Wilcoxon p = "
+                     f"{hs['wilcoxon_p_one_sided']:.3f}")
+        L.append("")
 
     out = ROOT / "docs" / "RESULTS.md"
     out.write_text("\n".join(L) + "\n", encoding="utf-8")

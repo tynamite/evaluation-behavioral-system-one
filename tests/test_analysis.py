@@ -156,3 +156,44 @@ def test_refuses_to_pool_simulated_with_live_records(tmp_path: Path) -> None:
     path.write_text("\n".join(json.dumps(r) for r in rows))
     with pytest.raises(ValueError, match="simulated and live"):
         load_records(path)
+
+
+def test_simulate_vs_estimate_scales_errors_and_pairs_the_right_cells() -> None:
+    from jevbench.analysis import h4_summary, simulate_vs_estimate
+
+    rows = [
+        # categorization: human 0.67. Simulate 0.07 (error 0.60), estimate 0.57 (0.10).
+        ("categorization", "prob_rule_based", "typical_human", 0.07, "norenzayan_rule_based"),
+        ("categorization_estimate", "prob_rule_based", "neutral", 0.57, "norenzayan_rule_based"),
+        # An estimate under a persona must be ignored by the preregistered pairing.
+        (
+            "categorization_estimate",
+            "prob_rule_based",
+            "typical_human",
+            0.99,
+            "norenzayan_rule_based",
+        ),
+        # incidental anchor on a 0-100 scale: human 58.1; errors divided by 100.
+        ("incidental_anchors", "estimate_p97", "typical_human", 48.1, "incidental_anchor_p97"),
+        ("incidental_anchors_estimate", "estimate_p97", "neutral", 63.1, "incidental_anchor_p97"),
+    ]
+    sdf = pd.DataFrame(
+        [
+            {
+                "instrument": i,
+                "statistic": s,
+                "persona": p,
+                "arm": "jev",
+                "value": v,
+                "benchmark_key": b,
+            }
+            for i, s, p, v, b in rows
+        ]
+    )
+    table = simulate_vs_estimate(sdf).set_index("instrument")
+    assert table.loc["categorization", "error_simulate"] == pytest.approx(0.60)
+    assert table.loc["categorization", "error_estimate"] == pytest.approx(0.10)
+    assert table.loc["incidental_anchors", "error_simulate"] == pytest.approx(0.10)
+    assert table.loc["incidental_anchors", "error_estimate"] == pytest.approx(0.05)
+    summary = h4_summary(table.reset_index())
+    assert summary["n"] == 2 and summary["estimate_closer"] == 2

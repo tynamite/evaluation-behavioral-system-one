@@ -211,6 +211,35 @@ one summary number answers only the first.
   OpenRouter as built on Qwen3.8-27B) does not hedge: it shows about half the
   human framing effect with no instruction (26 points) where Flash shows none.
 
+## Simulate or estimate (follow-up H4)
+
+The follow-up study's items are each asked two ways: as the item itself with the
+typical-person prompt ("simulate"), and as a population question with no persona
+("estimate"). Its preregistered H4 predicts that estimating is more accurate.
+Mean error over 15 Many Labs 2 statistics, each scaled to its item's range, and
+the one-sided Wilcoxon signed-rank test the preregistration names
+([`followup_h4.csv`](../results/comparison/followup_h4.csv)):
+
+| Model | Simulate: error | Estimate: error | Estimate closer | p |
+|---|---|---|---|---|
+| d1 | 0.22 | 0.16 | 11 of 15 | 0.021 |
+| Jev 1.13 | 0.22 | 0.15 | 8 of 15 | 0.165 |
+| Mercury Decide | 0.20 | 0.15 | 12 of 15 | 0.047 |
+| Solar Decide | 0.15 | 0.12 | 11 of 15 | 0.151 |
+| Decider v1.1 27B | 0.13 | 0.10 | 9 of 15 | 0.211 |
+| Solar Decide Flash | 0.16 | 0.13 | 9 of 15 | 0.339 |
+| Clef | 0.16 | 0.14 | 7 of 15 | 0.445 |
+| Clef Flash | 0.21 | 0.20 | 8 of 15 | 0.339 |
+| Microsoft-Decision-1 | 0.14 | 0.14 | 9 of 15 | 0.423 |
+| GPT-6 Luna Decisions | 0.14 | 0.15 | 8 of 10 | 0.216 |
+
+Estimating has the lower mean error for nine of the ten models, but only d1 and
+Mercury Decide clear p < 0.05 on their own, and with ten models tested two or
+more would do so by chance about 9% of the time. GPT-6 Luna Decisions is the
+exception, and has only 10 pairs because its refusals leave five statistics
+without an estimate. The chat models are left
+out: a true/false reply cannot carry a proportion.
+
 ## Limitations specific to this comparison
 
 1. **Microsoft-Decision-1, Clef and Clef Flash are not reproducible.**

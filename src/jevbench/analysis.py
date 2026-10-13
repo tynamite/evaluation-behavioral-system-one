@@ -1128,7 +1128,13 @@ def order_effects(df: pd.DataFrame) -> pd.DataFrame:
     something else worth having: how much the distribution moves between
     replicates when nothing changes at all, the floor any order effect sits on.
     An earlier version averaged both together, which understated H6.
+
+    `followup` marks the follow-up study's items, which H6 was not written
+    for; its preregistered figure is the core battery alone.
     """
+    from .instruments import MODULES
+
+    followup_ids = {p.probe_id for p in MODULES["followup"].probes()}
     rows = []
     jev = df[(df["arm"] == "jev") & (df["error"].isna())] if "error" in df.columns else df
     for (pid, persona), grp in jev.groupby(["probe_id", "persona"]):
@@ -1143,12 +1149,114 @@ def order_effects(df: pd.DataFrame) -> pd.DataFrame:
                 "probe_id": pid,
                 "persona": persona,
                 "shuffled": shuffled,
+                "followup": pid in followup_ids,
                 "n_replicates": len(ds),
                 "mean_tv_distance": float(np.mean(pair_tv)),
                 "max_tv_distance": float(np.max(pair_tv)),
             }
         )
     return pd.DataFrame(rows)
+
+
+# Follow-up H4 (FOLLOWUP_PREREGISTRATION.md, section 5): each statistic is
+# measured twice, from the item itself and from its `_estimate` twin, so the
+# two elicitations can be compared item by item. The last field is the scale's
+# range, used to put proportions, 1-7 ratings and percentage bands on one footing.
+FOLLOWUP_H4_PAIRS: list[tuple[str, str, float]] = [
+    ("categorization", "prob_rule_based", 1.0),
+    ("choosing_rejecting", "prob_award_extreme", 1.0),
+    ("choosing_rejecting", "prob_deny_extreme", 1.0),
+    ("false_consensus", "nonwearer_predicts_wear", 1.0),
+    ("false_consensus", "wearer_predicts_wear", 1.0),
+    ("incidental_anchors", "estimate_p17", 100.0),
+    ("incidental_anchors", "estimate_p97", 100.0),
+    ("knobe", "prob_harm_intentional", 1.0),
+    ("knobe", "prob_help_intentional", 1.0),
+    ("moral_typecasting", "responsibility_baby", 6.0),
+    ("moral_typecasting", "responsibility_man", 6.0),
+    ("position_power", "power_long_line", 6.0),
+    ("position_power", "power_short_line", 6.0),
+    ("trolley", "prob_push_permissible", 1.0),
+    ("trolley", "prob_switch_permissible", 1.0),
+]
+
+
+def simulate_vs_estimate(
+    sdf: pd.DataFrame,
+    simulate: str = "typical_human",
+    estimate: str = "neutral",
+    arm: str = "jev",
+) -> pd.DataFrame:
+    """Follow-up H4: is estimating the population more accurate than simulating a participant?
+
+    As preregistered, "simulate" is the item asked with the typical-person
+    prompt and "estimate" is its population question ("what proportion of
+    participants...") with no persona. Errors are absolute distances from the
+    Many Labs 2 value, divided by the scale's range so the three scales can be
+    pooled. Rows with either value missing (a refusal) are dropped.
+    """
+    rows: list[dict[str, Any]] = []
+    if not len(sdf) or "instrument" not in sdf.columns:
+        return pd.DataFrame(rows)
+    sel = sdf[sdf["arm"] == arm] if "arm" in sdf.columns else sdf
+
+    def value(inst: str, stat: str, persona: str) -> float:
+        r = sel[(sel.instrument == inst) & (sel.statistic == stat) & (sel.persona == persona)]
+        v = r["value"].iloc[0] if len(r) else None
+        return float(v) if v is not None and pd.notna(v) else float("nan")
+
+    for inst, stat, scale in FOLLOWUP_H4_PAIRS:
+        keys = sel[(sel.instrument == inst) & (sel.statistic == stat)]["benchmark_key"].dropna()
+        if not len(keys) or keys.iloc[0] not in BENCHMARKS:
+            continue
+        human = BENCHMARKS[keys.iloc[0]].value
+        sim = value(inst, stat, simulate)
+        est = value(f"{inst}_estimate", stat, estimate)
+        if np.isnan(sim) or np.isnan(est):
+            continue
+        rows.append(
+            {
+                "instrument": inst,
+                "statistic": stat,
+                "human": human,
+                "simulate": sim,
+                "estimate": est,
+                "error_simulate": abs(sim - human) / scale,
+                "error_estimate": abs(est - human) / scale,
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def h4_summary(table: pd.DataFrame) -> dict[str, float | int | None]:
+    """Counts, mean scaled errors and the preregistered one-sided Wilcoxon signed-rank test."""
+    if len(table) < 2:
+        return {"n": len(table)}
+    from scipy.stats import wilcoxon
+
+    diff = table["error_estimate"] - table["error_simulate"]
+    p = float(wilcoxon(diff, alternative="less").pvalue) if (diff != 0).any() else None
+    return {
+        "n": len(table),
+        "estimate_closer": int((diff < 0).sum()),
+        "mean_error_simulate": float(table["error_simulate"].mean()),
+        "mean_error_estimate": float(table["error_estimate"].mean()),
+        "wilcoxon_p_one_sided": p,
+    }
+
+
+def _order_split(odf: pd.DataFrame) -> dict[str, float | None]:
+    """Mean order effect and noise floor for the core battery and the follow-up items."""
+    out: dict[str, float | None] = {}
+    for part, sel in (("core", False), ("followup", True)):
+        for name, shuffled in (("order_tv", True), ("unshuffled_tv", False)):
+            cells = (
+                odf[(odf["followup"] == sel) & (odf["shuffled"] == shuffled)] if len(odf) else odf
+            )
+            out[f"mean_{name}_{part}"] = (
+                float(cells["mean_tv_distance"].mean()) if len(cells) else None
+            )
+    return out
 
 
 def analyse_run(path: Path, out_dir: Path) -> dict[str, Any]:
@@ -1161,6 +1269,10 @@ def analyse_run(path: Path, out_dir: Path) -> dict[str, Any]:
 
     odf = order_effects(df)
     odf.to_csv(out_dir / "order_effects.csv", index=False)
+
+    h4 = simulate_vs_estimate(sdf)
+    if len(h4):
+        h4.to_csv(out_dir / "followup_h4.csv", index=False)
 
     n_err = int(df["error"].notna().sum()) if "error" in df.columns else 0
     cost = float(sum(float((u or {}).get("cost") or 0.0) for u in df["usage"]))
@@ -1208,6 +1320,9 @@ def analyse_run(path: Path, out_dir: Path) -> dict[str, Any]:
         "mean_unshuffled_tv": float(odf[~odf["shuffled"]]["mean_tv_distance"].mean())
         if len(odf) and (~odf["shuffled"]).any()
         else None,
+        # H6 as preregistered: the core battery, without the follow-up items.
+        **_order_split(odf),
+        "followup_h4": h4_summary(h4) if len(h4) else None,
     }
     (out_dir / "summary.json").write_text(json.dumps(summary, indent=2))
 

@@ -111,6 +111,24 @@ The chat-arm numbers changed too, but they cannot be compared before and
 after: the baseline model changed at the same time as its options started
 being shuffled.
 
+## Corrections after a review of the re-run
+
+An outside review of the published repository (GitHub issue #2) found the
+following, among other claims that did not check out against the code:
+
+- **The trust game's last returning item could not return $10 or $20.** With
+  $10 sent and $30 received, the options went up in $3 steps. It now offers
+  whole dollars up to $15 and $2 steps above, plus $15, and that one item was
+  re-run for every model; nothing else in the run files changed.
+- **The follow-up study's population questions were asked under every
+  prompt.** A population estimate is not a participant's answer, so a persona
+  does not belong on it (FOLLOWUP_PREREGISTRATION.md, section 8.1). They are now
+  asked with no persona; the records from other prompts stay in the run files.
+- **The option-order figure (H6) included the follow-up items**, which H6 was
+  not written for and which move less. The core battery's figure is 0.063, up
+  from 0.058 with them; H6 fails either way.
+- **The analysis figures left out the no-steer prompt.** They now include it.
+
 ## Smaller corrections
 
 - **Option-order effects were first averaged over the wrong items.** An early

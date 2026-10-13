@@ -10,8 +10,13 @@ matters and what it does and doesn't establish.*
 > 12–13 Oct 2026 run, Jev's included, contains them; two of them were
 > corrected before those runs (see [docs/LEARNINGS.md](docs/LEARNINGS.md)).
 > The matched-pairs design turned out not to be executable on this item pool
-> (Amendment 3, section 10), none of the options in 10.3 has been chosen, and
-> no follow-up result is reported anywhere in this repository yet.
+> (Amendment 3, section 10), so H1 and H2 are untested and none of the options
+> in 10.3 has been chosen. H3 and H4 do not need the pairs and are reported in
+> the README (H4: estimating is more accurate on average, not significantly
+> for Jev; H3: no model reproduces the original anchoring gap). The estimate
+> items were asked under every prompt in those runs; section 8.1 makes them a
+> population question, so the battery now asks them with no persona, and the
+> H4 test uses those records.
 
 Date: 2026-09-19
 Model under test: `typesafe/jev-1.13` (or whatever is current when run)

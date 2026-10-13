@@ -48,6 +48,7 @@ HUMAN = "#1baf7a"
 PERSONA_LABEL = {
     "neutral": "Neutral",
     "typical_human": "As typical human",
+    "typical_human_plain": "As typical human (no steer)",
     "rational_agent": "As rational agent",
     "antisocial": "Antisocial persona",
 }
@@ -56,6 +57,7 @@ PERSONA_LABEL = {
 PERSONA_TICK = {
     "neutral": "Neutral",
     "typical_human": "As typical\nhuman",
+    "typical_human_plain": "Typical human,\nno steer",
     "rational_agent": "As rational\nagent",
     "antisocial": "Antisocial\npersona",
 }
@@ -558,7 +560,7 @@ def fig_reflection(sdf: pd.DataFrame, out: Path) -> Path:
     """Slope chart across personas, plus reasoning accuracy against depth."""
     fig, axes = plt.subplots(1, 2, figsize=(12.8, 4.8), dpi=170)
     fig.patch.set_facecolor(SURFACE)
-    personas = ["neutral", "typical_human", "rational_agent", "antisocial"]
+    personas = ["neutral", "typical_human", "typical_human_plain", "rational_agent", "antisocial"]
     xs = np.arange(len(personas))
 
     ax = axes[0]
@@ -1014,7 +1016,7 @@ def fig_human_fidelity(sdf: pd.DataFrame, out: Path) -> Path:
 
     # Mean error by condition, both arms.
     ax = axes[2]
-    order = ["typical_human", "neutral", "antisocial", "rational_agent"]
+    order = ["typical_human", "typical_human_plain", "neutral", "antisocial", "rational_agent"]
     y = np.arange(len(order))
     for arm, colour, label, off in (
         ("jev", JEV, "Jev", 0.16),
@@ -1078,9 +1080,9 @@ def fig_human_fidelity(sdf: pd.DataFrame, out: Path) -> Path:
 
 
 # -- follow-up battery ---------------------------------------------------
-# See FOLLOWUP_PREREGISTRATION.md. These items have no data in the run
-# committed alongside the main battery — that run predates them — so both
-# functions return None rather than an empty figure when nothing is there.
+# See FOLLOWUP_PREREGISTRATION.md. Runs made with `--modules` can leave these
+# items out, so both functions return None rather than an empty figure when
+# there is no data for them.
 
 FOLLOWUP_PROPORTION_ROWS = [
     (

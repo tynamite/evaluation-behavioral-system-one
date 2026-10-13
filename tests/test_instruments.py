@@ -114,3 +114,29 @@ def test_module_filter_rejects_unknown_names() -> None:
 
     with pytest.raises(ValueError, match="Unknown module"):
         all_probes(["not_a_module"])
+
+
+def test_trust_returns_keep_every_focal_amount() -> None:
+    # With $10 sent and $30 received: $10 lets the sender break even, $15 is
+    # half, $20 equalises payoffs. An earlier $3 grid had none of $10 or $20.
+    probes = {p.probe_id: p for p in all_probes(["games"])}
+    for sent in (2, 5, 10):
+        q = probes[f"trust_return_{sent}"].question
+        assert isinstance(q, Choice)
+        received = sent * 3
+        keys = set(q.criteria)
+        assert {f"${sent}", f"${received // 2}", f"${received}", "$0"} <= keys
+        assert len(keys) <= 26  # the decisions route's cap on Choice options
+    assert {"$10", "$15", "$20"} <= set(probes["trust_return_10"].question.criteria)
+
+
+def test_estimate_items_are_asked_without_a_persona() -> None:
+    from jevbench.instruments import asked_under
+
+    estimates = [p for p in all_probes(["followup"]) if p.probe_id.endswith("_estimate")]
+    assert len(estimates) == 15
+    for p in estimates:
+        assert asked_under(p, "neutral")
+        assert not any(asked_under(p, k) for k in PERSONAS if k != "neutral")
+    own = next(p for p in all_probes(["followup"]) if not p.probe_id.endswith("_estimate"))
+    assert all(asked_under(own, k) for k in PERSONAS)

@@ -2354,8 +2354,8 @@ def fig_models_order(runs: dict[str, pd.DataFrame]) -> Figure:
 
     odfs = {m: order_effects(runs[m]) for m, _c in MAIN_MODELS}
 
-    # Jev's run predates the 30 follow-up items, and a refusal can drop a single
-    # cell, so average every model over the same (item, prompt) cells.
+    # A refusal can drop a single cell (GPT-6 Luna Decisions refuses some
+    # follow-up items), so average every model over the same (item, prompt) cells.
     def cells(o: pd.DataFrame) -> set[tuple[str, str]]:
         return set(zip(o["probe_id"], o["persona"], strict=True))
 

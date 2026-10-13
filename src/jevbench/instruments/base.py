@@ -92,6 +92,19 @@ PERSONAS: dict[str, Persona] = {
 }
 
 
+def asked_under(probe: Probe, persona_key: str) -> bool:
+    """Whether a probe is asked under a given prompt condition.
+
+    The follow-up study's `_estimate` items ask about a population ("what
+    proportion of participants..."), not for the respondent's own answer, so a
+    participant persona does not apply to them (FOLLOWUP_PREREGISTRATION.md,
+    section 8.1). They are asked under the neutral prompt only. The committed
+    12–13 Oct 2026 runs asked them under every prompt; those records are kept,
+    and the preregistered H4 test uses the neutral ones.
+    """
+    return persona_key == "neutral" or not probe.probe_id.endswith("_estimate")
+
+
 def apply_persona(probe: Probe, persona: Persona) -> Probe:
     """Prepend the persona framing to the question's instructions.
 

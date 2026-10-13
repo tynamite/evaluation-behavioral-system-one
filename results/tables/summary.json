@@ -9,14 +9,14 @@
   ],
   "n_records": 14700,
   "n_errors": 0,
-  "n_baseline_unparsed": 9,
-  "baseline_unparsed_rate": 0.0013,
+  "n_baseline_unparsed": 3,
+  "baseline_unparsed_rate": 0.0004,
   "n_baseline_not_measurable": 550,
   "baseline_cells": 680,
-  "baseline_cells_below_full_samples": 3,
+  "baseline_cells_below_full_samples": 2,
   "baseline_cells_with_no_usable_sample": 0,
-  "baseline_min_usable_samples": 4,
-  "total_cost_usd": 8.9769,
+  "baseline_min_usable_samples": 8,
+  "total_cost_usd": 8.9839,
   "personas": [
     "antisocial",
     "neutral",
@@ -29,6 +29,17 @@
     "jev"
   ],
   "n_statistics": 1115,
-  "mean_order_tv": 0.058142316784869974,
-  "mean_unshuffled_tv": 0.024421383647798747
+  "mean_order_tv": 0.05835673758865247,
+  "mean_unshuffled_tv": 0.024421383647798747,
+  "mean_order_tv_core": 0.06274993306559572,
+  "mean_unshuffled_tv_core": 0.02658888888888889,
+  "mean_order_tv_followup": 0.02520808080808081,
+  "mean_unshuffled_tv_followup": 0.020542690058479533,
+  "followup_h4": {
+    "n": 15,
+    "estimate_closer": 8,
+    "mean_error_simulate": 0.22129555555555552,
+    "mean_error_estimate": 0.1537897858970081,
+    "wilcoxon_p_one_sided": 0.165130615234375
+  }
 }
