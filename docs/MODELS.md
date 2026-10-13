@@ -93,7 +93,7 @@ in text, so the chat arm's results depend on how that text is read, and the
 - **A true/false item takes only a bare true or false.** "I can't answer this
   with true or false" is not *false*.
 - **Unresolved replies are dropped and counted**, never guessed:
-  `n_unresolved` in [`health.csv`](../results/comparison/health.csv) — 9 for
+  `n_unresolved` in [`health.csv`](../results/comparison/health.csv) — 3 for
   Sonnet 5.5 and 16 for Haiku 5.5, of 6,800 scorable replies each.
 - **Eleven follow-up items ask what proportion of people said yes** (the
   trolley, Knobe, false-consensus, choosing/rejecting and categorisation

@@ -1687,7 +1687,7 @@ def fig_process() -> Figure:
         a.append(_node(cols[i], by, w, h, name, sub, tag=tag))
     notes = [
         "Not exactly a key? The last option the reply names counts, and a leading key wins: \u201c$1: Offer $1, keep $9\u201d is $1.",
-        "Unreadable (empty, cut off, no option named): Claude Sonnet 5.5, 9 of 6,800 replies; Claude Haiku 5.5, 16 of 6,800.",
+        "Unreadable (empty, cut off, no option named): Claude Sonnet 5.5, 3 of 6,800 replies; Claude Haiku 5.5, 16 of 6,800.",
         "The 11 items asking what proportion of people said yes get no chat score: ten true/false replies are a vote.",
     ]
     for j, line in enumerate(notes):

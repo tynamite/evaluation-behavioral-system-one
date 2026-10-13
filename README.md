@@ -68,9 +68,9 @@ contrast is partly an artifact of comparing two different things.
 prompt conditions × 10 replicates through Jev, plus the same grid through
 `claude-sonnet-5.5`, resampled ten times per cell, and 100 more calls on 13
 October for the population questions added to the follow-up study (see
-below). No transport errors; 9 of
-6,800 scorable comparison-arm replies (0.13%) could not be resolved to an
-option, and every cell kept at least 4 of its 10 samples. Full tables in
+below). No transport errors; 3 of
+6,800 scorable comparison-arm replies (0.04%) could not be resolved to an
+option, and every cell kept at least 8 of its 10 samples. Full tables in
 [docs/RESULTS.md](docs/RESULTS.md).
 
 Where a human value is quoted it is a published reference point, listed with
@@ -422,7 +422,8 @@ docs/              findings, results, benchmarks, the model comparison and
 Also at the root: [PREREGISTRATION.md](PREREGISTRATION.md), the plan and
 hypotheses for the first run, and
 [FOLLOWUP_PREREGISTRATION.md](FOLLOWUP_PREREGISTRATION.md), a follow-up study
-whose items are built but whose results are not yet reported.
+whose H3 and H4 are reported above; its fame hypotheses (H1, H2) could not be
+run on this item pool.
 
 ## How the instruments map onto three primitives
 
