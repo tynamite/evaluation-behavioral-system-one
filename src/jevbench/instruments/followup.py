@@ -1,7 +1,9 @@
 """Follow-up battery: fame vs. replicated effect size, on Many Labs 2 items.
 
 See `FOLLOWUP_PREREGISTRATION.md` at the repo root for the full design and its
-two amendments. Eight items in total, from two sources (Section 4.2 vs. 4.3):
+three amendments. Eight effects, from two sources (Section 4.2 vs. 4.3), plus
+the population questions for the six items reused from the first project
+(Section 4.1; see `reused_estimates`):
 
 - Five items (moral_typecasting, position_power, choosing_rejecting,
   categorization, incidental_anchors) are newly sourced from ML2's own
@@ -9,11 +11,12 @@ two amendments. Eight items in total, from two sources (Section 4.2 vs. 4.3):
   which specifies exactly which study, condition and dependent variable ML2
   itself replicated — the numbers are the original authors' own, quoted from
   that document, not paraphrased from a secondary source.
-- Three items (knobe, trolley, false_consensus) are Section 4.2: ML2 didn't
-  replicate them, so they're sourced from the original papers directly
-  instead, cross-checked against secondary sources rather than the papers'
-  own PDFs (not accessible here) — see each function's docstring for exactly
-  what that means for its wording.
+- Three items (knobe, trolley, false_consensus) are Section 4.2, sourced from
+  the original papers directly rather than from ML2's protocol (Amendment 3
+  later found that ML2 did replicate knobe and trolley; see `ml2_effects.py`),
+  cross-checked against secondary sources rather than the papers' own PDFs
+  (not accessible here) — see each function's docstring for exactly what that
+  means for its wording.
 
 Every item is built three ways:
 
