@@ -19,11 +19,13 @@ matters and what it does and doesn't establish.*
 > from the first project (section 4.1) were missed when the battery was built;
 > they were added and asked of the System One models on 13 October 2026, in a
 > separate 1,000-call run appended to the same files, so H4 covers all 23
-> statistics. One deviation: section 1 names Many Labs 2
-> as the human reference, but Many Labs 2 reports only replicated effect
-> sizes, not per-condition values, so H4 is scored
-> against the original studies' published values (as its protocol quotes
-> them). The estimate items were asked under every prompt in those runs;
+> statistics. Section 4.1 lists the CRT as six items, but its human value
+> (0.41 correct) is Frederick's three-item score, and the other three items
+> have none; only Frederick's three were given population questions, and the
+> CRT enters H4 as that three-item score. One deviation: section 1 names Many
+> Labs 2 as the human reference, but Many Labs 2 reports only replicated
+> effect sizes, not per-condition values, so H4 is scored against the original
+> studies' published values (as its protocol quotes them). The estimate items were asked under every prompt in those runs;
 > section 8.1 makes them a population question, so the battery now asks them
 > with no persona, and the H4 test uses the no-persona records.
 

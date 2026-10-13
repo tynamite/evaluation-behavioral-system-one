@@ -304,7 +304,9 @@ def compute_stats(df: pd.DataFrame) -> list[Stat]:
                 lure.append(prob_of(d, str(meta[pid].get("lure"))))
                 if pid in FREDERICK_CRT:
                     corr3.append(c)
-            if corr3:
+            # Frederick's benchmark is a three-item score, so the statistic
+            # needs all three items: an average over fewer is a different measure.
+            if len(corr3) == len(FREDERICK_CRT):
                 add(
                     "crt",
                     "proportion_correct",
@@ -1123,7 +1125,7 @@ def compute_stats(df: pd.DataFrame) -> list[Stat]:
             crt_est = [
                 prob_of(d, "true") for pid in sorted(FREDERICK_CRT) if (d := g(f"{pid}_estimate"))
             ]
-            if crt_est:
+            if len(crt_est) == len(FREDERICK_CRT):  # all three, as for the item itself
                 add(
                     "crt_estimate",
                     "proportion_correct",

@@ -346,3 +346,25 @@ def test_crt_scores_ignore_the_crt_population_questions(tmp_path: Path) -> None:
         return sdf[sdf.instrument == "crt"].set_index("statistic")["value"]
 
     pd.testing.assert_series_equal(crt_stats(["crt"]), crt_stats(["crt", "followup"]))
+
+
+def test_crt_estimate_needs_all_three_frederick_items(tmp_path: Path) -> None:
+    """A refused CRT population question drops the pair rather than averaging fewer items."""
+    from dataclasses import asdict
+
+    import pandas as pd
+
+    from jevbench.analysis import compute_stats
+
+    cfg = Config.from_env(backend="simulator")
+    path = run_battery(
+        cfg, modules=["crt", "followup"], replicates=1, personas=["neutral"], out_dir=tmp_path
+    )
+    df = load_records(path)
+
+    def has_crt_estimate(records: pd.DataFrame) -> bool:
+        sdf = pd.DataFrame([asdict(s) for s in compute_stats(records)])
+        return bool((sdf.instrument == "crt_estimate").any())
+
+    assert has_crt_estimate(df)
+    assert not has_crt_estimate(df[df.probe_id != "crt_widgets_estimate"])
