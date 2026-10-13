@@ -156,24 +156,25 @@ def main(argv: list[str]) -> int:
         odf = odf[~odf.followup]
         floor = odf[~odf.shuffled]
         odf = odf[odf.shuffled]
-        L.append(f"The core battery's multiple-choice items ({len(odf)} probe × persona cells), the "
-                 "set H6 was written for: their options are shuffled per replicate. Likert and "
-                 "yes/no items are not shuffled, so they measure replicate-to-replicate variation "
-                 "with nothing changed instead.\n")
-        L.append(f"- Mean total-variation distance across reorderings: **{odf.mean_tv_distance.mean():.4f}**")
-        L.append(f"- Median: {odf.mean_tv_distance.median():.4f}")
-        L.append(f"- 95th percentile: {odf.mean_tv_distance.quantile(0.95):.4f}")
-        if len(floor):
-            L.append(f"- Same measure on the {len(floor)} unshuffled cells (replicates with nothing reordered, a rough noise floor): "
-                     f"{floor.mean_tv_distance.mean():.4f}")
-        L.append(f"- Largest single probe: {odf.mean_tv_distance.max():.4f} "
-                 f"(`{odf.loc[odf.mean_tv_distance.idxmax(), 'probe_id']}`)")
-        worst = odf.nlargest(5, "mean_tv_distance")[["probe_id", "persona", "mean_tv_distance"]]
-        L.append("\nMost order-sensitive probes:\n")
-        L.append("| Probe | Persona | Mean TV distance |")
-        L.append("|---|---|---:|")
-        for _, r in worst.iterrows():
-            L.append(f"| `{r.probe_id}` | {r.persona} | {r.mean_tv_distance:.4f} |")
+        if len(odf):  # a follow-up-only run has no core cells
+            L.append(f"The core battery's multiple-choice items ({len(odf)} probe × persona cells), the "
+                     "set H6 was written for: their options are shuffled per replicate. Likert and "
+                     "yes/no items are not shuffled, so they measure replicate-to-replicate variation "
+                     "with nothing changed instead.\n")
+            L.append(f"- Mean total-variation distance across reorderings: **{odf.mean_tv_distance.mean():.4f}**")
+            L.append(f"- Median: {odf.mean_tv_distance.median():.4f}")
+            L.append(f"- 95th percentile: {odf.mean_tv_distance.quantile(0.95):.4f}")
+            if len(floor):
+                L.append(f"- Same measure on the {len(floor)} unshuffled cells (replicates with nothing reordered, a rough noise floor): "
+                         f"{floor.mean_tv_distance.mean():.4f}")
+            L.append(f"- Largest single probe: {odf.mean_tv_distance.max():.4f} "
+                     f"(`{odf.loc[odf.mean_tv_distance.idxmax(), 'probe_id']}`)")
+            worst = odf.nlargest(5, "mean_tv_distance")[["probe_id", "persona", "mean_tv_distance"]]
+            L.append("\nMost order-sensitive probes:\n")
+            L.append("| Probe | Persona | Mean TV distance |")
+            L.append("|---|---|---:|")
+            for _, r in worst.iterrows():
+                L.append(f"| `{r.probe_id}` | {r.persona} | {r.mean_tv_distance:.4f} |")
         if len(followup):
             fs, fu = followup[followup.shuffled], followup[~followup.shuffled]
             L.append(f"\nThe follow-up items, reported apart: {fs.mean_tv_distance.mean():.4f} on "
