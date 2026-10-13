@@ -100,9 +100,10 @@ def test_parses_a_real_api_response() -> None:
     [
         ({}, "no probabilities"),
         ({"a": 0.0, "b": 0.0}, "sum to zero"),
-        ({"a": -0.2, "b": 1.2}, "negative or not a finite number"),
-        ({"a": float("nan"), "b": 1.0}, "negative or not a finite number"),
-        ({"a": float("inf"), "b": 0.0}, "negative or not a finite number"),
+        ({"a": -0.2, "b": 1.2}, "outside \\[0, 1\\] or not a finite number"),
+        ({"a": float("nan"), "b": 1.0}, "outside \\[0, 1\\] or not a finite number"),
+        ({"a": 1.2, "b": 0.2}, "outside \\[0, 1\\] or not a finite number"),
+        ({"a": float("inf"), "b": 0.0}, "outside \\[0, 1\\] or not a finite number"),
     ],
 )
 def test_parse_rejects_an_unusable_distribution(probs: dict[str, float], why: str) -> None:

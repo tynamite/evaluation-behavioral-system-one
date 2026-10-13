@@ -141,15 +141,18 @@ def distribution_problem(
     """Why `probs` is not a usable answer distribution, or None if it is.
 
     A reply can arrive without error and still carry nothing to analyse: no
-    probabilities, negative or non-finite ones, no mass at all, or keys that
+    probabilities, ones outside [0, 1] or not finite, no mass at all, or keys that
     are not the question's options. Averaging such a reply in would corrupt
     the distribution it joins, so it is rejected rather than normalised.
     """
     if not probs:
         return "no probabilities"
     values = list(probs.values())
-    if not all(isinstance(v, (int, float)) and math.isfinite(v) and v >= 0 for v in values):
-        return "a probability that is negative or not a finite number"
+    # A small tolerance above 1 for rounding in the returned values.
+    if not all(
+        isinstance(v, (int, float)) and math.isfinite(v) and 0 <= v <= 1 + 1e-6 for v in values
+    ):
+        return "a probability outside [0, 1] or not a finite number"
     if sum(values) <= 0:
         return "probabilities that sum to zero"
     if allowed is not None and (unknown := set(probs) - set(allowed)):

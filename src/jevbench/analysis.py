@@ -79,7 +79,45 @@ def load_records(path: Path) -> pd.DataFrame:
             "Simulated output is structurally valid nonsense and must never be "
             "pooled with live data."
         )
-    return _reread_chat_replies(df)
+    return _reread_chat_replies(_mark_unusable(df))
+
+
+def _record_keys(row: pd.Series) -> frozenset[str] | None:
+    """The keys a record's answer may use, from what the record itself was shown."""
+    if row.get("kind") == "noul":
+        return frozenset({"true", "false"})
+    order = row.get("option_order")
+    if isinstance(order, list) and order:
+        return frozenset(str(k) for k in order)
+    legend = row.get("legend")
+    if isinstance(legend, dict) and legend:
+        return frozenset(str(k) for k in legend)
+    return None
+
+
+def _mark_unusable(df: pd.DataFrame) -> pd.DataFrame:
+    """Turn a System One record with an unusable distribution into an error.
+
+    Runs written before the parser checked distributions may hold one. Marking
+    it here, once, means every consumer (distributions, order effects, health
+    counts) treats it the same way: as a failed call, not as an answer.
+    """
+    if "probabilities" not in df.columns:
+        return df
+    df = df.copy()
+    if "error" not in df.columns:
+        df["error"] = None
+    for i, row in df[(df["arm"] == "jev") & df["error"].isna()].iterrows():
+        probs = row["probabilities"]
+        problem = (
+            distribution_problem(probs, _record_keys(row))
+            if isinstance(probs, dict)
+            else "no probabilities"
+        )
+        if problem:
+            df.at[i, "error"] = f"unusable answer: {problem}"
+            df.at[i, "probabilities"] = None
+    return df
 
 
 def _reread_chat_replies(df: pd.DataFrame) -> pd.DataFrame:
@@ -129,9 +167,7 @@ def distributions(df: pd.DataFrame) -> dict[Key, Dist]:
         acc: dict[str, list[float]] = defaultdict(list)
         used = 0
         for probs in grp["probabilities"]:
-            # Records written before the parser checked distributions may hold
-            # an unusable one; it is left out, not averaged in.
-            if not isinstance(probs, dict) or distribution_problem(probs):
+            if not probs:
                 continue
             used += 1
             for k, v in probs.items():
