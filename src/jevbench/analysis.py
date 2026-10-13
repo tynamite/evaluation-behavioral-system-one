@@ -23,6 +23,7 @@ import numpy as np
 import pandas as pd
 
 from .benchmarks import BENCHMARKS
+from .schema import distribution_problem
 
 Dist = dict[str, float]
 Key = tuple[str, str, str]  # (probe_id, persona, arm)
@@ -78,7 +79,58 @@ def load_records(path: Path) -> pd.DataFrame:
             "Simulated output is structurally valid nonsense and must never be "
             "pooled with live data."
         )
-    return _reread_chat_replies(df)
+    return _reread_chat_replies(_mark_unusable(df))
+
+
+def _score_levels() -> dict[str, frozenset[str]]:
+    from .instruments import all_probes
+    from .schema import Score, allowed_keys
+
+    return {
+        p.probe_id: allowed_keys(p.question) for p in all_probes() if isinstance(p.question, Score)
+    }
+
+
+def _record_keys(row: pd.Series, score_levels: dict[str, frozenset[str]]) -> frozenset[str] | None:
+    """The keys a record's answer may use: what the question offered.
+
+    A Choice record lists the options it showed; a Score's levels come from the
+    question's definition, not from the legend the reply sent back.
+    """
+    if row.get("kind") == "noul":
+        return frozenset({"true", "false"})
+    if row.get("kind") == "score":
+        return score_levels.get(str(row.get("probe_id")))
+    order = row.get("option_order")
+    if isinstance(order, list) and order:
+        return frozenset(str(k) for k in order)
+    return None
+
+
+def _mark_unusable(df: pd.DataFrame) -> pd.DataFrame:
+    """Turn a System One record with an unusable distribution into an error.
+
+    Runs written before the parser checked distributions may hold one. Marking
+    it here, once, means every consumer (distributions, order effects, health
+    counts) treats it the same way: as a failed call, not as an answer.
+    """
+    if "probabilities" not in df.columns:
+        return df
+    df = df.copy()
+    if "error" not in df.columns:
+        df["error"] = None
+    levels = _score_levels()
+    for i, row in df[(df["arm"] == "jev") & df["error"].isna()].iterrows():
+        probs = row["probabilities"]
+        problem = (
+            distribution_problem(probs, _record_keys(row, levels))
+            if isinstance(probs, dict)
+            else "no probabilities"
+        )
+        if problem:
+            df.at[i, "error"] = f"unusable answer: {problem}"
+            df.at[i, "probabilities"] = None
+    return df
 
 
 def _reread_chat_replies(df: pd.DataFrame) -> pd.DataFrame:
@@ -126,14 +178,16 @@ def distributions(df: pd.DataFrame) -> dict[Key, Dist]:
     jev = ok[ok["arm"] == "jev"]
     for (pid, persona), grp in jev.groupby(["probe_id", "persona"]):
         acc: dict[str, list[float]] = defaultdict(list)
+        used = 0
         for probs in grp["probabilities"]:
             if not probs:
                 continue
+            used += 1
             for k, v in probs.items():
                 acc[k].append(float(v))
         if not acc:
             continue
-        n = float(len(grp))
+        n = float(used)
         # Options absent from a given replicate contribute zero to the mean.
         dist = {k: float(np.sum(v)) / n for k, v in acc.items()}
         total = sum(dist.values()) or 1.0

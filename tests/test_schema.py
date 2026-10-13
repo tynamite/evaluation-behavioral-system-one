@@ -93,3 +93,42 @@ def test_parses_a_real_api_response() -> None:
     assert resp.answers["ball_cost"].probabilities["$0.05"] == 0.98
     assert resp.answers["is_tricky"].probabilities["true"] == 0.93
     assert resp.usage["cost"] == pytest.approx(1.8312e-05)
+
+
+@pytest.mark.parametrize(
+    ("probs", "why"),
+    [
+        ({}, "no probabilities"),
+        ({"a": 0.0, "b": 0.0}, "sum to 0, not 1"),
+        ({"a": 0.1, "b": 0.1}, "sum to 0.2, not 1"),
+        ({"a": -0.2, "b": 1.2}, "outside \\[0, 1\\] or not a finite number"),
+        ({"a": 1.2, "b": 0.2}, "outside \\[0, 1\\] or not a finite number"),
+        ({"a": float("nan"), "b": 1.0}, "outside \\[0, 1\\] or not a finite number"),
+        ({"a": float("inf"), "b": 0.0}, "outside \\[0, 1\\] or not a finite number"),
+    ],
+)
+def test_unusable_distributions_are_named(probs: dict[str, float], why: str) -> None:
+    import re
+
+    from jevbench.schema import distribution_problem
+
+    assert re.search(why, distribution_problem(probs) or "")
+
+
+def test_rounded_distributions_are_usable() -> None:
+    from jevbench.schema import distribution_problem
+
+    assert distribution_problem({"a": 0.99, "b": 0.0}) is None  # two-decimal rounding
+    assert distribution_problem({"true": 0.16, "false": 0.84}) is None
+
+
+def test_distribution_keys_must_be_the_questions_options() -> None:
+    from jevbench.schema import allowed_keys, distribution_problem
+
+    choice = Choice(instructions="pick", criteria={"a": "A", "b": "B"})
+    score = Score(instructions="rate", criteria=["low", "mid", "high"])
+    assert distribution_problem({"a": 0.4, "b": 0.6}, allowed_keys(choice)) is None
+    assert "not options" in (distribution_problem({"a": 0.5, "z": 0.5}, allowed_keys(choice)) or "")
+    assert distribution_problem({"0": 0.2, "2": 0.8}, allowed_keys(score)) is None
+    assert "not options" in (distribution_problem({"3": 1.0}, allowed_keys(score)) or "")
+    assert allowed_keys(Noul(instructions="true?")) == {"true", "false"}

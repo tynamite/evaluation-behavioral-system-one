@@ -16,6 +16,7 @@ uncertainty. Here the distribution is read directly, in one call.
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass, field
 from typing import Any, Literal
 
@@ -130,6 +131,42 @@ class Answer:
                 raw=obj,
             )
         raise ValueError(f"Unrecognised answer type {kind!r} for question {qid!r}")
+
+
+def distribution_problem(
+    probs: dict[str, float], allowed: set[str] | frozenset[str] | None = None
+) -> str | None:
+    """Why `probs` is not a usable answer distribution, or None if it is.
+
+    A reply can arrive without error and still carry nothing to analyse: no
+    probabilities, ones outside [0, 1] or not finite, a total far from 1, or keys that
+    are not the question's options. Averaging such a reply in would corrupt
+    the distribution it joins, so it is rejected rather than normalised.
+    """
+    if not probs:
+        return "no probabilities"
+    values = list(probs.values())
+    # A small tolerance above 1 for rounding in the returned values.
+    if not all(
+        isinstance(v, (int, float)) and math.isfinite(v) and 0 <= v <= 1 + 1e-6 for v in values
+    ):
+        return "a probability outside [0, 1] or not a finite number"
+    # Returned values are rounded (two decimals in every committed run, where
+    # totals stray at most 0.01 from 1), so allow a little slack, not more.
+    if abs(sum(values) - 1.0) > 0.05:
+        return f"probabilities that sum to {sum(values):.3g}, not 1"
+    if allowed is not None and (unknown := set(probs) - set(allowed)):
+        return f"keys that are not options: {sorted(unknown)[:3]}"
+    return None
+
+
+def allowed_keys(question: Choice | Score | Noul) -> frozenset[str]:
+    """The keys an answer to `question` may put probability on."""
+    if isinstance(question, Choice):
+        return frozenset(question.criteria)
+    if isinstance(question, Score):
+        return frozenset(str(i) for i in range(len(question.criteria)))
+    return frozenset({"true", "false"})
 
 
 def _opt_float(v: Any) -> float | None:

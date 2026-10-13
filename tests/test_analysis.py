@@ -200,3 +200,38 @@ def test_simulate_vs_estimate_errors_raw_and_scaled_and_pairs_the_right_cells() 
     assert table.loc["incidental_anchors", "scaled_error_estimate"] == pytest.approx(0.05)
     summary = h4_summary(table.reset_index())
     assert summary["n"] == 2 and summary["estimate_closer"] == 2
+
+
+def test_unusable_records_become_errors_for_every_consumer(tmp_path: Path) -> None:
+    """An old record with an unusable distribution is loaded as a failed call."""
+    from jevbench.analysis import distributions, order_effects
+
+    base = {
+        "probe_id": "p",
+        "instrument": "x",
+        "persona": "neutral",
+        "arm": "jev",
+        "backend": "openrouter",
+        "kind": "choice",
+        "option_order": ["a", "b"],
+    }
+    dists = [
+        {"a": 1.0, "b": 0.0},
+        {"a": 0.0, "b": 1.0},
+        {},
+        {"a": 0.0, "b": 0.0},
+        {"a": 1.2, "b": 0.0},
+        {"a": 0.5, "zz": 0.5},
+    ]
+    path = tmp_path / "run_live_x.jsonl"
+    path.write_text(
+        "\n".join(
+            json.dumps({**base, "replicate": i, "probabilities": d, "error": None})
+            for i, d in enumerate(dists)
+        )
+    )
+    df = load_records(path)
+    assert df["error"].notna().sum() == 4
+    assert all(e.startswith("unusable answer") for e in df["error"].dropna())
+    assert distributions(df)[("p", "neutral", "jev")] == pytest.approx({"a": 0.5, "b": 0.5})
+    assert order_effects(df)["n_replicates"].tolist() == [2]

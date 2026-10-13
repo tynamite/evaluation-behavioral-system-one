@@ -368,3 +368,67 @@ def test_crt_estimate_needs_all_three_frederick_items(tmp_path: Path) -> None:
 
     assert has_crt_estimate(df)
     assert not has_crt_estimate(df[df.probe_id != "crt_widgets_estimate"])
+
+
+def test_runner_records_an_answer_on_unknown_options_as_an_error() -> None:
+    """A reply that puts probability on keys the question never offered is not used."""
+    from jevbench.instruments import all_probes
+    from jevbench.runner import BatteryRunner
+    from jevbench.schema import DecisionResponse
+
+    class Stub:
+        def decide(self, state: object, questions: object) -> DecisionResponse:
+            return DecisionResponse.parse(
+                {
+                    "model": "stub",
+                    "usage": {"cost": 0.01},
+                    "answers": {
+                        "answer": {"type": "choice", "choice": "zz", "probabilities": {"zz": 1.0}}
+                    },
+                }
+            )
+
+    probe = next(p for p in all_probes(["crt"]))
+    runner = BatteryRunner(Config.from_env(backend="simulator"), replicates=1)
+    rec = runner._one_jev(Stub(), probe, "neutral", 0)
+    assert rec.error and "not options" in rec.error
+    # The call was served and billed: its model and cost are kept.
+    assert rec.model == "stub" and rec.usage == {"cost": 0.01}
+    assert rec.probabilities == {} and rec.value is None
+
+
+def test_runner_records_a_noul_outside_the_unit_interval_as_an_error() -> None:
+    from jevbench.instruments import all_probes
+    from jevbench.runner import BatteryRunner
+    from jevbench.schema import DecisionResponse, Noul
+
+    class Stub:
+        def decide(self, state: object, questions: object) -> DecisionResponse:
+            return DecisionResponse.parse(
+                {"model": "stub", "answers": {"answer": {"type": "noul", "noul": 1.5}}}
+            )
+
+    probe = next(p for p in all_probes() if isinstance(p.question, Noul))
+    rec = BatteryRunner(Config.from_env(backend="simulator"), replicates=1)._one_jev(
+        Stub(), probe, "neutral", 0
+    )
+    assert rec.error and "outside [0, 1]" in rec.error
+
+
+def test_resume_keeps_a_billed_but_unusable_reply(tmp_path: Path) -> None:
+    """Resuming does not drop, or pay again for, a reply that was served and rejected."""
+    from jevbench.runner import UNUSABLE
+
+    cfg = Config.from_env(backend="simulator")
+    kwargs = {"modules": ["crt"], "replicates": 2, "personas": ["neutral"], "out_dir": tmp_path}
+    path = run_battery(cfg, **kwargs)  # type: ignore[arg-type]
+    lines = path.read_text().splitlines()
+    rejected = json.loads(lines[0])
+    rejected.update(error=f"{UNUSABLE}keys that are not options", usage={"cost": 0.01})
+    path.write_text("\n".join([json.dumps(rejected), *lines[1:]]) + "\n")
+
+    run_battery(cfg, resume=path, **kwargs)  # type: ignore[arg-type]
+    records = [json.loads(line) for line in path.read_text().splitlines()]
+    assert len(records) == len(lines)
+    kept = [r for r in records if r.get("error")]
+    assert len(kept) == 1 and kept[0]["usage"] == {"cost": 0.01}
