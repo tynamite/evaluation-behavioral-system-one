@@ -21,7 +21,7 @@ def built(tmp_path_factory: pytest.TempPathFactory) -> list[Path]:
 
 
 def test_every_figure_is_an_accessible_figure(built: list[Path]) -> None:
-    assert len(built) == 15
+    assert len(built) == 16
     for path in built:
         page = path.read_text()
         slug = path.stem
@@ -211,3 +211,15 @@ def test_every_figure_carries_the_watermark(built: list[Path]) -> None:
 
     for path in built:
         assert f'<p class="mark" aria-hidden="true">{WATERMARK}</p>' in path.read_text(), path.stem
+
+
+def test_h4_chart_draws_every_pair_from_the_table(built: list[Path]) -> None:
+    import pandas as pd
+
+    page = next(p for p in built if p.stem == "followup-h4").read_text()
+    h4 = pd.read_csv(TABLES_DIR / "followup_h4.csv")
+    for series in ("simulate", "estimate"):
+        drawn = sorted(
+            float(v) for v in re.findall(rf'data-series="{series}" data-value="([^"]+)"', page)
+        )
+        assert drawn == pytest.approx(sorted(h4[f"scaled_error_{series}"]), abs=1e-4)
