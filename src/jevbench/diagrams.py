@@ -2023,6 +2023,40 @@ def fig_models_tests(cdf: pd.DataFrame, which: str) -> Figure:
             "One-shot, anonymous games for a hypothetical $10. Each row says what the player could do and what "
             "the number measures."
         )
+    if which == "games":
+        grid = [
+            (
+                name,
+                sub,
+                BENCHMARKS[b].value,
+                {
+                    m: (_mstat(cdf, i, s, "neutral", m), _mstat(cdf, i, s, "typical_human", m))
+                    for m, _c in MAIN_MODELS
+                },
+            )
+            for i, s, b, name, sub in measures
+        ]
+        return Figure(
+            slug="models-games",
+            eyebrow="Economic games · four models",
+            title="Four System One models in economic games, before and after being told to answer like a person",
+            subtitle=(
+                f"{what} Each line runs from a model's choice with no instruction (hollow) to its choice "
+                f"(filled) with this instruction added first: \u201c{_prompt('typical_human')}\u201d The tick "
+                "is people."
+            ),
+            desc="Small multiples, one column per System One model and one row per economic-game measure, each a "
+            "line from the model's value with no instruction to its value when told to answer like a typical "
+            "person, over the published human result.",
+            width=1000,
+            height=y_end(len(grid)),
+            body=_model_shift_grid(
+                grid,
+                "SHARE OF ANSWERS, OR SHARE OF THE MONEY",
+                ("typical_human", "told to answer like a typical person"),
+            ),
+            source=_MODELS_SOURCE,
+        )
     return Figure(
         slug=f"models-{which}",
         eyebrow=f"{'Decision-making tests' if which == 'decisions' else 'Economic games'} · four models",
@@ -2049,6 +2083,7 @@ def y_end(n: int) -> int:
 def _model_shift_grid(
     rows: list[tuple[str, str, float, dict[str, tuple[float, float]]]],
     axis_title: str,
+    to: tuple[str, str] = ("antisocial", "antisocial persona"),
 ) -> str:
     """Small multiples: one column per model, one row per test.
 
@@ -2112,9 +2147,9 @@ def _model_shift_grid(
                     xa,
                     y,
                     4.5,
-                    f'data-series="{esc(name)}" data-panel="antisocial" data-value="{after:.4f}" '
+                    f'data-series="{esc(name)}" data-panel="{to[0]}" data-value="{after:.4f}" '
                     + _model_style(model, colour),
-                    title=f"{name} · antisocial persona · {after:.2f} (people {human:.2f})",
+                    title=f"{name} · {to[1]} · {after:.2f} (people {human:.2f})",
                 )
             )
     for k, (name, sub, _h, _v) in enumerate(rows):
@@ -2145,7 +2180,7 @@ def _model_shift_grid(
         _t(
             x + 10,
             ly + 35,
-            "Antisocial persona, where the line ends",
+            f"{to[1][0].upper()}{to[1][1:]}, where the line ends",
             size=9,
             family=SANS,
             fill=INK,
