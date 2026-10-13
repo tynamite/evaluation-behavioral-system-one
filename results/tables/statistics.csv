@@ -1,6 +1,6 @@
 instrument,statistic,persona,arm,value,ci_low,ci_high,benchmark_key,human_value,reliability,note
 crt,proportion_correct,antisocial,baseline,1.0,1.0,1.0,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
-crt,proportion_correct_all6,antisocial,baseline,1.0,1.0,1.0,,,,all six items; no single human benchmark covers these
+crt,proportion_correct_all6,antisocial,baseline,0.9666666666666667,0.8999999999999999,1.0,,,,all six items; no single human benchmark covers these
 crt,probability_mass_on_lure,antisocial,baseline,0.0,0.0,0.0,,,,
 fluid_reasoning,accuracy,antisocial,baseline,1.0,1.0,1.0,,,,accuracy on an authored ICAR-format item set; not an IQ score
 fluid_reasoning,accuracy_steps_1,antisocial,baseline,1.0,1.0,1.0,,,,
@@ -11,7 +11,7 @@ fluid_reasoning,depth_penalty_1_vs_3plus,antisocial,baseline,0.0,,,,,,H8: accura
 dictator,mean_share,antisocial,baseline,0.0,,,dictator_mean_share,0.283,high,
 dictator,prob_give_zero,antisocial,baseline,1.0,,,dictator_share_zero,0.36,high,
 dictator,prob_give_half,antisocial,baseline,0.0,,,dictator_share_half,0.17,high,
-ultimatum_proposer,mean_share,antisocial,baseline,0.28,,,ultimatum_mean_offer,0.4,high,
+ultimatum_proposer,mean_share,antisocial,baseline,0.25999999999999995,,,ultimatum_mean_offer,0.4,high,
 trust_sender,mean_share,antisocial,baseline,0.0,,,trust_sender_share,0.5,high,
 public_goods,mean_share,antisocial,baseline,0.0,,,pgg_round1_share,0.5,medium,
 ultimatum_responder,prob_reject_offer_0,antisocial,baseline,1.0,,,,,,
@@ -35,124 +35,193 @@ public_goods_conditional,contribution_high,antisocial,baseline,0.0,,,,,,
 prisoners_dilemma,cooperation_one_shot,antisocial,baseline,0.0,,,pd_cooperation_oneshot,0.37,medium,
 prisoners_dilemma,cooperation_after_cooperation,antisocial,baseline,0.0,,,,,,
 prisoners_dilemma,cooperation_after_defection,antisocial,baseline,0.0,,,,,,
-framing,prob_certain_gain_frame,antisocial,baseline,1.0,,,framing_gain_certain,0.72,high,
+framing,prob_certain_gain_frame,antisocial,baseline,0.0,,,framing_gain_certain,0.72,high,
 framing,prob_certain_loss_frame,antisocial,baseline,0.0,,,framing_loss_certain,0.22,high,
-framing,framing_swing,antisocial,baseline,1.0,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
-allais,prob_certain_pair1,antisocial,baseline,1.0,,,allais_p1_certain,0.8,high,
+framing,framing_swing,antisocial,baseline,0.0,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
+allais,prob_certain_pair1,antisocial,baseline,0.0,,,allais_p1_certain,0.8,high,
 allais,prob_safer_pair2,antisocial,baseline,0.0,,,allais_p2_certain,0.35,high,
-allais,independence_violation,antisocial,baseline,1.0,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
-conjunction,prob_fallacy_forced_choice,antisocial,baseline,0.1,,,conjunction_fallacy_rate,0.85,high,
-conjunction_axiom,p_single,antisocial,baseline,0.7,,,,,,
-conjunction_axiom,p_conjunction,antisocial,baseline,0.2,,,,,,
-conjunction_axiom,axiom_margin,antisocial,baseline,0.49999999999999994,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
-base_rate,prob_correct_band,antisocial,baseline,0.0,,,base_rate_correct_band,0.15,medium,
+allais,independence_violation,antisocial,baseline,0.0,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
+conjunction,prob_fallacy_forced_choice,antisocial,baseline,0.0,,,conjunction_fallacy_rate,0.85,high,
+conjunction_axiom,p_single,antisocial,baseline,0.0,,,,,,
+conjunction_axiom,p_conjunction,antisocial,baseline,0.0,,,,,,
+conjunction_axiom,axiom_margin,antisocial,baseline,0.0,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
+base_rate,prob_correct_band,antisocial,baseline,1.0,,,base_rate_correct_band,0.15,medium,
 base_rate,prob_lure_band,antisocial,baseline,0.0,,,,,,
 anchoring,estimate_low_anchor,antisocial,baseline,30.0,,,anchoring_low_median,25.0,approximate,
 anchoring,estimate_high_anchor,antisocial,baseline,30.0,,,anchoring_high_median,45.0,approximate,
 anchoring,anchoring_effect,antisocial,baseline,0.0,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
 sunk_cost,prob_continue,antisocial,baseline,0.0,,,sunk_cost_continue,0.85,medium,
-holt_laury,expected_safe_choices,antisocial,baseline,0.0,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
-discounting,prob_patient_7d,antisocial,baseline,0.725,0.25,1.0,,,,
-discounting,prob_patient_30d,antisocial,baseline,0.525,0.15,0.875,,,,
-discounting,prob_patient_180d,antisocial,baseline,0.0,0.0,0.0,,,,
-present_bias,prob_patient_immediate_frontend,antisocial,baseline,0.0,,,,,,
+holt_laury,expected_safe_choices,antisocial,baseline,3.4,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
+discounting,prob_patient_7d,antisocial,baseline,0.925,0.7749999999999999,1.0,,,,
+discounting,prob_patient_30d,antisocial,baseline,0.575,0.19999999999999998,0.95,,,,
+discounting,prob_patient_180d,antisocial,baseline,0.07500000000000001,0.0,0.15000000000000002,,,,
+present_bias,prob_patient_immediate_frontend,antisocial,baseline,0.4,,,,,,
 present_bias,prob_patient_delayed_frontend,antisocial,baseline,1.0,,,,,,
-present_bias,present_bias_gap,antisocial,baseline,1.0,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
-beauty_contest,expected_guess,antisocial,baseline,17.0,,,beauty_contest_mean,36.0,medium,
+present_bias,present_bias_gap,antisocial,baseline,0.6,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
+beauty_contest,expected_guess,antisocial,baseline,20.3,,,beauty_contest_mean,36.0,medium,
 beauty_contest,mass_at_33,antisocial,baseline,0.0,,,,,,
-beauty_contest,mass_at_22,antisocial,baseline,0.0,,,,,,
+beauty_contest,mass_at_22,antisocial,baseline,0.4,,,,,,
 beauty_contest,mass_at_0,antisocial,baseline,0.0,,,,,,
-money_request,expected_request,antisocial,baseline,19.0,,,money_request_modal,17.0,high,the model's mean request against the human mode
+money_request,expected_request,antisocial,baseline,18.0,,,money_request_modal,17.0,high,the model's mean request against the human mode
 money_request,mass_level0_20,antisocial,baseline,0.0,,,,,,
-money_request,mass_level1_19,antisocial,baseline,1.0,,,,,,
-money_request,mass_level2_18,antisocial,baseline,0.0,,,,,,
-money_request,mass_level3_17,antisocial,baseline,0.0,,,,,,
-mini_ipip,extraversion,antisocial,baseline,4.05,2.8249999999999997,5.0,mini_ipip_extraversion,3.2,approximate,
-mini_ipip,agreeableness,antisocial,baseline,1.0,1.0,1.0,mini_ipip_agreeableness,4.0,approximate,
-mini_ipip,conscientiousness,antisocial,baseline,3.275,2.05,4.5,mini_ipip_conscientiousness,3.4,approximate,
-mini_ipip,neuroticism,antisocial,baseline,1.25,1.0,1.75,mini_ipip_neuroticism,2.8,approximate,
-mini_ipip,openness,antisocial,baseline,5.0,5.0,5.0,mini_ipip_openness,3.7,approximate,
-dirty_dozen,machiavellianism,antisocial,baseline,8.6,8.2,9.0,,,,9-point agreement scale; manipulation check only
-dirty_dozen,overall,antisocial,baseline,8.783333333333333,8.533333333333333,9.0,,,,9-point agreement scale; manipulation check only
-dirty_dozen,psychopathy,antisocial,baseline,8.75,8.25,9.0,,,,9-point agreement scale; manipulation check only
-dirty_dozen,narcissism,antisocial,baseline,9.0,9.0,9.0,,,,9-point agreement scale; manipulation check only
-crt,proportion_correct,antisocial,jev,0.91,0.757,0.9899999999999999,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
-crt,proportion_correct_all6,antisocial,jev,0.9316666666666666,0.8551666666666667,0.9890000000000002,,,,all six items; no single human benchmark covers these
-crt,probability_mass_on_lure,antisocial,jev,0.04800000000000001,0.0025,0.11116666666666669,,,,
-fluid_reasoning,accuracy,antisocial,jev,0.866644978311645,0.7585641099432766,0.9514458333333332,,,,accuracy on an authored ICAR-format item set; not an IQ score
-fluid_reasoning,accuracy_steps_1,antisocial,jev,0.976,0.9380000000000001,1.0,,,,
-fluid_reasoning,accuracy_steps_2,antisocial,jev,0.8622132132132133,0.6221396396396396,0.9998333333333335,,,,
-fluid_reasoning,accuracy_steps_3,antisocial,jev,0.8131900471900472,0.6401415701415701,0.934,,,,
-fluid_reasoning,accuracy_steps_4,antisocial,jev,0.903,0.812,0.994,,,,
-fluid_reasoning,depth_penalty_1_vs_3plus,antisocial,jev,0.14285218551885226,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps
+money_request,mass_level1_19,antisocial,baseline,0.3,,,,,,
+money_request,mass_level2_18,antisocial,baseline,0.4,,,,,,
+money_request,mass_level3_17,antisocial,baseline,0.3,,,,,,
+mini_ipip,extraversion,antisocial,baseline,4.275,4.0,4.75,mini_ipip_extraversion,3.2,approximate,
+mini_ipip,agreeableness,antisocial,baseline,1.25,1.0,1.75,mini_ipip_agreeableness,4.0,approximate,
+mini_ipip,conscientiousness,antisocial,baseline,3.425,2.475,4.050000000000001,mini_ipip_conscientiousness,3.4,approximate,
+mini_ipip,neuroticism,antisocial,baseline,1.5,1.05,1.9500000000000002,mini_ipip_neuroticism,2.8,approximate,
+mini_ipip,openness,antisocial,baseline,3.875,2.625,4.75,mini_ipip_openness,3.7,approximate,
+dirty_dozen,machiavellianism,antisocial,baseline,8.8,8.6,9.0,,,,9-point agreement scale; manipulation check only
+dirty_dozen,overall,antisocial,baseline,8.766666666666667,8.558333333333334,8.941666666666666,,,,9-point agreement scale; manipulation check only
+dirty_dozen,psychopathy,antisocial,baseline,8.7,8.225,8.975,,,,9-point agreement scale; manipulation check only
+dirty_dozen,narcissism,antisocial,baseline,8.8,8.4,9.0,,,,9-point agreement scale; manipulation check only
+moral_typecasting,responsibility_man,antisocial,baseline,4.1,,,moral_typecasting_responsibility_man,5.29,medium,
+moral_typecasting,responsibility_baby,antisocial,baseline,1.0,,,moral_typecasting_responsibility_baby,3.86,medium,
+moral_typecasting,agency_responsibility_gap,antisocial,baseline,3.0999999999999996,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43
+moral_typecasting_estimate,responsibility_man,antisocial,baseline,4.4,,,moral_typecasting_responsibility_man,5.29,medium,
+moral_typecasting_estimate,responsibility_baby,antisocial,baseline,1.4,,,moral_typecasting_responsibility_baby,3.86,medium,
+moral_typecasting_estimate,agency_responsibility_gap,antisocial,baseline,3.0000000000000004,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43
+position_power,power_long_line,antisocial,baseline,5.4,,,position_power_long_line,5.01,medium,
+position_power,power_short_line,antisocial,baseline,4.0,,,position_power_short_line,4.62,medium,
+position_power,position_power_gap,antisocial,baseline,1.4000000000000004,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39
+position_power_estimate,power_long_line,antisocial,baseline,5.0,,,position_power_long_line,5.01,medium,
+position_power_estimate,power_short_line,antisocial,baseline,4.3,,,position_power_short_line,4.62,medium,
+position_power_estimate,position_power_gap,antisocial,baseline,0.7000000000000002,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39
+choosing_rejecting,prob_award_extreme,antisocial,baseline,1.0,,,shafir_award_extreme,0.64,medium,
+choosing_rejecting,prob_deny_extreme,antisocial,baseline,1.0,,,shafir_deny_extreme,0.55,medium,
+choosing_rejecting,choose_reject_sum,antisocial,baseline,2.0,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19"
+categorization,prob_rule_based,antisocial,baseline,0.0,,,norenzayan_rule_based,0.67,medium,
+incidental_anchors,estimate_p97,antisocial,baseline,22.0,,,incidental_anchor_p97,58.1,medium,
+incidental_anchors,estimate_p17,antisocial,baseline,19.75,,,incidental_anchor_p17,51.9,medium,
+incidental_anchors,anchor_gap,antisocial,baseline,2.25,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?"
+incidental_anchors_estimate,estimate_p97,antisocial,baseline,50.0,,,incidental_anchor_p97,58.1,medium,
+incidental_anchors_estimate,estimate_p17,antisocial,baseline,50.0,,,incidental_anchor_p17,51.9,medium,
+incidental_anchors_estimate,anchor_gap,antisocial,baseline,0.0,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?"
+knobe,prob_harm_intentional,antisocial,baseline,1.0,,,knobe_harm_intentional,0.82,medium,
+knobe,prob_help_intentional,antisocial,baseline,0.0,,,knobe_help_intentional,0.23,medium,
+knobe,harm_help_asymmetry,antisocial,baseline,1.0,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59
+trolley,prob_switch_permissible,antisocial,baseline,1.0,,,trolley_switch_permissible,0.89,medium,
+trolley,prob_push_permissible,antisocial,baseline,1.0,,,trolley_push_permissible,0.11,medium,
+trolley,switch_push_asymmetry,antisocial,baseline,0.0,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78
+crt,proportion_correct,antisocial,jev,0.9123333333333333,0.763,0.9890000000000002,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
+crt,proportion_correct_all6,antisocial,jev,0.9321666666666668,0.8574999999999999,0.989,,,,all six items; no single human benchmark covers these
+crt,probability_mass_on_lure,antisocial,jev,0.04783333333333334,0.0025000000000000005,0.1105,,,,
+fluid_reasoning,accuracy,antisocial,jev,0.8685110585981216,0.7593512955395834,0.9534961506346022,,,,accuracy on an authored ICAR-format item set; not an IQ score
+fluid_reasoning,accuracy_steps_1,antisocial,jev,0.977,0.9410000000000002,1.0,,,,
+fluid_reasoning,accuracy_steps_2,antisocial,jev,0.8598333333333334,0.6153333333333334,0.9998333333333335,,,,
+fluid_reasoning,accuracy_steps_3,antisocial,jev,0.8153141506808842,0.6454328614328614,0.9375508159175495,,,,
+fluid_reasoning,accuracy_steps_4,antisocial,jev,0.9179999999999999,0.841,0.995,,,,
+fluid_reasoning,depth_penalty_1_vs_3plus,antisocial,jev,0.1388667716926456,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps
 dictator,mean_share,antisocial,jev,0.0,,,dictator_mean_share,0.283,high,
 dictator,prob_give_zero,antisocial,jev,1.0,,,dictator_share_zero,0.36,high,
 dictator,prob_give_half,antisocial,jev,0.0,,,dictator_share_half,0.17,high,
-ultimatum_proposer,mean_share,antisocial,jev,0.1131,,,ultimatum_mean_offer,0.4,high,
-trust_sender,mean_share,antisocial,jev,0.08039999999999997,,,trust_sender_share,0.5,high,
-public_goods,mean_share,antisocial,jev,0.009236947791164659,,,pgg_round1_share,0.5,medium,
-ultimatum_responder,prob_reject_offer_0,antisocial,jev,0.36700000000000005,,,,,,
-ultimatum_responder,prob_reject_offer_1,antisocial,jev,0.093,,,,,,
-ultimatum_responder,prob_reject_offer_2,antisocial,jev,0.081,,,,,,
-ultimatum_responder,prob_reject_offer_3,antisocial,jev,0.06100000000000002,,,,,,
-ultimatum_responder,prob_reject_offer_4,antisocial,jev,0.048,,,,,,
-ultimatum_responder,prob_reject_offer_5,antisocial,jev,0.08799999999999998,,,,,,
-ultimatum_responder,prob_reject_offer_6,antisocial,jev,0.046,,,,,,
-ultimatum_responder,prob_reject_offer_7,antisocial,jev,0.05500000000000001,,,,,,
-ultimatum_responder,prob_reject_offer_8,antisocial,jev,0.06600000000000002,,,,,,
-ultimatum_responder,prob_reject_offer_9,antisocial,jev,0.08000000000000002,,,,,,
-ultimatum_responder,prob_reject_offer_10,antisocial,jev,0.066,,,,,,
-ultimatum_responder,prob_reject_low_offer,antisocial,jev,0.093,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10
-trust_trustee,return_share_sent_2,antisocial,jev,0.004833333333333333,,,,,,
-trust_trustee,return_share_sent_5,antisocial,jev,0.004738071404738071,,,trust_return_share,0.37,high,
-trust_trustee,return_share_sent_10,antisocial,jev,0.005105105105105106,,,,,,
-public_goods_conditional,contribution_low,antisocial,jev,0.023323323323323326,,,,,,
-public_goods_conditional,contribution_mid,antisocial,jev,0.0258,,,,,,
-public_goods_conditional,contribution_high,antisocial,jev,0.04208416833667335,,,,,,
+ultimatum_proposer,mean_share,antisocial,jev,0.11251251251251251,,,ultimatum_mean_offer,0.4,high,
+trust_sender,mean_share,antisocial,jev,0.07487487487487489,,,trust_sender_share,0.5,high,
+public_goods,mean_share,antisocial,jev,0.008608608608608612,,,pgg_round1_share,0.5,medium,
+ultimatum_responder,prob_reject_offer_0,antisocial,jev,0.374,,,,,,
+ultimatum_responder,prob_reject_offer_1,antisocial,jev,0.09799999999999998,,,,,,
+ultimatum_responder,prob_reject_offer_2,antisocial,jev,0.07500000000000002,,,,,,
+ultimatum_responder,prob_reject_offer_3,antisocial,jev,0.06600000000000002,,,,,,
+ultimatum_responder,prob_reject_offer_4,antisocial,jev,0.047000000000000014,,,,,,
+ultimatum_responder,prob_reject_offer_5,antisocial,jev,0.087,,,,,,
+ultimatum_responder,prob_reject_offer_6,antisocial,jev,0.041999999999999996,,,,,,
+ultimatum_responder,prob_reject_offer_7,antisocial,jev,0.05700000000000001,,,,,,
+ultimatum_responder,prob_reject_offer_8,antisocial,jev,0.06900000000000003,,,,,,
+ultimatum_responder,prob_reject_offer_9,antisocial,jev,0.08299999999999999,,,,,,
+ultimatum_responder,prob_reject_offer_10,antisocial,jev,0.06699999999999999,,,,,,
+ultimatum_responder,prob_reject_low_offer,antisocial,jev,0.09799999999999998,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10
+trust_trustee,return_share_sent_2,antisocial,jev,0.0055000000000000005,,,,,,
+trust_trustee,return_share_sent_5,antisocial,jev,0.004609218436873747,,,trust_return_share,0.37,high,
+trust_trustee,return_share_sent_10,antisocial,jev,0.005600000000000002,,,,,,
+public_goods_conditional,contribution_low,antisocial,jev,0.020820820820820825,,,,,,
+public_goods_conditional,contribution_mid,antisocial,jev,0.023323323323323326,,,,,,
+public_goods_conditional,contribution_high,antisocial,jev,0.04234234234234235,,,,,,
 prisoners_dilemma,cooperation_one_shot,antisocial,jev,0.0,,,pd_cooperation_oneshot,0.37,medium,
-prisoners_dilemma,cooperation_after_cooperation,antisocial,jev,0.009,,,,,,
-prisoners_dilemma,cooperation_after_defection,antisocial,jev,0.0,,,,,,
-framing,prob_certain_gain_frame,antisocial,jev,0.4720000000000001,,,framing_gain_certain,0.72,high,
-framing,prob_certain_loss_frame,antisocial,jev,0.5519999999999999,,,framing_loss_certain,0.22,high,
-framing,framing_swing,antisocial,jev,-0.07999999999999985,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
-allais,prob_certain_pair1,antisocial,jev,0.331,,,allais_p1_certain,0.8,high,
-allais,prob_safer_pair2,antisocial,jev,0.47700000000000004,,,allais_p2_certain,0.35,high,
-allais,independence_violation,antisocial,jev,0.17311300000000002,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
-conjunction,prob_fallacy_forced_choice,antisocial,jev,0.26000000000000006,,,conjunction_fallacy_rate,0.85,high,
-conjunction_axiom,p_single,antisocial,jev,0.16999999999999998,,,,,,
-conjunction_axiom,p_conjunction,antisocial,jev,0.24499999999999997,,,,,,
-conjunction_axiom,axiom_margin,antisocial,jev,-0.07499999999999998,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
-base_rate,prob_correct_band,antisocial,jev,0.5760000000000001,,,base_rate_correct_band,0.15,medium,
-base_rate,prob_lure_band,antisocial,jev,0.01,,,,,,
-anchoring,estimate_low_anchor,antisocial,jev,22.9375,,,anchoring_low_median,25.0,approximate,
-anchoring,estimate_high_anchor,antisocial,jev,23.063063063063066,,,anchoring_high_median,45.0,approximate,
-anchoring,anchoring_effect,antisocial,jev,0.12556306306306553,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
-sunk_cost,prob_continue,antisocial,jev,0.10300000000000001,,,sunk_cost_continue,0.85,medium,
-holt_laury,expected_safe_choices,antisocial,jev,1.321,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
-discounting,prob_patient_7d,antisocial,jev,0.22575,0.1655,0.28600000000000003,,,,
-discounting,prob_patient_30d,antisocial,jev,0.239,0.1945,0.2835,,,,
-discounting,prob_patient_180d,antisocial,jev,0.28275,0.23075,0.3255,,,,
-present_bias,prob_patient_immediate_frontend,antisocial,jev,0.11000000000000001,,,,,,
-present_bias,prob_patient_delayed_frontend,antisocial,jev,0.587,,,,,,
-present_bias,present_bias_gap,antisocial,jev,0.477,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
-beauty_contest,expected_guess,antisocial,jev,28.6803607214429,,,beauty_contest_mean,36.0,medium,
-beauty_contest,mass_at_33,antisocial,jev,0.034068136272545096,,,,,,
+prisoners_dilemma,cooperation_after_cooperation,antisocial,jev,0.009999999999999998,,,,,,
+prisoners_dilemma,cooperation_after_defection,antisocial,jev,0.002,,,,,,
+framing,prob_certain_gain_frame,antisocial,jev,0.48900000000000005,,,framing_gain_certain,0.72,high,
+framing,prob_certain_loss_frame,antisocial,jev,0.564,,,framing_loss_certain,0.22,high,
+framing,framing_swing,antisocial,jev,-0.0749999999999999,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
+allais,prob_certain_pair1,antisocial,jev,0.31900000000000006,,,allais_p1_certain,0.8,high,
+allais,prob_safer_pair2,antisocial,jev,0.47000000000000003,,,allais_p2_certain,0.35,high,
+allais,independence_violation,antisocial,jev,0.16907000000000005,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
+conjunction,prob_fallacy_forced_choice,antisocial,jev,0.274,,,conjunction_fallacy_rate,0.85,high,
+conjunction_axiom,p_single,antisocial,jev,0.174,,,,,,
+conjunction_axiom,p_conjunction,antisocial,jev,0.24100000000000002,,,,,,
+conjunction_axiom,axiom_margin,antisocial,jev,-0.06700000000000003,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
+base_rate,prob_correct_band,antisocial,jev,0.5665665665665667,,,base_rate_correct_band,0.15,medium,
+base_rate,prob_lure_band,antisocial,jev,0.008008008008008008,,,,,,
+anchoring,estimate_low_anchor,antisocial,jev,23.6525,,,anchoring_low_median,25.0,approximate,
+anchoring,estimate_high_anchor,antisocial,jev,25.195,,,anchoring_high_median,45.0,approximate,
+anchoring,anchoring_effect,antisocial,jev,1.5425000000000004,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
+sunk_cost,prob_continue,antisocial,jev,0.10300000000000002,,,sunk_cost_continue,0.85,medium,
+holt_laury,expected_safe_choices,antisocial,jev,1.342,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
+discounting,prob_patient_7d,antisocial,jev,0.2275,0.16349999999999998,0.2915,,,,
+discounting,prob_patient_30d,antisocial,jev,0.23950000000000002,0.1835,0.29550000000000004,,,,
+discounting,prob_patient_180d,antisocial,jev,0.28475000000000006,0.23000000000000004,0.33325,,,,
+present_bias,prob_patient_immediate_frontend,antisocial,jev,0.11200000000000003,,,,,,
+present_bias,prob_patient_delayed_frontend,antisocial,jev,0.5850000000000001,,,,,,
+present_bias,present_bias_gap,antisocial,jev,0.47300000000000003,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
+beauty_contest,expected_guess,antisocial,jev,27.45691382765532,,,beauty_contest_mean,36.0,medium,
+beauty_contest,mass_at_33,antisocial,jev,0.030060120240480964,,,,,,
 beauty_contest,mass_at_22,antisocial,jev,0.01002004008016032,,,,,,
-beauty_contest,mass_at_0,antisocial,jev,0.1653306613226453,,,,,,
-money_request,expected_request,antisocial,jev,18.205,,,money_request_modal,17.0,high,the model's mean request against the human mode
-money_request,mass_level0_20,antisocial,jev,0.09100000000000001,,,,,,
-money_request,mass_level1_19,antisocial,jev,0.713,,,,,,
-money_request,mass_level2_18,antisocial,jev,0.05100000000000001,,,,,,
-money_request,mass_level3_17,antisocial,jev,0.028000000000000008,,,,,,
-mini_ipip,extraversion,antisocial,jev,3.3959999999999995,2.6387499999999995,4.00525,mini_ipip_extraversion,3.2,approximate,
-mini_ipip,agreeableness,antisocial,jev,1.1579252758274825,1.0615,1.254350551654965,mini_ipip_agreeableness,4.0,approximate,
-mini_ipip,conscientiousness,antisocial,jev,3.18525,2.259,3.8682499999999997,mini_ipip_conscientiousness,3.4,approximate,
-mini_ipip,neuroticism,antisocial,jev,1.52425,1.1465,1.9020000000000001,mini_ipip_neuroticism,2.8,approximate,
-mini_ipip,openness,antisocial,jev,3.322074802758671,2.21075,4.154518496452365,mini_ipip_openness,3.7,approximate,
-dirty_dozen,machiavellianism,antisocial,jev,8.709250000000003,8.652000000000001,8.7665,,,,9-point agreement scale; manipulation check only
-dirty_dozen,overall,antisocial,jev,8.595591516366065,8.474495833333334,8.693343599699398,,,,9-point agreement scale; manipulation check only
-dirty_dozen,psychopathy,antisocial,jev,8.636774549098195,8.573049098196392,8.700500000000002,,,,9-point agreement scale; manipulation check only
-dirty_dozen,narcissism,antisocial,jev,8.44075,8.1965,8.684999999999999,,,,9-point agreement scale; manipulation check only
+beauty_contest,mass_at_0,antisocial,jev,0.18236472945891785,,,,,,
+money_request,expected_request,antisocial,jev,18.022000000000002,,,money_request_modal,17.0,high,the model's mean request against the human mode
+money_request,mass_level0_20,antisocial,jev,0.15000000000000002,,,,,,
+money_request,mass_level1_19,antisocial,jev,0.612,,,,,,
+money_request,mass_level2_18,antisocial,jev,0.05600000000000001,,,,,,
+money_request,mass_level3_17,antisocial,jev,0.028000000000000004,,,,,,
+mini_ipip,extraversion,antisocial,jev,3.3882499999999993,2.6434999999999995,4.00075,mini_ipip_extraversion,3.2,approximate,
+mini_ipip,agreeableness,antisocial,jev,1.1636737713139418,1.0705,1.2568475426278836,mini_ipip_agreeableness,4.0,approximate,
+mini_ipip,conscientiousness,antisocial,jev,3.1845000000000008,2.2795,3.8425000000000002,mini_ipip_conscientiousness,3.4,approximate,
+mini_ipip,neuroticism,antisocial,jev,1.5278000500500502,1.1416001001001002,1.9140000000000001,mini_ipip_neuroticism,2.8,approximate,
+mini_ipip,openness,antisocial,jev,3.3204999999999996,2.2115,4.1475,mini_ipip_openness,3.7,approximate,
+dirty_dozen,machiavellianism,antisocial,jev,8.705688438438438,8.651499999999999,8.759876876876877,,,,9-point agreement scale; manipulation check only
+dirty_dozen,overall,antisocial,jev,8.594526026026026,8.473107276026024,8.690522935435435,,,,9-point agreement scale; manipulation check only
+dirty_dozen,psychopathy,antisocial,jev,8.638389639639641,8.57427927927928,8.7025,,,,9-point agreement scale; manipulation check only
+dirty_dozen,narcissism,antisocial,jev,8.4395,8.198,8.681000000000001,,,,9-point agreement scale; manipulation check only
+moral_typecasting,responsibility_man,antisocial,jev,5.586,,,moral_typecasting_responsibility_man,5.29,medium,
+moral_typecasting,responsibility_baby,antisocial,jev,1.619,,,moral_typecasting_responsibility_baby,3.86,medium,
+moral_typecasting,agency_responsibility_gap,antisocial,jev,3.9670000000000005,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43
+moral_typecasting_estimate,responsibility_man,antisocial,jev,5.573,,,moral_typecasting_responsibility_man,5.29,medium,
+moral_typecasting_estimate,responsibility_baby,antisocial,jev,1.9979979979979976,,,moral_typecasting_responsibility_baby,3.86,medium,
+moral_typecasting_estimate,agency_responsibility_gap,antisocial,jev,3.5750020020020026,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43
+position_power,power_long_line,antisocial,jev,3.4350000000000005,,,position_power_long_line,5.01,medium,
+position_power,power_short_line,antisocial,jev,3.308,,,position_power_short_line,4.62,medium,
+position_power,position_power_gap,antisocial,jev,0.12700000000000067,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39
+position_power_estimate,power_long_line,antisocial,jev,3.7769999999999997,,,position_power_long_line,5.01,medium,
+position_power_estimate,power_short_line,antisocial,jev,3.8960000000000004,,,position_power_short_line,4.62,medium,
+position_power_estimate,position_power_gap,antisocial,jev,-0.11900000000000066,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39
+choosing_rejecting,prob_award_extreme,antisocial,jev,0.491,,,shafir_award_extreme,0.64,medium,
+choosing_rejecting,prob_deny_extreme,antisocial,jev,0.732,,,shafir_deny_extreme,0.55,medium,
+choosing_rejecting,choose_reject_sum,antisocial,jev,1.2229999999999999,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19"
+choosing_rejecting_estimate,prob_award_extreme,antisocial,jev,0.393,,,shafir_award_extreme,0.64,medium,
+choosing_rejecting_estimate,prob_deny_extreme,antisocial,jev,0.5700000000000001,,,shafir_deny_extreme,0.55,medium,
+categorization,prob_rule_based,antisocial,jev,0.044000000000000004,,,norenzayan_rule_based,0.67,medium,
+categorization_estimate,prob_rule_based,antisocial,jev,0.502,,,norenzayan_rule_based,0.67,medium,
+incidental_anchors,estimate_p97,antisocial,jev,51.0625,,,incidental_anchor_p97,58.1,medium,
+incidental_anchors,estimate_p17,antisocial,jev,51.290000000000006,,,incidental_anchor_p17,51.9,medium,
+incidental_anchors,anchor_gap,antisocial,jev,-0.22750000000000625,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?"
+incidental_anchors_estimate,estimate_p97,antisocial,jev,50.98848848848849,,,incidental_anchor_p97,58.1,medium,
+incidental_anchors_estimate,estimate_p17,antisocial,jev,51.265,,,incidental_anchor_p17,51.9,medium,
+incidental_anchors_estimate,anchor_gap,antisocial,jev,-0.276511511511508,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?"
+knobe,prob_harm_intentional,antisocial,jev,0.9,,,knobe_harm_intentional,0.82,medium,
+knobe,prob_help_intentional,antisocial,jev,0.009999999999999998,,,knobe_help_intentional,0.23,medium,
+knobe,harm_help_asymmetry,antisocial,jev,0.89,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59
+knobe_estimate,prob_harm_intentional,antisocial,jev,0.7770000000000001,,,knobe_harm_intentional,0.82,medium,
+knobe_estimate,prob_help_intentional,antisocial,jev,0.303,,,knobe_help_intentional,0.23,medium,
+trolley,prob_switch_permissible,antisocial,jev,0.94,,,trolley_switch_permissible,0.89,medium,
+trolley,prob_push_permissible,antisocial,jev,0.873,,,trolley_push_permissible,0.11,medium,
+trolley,switch_push_asymmetry,antisocial,jev,0.06699999999999995,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78
+trolley_estimate,prob_switch_permissible,antisocial,jev,0.669,,,trolley_switch_permissible,0.89,medium,
+trolley_estimate,prob_push_permissible,antisocial,jev,0.281,,,trolley_push_permissible,0.11,medium,
+false_consensus,wearer_predicts_wear,antisocial,jev,0.314,,,false_consensus_wearer_predicts_wear,0.614,medium,
+false_consensus,nonwearer_predicts_wear,antisocial,jev,0.429,,,false_consensus_nonwearer_predicts_wear,0.304,medium,
+false_consensus,false_consensus_gap,antisocial,jev,-0.11499999999999999,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31
+false_consensus_estimate,wearer_predicts_wear,antisocial,jev,0.426,,,false_consensus_wearer_predicts_wear,0.614,medium,
+false_consensus_estimate,nonwearer_predicts_wear,antisocial,jev,0.4880000000000001,,,false_consensus_nonwearer_predicts_wear,0.304,medium,
+false_consensus_estimate,false_consensus_gap,antisocial,jev,-0.06200000000000011,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31
 crt,proportion_correct,neutral,baseline,1.0,1.0,1.0,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
 crt,proportion_correct_all6,neutral,baseline,1.0,1.0,1.0,,,,all six items; no single human benchmark covers these
 crt,probability_mass_on_lure,neutral,baseline,0.0,0.0,0.0,,,,
@@ -162,14 +231,14 @@ fluid_reasoning,accuracy_steps_2,neutral,baseline,1.0,1.0,1.0,,,,
 fluid_reasoning,accuracy_steps_3,neutral,baseline,1.0,1.0,1.0,,,,
 fluid_reasoning,accuracy_steps_4,neutral,baseline,1.0,1.0,1.0,,,,
 fluid_reasoning,depth_penalty_1_vs_3plus,neutral,baseline,0.0,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps
-dictator,mean_share,neutral,baseline,0.5,,,dictator_mean_share,0.283,high,
+dictator,mean_share,neutral,baseline,0.36,,,dictator_mean_share,0.283,high,
 dictator,prob_give_zero,neutral,baseline,0.0,,,dictator_share_zero,0.36,high,
-dictator,prob_give_half,neutral,baseline,1.0,,,dictator_share_half,0.17,high,
-ultimatum_proposer,mean_share,neutral,baseline,0.3,,,ultimatum_mean_offer,0.4,high,
-trust_sender,mean_share,neutral,baseline,0.44000000000000006,,,trust_sender_share,0.5,high,
+dictator,prob_give_half,neutral,baseline,0.3,,,dictator_share_half,0.17,high,
+ultimatum_proposer,mean_share,neutral,baseline,0.4,,,ultimatum_mean_offer,0.4,high,
+trust_sender,mean_share,neutral,baseline,0.5,,,trust_sender_share,0.5,high,
 public_goods,mean_share,neutral,baseline,0.5,,,pgg_round1_share,0.5,medium,
 ultimatum_responder,prob_reject_offer_0,neutral,baseline,1.0,,,,,,
-ultimatum_responder,prob_reject_offer_1,neutral,baseline,1.0,,,,,,
+ultimatum_responder,prob_reject_offer_1,neutral,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_2,neutral,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_3,neutral,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_4,neutral,baseline,0.0,,,,,,
@@ -179,134 +248,203 @@ ultimatum_responder,prob_reject_offer_7,neutral,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_8,neutral,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_9,neutral,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_10,neutral,baseline,0.0,,,,,,
-ultimatum_responder,prob_reject_low_offer,neutral,baseline,1.0,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10
-trust_trustee,return_share_sent_2,neutral,baseline,0.5,,,,,,
-trust_trustee,return_share_sent_5,neutral,baseline,0.5266666666666667,,,trust_return_share,0.37,high,
+ultimatum_responder,prob_reject_low_offer,neutral,baseline,0.0,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10
+trust_trustee,return_share_sent_2,neutral,baseline,0.4833333333333334,,,,,,
+trust_trustee,return_share_sent_5,neutral,baseline,0.36666666666666664,,,trust_return_share,0.37,high,
 trust_trustee,return_share_sent_10,neutral,baseline,0.5,,,,,,
-public_goods_conditional,contribution_low,neutral,baseline,0.1,,,,,,
-public_goods_conditional,contribution_mid,neutral,baseline,0.45,,,,,,
-public_goods_conditional,contribution_high,neutral,baseline,0.72,,,,,,
+public_goods_conditional,contribution_low,neutral,baseline,0.01,,,,,,
+public_goods_conditional,contribution_mid,neutral,baseline,0.5,,,,,,
+public_goods_conditional,contribution_high,neutral,baseline,0.9,,,,,,
 prisoners_dilemma,cooperation_one_shot,neutral,baseline,0.0,,,pd_cooperation_oneshot,0.37,medium,
 prisoners_dilemma,cooperation_after_cooperation,neutral,baseline,1.0,,,,,,
 prisoners_dilemma,cooperation_after_defection,neutral,baseline,0.0,,,,,,
 framing,prob_certain_gain_frame,neutral,baseline,1.0,,,framing_gain_certain,0.72,high,
-framing,prob_certain_loss_frame,neutral,baseline,0.0,,,framing_loss_certain,0.22,high,
-framing,framing_swing,neutral,baseline,1.0,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
+framing,prob_certain_loss_frame,neutral,baseline,0.8,,,framing_loss_certain,0.22,high,
+framing,framing_swing,neutral,baseline,0.19999999999999996,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
 allais,prob_certain_pair1,neutral,baseline,1.0,,,allais_p1_certain,0.8,high,
-allais,prob_safer_pair2,neutral,baseline,0.0,,,allais_p2_certain,0.35,high,
-allais,independence_violation,neutral,baseline,1.0,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
+allais,prob_safer_pair2,neutral,baseline,0.3,,,allais_p2_certain,0.35,high,
+allais,independence_violation,neutral,baseline,0.7,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
 conjunction,prob_fallacy_forced_choice,neutral,baseline,0.0,,,conjunction_fallacy_rate,0.85,high,
-conjunction_axiom,p_single,neutral,baseline,1.0,,,,,,
-conjunction_axiom,p_conjunction,neutral,baseline,1.0,,,,,,
+conjunction_axiom,p_single,neutral,baseline,0.0,,,,,,
+conjunction_axiom,p_conjunction,neutral,baseline,0.0,,,,,,
 conjunction_axiom,axiom_margin,neutral,baseline,0.0,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
-base_rate,prob_correct_band,neutral,baseline,0.7,,,base_rate_correct_band,0.15,medium,
+base_rate,prob_correct_band,neutral,baseline,1.0,,,base_rate_correct_band,0.15,medium,
 base_rate,prob_lure_band,neutral,baseline,0.0,,,,,,
 anchoring,estimate_low_anchor,neutral,baseline,30.0,,,anchoring_low_median,25.0,approximate,
 anchoring,estimate_high_anchor,neutral,baseline,30.0,,,anchoring_high_median,45.0,approximate,
 anchoring,anchoring_effect,neutral,baseline,0.0,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
 sunk_cost,prob_continue,neutral,baseline,0.0,,,sunk_cost_continue,0.85,medium,
-holt_laury,expected_safe_choices,neutral,baseline,4.2,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
-discounting,prob_patient_7d,neutral,baseline,0.75,0.25,1.0,,,,
-discounting,prob_patient_30d,neutral,baseline,0.75,0.25,1.0,,,,
-discounting,prob_patient_180d,neutral,baseline,0.75,0.25,1.0,,,,
+holt_laury,expected_safe_choices,neutral,baseline,4.5,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
+discounting,prob_patient_7d,neutral,baseline,1.0,1.0,1.0,,,,
+discounting,prob_patient_30d,neutral,baseline,1.0,1.0,1.0,,,,
+discounting,prob_patient_180d,neutral,baseline,1.0,1.0,1.0,,,,
 present_bias,prob_patient_immediate_frontend,neutral,baseline,1.0,,,,,,
 present_bias,prob_patient_delayed_frontend,neutral,baseline,1.0,,,,,,
 present_bias,present_bias_gap,neutral,baseline,0.0,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
-beauty_contest,expected_guess,neutral,baseline,17.8,,,beauty_contest_mean,36.0,medium,
+beauty_contest,expected_guess,neutral,baseline,18.700000000000003,,,beauty_contest_mean,36.0,medium,
 beauty_contest,mass_at_33,neutral,baseline,0.0,,,,,,
-beauty_contest,mass_at_22,neutral,baseline,0.1,,,,,,
+beauty_contest,mass_at_22,neutral,baseline,0.4,,,,,,
 beauty_contest,mass_at_0,neutral,baseline,0.0,,,,,,
-money_request,expected_request,neutral,baseline,17.0,,,money_request_modal,17.0,high,the model's mean request against the human mode
+money_request,expected_request,neutral,baseline,16.900000000000002,,,money_request_modal,17.0,high,the model's mean request against the human mode
 money_request,mass_level0_20,neutral,baseline,0.0,,,,,,
 money_request,mass_level1_19,neutral,baseline,0.0,,,,,,
 money_request,mass_level2_18,neutral,baseline,0.0,,,,,,
-money_request,mass_level3_17,neutral,baseline,1.0,,,,,,
-mini_ipip,extraversion,neutral,baseline,2.6999999999999997,2.05,3.525,mini_ipip_extraversion,3.2,approximate,
-mini_ipip,agreeableness,neutral,baseline,4.0,2.75,5.0,mini_ipip_agreeableness,4.0,approximate,
-mini_ipip,conscientiousness,neutral,baseline,3.575,3.15,4.0,mini_ipip_conscientiousness,3.4,approximate,
-mini_ipip,neuroticism,neutral,baseline,1.5,1.0,2.0,mini_ipip_neuroticism,2.8,approximate,
-mini_ipip,openness,neutral,baseline,4.25,3.5,5.0,mini_ipip_openness,3.7,approximate,
-dirty_dozen,machiavellianism,neutral,baseline,1.25,1.0,1.75,,,,9-point agreement scale; manipulation check only
-dirty_dozen,overall,neutral,baseline,1.7916666666666667,1.3166666666666667,2.4250000000000003,,,,9-point agreement scale; manipulation check only
-dirty_dozen,psychopathy,neutral,baseline,1.5750000000000002,1.0,2.1500000000000004,,,,9-point agreement scale; manipulation check only
-dirty_dozen,narcissism,neutral,baseline,2.55,1.7000000000000002,3.9499999999999997,,,,9-point agreement scale; manipulation check only
-crt,proportion_correct,neutral,jev,0.9946666666666667,0.984,1.0,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
-crt,proportion_correct_all6,neutral,jev,0.9891666666666666,0.9773333333333333,0.9981666666666666,,,,all six items; no single human benchmark covers these
-crt,probability_mass_on_lure,neutral,jev,0.007000000000000002,0.0,0.016333333333333335,,,,
-fluid_reasoning,accuracy,neutral,jev,0.9119444444444444,0.8228194444444444,0.9780555555555556,,,,accuracy on an authored ICAR-format item set; not an IQ score
+money_request,mass_level3_17,neutral,baseline,0.9,,,,,,
+mini_ipip,extraversion,neutral,baseline,3.2,2.8500000000000005,3.75,mini_ipip_extraversion,3.2,approximate,
+mini_ipip,agreeableness,neutral,baseline,4.2,3.4000000000000004,4.95,mini_ipip_agreeableness,4.0,approximate,
+mini_ipip,conscientiousness,neutral,baseline,4.25,3.5,5.0,mini_ipip_conscientiousness,3.4,approximate,
+mini_ipip,neuroticism,neutral,baseline,2.0,1.0,3.0,mini_ipip_neuroticism,2.8,approximate,
+mini_ipip,openness,neutral,baseline,4.75,4.25,5.0,mini_ipip_openness,3.7,approximate,
+dirty_dozen,machiavellianism,neutral,baseline,1.0,1.0,1.0,,,,9-point agreement scale; manipulation check only
+dirty_dozen,overall,neutral,baseline,1.6499999999999997,1.2416666666666667,2.1416666666666666,,,,9-point agreement scale; manipulation check only
+dirty_dozen,psychopathy,neutral,baseline,1.75,1.25,2.0,,,,9-point agreement scale; manipulation check only
+dirty_dozen,narcissism,neutral,baseline,2.2,1.25,3.4,,,,9-point agreement scale; manipulation check only
+moral_typecasting,responsibility_man,neutral,baseline,4.0,,,moral_typecasting_responsibility_man,5.29,medium,
+moral_typecasting,responsibility_baby,neutral,baseline,1.0,,,moral_typecasting_responsibility_baby,3.86,medium,
+moral_typecasting,agency_responsibility_gap,neutral,baseline,3.0,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43
+moral_typecasting_estimate,responsibility_man,neutral,baseline,4.1,,,moral_typecasting_responsibility_man,5.29,medium,
+moral_typecasting_estimate,responsibility_baby,neutral,baseline,1.0,,,moral_typecasting_responsibility_baby,3.86,medium,
+moral_typecasting_estimate,agency_responsibility_gap,neutral,baseline,3.0999999999999996,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43
+position_power,power_long_line,neutral,baseline,5.0,,,position_power_long_line,5.01,medium,
+position_power,power_short_line,neutral,baseline,4.0,,,position_power_short_line,4.62,medium,
+position_power,position_power_gap,neutral,baseline,1.0,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39
+position_power_estimate,power_long_line,neutral,baseline,4.6,,,position_power_long_line,5.01,medium,
+position_power_estimate,power_short_line,neutral,baseline,4.4,,,position_power_short_line,4.62,medium,
+position_power_estimate,position_power_gap,neutral,baseline,0.1999999999999993,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39
+choosing_rejecting,prob_award_extreme,neutral,baseline,0.0,,,shafir_award_extreme,0.64,medium,
+choosing_rejecting,prob_deny_extreme,neutral,baseline,1.0,,,shafir_deny_extreme,0.55,medium,
+choosing_rejecting,choose_reject_sum,neutral,baseline,1.0,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19"
+categorization,prob_rule_based,neutral,baseline,0.0,,,norenzayan_rule_based,0.67,medium,
+incidental_anchors,estimate_p97,neutral,baseline,17.5,,,incidental_anchor_p97,58.1,medium,
+incidental_anchors,estimate_p17,neutral,baseline,17.5,,,incidental_anchor_p17,51.9,medium,
+incidental_anchors,anchor_gap,neutral,baseline,0.0,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?"
+incidental_anchors_estimate,estimate_p97,neutral,baseline,50.0,,,incidental_anchor_p97,58.1,medium,
+incidental_anchors_estimate,estimate_p17,neutral,baseline,50.0,,,incidental_anchor_p17,51.9,medium,
+incidental_anchors_estimate,anchor_gap,neutral,baseline,0.0,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?"
+knobe,prob_harm_intentional,neutral,baseline,1.0,,,knobe_harm_intentional,0.82,medium,
+knobe,prob_help_intentional,neutral,baseline,0.0,,,knobe_help_intentional,0.23,medium,
+knobe,harm_help_asymmetry,neutral,baseline,1.0,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59
+trolley,prob_switch_permissible,neutral,baseline,1.0,,,trolley_switch_permissible,0.89,medium,
+trolley,prob_push_permissible,neutral,baseline,0.0,,,trolley_push_permissible,0.11,medium,
+trolley,switch_push_asymmetry,neutral,baseline,1.0,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78
+crt,proportion_correct,neutral,jev,0.995,0.985,1.0,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
+crt,proportion_correct_all6,neutral,jev,0.9913333333333333,0.9823333333333335,0.9983333333333334,,,,all six items; no single human benchmark covers these
+crt,probability_mass_on_lure,neutral,jev,0.005833333333333334,0.0,0.013166666666666667,,,,
+fluid_reasoning,accuracy,neutral,jev,0.9127777777777778,0.8247208333333332,0.9781138888888888,,,,accuracy on an authored ICAR-format item set; not an IQ score
 fluid_reasoning,accuracy_steps_1,neutral,jev,1.0,1.0,1.0,,,,
-fluid_reasoning,accuracy_steps_2,neutral,jev,0.8806666666666668,0.6623333333333333,1.0,,,,
-fluid_reasoning,accuracy_steps_3,neutral,jev,0.9024285714285715,0.7962857142857144,0.9892857142857142,,,,
-fluid_reasoning,accuracy_steps_4,neutral,jev,0.907,0.8140000000000001,1.0,,,,
-fluid_reasoning,depth_penalty_1_vs_3plus,neutral,jev,0.0965555555555555,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps
-dictator,mean_share,neutral,jev,0.14449999999999996,,,dictator_mean_share,0.283,high,
-dictator,prob_give_zero,neutral,jev,0.619,,,dictator_share_zero,0.36,high,
-dictator,prob_give_half,neutral,jev,0.184,,,dictator_share_half,0.17,high,
-ultimatum_proposer,mean_share,neutral,jev,0.41609999999999997,,,ultimatum_mean_offer,0.4,high,
-trust_sender,mean_share,neutral,jev,0.37197197197197196,,,trust_sender_share,0.5,high,
-public_goods,mean_share,neutral,jev,0.3795999999999999,,,pgg_round1_share,0.5,medium,
-ultimatum_responder,prob_reject_offer_0,neutral,jev,0.836,,,,,,
-ultimatum_responder,prob_reject_offer_1,neutral,jev,0.485,,,,,,
-ultimatum_responder,prob_reject_offer_2,neutral,jev,0.28900000000000003,,,,,,
-ultimatum_responder,prob_reject_offer_3,neutral,jev,0.178,,,,,,
-ultimatum_responder,prob_reject_offer_4,neutral,jev,0.12199999999999997,,,,,,
-ultimatum_responder,prob_reject_offer_5,neutral,jev,0.05900000000000001,,,,,,
-ultimatum_responder,prob_reject_offer_6,neutral,jev,0.016999999999999998,,,,,,
-ultimatum_responder,prob_reject_offer_7,neutral,jev,0.015999999999999997,,,,,,
+fluid_reasoning,accuracy_steps_2,neutral,jev,0.8805000000000001,0.6648333333333333,1.0,,,,
+fluid_reasoning,accuracy_steps_3,neutral,jev,0.9032857142857144,0.7972857142857143,0.9895714285714285,,,,
+fluid_reasoning,accuracy_steps_4,neutral,jev,0.9119999999999999,0.825,0.999,,,,
+fluid_reasoning,depth_penalty_1_vs_3plus,neutral,jev,0.09477777777777774,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps
+dictator,mean_share,neutral,jev,0.14824824824824825,,,dictator_mean_share,0.283,high,
+dictator,prob_give_zero,neutral,jev,0.6026026026026027,,,dictator_share_zero,0.36,high,
+dictator,prob_give_half,neutral,jev,0.18618618618618618,,,dictator_share_half,0.17,high,
+ultimatum_proposer,mean_share,neutral,jev,0.4136,,,ultimatum_mean_offer,0.4,high,
+trust_sender,mean_share,neutral,jev,0.3756,,,trust_sender_share,0.5,high,
+public_goods,mean_share,neutral,jev,0.3825000000000001,,,pgg_round1_share,0.5,medium,
+ultimatum_responder,prob_reject_offer_0,neutral,jev,0.8470000000000001,,,,,,
+ultimatum_responder,prob_reject_offer_1,neutral,jev,0.489,,,,,,
+ultimatum_responder,prob_reject_offer_2,neutral,jev,0.272,,,,,,
+ultimatum_responder,prob_reject_offer_3,neutral,jev,0.18600000000000003,,,,,,
+ultimatum_responder,prob_reject_offer_4,neutral,jev,0.11800000000000002,,,,,,
+ultimatum_responder,prob_reject_offer_5,neutral,jev,0.05600000000000001,,,,,,
+ultimatum_responder,prob_reject_offer_6,neutral,jev,0.018,,,,,,
+ultimatum_responder,prob_reject_offer_7,neutral,jev,0.016,,,,,,
 ultimatum_responder,prob_reject_offer_8,neutral,jev,0.020999999999999998,,,,,,
-ultimatum_responder,prob_reject_offer_9,neutral,jev,0.016,,,,,,
+ultimatum_responder,prob_reject_offer_9,neutral,jev,0.016999999999999998,,,,,,
 ultimatum_responder,prob_reject_offer_10,neutral,jev,0.009999999999999998,,,,,,
-ultimatum_responder,prob_reject_low_offer,neutral,jev,0.485,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10
-trust_trustee,return_share_sent_2,neutral,jev,0.333,,,,,,
-trust_trustee,return_share_sent_5,neutral,jev,0.3010666666666666,,,trust_return_share,0.37,high,
-trust_trustee,return_share_sent_10,neutral,jev,0.2518999999999999,,,,,,
-public_goods_conditional,contribution_low,neutral,jev,0.16570000000000001,,,,,,
-public_goods_conditional,contribution_mid,neutral,jev,0.24174174174174173,,,,,,
-public_goods_conditional,contribution_high,neutral,jev,0.2835,,,,,,
-prisoners_dilemma,cooperation_one_shot,neutral,jev,0.029000000000000005,,,pd_cooperation_oneshot,0.37,medium,
-prisoners_dilemma,cooperation_after_cooperation,neutral,jev,0.592,,,,,,
+ultimatum_responder,prob_reject_low_offer,neutral,jev,0.489,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10
+trust_trustee,return_share_sent_2,neutral,jev,0.3356666666666667,,,,,,
+trust_trustee,return_share_sent_5,neutral,jev,0.29973333333333324,,,trust_return_share,0.37,high,
+trust_trustee,return_share_sent_10,neutral,jev,0.2572572572572573,,,,,,
+public_goods_conditional,contribution_low,neutral,jev,0.15556670010030088,,,,,,
+public_goods_conditional,contribution_mid,neutral,jev,0.2245245245245245,,,,,,
+public_goods_conditional,contribution_high,neutral,jev,0.2730730730730731,,,,,,
+prisoners_dilemma,cooperation_one_shot,neutral,jev,0.026000000000000002,,,pd_cooperation_oneshot,0.37,medium,
+prisoners_dilemma,cooperation_after_cooperation,neutral,jev,0.608,,,,,,
 prisoners_dilemma,cooperation_after_defection,neutral,jev,0.009999999999999998,,,,,,
-framing,prob_certain_gain_frame,neutral,jev,0.959,,,framing_gain_certain,0.72,high,
-framing,prob_certain_loss_frame,neutral,jev,0.664,,,framing_loss_certain,0.22,high,
-framing,framing_swing,neutral,jev,0.29499999999999993,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
-allais,prob_certain_pair1,neutral,jev,0.6180000000000001,,,allais_p1_certain,0.8,high,
-allais,prob_safer_pair2,neutral,jev,0.619,,,allais_p2_certain,0.35,high,
-allais,independence_violation,neutral,jev,0.23545800000000006,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
-conjunction,prob_fallacy_forced_choice,neutral,jev,0.09000000000000001,,,conjunction_fallacy_rate,0.85,high,
+framing,prob_certain_gain_frame,neutral,jev,0.849,,,framing_gain_certain,0.72,high,
+framing,prob_certain_loss_frame,neutral,jev,0.843,,,framing_loss_certain,0.22,high,
+framing,framing_swing,neutral,jev,0.006000000000000005,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
+allais,prob_certain_pair1,neutral,jev,0.62,,,allais_p1_certain,0.8,high,
+allais,prob_safer_pair2,neutral,jev,0.614,,,allais_p2_certain,0.35,high,
+allais,independence_violation,neutral,jev,0.23932000000000003,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
+conjunction,prob_fallacy_forced_choice,neutral,jev,0.10200000000000002,,,conjunction_fallacy_rate,0.85,high,
 conjunction_axiom,p_single,neutral,jev,0.16599999999999998,,,,,,
-conjunction_axiom,p_conjunction,neutral,jev,0.25699999999999995,,,,,,
-conjunction_axiom,axiom_margin,neutral,jev,-0.09099999999999997,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
-base_rate,prob_correct_band,neutral,jev,0.614,,,base_rate_correct_band,0.15,medium,
-base_rate,prob_lure_band,neutral,jev,0.006,,,,,,
-anchoring,estimate_low_anchor,neutral,jev,24.21,,,anchoring_low_median,25.0,approximate,
-anchoring,estimate_high_anchor,neutral,jev,25.573073073073076,,,anchoring_high_median,45.0,approximate,
-anchoring,anchoring_effect,neutral,jev,1.3630730730730747,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
-sunk_cost,prob_continue,neutral,jev,0.009999999999999998,,,sunk_cost_continue,0.85,medium,
-holt_laury,expected_safe_choices,neutral,jev,2.063,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
-discounting,prob_patient_7d,neutral,jev,0.52825,0.4455,0.6119999999999999,,,,
-discounting,prob_patient_30d,neutral,jev,0.5535,0.4100000000000001,0.713,,,,
-discounting,prob_patient_180d,neutral,jev,0.51925,0.417,0.6215000000000002,,,,
-present_bias,prob_patient_immediate_frontend,neutral,jev,0.129,,,,,,
-present_bias,prob_patient_delayed_frontend,neutral,jev,0.483,,,,,,
+conjunction_axiom,p_conjunction,neutral,jev,0.259,,,,,,
+conjunction_axiom,axiom_margin,neutral,jev,-0.09300000000000003,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
+base_rate,prob_correct_band,neutral,jev,0.61,,,base_rate_correct_band,0.15,medium,
+base_rate,prob_lure_band,neutral,jev,0.004999999999999999,,,,,,
+anchoring,estimate_low_anchor,neutral,jev,24.629629629629626,,,anchoring_low_median,25.0,approximate,
+anchoring,estimate_high_anchor,neutral,jev,26.212500000000002,,,anchoring_high_median,45.0,approximate,
+anchoring,anchoring_effect,neutral,jev,1.582870370370376,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
+sunk_cost,prob_continue,neutral,jev,0.038000000000000006,,,sunk_cost_continue,0.85,medium,
+holt_laury,expected_safe_choices,neutral,jev,2.047,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
+discounting,prob_patient_7d,neutral,jev,0.5235,0.45475,0.6032500000000001,,,,
+discounting,prob_patient_30d,neutral,jev,0.55225,0.4075,0.71025,,,,
+discounting,prob_patient_180d,neutral,jev,0.51725,0.40199999999999997,0.6325000000000001,,,,
+present_bias,prob_patient_immediate_frontend,neutral,jev,0.152,,,,,,
+present_bias,prob_patient_delayed_frontend,neutral,jev,0.506,,,,,,
 present_bias,present_bias_gap,neutral,jev,0.354,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
-beauty_contest,expected_guess,neutral,jev,15.610050251256274,,,beauty_contest_mean,36.0,medium,
-beauty_contest,mass_at_33,neutral,jev,0.036180904522613064,,,,,,
-beauty_contest,mass_at_22,neutral,jev,0.010050251256281405,,,,,,
-beauty_contest,mass_at_0,neutral,jev,0.39597989949748746,,,,,,
-money_request,expected_request,neutral,jev,18.045,,,money_request_modal,17.0,high,the model's mean request against the human mode
-money_request,mass_level0_20,neutral,jev,0.094,,,,,,
-money_request,mass_level1_19,neutral,jev,0.6709999999999999,,,,,,
-money_request,mass_level2_18,neutral,jev,0.052000000000000005,,,,,,
-money_request,mass_level3_17,neutral,jev,0.036000000000000004,,,,,,
-mini_ipip,extraversion,neutral,jev,2.9412500000000006,2.708,3.1745,mini_ipip_extraversion,3.2,approximate,
-mini_ipip,agreeableness,neutral,jev,2.87,2.4375,3.46575,mini_ipip_agreeableness,4.0,approximate,
-mini_ipip,conscientiousness,neutral,jev,3.0837885771543085,2.7533657314629263,3.2884999999999995,mini_ipip_conscientiousness,3.4,approximate,
-mini_ipip,neuroticism,neutral,jev,2.842387137137137,2.5627742742742745,3.1220000000000003,mini_ipip_neuroticism,2.8,approximate,
-mini_ipip,openness,neutral,jev,3.1145000000000005,2.8477500000000004,3.3190000000000004,mini_ipip_openness,3.7,approximate,
-dirty_dozen,machiavellianism,neutral,jev,4.847389278557115,4.13575,5.4954178356713435,,,,9-point agreement scale; manipulation check only
-dirty_dozen,overall,neutral,jev,5.025379759519038,4.490628836840347,5.516257410654642,,,,9-point agreement scale; manipulation check only
-dirty_dozen,psychopathy,neutral,jev,4.660749999999999,3.6192499999999996,5.644,,,,9-point agreement scale; manipulation check only
-dirty_dozen,narcissism,neutral,jev,5.568,5.0680000000000005,6.068,,,,9-point agreement scale; manipulation check only
+beauty_contest,expected_guess,neutral,jev,16.822467402206616,,,beauty_contest_mean,36.0,medium,
+beauty_contest,mass_at_33,neutral,jev,0.03610832497492478,,,,,,
+beauty_contest,mass_at_22,neutral,jev,0.010030090270812435,,,,,,
+beauty_contest,mass_at_0,neutral,jev,0.3510531594784353,,,,,,
+money_request,expected_request,neutral,jev,17.516516516516514,,,money_request_modal,17.0,high,the model's mean request against the human mode
+money_request,mass_level0_20,neutral,jev,0.13113113113113112,,,,,,
+money_request,mass_level1_19,neutral,jev,0.5555555555555556,,,,,,
+money_request,mass_level2_18,neutral,jev,0.055055055055055056,,,,,,
+money_request,mass_level3_17,neutral,jev,0.039039039039039033,,,,,,
+mini_ipip,extraversion,neutral,jev,2.94975,2.7265,3.173,mini_ipip_extraversion,3.2,approximate,
+mini_ipip,agreeableness,neutral,jev,2.8857500000000003,2.45,3.4745,mini_ipip_agreeableness,4.0,approximate,
+mini_ipip,conscientiousness,neutral,jev,3.0765000000000002,2.7485,3.2725,mini_ipip_conscientiousness,3.4,approximate,
+mini_ipip,neuroticism,neutral,jev,2.8407500000000003,2.5645000000000002,3.117,mini_ipip_neuroticism,2.8,approximate,
+mini_ipip,openness,neutral,jev,3.116568818818819,2.8303188188188186,3.3201376376376377,mini_ipip_openness,3.7,approximate,
+dirty_dozen,machiavellianism,neutral,jev,4.8382262939292,4.145817635270541,5.483908658658659,,,,9-point agreement scale; manipulation check only
+dirty_dozen,overall,neutral,jev,5.014556245457214,4.4741492337151785,5.508527039167591,,,,9-point agreement scale; manipulation check only
+dirty_dozen,psychopathy,neutral,jev,4.654,3.59675,5.632249999999999,,,,9-point agreement scale; manipulation check only
+dirty_dozen,narcissism,neutral,jev,5.5514424424424424,5.033884884884885,6.068999999999999,,,,9-point agreement scale; manipulation check only
+moral_typecasting,responsibility_man,neutral,jev,6.037,,,moral_typecasting_responsibility_man,5.29,medium,
+moral_typecasting,responsibility_baby,neutral,jev,1.123,,,moral_typecasting_responsibility_baby,3.86,medium,
+moral_typecasting,agency_responsibility_gap,neutral,jev,4.914,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43
+moral_typecasting_estimate,responsibility_man,neutral,jev,5.7307307307307305,,,moral_typecasting_responsibility_man,5.29,medium,
+moral_typecasting_estimate,responsibility_baby,neutral,jev,1.84,,,moral_typecasting_responsibility_baby,3.86,medium,
+moral_typecasting_estimate,agency_responsibility_gap,neutral,jev,3.8907307307307306,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43
+position_power,power_long_line,neutral,jev,3.3469999999999995,,,position_power_long_line,5.01,medium,
+position_power,power_short_line,neutral,jev,3.345,,,position_power_short_line,4.62,medium,
+position_power,position_power_gap,neutral,jev,0.0019999999999993356,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39
+position_power_estimate,power_long_line,neutral,jev,3.5470000000000006,,,position_power_long_line,5.01,medium,
+position_power_estimate,power_short_line,neutral,jev,4.220000000000001,,,position_power_short_line,4.62,medium,
+position_power_estimate,position_power_gap,neutral,jev,-0.673,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39
+choosing_rejecting,prob_award_extreme,neutral,jev,0.07200000000000001,,,shafir_award_extreme,0.64,medium,
+choosing_rejecting,prob_deny_extreme,neutral,jev,0.9780000000000001,,,shafir_deny_extreme,0.55,medium,
+choosing_rejecting,choose_reject_sum,neutral,jev,1.05,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19"
+choosing_rejecting_estimate,prob_award_extreme,neutral,jev,0.36400000000000005,,,shafir_award_extreme,0.64,medium,
+choosing_rejecting_estimate,prob_deny_extreme,neutral,jev,0.598,,,shafir_deny_extreme,0.55,medium,
+categorization,prob_rule_based,neutral,jev,0.04999999999999999,,,norenzayan_rule_based,0.67,medium,
+categorization_estimate,prob_rule_based,neutral,jev,0.527,,,norenzayan_rule_based,0.67,medium,
+incidental_anchors,estimate_p97,neutral,jev,49.949999999999996,,,incidental_anchor_p97,58.1,medium,
+incidental_anchors,estimate_p17,neutral,jev,49.887499999999996,,,incidental_anchor_p17,51.9,medium,
+incidental_anchors,anchor_gap,neutral,jev,0.0625,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?"
+incidental_anchors_estimate,estimate_p97,neutral,jev,49.7075,,,incidental_anchor_p97,58.1,medium,
+incidental_anchors_estimate,estimate_p17,neutral,jev,49.970000000000006,,,incidental_anchor_p17,51.9,medium,
+incidental_anchors_estimate,anchor_gap,neutral,jev,-0.26250000000000284,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?"
+knobe,prob_harm_intentional,neutral,jev,0.724,,,knobe_harm_intentional,0.82,medium,
+knobe,prob_help_intentional,neutral,jev,0.005,,,knobe_help_intentional,0.23,medium,
+knobe,harm_help_asymmetry,neutral,jev,0.719,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59
+knobe_estimate,prob_harm_intentional,neutral,jev,0.742,,,knobe_harm_intentional,0.82,medium,
+knobe_estimate,prob_help_intentional,neutral,jev,0.607,,,knobe_help_intentional,0.23,medium,
+trolley,prob_switch_permissible,neutral,jev,0.99,,,trolley_switch_permissible,0.89,medium,
+trolley,prob_push_permissible,neutral,jev,0.027000000000000003,,,trolley_push_permissible,0.11,medium,
+trolley,switch_push_asymmetry,neutral,jev,0.963,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78
+trolley_estimate,prob_switch_permissible,neutral,jev,0.746,,,trolley_switch_permissible,0.89,medium,
+trolley_estimate,prob_push_permissible,neutral,jev,0.23199999999999998,,,trolley_push_permissible,0.11,medium,
+false_consensus,wearer_predicts_wear,neutral,jev,0.24299999999999997,,,false_consensus_wearer_predicts_wear,0.614,medium,
+false_consensus,nonwearer_predicts_wear,neutral,jev,0.273,,,false_consensus_nonwearer_predicts_wear,0.304,medium,
+false_consensus,false_consensus_gap,neutral,jev,-0.030000000000000054,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31
+false_consensus_estimate,wearer_predicts_wear,neutral,jev,0.369,,,false_consensus_wearer_predicts_wear,0.614,medium,
+false_consensus_estimate,nonwearer_predicts_wear,neutral,jev,0.354,,,false_consensus_nonwearer_predicts_wear,0.304,medium,
+false_consensus_estimate,false_consensus_gap,neutral,jev,0.015000000000000013,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31
 crt,proportion_correct,rational_agent,baseline,1.0,1.0,1.0,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
 crt,proportion_correct_all6,rational_agent,baseline,1.0,1.0,1.0,,,,all six items; no single human benchmark covers these
 crt,probability_mass_on_lure,rational_agent,baseline,0.0,0.0,0.0,,,,
@@ -344,25 +482,25 @@ prisoners_dilemma,cooperation_one_shot,rational_agent,baseline,0.0,,,pd_cooperat
 prisoners_dilemma,cooperation_after_cooperation,rational_agent,baseline,0.0,,,,,,
 prisoners_dilemma,cooperation_after_defection,rational_agent,baseline,0.0,,,,,,
 framing,prob_certain_gain_frame,rational_agent,baseline,1.0,,,framing_gain_certain,0.72,high,
-framing,prob_certain_loss_frame,rational_agent,baseline,0.375,,,framing_loss_certain,0.22,high,
-framing,framing_swing,rational_agent,baseline,0.625,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
+framing,prob_certain_loss_frame,rational_agent,baseline,0.6,,,framing_loss_certain,0.22,high,
+framing,framing_swing,rational_agent,baseline,0.4,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
 allais,prob_certain_pair1,rational_agent,baseline,0.0,,,allais_p1_certain,0.8,high,
 allais,prob_safer_pair2,rational_agent,baseline,0.0,,,allais_p2_certain,0.35,high,
 allais,independence_violation,rational_agent,baseline,0.0,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
 conjunction,prob_fallacy_forced_choice,rational_agent,baseline,0.0,,,conjunction_fallacy_rate,0.85,high,
-conjunction_axiom,p_single,rational_agent,baseline,0.8888888888888888,,,,,,
+conjunction_axiom,p_single,rational_agent,baseline,0.0,,,,,,
 conjunction_axiom,p_conjunction,rational_agent,baseline,0.0,,,,,,
-conjunction_axiom,axiom_margin,rational_agent,baseline,0.8888888888888888,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
-base_rate,prob_correct_band,rational_agent,baseline,0.8,,,base_rate_correct_band,0.15,medium,
+conjunction_axiom,axiom_margin,rational_agent,baseline,0.0,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
+base_rate,prob_correct_band,rational_agent,baseline,1.0,,,base_rate_correct_band,0.15,medium,
 base_rate,prob_lure_band,rational_agent,baseline,0.0,,,,,,
 anchoring,estimate_low_anchor,rational_agent,baseline,30.0,,,anchoring_low_median,25.0,approximate,
 anchoring,estimate_high_anchor,rational_agent,baseline,30.0,,,anchoring_high_median,45.0,approximate,
 anchoring,anchoring_effect,rational_agent,baseline,0.0,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
 sunk_cost,prob_continue,rational_agent,baseline,0.0,,,sunk_cost_continue,0.85,medium,
 holt_laury,expected_safe_choices,rational_agent,baseline,4.0,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
-discounting,prob_patient_7d,rational_agent,baseline,0.925,0.7749999999999999,1.0,,,,
-discounting,prob_patient_30d,rational_agent,baseline,0.75,0.25,1.0,,,,
-discounting,prob_patient_180d,rational_agent,baseline,0.925,0.7749999999999999,1.0,,,,
+discounting,prob_patient_7d,rational_agent,baseline,1.0,1.0,1.0,,,,
+discounting,prob_patient_30d,rational_agent,baseline,1.0,1.0,1.0,,,,
+discounting,prob_patient_180d,rational_agent,baseline,1.0,1.0,1.0,,,,
 present_bias,prob_patient_immediate_frontend,rational_agent,baseline,1.0,,,,,,
 present_bias,prob_patient_delayed_frontend,rational_agent,baseline,1.0,,,,,,
 present_bias,present_bias_gap,rational_agent,baseline,0.0,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
@@ -370,115 +508,184 @@ beauty_contest,expected_guess,rational_agent,baseline,0.0,,,beauty_contest_mean,
 beauty_contest,mass_at_33,rational_agent,baseline,0.0,,,,,,
 beauty_contest,mass_at_22,rational_agent,baseline,0.0,,,,,,
 beauty_contest,mass_at_0,rational_agent,baseline,1.0,,,,,,
-money_request,expected_request,rational_agent,baseline,11.0,,,money_request_modal,17.0,high,the model's mean request against the human mode
+money_request,expected_request,rational_agent,baseline,15.6,,,money_request_modal,17.0,high,the model's mean request against the human mode
 money_request,mass_level0_20,rational_agent,baseline,0.0,,,,,,
 money_request,mass_level1_19,rational_agent,baseline,0.0,,,,,,
 money_request,mass_level2_18,rational_agent,baseline,0.0,,,,,,
 money_request,mass_level3_17,rational_agent,baseline,0.0,,,,,,
-mini_ipip,extraversion,rational_agent,baseline,3.25,2.5,4.0,mini_ipip_extraversion,3.2,approximate,
-mini_ipip,agreeableness,rational_agent,baseline,2.625,1.5499999999999998,3.7,mini_ipip_agreeableness,4.0,approximate,
-mini_ipip,conscientiousness,rational_agent,baseline,4.2,3.8500000000000005,4.75,mini_ipip_conscientiousness,3.4,approximate,
-mini_ipip,neuroticism,rational_agent,baseline,1.25,1.0,1.75,mini_ipip_neuroticism,2.8,approximate,
-mini_ipip,openness,rational_agent,baseline,4.375,3.75,5.0,mini_ipip_openness,3.7,approximate,
-dirty_dozen,machiavellianism,rational_agent,baseline,4.252777777777777,2.1055555555555556,6.3999999999999995,,,,9-point agreement scale; manipulation check only
-dirty_dozen,overall,rational_agent,baseline,3.850925925925926,2.7944444444444447,4.936249999999998,,,,9-point agreement scale; manipulation check only
-dirty_dozen,psychopathy,rational_agent,baseline,3.475,2.0,4.950000000000001,,,,9-point agreement scale; manipulation check only
-dirty_dozen,narcissism,rational_agent,baseline,3.825,2.15,5.5,,,,9-point agreement scale; manipulation check only
+mini_ipip,extraversion,rational_agent,baseline,3.225,2.475,3.95,mini_ipip_extraversion,3.2,approximate,
+mini_ipip,agreeableness,rational_agent,baseline,1.85,1.5499999999999998,2.0,mini_ipip_agreeableness,4.0,approximate,
+mini_ipip,conscientiousness,rational_agent,baseline,4.5,4.0,5.0,mini_ipip_conscientiousness,3.4,approximate,
+mini_ipip,neuroticism,rational_agent,baseline,1.15,1.0,1.4500000000000002,mini_ipip_neuroticism,2.8,approximate,
+mini_ipip,openness,rational_agent,baseline,4.725,4.25,5.0,mini_ipip_openness,3.7,approximate,
+dirty_dozen,machiavellianism,rational_agent,baseline,6.85,5.300000000000001,8.0,,,,9-point agreement scale; manipulation check only
+dirty_dozen,overall,rational_agent,baseline,6.041666666666667,4.983333333333333,6.983333333333333,,,,9-point agreement scale; manipulation check only
+dirty_dozen,psychopathy,rational_agent,baseline,6.0249999999999995,4.65,7.225,,,,9-point agreement scale; manipulation check only
+dirty_dozen,narcissism,rational_agent,baseline,5.25,3.25,7.0,,,,9-point agreement scale; manipulation check only
+moral_typecasting,responsibility_man,rational_agent,baseline,5.0,,,moral_typecasting_responsibility_man,5.29,medium,
+moral_typecasting,responsibility_baby,rational_agent,baseline,1.0,,,moral_typecasting_responsibility_baby,3.86,medium,
+moral_typecasting,agency_responsibility_gap,rational_agent,baseline,4.0,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43
+moral_typecasting_estimate,responsibility_man,rational_agent,baseline,4.0,,,moral_typecasting_responsibility_man,5.29,medium,
+moral_typecasting_estimate,responsibility_baby,rational_agent,baseline,1.0,,,moral_typecasting_responsibility_baby,3.86,medium,
+moral_typecasting_estimate,agency_responsibility_gap,rational_agent,baseline,3.0,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43
+position_power,power_long_line,rational_agent,baseline,4.3,,,position_power_long_line,5.01,medium,
+position_power,power_short_line,rational_agent,baseline,4.0,,,position_power_short_line,4.62,medium,
+position_power,position_power_gap,rational_agent,baseline,0.2999999999999998,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39
+position_power_estimate,power_long_line,rational_agent,baseline,4.6,,,position_power_long_line,5.01,medium,
+position_power_estimate,power_short_line,rational_agent,baseline,4.3,,,position_power_short_line,4.62,medium,
+position_power_estimate,position_power_gap,rational_agent,baseline,0.2999999999999998,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39
+choosing_rejecting,prob_award_extreme,rational_agent,baseline,1.0,,,shafir_award_extreme,0.64,medium,
+choosing_rejecting,prob_deny_extreme,rational_agent,baseline,0.0,,,shafir_deny_extreme,0.55,medium,
+choosing_rejecting,choose_reject_sum,rational_agent,baseline,1.0,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19"
+categorization,prob_rule_based,rational_agent,baseline,0.0,,,norenzayan_rule_based,0.67,medium,
+incidental_anchors,estimate_p97,rational_agent,baseline,19.75,,,incidental_anchor_p97,58.1,medium,
+incidental_anchors,estimate_p17,rational_agent,baseline,19.75,,,incidental_anchor_p17,51.9,medium,
+incidental_anchors,anchor_gap,rational_agent,baseline,0.0,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?"
+incidental_anchors_estimate,estimate_p97,rational_agent,baseline,50.0,,,incidental_anchor_p97,58.1,medium,
+incidental_anchors_estimate,estimate_p17,rational_agent,baseline,49.0,,,incidental_anchor_p17,51.9,medium,
+incidental_anchors_estimate,anchor_gap,rational_agent,baseline,1.0,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?"
+knobe,prob_harm_intentional,rational_agent,baseline,1.0,,,knobe_harm_intentional,0.82,medium,
+knobe,prob_help_intentional,rational_agent,baseline,0.0,,,knobe_help_intentional,0.23,medium,
+knobe,harm_help_asymmetry,rational_agent,baseline,1.0,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59
+trolley,prob_switch_permissible,rational_agent,baseline,1.0,,,trolley_switch_permissible,0.89,medium,
+trolley,prob_push_permissible,rational_agent,baseline,0.9,,,trolley_push_permissible,0.11,medium,
+trolley,switch_push_asymmetry,rational_agent,baseline,0.09999999999999998,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78
 crt,proportion_correct,rational_agent,jev,0.9956666666666667,0.9870000000000001,1.0,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
-crt,proportion_correct_all6,rational_agent,jev,0.989,0.975,0.9984999999999999,,,,all six items; no single human benchmark covers these
-crt,probability_mass_on_lure,rational_agent,jev,0.007000000000000002,0.0,0.016666666666666673,,,,
-fluid_reasoning,accuracy,rational_agent,jev,0.8984155266377489,0.8010518532421309,0.9721088852741631,,,,accuracy on an authored ICAR-format item set; not an IQ score
-fluid_reasoning,accuracy_steps_1,rational_agent,jev,0.9996666666666667,0.999,1.0,,,,
-fluid_reasoning,accuracy_steps_2,rational_agent,jev,0.8769891558224892,0.6526558224891558,1.0,,,,
-fluid_reasoning,accuracy_steps_3,rational_agent,jev,0.8645063635063633,0.7319349349349349,0.9737178571428572,,,,
-fluid_reasoning,accuracy_steps_4,rational_agent,jev,0.9295,0.859,1.0,,,,
-fluid_reasoning,depth_penalty_1_vs_3plus,rational_agent,jev,0.12071727282838396,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps
+crt,proportion_correct_all6,rational_agent,jev,0.9885,0.9736666666666666,0.9983333333333334,,,,all six items; no single human benchmark covers these
+crt,probability_mass_on_lure,rational_agent,jev,0.007333333333333335,0.0,0.017666666666666667,,,,
+fluid_reasoning,accuracy,rational_agent,jev,0.890888888888889,0.7899430555555556,0.9683958333333333,,,,accuracy on an authored ICAR-format item set; not an IQ score
+fluid_reasoning,accuracy_steps_1,rational_agent,jev,0.999,0.9970000000000002,1.0,,,,
+fluid_reasoning,accuracy_steps_2,rational_agent,jev,0.8723333333333333,0.6406666666666667,1.0,,,,
+fluid_reasoning,accuracy_steps_3,rational_agent,jev,0.8557142857142858,0.7104285714285715,0.9731428571428572,,,,
+fluid_reasoning,accuracy_steps_4,rational_agent,jev,0.9075,0.8150000000000001,1.0,,,,
+fluid_reasoning,depth_penalty_1_vs_3plus,rational_agent,jev,0.13177777777777777,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps
 dictator,mean_share,rational_agent,jev,0.0,,,dictator_mean_share,0.283,high,
 dictator,prob_give_zero,rational_agent,jev,1.0,,,dictator_share_zero,0.36,high,
 dictator,prob_give_half,rational_agent,jev,0.0,,,dictator_share_half,0.17,high,
-ultimatum_proposer,mean_share,rational_agent,jev,0.0509,,,ultimatum_mean_offer,0.4,high,
-trust_sender,mean_share,rational_agent,jev,0.04824824824824825,,,trust_sender_share,0.5,high,
-public_goods,mean_share,rational_agent,jev,0.0474,,,pgg_round1_share,0.5,medium,
-ultimatum_responder,prob_reject_offer_0,rational_agent,jev,0.08499999999999999,,,,,,
-ultimatum_responder,prob_reject_offer_1,rational_agent,jev,0.001,,,,,,
+ultimatum_proposer,mean_share,rational_agent,jev,0.048746238716148436,,,ultimatum_mean_offer,0.4,high,
+trust_sender,mean_share,rational_agent,jev,0.04914914914914914,,,trust_sender_share,0.5,high,
+public_goods,mean_share,rational_agent,jev,0.04148296593186373,,,pgg_round1_share,0.5,medium,
+ultimatum_responder,prob_reject_offer_0,rational_agent,jev,0.09099999999999998,,,,,,
+ultimatum_responder,prob_reject_offer_1,rational_agent,jev,0.002,,,,,,
 ultimatum_responder,prob_reject_offer_2,rational_agent,jev,0.0,,,,,,
-ultimatum_responder,prob_reject_offer_3,rational_agent,jev,0.0,,,,,,
+ultimatum_responder,prob_reject_offer_3,rational_agent,jev,0.002,,,,,,
 ultimatum_responder,prob_reject_offer_4,rational_agent,jev,0.0,,,,,,
-ultimatum_responder,prob_reject_offer_5,rational_agent,jev,0.001,,,,,,
+ultimatum_responder,prob_reject_offer_5,rational_agent,jev,0.003,,,,,,
 ultimatum_responder,prob_reject_offer_6,rational_agent,jev,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_7,rational_agent,jev,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_8,rational_agent,jev,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_9,rational_agent,jev,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_10,rational_agent,jev,0.0,,,,,,
-ultimatum_responder,prob_reject_low_offer,rational_agent,jev,0.001,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10
+ultimatum_responder,prob_reject_low_offer,rational_agent,jev,0.002,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10
 trust_trustee,return_share_sent_2,rational_agent,jev,0.0,,,,,,
 trust_trustee,return_share_sent_5,rational_agent,jev,0.0,,,trust_return_share,0.37,high,
 trust_trustee,return_share_sent_10,rational_agent,jev,0.0,,,,,,
-public_goods_conditional,contribution_low,rational_agent,jev,0.05546639919759279,,,,,,
-public_goods_conditional,contribution_mid,rational_agent,jev,0.0805805805805806,,,,,,
-public_goods_conditional,contribution_high,rational_agent,jev,0.07444889779559119,,,,,,
+public_goods_conditional,contribution_low,rational_agent,jev,0.052705410821643296,,,,,,
+public_goods_conditional,contribution_mid,rational_agent,jev,0.06666666666666668,,,,,,
+public_goods_conditional,contribution_high,rational_agent,jev,0.06442885771543089,,,,,,
 prisoners_dilemma,cooperation_one_shot,rational_agent,jev,0.0,,,pd_cooperation_oneshot,0.37,medium,
-prisoners_dilemma,cooperation_after_cooperation,rational_agent,jev,0.133,,,,,,
-prisoners_dilemma,cooperation_after_defection,rational_agent,jev,0.005000000000000001,,,,,,
-framing,prob_certain_gain_frame,rational_agent,jev,0.74,,,framing_gain_certain,0.72,high,
-framing,prob_certain_loss_frame,rational_agent,jev,0.79,,,framing_loss_certain,0.22,high,
-framing,framing_swing,rational_agent,jev,-0.050000000000000044,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
-allais,prob_certain_pair1,rational_agent,jev,0.36400000000000005,,,allais_p1_certain,0.8,high,
-allais,prob_safer_pair2,rational_agent,jev,0.617,,,allais_p2_certain,0.35,high,
-allais,independence_violation,rational_agent,jev,0.139412,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
-conjunction,prob_fallacy_forced_choice,rational_agent,jev,0.018000000000000002,,,conjunction_fallacy_rate,0.85,high,
-conjunction_axiom,p_single,rational_agent,jev,0.225,,,,,,
-conjunction_axiom,p_conjunction,rational_agent,jev,0.2870000000000001,,,,,,
-conjunction_axiom,axiom_margin,rational_agent,jev,-0.06200000000000008,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
-base_rate,prob_correct_band,rational_agent,jev,0.631,,,base_rate_correct_band,0.15,medium,
-base_rate,prob_lure_band,rational_agent,jev,0.007,,,,,,
-anchoring,estimate_low_anchor,rational_agent,jev,23.815000000000005,,,anchoring_low_median,25.0,approximate,
-anchoring,estimate_high_anchor,rational_agent,jev,25.450000000000003,,,anchoring_high_median,45.0,approximate,
-anchoring,anchoring_effect,rational_agent,jev,1.634999999999998,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
-sunk_cost,prob_continue,rational_agent,jev,0.005000000000000001,,,sunk_cost_continue,0.85,medium,
-holt_laury,expected_safe_choices,rational_agent,jev,2.876,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
-discounting,prob_patient_7d,rational_agent,jev,0.65025,0.6085,0.6920000000000001,,,,
-discounting,prob_patient_30d,rational_agent,jev,0.49824999999999997,0.40499999999999997,0.5914999999999999,,,,
-discounting,prob_patient_180d,rational_agent,jev,0.44275,0.35850000000000004,0.5085,,,,
-present_bias,prob_patient_immediate_frontend,rational_agent,jev,0.37,,,,,,
-present_bias,prob_patient_delayed_frontend,rational_agent,jev,0.645,,,,,,
-present_bias,present_bias_gap,rational_agent,jev,0.275,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
-beauty_contest,expected_guess,rational_agent,jev,0.0,,,beauty_contest_mean,36.0,medium,
+prisoners_dilemma,cooperation_after_cooperation,rational_agent,jev,0.13700000000000004,,,,,,
+prisoners_dilemma,cooperation_after_defection,rational_agent,jev,0.003,,,,,,
+framing,prob_certain_gain_frame,rational_agent,jev,0.6910000000000001,,,framing_gain_certain,0.72,high,
+framing,prob_certain_loss_frame,rational_agent,jev,0.844,,,framing_loss_certain,0.22,high,
+framing,framing_swing,rational_agent,jev,-0.1529999999999999,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
+allais,prob_certain_pair1,rational_agent,jev,0.362,,,allais_p1_certain,0.8,high,
+allais,prob_safer_pair2,rational_agent,jev,0.595,,,allais_p2_certain,0.35,high,
+allais,independence_violation,rational_agent,jev,0.14661000000000002,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
+conjunction,prob_fallacy_forced_choice,rational_agent,jev,0.017000000000000005,,,conjunction_fallacy_rate,0.85,high,
+conjunction_axiom,p_single,rational_agent,jev,0.221,,,,,,
+conjunction_axiom,p_conjunction,rational_agent,jev,0.292,,,,,,
+conjunction_axiom,axiom_margin,rational_agent,jev,-0.07099999999999998,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
+base_rate,prob_correct_band,rational_agent,jev,0.6382765531062125,,,base_rate_correct_band,0.15,medium,
+base_rate,prob_lure_band,rational_agent,jev,0.008016032064128254,,,,,,
+anchoring,estimate_low_anchor,rational_agent,jev,24.442500000000003,,,anchoring_low_median,25.0,approximate,
+anchoring,estimate_high_anchor,rational_agent,jev,26.011011011011007,,,anchoring_high_median,45.0,approximate,
+anchoring,anchoring_effect,rational_agent,jev,1.5685110110110045,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
+sunk_cost,prob_continue,rational_agent,jev,0.029000000000000005,,,sunk_cost_continue,0.85,medium,
+holt_laury,expected_safe_choices,rational_agent,jev,2.872,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
+discounting,prob_patient_7d,rational_agent,jev,0.6475,0.6125,0.6825000000000001,,,,
+discounting,prob_patient_30d,rational_agent,jev,0.5002500000000001,0.4085000000000001,0.5920000000000001,,,,
+discounting,prob_patient_180d,rational_agent,jev,0.43574999999999997,0.34924999999999995,0.4945,,,,
+present_bias,prob_patient_immediate_frontend,rational_agent,jev,0.36000000000000004,,,,,,
+present_bias,prob_patient_delayed_frontend,rational_agent,jev,0.674,,,,,,
+present_bias,present_bias_gap,rational_agent,jev,0.314,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
+beauty_contest,expected_guess,rational_agent,jev,0.198,,,beauty_contest_mean,36.0,medium,
 beauty_contest,mass_at_33,rational_agent,jev,0.0,,,,,,
 beauty_contest,mass_at_22,rational_agent,jev,0.0,,,,,,
-beauty_contest,mass_at_0,rational_agent,jev,1.0,,,,,,
-money_request,expected_request,rational_agent,jev,17.446999999999996,,,money_request_modal,17.0,high,the model's mean request against the human mode
-money_request,mass_level0_20,rational_agent,jev,0.23399999999999999,,,,,,
-money_request,mass_level1_19,rational_agent,jev,0.44499999999999995,,,,,,
-money_request,mass_level2_18,rational_agent,jev,0.040999999999999995,,,,,,
-money_request,mass_level3_17,rational_agent,jev,0.03600000000000001,,,,,,
-mini_ipip,extraversion,rational_agent,jev,2.8339999999999996,2.471,3.3194999999999997,mini_ipip_extraversion,3.2,approximate,
-mini_ipip,agreeableness,rational_agent,jev,2.186,1.611,2.761,mini_ipip_agreeableness,4.0,approximate,
-mini_ipip,conscientiousness,rational_agent,jev,3.995460960960961,3.328,4.656960960960961,mini_ipip_conscientiousness,3.4,approximate,
-mini_ipip,neuroticism,rational_agent,jev,1.9461031031031029,1.3807977977977979,2.5115115115115114,mini_ipip_neuroticism,2.8,approximate,
-mini_ipip,openness,rational_agent,jev,3.3302499999999995,2.453,4.315249999999999,mini_ipip_openness,3.7,approximate,
-dirty_dozen,machiavellianism,rational_agent,jev,5.362250000000001,4.538500000000001,6.1827499999999995,,,,9-point agreement scale; manipulation check only
-dirty_dozen,overall,rational_agent,jev,5.0729999999999995,4.4874125,5.584922916666666,,,,9-point agreement scale; manipulation check only
-dirty_dozen,psychopathy,rational_agent,jev,5.263999999999999,4.50075,5.895499999999999,,,,9-point agreement scale; manipulation check only
-dirty_dozen,narcissism,rational_agent,jev,4.59275,3.2469999999999994,5.35175,,,,9-point agreement scale; manipulation check only
+beauty_contest,mass_at_0,rational_agent,jev,0.998,,,,,,
+money_request,expected_request,rational_agent,jev,17.511,,,money_request_modal,17.0,high,the model's mean request against the human mode
+money_request,mass_level0_20,rational_agent,jev,0.299,,,,,,
+money_request,mass_level1_19,rational_agent,jev,0.403,,,,,,
+money_request,mass_level2_18,rational_agent,jev,0.031000000000000007,,,,,,
+money_request,mass_level3_17,rational_agent,jev,0.027000000000000003,,,,,,
+mini_ipip,extraversion,rational_agent,jev,2.81975,2.4705000000000004,3.304,mini_ipip_extraversion,3.2,approximate,
+mini_ipip,agreeableness,rational_agent,jev,2.1862500000000002,1.6140000000000003,2.7585,mini_ipip_agreeableness,4.0,approximate,
+mini_ipip,conscientiousness,rational_agent,jev,3.9902499999999996,3.3242500000000006,4.640499999999999,mini_ipip_conscientiousness,3.4,approximate,
+mini_ipip,neuroticism,rational_agent,jev,1.941099099099099,1.378795295295295,2.503402902902903,mini_ipip_neuroticism,2.8,approximate,
+mini_ipip,openness,rational_agent,jev,3.3287500000000003,2.47075,4.3045,mini_ipip_openness,3.7,approximate,
+dirty_dozen,machiavellianism,rational_agent,jev,5.3415973473473475,4.533250000000001,6.121542042042042,,,,9-point agreement scale; manipulation check only
+dirty_dozen,overall,rational_agent,jev,5.070785118451785,4.487390461294627,5.577403117701035,,,,9-point agreement scale; manipulation check only
+dirty_dozen,psychopathy,rational_agent,jev,5.247758008008008,4.48475,5.892516016016016,,,,9-point agreement scale; manipulation check only
+dirty_dozen,narcissism,rational_agent,jev,4.622999999999999,3.2517499999999995,5.421749999999999,,,,9-point agreement scale; manipulation check only
+moral_typecasting,responsibility_man,rational_agent,jev,5.92992992992993,,,moral_typecasting_responsibility_man,5.29,medium,
+moral_typecasting,responsibility_baby,rational_agent,jev,1.048,,,moral_typecasting_responsibility_baby,3.86,medium,
+moral_typecasting,agency_responsibility_gap,rational_agent,jev,4.88192992992993,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43
+moral_typecasting_estimate,responsibility_man,rational_agent,jev,5.652,,,moral_typecasting_responsibility_man,5.29,medium,
+moral_typecasting_estimate,responsibility_baby,rational_agent,jev,1.679,,,moral_typecasting_responsibility_baby,3.86,medium,
+moral_typecasting_estimate,agency_responsibility_gap,rational_agent,jev,3.973,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43
+position_power,power_long_line,rational_agent,jev,3.0349999999999997,,,position_power_long_line,5.01,medium,
+position_power,power_short_line,rational_agent,jev,3.032,,,position_power_short_line,4.62,medium,
+position_power,position_power_gap,rational_agent,jev,0.0029999999999996696,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39
+position_power_estimate,power_long_line,rational_agent,jev,3.478478478478478,,,position_power_long_line,5.01,medium,
+position_power_estimate,power_short_line,rational_agent,jev,4.001,,,position_power_short_line,4.62,medium,
+position_power_estimate,position_power_gap,rational_agent,jev,-0.5225215215215222,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39
+choosing_rejecting,prob_award_extreme,rational_agent,jev,0.10200000000000002,,,shafir_award_extreme,0.64,medium,
+choosing_rejecting,prob_deny_extreme,rational_agent,jev,0.916,,,shafir_deny_extreme,0.55,medium,
+choosing_rejecting,choose_reject_sum,rational_agent,jev,1.018,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19"
+choosing_rejecting_estimate,prob_award_extreme,rational_agent,jev,0.371,,,shafir_award_extreme,0.64,medium,
+choosing_rejecting_estimate,prob_deny_extreme,rational_agent,jev,0.602,,,shafir_deny_extreme,0.55,medium,
+categorization,prob_rule_based,rational_agent,jev,0.064,,,norenzayan_rule_based,0.67,medium,
+categorization_estimate,prob_rule_based,rational_agent,jev,0.476,,,norenzayan_rule_based,0.67,medium,
+incidental_anchors,estimate_p97,rational_agent,jev,49.88999999999999,,,incidental_anchor_p97,58.1,medium,
+incidental_anchors,estimate_p17,rational_agent,jev,49.52250000000001,,,incidental_anchor_p17,51.9,medium,
+incidental_anchors,anchor_gap,rational_agent,jev,0.3674999999999855,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?"
+incidental_anchors_estimate,estimate_p97,rational_agent,jev,49.907500000000006,,,incidental_anchor_p97,58.1,medium,
+incidental_anchors_estimate,estimate_p17,rational_agent,jev,50.27527527527528,,,incidental_anchor_p17,51.9,medium,
+incidental_anchors_estimate,anchor_gap,rational_agent,jev,-0.367775275275271,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?"
+knobe,prob_harm_intentional,rational_agent,jev,0.7390000000000001,,,knobe_harm_intentional,0.82,medium,
+knobe,prob_help_intentional,rational_agent,jev,0.023,,,knobe_help_intentional,0.23,medium,
+knobe,harm_help_asymmetry,rational_agent,jev,0.7160000000000001,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59
+knobe_estimate,prob_harm_intentional,rational_agent,jev,0.7390000000000001,,,knobe_harm_intentional,0.82,medium,
+knobe_estimate,prob_help_intentional,rational_agent,jev,0.3529999999999999,,,knobe_help_intentional,0.23,medium,
+trolley,prob_switch_permissible,rational_agent,jev,0.927,,,trolley_switch_permissible,0.89,medium,
+trolley,prob_push_permissible,rational_agent,jev,0.502,,,trolley_push_permissible,0.11,medium,
+trolley,switch_push_asymmetry,rational_agent,jev,0.42500000000000004,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78
+trolley_estimate,prob_switch_permissible,rational_agent,jev,0.696,,,trolley_switch_permissible,0.89,medium,
+trolley_estimate,prob_push_permissible,rational_agent,jev,0.203,,,trolley_push_permissible,0.11,medium,
+false_consensus,wearer_predicts_wear,rational_agent,jev,0.21299999999999994,,,false_consensus_wearer_predicts_wear,0.614,medium,
+false_consensus,nonwearer_predicts_wear,rational_agent,jev,0.2750000000000001,,,false_consensus_nonwearer_predicts_wear,0.304,medium,
+false_consensus,false_consensus_gap,rational_agent,jev,-0.06200000000000014,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31
+false_consensus_estimate,wearer_predicts_wear,rational_agent,jev,0.341,,,false_consensus_wearer_predicts_wear,0.614,medium,
+false_consensus_estimate,nonwearer_predicts_wear,rational_agent,jev,0.389,,,false_consensus_nonwearer_predicts_wear,0.304,medium,
+false_consensus_estimate,false_consensus_gap,rational_agent,jev,-0.04799999999999999,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31
 crt,proportion_correct,typical_human,baseline,0.0,0.0,0.0,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
-crt,proportion_correct_all6,typical_human,baseline,0.5,0.16666666666666666,0.8333333333333334,,,,all six items; no single human benchmark covers these
-crt,probability_mass_on_lure,typical_human,baseline,0.5,0.16666666666666666,0.8333333333333334,,,,
-fluid_reasoning,accuracy,typical_human,baseline,0.8888888888888888,0.7222222222222222,1.0,,,,accuracy on an authored ICAR-format item set; not an IQ score
+crt,proportion_correct_all6,typical_human,baseline,0.21666666666666667,0.0,0.5499999999999999,,,,all six items; no single human benchmark covers these
+crt,probability_mass_on_lure,typical_human,baseline,0.7833333333333333,0.45,1.0,,,,
+fluid_reasoning,accuracy,typical_human,baseline,0.8777777777777778,0.7111111111111111,1.0,,,,accuracy on an authored ICAR-format item set; not an IQ score
 fluid_reasoning,accuracy_steps_1,typical_human,baseline,1.0,1.0,1.0,,,,
 fluid_reasoning,accuracy_steps_2,typical_human,baseline,1.0,1.0,1.0,,,,
-fluid_reasoning,accuracy_steps_3,typical_human,baseline,0.8571428571428571,0.5714285714285714,1.0,,,,
+fluid_reasoning,accuracy_steps_3,typical_human,baseline,0.8285714285714285,0.5428571428571428,1.0,,,,
 fluid_reasoning,accuracy_steps_4,typical_human,baseline,0.5,0.0,1.0,,,,
-fluid_reasoning,depth_penalty_1_vs_3plus,typical_human,baseline,0.2222222222222222,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps
-dictator,mean_share,typical_human,baseline,0.3,,,dictator_mean_share,0.283,high,
+fluid_reasoning,depth_penalty_1_vs_3plus,typical_human,baseline,0.24444444444444446,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps
+dictator,mean_share,typical_human,baseline,0.2,,,dictator_mean_share,0.283,high,
 dictator,prob_give_zero,typical_human,baseline,0.0,,,dictator_share_zero,0.36,high,
 dictator,prob_give_half,typical_human,baseline,0.0,,,dictator_share_half,0.17,high,
-ultimatum_proposer,mean_share,typical_human,baseline,0.4,,,ultimatum_mean_offer,0.4,high,
+ultimatum_proposer,mean_share,typical_human,baseline,0.44000000000000006,,,ultimatum_mean_offer,0.4,high,
 trust_sender,mean_share,typical_human,baseline,0.5,,,trust_sender_share,0.5,high,
 public_goods,mean_share,typical_human,baseline,0.5,,,pgg_round1_share,0.5,medium,
 ultimatum_responder,prob_reject_offer_0,typical_human,baseline,1.0,,,,,,
 ultimatum_responder,prob_reject_offer_1,typical_human,baseline,1.0,,,,,,
-ultimatum_responder,prob_reject_offer_2,typical_human,baseline,1.0,,,,,,
+ultimatum_responder,prob_reject_offer_2,typical_human,baseline,0.4,,,,,,
 ultimatum_responder,prob_reject_offer_3,typical_human,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_4,typical_human,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_5,typical_human,baseline,0.0,,,,,,
@@ -488,12 +695,12 @@ ultimatum_responder,prob_reject_offer_8,typical_human,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_9,typical_human,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_offer_10,typical_human,baseline,0.0,,,,,,
 ultimatum_responder,prob_reject_low_offer,typical_human,baseline,1.0,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10
-trust_trustee,return_share_sent_2,typical_human,baseline,0.5,,,,,,
+trust_trustee,return_share_sent_2,typical_human,baseline,0.4166666666666667,,,,,,
 trust_trustee,return_share_sent_5,typical_human,baseline,0.3333333333333333,,,trust_return_share,0.37,high,
 trust_trustee,return_share_sent_10,typical_human,baseline,0.5,,,,,,
-public_goods_conditional,contribution_low,typical_human,baseline,0.1,,,,,,
+public_goods_conditional,contribution_low,typical_human,baseline,0.11000000000000001,,,,,,
 public_goods_conditional,contribution_mid,typical_human,baseline,0.5,,,,,,
-public_goods_conditional,contribution_high,typical_human,baseline,0.9,,,,,,
+public_goods_conditional,contribution_high,typical_human,baseline,0.89,,,,,,
 prisoners_dilemma,cooperation_one_shot,typical_human,baseline,1.0,,,pd_cooperation_oneshot,0.37,medium,
 prisoners_dilemma,cooperation_after_cooperation,typical_human,baseline,1.0,,,,,,
 prisoners_dilemma,cooperation_after_defection,typical_human,baseline,0.0,,,,,,
@@ -501,117 +708,409 @@ framing,prob_certain_gain_frame,typical_human,baseline,1.0,,,framing_gain_certai
 framing,prob_certain_loss_frame,typical_human,baseline,0.0,,,framing_loss_certain,0.22,high,
 framing,framing_swing,typical_human,baseline,1.0,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
 allais,prob_certain_pair1,typical_human,baseline,1.0,,,allais_p1_certain,0.8,high,
-allais,prob_safer_pair2,typical_human,baseline,1.0,,,allais_p2_certain,0.35,high,
-allais,independence_violation,typical_human,baseline,0.0,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
+allais,prob_safer_pair2,typical_human,baseline,0.0,,,allais_p2_certain,0.35,high,
+allais,independence_violation,typical_human,baseline,1.0,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
 conjunction,prob_fallacy_forced_choice,typical_human,baseline,1.0,,,conjunction_fallacy_rate,0.85,high,
-conjunction_axiom,p_single,typical_human,baseline,0.7,,,,,,
+conjunction_axiom,p_single,typical_human,baseline,0.0,,,,,,
 conjunction_axiom,p_conjunction,typical_human,baseline,1.0,,,,,,
-conjunction_axiom,axiom_margin,typical_human,baseline,-0.30000000000000004,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
+conjunction_axiom,axiom_margin,typical_human,baseline,-1.0,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
 base_rate,prob_correct_band,typical_human,baseline,0.0,,,base_rate_correct_band,0.15,medium,
 base_rate,prob_lure_band,typical_human,baseline,1.0,,,,,,
 anchoring,estimate_low_anchor,typical_human,baseline,20.0,,,anchoring_low_median,25.0,approximate,
-anchoring,estimate_high_anchor,typical_human,baseline,30.0,,,anchoring_high_median,45.0,approximate,
-anchoring,anchoring_effect,typical_human,baseline,10.0,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
+anchoring,estimate_high_anchor,typical_human,baseline,42.0,,,anchoring_high_median,45.0,approximate,
+anchoring,anchoring_effect,typical_human,baseline,22.0,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
 sunk_cost,prob_continue,typical_human,baseline,1.0,,,sunk_cost_continue,0.85,medium,
-holt_laury,expected_safe_choices,typical_human,baseline,5.4,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
-discounting,prob_patient_7d,typical_human,baseline,0.75,0.25,1.0,,,,
-discounting,prob_patient_30d,typical_human,baseline,0.0,0.0,0.0,,,,
-discounting,prob_patient_180d,typical_human,baseline,0.0,0.0,0.0,,,,
-present_bias,prob_patient_immediate_frontend,typical_human,baseline,0.0,,,,,,
+holt_laury,expected_safe_choices,typical_human,baseline,5.0,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
+discounting,prob_patient_7d,typical_human,baseline,0.925,0.7749999999999999,1.0,,,,
+discounting,prob_patient_30d,typical_human,baseline,0.8,0.39999999999999997,1.0,,,,
+discounting,prob_patient_180d,typical_human,baseline,0.525,0.05,1.0,,,,
+present_bias,prob_patient_immediate_frontend,typical_human,baseline,0.2,,,,,,
 present_bias,prob_patient_delayed_frontend,typical_human,baseline,1.0,,,,,,
-present_bias,present_bias_gap,typical_human,baseline,1.0,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
-beauty_contest,expected_guess,typical_human,baseline,33.0,,,beauty_contest_mean,36.0,medium,
-beauty_contest,mass_at_33,typical_human,baseline,1.0,,,,,,
-beauty_contest,mass_at_22,typical_human,baseline,0.0,,,,,,
+present_bias,present_bias_gap,typical_human,baseline,0.8,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
+beauty_contest,expected_guess,typical_human,baseline,31.9,,,beauty_contest_mean,36.0,medium,
+beauty_contest,mass_at_33,typical_human,baseline,0.9,,,,,,
+beauty_contest,mass_at_22,typical_human,baseline,0.1,,,,,,
 beauty_contest,mass_at_0,typical_human,baseline,0.0,,,,,,
-money_request,expected_request,typical_human,baseline,17.0,,,money_request_modal,17.0,high,the model's mean request against the human mode
+money_request,expected_request,typical_human,baseline,16.900000000000002,,,money_request_modal,17.0,high,the model's mean request against the human mode
 money_request,mass_level0_20,typical_human,baseline,0.0,,,,,,
 money_request,mass_level1_19,typical_human,baseline,0.0,,,,,,
 money_request,mass_level2_18,typical_human,baseline,0.0,,,,,,
-money_request,mass_level3_17,typical_human,baseline,1.0,,,,,,
-mini_ipip,extraversion,typical_human,baseline,2.625,2.0,3.25,mini_ipip_extraversion,3.2,approximate,
-mini_ipip,agreeableness,typical_human,baseline,4.25,4.0,4.75,mini_ipip_agreeableness,4.0,approximate,
-mini_ipip,conscientiousness,typical_human,baseline,3.5,2.5,4.0,mini_ipip_conscientiousness,3.4,approximate,
-mini_ipip,neuroticism,typical_human,baseline,2.25,2.0,2.75,mini_ipip_neuroticism,2.8,approximate,
-mini_ipip,openness,typical_human,baseline,3.5,3.0,4.0,mini_ipip_openness,3.7,approximate,
-dirty_dozen,machiavellianism,typical_human,baseline,3.725,2.45,5.225,,,,9-point agreement scale; manipulation check only
-dirty_dozen,overall,typical_human,baseline,3.783333333333333,2.891666666666667,4.691666666666666,,,,9-point agreement scale; manipulation check only
-dirty_dozen,psychopathy,typical_human,baseline,2.925,2.0,4.7749999999999995,,,,9-point agreement scale; manipulation check only
-dirty_dozen,narcissism,typical_human,baseline,4.7,3.5,5.7,,,,9-point agreement scale; manipulation check only
-crt,proportion_correct,typical_human,jev,0.32653353353353354,0.024000000000000004,0.6006006006006006,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
-crt,proportion_correct_all6,typical_human,jev,0.5531001001001,0.30150000000000005,0.7779334334334335,,,,all six items; no single human benchmark covers these
-crt,probability_mass_on_lure,typical_human,jev,0.4068913913913914,0.18189139139139135,0.6683333333333333,,,,
-fluid_reasoning,accuracy,typical_human,jev,0.7210555555555556,0.5719416666666668,0.8530041666666666,,,,accuracy on an authored ICAR-format item set; not an IQ score
-fluid_reasoning,accuracy_steps_1,typical_human,jev,0.8936666666666667,0.697,1.0,,,,
-fluid_reasoning,accuracy_steps_2,typical_human,jev,0.8323333333333333,0.5853333333333334,0.9943333333333334,,,,
-fluid_reasoning,accuracy_steps_3,typical_human,jev,0.636142857142857,0.4421428571428571,0.8174285714285714,,,,
-fluid_reasoning,accuracy_steps_4,typical_human,jev,0.4255,0.08199999999999999,0.769,,,,
-fluid_reasoning,depth_penalty_1_vs_3plus,typical_human,jev,0.30433333333333346,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps
-dictator,mean_share,typical_human,jev,0.26986986986986994,,,dictator_mean_share,0.283,high,
-dictator,prob_give_zero,typical_human,jev,0.018018018018018018,,,dictator_share_zero,0.36,high,
-dictator,prob_give_half,typical_human,jev,0.10110110110110111,,,dictator_share_half,0.17,high,
-ultimatum_proposer,mean_share,typical_human,jev,0.4478999999999999,,,ultimatum_mean_offer,0.4,high,
-trust_sender,mean_share,typical_human,jev,0.4756,,,trust_sender_share,0.5,high,
-public_goods,mean_share,typical_human,jev,0.5156156156156155,,,pgg_round1_share,0.5,medium,
-ultimatum_responder,prob_reject_offer_0,typical_human,jev,0.9770000000000001,,,,,,
+money_request,mass_level3_17,typical_human,baseline,0.9,,,,,,
+mini_ipip,extraversion,typical_human,baseline,3.2,3.0,3.6000000000000005,mini_ipip_extraversion,3.2,approximate,
+mini_ipip,agreeableness,typical_human,baseline,4.0,4.0,4.0,mini_ipip_agreeableness,4.0,approximate,
+mini_ipip,conscientiousness,typical_human,baseline,3.55,3.0999999999999996,4.0,mini_ipip_conscientiousness,3.4,approximate,
+mini_ipip,neuroticism,typical_human,baseline,2.125,2.0,2.375,mini_ipip_neuroticism,2.8,approximate,
+mini_ipip,openness,typical_human,baseline,3.975,3.9250000000000003,4.0,mini_ipip_openness,3.7,approximate,
+dirty_dozen,machiavellianism,typical_human,baseline,3.8499999999999996,2.0,5.699999999999999,,,,9-point agreement scale; manipulation check only
+dirty_dozen,overall,typical_human,baseline,3.6166666666666667,2.75,4.533333333333333,,,,9-point agreement scale; manipulation check only
+dirty_dozen,psychopathy,typical_human,baseline,3.0,2.0,4.25,,,,9-point agreement scale; manipulation check only
+dirty_dozen,narcissism,typical_human,baseline,4.0,2.5,5.5,,,,9-point agreement scale; manipulation check only
+moral_typecasting,responsibility_man,typical_human,baseline,4.9,,,moral_typecasting_responsibility_man,5.29,medium,
+moral_typecasting,responsibility_baby,typical_human,baseline,1.0,,,moral_typecasting_responsibility_baby,3.86,medium,
+moral_typecasting,agency_responsibility_gap,typical_human,baseline,3.9000000000000004,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43
+moral_typecasting_estimate,responsibility_man,typical_human,baseline,4.5,,,moral_typecasting_responsibility_man,5.29,medium,
+moral_typecasting_estimate,responsibility_baby,typical_human,baseline,1.0,,,moral_typecasting_responsibility_baby,3.86,medium,
+moral_typecasting_estimate,agency_responsibility_gap,typical_human,baseline,3.5,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43
+position_power,power_long_line,typical_human,baseline,4.9,,,position_power_long_line,5.01,medium,
+position_power,power_short_line,typical_human,baseline,4.0,,,position_power_short_line,4.62,medium,
+position_power,position_power_gap,typical_human,baseline,0.9000000000000004,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39
+position_power_estimate,power_long_line,typical_human,baseline,4.5,,,position_power_long_line,5.01,medium,
+position_power_estimate,power_short_line,typical_human,baseline,4.3,,,position_power_short_line,4.62,medium,
+position_power_estimate,position_power_gap,typical_human,baseline,0.20000000000000018,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39
+choosing_rejecting,prob_award_extreme,typical_human,baseline,1.0,,,shafir_award_extreme,0.64,medium,
+choosing_rejecting,prob_deny_extreme,typical_human,baseline,1.0,,,shafir_deny_extreme,0.55,medium,
+choosing_rejecting,choose_reject_sum,typical_human,baseline,2.0,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19"
+categorization,prob_rule_based,typical_human,baseline,0.0,,,norenzayan_rule_based,0.67,medium,
+incidental_anchors,estimate_p97,typical_human,baseline,50.0,,,incidental_anchor_p97,58.1,medium,
+incidental_anchors,estimate_p17,typical_human,baseline,50.0,,,incidental_anchor_p17,51.9,medium,
+incidental_anchors,anchor_gap,typical_human,baseline,0.0,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?"
+incidental_anchors_estimate,estimate_p97,typical_human,baseline,50.0,,,incidental_anchor_p97,58.1,medium,
+incidental_anchors_estimate,estimate_p17,typical_human,baseline,50.0,,,incidental_anchor_p17,51.9,medium,
+incidental_anchors_estimate,anchor_gap,typical_human,baseline,0.0,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?"
+knobe,prob_harm_intentional,typical_human,baseline,1.0,,,knobe_harm_intentional,0.82,medium,
+knobe,prob_help_intentional,typical_human,baseline,0.0,,,knobe_help_intentional,0.23,medium,
+knobe,harm_help_asymmetry,typical_human,baseline,1.0,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59
+trolley,prob_switch_permissible,typical_human,baseline,1.0,,,trolley_switch_permissible,0.89,medium,
+trolley,prob_push_permissible,typical_human,baseline,0.0,,,trolley_push_permissible,0.11,medium,
+trolley,switch_push_asymmetry,typical_human,baseline,1.0,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78
+crt,proportion_correct,typical_human,jev,0.31831131131131135,0.021,0.6146146146146146,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
+crt,proportion_correct_all6,typical_human,jev,0.5484889889889889,0.29299299299299303,0.7779357691024358,,,,all six items; no single human benchmark covers these
+crt,probability_mass_on_lure,typical_human,jev,0.41116182849516186,0.18188955622288958,0.6752722722722723,,,,
+fluid_reasoning,accuracy,typical_human,jev,0.7235327549771994,0.5761518740963187,0.8532814828717606,,,,accuracy on an authored ICAR-format item set; not an IQ score
+fluid_reasoning,accuracy_steps_1,typical_human,jev,0.8893333333333334,0.6869999999999999,1.0,,,,
+fluid_reasoning,accuracy_steps_2,typical_human,jev,0.8378333333333333,0.6003333333333334,0.9938333333333333,,,,
+fluid_reasoning,accuracy_steps_3,typical_human,jev,0.6377985127985129,0.4430493350493351,0.817976261976262,,,,
+fluid_reasoning,accuracy_steps_4,typical_human,jev,0.432,0.085,0.779,,,,
+fluid_reasoning,depth_penalty_1_vs_3plus,typical_human,jev,0.29726782337893454,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps
+dictator,mean_share,typical_human,jev,0.2688,,,dictator_mean_share,0.283,high,
+dictator,prob_give_zero,typical_human,jev,0.019,,,dictator_share_zero,0.36,high,
+dictator,prob_give_half,typical_human,jev,0.10600000000000001,,,dictator_share_half,0.17,high,
+ultimatum_proposer,mean_share,typical_human,jev,0.44694694694694687,,,ultimatum_mean_offer,0.4,high,
+trust_sender,mean_share,typical_human,jev,0.4776776776776777,,,trust_sender_share,0.5,high,
+public_goods,mean_share,typical_human,jev,0.5136136136136136,,,pgg_round1_share,0.5,medium,
+ultimatum_responder,prob_reject_offer_0,typical_human,jev,0.9790000000000001,,,,,,
 ultimatum_responder,prob_reject_offer_1,typical_human,jev,0.915,,,,,,
-ultimatum_responder,prob_reject_offer_2,typical_human,jev,0.771,,,,,,
-ultimatum_responder,prob_reject_offer_3,typical_human,jev,0.528,,,,,,
-ultimatum_responder,prob_reject_offer_4,typical_human,jev,0.35200000000000004,,,,,,
-ultimatum_responder,prob_reject_offer_5,typical_human,jev,0.32,,,,,,
-ultimatum_responder,prob_reject_offer_6,typical_human,jev,0.05800000000000002,,,,,,
-ultimatum_responder,prob_reject_offer_7,typical_human,jev,0.10599999999999998,,,,,,
-ultimatum_responder,prob_reject_offer_8,typical_human,jev,0.20499999999999993,,,,,,
-ultimatum_responder,prob_reject_offer_9,typical_human,jev,0.29100000000000004,,,,,,
-ultimatum_responder,prob_reject_offer_10,typical_human,jev,0.036,,,,,,
+ultimatum_responder,prob_reject_offer_2,typical_human,jev,0.7799999999999999,,,,,,
+ultimatum_responder,prob_reject_offer_3,typical_human,jev,0.539,,,,,,
+ultimatum_responder,prob_reject_offer_4,typical_human,jev,0.35500000000000004,,,,,,
+ultimatum_responder,prob_reject_offer_5,typical_human,jev,0.313,,,,,,
+ultimatum_responder,prob_reject_offer_6,typical_human,jev,0.06300000000000001,,,,,,
+ultimatum_responder,prob_reject_offer_7,typical_human,jev,0.10700000000000001,,,,,,
+ultimatum_responder,prob_reject_offer_8,typical_human,jev,0.22999999999999998,,,,,,
+ultimatum_responder,prob_reject_offer_9,typical_human,jev,0.27999999999999997,,,,,,
+ultimatum_responder,prob_reject_offer_10,typical_human,jev,0.038,,,,,,
 ultimatum_responder,prob_reject_low_offer,typical_human,jev,0.915,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10
-trust_trustee,return_share_sent_2,typical_human,jev,0.5226893560226893,,,,,,
-trust_trustee,return_share_sent_5,typical_human,jev,0.48588588588588594,,,trust_return_share,0.37,high,
-trust_trustee,return_share_sent_10,typical_human,jev,0.4892000000000001,,,,,,
-public_goods_conditional,contribution_low,typical_human,jev,0.182,,,,,,
-public_goods_conditional,contribution_mid,typical_human,jev,0.474974974974975,,,,,,
-public_goods_conditional,contribution_high,typical_human,jev,0.7497999999999998,,,,,,
-prisoners_dilemma,cooperation_one_shot,typical_human,jev,0.211,,,pd_cooperation_oneshot,0.37,medium,
-prisoners_dilemma,cooperation_after_cooperation,typical_human,jev,0.7340000000000001,,,,,,
-prisoners_dilemma,cooperation_after_defection,typical_human,jev,0.013000000000000001,,,,,,
-framing,prob_certain_gain_frame,typical_human,jev,0.971,,,framing_gain_certain,0.72,high,
-framing,prob_certain_loss_frame,typical_human,jev,0.674,,,framing_loss_certain,0.22,high,
-framing,framing_swing,typical_human,jev,0.29699999999999993,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
-allais,prob_certain_pair1,typical_human,jev,0.817,,,allais_p1_certain,0.8,high,
-allais,prob_safer_pair2,typical_human,jev,0.687,,,allais_p2_certain,0.35,high,
-allais,independence_violation,typical_human,jev,0.255721,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
-conjunction,prob_fallacy_forced_choice,typical_human,jev,0.932,,,conjunction_fallacy_rate,0.85,high,
-conjunction_axiom,p_single,typical_human,jev,0.244,,,,,,
-conjunction_axiom,p_conjunction,typical_human,jev,0.633,,,,,,
-conjunction_axiom,axiom_margin,typical_human,jev,-0.389,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
-base_rate,prob_correct_band,typical_human,jev,0.248,,,base_rate_correct_band,0.15,medium,
-base_rate,prob_lure_band,typical_human,jev,0.2,,,,,,
-anchoring,estimate_low_anchor,typical_human,jev,19.707207207207208,,,anchoring_low_median,25.0,approximate,
-anchoring,estimate_high_anchor,typical_human,jev,26.659159159159163,,,anchoring_high_median,45.0,approximate,
-anchoring,anchoring_effect,typical_human,jev,6.951951951951955,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
-sunk_cost,prob_continue,typical_human,jev,0.8140000000000001,,,sunk_cost_continue,0.85,medium,
-holt_laury,expected_safe_choices,typical_human,jev,3.984,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
-discounting,prob_patient_7d,typical_human,jev,0.1775,0.13825,0.21450000000000002,,,,
-discounting,prob_patient_30d,typical_human,jev,0.18325000000000002,0.1305,0.23600000000000002,,,,
-discounting,prob_patient_180d,typical_human,jev,0.12200000000000001,0.07350000000000001,0.1975,,,,
-present_bias,prob_patient_immediate_frontend,typical_human,jev,0.07100000000000001,,,,,,
-present_bias,prob_patient_delayed_frontend,typical_human,jev,0.23900000000000005,,,,,,
-present_bias,present_bias_gap,typical_human,jev,0.16800000000000004,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
-beauty_contest,expected_guess,typical_human,jev,39.462159434914206,,,beauty_contest_mean,36.0,medium,
-beauty_contest,mass_at_33,typical_human,jev,0.07164480322906154,,,,,,
-beauty_contest,mass_at_22,typical_human,jev,0.009081735620585268,,,,,,
+trust_trustee,return_share_sent_2,typical_human,jev,0.522,,,,,,
+trust_trustee,return_share_sent_5,typical_human,jev,0.48688688688688686,,,trust_return_share,0.37,high,
+trust_trustee,return_share_sent_10,typical_human,jev,0.4884,,,,,,
+public_goods_conditional,contribution_low,typical_human,jev,0.1866866866866867,,,,,,
+public_goods_conditional,contribution_mid,typical_human,jev,0.4741741741741742,,,,,,
+public_goods_conditional,contribution_high,typical_human,jev,0.7514028056112225,,,,,,
+prisoners_dilemma,cooperation_one_shot,typical_human,jev,0.21700000000000003,,,pd_cooperation_oneshot,0.37,medium,
+prisoners_dilemma,cooperation_after_cooperation,typical_human,jev,0.745,,,,,,
+prisoners_dilemma,cooperation_after_defection,typical_human,jev,0.014000000000000002,,,,,,
+framing,prob_certain_gain_frame,typical_human,jev,0.886,,,framing_gain_certain,0.72,high,
+framing,prob_certain_loss_frame,typical_human,jev,0.845,,,framing_loss_certain,0.22,high,
+framing,framing_swing,typical_human,jev,0.041000000000000036,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
+allais,prob_certain_pair1,typical_human,jev,0.819,,,allais_p1_certain,0.8,high,
+allais,prob_safer_pair2,typical_human,jev,0.6940000000000001,,,allais_p2_certain,0.35,high,
+allais,independence_violation,typical_human,jev,0.250614,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
+conjunction,prob_fallacy_forced_choice,typical_human,jev,0.929,,,conjunction_fallacy_rate,0.85,high,
+conjunction_axiom,p_single,typical_human,jev,0.252,,,,,,
+conjunction_axiom,p_conjunction,typical_human,jev,0.629,,,,,,
+conjunction_axiom,axiom_margin,typical_human,jev,-0.377,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
+base_rate,prob_correct_band,typical_human,jev,0.231,,,base_rate_correct_band,0.15,medium,
+base_rate,prob_lure_band,typical_human,jev,0.217,,,,,,
+anchoring,estimate_low_anchor,typical_human,jev,20.9984984984985,,,anchoring_low_median,25.0,approximate,
+anchoring,estimate_high_anchor,typical_human,jev,26.3375,,,anchoring_high_median,45.0,approximate,
+anchoring,anchoring_effect,typical_human,jev,5.3390015015014995,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
+sunk_cost,prob_continue,typical_human,jev,0.175,,,sunk_cost_continue,0.85,medium,
+holt_laury,expected_safe_choices,typical_human,jev,3.971,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
+discounting,prob_patient_7d,typical_human,jev,0.17400000000000002,0.13275000000000003,0.21400000000000002,,,,
+discounting,prob_patient_30d,typical_human,jev,0.17925000000000002,0.12350000000000003,0.23500000000000001,,,,
+discounting,prob_patient_180d,typical_human,jev,0.121,0.07300000000000001,0.1935,,,,
+present_bias,prob_patient_immediate_frontend,typical_human,jev,0.06900000000000003,,,,,,
+present_bias,prob_patient_delayed_frontend,typical_human,jev,0.24300000000000002,,,,,,
+present_bias,present_bias_gap,typical_human,jev,0.174,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
+beauty_contest,expected_guess,typical_human,jev,39.51664984863773,,,beauty_contest_mean,36.0,medium,
+beauty_contest,mass_at_33,typical_human,jev,0.07769929364278505,,,,,,
+beauty_contest,mass_at_22,typical_human,jev,0.006054490413723512,,,,,,
 beauty_contest,mass_at_0,typical_human,jev,0.0,,,,,,
-money_request,expected_request,typical_human,jev,17.125,,,money_request_modal,17.0,high,the model's mean request against the human mode
-money_request,mass_level0_20,typical_human,jev,0.11500000000000002,,,,,,
-money_request,mass_level1_19,typical_human,jev,0.373,,,,,,
-money_request,mass_level2_18,typical_human,jev,0.1,,,,,,
-money_request,mass_level3_17,typical_human,jev,0.07300000000000002,,,,,,
-mini_ipip,extraversion,typical_human,jev,2.9735,2.8182500000000004,3.124,mini_ipip_extraversion,3.2,approximate,
-mini_ipip,agreeableness,typical_human,jev,3.682,3.4779999999999998,3.8859999999999997,mini_ipip_agreeableness,4.0,approximate,
-mini_ipip,conscientiousness,typical_human,jev,2.89025,2.5765,3.226,mini_ipip_conscientiousness,3.4,approximate,
-mini_ipip,neuroticism,typical_human,jev,2.917,2.69825,3.1029999999999998,mini_ipip_neuroticism,2.8,approximate,
-mini_ipip,openness,typical_human,jev,3.2230395395395397,2.9410000000000003,3.4780000000000006,mini_ipip_openness,3.7,approximate,
-dirty_dozen,machiavellianism,typical_human,jev,4.909817728550194,3.0949999999999998,6.724635457100387,,,,9-point agreement scale; manipulation check only
-dirty_dozen,overall,typical_human,jev,4.6056515384790275,3.584218006847028,5.5971728097502975,,,,9-point agreement scale; manipulation check only
-dirty_dozen,psychopathy,typical_human,jev,3.4057500000000003,2.30175,5.211,,,,9-point agreement scale; manipulation check only
-dirty_dozen,narcissism,typical_human,jev,5.501386886886887,4.23925,6.355273773773774,,,,9-point agreement scale; manipulation check only
+money_request,expected_request,typical_human,jev,17.164164164164163,,,money_request_modal,17.0,high,the model's mean request against the human mode
+money_request,mass_level0_20,typical_human,jev,0.13313313313313313,,,,,,
+money_request,mass_level1_19,typical_human,jev,0.37037037037037035,,,,,,
+money_request,mass_level2_18,typical_human,jev,0.09709709709709709,,,,,,
+money_request,mass_level3_17,typical_human,jev,0.06806806806806807,,,,,,
+mini_ipip,extraversion,typical_human,jev,2.9773494185568334,2.81653028028028,3.1296988371136667,mini_ipip_extraversion,3.2,approximate,
+mini_ipip,agreeableness,typical_human,jev,3.6827499999999995,3.4814999999999996,3.8840000000000003,mini_ipip_agreeableness,4.0,approximate,
+mini_ipip,conscientiousness,typical_human,jev,2.8890000000000002,2.5825,3.22025,mini_ipip_conscientiousness,3.4,approximate,
+mini_ipip,neuroticism,typical_human,jev,2.911,2.69275,3.10625,mini_ipip_neuroticism,2.8,approximate,
+mini_ipip,openness,typical_human,jev,3.2255,2.94925,3.4695000000000005,mini_ipip_openness,3.7,approximate,
+dirty_dozen,machiavellianism,typical_human,jev,4.901406312625251,3.0815,6.721312625250501,,,,9-point agreement scale; manipulation check only
+dirty_dozen,overall,typical_human,jev,4.603978456913828,3.585055694722779,5.59413728289913,,,,9-point agreement scale; manipulation check only
+dirty_dozen,psychopathy,typical_human,jev,3.4105000000000008,2.2985,5.224500000000002,,,,9-point agreement scale; manipulation check only
+dirty_dozen,narcissism,typical_human,jev,5.500029058116233,4.23975,6.357058116232466,,,,9-point agreement scale; manipulation check only
+moral_typecasting,responsibility_man,typical_human,jev,5.5230000000000015,,,moral_typecasting_responsibility_man,5.29,medium,
+moral_typecasting,responsibility_baby,typical_human,jev,1.203,,,moral_typecasting_responsibility_baby,3.86,medium,
+moral_typecasting,agency_responsibility_gap,typical_human,jev,4.320000000000001,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43
+moral_typecasting_estimate,responsibility_man,typical_human,jev,5.627000000000001,,,moral_typecasting_responsibility_man,5.29,medium,
+moral_typecasting_estimate,responsibility_baby,typical_human,jev,1.6593186372745492,,,moral_typecasting_responsibility_baby,3.86,medium,
+moral_typecasting_estimate,agency_responsibility_gap,typical_human,jev,3.9676813627254512,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43
+position_power,power_long_line,typical_human,jev,3.548,,,position_power_long_line,5.01,medium,
+position_power,power_short_line,typical_human,jev,3.6660000000000004,,,position_power_short_line,4.62,medium,
+position_power,position_power_gap,typical_human,jev,-0.11800000000000033,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39
+position_power_estimate,power_long_line,typical_human,jev,3.6540000000000004,,,position_power_long_line,5.01,medium,
+position_power_estimate,power_short_line,typical_human,jev,4.077000000000001,,,position_power_short_line,4.62,medium,
+position_power_estimate,position_power_gap,typical_human,jev,-0.4230000000000005,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39
+choosing_rejecting,prob_award_extreme,typical_human,jev,0.12799999999999997,,,shafir_award_extreme,0.64,medium,
+choosing_rejecting,prob_deny_extreme,typical_human,jev,0.9640000000000001,,,shafir_deny_extreme,0.55,medium,
+choosing_rejecting,choose_reject_sum,typical_human,jev,1.092,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19"
+choosing_rejecting_estimate,prob_award_extreme,typical_human,jev,0.379,,,shafir_award_extreme,0.64,medium,
+choosing_rejecting_estimate,prob_deny_extreme,typical_human,jev,0.615,,,shafir_deny_extreme,0.55,medium,
+categorization,prob_rule_based,typical_human,jev,0.08899999999999998,,,norenzayan_rule_based,0.67,medium,
+categorization_estimate,prob_rule_based,typical_human,jev,0.504,,,norenzayan_rule_based,0.67,medium,
+incidental_anchors,estimate_p97,typical_human,jev,48.64,,,incidental_anchor_p97,58.1,medium,
+incidental_anchors,estimate_p17,typical_human,jev,48.349999999999994,,,incidental_anchor_p17,51.9,medium,
+incidental_anchors,anchor_gap,typical_human,jev,0.29000000000000625,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?"
+incidental_anchors_estimate,estimate_p97,typical_human,jev,50.412912912912915,,,incidental_anchor_p97,58.1,medium,
+incidental_anchors_estimate,estimate_p17,typical_human,jev,51.1,,,incidental_anchor_p17,51.9,medium,
+incidental_anchors_estimate,anchor_gap,typical_human,jev,-0.687087087087086,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?"
+knobe,prob_harm_intentional,typical_human,jev,0.865,,,knobe_harm_intentional,0.82,medium,
+knobe,prob_help_intentional,typical_human,jev,0.014000000000000002,,,knobe_help_intentional,0.23,medium,
+knobe,harm_help_asymmetry,typical_human,jev,0.851,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59
+knobe_estimate,prob_harm_intentional,typical_human,jev,0.736,,,knobe_harm_intentional,0.82,medium,
+knobe_estimate,prob_help_intentional,typical_human,jev,0.325,,,knobe_help_intentional,0.23,medium,
+trolley,prob_switch_permissible,typical_human,jev,1.0,,,trolley_switch_permissible,0.89,medium,
+trolley,prob_push_permissible,typical_human,jev,0.0,,,trolley_push_permissible,0.11,medium,
+trolley,switch_push_asymmetry,typical_human,jev,1.0,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78
+trolley_estimate,prob_switch_permissible,typical_human,jev,0.758,,,trolley_switch_permissible,0.89,medium,
+trolley_estimate,prob_push_permissible,typical_human,jev,0.18,,,trolley_push_permissible,0.11,medium,
+false_consensus,wearer_predicts_wear,typical_human,jev,0.31600000000000006,,,false_consensus_wearer_predicts_wear,0.614,medium,
+false_consensus,nonwearer_predicts_wear,typical_human,jev,0.28500000000000003,,,false_consensus_nonwearer_predicts_wear,0.304,medium,
+false_consensus,false_consensus_gap,typical_human,jev,0.031000000000000028,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31
+false_consensus_estimate,wearer_predicts_wear,typical_human,jev,0.392,,,false_consensus_wearer_predicts_wear,0.614,medium,
+false_consensus_estimate,nonwearer_predicts_wear,typical_human,jev,0.42299999999999993,,,false_consensus_nonwearer_predicts_wear,0.304,medium,
+false_consensus_estimate,false_consensus_gap,typical_human,jev,-0.030999999999999917,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31
+crt,proportion_correct,typical_human_plain,baseline,0.5,0.0,1.0,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
+crt,proportion_correct_all6,typical_human_plain,baseline,0.6166666666666667,0.2833333333333333,0.9166666666666666,,,,all six items; no single human benchmark covers these
+crt,probability_mass_on_lure,typical_human_plain,baseline,0.3833333333333333,0.08333333333333333,0.7166666666666667,,,,
+fluid_reasoning,accuracy,typical_human_plain,baseline,0.8888888888888888,0.7222222222222222,1.0,,,,accuracy on an authored ICAR-format item set; not an IQ score
+fluid_reasoning,accuracy_steps_1,typical_human_plain,baseline,1.0,1.0,1.0,,,,
+fluid_reasoning,accuracy_steps_2,typical_human_plain,baseline,1.0,1.0,1.0,,,,
+fluid_reasoning,accuracy_steps_3,typical_human_plain,baseline,0.8571428571428571,0.5714285714285714,1.0,,,,
+fluid_reasoning,accuracy_steps_4,typical_human_plain,baseline,0.5,0.0,1.0,,,,
+fluid_reasoning,depth_penalty_1_vs_3plus,typical_human_plain,baseline,0.2222222222222222,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps
+dictator,mean_share,typical_human_plain,baseline,0.2,,,dictator_mean_share,0.283,high,
+dictator,prob_give_zero,typical_human_plain,baseline,0.0,,,dictator_share_zero,0.36,high,
+dictator,prob_give_half,typical_human_plain,baseline,0.0,,,dictator_share_half,0.17,high,
+ultimatum_proposer,mean_share,typical_human_plain,baseline,0.44000000000000006,,,ultimatum_mean_offer,0.4,high,
+trust_sender,mean_share,typical_human_plain,baseline,0.5,,,trust_sender_share,0.5,high,
+public_goods,mean_share,typical_human_plain,baseline,0.5,,,pgg_round1_share,0.5,medium,
+ultimatum_responder,prob_reject_offer_0,typical_human_plain,baseline,1.0,,,,,,
+ultimatum_responder,prob_reject_offer_1,typical_human_plain,baseline,1.0,,,,,,
+ultimatum_responder,prob_reject_offer_2,typical_human_plain,baseline,0.0,,,,,,
+ultimatum_responder,prob_reject_offer_3,typical_human_plain,baseline,0.0,,,,,,
+ultimatum_responder,prob_reject_offer_4,typical_human_plain,baseline,0.0,,,,,,
+ultimatum_responder,prob_reject_offer_5,typical_human_plain,baseline,0.0,,,,,,
+ultimatum_responder,prob_reject_offer_6,typical_human_plain,baseline,0.0,,,,,,
+ultimatum_responder,prob_reject_offer_7,typical_human_plain,baseline,0.0,,,,,,
+ultimatum_responder,prob_reject_offer_8,typical_human_plain,baseline,0.0,,,,,,
+ultimatum_responder,prob_reject_offer_9,typical_human_plain,baseline,0.0,,,,,,
+ultimatum_responder,prob_reject_offer_10,typical_human_plain,baseline,0.0,,,,,,
+ultimatum_responder,prob_reject_low_offer,typical_human_plain,baseline,1.0,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10
+trust_trustee,return_share_sent_2,typical_human_plain,baseline,0.4166666666666667,,,,,,
+trust_trustee,return_share_sent_5,typical_human_plain,baseline,0.3333333333333333,,,trust_return_share,0.37,high,
+trust_trustee,return_share_sent_10,typical_human_plain,baseline,0.48000000000000004,,,,,,
+public_goods_conditional,contribution_low,typical_human_plain,baseline,0.1,,,,,,
+public_goods_conditional,contribution_mid,typical_human_plain,baseline,0.5,,,,,,
+public_goods_conditional,contribution_high,typical_human_plain,baseline,0.9,,,,,,
+prisoners_dilemma,cooperation_one_shot,typical_human_plain,baseline,0.1,,,pd_cooperation_oneshot,0.37,medium,
+prisoners_dilemma,cooperation_after_cooperation,typical_human_plain,baseline,1.0,,,,,,
+prisoners_dilemma,cooperation_after_defection,typical_human_plain,baseline,0.0,,,,,,
+framing,prob_certain_gain_frame,typical_human_plain,baseline,1.0,,,framing_gain_certain,0.72,high,
+framing,prob_certain_loss_frame,typical_human_plain,baseline,0.0,,,framing_loss_certain,0.22,high,
+framing,framing_swing,typical_human_plain,baseline,1.0,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
+allais,prob_certain_pair1,typical_human_plain,baseline,1.0,,,allais_p1_certain,0.8,high,
+allais,prob_safer_pair2,typical_human_plain,baseline,0.0,,,allais_p2_certain,0.35,high,
+allais,independence_violation,typical_human_plain,baseline,1.0,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
+conjunction,prob_fallacy_forced_choice,typical_human_plain,baseline,1.0,,,conjunction_fallacy_rate,0.85,high,
+conjunction_axiom,p_single,typical_human_plain,baseline,0.0,,,,,,
+conjunction_axiom,p_conjunction,typical_human_plain,baseline,0.7,,,,,,
+conjunction_axiom,axiom_margin,typical_human_plain,baseline,-0.7,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
+base_rate,prob_correct_band,typical_human_plain,baseline,0.0,,,base_rate_correct_band,0.15,medium,
+base_rate,prob_lure_band,typical_human_plain,baseline,1.0,,,,,,
+anchoring,estimate_low_anchor,typical_human_plain,baseline,20.0,,,anchoring_low_median,25.0,approximate,
+anchoring,estimate_high_anchor,typical_human_plain,baseline,40.0,,,anchoring_high_median,45.0,approximate,
+anchoring,anchoring_effect,typical_human_plain,baseline,20.0,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
+sunk_cost,prob_continue,typical_human_plain,baseline,0.8,,,sunk_cost_continue,0.85,medium,
+holt_laury,expected_safe_choices,typical_human_plain,baseline,5.1,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
+discounting,prob_patient_7d,typical_human_plain,baseline,1.0,1.0,1.0,,,,
+discounting,prob_patient_30d,typical_human_plain,baseline,0.75,0.25,1.0,,,,
+discounting,prob_patient_180d,typical_human_plain,baseline,0.55,0.1,1.0,,,,
+present_bias,prob_patient_immediate_frontend,typical_human_plain,baseline,0.4,,,,,,
+present_bias,prob_patient_delayed_frontend,typical_human_plain,baseline,1.0,,,,,,
+present_bias,present_bias_gap,typical_human_plain,baseline,0.6,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
+beauty_contest,expected_guess,typical_human_plain,baseline,31.6,,,beauty_contest_mean,36.0,medium,
+beauty_contest,mass_at_33,typical_human_plain,baseline,0.7,,,,,,
+beauty_contest,mass_at_22,typical_human_plain,baseline,0.0,,,,,,
+beauty_contest,mass_at_0,typical_human_plain,baseline,0.0,,,,,,
+money_request,expected_request,typical_human_plain,baseline,16.900000000000002,,,money_request_modal,17.0,high,the model's mean request against the human mode
+money_request,mass_level0_20,typical_human_plain,baseline,0.0,,,,,,
+money_request,mass_level1_19,typical_human_plain,baseline,0.0,,,,,,
+money_request,mass_level2_18,typical_human_plain,baseline,0.0,,,,,,
+money_request,mass_level3_17,typical_human_plain,baseline,0.9,,,,,,
+mini_ipip,extraversion,typical_human_plain,baseline,3.25,3.0,3.75,mini_ipip_extraversion,3.2,approximate,
+mini_ipip,agreeableness,typical_human_plain,baseline,4.0,4.0,4.0,mini_ipip_agreeableness,4.0,approximate,
+mini_ipip,conscientiousness,typical_human_plain,baseline,3.75,3.25,4.0,mini_ipip_conscientiousness,3.4,approximate,
+mini_ipip,neuroticism,typical_human_plain,baseline,2.1,2.0,2.3000000000000003,mini_ipip_neuroticism,2.8,approximate,
+mini_ipip,openness,typical_human_plain,baseline,4.0,4.0,4.0,mini_ipip_openness,3.7,approximate,
+dirty_dozen,machiavellianism,typical_human_plain,baseline,3.625,2.0,5.25,,,,9-point agreement scale; manipulation check only
+dirty_dozen,overall,typical_human_plain,baseline,3.433333333333333,2.65,4.225,,,,9-point agreement scale; manipulation check only
+dirty_dozen,psychopathy,typical_human_plain,baseline,2.8,2.0,3.6500000000000004,,,,9-point agreement scale; manipulation check only
+dirty_dozen,narcissism,typical_human_plain,baseline,3.875,2.6,4.824999999999999,,,,9-point agreement scale; manipulation check only
+moral_typecasting,responsibility_man,typical_human_plain,baseline,5.0,,,moral_typecasting_responsibility_man,5.29,medium,
+moral_typecasting,responsibility_baby,typical_human_plain,baseline,1.0,,,moral_typecasting_responsibility_baby,3.86,medium,
+moral_typecasting,agency_responsibility_gap,typical_human_plain,baseline,4.0,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43
+moral_typecasting_estimate,responsibility_man,typical_human_plain,baseline,4.0,,,moral_typecasting_responsibility_man,5.29,medium,
+moral_typecasting_estimate,responsibility_baby,typical_human_plain,baseline,1.0,,,moral_typecasting_responsibility_baby,3.86,medium,
+moral_typecasting_estimate,agency_responsibility_gap,typical_human_plain,baseline,3.0,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43
+position_power,power_long_line,typical_human_plain,baseline,4.9,,,position_power_long_line,5.01,medium,
+position_power,power_short_line,typical_human_plain,baseline,4.0,,,position_power_short_line,4.62,medium,
+position_power,position_power_gap,typical_human_plain,baseline,0.9000000000000004,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39
+position_power_estimate,power_long_line,typical_human_plain,baseline,4.7,,,position_power_long_line,5.01,medium,
+position_power_estimate,power_short_line,typical_human_plain,baseline,4.4,,,position_power_short_line,4.62,medium,
+position_power_estimate,position_power_gap,typical_human_plain,baseline,0.2999999999999998,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39
+choosing_rejecting,prob_award_extreme,typical_human_plain,baseline,1.0,,,shafir_award_extreme,0.64,medium,
+choosing_rejecting,prob_deny_extreme,typical_human_plain,baseline,1.0,,,shafir_deny_extreme,0.55,medium,
+choosing_rejecting,choose_reject_sum,typical_human_plain,baseline,2.0,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19"
+categorization,prob_rule_based,typical_human_plain,baseline,0.0,,,norenzayan_rule_based,0.67,medium,
+incidental_anchors,estimate_p97,typical_human_plain,baseline,50.0,,,incidental_anchor_p97,58.1,medium,
+incidental_anchors,estimate_p17,typical_human_plain,baseline,50.0,,,incidental_anchor_p17,51.9,medium,
+incidental_anchors,anchor_gap,typical_human_plain,baseline,0.0,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?"
+incidental_anchors_estimate,estimate_p97,typical_human_plain,baseline,50.0,,,incidental_anchor_p97,58.1,medium,
+incidental_anchors_estimate,estimate_p17,typical_human_plain,baseline,50.0,,,incidental_anchor_p17,51.9,medium,
+incidental_anchors_estimate,anchor_gap,typical_human_plain,baseline,0.0,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?"
+knobe,prob_harm_intentional,typical_human_plain,baseline,1.0,,,knobe_harm_intentional,0.82,medium,
+knobe,prob_help_intentional,typical_human_plain,baseline,0.0,,,knobe_help_intentional,0.23,medium,
+knobe,harm_help_asymmetry,typical_human_plain,baseline,1.0,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59
+trolley,prob_switch_permissible,typical_human_plain,baseline,1.0,,,trolley_switch_permissible,0.89,medium,
+trolley,prob_push_permissible,typical_human_plain,baseline,0.0,,,trolley_push_permissible,0.11,medium,
+trolley,switch_push_asymmetry,typical_human_plain,baseline,1.0,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78
+crt,proportion_correct,typical_human_plain,jev,0.531,0.11900000000000001,0.818,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
+crt,proportion_correct_all6,typical_human_plain,jev,0.7090000000000001,0.4533333333333333,0.8996666666666666,,,,all six items; no single human benchmark covers these
+crt,probability_mass_on_lure,typical_human_plain,jev,0.26533333333333337,0.07800000000000001,0.5193333333333333,,,,
+fluid_reasoning,accuracy,typical_human_plain,jev,0.8306706150595039,0.7210518754865977,0.9244999999999999,,,,accuracy on an authored ICAR-format item set; not an IQ score
+fluid_reasoning,accuracy_steps_1,typical_human_plain,jev,0.989,0.967,1.0,,,,
+fluid_reasoning,accuracy_steps_2,typical_human_plain,jev,0.866,0.637,1.0,,,,
+fluid_reasoning,accuracy_steps_3,typical_human_plain,jev,0.7847244387244386,0.6474328614328614,0.9098821428571425,,,,
+fluid_reasoning,accuracy_steps_4,typical_human_plain,jev,0.6479999999999999,0.44299999999999995,0.853,,,,
+fluid_reasoning,depth_penalty_1_vs_3plus,typical_human_plain,jev,0.2346587698809921,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps
+dictator,mean_share,typical_human_plain,jev,0.2795,,,dictator_mean_share,0.283,high,
+dictator,prob_give_zero,typical_human_plain,jev,0.023,,,dictator_share_zero,0.36,high,
+dictator,prob_give_half,typical_human_plain,jev,0.11100000000000002,,,dictator_share_half,0.17,high,
+ultimatum_proposer,mean_share,typical_human_plain,jev,0.45600000000000007,,,ultimatum_mean_offer,0.4,high,
+trust_sender,mean_share,typical_human_plain,jev,0.4765,,,trust_sender_share,0.5,high,
+public_goods,mean_share,typical_human_plain,jev,0.521,,,pgg_round1_share,0.5,medium,
+ultimatum_responder,prob_reject_offer_0,typical_human_plain,jev,0.9780000000000001,,,,,,
+ultimatum_responder,prob_reject_offer_1,typical_human_plain,jev,0.9309999999999999,,,,,,
+ultimatum_responder,prob_reject_offer_2,typical_human_plain,jev,0.8019999999999999,,,,,,
+ultimatum_responder,prob_reject_offer_3,typical_human_plain,jev,0.5549999999999999,,,,,,
+ultimatum_responder,prob_reject_offer_4,typical_human_plain,jev,0.331,,,,,,
+ultimatum_responder,prob_reject_offer_5,typical_human_plain,jev,0.304,,,,,,
+ultimatum_responder,prob_reject_offer_6,typical_human_plain,jev,0.06100000000000002,,,,,,
+ultimatum_responder,prob_reject_offer_7,typical_human_plain,jev,0.095,,,,,,
+ultimatum_responder,prob_reject_offer_8,typical_human_plain,jev,0.20600000000000002,,,,,,
+ultimatum_responder,prob_reject_offer_9,typical_human_plain,jev,0.371,,,,,,
+ultimatum_responder,prob_reject_offer_10,typical_human_plain,jev,0.023,,,,,,
+ultimatum_responder,prob_reject_low_offer,typical_human_plain,jev,0.9309999999999999,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10
+trust_trustee,return_share_sent_2,typical_human_plain,jev,0.536,,,,,,
+trust_trustee,return_share_sent_5,typical_human_plain,jev,0.5014028056112226,,,trust_return_share,0.37,high,
+trust_trustee,return_share_sent_10,typical_human_plain,jev,0.4981999999999999,,,,,,
+public_goods_conditional,contribution_low,typical_human_plain,jev,0.19650000000000004,,,,,,
+public_goods_conditional,contribution_mid,typical_human_plain,jev,0.48360000000000003,,,,,,
+public_goods_conditional,contribution_high,typical_human_plain,jev,0.7751751751751752,,,,,,
+prisoners_dilemma,cooperation_one_shot,typical_human_plain,jev,0.14800000000000005,,,pd_cooperation_oneshot,0.37,medium,
+prisoners_dilemma,cooperation_after_cooperation,typical_human_plain,jev,0.721,,,,,,
+prisoners_dilemma,cooperation_after_defection,typical_human_plain,jev,0.009999999999999998,,,,,,
+framing,prob_certain_gain_frame,typical_human_plain,jev,0.914,,,framing_gain_certain,0.72,high,
+framing,prob_certain_loss_frame,typical_human_plain,jev,0.842,,,framing_loss_certain,0.22,high,
+framing,framing_swing,typical_human_plain,jev,0.07200000000000006,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
+allais,prob_certain_pair1,typical_human_plain,jev,0.8099999999999999,,,allais_p1_certain,0.8,high,
+allais,prob_safer_pair2,typical_human_plain,jev,0.7060000000000001,,,allais_p2_certain,0.35,high,
+allais,independence_violation,typical_human_plain,jev,0.23813999999999996,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
+conjunction,prob_fallacy_forced_choice,typical_human_plain,jev,0.8679999999999999,,,conjunction_fallacy_rate,0.85,high,
+conjunction_axiom,p_single,typical_human_plain,jev,0.2,,,,,,
+conjunction_axiom,p_conjunction,typical_human_plain,jev,0.604,,,,,,
+conjunction_axiom,axiom_margin,typical_human_plain,jev,-0.40399999999999997,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule"
+base_rate,prob_correct_band,typical_human_plain,jev,0.41500000000000004,,,base_rate_correct_band,0.15,medium,
+base_rate,prob_lure_band,typical_human_plain,jev,0.024,,,,,,
+anchoring,estimate_low_anchor,typical_human_plain,jev,22.28228228228228,,,anchoring_low_median,25.0,approximate,
+anchoring,estimate_high_anchor,typical_human_plain,jev,25.1825,,,anchoring_high_median,45.0,approximate,
+anchoring,anchoring_effect,typical_human_plain,jev,2.9002177177177195,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
+sunk_cost,prob_continue,typical_human_plain,jev,0.09799999999999998,,,sunk_cost_continue,0.85,medium,
+holt_laury,expected_safe_choices,typical_human_plain,jev,3.7070000000000003,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
+discounting,prob_patient_7d,typical_human_plain,jev,0.24525000000000002,0.18925000000000003,0.28800000000000003,,,,
+discounting,prob_patient_30d,typical_human_plain,jev,0.28525,0.15199999999999997,0.4185000000000001,,,,
+discounting,prob_patient_180d,typical_human_plain,jev,0.12825,0.09974999999999998,0.15050000000000002,,,,
+present_bias,prob_patient_immediate_frontend,typical_human_plain,jev,0.14100000000000001,,,,,,
+present_bias,prob_patient_delayed_frontend,typical_human_plain,jev,0.34,,,,,,
+present_bias,present_bias_gap,typical_human_plain,jev,0.199,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction"
+beauty_contest,expected_guess,typical_human_plain,jev,39.988900100908175,,,beauty_contest_mean,36.0,medium,
+beauty_contest,mass_at_33,typical_human_plain,jev,0.07063572149344098,,,,,,
+beauty_contest,mass_at_22,typical_human_plain,jev,0.009081735620585266,,,,,,
+beauty_contest,mass_at_0,typical_human_plain,jev,0.010090817356205851,,,,,,
+money_request,expected_request,typical_human_plain,jev,16.930999999999997,,,money_request_modal,17.0,high,the model's mean request against the human mode
+money_request,mass_level0_20,typical_human_plain,jev,0.11200000000000002,,,,,,
+money_request,mass_level1_19,typical_human_plain,jev,0.40599999999999997,,,,,,
+money_request,mass_level2_18,typical_human_plain,jev,0.078,,,,,,
+money_request,mass_level3_17,typical_human_plain,jev,0.06300000000000001,,,,,,
+mini_ipip,extraversion,typical_human_plain,jev,2.9732499999999997,2.8045,3.1420000000000003,mini_ipip_extraversion,3.2,approximate,
+mini_ipip,agreeableness,typical_human_plain,jev,3.877281031031031,3.76,4.037093093093093,mini_ipip_agreeableness,4.0,approximate,
+mini_ipip,conscientiousness,typical_human_plain,jev,3.04425,2.7727499999999994,3.319,mini_ipip_conscientiousness,3.4,approximate,
+mini_ipip,neuroticism,typical_human_plain,jev,2.8235,2.6505000000000005,2.9905,mini_ipip_neuroticism,2.8,approximate,
+mini_ipip,openness,typical_human_plain,jev,3.29225,3.0809999999999995,3.4645,mini_ipip_openness,3.7,approximate,
+dirty_dozen,machiavellianism,typical_human_plain,jev,4.702936686686687,2.8194999999999997,6.586373373373374,,,,9-point agreement scale; manipulation check only
+dirty_dozen,overall,typical_human_plain,jev,4.4213486472444385,3.3980424380960783,5.4164984095067,,,,9-point agreement scale; manipulation check only
+dirty_dozen,psychopathy,typical_human_plain,jev,3.2477134634634632,2.1565,4.95275,,,,9-point agreement scale; manipulation check only
+dirty_dozen,narcissism,typical_human_plain,jev,5.313395791583166,3.964187374749499,6.215,,,,9-point agreement scale; manipulation check only
+moral_typecasting,responsibility_man,typical_human_plain,jev,5.522,,,moral_typecasting_responsibility_man,5.29,medium,
+moral_typecasting,responsibility_baby,typical_human_plain,jev,1.2020000000000002,,,moral_typecasting_responsibility_baby,3.86,medium,
+moral_typecasting,agency_responsibility_gap,typical_human_plain,jev,4.32,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43
+moral_typecasting_estimate,responsibility_man,typical_human_plain,jev,5.6910732196589775,,,moral_typecasting_responsibility_man,5.29,medium,
+moral_typecasting_estimate,responsibility_baby,typical_human_plain,jev,1.6416416416416415,,,moral_typecasting_responsibility_baby,3.86,medium,
+moral_typecasting_estimate,agency_responsibility_gap,typical_human_plain,jev,4.0494315780173356,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43
+position_power,power_long_line,typical_human_plain,jev,3.437,,,position_power_long_line,5.01,medium,
+position_power,power_short_line,typical_human_plain,jev,3.591,,,position_power_short_line,4.62,medium,
+position_power,position_power_gap,typical_human_plain,jev,-0.15400000000000036,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39
+position_power_estimate,power_long_line,typical_human_plain,jev,3.6279999999999997,,,position_power_long_line,5.01,medium,
+position_power_estimate,power_short_line,typical_human_plain,jev,4.082000000000001,,,position_power_short_line,4.62,medium,
+position_power_estimate,position_power_gap,typical_human_plain,jev,-0.45400000000000107,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39
+choosing_rejecting,prob_award_extreme,typical_human_plain,jev,0.11599999999999999,,,shafir_award_extreme,0.64,medium,
+choosing_rejecting,prob_deny_extreme,typical_human_plain,jev,0.9690000000000001,,,shafir_deny_extreme,0.55,medium,
+choosing_rejecting,choose_reject_sum,typical_human_plain,jev,1.085,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19"
+choosing_rejecting_estimate,prob_award_extreme,typical_human_plain,jev,0.36499999999999994,,,shafir_award_extreme,0.64,medium,
+choosing_rejecting_estimate,prob_deny_extreme,typical_human_plain,jev,0.618,,,shafir_deny_extreme,0.55,medium,
+categorization,prob_rule_based,typical_human_plain,jev,0.067,,,norenzayan_rule_based,0.67,medium,
+categorization_estimate,prob_rule_based,typical_human_plain,jev,0.543,,,norenzayan_rule_based,0.67,medium,
+incidental_anchors,estimate_p97,typical_human_plain,jev,49.442499999999995,,,incidental_anchor_p97,58.1,medium,
+incidental_anchors,estimate_p17,typical_human_plain,jev,49.176676676676685,,,incidental_anchor_p17,51.9,medium,
+incidental_anchors,anchor_gap,typical_human_plain,jev,0.2658233233233105,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?"
+incidental_anchors_estimate,estimate_p97,typical_human_plain,jev,50.2675,,,incidental_anchor_p97,58.1,medium,
+incidental_anchors_estimate,estimate_p17,typical_human_plain,jev,50.1825,,,incidental_anchor_p17,51.9,medium,
+incidental_anchors_estimate,anchor_gap,typical_human_plain,jev,0.08500000000000085,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?"
+knobe,prob_harm_intentional,typical_human_plain,jev,0.903,,,knobe_harm_intentional,0.82,medium,
+knobe,prob_help_intentional,typical_human_plain,jev,0.017,,,knobe_help_intentional,0.23,medium,
+knobe,harm_help_asymmetry,typical_human_plain,jev,0.886,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59
+knobe_estimate,prob_harm_intentional,typical_human_plain,jev,0.75,,,knobe_harm_intentional,0.82,medium,
+knobe_estimate,prob_help_intentional,typical_human_plain,jev,0.319,,,knobe_help_intentional,0.23,medium,
+trolley,prob_switch_permissible,typical_human_plain,jev,1.0,,,trolley_switch_permissible,0.89,medium,
+trolley,prob_push_permissible,typical_human_plain,jev,0.004000000000000001,,,trolley_push_permissible,0.11,medium,
+trolley,switch_push_asymmetry,typical_human_plain,jev,0.996,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78
+trolley_estimate,prob_switch_permissible,typical_human_plain,jev,0.759,,,trolley_switch_permissible,0.89,medium,
+trolley_estimate,prob_push_permissible,typical_human_plain,jev,0.18,,,trolley_push_permissible,0.11,medium,
+false_consensus,wearer_predicts_wear,typical_human_plain,jev,0.33,,,false_consensus_wearer_predicts_wear,0.614,medium,
+false_consensus,nonwearer_predicts_wear,typical_human_plain,jev,0.295,,,false_consensus_nonwearer_predicts_wear,0.304,medium,
+false_consensus,false_consensus_gap,typical_human_plain,jev,0.03500000000000003,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31
+false_consensus_estimate,wearer_predicts_wear,typical_human_plain,jev,0.388,,,false_consensus_wearer_predicts_wear,0.614,medium,
+false_consensus_estimate,nonwearer_predicts_wear,typical_human_plain,jev,0.41,,,false_consensus_nonwearer_predicts_wear,0.304,medium,
+false_consensus_estimate,false_consensus_gap,typical_human_plain,jev,-0.021999999999999964,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31
