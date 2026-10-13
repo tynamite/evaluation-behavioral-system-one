@@ -908,6 +908,38 @@ def build_figures(run_path: Path, out_dir: Path) -> list[Path]:
     return paths
 
 
+def _label_extremes(fig: Any, extremes: list[tuple[Any, list[tuple[str, float, float]]]]) -> None:
+    """Label the largest misses and the best match in each scatter panel.
+
+    Each label points back into its panel, so it cannot run onto the next
+    panel's tick labels. Two extremes can sit close together, so a label that
+    would cover one already placed tries the other side of its point, and is
+    left off rather than printed over another.
+    """
+    fig.canvas.draw()
+    renderer = fig.canvas.get_renderer()
+    for ax, picks in extremes:
+        placed: list[Any] = []
+        for rank, (label, h, m) in enumerate(picks):
+            to_left = h > 0.5
+            dy = -13 if m > 0.90 else (9 if rank == 2 else 5)
+            for oy in (dy, -dy - 4):
+                note = ax.annotate(
+                    label,
+                    xy=(h, m),
+                    xytext=(-9 if to_left else 9, oy),
+                    textcoords="offset points",
+                    ha="right" if to_left else "left",
+                    color=INK_2,
+                    fontsize=8,
+                )
+                box = note.get_window_extent(renderer).padded(2)
+                if not any(box.overlaps(other) for other in placed):
+                    placed.append(box)
+                    break
+                note.remove()
+
+
 def fig_human_fidelity(sdf: pd.DataFrame, out: Path) -> Path:
     """How closely does each condition reproduce the human values?
 
@@ -930,6 +962,7 @@ def fig_human_fidelity(sdf: pd.DataFrame, out: Path) -> Path:
         gridspec_kw={"width_ratios": [1, 1, 1.05], "wspace": 0.38},
     )
     fig.patch.set_facecolor(SURFACE)
+    extremes: list[tuple[Any, list[tuple[str, float, float]]]] = []
 
     for ax, persona, title in (
         (axes[0], "neutral", "Answering neutrally"),
@@ -955,19 +988,9 @@ def fig_human_fidelity(sdf: pd.DataFrame, out: Path) -> Path:
         )
         # Label only the extremes: the three worst misses and the best match.
         ranked = sorted(pairs, key=lambda p: -abs(p[2] - p[1]))
-        for rank, (label, h, m) in enumerate([*ranked[:2], ranked[-1]] if ranked else []):
-            # Point the label back into the panel, so it cannot run off the
-            # right edge onto the neighbouring panel's tick labels.
-            to_left = h > 0.5
-            ax.annotate(
-                label,
-                xy=(h, m),
-                xytext=(-9 if to_left else 9, -13 if m > 0.90 else (9 if rank == 2 else 5)),
-                textcoords="offset points",
-                ha="right" if to_left else "left",
-                color=INK_2,
-                fontsize=8,
-            )
+        # Placed once the layout is final (below), so overlaps are measured where
+        # the labels will actually be drawn.
+        extremes.append((ax, [*ranked[:2], ranked[-1]] if ranked else []))
         if f is not None:
             ax.text(
                 0.0,
@@ -1047,6 +1070,7 @@ def fig_human_fidelity(sdf: pd.DataFrame, out: Path) -> Path:
         y=1.0,
     )
     fig.subplots_adjust(top=0.78)
+    _label_extremes(fig, extremes)
     path = out / "fig7_human_fidelity.png"
     fig.savefig(path, facecolor=SURFACE, bbox_inches="tight")
     plt.close(fig)
