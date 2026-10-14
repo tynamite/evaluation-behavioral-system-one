@@ -9,6 +9,7 @@ Nothing is transcribed by hand, so the prose cannot disagree with the data.
 
 from __future__ import annotations
 
+import subprocess
 import sys
 from pathlib import Path
 
@@ -47,6 +48,30 @@ FIGURES = ROOT / "results" / "figures"
 EMBED_FIGURES = True
 
 
+def figures_mismatch(run: Path, df: pd.DataFrame) -> str | None:
+    """Why the committed figures would misdescribe this run, if they would.
+
+    They are drawn from one file, the committed run, so only that exact file,
+    unchanged from what git has committed, gets them; the shape check alone
+    would pass an edited copy.
+    """
+    committed = primary_run(ROOT / "data" / "raw", live_only=True)
+    if committed is None or run.resolve() != committed.resolve():
+        return f"{run.name} is not the committed run"
+    rel = str(run.resolve().relative_to(ROOT))
+    tracked = subprocess.run(["git", "-C", str(ROOT), "ls-files", "--error-unmatch", rel],
+                             capture_output=True).returncode == 0
+    clean = subprocess.run(["git", "-C", str(ROOT), "diff", "--quiet", "HEAD", "--", rel],
+                           capture_output=True).returncode == 0
+    if not (tracked and clean):
+        return f"{run.name} differs from the committed file"
+    try:
+        check_editorial_run(df)
+    except ValueError as exc:
+        return str(exc)
+    return None
+
+
 def figures(*items: tuple[str, str]) -> list[str]:
     """Markdown for the committed figures among `items` (file, alt text).
 
@@ -80,11 +105,10 @@ def main(argv: list[str]) -> int:
         return 1
     df = load_records(run)
     global EMBED_FIGURES
-    try:
-        check_editorial_run(df)
-    except ValueError as exc:
+    reason = figures_mismatch(run, df)
+    if reason:
         EMBED_FIGURES = False
-        print(f"figures left out: they are drawn from the committed run, not this one ({exc})",
+        print(f"figures left out: they are drawn from the committed run, not this one ({reason})",
               file=sys.stderr)
     sdf = pd.DataFrame([asdict(s) for s in compute_stats(df)])
     odf = order_effects(df)
