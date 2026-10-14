@@ -73,9 +73,10 @@ run` for this; the battery and the scoring are not changed.
   pairs of its 10 answer distributions, as in H6 (`order_effects`).
   Distributions are keyed by option label, not slot, so shuffling doesn't
   change what is compared.
-- **Item spread.** The mean of the cell spread over the five personas. Items,
-  not cells, are the unit of every test below, because an item's five persona
-  cells are not independent.
+- **Item spread.** The mean of the cell spread over the item's persona cells
+  (all five, unless section 6 drops some; within a comparison, the same cells
+  on every side). Items, not cells, are the unit of every test below, because
+  an item's five persona cells are not independent.
 - **Order excess.** An item's spread in R2 minus its spread in R3.
 - **Slot slope.** Within an R2 cell, each option's probability on each repeat,
   minus that option's mean over the 10 repeats, is regressed on its slot
@@ -110,9 +111,13 @@ result.
 - **Jev 1.14 against 1.13** on R1: the README's headline statistics, side by
   side. We make no prediction about whether 1.14 is more or less human-like.
 - **Route check:** 1.13 on R1 (direct) against the committed 1.13 run
-  (OpenRouter, same seed). Per cell, the TV distance between the two mean
-  distributions, set against R3's noise floor. If the route matters, that is
-  said wherever 1.13 and 1.14 numbers sit side by side.
+  (OpenRouter, same seed). With the same seed, repeat *r* sends the identical
+  request on both routes, so the check is per repeat: the TV distance between
+  the two routes' answers to the same request, averaged over a cell's
+  repeats. The reference is R3's cell spread, which is likewise a distance
+  between single answers to identical requests (not between averages). If
+  the route matters, that is said wherever 1.13 and 1.14 numbers sit side by
+  side.
 - The probability-mass-by-slot profile from section 1, on R2, for each
   version.
 - The per-persona order effect (on 1.13, antisocial 0.042 against 0.066–0.070
@@ -128,8 +133,11 @@ result.
   answer, `--resume` keeps them, and retrying until a usable one came back
   would select the answers. They are counted and reported per version, and
   they count against the threshold below.
-- A cell needs at least 8 usable repeats; an item needs at least 3 usable
-  cells. Dropped items are listed.
+- A cell needs at least 8 usable repeats. Every paired comparison (R2 against
+  R3 in O1; 1.14 against 1.13 in O2) uses, for each item, only the persona
+  cells that qualify on **every** side of that comparison, and the item
+  enters only if at least 3 such cells remain. O3 uses the cells that qualify
+  in that version's R2, with the same minimum of 3. Dropped items are listed.
 - Each run is completed in one go where possible. If any record reports a
   model other than the versioned ID requested (for instance, TypeSafe changes
   what `jev-1.14.0` serves partway through), that run is redone in full as a
