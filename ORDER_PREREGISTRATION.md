@@ -59,6 +59,14 @@ permutation is seeded by item, persona and repeat, not by model, both versions
 see identical permutations within a run. That makes the version comparison
 paired.
 
+**R2 and R3, for both versions, run at the same time.** The four runs are
+launched together, with the same number of workers each, so their requests
+are interleaved over one time window. Run one after another, a change in how
+TypeSafe serves Jev between runs would be indistinguishable from an effect of
+shuffling or of version. Every record carries a timestamp. As a check, each
+of the four runs is split at its median timestamp, and the mean cell spread
+of its two halves is reported.
+
 R2 uses a new seed because the slot hypothesis (1b) was suggested by the
 seed-20260918 permutations. Testing it on the same permutations would not be a
 test.
