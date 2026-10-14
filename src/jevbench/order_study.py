@@ -525,16 +525,18 @@ def time_matching(arms: list[Arm], items: dict[str, str]) -> dict[str, Any]:
     lengths: list[float] = []
     epoch = pd.Timestamp("1970-01-01", tz="UTC")
     for arm in arms:
-        df = arm.df[arm.df["probe_id"].isin(items)]
-        if "answered_at" not in df.columns:
+        if "answered_at" not in arm.df.columns:
             return {"available": False}
         secs = (
-            pd.to_datetime(df["answered_at"], utc=True, errors="coerce") - epoch
+            pd.to_datetime(arm.df["answered_at"], utc=True, errors="coerce") - epoch
         ).dt.total_seconds()
-        df = df.assign(secs=secs).dropna(subset=["secs"])
+        timed = arm.df.assign(secs=secs).dropna(subset=["secs"])
+        # The run's length spans every answer; the per-cell medians are for
+        # the multiple-choice cells the tests use.
+        df = timed[timed["probe_id"].isin(items)]
         if df.empty:
             return {"available": False}
-        lengths.append(float(df["secs"].max() - df["secs"].min()))
+        lengths.append(float(timed["secs"].max() - timed["secs"].min()))
         med: dict[Cell, float] = {}
         for row in (
             df.groupby(["probe_id", "persona"], as_index=False)["secs"].median().itertuples()
