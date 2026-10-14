@@ -177,7 +177,7 @@ of writing them down first was to be held to them:
 |---|---|
 | H5: independently elicited probabilities obey P(A∧B) ≤ P(A) | **Violated**, margin **−0.09** with no instruction and **−0.38** when asked to answer like a person |
 | H8: accuracy falls as reasoning depth grows (> 15 points) | **9 points** from 1-step to 3+-step items with no instruction |
-| H6: option order barely matters (mean TV < 0.05) | **0.063** mean, median 0.041, on the core battery's multiple-choice items, whose options were shuffled. Answers move 0.027 between replicates with nothing reordered, a rough noise floor, so a large part of that may be noise. The follow-up items, which H6 was not written for, move less (0.025) |
+| H6: option order barely matters (mean TV < 0.05) | **0.063** mean, median 0.041, on the core battery's multiple-choice items, whose options were shuffled. Answers move 0.027 between replicates with nothing reordered, a rough noise floor, so a large part of that may be noise. The [addendum](#addendum-14-october-2026-option-order-and-the-jev-114-preview) measured it properly: about a third is. The follow-up items, which H6 was not written for, move less (0.025) |
 
 H4 predicted a framing reversal much weaker than people's (under 25 points); it
 is 1 point. H7 (Jev's distribution is more stable across replicates than the
@@ -235,6 +235,56 @@ statement over the conjunction (fallacy mass 0.10). Asked as two independent
 probability questions, it assigned the conjunction *higher* probability than its
 own component. That is the shape of the original human finding — but it is also
 already documented behaviour, not a discovery. See the next section.
+
+### Addendum, 14 October 2026: option order, and the Jev 1.14 preview
+
+Everything above is Jev 1.13 through OpenRouter, and stays that way. This
+addendum was preregistered separately, in
+[ORDER_PREREGISTRATION.md](ORDER_PREREGISTRATION.md), before any of its data
+existed. It asks whether H6's order effect is real or just repeat noise, and
+whether Jev 1.14 behaves differently. On that date TypeSafe lists 1.14 as its
+`jev-preview` model; `jev-latest` still points at 1.13. All runs called
+TypeSafe's API directly: 10 repeats of each item under each of the five
+prompts, plus one copy through OpenRouter to check the route. That came to
+44,100 calls and cost $0.83.
+
+- **Shuffling the options moves Jev's answers beyond repeat noise, in both
+  versions (O1).** With the options in a fixed order, answers move 0.023 (1.13)
+  and 0.025 (1.14) between repeats. With the options shuffled, they move 0.067
+  and 0.060. Shuffling moves the answers more on 20 of the 21 instruments in
+  1.13 (conjunction, barely, is the exception) and on all 21 in 1.14
+  (Holm-adjusted p < 0.0001 for both). For 1.13, then, about two thirds of
+  H6's 0.063 is option order and one third is repeat noise. The noise floor
+  H6 borrowed from rating scales (0.027) turns out to have been close.
+- **1.14 is no less sensitive to order than 1.13 (O2).** The median difference
+  is −0.001 (95% interval −0.010 to 0.001, p = 0.32).
+- **There is a small lean toward the later options, the opposite of what
+  TypeSafe documents (O3).** TypeSafe's
+  [Jev 1.13 notes](https://docs.typesafe.ai/model-jaggedness/jev-1.13) say it
+  leans toward the option that comes first. Here, an option gains a median
+  0.8 percentage points (1.13) and 0.7 (1.14) from first place to last
+  (Holm-adjusted p = 0.03 and 0.04). The lean is uneven. In 1.13 the
+  discounting items carry most of it, at 30 points. In 1.14 the Holt–Laury
+  lottery items lean the other way, at 18 points toward the first option. On
+  two-option items the split is 45/55 in 1.13 and exactly 50/50 in 1.14.
+  Counted by item rather than by instrument, a check fixed in advance, the lean
+  holds for 1.13 (p = 0.0006) but not for 1.14 (p = 0.14).
+- **The route makes no visible difference.** Sending the same request through
+  OpenRouter instead of directly moves the answer 0.028. Repeating it on the
+  same route moves it 0.024. Under half of the item-and-prompt pairs (48%)
+  differ between routes by more than their own repeat noise.
+
+The tests compare instruments, not items, because rows of one menu (Holt–Laury,
+discounting, the ultimatum thresholds) are not independent. The shuffled and
+fixed-order runs ran at the same time: across all four runs, each
+item-and-prompt pair was answered within 8 seconds (median 3) of runs that
+took about 80 seconds. 1.14's statistics for the whole battery are in
+[version_statistics.csv](results/order_study/version_statistics.csv), next to
+1.13's, as a description only. The full tables are in
+[results/order_study/](results/order_study/), and `jevbench order-study`
+rebuilds them and the figure from the raw runs.
+
+![How far option order moves Jev's answers, per instrument, 1.13 and 1.14](results/figures/order-study.png)
 
 ## Checked afterwards against the documented behaviour
 
@@ -432,8 +482,8 @@ hypotheses for the first run, and
 [FOLLOWUP_PREREGISTRATION.md](FOLLOWUP_PREREGISTRATION.md), a follow-up study
 whose H3 and H4 are reported above; its fame hypotheses (H1, H2) could not be
 run on this item pool. [ORDER_PREREGISTRATION.md](ORDER_PREREGISTRATION.md)
-plans an addendum on option order, run on Jev 1.13 and the 1.14 preview; it
-has not been run yet.
+is the plan for the option-order addendum, run on Jev 1.13 and the 1.14
+preview and reported above.
 
 ## How the instruments map onto three primitives
 

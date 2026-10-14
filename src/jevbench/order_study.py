@@ -401,6 +401,7 @@ def run_tests(cond: Conditions, items: dict[str, str]) -> tuple[pd.DataFrame, di
         if set(runs) != {"1.13", "1.14"}:
             raise ValueError(f"{name} needs a direct run of 1.13 and of 1.14, found {sorted(runs)}")
     rows: list[dict[str, Any]] = []
+    per_instrument: list[dict[str, Any]] = []
     dropped: dict[str, list[str]] = {}
     ans2 = {v: usable_answers(a.df) for v, a in cond.r2.items()}
     ans3 = {v: usable_answers(a.df) for v, a in cond.r3.items()}
@@ -409,6 +410,10 @@ def run_tests(cond: Conditions, items: dict[str, str]) -> tuple[pd.DataFrame, di
         name: str, units: Units, diff_of: Callable[[list[float]], float], alternative: str
     ) -> None:
         dropped[name] = units.dropped_items
+        for inst, sides in zip(units.instruments, units.instrument_values, strict=True):
+            per_instrument.append(
+                {"test": name, "instrument": inst, "value": diff_of(sides), "sides": list(sides)}
+            )
         for unit, vals in (
             ("instrument", units.instrument_values),
             ("item", units.item_values),
@@ -449,7 +454,7 @@ def run_tests(cond: Conditions, items: dict[str, str]) -> tuple[pd.DataFrame, di
         bool(ph < ALPHA) if u == "instrument" else None
         for ph, u in zip(table["p_holm"], table["unit"], strict=True)
     ]
-    return table, {"dropped_items": dropped}
+    return table, {"dropped_items": dropped, "per_instrument": per_instrument}
 
 
 # -- Descriptive (section 5) ---------------------------------------------
@@ -657,6 +662,8 @@ def analyse_study(
 
     tests, extra = run_tests(cond, items)
     tests.to_csv(out_dir / "tests.csv", index=False)
+    # The value each instrument contributes to each test, for the figure.
+    pd.DataFrame(extra.pop("per_instrument")).to_csv(out_dir / "instruments.csv", index=False)
 
     summary: dict[str, Any] = {
         "files": {
