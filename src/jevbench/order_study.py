@@ -38,6 +38,7 @@ from .runner import UNUSABLE, model_slug, resume_order_mismatch
 ORDER_STUDY_DIR = RAW_DIR / "order_study"
 ORDER_RESULTS_DIR = REPO_ROOT / "results" / "order_study"
 
+REPEATS = 10  # repeats per item x persona, as designed (section 2)
 MIN_REPEATS = 8  # usable repeats a cell needs (section 6)
 MIN_CELLS = 3  # qualifying persona cells an item needs (section 6)
 ALPHA = 0.05
@@ -100,11 +101,14 @@ def identify(served: Iterable[str]) -> tuple[str, str]:
 
 
 def requested_slug(path: Path) -> str:
-    """The requested model, as the runner wrote it into the file name."""
+    """The requested System One model, as the runner wrote it into the file name.
+
+    A run with a baseline arm names both models, Jev's first, joined by `+`.
+    """
     parts = path.stem.split("_", 3)
     if len(parts) != 4 or parts[0] != "run":
         raise ValueError(f"{path.name} is not a runner-written run file")
-    return parts[3]
+    return parts[3].split("+")[0]
 
 
 def load_arm(path: Path) -> Arm:
@@ -122,6 +126,39 @@ def load_arm(path: Path) -> Arm:
     if not (got == want or (route == "openrouter" and got.startswith(want + "-"))):
         raise ValueError(f"{path.name}: requested {want} but {served.iloc[0]} answered")
     return Arm(version, route, path, df, unusable=int(unusable.sum()), failed=int(failed.sum()))
+
+
+def check_complete(arm: Arm, condition: str) -> None:
+    """Refuse a file that is not the designed run (section 2).
+
+    R1 is the full battery and R2 and R3 the core battery, each item asked
+    under all five personas (the population items under the neutral one
+    only), 10 repeats each. A run launched with fewer repeats, personas or
+    modules would otherwise pass the per-cell thresholds, which are for
+    unusable answers, not for observations that were never collected. A call
+    that failed still counts as made; failures are reported in the health
+    counts and rerun with `--resume`.
+    """
+    from .instruments import MODULES, PERSONAS, all_probes, asked_under
+
+    modules = None if condition == "r1" else [m for m in MODULES if m != "followup"]
+    expected = {
+        (p.probe_id, persona, rep)
+        for p in all_probes(modules)
+        for persona in PERSONAS
+        if asked_under(p, persona)
+        for rep in range(REPEATS)
+    }
+    got = {
+        (str(r.probe_id), str(r.persona), int(str(r.replicate)))
+        for r in arm.df.itertuples(index=False)
+    }
+    missing, extra = expected - got, got - expected
+    if missing or extra or len(arm.df) != len(expected):
+        raise ValueError(
+            f"{arm.path.name} is not the designed {condition} run: {len(missing)} missing, "
+            f"{len(extra)} unexpected, {len(arm.df)} records for {len(expected)} designed"
+        )
 
 
 def check_condition(arm: Arm, condition: str) -> None:
@@ -539,6 +576,7 @@ def load_study(root: Path = ORDER_STUDY_DIR) -> dict[str, list[Arm]]:
     for cond in ("r1", "r2", "r3"):
         out[cond] = [load_arm(p) for p in sorted((root / cond).glob("run_live_*.jsonl"))]
         for arm in out[cond]:
+            check_complete(arm, cond)
             check_condition(arm, cond)
     return out
 
@@ -593,9 +631,13 @@ def analyse_study(
                 **route_check(r1_direct["1.13"], openrouter[0], r3_all["1.13"]),
             }
         elif openrouter_fallback is not None:
+            # The committed run predates this battery's design (it asked the
+            # population items under every persona), so only its order is checked.
+            fallback = load_arm(openrouter_fallback)
+            check_condition(fallback, "r1")
             summary["route_check"] = {
                 "kind": "route and date",
-                **route_check(r1_direct["1.13"], load_arm(openrouter_fallback), r3_all["1.13"]),
+                **route_check(r1_direct["1.13"], fallback, r3_all["1.13"]),
             }
 
     profiles = []

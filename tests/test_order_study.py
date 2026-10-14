@@ -268,3 +268,27 @@ def test_tests_refuse_an_incomplete_family() -> None:
     )
     with pytest.raises(ValueError, match=r"1\.13 and of 1\.14"):
         run_tests(one, ITEMS)
+
+
+def test_requested_slug_reads_the_jev_arm_of_a_two_model_run() -> None:
+    from jevbench.order_study import requested_slug
+
+    two = Path("run_live_20261012T225915Z_typesafe--jev-1.13+anthropic--claude-sonnet-5.5.jsonl")
+    assert requested_slug(two) == "typesafe--jev-1.13"
+    assert requested_slug(Path("run_live_20261014T000000Z_jev-1.14.0.jsonl")) == "jev-1.14.0"
+
+
+def test_completeness_refuses_a_run_that_is_not_the_designed_one(tmp_path: Path) -> None:
+    from jevbench.order_study import check_complete, load_arm
+
+    # One item under three personas: the per-cell thresholds would pass it,
+    # but it is nowhere near the designed core run.
+    partial = _record_file(
+        tmp_path,
+        "run_live_20261014T000000Z_jev-1.13.0.jsonl",
+        "jev-1.13.0",
+        seed=20261014,
+        shuffled=True,
+    )
+    with pytest.raises(ValueError, match="not the designed r2 run"):
+        check_complete(load_arm(partial), "r2")
