@@ -46,11 +46,13 @@ versions answered with the versioned ID requested.
 
 All runs use the direct TypeSafe backend, 10 repeats per item × persona, the
 five personas of the first project, and the repository's current battery. Each
-is made for **both** versions, so every comparison is like for like.
+is made for **both** versions, so every comparison is like for like. The one
+addition is a copy of R1 for 1.13 through OpenRouter, for the route check
+(section 5).
 
 | Run | Items | Option order | Purpose |
 |---|---|---|---|
-| R1 | full battery | shuffled, seed 20260918 (the committed runs' seed) | 1.14's numbers next to 1.13's; route check |
+| R1 | full battery | shuffled, seed 20260918 (the committed runs' seed) | 1.14's numbers next to 1.13's; route check (1.13 also through OpenRouter) |
 | R2 | core battery | shuffled, **new seed 20261014** | order effect, slot position |
 | R3 | core battery | **fixed** (as written, never shuffled) | the true noise floor |
 
@@ -67,10 +69,12 @@ shuffling or of version. The runner works through its jobs in a fixed order
 (item, then persona, then repeat), the same in all four runs, so a cell's
 repeats run close together and each cell is reached at about the same time
 in every run. Every comparison in section 4 is made within a cell, so it is
-matched in time. Every record carries a timestamp. As a check that the
-matching held, each cell's median timestamp is taken in each of the four
-runs, and the largest gap between them is reported (median and maximum over
-cells), next to the length of the runs.
+matched in time. The runner's existing timestamp is taken when a call is
+first sent, before any retries, so it is extended to also record when the
+answer that was kept arrived. As a check that the matching held, each cell's
+median arrival time is taken in each of the four runs, and the largest gap
+between them is reported (median and maximum over cells), next to the length
+of the runs.
 
 R2 uses a new seed because the slot hypothesis (1b) was suggested by the
 seed-20260918 permutations. Testing it on the same permutations would not be a
@@ -135,14 +139,17 @@ result.
 
 - **Jev 1.14 against 1.13** on R1: the README's headline statistics, side by
   side. We make no prediction about whether 1.14 is more or less human-like.
-- **Route check:** 1.13 on R1 (direct) against the committed 1.13 run
-  (OpenRouter, same seed). With the same seed, repeat *r* sends the identical
-  request on both routes, so the check is per repeat: the TV distance between
-  the two routes' answers to the same request, averaged over a cell's
-  repeats. The reference is R3's cell spread, which is likewise a distance
-  between single answers to identical requests (not between averages). If
-  the route matters, that is said wherever 1.13 and 1.14 numbers sit side by
-  side.
+- **Route check:** 1.13 on R1 run directly against 1.13 on R1 run through
+  OpenRouter (`typesafe/jev-1.13`, same seed), the two launched together like
+  R2 and R3, so a difference is not also a difference of date. With the same
+  seed, repeat *r* sends the identical request on both routes, so the check is
+  per repeat: the TV distance between the two routes' answers to the same
+  request, averaged over a cell's repeats. The reference is R3's cell spread,
+  which is likewise a distance between single answers to identical requests
+  (not between averages). If the route matters, that is said wherever 1.13
+  and 1.14 numbers sit side by side. If OpenRouter no longer serves 1.13, the
+  committed 12–13 October run is used instead, and the check is reported as
+  one of route and date together, not of route alone.
 - The probability-mass-by-slot profile from section 1, on R2, for each
   version.
 - The per-persona order effect (on 1.13, antisocial 0.042 against 0.066–0.070
