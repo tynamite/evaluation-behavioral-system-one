@@ -21,6 +21,7 @@ from jevbench.analysis import (  # noqa: E402
     compute_stats, h4_summary, load_records, order_effects, primary_run, simulate_vs_estimate,
 )
 from jevbench.benchmarks import BENCHMARKS  # noqa: E402
+from jevbench.diagrams import check_editorial_run  # noqa: E402
 from dataclasses import asdict  # noqa: E402
 
 PERSONA_ORDER = ["neutral", "typical_human", "typical_human_plain", "rational_agent", "antisocial"]
@@ -40,14 +41,20 @@ def fmt(v: float | None, places: int = 2) -> str:
 
 
 FIGURES = ROOT / "results" / "figures"
+# The committed figures are drawn from the committed run only (see
+# `check_editorial_run`); main() turns this off for any other run, so its
+# tables are never shown beside another experiment's figures.
+EMBED_FIGURES = True
 
 
 def figures(*items: tuple[str, str]) -> list[str]:
     """Markdown for the committed figures among `items` (file, alt text).
 
     A figure that has not been drawn is left out rather than linked broken,
-    so the document still builds from a fresh checkout or another run.
+    so the document still builds from a fresh checkout.
     """
+    if not EMBED_FIGURES:
+        return []
     return [f"![{alt}](../results/figures/{name})\n" for name, alt in items
             if (FIGURES / name).exists()]
 
@@ -72,6 +79,13 @@ def main(argv: list[str]) -> int:
         print("no run file found", file=sys.stderr)
         return 1
     df = load_records(run)
+    global EMBED_FIGURES
+    try:
+        check_editorial_run(df)
+    except ValueError as exc:
+        EMBED_FIGURES = False
+        print(f"figures left out: they are drawn from the committed run, not this one ({exc})",
+              file=sys.stderr)
     sdf = pd.DataFrame([asdict(s) for s in compute_stats(df)])
     odf = order_effects(df)
 
