@@ -245,8 +245,10 @@ existed. It asks whether H6's order effect is real or just repeat noise, and
 whether Jev 1.14 behaves differently. On that date TypeSafe lists 1.14 as its
 `jev-preview` model; `jev-latest` still points at 1.13. All runs called
 TypeSafe's API directly: 10 repeats of each item under each of the five
-prompts, plus one copy through OpenRouter to check the route. That came to
-43,950 calls and cost $0.83.
+prompts, plus one copy through OpenRouter to check the route. The exception is
+the follow-up study's 25 population questions, which are in the full-battery
+runs only and, as the battery asks them, under the neutral prompt alone. That
+came to 43,950 calls and cost $0.83.
 
 - **Shuffling the options moves Jev's answers beyond repeat noise, in both
   versions (O1).** With the options in a fixed order, answers move 0.023 (1.13)
@@ -256,8 +258,10 @@ prompts, plus one copy through OpenRouter to check the route. That came to
   (Holm-adjusted p < 0.0001 for both). For 1.13, then, about two thirds of
   H6's 0.063 is option order and one third is repeat noise. The noise floor
   H6 borrowed from rating scales (0.027) turns out to have been close.
-- **1.14 is no less sensitive to order than 1.13 (O2).** The median difference
-  is −0.001 (95% interval −0.010 to 0.001, p = 0.32).
+- **No difference in order sensitivity between 1.14 and 1.13 was detected
+  (O2).** The median difference is −0.001 (95% interval −0.010 to 0.001,
+  p = 0.32). The interval still allows 1.14 to be slightly less sensitive, so
+  this does not show the two are the same.
 - **There is a small lean toward the later options, the opposite of what
   TypeSafe documents (O3).** TypeSafe's
   [Jev 1.13 notes](https://docs.typesafe.ai/model-jaggedness/jev-1.13) say it
