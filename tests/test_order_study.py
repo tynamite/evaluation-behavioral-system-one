@@ -176,3 +176,95 @@ def test_resume_refuses_other_order_settings() -> None:
     assert resume_order_mismatch(kept, probes, seed=20261014, randomise_options=True) is None
     assert resume_order_mismatch(kept, probes, seed=20260918, randomise_options=True)
     assert resume_order_mismatch(kept, probes, seed=20261014, randomise_options=False)
+
+
+MIN_REPEATS_FOR_FILE = 10
+
+
+def _record_file(tmp_path: Path, name: str, served: str, *, seed: int, shuffled: bool) -> Path:
+    """A small runner-shaped run file of one real multiple-choice item."""
+    import json
+    from dataclasses import asdict
+
+    from jevbench.runner import Record
+
+    probe = next(p for p in all_probes() if p.probe_id == "holt_laury_04")
+    path = tmp_path / name
+    with path.open("w") as fh:
+        for persona in list(PERSONAS)[:3]:
+            for rep in range(MIN_REPEATS_FOR_FILE):
+                prepared = prepare_probe(probe, persona, rep, seed=seed, randomise_options=shuffled)
+                keys = list(prepared.question.criteria)
+                rec = Record(
+                    probe_id=probe.probe_id,
+                    instrument=probe.instrument,
+                    persona=persona,
+                    arm="jev",
+                    replicate=rep,
+                    backend="typesafe",
+                    model=served,
+                    kind="choice",
+                    value=keys[0],
+                    probabilities={keys[0]: 0.7, keys[1]: 0.3},
+                    option_order=prepared.meta.get("option_order"),
+                    meta=probe.meta,
+                )
+                fh.write(json.dumps(asdict(rec)) + "\n")
+    return path
+
+
+def test_load_arm_refuses_a_version_other_than_requested(tmp_path: Path) -> None:
+    from jevbench.order_study import load_arm
+
+    ok = _record_file(
+        tmp_path, "run_live_20261014T000000Z_jev-1.14.0.jsonl", "jev-1.14.0", seed=1, shuffled=True
+    )
+    assert load_arm(ok).version == "1.14"
+    wrong = _record_file(
+        tmp_path, "run_live_20261014T000001Z_jev-1.14.0.jsonl", "jev-1.13.0", seed=1, shuffled=True
+    )
+    with pytest.raises(ValueError, match=r"requested jev-1\.14\.0"):
+        load_arm(wrong)
+    routed = _record_file(
+        tmp_path,
+        "run_live_20261014T000002Z_typesafe--jev-1.13.jsonl",
+        "typesafe/jev-1.13-20260917",
+        seed=1,
+        shuffled=True,
+    )
+    assert (load_arm(routed).version, load_arm(routed).route) == ("1.13", "openrouter")
+
+
+def test_condition_check_catches_a_run_made_with_the_wrong_order(tmp_path: Path) -> None:
+    from jevbench.order_study import check_condition, load_arm
+
+    r2 = _record_file(
+        tmp_path,
+        "run_live_20261014T000000Z_jev-1.13.0.jsonl",
+        "jev-1.13.0",
+        seed=20261014,
+        shuffled=True,
+    )
+    check_condition(load_arm(r2), "r2")
+    # Run as R2 but without --seed 20261014, or as R3 without --fixed-order.
+    with pytest.raises(ValueError, match="r1's option order"):
+        check_condition(load_arm(r2), "r1")
+    with pytest.raises(ValueError, match="r3's option order"):
+        check_condition(load_arm(r2), "r3")
+    r3 = _record_file(
+        tmp_path,
+        "run_live_20261014T000001Z_jev-1.13.0.jsonl",
+        "jev-1.13.0",
+        seed=20261014,
+        shuffled=False,
+    )
+    check_condition(load_arm(r3), "r3")
+
+
+def test_tests_refuse_an_incomplete_family() -> None:
+    one = Conditions(
+        r2={"1.13": _arm("1.13", _rows(ITEMS, shuffle=True, pull=0.1))},
+        r3={"1.13": _arm("1.13", _rows(ITEMS, shuffle=False, pull=0.1))},
+    )
+    with pytest.raises(ValueError, match=r"1\.13 and of 1\.14"):
+        run_tests(one, ITEMS)

@@ -33,7 +33,7 @@ from scipy import stats as sps
 
 from .analysis import compute_stats, load_records, tv_distance
 from .config import RAW_DIR, REPO_ROOT
-from .runner import UNUSABLE
+from .runner import UNUSABLE, model_slug, resume_order_mismatch
 
 ORDER_STUDY_DIR = RAW_DIR / "order_study"
 ORDER_RESULTS_DIR = REPO_ROOT / "results" / "order_study"
@@ -47,6 +47,10 @@ BOOTSTRAP_SEED = 20261014
 # Served model IDs, as each response's `model` field reports them.
 DIRECT_MODELS = {"jev-1.13.0": "1.13", "jev-1.14.0": "1.14"}
 OPENROUTER_PREFIXES = {"typesafe/jev-1.13-": "1.13", "typesafe/jev-1.14-": "1.14"}
+
+# How each condition presents the options (section 2), checked against every
+# record before anything is analysed: (seed, shuffled).
+CONDITION_ORDER = {"r1": (20260918, True), "r2": (20261014, True), "r3": (20260918, False)}
 
 Cell = tuple[str, str]  # (probe_id, persona)
 
@@ -95,6 +99,14 @@ def identify(served: Iterable[str]) -> tuple[str, str]:
     raise ValueError(f"unexpected served model {model!r}")
 
 
+def requested_slug(path: Path) -> str:
+    """The requested model, as the runner wrote it into the file name."""
+    parts = path.stem.split("_", 3)
+    if len(parts) != 4 or parts[0] != "run":
+        raise ValueError(f"{path.name} is not a runner-written run file")
+    return parts[3]
+
+
 def load_arm(path: Path) -> Arm:
     df = load_records(path)
     df = df[df["arm"] == "jev"].copy()
@@ -102,8 +114,37 @@ def load_arm(path: Path) -> Arm:
     unusable = err.fillna("").astype(str).str.startswith(UNUSABLE)
     failed = err.notna() & ~unusable
     # A failed call's record carries the requested ID, not a served one.
-    version, route = identify(df.loc[~failed, "model"].astype(str))
+    served = df.loc[~failed, "model"].astype(str)
+    version, route = identify(served)
+    # The served model must be the one requested: the same versioned ID on
+    # the direct route, its dated build on OpenRouter (section 6).
+    want, got = requested_slug(path), model_slug(served.iloc[0])
+    if not (got == want or (route == "openrouter" and got.startswith(want + "-"))):
+        raise ValueError(f"{path.name}: requested {want} but {served.iloc[0]} answered")
     return Arm(version, route, path, df, unusable=int(unusable.sum()), failed=int(failed.sum()))
+
+
+def check_condition(arm: Arm, condition: str) -> None:
+    """Refuse a file whose option orders are not its condition's (section 2).
+
+    A run made without `--seed 20261014` (R2) or `--fixed-order` (R3) would
+    otherwise be analysed as the preregistered treatment.
+    """
+    from .instruments import all_probes
+
+    seed, shuffled = CONDITION_ORDER[condition]
+    rows: list[dict[str, Any]] = [
+        {
+            "probe_id": str(r.probe_id),
+            "persona": str(r.persona),
+            "replicate": r.replicate,
+            "option_order": r.option_order if isinstance(r.option_order, list) else None,
+        }
+        for r in arm.df.itertuples(index=False)
+    ]
+    problem = resume_order_mismatch(rows, all_probes(), seed=seed, randomise_options=shuffled)
+    if problem:
+        raise ValueError(f"{arm.path.name} does not match {condition}'s option order: {problem}")
 
 
 def core_choice_items() -> dict[str, str]:
@@ -309,7 +350,14 @@ class Conditions:
 
 
 def run_tests(cond: Conditions, items: dict[str, str]) -> tuple[pd.DataFrame, dict[str, Any]]:
-    """The five preregistered tests, at instrument level, plus the item-level sensitivity check."""
+    """The five preregistered tests, at instrument level, plus the item-level sensitivity check.
+
+    Holm's correction is for the family of five, so all four runs must be
+    present; a partial set is refused rather than corrected over fewer tests.
+    """
+    for name, runs in (("r2", cond.r2), ("r3", cond.r3)):
+        if set(runs) != {"1.13", "1.14"}:
+            raise ValueError(f"{name} needs a direct run of 1.13 and of 1.14, found {sorted(runs)}")
     rows: list[dict[str, Any]] = []
     dropped: dict[str, list[str]] = {}
     ans2 = {v: usable_answers(a.df) for v, a in cond.r2.items()}
@@ -330,20 +378,19 @@ def run_tests(cond: Conditions, items: dict[str, str]) -> tuple[pd.DataFrame, di
         u = paired_units([cell_spreads(ans2[v], items), cell_spreads(ans3[v], items)], items)
         add(f"O1 {v}", u, lambda s: s[0] - s[1], "greater")
 
-    if {"1.13", "1.14"} <= set(cond.r2) and {"1.13", "1.14"} <= set(cond.r3):
-        # Permutation is the treatment, so R2 is compared on the repeats usable
-        # on both versions (section 6).
-        shared = {
-            cell: set(ans2["1.13"][cell]) & set(ans2["1.14"].get(cell, {})) for cell in ans2["1.13"]
-        }
-        sides = [
-            cell_spreads(ans2["1.13"], items, shared),
-            cell_spreads(ans3["1.13"], items),
-            cell_spreads(ans2["1.14"], items, shared),
-            cell_spreads(ans3["1.14"], items),
-        ]
-        u = paired_units(sides, items)
-        add("O2", u, lambda s: (s[2] - s[3]) - (s[0] - s[1]), "two-sided")
+    # Permutation is the treatment, so R2 is compared on the repeats usable
+    # on both versions (section 6).
+    shared = {
+        cell: set(ans2["1.13"][cell]) & set(ans2["1.14"].get(cell, {})) for cell in ans2["1.13"]
+    }
+    sides = [
+        cell_spreads(ans2["1.13"], items, shared),
+        cell_spreads(ans3["1.13"], items),
+        cell_spreads(ans2["1.14"], items, shared),
+        cell_spreads(ans3["1.14"], items),
+    ]
+    u = paired_units(sides, items)
+    add("O2", u, lambda s: (s[2] - s[3]) - (s[0] - s[1]), "two-sided")
 
     for v in sorted(cond.r2):
         u = paired_units([cell_slopes(ans2[v], items)], items)
@@ -491,6 +538,8 @@ def load_study(root: Path = ORDER_STUDY_DIR) -> dict[str, list[Arm]]:
     out: dict[str, list[Arm]] = {}
     for cond in ("r1", "r2", "r3"):
         out[cond] = [load_arm(p) for p in sorted((root / cond).glob("run_live_*.jsonl"))]
+        for arm in out[cond]:
+            check_condition(arm, cond)
     return out
 
 
