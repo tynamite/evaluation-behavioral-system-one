@@ -122,12 +122,19 @@ result.
 
 - A record counts only if the response reports the versioned model ID
   requested and its distribution passes the existing usability check
-  (`distribution_problem`). Others are rerun with `--resume`.
+  (`distribution_problem`).
+- Calls that fail outright (no reply) are rerun with `--resume`. Replies that
+  arrive but fail the usability check are **not** retried: they are Jev's
+  answer, `--resume` keeps them, and retrying until a usable one came back
+  would select the answers. They are counted and reported per version, and
+  they count against the threshold below.
 - A cell needs at least 8 usable repeats; an item needs at least 3 usable
   cells. Dropped items are listed.
-- Each run is completed in one go where possible. If TypeSafe changes what
-  `jev-1.14.0` serves partway through (seen as a different model field),
-  the affected run is redone in full.
+- Each run is completed in one go where possible. If any record reports a
+  model other than the versioned ID requested (for instance, TypeSafe changes
+  what `jev-1.14.0` serves partway through), that run is redone in full as a
+  new file, not resumed, and the discarded file is kept and named in the
+  report.
 
 ## 7. Reporting
 
