@@ -39,6 +39,19 @@ def fmt(v: float | None, places: int = 2) -> str:
     return f"{v:.{places}f}"
 
 
+FIGURES = ROOT / "results" / "figures"
+
+
+def figures(*items: tuple[str, str]) -> list[str]:
+    """Markdown for the committed figures among `items` (file, alt text).
+
+    A figure that has not been drawn is left out rather than linked broken,
+    so the document still builds from a fresh checkout or another run.
+    """
+    return [f"![{alt}](../results/figures/{name})\n" for name, alt in items
+            if (FIGURES / name).exists()]
+
+
 def persona_table(sdf: pd.DataFrame, rows: list[tuple[str, str, str]], arm: str = "jev") -> list[str]:
     personas = [p for p in PERSONA_ORDER if p in set(sdf["persona"])]
     out = ["| Measure | " + " | ".join(PERSONA_LABEL[p] for p in personas) + " | Human |",
@@ -81,6 +94,7 @@ def main(argv: list[str]) -> int:
              "from the point answers. Human values are "
              "literature reference points, not a matched control group — see "
              "[BENCHMARKS.md](BENCHMARKS.md).\n")
+    L += figures(("how-it-works.png", "How one item becomes a number"))
 
     L.append("## Cognitive reflection\n")
     L += persona_table(sdf, [
@@ -101,6 +115,14 @@ def main(argv: list[str]) -> int:
     L.append("")
 
     L.append("## Social preferences\n")
+    L += figures(
+        ("jev-games-neutral.png", "Jev in the economic games, with no instruction"),
+        ("models-games.png", "Four System One models against people in the economic games"),
+        ("dictator-distribution.png", "What a single call returns: Jev's dictator distribution"),
+        ("models-dictator.png", "What a single call returns, four models"),
+        ("persona-antisocial.png", "Jev's antisocial persona in the economic games"),
+        ("models-antisocial.png", "The antisocial persona in the economic games, four models"),
+    )
     L += persona_table(sdf, [
         ("dictator", "mean_share", "Dictator: share given"),
         ("dictator", "prob_give_zero", "Dictator: mass on giving nothing"),
@@ -115,6 +137,14 @@ def main(argv: list[str]) -> int:
     L.append("")
 
     L.append("## Decision anomalies\n")
+    L += figures(
+        ("jev-decisions.png", "Jev on the seven decision-making tests, with and without the "
+                              "typical-person instruction"),
+        ("models-decisions.png", "Four System One models against people on the seven "
+                                 "decision-making tests"),
+        ("jev-steer.png", "Jev under the typical-person instruction with and without its steer"),
+        ("framing-contrast.png", "The framing reversal by model"),
+    )
     L += persona_table(sdf, [
         ("framing", "prob_certain_gain_frame", "Framing: certain option (gain frame)"),
         ("framing", "prob_certain_loss_frame", "Framing: certain option (loss frame)"),
@@ -151,6 +181,10 @@ def main(argv: list[str]) -> int:
     L.append("")
 
     L.append("## Option-order sensitivity\n")
+    L += figures(
+        ("order-effects.png", "Option-order sensitivity, Jev"),
+        ("models-order-effects.png", "Option-order sensitivity, four models"),
+    )
     if len(odf):
         followup = odf[odf.followup]
         odf = odf[~odf.followup]
@@ -185,6 +219,8 @@ def main(argv: list[str]) -> int:
     h4 = simulate_vs_estimate(sdf)
     if len(h4):
         L.append("## Follow-up H4: simulate or estimate\n")
+        L += figures(("followup-h4.png", "Jev's error on each of the 23 statistics, "
+                                         "simulated and estimated"))
         L.append("Each follow-up statistic measured two ways: the item asked with the typical-person "
                  "prompt (simulate), and its population question asked with no persona (estimate). "
                  "Errors are distances from the original study's published value (Many Labs 2 "
@@ -219,6 +255,29 @@ def main(argv: list[str]) -> int:
                      f"errors ({p(hs['wilcoxon_p_scaled'])} scaled, post-hoc); mean scaled error "
                      f"{hs['mean_scaled_error_simulate']:.3f} (simulate) vs "
                      f"{hs['mean_scaled_error_estimate']:.3f} (estimate)")
+        L.append("")
+
+    across = figures(
+        ("models-scatter.png", "Every model's distance from the published human results"),
+        ("health-checks.png", "What the health table caught"),
+    )
+    if across:
+        L.append("## Across the System One models\n")
+        L.append("All twelve models are compared, with the discussion, in "
+                 "[MODELS.md](MODELS.md).\n")
+        L += across
+        L.append("")
+
+    order = figures(("order-study.png", "How far option order moves Jev's answers, per "
+                                        "instrument, 1.13 and 1.14"))
+    if order:
+        L.append("## Addendum: option order, and the Jev 1.14 preview\n")
+        L.append("A separate preregistered study, run on 14 October 2026 on Jev 1.13 and the "
+                 "1.14 preview; the tables above are not from it. Its plan is in "
+                 "[ORDER_PREREGISTRATION.md](../ORDER_PREREGISTRATION.md), its results in "
+                 "[results/order_study/](../results/order_study/) and the "
+                 "[README](../README.md#addendum-14-october-2026-option-order-and-the-jev-114-preview).\n")
+        L += order
         L.append("")
 
     out = ROOT / "docs" / "RESULTS.md"
