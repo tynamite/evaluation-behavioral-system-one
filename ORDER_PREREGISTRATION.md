@@ -63,9 +63,14 @@ paired.
 launched together, with the same number of workers each, so their requests
 are interleaved over one time window. Run one after another, a change in how
 TypeSafe serves Jev between runs would be indistinguishable from an effect of
-shuffling or of version. Every record carries a timestamp. As a check, each
-of the four runs is split at its median timestamp, and the mean cell spread
-of its two halves is reported.
+shuffling or of version. The runner works through its jobs in a fixed order
+(item, then persona, then repeat), the same in all four runs, so a cell's
+repeats run close together and each cell is reached at about the same time
+in every run. Every comparison in section 4 is made within a cell, so it is
+matched in time. Every record carries a timestamp. As a check that the
+matching held, each cell's median timestamp is taken in each of the four
+runs, and the largest gap between them is reported (median and maximum over
+cells), next to the length of the runs.
 
 R2 uses a new seed because the slot hypothesis (1b) was suggested by the
 seed-20260918 permutations. Testing it on the same permutations would not be a
