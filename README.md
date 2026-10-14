@@ -431,7 +431,9 @@ Also at the root: [PREREGISTRATION.md](PREREGISTRATION.md), the plan and
 hypotheses for the first run, and
 [FOLLOWUP_PREREGISTRATION.md](FOLLOWUP_PREREGISTRATION.md), a follow-up study
 whose H3 and H4 are reported above; its fame hypotheses (H1, H2) could not be
-run on this item pool.
+run on this item pool. [ORDER_PREREGISTRATION.md](ORDER_PREREGISTRATION.md)
+plans an addendum on option order, run on Jev 1.13 and the 1.14 preview; it
+has not been run yet.
 
 ## How the instruments map onto three primitives
 
