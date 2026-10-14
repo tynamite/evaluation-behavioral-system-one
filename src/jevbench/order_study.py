@@ -596,12 +596,59 @@ def _direct(arms: list[Arm]) -> dict[str, Arm]:
     return found
 
 
+# The run files the study is made of (section 2): each condition's (version,
+# route) pairs, exactly once. R1's OpenRouter copy may instead come from the
+# committed run (section 5).
+DESIGN = {
+    "r1": {("1.13", "direct"), ("1.14", "direct"), ("1.13", "openrouter")},
+    "r2": {("1.13", "direct"), ("1.14", "direct")},
+    "r3": {("1.13", "direct"), ("1.14", "direct")},
+}
+
+
+def check_design(study: dict[str, list[Arm]], has_fallback: bool) -> None:
+    """Refuse a study that is not exactly the designed set of run files.
+
+    Checked before anything is written, so a partial set can neither produce
+    an apparently complete result nor leave an earlier invocation's files
+    looking current.
+    """
+    for cond, wanted in DESIGN.items():
+        found = [(a.version, a.route) for a in study[cond]]
+        dupes = sorted({f for f in found if found.count(f) > 1})
+        if dupes:
+            raise ValueError(f"{cond} has more than one run of {dupes}")
+        need = set(wanted)
+        if cond == "r1" and has_fallback:
+            need.discard(("1.13", "openrouter"))
+        missing, extra = need - set(found), set(found) - wanted
+        if missing or extra:
+            hint = " (or pass --openrouter-fallback)" if ("1.13", "openrouter") in missing else ""
+            raise ValueError(
+                f"{cond} is not the designed set: missing {sorted(missing)}{hint}, "
+                f"unexpected {sorted(extra)}"
+            )
+    if has_fallback and any(a.route == "openrouter" for a in study["r1"]):
+        raise ValueError("r1 has a fresh OpenRouter run; --openrouter-fallback is not used then")
+
+
 def analyse_study(
     root: Path = ORDER_STUDY_DIR,
     out_dir: Path = ORDER_RESULTS_DIR,
     openrouter_fallback: Path | None = None,
 ) -> dict[str, Any]:
     study = load_study(root)
+    check_design(study, openrouter_fallback is not None)
+    fallback_arm: Arm | None = None
+    if openrouter_fallback is not None:
+        # The committed run predates this battery's design (it asked the
+        # population items under every persona), so only its order is checked.
+        fallback_arm = load_arm(openrouter_fallback)
+        if (fallback_arm.version, fallback_arm.route) != ("1.13", "openrouter"):
+            raise ValueError(
+                f"{openrouter_fallback.name} is {fallback_arm.label}, not 1.13 through OpenRouter"
+            )
+        check_condition(fallback_arm, "r1")
     items = core_choice_items()
     cond = Conditions(r2=_direct(study["r2"]), r3=_direct(study["r3"]))
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -628,34 +675,25 @@ def analyse_study(
     # cell, not only the multiple-choice ones.
     r3_all = {v: cell_spreads(usable_answers(a.df), None) for v, a in cond.r3.items()}
     r1_direct = _direct(study["r1"])
-    openrouter = [a for a in study["r1"] if a.route == "openrouter" and a.version == "1.13"]
-    if "1.13" in r1_direct and "1.13" in r3_all:
-        if openrouter:
-            summary["route_check"] = {
-                "kind": "route",
-                **route_check(r1_direct["1.13"], openrouter[0], r3_all["1.13"]),
-            }
-        elif openrouter_fallback is not None:
-            # The committed run predates this battery's design (it asked the
-            # population items under every persona), so only its order is checked.
-            fallback = load_arm(openrouter_fallback)
-            if (fallback.version, fallback.route) != ("1.13", "openrouter"):
-                raise ValueError(
-                    f"{openrouter_fallback.name} is {fallback.label}, not 1.13 through OpenRouter"
-                )
-            check_condition(fallback, "r1")
-            summary["route_check"] = {
-                "kind": "route and date",
-                **route_check(r1_direct["1.13"], fallback, r3_all["1.13"]),
-            }
+    openrouter = [a for a in study["r1"] if a.route == "openrouter"]
+    if openrouter:
+        summary["route_check"] = {
+            "kind": "route",
+            **route_check(r1_direct["1.13"], openrouter[0], r3_all["1.13"]),
+        }
+    else:
+        assert fallback_arm is not None  # check_design requires one or the other
+        summary["route_check"] = {
+            "kind": "route and date",
+            **route_check(r1_direct["1.13"], fallback_arm, r3_all["1.13"]),
+        }
 
     profiles = []
     for v, a in cond.r2.items():
         prof = slot_profile(usable_answers(a.df), items)
         prof.insert(0, "version", v)
         profiles.append(prof)
-    if profiles:
-        pd.concat(profiles).to_csv(out_dir / "slot_profile.csv", index=False)
+    pd.concat(profiles).to_csv(out_dir / "slot_profile.csv", index=False)
 
     summary["persona_spread"] = {
         f"{c} {v}": persona_spreads(cell_spreads(usable_answers(a.df), items))
@@ -666,8 +704,7 @@ def analyse_study(
         [cond.r2[v] for v in sorted(cond.r2)] + [cond.r3[v] for v in sorted(cond.r3)], items
     )
 
-    if r1_direct:
-        version_statistics(r1_direct).to_csv(out_dir / "version_statistics.csv", index=False)
+    version_statistics(r1_direct).to_csv(out_dir / "version_statistics.csv", index=False)
 
     (out_dir / "summary.json").write_text(json.dumps(summary, indent=2, default=str) + "\n")
     return {"tests": tests, "summary": summary}

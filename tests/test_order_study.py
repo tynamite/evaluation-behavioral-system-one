@@ -337,3 +337,29 @@ def test_resume_checks_kept_records_outside_the_selected_modules(tmp_path: Path)
             replicates=1,
             resume=path,
         )
+
+
+def test_study_must_be_the_designed_set_of_runs() -> None:
+    from jevbench.order_study import check_design
+
+    def arms(*pairs: tuple[str, str]) -> list[Arm]:
+        return [
+            Arm(v, r, Path(f"{v}-{r}-{i}.jsonl"), pd.DataFrame()) for i, (v, r) in enumerate(pairs)
+        ]
+
+    both = [("1.13", "direct"), ("1.14", "direct")]
+    full = {"r1": arms(*both, ("1.13", "openrouter")), "r2": arms(*both), "r3": arms(*both)}
+    check_design(full, has_fallback=False)
+    # No fresh OpenRouter run: only with the committed fallback.
+    no_or = {**full, "r1": arms(*both)}
+    with pytest.raises(ValueError, match="openrouter-fallback"):
+        check_design(no_or, has_fallback=False)
+    check_design(no_or, has_fallback=True)
+    # A fresh OpenRouter run and a fallback together is ambiguous.
+    with pytest.raises(ValueError, match="not used then"):
+        check_design(full, has_fallback=True)
+    # One direct R1 version missing, or a duplicate OpenRouter run.
+    with pytest.raises(ValueError, match="r1 is not the designed set"):
+        check_design({**full, "r1": arms(("1.13", "direct"), ("1.13", "openrouter"))}, False)
+    with pytest.raises(ValueError, match="more than one run"):
+        check_design({**full, "r1": full["r1"] + arms(("1.13", "openrouter"))}, False)
