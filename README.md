@@ -276,10 +276,12 @@ free); [summary.json](results/order_study/summary.json) has both, run by run.
   two-option items the split is 45/55 in 1.13 and exactly 50/50 in 1.14.
   Counted by item rather than by instrument, a check fixed in advance, the lean
   holds for 1.13 (p = 0.0006) but not for 1.14 (p = 0.14).
-- **The route makes no visible difference.** Sending the same request through
-  OpenRouter instead of directly moves the answer 0.028. Repeating it on the
-  same route moves it 0.024. Under half of the item-and-prompt pairs (48%)
-  differ between routes by more than their own repeat noise.
+- **The route difference is close to repeat noise.** Sending the same request
+  through OpenRouter instead of directly moves the answer 0.028. Repeating a
+  request on the direct route, with its options in a fixed order, moves it
+  0.024. Under half of the item-and-prompt pairs (48%) differ between routes
+  by more than that noise. This is a description, not a test: no margin was
+  set in advance, so it does not show the two routes are the same.
 
 The tests compare instruments, not items, because rows of one menu (Holt–Laury,
 discounting, the ultimatum thresholds) are not independent. The shuffled and
