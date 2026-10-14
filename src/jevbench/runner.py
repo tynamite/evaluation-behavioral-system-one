@@ -52,6 +52,10 @@ class Record:
     usage: dict[str, Any] = field(default_factory=dict)
     error: str | None = None
     timestamp: str = ""
+    # When the answer that was kept arrived. `timestamp` is taken when the call
+    # is first sent, so retries and backoff can put minutes between the two.
+    # Recorded on the Jev arm only; None in runs made before it existed.
+    answered_at: str | None = None
 
 
 def render_prompt(probe: Probe) -> tuple[str, list[str]]:
@@ -75,6 +79,50 @@ def render_prompt(probe: Probe) -> tuple[str, list[str]]:
         options = ["true", "false"]
         parts.append("Reply with exactly 'true' or 'false' and nothing else.")
     return "\n\n".join(parts), options
+
+
+def prepare_probe(
+    probe: Probe, persona_key: str, replicate: int, *, seed: int, randomise_options: bool
+) -> Probe:
+    """The probe as sent: the persona applied, then the seeded option shuffle.
+
+    Seeded by item, persona and repeat, not by model, so every model sees the
+    same order on a given repeat.
+    """
+    prepared = apply_persona(probe, PERSONAS[persona_key])
+    if randomise_options:
+        rng = random.Random(f"{seed}|{probe.probe_id}|{persona_key}|{replicate}")
+        prepared = permute_options(prepared, rng)
+    return prepared
+
+
+def resume_order_mismatch(
+    kept: list[dict[str, Any]], probes: list[Probe], *, seed: int, randomise_options: bool
+) -> str | None:
+    """Why the kept records of a resumed run were made with other order settings, if they were.
+
+    Resuming with a different `--seed` or `--fixed-order` would mix two
+    conditions in one file without a trace, so the option order each kept
+    record saw is recomputed from the settings given now and compared.
+    """
+    by_id = {p.probe_id: p for p in probes}
+    for row in kept:
+        probe = by_id.get(row["probe_id"])
+        if probe is None or row["persona"] not in PERSONAS:
+            continue
+        expected = prepare_probe(
+            probe,
+            row["persona"],
+            int(row["replicate"]),
+            seed=seed,
+            randomise_options=randomise_options,
+        ).meta.get("option_order")
+        if row.get("option_order") != expected:
+            return (
+                f"{row['probe_id']} / {row['persona']} / repeat {row['replicate']} was "
+                f"presented as {row.get('option_order')}, but these settings give {expected}"
+            )
+    return None
 
 
 class BatteryRunner:
@@ -158,14 +206,17 @@ class BatteryRunner:
         return records
 
     def _one_jev(self, client: Any, probe: Probe, persona_key: str, replicate: int) -> Record:
-        persona = PERSONAS[persona_key]
-        prepared = apply_persona(probe, persona)
-        if self.randomise_options:
-            rng = random.Random(f"{self.seed}|{probe.probe_id}|{persona_key}|{replicate}")
-            prepared = permute_options(prepared, rng)
+        prepared = prepare_probe(
+            probe,
+            persona_key,
+            replicate,
+            seed=self.seed,
+            randomise_options=self.randomise_options,
+        )
         now = datetime.now(UTC).isoformat()
         try:
             resp = client.decide(prepared.state, {"answer": prepared.question})
+            answered_at = datetime.now(UTC).isoformat()
             ans = resp.answers["answer"]
             # Checked here, after the response, so a rejected reply keeps the
             # model that served it and the cost it ran up.
@@ -188,6 +239,7 @@ class BatteryRunner:
                 usage=resp.usage,
                 error=f"{UNUSABLE}{problem}" if problem else None,
                 timestamp=now,
+                answered_at=answered_at,
             )
         except Exception as exc:
             return Record(
@@ -246,15 +298,13 @@ class BatteryRunner:
     def _one_baseline(
         self, client: SystemOneClient, probe: Probe, persona_key: str, sample: int
     ) -> Record:
-        persona = PERSONAS[persona_key]
-        prepared = apply_persona(probe, persona)
         # Same seeded shuffle as the System One arm, so on a given replicate
         # both arms see the options in the same order. The committed runs (18 Sep
         # and 12 Oct 2026) did not shuffle here, and listed every scored item's correct option
         # first; docs/LEARNINGS.md has the detail.
-        if self.randomise_options:
-            rng = random.Random(f"{self.seed}|{probe.probe_id}|{persona_key}|{sample}")
-            prepared = permute_options(prepared, rng)
+        prepared = prepare_probe(
+            probe, persona_key, sample, seed=self.seed, randomise_options=self.randomise_options
+        )
         prompt, options = render_prompt(prepared)
         now = datetime.now(UTC).isoformat()
         try:
@@ -341,15 +391,25 @@ def run_battery(
     replicates: int = 3,
     baseline_samples: int = 0,
     workers: int = 8,
+    seed: int = 20260918,
+    randomise_options: bool = True,
     out_dir: Path | None = None,
     resume: Path | None = None,
 ) -> Path:
     if replicates <= 0 and baseline_samples <= 0:
         raise RuntimeError("nothing to run: set --replicates or --baseline-samples above 0")
 
+    probes = all_probes(modules)
     if resume is not None:
         path = resume
         kept, done = _done_keys(path)
+        problem = resume_order_mismatch(
+            kept, probes, seed=seed, randomise_options=randomise_options
+        )
+        if problem:
+            raise RuntimeError(
+                f"cannot resume {path.name} with these --seed/--fixed-order settings: {problem}"
+            )
         print(f"resuming {path.name}: keeping {len(kept)} completed records", file=sys.stderr)
     else:
         out_dir = out_dir or RAW_DIR
@@ -374,12 +434,13 @@ def run_battery(
             fh.write(json.dumps(asdict(rec), default=str) + "\n")
             fh.flush()
 
-        probes = all_probes(modules)
         runner = BatteryRunner(
             config,
             personas=personas,
             replicates=replicates,
+            seed=seed,
             workers=workers,
+            randomise_options=randomise_options,
             sink=sink,
             done=done,
         )
