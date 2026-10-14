@@ -246,7 +246,7 @@ whether Jev 1.14 behaves differently. On that date TypeSafe lists 1.14 as its
 `jev-preview` model; `jev-latest` still points at 1.13. All runs called
 TypeSafe's API directly: 10 repeats of each item under each of the five
 prompts, plus one copy through OpenRouter to check the route. That came to
-44,100 calls and cost $0.83.
+43,950 calls and cost $0.83.
 
 - **Shuffling the options moves Jev's answers beyond repeat noise, in both
   versions (O1).** With the options in a fixed order, answers move 0.023 (1.13)
