@@ -111,6 +111,11 @@ def main(argv: list[str]) -> int:
         "fig8_followup_elicitations": lambda: plots.fig_followup_elicitations(sdf, out),
         "fig9_followup_currency": lambda: plots.fig_followup_currency(sdf, out),
     }
+    # The option-order addendum's figure, when its analysis has been run.
+    order_study = ROOT / "results" / "order_study" / "instruments.csv"
+    if order_study.exists():
+        inst = pd.read_csv(order_study)
+        builders["order_study"] = lambda: plots.fig_order_study(inst, out)
 
     # Re-render inside this process so the figure is still open for measurement.
     failures = 0

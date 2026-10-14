@@ -1,0 +1,168 @@
+{
+  "files": {
+    "r1": [
+      {
+        "file": "run_live_20261014T231829Z_jev-1.13.0.jsonl",
+        "version": "1.13",
+        "route": "direct"
+      },
+      {
+        "file": "run_live_20261014T231829Z_jev-1.14.0.jsonl",
+        "version": "1.14",
+        "route": "direct"
+      },
+      {
+        "file": "run_live_20261014T231829Z_typesafe--jev-1.13.jsonl",
+        "version": "1.13",
+        "route": "openrouter"
+      }
+    ],
+    "r2": [
+      {
+        "file": "run_live_20261014T231642Z_jev-1.13.0.jsonl",
+        "version": "1.13",
+        "route": "direct"
+      },
+      {
+        "file": "run_live_20261014T231642Z_jev-1.14.0.jsonl",
+        "version": "1.14",
+        "route": "direct"
+      }
+    ],
+    "r3": [
+      {
+        "file": "run_live_20261014T231642Z_jev-1.13.0.jsonl",
+        "version": "1.13",
+        "route": "direct"
+      },
+      {
+        "file": "run_live_20261014T231642Z_jev-1.14.0.jsonl",
+        "version": "1.14",
+        "route": "direct"
+      }
+    ]
+  },
+  "health": {
+    "r1 1.13 (direct)": {
+      "records": 6850,
+      "unusable": 0,
+      "failed": 0,
+      "input_tokens": 3091490,
+      "cost_usd": 0.12984257999999999,
+      "cost_source": "input tokens x $42 per billion (TypeSafe list price)"
+    },
+    "r1 1.14 (direct)": {
+      "records": 6850,
+      "unusable": 0,
+      "failed": 0,
+      "input_tokens": 3091490,
+      "cost_usd": 0.12984257999999999,
+      "cost_source": "input tokens x $42 per billion (TypeSafe list price)"
+    },
+    "r1 1.13 (openrouter)": {
+      "records": 6850,
+      "unusable": 0,
+      "failed": 0,
+      "input_tokens": 3091390,
+      "cost_usd": 0.12983838,
+      "cost_source": "recorded"
+    },
+    "r2 1.13 (direct)": {
+      "records": 5850,
+      "unusable": 0,
+      "failed": 0,
+      "input_tokens": 2627960,
+      "cost_usd": 0.11037432,
+      "cost_source": "input tokens x $42 per billion (TypeSafe list price)"
+    },
+    "r2 1.14 (direct)": {
+      "records": 5850,
+      "unusable": 0,
+      "failed": 0,
+      "input_tokens": 2627960,
+      "cost_usd": 0.11037432,
+      "cost_source": "input tokens x $42 per billion (TypeSafe list price)"
+    },
+    "r3 1.13 (direct)": {
+      "records": 5850,
+      "unusable": 0,
+      "failed": 0,
+      "input_tokens": 2627960,
+      "cost_usd": 0.11037432,
+      "cost_source": "input tokens x $42 per billion (TypeSafe list price)"
+    },
+    "r3 1.14 (direct)": {
+      "records": 5850,
+      "unusable": 0,
+      "failed": 0,
+      "input_tokens": 2627960,
+      "cost_usd": 0.11037432,
+      "cost_source": "input tokens x $42 per billion (TypeSafe list price)"
+    }
+  },
+  "n_items": 83,
+  "n_instruments": 21,
+  "dropped_items": {
+    "O1 1.13": [],
+    "O1 1.14": [],
+    "O2": [],
+    "O3 1.13": [],
+    "O3 1.14": []
+  },
+  "route_check": {
+    "kind": "route",
+    "compared": [
+      "run_live_20261014T231829Z_jev-1.13.0.jsonl",
+      "run_live_20261014T231829Z_typesafe--jev-1.13.jsonl"
+    ],
+    "n_cells": 685,
+    "mean_route_tv": 0.026808029197080294,
+    "median_route_tv": 0.02200000000000001,
+    "n_cells_with_r3": 585,
+    "mean_route_tv_on_r3_cells": 0.02813675213675214,
+    "mean_r3_spread_on_same_cells": 0.024225830959164293,
+    "share_route_above_r3": 0.48376068376068376
+  },
+  "persona_spread": {
+    "r2 1.13": {
+      "antisocial": 0.04770013386880856,
+      "neutral": 0.0696251673360107,
+      "rational_agent": 0.06788085676037482,
+      "typical_human": 0.07369076305220884,
+      "typical_human_plain": 0.07615930388219545
+    },
+    "r2 1.14": {
+      "antisocial": 0.04108032128514056,
+      "neutral": 0.06968942436412315,
+      "rational_agent": 0.05865060240963855,
+      "typical_human": 0.06354618473895583,
+      "typical_human_plain": 0.06832262382864793
+    },
+    "r3 1.13": {
+      "antisocial": 0.017453815261044177,
+      "neutral": 0.022975903614457827,
+      "rational_agent": 0.01900267737617135,
+      "typical_human": 0.026712182061579652,
+      "typical_human_plain": 0.02955020080321285
+    },
+    "r3 1.14": {
+      "antisocial": 0.02116064257028112,
+      "neutral": 0.026542168674698798,
+      "rational_agent": 0.019342704149933065,
+      "typical_human": 0.02880053547523427,
+      "typical_human_plain": 0.029558232931726904
+    }
+  },
+  "time_matching": {
+    "available": true,
+    "n_cells": 415,
+    "median_gap_s": 3.083070993423462,
+    "max_gap_s": 7.651247262954712,
+    "run_length_s": {
+      "1.13 (direct) r2": 82.04357290267944,
+      "1.14 (direct) r2": 73.5358989238739,
+      "1.13 (direct) r3": 80.43970704078674,
+      "1.14 (direct) r3": 75.10637402534485
+    }
+  }
+}

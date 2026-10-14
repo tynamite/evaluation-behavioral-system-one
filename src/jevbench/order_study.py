@@ -53,6 +53,11 @@ OPENROUTER_PREFIXES = {"typesafe/jev-1.13-": "1.13", "typesafe/jev-1.14-": "1.14
 # record before anything is analysed: (seed, shuffled).
 CONDITION_ORDER = {"r1": (20260918, True), "r2": (20261014, True), "r3": (20260918, False)}
 
+# TypeSafe's list price for Jev 1.13 and 1.14 on 14 Oct 2026
+# (docs.typesafe.ai/models): $42 per billion input tokens, output free. Its
+# direct API reports tokens but not cost, so direct runs are priced from it.
+TYPESAFE_USD_PER_INPUT_TOKEN = 42e-9
+
 Cell = tuple[str, str]  # (probe_id, persona)
 
 
@@ -126,6 +131,24 @@ def load_arm(path: Path) -> Arm:
     if not (got == want or (route == "openrouter" and got.startswith(want + "-"))):
         raise ValueError(f"{path.name}: requested {want} but {served.iloc[0]} answered")
     return Arm(version, route, path, df, unusable=int(unusable.sum()), failed=int(failed.sum()))
+
+
+def run_cost(arm: Arm) -> dict[str, Any]:
+    """What a run cost, and where the number comes from.
+
+    OpenRouter records each call's cost; TypeSafe's direct API reports only
+    tokens, so a direct run is priced at its list price per input token.
+    """
+    usage = [u if isinstance(u, dict) else {} for u in arm.df["usage"]]
+    tokens = sum(float(u.get("input_tokens") or u.get("prompt_tokens") or 0) for u in usage)
+    recorded = sum(float(u.get("cost") or 0) for u in usage)
+    if recorded > 0:
+        return {"input_tokens": int(tokens), "cost_usd": recorded, "cost_source": "recorded"}
+    return {
+        "input_tokens": int(tokens),
+        "cost_usd": tokens * TYPESAFE_USD_PER_INPUT_TOKEN,
+        "cost_source": "input tokens x $42 per billion (TypeSafe list price)",
+    }
 
 
 def check_complete(arm: Arm, condition: str) -> None:
@@ -401,6 +424,7 @@ def run_tests(cond: Conditions, items: dict[str, str]) -> tuple[pd.DataFrame, di
         if set(runs) != {"1.13", "1.14"}:
             raise ValueError(f"{name} needs a direct run of 1.13 and of 1.14, found {sorted(runs)}")
     rows: list[dict[str, Any]] = []
+    per_instrument: list[dict[str, Any]] = []
     dropped: dict[str, list[str]] = {}
     ans2 = {v: usable_answers(a.df) for v, a in cond.r2.items()}
     ans3 = {v: usable_answers(a.df) for v, a in cond.r3.items()}
@@ -409,6 +433,10 @@ def run_tests(cond: Conditions, items: dict[str, str]) -> tuple[pd.DataFrame, di
         name: str, units: Units, diff_of: Callable[[list[float]], float], alternative: str
     ) -> None:
         dropped[name] = units.dropped_items
+        for inst, sides in zip(units.instruments, units.instrument_values, strict=True):
+            per_instrument.append(
+                {"test": name, "instrument": inst, "value": diff_of(sides), "sides": list(sides)}
+            )
         for unit, vals in (
             ("instrument", units.instrument_values),
             ("item", units.item_values),
@@ -449,7 +477,7 @@ def run_tests(cond: Conditions, items: dict[str, str]) -> tuple[pd.DataFrame, di
         bool(ph < ALPHA) if u == "instrument" else None
         for ph, u in zip(table["p_holm"], table["unit"], strict=True)
     ]
-    return table, {"dropped_items": dropped}
+    return table, {"dropped_items": dropped, "per_instrument": per_instrument}
 
 
 # -- Descriptive (section 5) ---------------------------------------------
@@ -657,6 +685,8 @@ def analyse_study(
 
     tests, extra = run_tests(cond, items)
     tests.to_csv(out_dir / "tests.csv", index=False)
+    # The value each instrument contributes to each test, for the figure.
+    pd.DataFrame(extra.pop("per_instrument")).to_csv(out_dir / "instruments.csv", index=False)
 
     summary: dict[str, Any] = {
         "files": {
@@ -664,7 +694,12 @@ def analyse_study(
             for c, arms in study.items()
         },
         "health": {
-            f"{c} {a.label}": {"records": len(a.df), "unusable": a.unusable, "failed": a.failed}
+            f"{c} {a.label}": {
+                "records": len(a.df),
+                "unusable": a.unusable,
+                "failed": a.failed,
+                **run_cost(a),
+            }
             for c, arms in study.items()
             for a in arms
         },

@@ -172,6 +172,15 @@ def _cmd_order_study(args: argparse.Namespace) -> int:
         return 1
     tests = result["tests"]
     print(tests[tests["unit"] == "instrument"].to_string(index=False))
+    if not args.root and not args.out:
+        # The committed study: its figure goes beside the README's others.
+        import pandas as pd
+
+        from .plots import fig_order_study
+
+        fig = fig_order_study(pd.read_csv(ORDER_RESULTS_DIR / "instruments.csv"), FIGURES_DIR)
+        if fig is not None:
+            print(f"wrote {fig}")
     return 0
 
 
