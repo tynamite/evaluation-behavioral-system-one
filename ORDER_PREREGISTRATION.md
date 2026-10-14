@@ -75,29 +75,41 @@ run` for this; the battery and the scoring are not changed.
   change what is compared.
 - **Item spread.** The mean of the cell spread over the item's persona cells
   (all five, unless section 6 drops some; within a comparison, the same cells
-  on every side). Items, not cells, are the unit of every test below, because
-  an item's five persona cells are not independent.
-- **Order excess.** An item's spread in R2 minus its spread in R3.
+  on every side).
+- **Instrument spread.** The mean of the item spread over an instrument's
+  items. Instruments, not items or cells, are the unit of every test below.
+  An item's five persona cells are not independent, and neither are many
+  items: Holt–Laury's 10 items are rows of one lottery menu, discounting's 12
+  are rows of one grid, and the ultimatum responder's 11 are thresholds in one
+  game. The 83 core multiple-choice items come from **21 instruments**. Treated
+  as independent units, those three instruments alone would supply 33 of the
+  83 observations.
+- **Order excess.** An item's spread in R2 minus its spread in R3, averaged
+  the same way up to the instrument.
 - **Slot slope.** Within an R2 cell, each option's probability on each repeat,
   minus that option's mean over the 10 repeats, is regressed on its slot
   position, rescaled to 0 (first) … 1 (last) and centred the same way. The
   slope is the change in probability from first slot to last, with each
-  option's own pull removed. An item's slope is the mean over its personas.
+  option's own pull removed. An item's slope is the mean over its personas,
+  and an instrument's the mean over its items.
 
 ## 4. Hypotheses and tests
 
-All tests are Wilcoxon signed-rank over the 83 core multiple-choice items.
-The five tests are one family, Holm-corrected at α = 0.05.
+All tests are Wilcoxon signed-rank over the 21 instruments that contain the
+core multiple-choice items, and every bootstrap interval resamples
+instruments. The five tests are one family, Holm-corrected at α = 0.05. The
+same tests over the 83 items are reported beside them as a sensitivity
+check, labelled as such.
 
 - **O1 (two tests, one per version). Shuffling moves Jev's answers more than
-  repeating does.** Item spread in R2 > item spread in R3. One-sided.
-- **O2. 1.14's order sensitivity differs from 1.13's.** Paired over items:
+  repeating does.** Instrument spread in R2 > instrument spread in R3.
+  One-sided.
+- **O2. 1.14's order sensitivity differs from 1.13's.** Paired over instruments:
   1.14's order excess vs 1.13's. Two-sided: TypeSafe expects to fix listed
   failure modes in later versions but has said nothing about option order in
-  1.14. Reported with the median difference and a bootstrap 95% interval over
-  items.
-- **O3 (two tests, one per version). Jev has a slot-position lean.** Item
-  slot slope ≠ 0. Two-sided, because our exploratory data (later options) and
+  1.14. Reported with the median difference and a bootstrap 95% interval.
+- **O3 (two tests, one per version). Jev has a slot-position lean.**
+  Instrument slot slope ≠ 0. Two-sided, because our exploratory data (later options) and
   TypeSafe's documentation (first option) point in opposite directions. A
   positive slope means later options gain; a negative one means the first
   gains. Reported with the median slope and a bootstrap 95% interval.
@@ -138,6 +150,19 @@ result.
   cells that qualify on **every** side of that comparison, and the item
   enters only if at least 3 such cells remain. O3 uses the cells that qualify
   in that version's R2, with the same minimum of 3. Dropped items are listed.
+- **Matched repeats across versions.** Permutation is the treatment, so
+  wherever R2 is compared across versions (O2), a cell's spread on both
+  versions is computed from the same repeat IDs: those usable on both. The
+  cell qualifies only if at least 8 such repeats remain. The route check
+  likewise uses only repeats usable on both routes.
+- **Cells with no order variation.** The seeded shuffle does not guarantee
+  that every cell's 10 repeats see more than one order. With seed 20261014,
+  two cells get the same order on all 10 repeats (`ultimatum_respond_0` and
+  `holt_laury_04`, both with `typical_human_plain`; checked from the seed
+  alone, before any run). Their slot slope is undefined, so a cell enters O3
+  only if, over its usable repeats, at least one option's slot varies.
+  Such cells stay in O1 and O2, where they contribute an R2 spread that holds
+  order fixed, which works against O1.
 - Each run is completed in one go where possible. If any record reports a
   model other than the versioned ID requested (for instance, TypeSafe changes
   what `jev-1.14.0` serves partway through), that run is redone in full as a
