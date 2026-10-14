@@ -46,37 +46,58 @@
     "r1 1.13 (direct)": {
       "records": 6850,
       "unusable": 0,
-      "failed": 0
+      "failed": 0,
+      "input_tokens": 3091490,
+      "cost_usd": 0.12984257999999999,
+      "cost_source": "input tokens x $42 per billion (TypeSafe list price)"
     },
     "r1 1.14 (direct)": {
       "records": 6850,
       "unusable": 0,
-      "failed": 0
+      "failed": 0,
+      "input_tokens": 3091490,
+      "cost_usd": 0.12984257999999999,
+      "cost_source": "input tokens x $42 per billion (TypeSafe list price)"
     },
     "r1 1.13 (openrouter)": {
       "records": 6850,
       "unusable": 0,
-      "failed": 0
+      "failed": 0,
+      "input_tokens": 3091390,
+      "cost_usd": 0.12983838,
+      "cost_source": "recorded"
     },
     "r2 1.13 (direct)": {
       "records": 5850,
       "unusable": 0,
-      "failed": 0
+      "failed": 0,
+      "input_tokens": 2627960,
+      "cost_usd": 0.11037432,
+      "cost_source": "input tokens x $42 per billion (TypeSafe list price)"
     },
     "r2 1.14 (direct)": {
       "records": 5850,
       "unusable": 0,
-      "failed": 0
+      "failed": 0,
+      "input_tokens": 2627960,
+      "cost_usd": 0.11037432,
+      "cost_source": "input tokens x $42 per billion (TypeSafe list price)"
     },
     "r3 1.13 (direct)": {
       "records": 5850,
       "unusable": 0,
-      "failed": 0
+      "failed": 0,
+      "input_tokens": 2627960,
+      "cost_usd": 0.11037432,
+      "cost_source": "input tokens x $42 per billion (TypeSafe list price)"
     },
     "r3 1.14 (direct)": {
       "records": 5850,
       "unusable": 0,
-      "failed": 0
+      "failed": 0,
+      "input_tokens": 2627960,
+      "cost_usd": 0.11037432,
+      "cost_source": "input tokens x $42 per billion (TypeSafe list price)"
     }
   },
   "n_items": 83,
