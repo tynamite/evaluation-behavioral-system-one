@@ -48,6 +48,16 @@ FIGURES = ROOT / "results" / "figures"
 EMBED_FIGURES = True
 
 
+def committed_unchanged(path: Path) -> bool:
+    """Whether git tracks `path` and it matches the committed version."""
+    rel = str(path.resolve().relative_to(ROOT))
+    tracked = subprocess.run(["git", "-C", str(ROOT), "ls-files", "--error-unmatch", rel],
+                             capture_output=True).returncode == 0
+    clean = subprocess.run(["git", "-C", str(ROOT), "diff", "--quiet", "HEAD", "--", rel],
+                           capture_output=True).returncode == 0
+    return tracked and clean
+
+
 def figures_mismatch(run: Path, df: pd.DataFrame) -> str | None:
     """Why the committed figures would misdescribe this run, if they would.
 
@@ -58,12 +68,7 @@ def figures_mismatch(run: Path, df: pd.DataFrame) -> str | None:
     committed = primary_run(ROOT / "data" / "raw", live_only=True)
     if committed is None or run.resolve() != committed.resolve():
         return f"{run.name} is not the committed run"
-    rel = str(run.resolve().relative_to(ROOT))
-    tracked = subprocess.run(["git", "-C", str(ROOT), "ls-files", "--error-unmatch", rel],
-                             capture_output=True).returncode == 0
-    clean = subprocess.run(["git", "-C", str(ROOT), "diff", "--quiet", "HEAD", "--", rel],
-                           capture_output=True).returncode == 0
-    if not (tracked and clean):
+    if not committed_unchanged(run):
         return f"{run.name} differs from the committed file"
     try:
         check_editorial_run(df)
@@ -75,13 +80,20 @@ def figures_mismatch(run: Path, df: pd.DataFrame) -> str | None:
 def figures(*items: tuple[str, str]) -> list[str]:
     """Markdown for the committed figures among `items` (file, alt text).
 
-    A figure that has not been drawn is left out rather than linked broken,
-    so the document still builds from a fresh checkout.
+    A figure that is missing, or has been redrawn since it was committed
+    (`jevbench diagrams --run` can redraw it from another run), is left out
+    rather than shown beside tables it may not match.
     """
     if not EMBED_FIGURES:
         return []
-    return [f"![{alt}](../results/figures/{name})\n" for name, alt in items
-            if (FIGURES / name).exists()]
+    out = []
+    for name, alt in items:
+        path = FIGURES / name
+        if path.exists() and committed_unchanged(path):
+            out.append(f"![{alt}](../results/figures/{name})\n")
+        elif path.exists():
+            print(f"left out {name}: it differs from the committed figure", file=sys.stderr)
+    return out
 
 
 def persona_table(sdf: pd.DataFrame, rows: list[tuple[str, str, str]], arm: str = "jev") -> list[str]:
