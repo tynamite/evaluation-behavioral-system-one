@@ -136,8 +136,9 @@ def check_complete(arm: Arm, condition: str) -> None:
     only), 10 repeats each. A run launched with fewer repeats, personas or
     modules would otherwise pass the per-cell thresholds, which are for
     unusable answers, not for observations that were never collected. A call
-    that failed still counts as made; failures are reported in the health
-    counts and rerun with `--resume`.
+    that failed outright is not an observation either: it must be rerun with
+    `--resume` before the file is analysed. (An unusable answer is one, and
+    is kept.)
     """
     from .instruments import MODULES, PERSONAS, all_probes, asked_under
 
@@ -153,6 +154,10 @@ def check_complete(arm: Arm, condition: str) -> None:
         (str(r.probe_id), str(r.persona), int(str(r.replicate)))
         for r in arm.df.itertuples(index=False)
     }
+    if arm.failed:
+        raise ValueError(
+            f"{arm.path.name} has {arm.failed} failed calls; rerun them with --resume (section 6)"
+        )
     missing, extra = expected - got, got - expected
     if missing or extra or len(arm.df) != len(expected):
         raise ValueError(
@@ -634,6 +639,10 @@ def analyse_study(
             # The committed run predates this battery's design (it asked the
             # population items under every persona), so only its order is checked.
             fallback = load_arm(openrouter_fallback)
+            if (fallback.version, fallback.route) != ("1.13", "openrouter"):
+                raise ValueError(
+                    f"{openrouter_fallback.name} is {fallback.label}, not 1.13 through OpenRouter"
+                )
             check_condition(fallback, "r1")
             summary["route_check"] = {
                 "kind": "route and date",

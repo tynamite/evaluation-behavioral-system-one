@@ -403,8 +403,10 @@ def run_battery(
     if resume is not None:
         path = resume
         kept, done = _done_keys(path)
+        # Against the whole battery, not this invocation's modules: a kept
+        # record from a module not selected now must still match.
         problem = resume_order_mismatch(
-            kept, probes, seed=seed, randomise_options=randomise_options
+            kept, all_probes(), seed=seed, randomise_options=randomise_options
         )
         if problem:
             raise RuntimeError(

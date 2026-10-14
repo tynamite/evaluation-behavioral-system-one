@@ -292,3 +292,48 @@ def test_completeness_refuses_a_run_that_is_not_the_designed_one(tmp_path: Path)
     )
     with pytest.raises(ValueError, match="not the designed r2 run"):
         check_complete(load_arm(partial), "r2")
+
+
+def test_failed_calls_must_be_rerun_first(tmp_path: Path) -> None:
+    import json
+
+    from jevbench.order_study import check_complete, load_arm
+
+    path = _record_file(
+        tmp_path,
+        "run_live_20261014T000000Z_jev-1.13.0.jsonl",
+        "jev-1.13.0",
+        seed=20261014,
+        shuffled=True,
+    )
+    rows = [json.loads(line) for line in path.read_text().splitlines()]
+    rows[0].update(error="HTTP 500", probabilities={}, value=None)
+    path.write_text("".join(json.dumps(r) + "\n" for r in rows))
+    with pytest.raises(ValueError, match="failed calls; rerun them with --resume"):
+        check_complete(load_arm(path), "r2")
+
+
+def test_resume_checks_kept_records_outside_the_selected_modules(tmp_path: Path) -> None:
+    import json
+
+    from jevbench.config import Config
+    from jevbench.runner import run_battery
+
+    path = _record_file(
+        tmp_path,
+        "run_simulated_20261014T000000Z_jev-1.13.0.jsonl",
+        "jev-1.13.0",
+        seed=20261014,
+        shuffled=True,
+    )
+    rows = [json.loads(line) for line in path.read_text().splitlines()]
+    path.write_text("".join(json.dumps({**r, "backend": "simulator"}) + "\n" for r in rows))
+    # The kept Holt-Laury records are in risk_time; resuming only crt with the
+    # default seed must still be refused.
+    with pytest.raises(RuntimeError, match="cannot resume"):
+        run_battery(
+            Config(backend="simulator", model="jev-1.13.0"),
+            modules=["crt"],
+            replicates=1,
+            resume=path,
+        )
