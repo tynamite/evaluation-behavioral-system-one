@@ -107,6 +107,9 @@ def _cmd_run(args: argparse.Namespace) -> int:
         replicates=args.replicates,
         baseline_samples=args.baseline_samples,
         workers=args.workers,
+        seed=args.seed,
+        randomise_options=not args.fixed_order,
+        out_dir=Path(args.out_dir) if args.out_dir else None,
         resume=Path(args.resume) if args.resume else None,
     )
     return 0
@@ -153,6 +156,23 @@ def _cmd_diagrams(args: argparse.Namespace) -> int:
     if args.no_png:
         argv.append("--no-png")
     return diagrams_main(argv)
+
+
+def _cmd_order_study(args: argparse.Namespace) -> int:
+    from .order_study import ORDER_RESULTS_DIR, ORDER_STUDY_DIR, analyse_study
+
+    try:
+        result = analyse_study(
+            Path(args.root) if args.root else ORDER_STUDY_DIR,
+            Path(args.out) if args.out else ORDER_RESULTS_DIR,
+            Path(args.openrouter_fallback) if args.openrouter_fallback else None,
+        )
+    except ValueError as exc:
+        print(f"order-study: {exc}", file=sys.stderr)
+        return 1
+    tests = result["tests"]
+    print(tests[tests["unit"] == "instrument"].to_string(index=False))
+    return 0
 
 
 def _cmd_compare(args: argparse.Namespace) -> int:
@@ -208,6 +228,22 @@ def main(argv: list[str] | None = None) -> int:
     )
     r.add_argument("--workers", type=int, default=8)
     r.add_argument(
+        "--seed",
+        type=int,
+        default=20260918,
+        help="seed for the option shuffle (default: the committed runs' seed)",
+    )
+    r.add_argument(
+        "--fixed-order",
+        action="store_true",
+        help="present every Choice item's options in the order written, never shuffled",
+    )
+    r.add_argument(
+        "--out-dir",
+        default=None,
+        help=f"directory for the run file (default: {RAW_DIR.name}/)",
+    )
+    r.add_argument(
         "--resume",
         default=None,
         help="continue an interrupted run file: keep its completed records, run the rest",
@@ -243,6 +279,18 @@ def main(argv: list[str] | None = None) -> int:
     c.add_argument("runs", nargs="+", help="run .jsonl files, one per model")
     c.add_argument("--out", default=str(COMPARISON_DIR), help="output directory")
     c.set_defaults(func=_cmd_compare)
+
+    o = sub.add_parser(
+        "order-study", help="the option-order addendum's tests (ORDER_PREREGISTRATION.md)"
+    )
+    o.add_argument("--root", default=None, help="run directory holding r1/, r2/ and r3/")
+    o.add_argument("--out", default=None, help="output directory")
+    o.add_argument(
+        "--openrouter-fallback",
+        default=None,
+        help="committed OpenRouter run for the route check, if no fresh one exists",
+    )
+    o.set_defaults(func=_cmd_order_study)
 
     args = parser.parse_args(argv)
     result: int = args.func(args)
