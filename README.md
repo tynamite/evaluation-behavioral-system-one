@@ -258,8 +258,8 @@ TypeSafe's API directly: 10 repeats of each item under each of the five
 prompts, plus one copy through OpenRouter to check the route. The exception is
 the follow-up study's 25 population questions, which are in the full-battery
 runs only and, as the battery asks them, under the neutral prompt alone. That
-came to 43,950 calls and cost $0.83. OpenRouter records its $0.13 per call.
-TypeSafe's direct API reports tokens but not cost, so the direct runs' $0.70 is
+came to 43,950 calls and cost $0.83. OpenRouter records each call's cost,
+$0.13 for its whole run. TypeSafe's direct API reports tokens but not cost, so the direct runs' $0.70 is
 their 16.7 million input tokens at the listed $42 per billion (output is
 free); [summary.json](results/order_study/summary.json) has both, run by run.
 
