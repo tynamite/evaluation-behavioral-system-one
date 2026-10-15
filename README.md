@@ -591,7 +591,8 @@ are committed:
 
 ```bash
 jevbench analyse                       # the newest run with Jev in data/raw/
-jevbench compare data/raw/run_live_*.jsonl
+jevbench compare data/raw/run_live_*.jsonl \
+  data/raw/order_study/r1/run_live_20261014T231829Z_jev-1.14.0.jsonl
 python scripts/gen_results_doc.py
 jevbench diagrams
 ```

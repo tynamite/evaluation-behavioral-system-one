@@ -438,3 +438,31 @@ def test_order_study_chart_draws_both_versions_on_every_instrument() -> None:
             assert len(marks) == n, (version, test)
     # Nothing to draw without the four tests it plots.
     assert fig_order_study(inst[inst["test"] != "O3 1.14"]) is None
+
+
+def test_route_comes_from_the_backend_each_run_records() -> None:
+    import pandas as pd
+
+    from jevbench.diagrams import JEV_113, JEV_114_ID, _route
+
+    health = pd.read_csv(REPO_ROOT / "results" / "comparison" / "health.csv")
+    files = dict(zip(health["model"], health["run_file"], strict=True))
+    assert _route([JEV_114_ID, JEV_113], files) == (
+        "Jev 1.14 was called through TypeSafe's API directly, the rest through OpenRouter. "
+    )
+    # The same model ID run through OpenRouter would claim no direct route.
+    assert _route([JEV_114_ID], {JEV_114_ID: files[JEV_113]}) == ""
+    assert _route([JEV_114_ID], None) == ""
+
+
+def test_diagrams_name_a_main_model_missing_from_the_comparison(tmp_path: Path) -> None:
+    import shutil
+
+    import pandas as pd
+
+    cmp = tmp_path / "comparison"
+    shutil.copytree(REPO_ROOT / "results" / "comparison", cmp)
+    health = pd.read_csv(cmp / "health.csv")
+    health[health["model"] != "typesafe/jev-1.14.0"].to_csv(cmp / "health.csv", index=False)
+    with pytest.raises(ValueError, match=re.escape("no run for typesafe/jev-1.14.0")):
+        build_diagrams(COMMITTED_RUN, TABLES_DIR, cmp, tmp_path / "out")

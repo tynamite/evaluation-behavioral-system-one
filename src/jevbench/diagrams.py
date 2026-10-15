@@ -720,18 +720,35 @@ def _runs_when(run_files: dict[str, str] | None, models: list[str]) -> str:
     return f"Models run 12\u201313 Oct 2026, except {'; '.join(parts)}."
 
 
-def _route(models: list[str]) -> str:
-    """Which models were not served through OpenRouter, for the source lines."""
-    return (
-        "Jev 1.14 was called through TypeSafe's API directly, the rest through OpenRouter. "
-        if JEV_114_ID in models
-        else ""
-    )
+def _backend(run_file: str) -> str:
+    """The backend a run file records, read from its first record."""
+    import json
+
+    from .config import RAW_DIR
+
+    with (RAW_DIR / run_file).open(encoding="utf-8") as fh:
+        for line in fh:
+            if line.strip():
+                return str(json.loads(line).get("backend", ""))
+    return ""
+
+
+def _route(models: list[str], run_files: dict[str, str] | None) -> str:
+    """Which models went to TypeSafe's API directly, as their run files record it."""
+    if not run_files:
+        return ""
+    direct = [m for m in models if m in run_files and _backend(run_files[m]) == "typesafe"]
+    if not direct:
+        return ""
+    names = " and ".join(SHORT.get(m, m) for m in direct)
+    verb = "were" if len(direct) > 1 else "was"
+    rest = ", the rest through OpenRouter" if len(direct) < len(models) else ""
+    return f"{names} {verb} called through TypeSafe's API directly{rest}. "
 
 
 def _main_when(run_files: dict[str, str] | None) -> str:
     models = [m for m, _c in MAIN_MODELS]
-    return f"{_runs_when(run_files, models)} {_route(models)}".strip()
+    return f"{_runs_when(run_files, models)} {_route(models, run_files)}".strip()
 
 
 def fig_models_scatter(fdf: pd.DataFrame, run_files: dict[str, str] | None = None) -> Figure:
@@ -956,7 +973,7 @@ def fig_models_scatter(fdf: pd.DataFrame, run_files: dict[str, str] | None = Non
         body="\n".join(out),
         source="Axes zoomed to the data: 0.15–0.55 across, 0.05–0.35 up, not from zero. "
         f"{_runs_when(run_files, sorted(set(fdf['model'].astype(str))))} "
-        f"{_route(sorted(set(fdf['model'].astype(str))))}14 probability-scale measures (each "
+        f"{_route(sorted(set(fdf['model'].astype(str))), run_files)}14 probability-scale measures (each "
         "0–1), 10 replicates or samples per cell. Distance alone is not a ranking: see the framing figure.",
     )
 
@@ -1837,7 +1854,7 @@ def fig_jev_steer(cdf: pd.DataFrame, run_files: dict[str, str] | None = None) ->
             start=("typical_human_plain", "Plain typical-person instruction"),
         ),
         source="Each version: mean of the probability distributions returned over 10 repeats. "
-        f"{_runs_when(run_files, [m for m, _c in jevs])} {_route([m for m, _c in jevs])}"
+        f"{_runs_when(run_files, [m for m, _c in jevs])} {_route([m for m, _c in jevs], run_files)}"
         "Human results: published studies or meta-analyses, listed in docs/BENCHMARKS.md.",
     )
 
@@ -2981,6 +2998,12 @@ def build_diagrams(
     from .config import RAW_DIR
 
     raw = raw_dir or RAW_DIR
+    missing = [m for m, _c in MAIN_MODELS if m not in files]
+    if missing:
+        raise ValueError(
+            f"the comparison has no run for {', '.join(missing)}; rebuild it with every run, "
+            "including data/raw/order_study/r1/run_live_20261014T231829Z_jev-1.14.0.jsonl"
+        )
     runs = {m: load_records(raw / files[m]) for m, _c in MAIN_MODELS}
 
     figures = [
