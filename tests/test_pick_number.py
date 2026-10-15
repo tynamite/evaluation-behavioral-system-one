@@ -131,3 +131,19 @@ def test_analyse_refuses_a_run_with_no_usable_jev_answers_at_all(tmp_path) -> No
     (tmp_path / "run_live_B_chat.jsonl").write_text("".join(json.dumps(r) + "\n" for r in chat))
     with pytest.raises(ValueError, match="no usable answers"):
         analyse(tmp_path, tmp_path / "out")
+
+
+def test_resume_refuses_a_file_from_the_other_arm(tmp_path, capsys) -> None:
+    import json
+
+    from jevbench.cli import main
+
+    rec = {"probe_id": "pick_number_1_10", "instrument": "pick_number", "persona": "neutral",
+           "arm": "baseline", "replicate": 0, "backend": "openrouter",
+           "model": "anthropic/claude-haiku-5.5",
+           "kind": "choice", "value": "7", "probabilities": {}, "error": None}  # fmt: skip
+    path = tmp_path / "run_live_x.jsonl"
+    path.write_text(json.dumps(rec) + "\n")
+    assert main(["pick-number", "run", "--replicates", "1", "--resume", str(path)]) == 1
+    assert "holds the baseline arm" in capsys.readouterr().err
+    assert path.read_text().count("\n") == 1  # untouched

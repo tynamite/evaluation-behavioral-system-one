@@ -173,6 +173,21 @@ def _cmd_pick_number(args: argparse.Namespace) -> int:
                 file=sys.stderr,
             )
             return 1
+        if args.resume:
+            from .analysis import load_records
+
+            # A resume file from the other arm would look entirely unfinished to
+            # the runner, which would append this arm to it (paying for every
+            # call) and leave a file that analyse refuses.
+            arm = "baseline" if args.baseline_samples > 0 else "jev"
+            found = sorted(set(load_records(Path(args.resume))["arm"].astype(str)) - {arm})
+            if found:
+                print(
+                    f"pick-number: {args.resume} holds the {', '.join(found)} arm, "
+                    f"not the {arm} arm this run makes",
+                    file=sys.stderr,
+                )
+                return 1
         cfg = _with_models(Config.from_env(args.backend), args)
         # The backend actually resolved (flag, then JEVBENCH_BACKEND), since the
         # chat arm sends this config's key to OpenRouter.
