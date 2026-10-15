@@ -112,6 +112,27 @@ def _row(source: str, model: str, persona: str, dist: dict[str, float], n: int) 
     }
 
 
+def check_complete(name: str, arm: str, g: pd.DataFrame) -> None:
+    """Refuse an interrupted run: both prompts, the same repeats 0..n-1, no failed calls.
+
+    The runner writes each call as it finishes, so a partial file looks like a
+    smaller run; averaging it would quietly change the result.
+    """
+    if "error" in g.columns:
+        unread = g["error"].notna() & ~g["error"].astype(str).str.startswith("unusable answer")
+        if unread.any():
+            raise ValueError(f"{name}: {int(unread.sum())} failed calls; rerun them with --resume")
+    reps = {str(p): sorted(int(r) for r in grp["replicate"]) for p, grp in g.groupby("persona")}
+    n = len(next(iter(reps.values()), []))
+    if (
+        sorted(reps) != sorted(PERSONAS)
+        or n == 0
+        or any(r != list(range(n)) for r in reps.values())
+    ):
+        sizes = {p: len(r) for p, r in reps.items()}
+        raise ValueError(f"{name}: the {arm} arm is incomplete or uneven: {sizes}")
+
+
 def analyse(root: Path = PICK_DIR, out_dir: Path = PICK_RESULTS_DIR) -> pd.DataFrame:
     files = sorted(root.glob("run_live_*.jsonl"))
     if not files:
@@ -132,6 +153,7 @@ def analyse(root: Path = PICK_DIR, out_dir: Path = PICK_RESULTS_DIR) -> pd.DataF
             models = sorted(set(answered["model"].astype(str)))
             if len(models) != 1:
                 raise ValueError(f"{f.name}: the {arm!s} arm holds {models}, not one model")
+            check_complete(f.name, str(arm), g)
     df = pd.concat(frames.values(), ignore_index=True)
     table = pd.DataFrame(summarise(df))
     h = human()
