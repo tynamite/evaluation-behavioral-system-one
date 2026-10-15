@@ -1654,12 +1654,8 @@ def fig_pick_number(table: pd.DataFrame, out: Path) -> Path:
     dashed line is a uniform 10%.
     """
     numbers = [str(i) for i in range(1, 11)]
-    # The chat model's row is named after the model that answered.
-    chat = next(
-        str(s)
-        for s in table["source"]
-        if str(s).endswith(", one pick per call") and not str(s).startswith("Jev")
-    )
+    # The chat model's row, found by its arm; its name is the model that answered.
+    chat = str(table.loc[table["arm"] == "baseline", "source"].iloc[0])
     series: list[tuple[str, dict[str, Any]]] = [
         ("Jev, its distribution", dict(color=JEV)),
         ("Jev, one pick per call", dict(facecolor=SURFACE, edgecolor=JEV, linewidth=1.4)),

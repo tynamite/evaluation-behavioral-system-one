@@ -77,13 +77,20 @@ def summarise(df: pd.DataFrame) -> list[dict[str, Any]]:
             # Jev rounds its probabilities, so a reply may sum to 0.99; renormalise.
             total = sum(mean.values())
             mean = {n: v / total for n, v in mean.items()} if total else mean
-            rows.append(_row("Jev, its distribution", model, persona, mean, len(dists)))
+            rows.append(_row("Jev, its distribution", "jev", model, persona, mean, len(dists)))
             rows.append(
-                _row("Jev, one pick per call", model, persona, _shares(picks), sum(picks.values()))
+                _row(
+                    "Jev, one pick per call",
+                    "jev",
+                    model,
+                    persona,
+                    _shares(picks),
+                    sum(picks.values()),
+                )
             )
         else:
             rows.append(
-                _row(f"{chat_name(model)}, one pick per call", model, persona, _shares(picks),
+                _row(f"{chat_name(model)}, one pick per call", "baseline", model, persona, _shares(picks),
                      sum(picks.values()))
             )  # fmt: skip
     return rows
@@ -98,12 +105,15 @@ def chat_name(model: str) -> str:
     return " ".join(w if any(c.isdigit() for c in w) else w.capitalize() for w in words)
 
 
-def _row(source: str, model: str, persona: str, dist: dict[str, float], n: int) -> dict[str, Any]:
+def _row(
+    source: str, arm: str, model: str, persona: str, dist: dict[str, float], n: int
+) -> dict[str, Any]:
     h = human()
     probs = np.array([dist[k] for k in NUMBERS])
     nz = probs[probs > 0]
     return {
         "source": source,
+        "arm": arm,
         "model": model,
         "persona": persona,
         "n": n,
@@ -152,8 +162,10 @@ def analyse(root: Path = PICK_DIR, out_dir: Path = PICK_RESULTS_DIR) -> pd.DataF
     # And one model per arm, so a run resumed with another model is refused.
     for f, d in frames.items():
         for arm, g in d.groupby("arm"):
-            answered = g[g["error"].isna()] if "error" in g.columns else g
-            models = sorted(set(answered["model"].astype(str)))
+            # Every record, unusable ones included: they carry the model that
+            # answered (failed calls, which carry only the requested one, are
+            # refused by check_complete).
+            models = sorted(set(g["model"].astype(str)))
             if len(models) != 1:
                 raise ValueError(f"{f.name}: the {arm!s} arm holds {models}, not one model")
             check_complete(f.name, str(arm), g)
@@ -169,6 +181,7 @@ def analyse(root: Path = PICK_DIR, out_dir: Path = PICK_RESULTS_DIR) -> pd.DataF
     h = human()
     people = {
         "source": "People (YouGov)",
+        "arm": "people",
         "model": "2,241 GB adults, Sep 2024",
         "persona": "",
         "n": 2241,
