@@ -156,6 +156,13 @@ def analyse(root: Path = PICK_DIR, out_dir: Path = PICK_RESULTS_DIR) -> pd.DataF
             check_complete(f.name, str(arm), g)
     df = pd.concat(frames.values(), ignore_index=True)
     table = pd.DataFrame(summarise(df))
+    # Every source needs usable answers under both prompts, or the figure
+    # and table would silently lose a cell.
+    for source in sorted(set(table["source"])):
+        for persona in PERSONAS:
+            cell = table[(table["source"] == source) & (table["persona"] == persona)]
+            if cell.empty or int(cell["n"].iloc[0]) == 0:
+                raise ValueError(f"no usable answers for {source} under {persona}")
     h = human()
     people = {
         "source": "People (YouGov)",
