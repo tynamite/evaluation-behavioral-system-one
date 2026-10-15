@@ -352,7 +352,7 @@ The 600 calls cost under a cent. The table, with each distribution in full, is
 in [distributions.csv](results/pick_number/distributions.csv), and
 `jevbench pick-number analyse` rebuilds it and the figures from the raw runs.
 
-![Pick a number between 1 and 10: Jev 1.13 and Jev 1.14, each as its distribution and one pick per call, against Haiku and people](results/figures/pick-number.png)
+![Pick a number between 1 and 10: Jev 1.13 and Jev 1.14 against people, asked plainly and as a typical person](results/figures/pick-number-jev.png)
 
 #### The other System One models
 
@@ -402,11 +402,17 @@ identical and 1 is no overlap. A model that put everything on 7 would score
   on it and favour 1, 3 and 10. Under the typical-person prompt, Solar Decide
   swings to 96% on 7, and Solar Decide Flash to 68% on 5.
 
-![Pick a number between 1 and 10: share on 7 for every System One model, read as a distribution and as one pick per call](results/figures/pick-number-models.png)
+![Read one pick at a time, Jev and the main comparison's models mostly collapse onto one number](results/figures/pick-number-reading-a.png)
 
-![Pick a number between 1 and 10, asked plainly: each System One model's distribution against people's](results/figures/pick-number-models-plain.png)
+![Read one pick at a time, the other System One models mostly collapse onto one number](results/figures/pick-number-reading-b.png)
 
-![Pick a number between 1 and 10, asked to answer as a typical person: each System One model's distribution against people's](results/figures/pick-number-models-typical.png)
+![Told to answer as a typical person, Jev and the main comparison's models mostly overshoot onto 7](results/figures/pick-number-prompt-a.png)
+
+![Told to answer as a typical person, the other System One models mostly overshoot onto 7](results/figures/pick-number-prompt-b.png)
+
+![Pick a number between 1 and 10: Jev and the main comparison's models, against people](results/figures/pick-number-models-a.png)
+
+![Pick a number between 1 and 10: the other System One models, against people](results/figures/pick-number-models-b.png)
 
 ## Checked afterwards against the documented behaviour
 

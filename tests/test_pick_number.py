@@ -255,3 +255,28 @@ def test_analyse_refuses_another_probe(tmp_path) -> None:
         )
     with pytest.raises(ValueError, match="holds probes"):
         analyse(tmp_path, tmp_path / "out")
+
+
+def test_pick_number_figures_follow_the_house_rules() -> None:
+    import re
+
+    from jevbench.diagrams import JEV_PINK, pick_number_figures
+    from jevbench.pick_number import PICK_RESULTS_DIR, system_one_name
+
+    table = pd.read_csv(PICK_RESULTS_DIR / "distributions.csv", dtype={"persona": str})
+    table["persona"] = table["persona"].fillna("")
+    figures = pick_number_figures(table)
+    models = sorted(set(table.loc[table["arm"] == "jev", "model"]))
+    slugs = [f.slug for f in figures]
+    assert len(slugs) == len(set(slugs))
+    # Every System One model is drawn in exactly one group, under its own name;
+    # every Jev is named with its version.
+    reading = [f for f in figures if f.slug.startswith("pick-number-reading-")]
+    drawn = [n for f in reading for n in re.findall(r'font-weight="600">([^<]+)</text>', f.body)]
+    assert sorted(drawn) == sorted(system_one_name(m) for m in models)
+    assert all(n != "Jev" for n in drawn)
+    for f in figures:
+        page = f.html()
+        assert f'aria-labelledby="{f.slug}-title {f.slug}-desc"' in page
+        if "jev" in f.desc.lower() or "Jev" in f.body:
+            assert JEV_PINK in f.body

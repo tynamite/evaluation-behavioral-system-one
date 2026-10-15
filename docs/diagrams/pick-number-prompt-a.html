@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Told to answer as a typical person, Jev and the main comparison&#x27;s models mostly overshoot onto 7</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper: #f5f5f5; --color-ink: #2d3142; --color-muted: #4f5d75;
+      --font-sans: 'Geist', system-ui, sans-serif; --font-serif: 'Instrument Serif', serif; --font-mono: 'Geist Mono', ui-monospace, monospace;
+    }
+    body {
+      font-family: var(--font-sans); background: var(--color-paper); color: var(--color-ink);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 3rem 2rem;
+    }
+    .frame { max-width: 1080px; width: 100%; padding: 32px 40px; background: var(--color-paper);
+      position: relative; }
+    .mark { position: absolute; right: 40px; bottom: 12px; font-family: var(--font-mono); font-size: 0.6rem;
+      letter-spacing: 0.14em; color: var(--color-muted); opacity: 0.55; }
+    .diagram-container { width: 100%; overflow-x: auto; }
+    .eyebrow {
+      font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-muted);
+      margin-bottom: 0.5rem;
+    }
+    h1 {
+      font-family: var(--font-serif); font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem);
+      font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.5rem;
+    }
+    .subtitle { color: var(--color-muted); font-size: 0.95rem; line-height: 1.45;
+      max-width: 60rem; margin-bottom: 1rem; }
+    .source { font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-muted);
+      border-top: 1px solid rgba(45,49,66,0.12); margin-top: 1rem; padding-top: 0.75rem; line-height: 1.5; }
+    svg { width: 100%; min-width: 1000px; display: block; }
+    @media print { .diagram-container { overflow-x: visible; } svg { min-width: 0; } }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Pick a number · two prompts · exploratory</p>
+    <h1>Told to answer as a typical person, Jev and the main comparison&#x27;s models mostly overshoot onto 7</h1>
+    <p class="subtitle">The share of each model&#x27;s returned probability on 7, the number a third of people pick. Asked to answer as a typical person, a model that knew people&#x27;s answers would move towards the dashed line; most go past it.</p>
+    <div class="diagram-container">
+      <svg viewBox="0 16 1000 494" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="pick-number-prompt-a-title pick-number-prompt-a-desc">
+        <title id="pick-number-prompt-a-title">Told to answer as a typical person, Jev and the main comparison&#x27;s models mostly overshoot onto 7</title>
+        <desc id="pick-number-prompt-a-desc">Dumbbell chart of Jev 1.13, Jev 1.14, Clef, GPT-6 Luna Decisions and d1: the share of each model&#x27;s distribution on 7 when asked plainly and when asked to answer as a typical person, against people&#x27;s 33%.</desc>
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
+          <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#157a6e"/></marker>
+          <marker id="arrow-link" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#2e5aa8"/></marker>
+        </defs>
+        <rect width="100%" height="100%" fill="#f5f5f5"/>
+<text x="300" y="440" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0">0%</text>
+<line x1="432" y1="56" x2="432" y2="408" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="432" y="440" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.2">20%</text>
+<line x1="564" y1="56" x2="564" y2="408" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="564" y="440" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.4">40%</text>
+<line x1="696" y1="56" x2="696" y2="408" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="696" y="440" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.6">60%</text>
+<line x1="828" y1="56" x2="828" y2="408" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="828" y="440" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.8">80%</text>
+<line x1="960" y1="56" x2="960" y2="408" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="960" y="440" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="1">100%</text>
+<line x1="300" y1="40" x2="300" y2="420" stroke="rgba(45,49,66,0.25)" stroke-width="1"/>
+<text x="630" y="456" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.14em">SHARE OF THE MODEL&#x27;S PROBABILITY ON 7</text>
+<line x1="516" y1="48" x2="516" y2="420" stroke="rgba(45,49,66,0.55)" stroke-width="1" stroke-dasharray="4,3" data-value="0.326733"/>
+<rect x="487.2" y="28" width="57.6" height="12" rx="2" fill="#f5f5f5"/>
+<text x="516" y="37" fill="#2d3142" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.06em">PEOPLE 33%</text>
+<line x1="538" y1="96" x2="623" y2="96" stroke="rgba(45,49,66,0.55)" stroke-width="1"/>
+<circle data-series="reference" data-value="0.3600" cx="538" cy="96" r="6" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="focal" data-value="0.4900" cx="623" cy="96" r="6" fill="#157a6e" stroke="#2d3142" stroke-width="1"/>
+<text x="526" y="100" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">36%</text>
+<text x="635" y="100" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">49%</text>
+<text x="288" y="95" fill="#2d3142" font-size="11" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="600">GPT-6 Luna Decisions</text>
+<text x="288" y="108" fill="#4f5d75" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="end">peaks on 7 both times</text>
+<line x1="496" y1="160" x2="754" y2="160" stroke="rgba(45,49,66,0.55)" stroke-width="1"/>
+<circle data-series="reference" data-value="0.2963" cx="496" cy="160" r="6" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
+<circle data-series="focal" data-value="0.6885" cx="754" cy="160" r="6" fill="#a3195b" stroke="#2d3142" stroke-width="1"/>
+<text x="484" y="164" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">30%</text>
+<text x="766" y="164" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">69%</text>
+<text x="288" y="159" fill="#2d3142" font-size="11" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="600">Jev 1.14</text>
+<text x="288" y="172" fill="#4f5d75" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="end">peaks on 7 both times</text>
+<line x1="670" y1="224" x2="840" y2="224" stroke="rgba(45,49,66,0.55)" stroke-width="1"/>
+<circle data-series="reference" data-value="0.5607" cx="670" cy="224" r="6" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="focal" data-value="0.8180" cx="840" cy="224" r="6" fill="#157a6e" stroke="#2d3142" stroke-width="1"/>
+<text x="658" y="228" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">56%</text>
+<text x="852" y="228" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">82%</text>
+<text x="288" y="223" fill="#2d3142" font-size="11" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="600">Clef</text>
+<text x="288" y="236" fill="#4f5d75" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="end">peaks on 7 both times</text>
+<line x1="604" y1="288" x2="845" y2="288" stroke="rgba(45,49,66,0.55)" stroke-width="1"/>
+<circle data-series="reference" data-value="0.4609" cx="604" cy="288" r="6" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
+<circle data-series="focal" data-value="0.8264" cx="845" cy="288" r="6" fill="#a3195b" stroke="#2d3142" stroke-width="1"/>
+<text x="592" y="292" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">46%</text>
+<text x="857" y="292" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">83%</text>
+<text x="288" y="287" fill="#2d3142" font-size="11" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="600">Jev 1.13</text>
+<text x="288" y="300" fill="#4f5d75" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="end">peaks on 7 both times</text>
+<line x1="476" y1="352" x2="849" y2="352" stroke="rgba(45,49,66,0.55)" stroke-width="1"/>
+<circle data-series="reference" data-value="0.2661" cx="476" cy="352" r="6" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="focal" data-value="0.8318" cx="849" cy="352" r="6" fill="#157a6e" stroke="#2d3142" stroke-width="1"/>
+<text x="464" y="356" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">27%</text>
+<text x="861" y="356" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">83%</text>
+<text x="288" y="351" fill="#2d3142" font-size="11" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="600">d1</text>
+<text x="288" y="364" fill="#4f5d75" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="end">peaks on 7 both times</text>
+<line x1="30" y1="462" x2="970" y2="462" stroke="rgba(45,49,66,0.1)" stroke-width="0.8"/>
+<text x="30" y="478" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" letter-spacing="0.14em">LEGEND</text>
+<circle cx="104" cy="493" r="5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<text x="116" y="497" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">Asked plainly</text>
+<circle cx="226.2" cy="493" r="5" fill="#157a6e" stroke="#2d3142" stroke-width="1"/>
+<text x="238.2" y="497" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">Asked to answer as a typical person</text>
+<circle cx="467" cy="493" r="5" fill="#ff69b4" stroke="#2d3142" stroke-width="1"/>
+<text x="479" y="497" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">Jev, asked plainly</text>
+<circle cx="612" cy="493" r="5" fill="#a3195b" stroke="#2d3142" stroke-width="1"/>
+<text x="624" y="497" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">Jev, as a typical person</text>
+<text x="970" y="497" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">ROWS BY THE TYPICAL-PERSON SHARE</text>
+      </svg>
+    </div>
+    <p class="source">Each model: mean of 100 returned distributions per prompt, run 15 Oct 2026, options shuffled per call. People: YouGov, 2,241 British adults, 12–13 Sep 2024.</p>
+    <p class="mark" aria-hidden="true">github.com/tynamite</p>
+  </div>
+</body>
+</html>

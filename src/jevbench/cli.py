@@ -7,7 +7,7 @@ import sys
 from dataclasses import replace
 from pathlib import Path
 
-from .config import COMPARISON_DIR, FIGURES_DIR, RAW_DIR, TABLES_DIR, Config
+from .config import COMPARISON_DIR, FIGURES_DIR, RAW_DIR, REPO_ROOT, TABLES_DIR, Config
 from .instruments import MODULES, PERSONAS, all_probes, asked_under
 
 
@@ -211,7 +211,7 @@ def _cmd_pick_number(args: argparse.Namespace) -> int:
             probes=[PROBE],
         )
         return 0
-    from .plots import fig_pick_number, fig_pick_number_grid, fig_pick_number_models
+    from .diagrams import build_pick_number_diagrams, export_pngs
 
     try:
         table = analyse()
@@ -220,10 +220,13 @@ def _cmd_pick_number(args: argparse.Namespace) -> int:
         return 1
     print(table.drop(columns=[str(i) for i in range(1, 11)]).to_string(index=False))
     print(f"wrote {PICK_RESULTS_DIR / 'distributions.csv'}")
-    print(f"wrote {fig_pick_number(table, FIGURES_DIR)}")
-    print(f"wrote {fig_pick_number_models(table, FIGURES_DIR)}")
-    for persona in PERSONAS:
-        print(f"wrote {fig_pick_number_grid(table, FIGURES_DIR, persona)}")
+    # Drawn in the diagram-design house style, like the README's other editorial figures.
+    html = build_pick_number_diagrams(table, REPO_ROOT / "docs" / "diagrams")
+    for p in html:
+        print(f"wrote {p.relative_to(REPO_ROOT)}")
+    if not args.no_png:
+        for p in export_pngs(html, FIGURES_DIR):
+            print(f"wrote {p.relative_to(REPO_ROOT)}")
     return 0
 
 
@@ -369,6 +372,7 @@ def main(argv: list[str] | None = None) -> int:
     n.add_argument("--baseline-samples", type=int, default=0, help="chat samples per prompt")
     n.add_argument("--workers", type=int, default=8)
     n.add_argument("--resume", default=None)
+    n.add_argument("--no-png", action="store_true", help="analyse: write the HTML figures only")
     n.set_defaults(func=_cmd_pick_number)
 
     o = sub.add_parser(

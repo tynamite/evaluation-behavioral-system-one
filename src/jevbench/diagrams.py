@@ -402,7 +402,9 @@ def dumbbell(
     out.extend(keys)
     if row_ref_fill or row_focal_fill:
         kx = int(132 + text_width(ref_name, 9) + 36 + text_width(focal_name, 9) + 40)
-        for fill, label in [*(row_ref_fill or {}).values(), *(row_focal_fill or {}).values()]:
+        # Several rows can share one style (two Jev versions); key it once.
+        styles = [*(row_ref_fill or {}).values(), *(row_focal_fill or {}).values()]
+        for fill, label in dict.fromkeys(styles):
             out.append(
                 f'<circle cx="{kx}" cy="493" r="5" fill="{fill}" stroke="{INK}" stroke-width="1"/>'
             )
@@ -2627,6 +2629,410 @@ def _shown_path(path: Path) -> str:
         return str(path.resolve().relative_to(REPO_ROOT.resolve()))
     except ValueError:
         return str(path.resolve())
+
+
+# -- pick a number between 1 and 10 (exploratory) -----------------------------
+
+PICK_NUMBERS = [str(i) for i in range(1, 11)]
+PICK_PROMPTS = [("neutral", "asked plainly"), ("typical_human", "as a typical person")]
+# The rest of the System One models share one sienna: not teal (which means
+# "told to answer like a typical person"), not people's slate, and none of the
+# main four's colours; the dataviz validator finds no failing pair it adds.
+OTHER_MODEL = "#a0522d"
+
+
+def _pick_cell(table: pd.DataFrame, model: str, persona: str, kind: str) -> pd.Series:
+    rows = table[
+        (table["arm"] == "jev")
+        & (table["model"] == model)
+        & (table["persona"] == persona)
+        & table["source"].str.endswith(kind)
+    ]
+    if len(rows) != 1:
+        raise KeyError(f"{model}/{persona}/{kind}: {len(rows)} rows in the pick-number table")
+    return rows.iloc[0]
+
+
+def _pick_groups(table: pd.DataFrame) -> list[tuple[str, list[str]]]:
+    """The System One models in two groups of at most eight: Jev and the main
+    comparison's three other models, then the rest."""
+    from .pick_number import is_jev, system_one_name
+
+    models = sorted(
+        {str(m) for m in table.loc[table["arm"] == "jev", "model"]}, key=system_one_name
+    )
+    main_ids = {m for m, _c in MAIN_MODELS}
+    first = [m for m in models if is_jev(m)] + [
+        m for m in models if m in main_ids and not is_jev(m)
+    ]
+    rest = [m for m in models if m not in first]
+    groups = [("Jev and the main comparison's models", first)]
+    if rest:
+        groups.append(("the other System One models", rest))
+    for _label, ms in groups:
+        if len(ms) > 8:
+            raise ValueError(f"{len(ms)} models in one pick-number group; split it further")
+    return groups
+
+
+def _pick_colour(model: str) -> tuple[str, str]:
+    """(fill, edge) for a model's bars: Jev pink, the main models their own colour."""
+    from .pick_number import is_jev
+
+    if is_jev(model):
+        return JEV_PINK, JEV_PINK_EDGE
+    colour = dict(MAIN_MODELS).get(model, OTHER_MODEL)
+    return colour, colour
+
+
+def _pick_one_pick(table: pd.DataFrame, model: str, persona: str) -> str:
+    """'7 in 100 of 100 calls': what reading one pick per call gives."""
+    row = _pick_cell(table, model, persona, "one pick per call")
+    top = max(PICK_NUMBERS, key=lambda k: float(row[k]))
+    n = int(row["n"])
+    return f"{top} in {round(float(row[top]) * n)} of {n} calls"
+
+
+def _pick_bars(
+    out: list[str],
+    x0: float,
+    y0: float,
+    w: float,
+    h: float,
+    ceil: float,
+    people: list[float],
+    values: list[float],
+    who: str,
+    fill: str,
+    edge: str,
+    step: float = 0.2,
+) -> None:
+    """People's share (slate) beside the model's probability, one pair per number."""
+    base = y0 + h
+
+    def y(v: float) -> float:
+        return base - v / ceil * h
+
+    for t in [i * step for i in range(int(ceil / step + 1e-9) + 1)]:
+        if t:
+            out.append(
+                f'<line x1="{x0}" y1="{y(t):.1f}" x2="{x0 + w}" y2="{y(t):.1f}" stroke="{ink(0.08)}" stroke-width="0.8"/>'
+            )
+        out.append(
+            _t(
+                x0 - 6,
+                y(t) + 3,
+                f"{t:.0%}",
+                anchor="end",
+                extra=f' data-tick="y" data-value="{t:g}"',
+            )
+        )
+    out.append(
+        f'<line x1="{x0}" y1="{base}" x2="{x0 + w}" y2="{base}" stroke="{ink(0.25)}" stroke-width="1"/>'
+    )
+    pitch = w / len(PICK_NUMBERS)
+    bar = min(14.0, pitch / 2 - 2)
+    for i, n in enumerate(PICK_NUMBERS):
+        cx = x0 + pitch * (i + 0.5)
+        for series, v, bx, style in (
+            ("people", people[i], cx - bar - 1, f'fill="{muted(0.18)}" stroke="{MUTED}"'),
+            (who, values[i], cx + 1, f'fill="{fill}" fill-opacity="0.75" stroke="{edge}"'),
+        ):
+            by = y(v)
+            out.append(
+                f'<rect data-series="{esc(series)}" data-value="{v:.4f}" x="{bx:.1f}" y="{by:.1f}" '
+                f'width="{bar:g}" height="{base - by:.1f}" {style} stroke-width="1">'
+                f"<title>{esc(series)} · {n} · {v:.0%}</title></rect>"
+            )
+        out.append(_t(cx, base + 14, n, size=8, anchor="middle"))
+
+
+def _pick_ceil(top: float) -> float:
+    """The scale ends just above the tallest bar, on a 20% gridline."""
+    return max(0.4, math.ceil((top + 0.02) / 0.2) * 0.2)
+
+
+PICK_PEOPLE_KEY = "People: share of 2,241 British adults (YouGov)"
+
+
+def fig_pick_number_jev(table: pd.DataFrame) -> Figure:
+    """Each Jev version's distribution against people's, under each prompt.
+
+    Ten numbers break the bar type's eight-bar cap on purpose, as in the
+    dictator chart: pooling them would hide the shape that is the finding.
+    """
+    from .pick_number import is_jev, system_one_name
+
+    jevs = sorted(
+        {str(m) for m in table.loc[table["arm"] == "jev", "model"] if is_jev(str(m))},
+        key=system_one_name,
+    )
+    if len(jevs) > 2:
+        raise ValueError(f"the Jev chart has room for two versions, got {jevs}")
+    people_row = table[table["arm"] == "people"].iloc[0]
+    people = [float(people_row[n]) for n in PICK_NUMBERS]
+    dists = {
+        (m, p): [float(_pick_cell(table, m, p, "its distribution")[n]) for n in PICK_NUMBERS]
+        for m in jevs
+        for p, _l in PICK_PROMPTS
+    }
+    ceil = _pick_ceil(max(max(people), *(max(v) for v in dists.values())))
+    chat = table[table["arm"] == "baseline"]
+    chat_name = str(chat["source"].iloc[0]).split(",")[0]
+    chat_row = chat[chat["persona"] == "neutral"].iloc[0]
+    chat_top = max(PICK_NUMBERS, key=lambda k: float(chat_row[k]))
+    w, h = 400, 150
+    out: list[str] = []
+    for col, model in enumerate(jevs):
+        for row, (persona, prompt) in enumerate(PICK_PROMPTS):
+            x0, y0 = 70 + col * 480, 60 + row * 230
+            fill = JEV_PINK if persona == "neutral" else JEV_PROMPT
+            edge = JEV_PINK_EDGE if persona == "neutral" else JEV_PROMPT
+            name = system_one_name(model)
+            out.append(
+                _t(x0, y0 - 24, f"{name} · {prompt}", size=12, family=SANS, fill=INK, weight=600)
+            )
+            out.append(
+                _t(x0, y0 - 10, f"One pick per call: {_pick_one_pick(table, model, persona)}",
+                   size=9, family=SANS)
+            )  # fmt: skip
+            _pick_bars(out, x0, y0, w, h, ceil, people, dists[(model, persona)], name, fill, edge)
+    out.append(_t(510, 470, "NUMBER PICKED", size=7, spacing="0.14em", anchor="middle"))
+    out.append(_legend(1000, 480, []))
+    out.append(
+        f'<rect x="104" y="504" width="16" height="10" rx="2" fill="{muted(0.18)}" stroke="{MUTED}" stroke-width="1"/>'
+    )
+    out.append(_t(128, 513, PICK_PEOPLE_KEY, size=9, family=SANS, fill=INK))
+    kx = 128 + text_width(PICK_PEOPLE_KEY, 9) + 40
+    for fill, edge, label in (
+        (JEV_PINK, JEV_PINK_EDGE, "Jev, asked plainly"),
+        (JEV_PROMPT, JEV_PROMPT, "Jev, as a typical person"),
+    ):
+        out.append(
+            f'<rect x="{kx:g}" y="504" width="16" height="10" rx="2" fill="{fill}" fill-opacity="0.75" stroke="{edge}" stroke-width="1"/>'
+        )
+        out.append(_t(kx + 24, 513, label, size=9, family=SANS, fill=INK))
+        kx += 24 + text_width(label, 9) + 40
+    versions = " and ".join(system_one_name(m) for m in jevs)
+    calls = sorted(
+        {
+            int(_pick_cell(table, m, p, "its distribution")["n"])
+            for m in jevs
+            for p, _ in PICK_PROMPTS
+        }
+    )
+    return Figure(
+        slug="pick-number-jev",
+        eyebrow="Pick a number · exploratory",
+        title=f"Pick a number between 1 and 10: {versions} against people",
+        subtitle=(
+            "Asked for a random number from 1 to 10, a third of people say 7. Jev returns a probability for "
+            "every number in each call; read one pick per call, the way a chat model has to be read, it says 7 "
+            f"almost every time. {chat_name}, asked 200 times, said {chat_top} every time."
+        ),
+        desc=f"Four small bar charts: {versions}, asked plainly and asked to answer as a typical person, each "
+        "showing the probability Jev returns for each number from 1 to 10 next to the share of people who "
+        "pick it.",
+        width=1000,
+        height=530,
+        body="\n".join(out),
+        source=f"Same scale in every panel. Jev: mean of {' or '.join(map(str, calls))} returned distributions "
+        "per prompt, run 15 Oct 2026, options shuffled per call. People: YouGov, 12–13 Sep 2024, open text "
+        "box; published percentages normalised.",
+    )
+
+
+def _pick_name_list(models: list[str]) -> str:
+    from .pick_number import system_one_name
+
+    names = [system_one_name(m) for m in models]
+    return ", ".join(names[:-1]) + " and " + names[-1] if len(names) > 1 else names[0]
+
+
+def fig_pick_number_reading(
+    table: pd.DataFrame, group: str, models: list[str], part: str
+) -> Figure:
+    """Distance from people, read one pick per call and read as the model's own distribution."""
+    from .pick_number import is_jev, system_one_name
+
+    rows = []
+    for m in models:
+        pick = _pick_cell(table, m, "neutral", "one pick per call")
+        dist = _pick_cell(table, m, "neutral", "its distribution")
+        rows.append(
+            (
+                system_one_name(m),
+                f"one pick per call: {_pick_one_pick(table, m, 'neutral')}",
+                float(pick["tv_from_people"]),
+                float(dist["tv_from_people"]),
+            )
+        )
+    rows.sort(key=lambda r: r[3])
+    chat = table[(table["arm"] == "baseline") & (table["persona"] == "neutral")].iloc[0]
+    chat_name = str(chat["source"]).split(",")[0]
+    jev_rows = {system_one_name(m) for m in models if is_jev(m)}
+    body = dumbbell(
+        rows,
+        ref_name="One pick per call",
+        focal_name="The model's own distribution",
+        row_focal_fill={n: (JEV_PINK, "Jev's own distribution") for n in jev_rows},
+        axis_title="distance from people's distribution (total variation, 0 = the same)",
+        step=0.2,
+        fmt="{:.2f}",
+        domain=(0.0, 1.0),
+        order_note="ROWS BY THE DISTRIBUTION'S DISTANCE",
+        reference_line=(float(chat["tv_from_people"]), f"{chat_name.upper()}, ONE PICK PER CALL"),
+    )
+    return Figure(
+        slug=f"pick-number-reading-{part}",
+        eyebrow="Pick a number · asked plainly · exploratory",
+        title=f"Read one pick at a time, {group} mostly collapse onto one number",
+        subtitle=(
+            "How far each model's answers are from people's when it is asked for a random number from 1 to 10. "
+            "Hollow: counting the single number each call picks, as a chat model has to be read. Solid: the "
+            "probabilities the model returns. Putting everything on 7 scores 0.67."
+        ),
+        desc=f"Dumbbell chart of {_pick_name_list(models)}: each model's distance from people's distribution "
+        "of picks, counted one pick per call and taken from its returned probabilities.",
+        width=1000,
+        height=510,
+        body=body,
+        source="Total-variation distance from YouGov's 2,241 British adults, 12–13 Sep 2024. Each model: 100 "
+        "calls, run 15 Oct 2026, options shuffled per call. Dashed line: the chat model, 100 calls at "
+        "temperature 1.",
+    )
+
+
+def fig_pick_number_prompt(table: pd.DataFrame, group: str, models: list[str], part: str) -> Figure:
+    """Share on 7 in each model's distribution, asked plainly and as a typical person."""
+    from .pick_number import is_jev, system_one_name
+
+    people = float(table.loc[table["arm"] == "people", "share_7"].iloc[0])
+    rows = []
+    for m in models:
+        plain = _pick_cell(table, m, "neutral", "its distribution")
+        typical = _pick_cell(table, m, "typical_human", "its distribution")
+        peaks = [str(plain["top"]), str(typical["top"])]
+        sub = (
+            "peaks on 7 both times"
+            if peaks == ["7", "7"]
+            else f"peaks on {peaks[0]} plainly, {peaks[1]} as a typical person"
+        )
+        rows.append((system_one_name(m), sub, float(plain["share_7"]), float(typical["share_7"])))
+    rows.sort(key=lambda r: r[3])
+    jev_rows = {system_one_name(m) for m in models if is_jev(m)}
+    body = dumbbell(
+        rows,
+        ref_name="Asked plainly",
+        focal_name="Asked to answer as a typical person",
+        row_ref_fill={n: (JEV_PINK, "Jev, asked plainly") for n in jev_rows},
+        row_focal_fill={n: (JEV_PROMPT, "Jev, as a typical person") for n in jev_rows},
+        axis_title="share of the model's probability on 7",
+        step=0.2,
+        fmt="{:.0%}",
+        domain=(0.0, 1.0),
+        order_note="ROWS BY THE TYPICAL-PERSON SHARE",
+        reference_line=(people, f"PEOPLE {people:.0%}"),
+    )
+    return Figure(
+        slug=f"pick-number-prompt-{part}",
+        eyebrow="Pick a number · two prompts · exploratory",
+        title=f"Told to answer as a typical person, {group} mostly overshoot onto 7",
+        subtitle=(
+            "The share of each model's returned probability on 7, the number a third of people pick. Asked to "
+            "answer as a typical person, a model that knew people's answers would move towards the dashed line; "
+            "most go past it."
+        ),
+        desc=f"Dumbbell chart of {_pick_name_list(models)}: the share of each model's distribution on 7 when "
+        "asked plainly and when asked to answer as a typical person, against people's 33%.",
+        width=1000,
+        height=510,
+        body=body,
+        source="Each model: mean of 100 returned distributions per prompt, run 15 Oct 2026, options shuffled per "
+        "call. People: YouGov, 2,241 British adults, 12–13 Sep 2024.",
+    )
+
+
+def fig_pick_number_models(table: pd.DataFrame, group: str, models: list[str], part: str) -> Figure:
+    """Each model's distribution, asked plainly, against people's: one small panel per model."""
+    from .pick_number import system_one_name
+
+    people_row = table[table["arm"] == "people"].iloc[0]
+    people = [float(people_row[n]) for n in PICK_NUMBERS]
+    dists = {
+        m: [float(_pick_cell(table, m, "neutral", "its distribution")[n]) for n in PICK_NUMBERS]
+        for m in models
+    }
+    ceil = _pick_ceil(max(max(people), *(max(v) for v in dists.values())))
+    w, h = 250, 140
+    out: list[str] = []
+    for i, m in enumerate(models):
+        x0, y0 = 70 + (i % 3) * 320, 60 + (i // 3) * 220
+        fill, edge = _pick_colour(m)
+        name = system_one_name(m)
+        dist = _pick_cell(table, m, "neutral", "its distribution")
+        out.append(_t(x0, y0 - 24, name, size=12, family=SANS, fill=INK, weight=600))
+        out.append(
+            _t(x0, y0 - 10, f"on 7: {float(dist['share_7']):.0%} · distance from people "
+               f"{float(dist['tv_from_people']):.2f}", size=9, family=SANS)
+        )  # fmt: skip
+        _pick_bars(out, x0, y0, w, h, ceil, people, dists[m], name, fill, edge)
+    rows = -(-len(models) // 3)
+    axis_y = 60 + rows * 220 - 40
+    out.append(_t(510, axis_y, "NUMBER PICKED", size=7, spacing="0.14em", anchor="middle"))
+    rule = axis_y + 10
+    out.append(_legend(1000, rule, []))
+    out.append(
+        f'<rect x="104" y="{rule + 24}" width="16" height="10" rx="2" fill="{muted(0.18)}" stroke="{MUTED}" stroke-width="1"/>'
+    )
+    out.append(_t(128, rule + 33, PICK_PEOPLE_KEY, size=9, family=SANS, fill=INK))
+    sx = 128 + text_width(PICK_PEOPLE_KEY, 9) + 40
+    for fill, edge in dict.fromkeys(_pick_colour(m) for m in models):
+        out.append(
+            f'<rect x="{sx:g}" y="{rule + 24}" width="10" height="10" rx="2" fill="{fill}" fill-opacity="0.75" stroke="{edge}" stroke-width="1"/>'
+        )
+        sx += 13
+    out.append(
+        _t(sx + 8, rule + 33, "The model's returned probability, mean of 100 calls", size=9,
+           family=SANS, fill=INK)
+    )  # fmt: skip
+    return Figure(
+        slug=f"pick-number-models-{part}",
+        eyebrow="Pick a number · asked plainly · exploratory",
+        title=f"Pick a number between 1 and 10: {group}, against people",
+        subtitle=(
+            "Slate: the share of people picking each number. Coloured: the probability each model returns for "
+            "it. Distance is total variation from people's distribution, 0 (the same) to 1 (no overlap)."
+        ),
+        desc=f"Small bar charts, one per model ({_pick_name_list(models)}), each showing the probability the "
+        "model returns for each number from 1 to 10 next to the share of people who pick it.",
+        width=1000,
+        height=rule + 50,
+        body="\n".join(out),
+        source="Same scale in every panel. Each model: mean of 100 returned distributions, run 15 Oct 2026, "
+        "options shuffled per call. People: YouGov, 2,241 British adults, 12–13 Sep 2024.",
+    )
+
+
+def pick_number_figures(table: pd.DataFrame) -> list[Figure]:
+    figures = [fig_pick_number_jev(table)]
+    for (group, models), part in zip(_pick_groups(table), "ab", strict=False):
+        figures += [
+            fig_pick_number_reading(table, group, models, part),
+            fig_pick_number_prompt(table, group, models, part),
+            fig_pick_number_models(table, group, models, part),
+        ]
+    return figures
+
+
+def build_pick_number_diagrams(table: pd.DataFrame, out_dir: Path) -> list[Path]:
+    out_dir.mkdir(parents=True, exist_ok=True)
+    paths = []
+    for f in pick_number_figures(table):
+        p = out_dir / f"{f.slug}.html"
+        p.write_text(f.html(), encoding="utf-8")
+        paths.append(p)
+    return paths
 
 
 def build_diagrams(

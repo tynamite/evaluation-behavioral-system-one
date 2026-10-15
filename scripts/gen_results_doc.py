@@ -331,15 +331,20 @@ def main(argv: list[str]) -> int:
         L.append("")
 
     pick = figures(
-        ("pick-number.png", "Pick a number between 1 and 10: Jev 1.13 and Jev 1.14, each as "
-                            "its distribution and one pick per call, against Haiku and people"),
-        ("pick-number-models.png", "Pick a number between 1 and 10: share on 7 for every "
-                                   "System One model, as a distribution and one pick per call"),
-        ("pick-number-models-plain.png", "Pick a number between 1 and 10, asked plainly: each "
-                                         "System One model's distribution against people's"),
-        ("pick-number-models-typical.png", "Pick a number between 1 and 10, asked to answer as a "
-                                           "typical person: each System One model's distribution "
-                                           "against people's"),
+        ("pick-number-jev.png", "Pick a number between 1 and 10: Jev 1.13 and Jev 1.14 against "
+                                "people, asked plainly and as a typical person"),
+        ("pick-number-reading-a.png", "Read one pick at a time, Jev and the main comparison's "
+                                      "models mostly collapse onto one number"),
+        ("pick-number-reading-b.png", "Read one pick at a time, the other System One models "
+                                      "mostly collapse onto one number"),
+        ("pick-number-prompt-a.png", "Told to answer as a typical person, Jev and the main "
+                                     "comparison's models mostly overshoot onto 7"),
+        ("pick-number-prompt-b.png", "Told to answer as a typical person, the other System One "
+                                     "models mostly overshoot onto 7"),
+        ("pick-number-models-a.png", "Pick a number between 1 and 10: Jev and the main "
+                                     "comparison's models, against people"),
+        ("pick-number-models-b.png", "Pick a number between 1 and 10: the other System One "
+                                     "models, against people"),
     )
     if pick:
         L.append("## Exploratory: pick a number between 1 and 10\n")
