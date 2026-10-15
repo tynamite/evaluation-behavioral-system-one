@@ -9,7 +9,8 @@ Haiku 5.5, resampled ten times per item.
 The same caveats as the main write-up apply in full: this is a hobby project,
 the human values are not a control group, and **no claims are made about any
 model, company or product.** These are numbers recorded from a public API on
-12–13 October 2026, and how they were produced.
+12–13 October 2026 (Drex 1.5 and Drex 2.0 on 15 October), and how they were
+produced.
 
 ## What was run
 

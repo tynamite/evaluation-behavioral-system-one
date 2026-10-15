@@ -693,7 +693,7 @@ ones that bound the numbers most:
 4. **The reasoning set is not an IQ test.** No norms, no standardisation
    sample; it reports accuracy on a fixed list of questions.
 5. **Each model run once, on one route.** Every model was run on 12–13
-   October 2026, all through a
+   October 2026 (Drex 1.5 and Drex 2.0 on 15 October), all through a
    third-party gateway via an alpha route that may move. `jevbench doctor` is
    there to say when it has.
 6. **Persona conditions are prompt manipulations**, not traits. They show what
