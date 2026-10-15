@@ -173,11 +173,20 @@ def analyse(root: Path = PICK_DIR, out_dir: Path = PICK_RESULTS_DIR) -> pd.DataF
     table = pd.DataFrame(summarise(df))
     # Every source needs usable answers under both prompts, or the figure
     # and table would silently lose a cell.
-    for source in sorted(set(table["source"])):
+    required = [
+        ("jev", "Jev, its distribution"),
+        ("jev", "Jev, one pick per call"),
+        ("baseline", None),
+    ]
+    for arm, source in required:
         for persona in PERSONAS:
-            cell = table[(table["source"] == source) & (table["persona"] == persona)]
+            cell = table[(table["arm"] == arm) & (table["persona"] == persona)]
+            if source is not None:
+                cell = cell[cell["source"] == source]
             if cell.empty or int(cell["n"].iloc[0]) == 0:
-                raise ValueError(f"no usable answers for {source} under {persona}")
+                raise ValueError(
+                    f"no usable answers for {source or 'the chat model'} under {persona}"
+                )
     h = human()
     people = {
         "source": "People (YouGov)",

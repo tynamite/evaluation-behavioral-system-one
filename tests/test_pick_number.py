@@ -108,3 +108,21 @@ def test_analyse_refuses_a_prompt_with_no_usable_answers(tmp_path) -> None:
     (tmp_path / "run_live_B_chat.jsonl").write_text("".join(json.dumps(r) + "\n" for r in chat))
     with pytest.raises(ValueError, match="no usable answers"):
         analyse(tmp_path, tmp_path / "out")
+
+
+def test_analyse_refuses_a_run_with_no_usable_jev_answers_at_all(tmp_path) -> None:
+    import json
+
+    from jevbench.pick_number import analyse
+
+    base = {"probe_id": "pick_number_1_10", "instrument": "pick_number", "backend": "x",
+            "kind": "choice", "value": "7", "probabilities": {"7": 1.0}, "error": None}  # fmt: skip
+    jev = [{**base, "arm": "jev", "model": "jev-1.13.0", "persona": p, "replicate": r,
+            "error": "unusable answer: bad", "probabilities": {}, "value": None}
+           for p in ("neutral", "typical_human") for r in range(2)]  # fmt: skip
+    chat = [{**base, "arm": "baseline", "model": "anthropic/claude-haiku-5.5", "persona": p,
+             "replicate": r} for p in ("neutral", "typical_human") for r in range(2)]  # fmt: skip
+    (tmp_path / "run_live_A_jev.jsonl").write_text("".join(json.dumps(r) + "\n" for r in jev))
+    (tmp_path / "run_live_B_chat.jsonl").write_text("".join(json.dumps(r) + "\n" for r in chat))
+    with pytest.raises(ValueError, match="no usable answers"):
+        analyse(tmp_path, tmp_path / "out")
