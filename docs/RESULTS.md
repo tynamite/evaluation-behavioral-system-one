@@ -173,7 +173,7 @@ Each follow-up statistic measured two ways: the item asked with the typical-pers
 
 ## Across the System One models
 
-All twelve models are compared, with the discussion, in [MODELS.md](MODELS.md).
+All fourteen models are compared, with the discussion, in [MODELS.md](MODELS.md).
 
 ![Every model's distance from the published human results](../results/figures/models-scatter.png)
 

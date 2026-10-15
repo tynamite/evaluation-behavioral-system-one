@@ -6955,3 +6955,1047 @@ false_consensus,false_consensus_gap,typical_human_plain,cloudflare/clef,0.13216,
 false_consensus_estimate,wearer_predicts_wear,typical_human_plain,cloudflare/clef,0.44003000000000003,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
 false_consensus_estimate,nonwearer_predicts_wear,typical_human_plain,cloudflare/clef,0.4182,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
 false_consensus_estimate,false_consensus_gap,typical_human_plain,cloudflare/clef,0.021830000000000016,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt,proportion_correct,antisocial,nace-ai/drex-v1.5-20261009,0.7938771996831632,0.38922167665029955,0.999829996599932,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+crt,proportion_correct_all6,antisocial,nace-ai/drex-v1.5-20261009,0.8176103499599175,0.6140475760933621,0.9985366531331866,,,,all six items; no single human benchmark covers these,System One
+crt,probability_mass_on_lure,antisocial,nace-ai/drex-v1.5-20261009,0.11461329627940198,8.000146669466721e-05,0.31554099181026823,,,,,System One
+fluid_reasoning,accuracy,antisocial,nace-ai/drex-v1.5-20261009,0.879114256347078,0.7770132710581892,0.9634498627334873,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,antisocial,nace-ai/drex-v1.5-20261009,0.996750083596476,0.9935802567897283,0.9998799939997,,,,,System One
+fluid_reasoning,accuracy_steps_2,antisocial,nace-ai/drex-v1.5-20261009,0.9950983101288489,0.9881866974613658,0.9992200007967322,,,,,System One
+fluid_reasoning,accuracy_steps_3,antisocial,nace-ai/drex-v1.5-20261009,0.7117936171566883,0.5265893462015855,0.8820183797826492,,,,,System One
+fluid_reasoning,accuracy_steps_4,antisocial,nace-ai/drex-v1.5-20261009,0.9403305912940332,0.8812011879881202,0.9994599945999461,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,antisocial,nace-ai/drex-v1.5-20261009,0.23417047218704434,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,antisocial,nace-ai/drex-v1.5-20261009,0.004943049430494305,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,antisocial,nace-ai/drex-v1.5-20261009,0.985719857198572,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,antisocial,nace-ai/drex-v1.5-20261009,0.0007700077000770007,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,antisocial,nace-ai/drex-v1.5-20261009,0.17223899999999998,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,antisocial,nace-ai/drex-v1.5-20261009,0.3033920678413568,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,antisocial,nace-ai/drex-v1.5-20261009,0.029762214267143965,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,antisocial,nace-ai/drex-v1.5-20261009,0.04063999999999999,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,antisocial,nace-ai/drex-v1.5-20261009,0.011759999999999998,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,antisocial,nace-ai/drex-v1.5-20261009,0.014249999999999995,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,antisocial,nace-ai/drex-v1.5-20261009,0.01164,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,antisocial,nace-ai/drex-v1.5-20261009,0.009689999999999999,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,antisocial,nace-ai/drex-v1.5-20261009,0.009940000000000003,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,antisocial,nace-ai/drex-v1.5-20261009,0.008239999999999997,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,antisocial,nace-ai/drex-v1.5-20261009,0.005720000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,antisocial,nace-ai/drex-v1.5-20261009,0.006940000000000002,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,antisocial,nace-ai/drex-v1.5-20261009,0.007079999999999999,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,antisocial,nace-ai/drex-v1.5-20261009,0.004599999999999999,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,antisocial,nace-ai/drex-v1.5-20261009,0.011759999999999998,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
+trust_trustee,return_share_sent_2,antisocial,nace-ai/drex-v1.5-20261009,0.01234049361974479,,,,,,,System One
+trust_trustee,return_share_sent_5,antisocial,nace-ai/drex-v1.5-20261009,0.0297285224742323,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,antisocial,nace-ai/drex-v1.5-20261009,0.020048463758841128,,,,,,,System One
+public_goods_conditional,contribution_low,antisocial,nace-ai/drex-v1.5-20261009,0.018899000000000006,,,,,,,System One
+public_goods_conditional,contribution_mid,antisocial,nace-ai/drex-v1.5-20261009,0.04134951902885827,,,,,,,System One
+public_goods_conditional,contribution_high,antisocial,nace-ai/drex-v1.5-20261009,0.06328110156695299,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,antisocial,nace-ai/drex-v1.5-20261009,0.0008699999999999999,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,antisocial,nace-ai/drex-v1.5-20261009,0.009400000000000002,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,antisocial,nace-ai/drex-v1.5-20261009,0.0019500000000000001,,,,,,,System One
+framing,prob_certain_gain_frame,antisocial,nace-ai/drex-v1.5-20261009,0.26346,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,antisocial,nace-ai/drex-v1.5-20261009,0.88357,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,antisocial,nace-ai/drex-v1.5-20261009,-0.6201099999999999,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,antisocial,nace-ai/drex-v1.5-20261009,0.13815000000000002,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,antisocial,nace-ai/drex-v1.5-20261009,0.39616,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,antisocial,nace-ai/drex-v1.5-20261009,0.08342049600000002,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
+conjunction,prob_fallacy_forced_choice,antisocial,nace-ai/drex-v1.5-20261009,0.32009999999999994,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,antisocial,nace-ai/drex-v1.5-20261009,0.43486,,,,,,,System One
+conjunction_axiom,p_conjunction,antisocial,nace-ai/drex-v1.5-20261009,0.75795,,,,,,,System One
+conjunction_axiom,axiom_margin,antisocial,nace-ai/drex-v1.5-20261009,-0.32309,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,antisocial,nace-ai/drex-v1.5-20261009,0.18535629287414254,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,antisocial,nace-ai/drex-v1.5-20261009,0.03433931321373573,,,,,,,System One
+anchoring,estimate_low_anchor,antisocial,nace-ai/drex-v1.5-20261009,25.544280442804432,,,anchoring_low_median,25.0,approximate,,System One
+anchoring,estimate_high_anchor,antisocial,nace-ai/drex-v1.5-20261009,44.083025000000006,,,anchoring_high_median,45.0,approximate,,System One
+anchoring,anchoring_effect,antisocial,nace-ai/drex-v1.5-20261009,18.538744557195574,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels",System One
+sunk_cost,prob_continue,antisocial,nace-ai/drex-v1.5-20261009,0.07487999999999999,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,antisocial,nace-ai/drex-v1.5-20261009,1.03768,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,antisocial,nace-ai/drex-v1.5-20261009,0.5040399999999999,0.46572499999999994,0.55365,,,,,System One
+discounting,prob_patient_30d,antisocial,nace-ai/drex-v1.5-20261009,0.5390675,0.44091,0.637225,,,,,System One
+discounting,prob_patient_180d,antisocial,nace-ai/drex-v1.5-20261009,0.4734125,0.40149,0.5777150000000001,,,,,System One
+present_bias,prob_patient_immediate_frontend,antisocial,nace-ai/drex-v1.5-20261009,0.14356000000000002,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,antisocial,nace-ai/drex-v1.5-20261009,0.3662500000000001,,,,,,,System One
+present_bias,present_bias_gap,antisocial,nace-ai/drex-v1.5-20261009,0.22269000000000005,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction",System One
+beauty_contest,expected_guess,antisocial,nace-ai/drex-v1.5-20261009,15.574440447641887,,,beauty_contest_mean,36.0,medium,,System One
+beauty_contest,mass_at_33,antisocial,nace-ai/drex-v1.5-20261009,0.03137490007993605,,,,,,,System One
+beauty_contest,mass_at_22,antisocial,nace-ai/drex-v1.5-20261009,0.019084732214228618,,,,,,,System One
+beauty_contest,mass_at_0,antisocial,nace-ai/drex-v1.5-20261009,0.26448840927258194,,,,,,,System One
+money_request,expected_request,antisocial,nace-ai/drex-v1.5-20261009,18.133213321332136,,,money_request_modal,17.0,high,the model's mean request against the human mode,System One
+money_request,mass_level0_20,antisocial,nace-ai/drex-v1.5-20261009,0.48374837483748373,,,,,,,System One
+money_request,mass_level1_19,antisocial,nace-ai/drex-v1.5-20261009,0.267026702670267,,,,,,,System One
+money_request,mass_level2_18,antisocial,nace-ai/drex-v1.5-20261009,0.0294029402940294,,,,,,,System One
+money_request,mass_level3_17,antisocial,nace-ai/drex-v1.5-20261009,0.023502350235023502,,,,,,,System One
+mini_ipip,extraversion,antisocial,nace-ai/drex-v1.5-20261009,3.3799386534390035,2.927897306878007,3.97436633867048,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,antisocial,nace-ai/drex-v1.5-20261009,1.6154805376962302,1.1000460753924606,2.348975,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,antisocial,nace-ai/drex-v1.5-20261009,3.273336107262814,2.151766400542142,4.1746025,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,antisocial,nace-ai/drex-v1.5-20261009,1.6112192226055755,1.2285811165111653,2.104010445455455,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,antisocial,nace-ai/drex-v1.5-20261009,3.6770790752699747,2.938028211821182,4.089989013988742,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,antisocial,nace-ai/drex-v1.5-20261009,7.664996585627323,7.139407349412047,8.047817708645828,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,antisocial,nace-ai/drex-v1.5-20261009,7.03818231675837,6.205097608931401,7.729646402156117,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,antisocial,nace-ai/drex-v1.5-20261009,7.778044827112425,7.378970817581758,8.130909654224851,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,antisocial,nace-ai/drex-v1.5-20261009,5.671505537535363,4.162891118677627,7.290658689659825,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,antisocial,nace-ai/drex-v1.5-20261009,5.278472152784722,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,antisocial,nace-ai/drex-v1.5-20261009,1.9939305462508372,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,antisocial,nace-ai/drex-v1.5-20261009,3.2845416065338844,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,antisocial,nace-ai/drex-v1.5-20261009,3.463407072565805,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,antisocial,nace-ai/drex-v1.5-20261009,2.784378437843784,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,antisocial,nace-ai/drex-v1.5-20261009,0.6790286347220209,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,antisocial,nace-ai/drex-v1.5-20261009,0.19948000000000002,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,antisocial,nace-ai/drex-v1.5-20261009,0.97298,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,antisocial,nace-ai/drex-v1.5-20261009,1.17246,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+categorization,prob_rule_based,antisocial,nace-ai/drex-v1.5-20261009,0.41653,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,antisocial,nace-ai/drex-v1.5-20261009,58.5839108391084,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,antisocial,nace-ai/drex-v1.5-20261009,57.797202972029716,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,antisocial,nace-ai/drex-v1.5-20261009,0.7867078670786825,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,antisocial,nace-ai/drex-v1.5-20261009,0.78247,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,antisocial,nace-ai/drex-v1.5-20261009,0.027100000000000006,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,antisocial,nace-ai/drex-v1.5-20261009,0.75537,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+trolley,prob_switch_permissible,antisocial,nace-ai/drex-v1.5-20261009,0.97278,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,antisocial,nace-ai/drex-v1.5-20261009,0.9135200000000001,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,antisocial,nace-ai/drex-v1.5-20261009,0.05925999999999987,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+false_consensus,wearer_predicts_wear,antisocial,nace-ai/drex-v1.5-20261009,0.76458,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,antisocial,nace-ai/drex-v1.5-20261009,0.6796,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,antisocial,nace-ai/drex-v1.5-20261009,0.08498000000000006,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt,proportion_correct,neutral,nace-ai/drex-v1.5-20261009,0.8600165215318221,0.62314,0.99984999399976,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+crt,proportion_correct_all6,neutral,nace-ai/drex-v1.5-20261009,0.8751649599502228,0.7495849612502689,0.9923965924991923,,,,all six items; no single human benchmark covers these,System One
+crt,probability_mass_on_lure,neutral,nace-ai/drex-v1.5-20261009,0.06881856185685671,0.0002750021334033359,0.19060189495685206,,,,,System One
+fluid_reasoning,accuracy,neutral,nace-ai/drex-v1.5-20261009,0.8959198774433701,0.80767320678968,0.9651445945714896,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,neutral,nace-ai/drex-v1.5-20261009,0.9950933689317067,0.98833,0.999809992399696,,,,,System One
+fluid_reasoning,accuracy_steps_2,neutral,nace-ai/drex-v1.5-20261009,0.9901264697217774,0.9777814779220232,0.9995433236663619,,,,,System One
+fluid_reasoning,accuracy_steps_3,neutral,nace-ai/drex-v1.5-20261009,0.753315653480276,0.5921807185618285,0.8922685465302239,,,,,System One
+fluid_reasoning,accuracy_steps_4,neutral,nace-ai/drex-v1.5-20261009,0.9636546472464724,0.9294492944929449,0.99786,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,neutral,nace-ai/drex-v1.5-20261009,0.19503571683672039,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,neutral,nace-ai/drex-v1.5-20261009,0.19444600000000004,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,neutral,nace-ai/drex-v1.5-20261009,0.47101999999999994,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,neutral,nace-ai/drex-v1.5-20261009,0.06020000000000001,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,neutral,nace-ai/drex-v1.5-20261009,0.5041660416604167,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,neutral,nace-ai/drex-v1.5-20261009,0.42313499999999993,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,neutral,nace-ai/drex-v1.5-20261009,0.2893411065889341,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,neutral,nace-ai/drex-v1.5-20261009,0.33681,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,neutral,nace-ai/drex-v1.5-20261009,0.040260000000000004,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,neutral,nace-ai/drex-v1.5-20261009,0.041100000000000005,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,neutral,nace-ai/drex-v1.5-20261009,0.032380000000000006,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,neutral,nace-ai/drex-v1.5-20261009,0.024959999999999993,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,neutral,nace-ai/drex-v1.5-20261009,0.015719999999999998,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,neutral,nace-ai/drex-v1.5-20261009,0.015950000000000002,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,neutral,nace-ai/drex-v1.5-20261009,0.01195,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,neutral,nace-ai/drex-v1.5-20261009,0.011720000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,neutral,nace-ai/drex-v1.5-20261009,0.011380000000000003,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,neutral,nace-ai/drex-v1.5-20261009,0.004949999999999999,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,neutral,nace-ai/drex-v1.5-20261009,0.040260000000000004,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
+trust_trustee,return_share_sent_2,neutral,nace-ai/drex-v1.5-20261009,0.286360469728636,,,,,,,System One
+trust_trustee,return_share_sent_5,neutral,nace-ai/drex-v1.5-20261009,0.43611897214361195,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,neutral,nace-ai/drex-v1.5-20261009,0.2943381004767144,,,,,,,System One
+public_goods_conditional,contribution_low,neutral,nace-ai/drex-v1.5-20261009,0.2878623641290762,,,,,,,System One
+public_goods_conditional,contribution_mid,neutral,nace-ai/drex-v1.5-20261009,0.45560011200224004,,,,,,,System One
+public_goods_conditional,contribution_high,neutral,nace-ai/drex-v1.5-20261009,0.4797452025479744,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,neutral,nace-ai/drex-v1.5-20261009,0.03879000000000001,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,neutral,nace-ai/drex-v1.5-20261009,0.63183,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,neutral,nace-ai/drex-v1.5-20261009,0.00551,,,,,,,System One
+framing,prob_certain_gain_frame,neutral,nace-ai/drex-v1.5-20261009,0.27914,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,neutral,nace-ai/drex-v1.5-20261009,0.5158200000000001,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,neutral,nace-ai/drex-v1.5-20261009,-0.23668000000000006,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,neutral,nace-ai/drex-v1.5-20261009,0.35115999999999997,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,neutral,nace-ai/drex-v1.5-20261009,0.46532999999999997,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,neutral,nace-ai/drex-v1.5-20261009,0.18775471719999998,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
+conjunction,prob_fallacy_forced_choice,neutral,nace-ai/drex-v1.5-20261009,0.58311,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,neutral,nace-ai/drex-v1.5-20261009,0.23228,,,,,,,System One
+conjunction_axiom,p_conjunction,neutral,nace-ai/drex-v1.5-20261009,0.7829,,,,,,,System One
+conjunction_axiom,axiom_margin,neutral,nace-ai/drex-v1.5-20261009,-0.5506200000000001,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,neutral,nace-ai/drex-v1.5-20261009,0.14190567622704908,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,neutral,nace-ai/drex-v1.5-20261009,0.02707108284331373,,,,,,,System One
+anchoring,estimate_low_anchor,neutral,nace-ai/drex-v1.5-20261009,24.151641967160657,,,anchoring_low_median,25.0,approximate,,System One
+anchoring,estimate_high_anchor,neutral,nace-ai/drex-v1.5-20261009,38.341475,,,anchoring_high_median,45.0,approximate,,System One
+anchoring,anchoring_effect,neutral,nace-ai/drex-v1.5-20261009,14.189833032839346,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels",System One
+sunk_cost,prob_continue,neutral,nace-ai/drex-v1.5-20261009,0.05999,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,neutral,nace-ai/drex-v1.5-20261009,1.14313,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,neutral,nace-ai/drex-v1.5-20261009,0.7379675000000001,0.66989,0.8060450000000001,,,,,System One
+discounting,prob_patient_30d,neutral,nace-ai/drex-v1.5-20261009,0.6960725000000001,0.62249,0.7712475000000001,,,,,System One
+discounting,prob_patient_180d,neutral,nace-ai/drex-v1.5-20261009,0.7559199999999999,0.7255075,0.7951824999999999,,,,,System One
+present_bias,prob_patient_immediate_frontend,neutral,nace-ai/drex-v1.5-20261009,0.25503000000000003,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,neutral,nace-ai/drex-v1.5-20261009,0.2265,,,,,,,System One
+present_bias,present_bias_gap,neutral,nace-ai/drex-v1.5-20261009,-0.028530000000000028,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction",System One
+beauty_contest,expected_guess,neutral,nace-ai/drex-v1.5-20261009,22.818994569837088,,,beauty_contest_mean,36.0,medium,,System One
+beauty_contest,mass_at_33,neutral,nace-ai/drex-v1.5-20261009,0.05887176615298459,,,,,,,System One
+beauty_contest,mass_at_22,neutral,nace-ai/drex-v1.5-20261009,0.026170785123553704,,,,,,,System One
+beauty_contest,mass_at_0,neutral,nace-ai/drex-v1.5-20261009,0.03842115263457904,,,,,,,System One
+money_request,expected_request,neutral,nace-ai/drex-v1.5-20261009,17.25848,,,money_request_modal,17.0,high,the model's mean request against the human mode,System One
+money_request,mass_level0_20,neutral,nace-ai/drex-v1.5-20261009,0.0921,,,,,,,System One
+money_request,mass_level1_19,neutral,nace-ai/drex-v1.5-20261009,0.5668200000000001,,,,,,,System One
+money_request,mass_level2_18,neutral,nace-ai/drex-v1.5-20261009,0.036160000000000005,,,,,,,System One
+money_request,mass_level3_17,neutral,nace-ai/drex-v1.5-20261009,0.03146,,,,,,,System One
+mini_ipip,extraversion,neutral,nace-ai/drex-v1.5-20261009,3.280550332663865,2.6945291086179077,4.050164303687389,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,neutral,nace-ai/drex-v1.5-20261009,3.8193482011798823,3.0280564023597636,4.61064,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,neutral,nace-ai/drex-v1.5-20261009,3.2365645967581904,2.2911523726469847,4.119801417627587,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,neutral,nace-ai/drex-v1.5-20261009,2.2269125,1.6108000000000002,2.9024375000000004,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,neutral,nace-ai/drex-v1.5-20261009,3.97267461790679,3.6762890176994336,4.269060218114148,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,neutral,nace-ai/drex-v1.5-20261009,3.124785307612304,2.26,3.9895706152246087,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,neutral,nace-ai/drex-v1.5-20261009,3.963368334620418,3.066471957145437,4.914073375739542,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,neutral,nace-ai/drex-v1.5-20261009,3.435852145451282,2.2530691462231602,5.2823095261294455,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,neutral,nace-ai/drex-v1.5-20261009,5.329467550797667,3.9338693883850127,6.240631167885855,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,neutral,nace-ai/drex-v1.5-20261009,5.93642508599312,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,neutral,nace-ai/drex-v1.5-20261009,1.8081319186808136,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,neutral,nace-ai/drex-v1.5-20261009,4.1282931673123064,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+moral_typecasting_estimate,responsibility_man,neutral,nace-ai/drex-v1.5-20261009,5.332076679233207,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting_estimate,responsibility_baby,neutral,nace-ai/drex-v1.5-20261009,4.452000000000002,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting_estimate,agency_responsibility_gap,neutral,nace-ai/drex-v1.5-20261009,0.8800766792332055,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,neutral,nace-ai/drex-v1.5-20261009,2.701890867639265,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,neutral,nace-ai/drex-v1.5-20261009,2.330539999999999,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,neutral,nace-ai/drex-v1.5-20261009,0.37135086763926584,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+position_power_estimate,power_long_line,neutral,nace-ai/drex-v1.5-20261009,4.476170476590467,,,position_power_long_line,5.01,medium,,System One
+position_power_estimate,power_short_line,neutral,nace-ai/drex-v1.5-20261009,4.5767,,,position_power_short_line,4.62,medium,,System One
+position_power_estimate,position_power_gap,neutral,nace-ai/drex-v1.5-20261009,-0.10052952340953247,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,neutral,nace-ai/drex-v1.5-20261009,0.08016000000000001,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,neutral,nace-ai/drex-v1.5-20261009,0.9656800000000001,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,neutral,nace-ai/drex-v1.5-20261009,1.04584,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+choosing_rejecting_estimate,prob_award_extreme,neutral,nace-ai/drex-v1.5-20261009,0.6020399999999999,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting_estimate,prob_deny_extreme,neutral,nace-ai/drex-v1.5-20261009,0.8029,,,shafir_deny_extreme,0.55,medium,,System One
+categorization,prob_rule_based,neutral,nace-ai/drex-v1.5-20261009,0.5937699999999999,,,norenzayan_rule_based,0.67,medium,,System One
+categorization_estimate,prob_rule_based,neutral,nace-ai/drex-v1.5-20261009,0.61426,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,neutral,nace-ai/drex-v1.5-20261009,55.17824821751783,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,neutral,nace-ai/drex-v1.5-20261009,55.309875,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,neutral,nace-ai/drex-v1.5-20261009,-0.13162678248216508,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+incidental_anchors_estimate,estimate_p97,neutral,nace-ai/drex-v1.5-20261009,55.761875,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors_estimate,estimate_p17,neutral,nace-ai/drex-v1.5-20261009,55.481885543433705,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors_estimate,anchor_gap,neutral,nace-ai/drex-v1.5-20261009,0.27998945656629814,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,neutral,nace-ai/drex-v1.5-20261009,0.65387,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,neutral,nace-ai/drex-v1.5-20261009,0.010700000000000003,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,neutral,nace-ai/drex-v1.5-20261009,0.6431699999999999,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+knobe_estimate,prob_harm_intentional,neutral,nace-ai/drex-v1.5-20261009,0.6711199999999999,,,knobe_harm_intentional,0.82,medium,,System One
+knobe_estimate,prob_help_intentional,neutral,nace-ai/drex-v1.5-20261009,0.28564000000000006,,,knobe_help_intentional,0.23,medium,,System One
+trolley,prob_switch_permissible,neutral,nace-ai/drex-v1.5-20261009,0.9873799999999999,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,neutral,nace-ai/drex-v1.5-20261009,0.04143,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,neutral,nace-ai/drex-v1.5-20261009,0.94595,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+trolley_estimate,prob_switch_permissible,neutral,nace-ai/drex-v1.5-20261009,0.9899800000000001,,,trolley_switch_permissible,0.89,medium,,System One
+trolley_estimate,prob_push_permissible,neutral,nace-ai/drex-v1.5-20261009,0.85588,,,trolley_push_permissible,0.11,medium,,System One
+false_consensus,wearer_predicts_wear,neutral,nace-ai/drex-v1.5-20261009,0.6587500000000001,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,neutral,nace-ai/drex-v1.5-20261009,0.6082000000000001,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,neutral,nace-ai/drex-v1.5-20261009,0.050549999999999984,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+false_consensus_estimate,wearer_predicts_wear,neutral,nace-ai/drex-v1.5-20261009,0.9088,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus_estimate,nonwearer_predicts_wear,neutral,nace-ai/drex-v1.5-20261009,0.8117000000000001,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus_estimate,false_consensus_gap,neutral,nace-ai/drex-v1.5-20261009,0.09709999999999996,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt_estimate,proportion_correct,neutral,nace-ai/drex-v1.5-20261009,0.8942,,,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+framing_estimate,prob_certain_gain_frame,neutral,nace-ai/drex-v1.5-20261009,0.3872499999999999,,,framing_gain_certain,0.72,high,,System One
+framing_estimate,prob_certain_loss_frame,neutral,nace-ai/drex-v1.5-20261009,0.6651999999999999,,,framing_loss_certain,0.22,high,,System One
+allais_estimate,prob_certain_pair1,neutral,nace-ai/drex-v1.5-20261009,0.66462,,,allais_p1_certain,0.8,high,,System One
+allais_estimate,prob_safer_pair2,neutral,nace-ai/drex-v1.5-20261009,0.8560800000000001,,,allais_p2_certain,0.35,high,,System One
+conjunction_estimate,prob_fallacy_forced_choice,neutral,nace-ai/drex-v1.5-20261009,0.4043400000000001,,,conjunction_fallacy_rate,0.85,high,,System One
+base_rate_estimate,prob_correct_band,neutral,nace-ai/drex-v1.5-20261009,0.6972000000000002,,,base_rate_correct_band,0.15,medium,,System One
+sunk_cost_estimate,prob_continue,neutral,nace-ai/drex-v1.5-20261009,0.5296,,,sunk_cost_continue,0.85,medium,,System One
+crt,proportion_correct,rational_agent,nace-ai/drex-v1.5-20261009,0.8169681629480974,0.4524445244452444,0.9998399919995999,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+crt,proportion_correct_all6,rational_agent,nace-ai/drex-v1.5-20261009,0.8399346782979217,0.6575361923798285,0.9995533247330414,,,,all six items; no single human benchmark covers these,System One
+crt,probability_mass_on_lure,rational_agent,nace-ai/drex-v1.5-20261009,0.12768239211856566,9.833443338033552e-05,0.30844586710331556,,,,,System One
+fluid_reasoning,accuracy,rational_agent,nace-ai/drex-v1.5-20261009,0.855247241735166,0.7373608031743214,0.9530774149380671,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,rational_agent,nace-ai/drex-v1.5-20261009,0.9985733645650724,0.9973701051957923,0.999769988499425,,,,,System One
+fluid_reasoning,accuracy_steps_2,rational_agent,nace-ai/drex-v1.5-20261009,0.9936481730771861,0.9833178594677188,0.9994650042986861,,,,,System One
+fluid_reasoning,accuracy_steps_3,rational_agent,nace-ai/drex-v1.5-20261009,0.6534689416126251,0.45015025455968843,0.8497114697521921,,,,,System One
+fluid_reasoning,accuracy_steps_4,rational_agent,nace-ai/drex-v1.5-20261009,0.931279313893139,0.8627786277862779,0.99978,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,rational_agent,nace-ai/drex-v1.5-20261009,0.2833687846678886,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,rational_agent,nace-ai/drex-v1.5-20261009,0.0010380207604152084,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,rational_agent,nace-ai/drex-v1.5-20261009,0.997479949598992,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,rational_agent,nace-ai/drex-v1.5-20261009,0.00023000460009200185,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,rational_agent,nace-ai/drex-v1.5-20261009,0.41313260602181934,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,rational_agent,nace-ai/drex-v1.5-20261009,0.014895148951489514,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,rational_agent,nace-ai/drex-v1.5-20261009,0.000934056043362602,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,rational_agent,nace-ai/drex-v1.5-20261009,0.01406,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,rational_agent,nace-ai/drex-v1.5-20261009,0.0050300000000000015,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,rational_agent,nace-ai/drex-v1.5-20261009,0.004320000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,rational_agent,nace-ai/drex-v1.5-20261009,0.00404,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,rational_agent,nace-ai/drex-v1.5-20261009,0.0041400000000000005,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,rational_agent,nace-ai/drex-v1.5-20261009,0.005410000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,rational_agent,nace-ai/drex-v1.5-20261009,0.0031500000000000005,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,rational_agent,nace-ai/drex-v1.5-20261009,0.0025000000000000005,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,rational_agent,nace-ai/drex-v1.5-20261009,0.00404,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,rational_agent,nace-ai/drex-v1.5-20261009,0.00385,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,rational_agent,nace-ai/drex-v1.5-20261009,0.00334,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,rational_agent,nace-ai/drex-v1.5-20261009,0.0050300000000000015,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
+trust_trustee,return_share_sent_2,rational_agent,nace-ai/drex-v1.5-20261009,0.00378,,,,,,,System One
+trust_trustee,return_share_sent_5,rational_agent,nace-ai/drex-v1.5-20261009,0.006850529656073546,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,rational_agent,nace-ai/drex-v1.5-20261009,0.004529485487247177,,,,,,,System One
+public_goods_conditional,contribution_low,rational_agent,nace-ai/drex-v1.5-20261009,0.009070000000000002,,,,,,,System One
+public_goods_conditional,contribution_mid,rational_agent,nace-ai/drex-v1.5-20261009,0.008115,,,,,,,System One
+public_goods_conditional,contribution_high,rational_agent,nace-ai/drex-v1.5-20261009,0.014547854521454785,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,rational_agent,nace-ai/drex-v1.5-20261009,0.0005000000000000001,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,rational_agent,nace-ai/drex-v1.5-20261009,0.08625999999999999,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,rational_agent,nace-ai/drex-v1.5-20261009,0.00136,,,,,,,System One
+framing,prob_certain_gain_frame,rational_agent,nace-ai/drex-v1.5-20261009,0.27901,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,rational_agent,nace-ai/drex-v1.5-20261009,0.89498,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,rational_agent,nace-ai/drex-v1.5-20261009,-0.61597,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,rational_agent,nace-ai/drex-v1.5-20261009,0.34858,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,rational_agent,nace-ai/drex-v1.5-20261009,0.4856000000000001,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,rational_agent,nace-ai/drex-v1.5-20261009,0.17930955199999998,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
+conjunction,prob_fallacy_forced_choice,rational_agent,nace-ai/drex-v1.5-20261009,0.3217200000000001,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,rational_agent,nace-ai/drex-v1.5-20261009,0.11116000000000001,,,,,,,System One
+conjunction_axiom,p_conjunction,rational_agent,nace-ai/drex-v1.5-20261009,0.6382000000000001,,,,,,,System One
+conjunction_axiom,axiom_margin,rational_agent,nace-ai/drex-v1.5-20261009,-0.5270400000000001,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,rational_agent,nace-ai/drex-v1.5-20261009,0.09851295538866167,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,rational_agent,nace-ai/drex-v1.5-20261009,0.03572107163214896,,,,,,,System One
+anchoring,estimate_low_anchor,rational_agent,nace-ai/drex-v1.5-20261009,23.383474999999997,,,anchoring_low_median,25.0,approximate,,System One
+anchoring,estimate_high_anchor,rational_agent,nace-ai/drex-v1.5-20261009,39.29291464573229,,,anchoring_high_median,45.0,approximate,,System One
+anchoring,anchoring_effect,rational_agent,nace-ai/drex-v1.5-20261009,15.909439645732292,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels",System One
+sunk_cost,prob_continue,rational_agent,nace-ai/drex-v1.5-20261009,0.03160000000000001,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,rational_agent,nace-ai/drex-v1.5-20261009,1.12784,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,rational_agent,nace-ai/drex-v1.5-20261009,0.75746,0.7106049999999999,0.804315,,,,,System One
+discounting,prob_patient_30d,rational_agent,nace-ai/drex-v1.5-20261009,0.81707,0.807745,0.8308,,,,,System One
+discounting,prob_patient_180d,rational_agent,nace-ai/drex-v1.5-20261009,0.760305,0.6848974999999999,0.8512075000000001,,,,,System One
+present_bias,prob_patient_immediate_frontend,rational_agent,nace-ai/drex-v1.5-20261009,0.15143,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,rational_agent,nace-ai/drex-v1.5-20261009,0.5939099999999999,,,,,,,System One
+present_bias,present_bias_gap,rational_agent,nace-ai/drex-v1.5-20261009,0.44247999999999993,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction",System One
+beauty_contest,expected_guess,rational_agent,nace-ai/drex-v1.5-20261009,5.3887943971986045,,,beauty_contest_mean,36.0,medium,,System One
+beauty_contest,mass_at_33,rational_agent,nace-ai/drex-v1.5-20261009,0.02931465732866433,,,,,,,System One
+beauty_contest,mass_at_22,rational_agent,nace-ai/drex-v1.5-20261009,0.003101550775387693,,,,,,,System One
+beauty_contest,mass_at_0,rational_agent,nace-ai/drex-v1.5-20261009,0.815007503751876,,,,,,,System One
+money_request,expected_request,rational_agent,nace-ai/drex-v1.5-20261009,18.553535353535352,,,money_request_modal,17.0,high,the model's mean request against the human mode,System One
+money_request,mass_level0_20,rational_agent,nace-ai/drex-v1.5-20261009,0.5952995299529953,,,,,,,System One
+money_request,mass_level1_19,rational_agent,nace-ai/drex-v1.5-20261009,0.20828082808280823,,,,,,,System One
+money_request,mass_level2_18,rational_agent,nace-ai/drex-v1.5-20261009,0.020442044204420435,,,,,,,System One
+money_request,mass_level3_17,rational_agent,nace-ai/drex-v1.5-20261009,0.024002400240024,,,,,,,System One
+mini_ipip,extraversion,rational_agent,nace-ai/drex-v1.5-20261009,2.9088546056402467,2.533203045786795,3.3675072007200724,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,rational_agent,nace-ai/drex-v1.5-20261009,3.379758065754081,3.1034505249475055,3.6560656065606567,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,rational_agent,nace-ai/drex-v1.5-20261009,3.288237103924897,2.4910067345971205,4.102321202120211,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,rational_agent,nace-ai/drex-v1.5-20261009,2.0478499825494767,1.7066749650989532,2.4841900000000003,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,rational_agent,nace-ai/drex-v1.5-20261009,4.01540545329533,3.8504850000000004,4.225766359885989,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,rational_agent,nace-ai/drex-v1.5-20261009,3.3518346623674837,2.2976084308430846,4.5955713170158505,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,rational_agent,nace-ai/drex-v1.5-20261009,3.7685236514788514,2.972662070149104,4.589431191588377,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,rational_agent,nace-ai/drex-v1.5-20261009,3.4517237945093844,2.370946294509384,5.034977500000001,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,rational_agent,nace-ai/drex-v1.5-20261009,4.5020124975596865,2.7815975977402267,5.640731846430137,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,rational_agent,nace-ai/drex-v1.5-20261009,5.541131298183163,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,rational_agent,nace-ai/drex-v1.5-20261009,4.206979302069793,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,rational_agent,nace-ai/drex-v1.5-20261009,1.3341519961133699,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,rational_agent,nace-ai/drex-v1.5-20261009,2.5671456714567147,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,rational_agent,nace-ai/drex-v1.5-20261009,2.381761823817618,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,rational_agent,nace-ai/drex-v1.5-20261009,0.18538384763909654,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,rational_agent,nace-ai/drex-v1.5-20261009,0.33476,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,rational_agent,nace-ai/drex-v1.5-20261009,0.95663,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,rational_agent,nace-ai/drex-v1.5-20261009,1.29139,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+categorization,prob_rule_based,rational_agent,nace-ai/drex-v1.5-20261009,0.51112,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,rational_agent,nace-ai/drex-v1.5-20261009,52.294922949229495,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,rational_agent,nace-ai/drex-v1.5-20261009,51.774414511709764,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,rational_agent,nace-ai/drex-v1.5-20261009,0.5205084375197302,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,rational_agent,nace-ai/drex-v1.5-20261009,0.44883999999999996,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,rational_agent,nace-ai/drex-v1.5-20261009,0.012500000000000004,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,rational_agent,nace-ai/drex-v1.5-20261009,0.43633999999999995,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+trolley,prob_switch_permissible,rational_agent,nace-ai/drex-v1.5-20261009,0.9847400000000001,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,rational_agent,nace-ai/drex-v1.5-20261009,0.20051999999999998,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,rational_agent,nace-ai/drex-v1.5-20261009,0.7842200000000001,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+false_consensus,wearer_predicts_wear,rational_agent,nace-ai/drex-v1.5-20261009,0.8616,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,rational_agent,nace-ai/drex-v1.5-20261009,0.67326,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,rational_agent,nace-ai/drex-v1.5-20261009,0.18834000000000006,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt,proportion_correct,typical_human,nace-ai/drex-v1.5-20261009,0.6901033083325833,0.08481999999999996,0.99749992499775,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+crt,proportion_correct_all6,typical_human,nace-ai/drex-v1.5-20261009,0.7994286462501289,0.4964319814335177,0.995519843970485,,,,all six items; no single human benchmark covers these,System One
+crt,probability_mass_on_lure,typical_human,nace-ai/drex-v1.5-20261009,0.15659999207396866,0.0025550700066506544,0.44821165854062944,,,,,System One
+fluid_reasoning,accuracy,typical_human,nace-ai/drex-v1.5-20261009,0.8322954301964126,0.6985304537175244,0.9436289573029893,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,typical_human,nace-ai/drex-v1.5-20261009,0.9942397601125726,0.989239892398924,0.9996,,,,,System One
+fluid_reasoning,accuracy_steps_2,typical_human,nace-ai/drex-v1.5-20261009,0.9865365346544258,0.9681247704761876,0.9981948886212441,,,,,System One
+fluid_reasoning,accuracy_steps_3,typical_human,nace-ai/drex-v1.5-20261009,0.6115876128502641,0.3652047557074069,0.8318108620224335,,,,,System One
+fluid_reasoning,accuracy_steps_4,typical_human,nace-ai/drex-v1.5-20261009,0.8991329826596532,0.8010460209204184,0.997219944398888,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,typical_human,nace-ai/drex-v1.5-20261009,0.31875317619355537,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,typical_human,nace-ai/drex-v1.5-20261009,0.19250022499325023,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,typical_human,nace-ai/drex-v1.5-20261009,0.2547923562293132,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,typical_human,nace-ai/drex-v1.5-20261009,0.05615831525054249,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,typical_human,nace-ai/drex-v1.5-20261009,0.48679633981699083,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,typical_human,nace-ai/drex-v1.5-20261009,0.4330970070897874,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,typical_human,nace-ai/drex-v1.5-20261009,0.2911508230164603,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,typical_human,nace-ai/drex-v1.5-20261009,0.19822999999999996,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,typical_human,nace-ai/drex-v1.5-20261009,0.07783000000000002,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,typical_human,nace-ai/drex-v1.5-20261009,0.07754,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,typical_human,nace-ai/drex-v1.5-20261009,0.05112,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,typical_human,nace-ai/drex-v1.5-20261009,0.058210000000000005,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,typical_human,nace-ai/drex-v1.5-20261009,0.02314,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,typical_human,nace-ai/drex-v1.5-20261009,0.029919999999999995,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,typical_human,nace-ai/drex-v1.5-20261009,0.029369999999999997,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,typical_human,nace-ai/drex-v1.5-20261009,0.03285,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,typical_human,nace-ai/drex-v1.5-20261009,0.03089,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,typical_human,nace-ai/drex-v1.5-20261009,0.010750000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,typical_human,nace-ai/drex-v1.5-20261009,0.07783000000000002,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
+trust_trustee,return_share_sent_2,typical_human,nace-ai/drex-v1.5-20261009,0.31912152454857884,,,,,,,System One
+trust_trustee,return_share_sent_5,typical_human,nace-ai/drex-v1.5-20261009,0.4396769365639678,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,typical_human,nace-ai/drex-v1.5-20261009,0.37039714921930217,,,,,,,System One
+public_goods_conditional,contribution_low,typical_human,nace-ai/drex-v1.5-20261009,0.23128443577821106,,,,,,,System One
+public_goods_conditional,contribution_mid,typical_human,nace-ai/drex-v1.5-20261009,0.41603499999999993,,,,,,,System One
+public_goods_conditional,contribution_high,typical_human,nace-ai/drex-v1.5-20261009,0.49278999999999995,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,typical_human,nace-ai/drex-v1.5-20261009,0.0723,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,typical_human,nace-ai/drex-v1.5-20261009,0.80054,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,typical_human,nace-ai/drex-v1.5-20261009,0.00368,,,,,,,System One
+framing,prob_certain_gain_frame,typical_human,nace-ai/drex-v1.5-20261009,0.17886000000000002,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,typical_human,nace-ai/drex-v1.5-20261009,0.72927,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,typical_human,nace-ai/drex-v1.5-20261009,-0.55041,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,typical_human,nace-ai/drex-v1.5-20261009,0.32971,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,typical_human,nace-ai/drex-v1.5-20261009,0.52556,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,typical_human,nace-ai/drex-v1.5-20261009,0.15642761240000003,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
+conjunction,prob_fallacy_forced_choice,typical_human,nace-ai/drex-v1.5-20261009,0.59819,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,typical_human,nace-ai/drex-v1.5-20261009,0.06007,,,,,,,System One
+conjunction_axiom,p_conjunction,typical_human,nace-ai/drex-v1.5-20261009,0.43769,,,,,,,System One
+conjunction_axiom,axiom_margin,typical_human,nace-ai/drex-v1.5-20261009,-0.37762,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,typical_human,nace-ai/drex-v1.5-20261009,0.12623,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,typical_human,nace-ai/drex-v1.5-20261009,0.0475,,,,,,,System One
+anchoring,estimate_low_anchor,typical_human,nace-ai/drex-v1.5-20261009,21.115519620784834,,,anchoring_low_median,25.0,approximate,,System One
+anchoring,estimate_high_anchor,typical_human,nace-ai/drex-v1.5-20261009,37.05424554245542,,,anchoring_high_median,45.0,approximate,,System One
+anchoring,anchoring_effect,typical_human,nace-ai/drex-v1.5-20261009,15.938725921670585,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels",System One
+sunk_cost,prob_continue,typical_human,nace-ai/drex-v1.5-20261009,0.20663,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,typical_human,nace-ai/drex-v1.5-20261009,2.40834,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,typical_human,nace-ai/drex-v1.5-20261009,0.4763925,0.406235,0.5738075,,,,,System One
+discounting,prob_patient_30d,typical_human,nace-ai/drex-v1.5-20261009,0.39920500000000003,0.36490999999999996,0.446095,,,,,System One
+discounting,prob_patient_180d,typical_human,nace-ai/drex-v1.5-20261009,0.46438500000000005,0.4051024999999999,0.51652,,,,,System One
+present_bias,prob_patient_immediate_frontend,typical_human,nace-ai/drex-v1.5-20261009,0.18330000000000002,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,typical_human,nace-ai/drex-v1.5-20261009,0.31231000000000003,,,,,,,System One
+present_bias,present_bias_gap,typical_human,nace-ai/drex-v1.5-20261009,0.12901,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction",System One
+beauty_contest,expected_guess,typical_human,nace-ai/drex-v1.5-20261009,20.44292228310869,,,beauty_contest_mean,36.0,medium,,System One
+beauty_contest,mass_at_33,typical_human,nace-ai/drex-v1.5-20261009,0.023039078436862523,,,,,,,System One
+beauty_contest,mass_at_22,typical_human,nace-ai/drex-v1.5-20261009,0.032998680052797894,,,,,,,System One
+beauty_contest,mass_at_0,typical_human,nace-ai/drex-v1.5-20261009,0.0023199072037118516,,,,,,,System One
+money_request,expected_request,typical_human,nace-ai/drex-v1.5-20261009,16.17795067704062,,,money_request_modal,17.0,high,the model's mean request against the human mode,System One
+money_request,mass_level0_20,typical_human,nace-ai/drex-v1.5-20261009,0.1628697721863312,,,,,,,System One
+money_request,mass_level1_19,typical_human,nace-ai/drex-v1.5-20261009,0.19903194191651497,,,,,,,System One
+money_request,mass_level2_18,typical_human,nace-ai/drex-v1.5-20261009,0.09022541352481149,,,,,,,System One
+money_request,mass_level3_17,typical_human,nace-ai/drex-v1.5-20261009,0.09234554073244396,,,,,,,System One
+mini_ipip,extraversion,typical_human,nace-ai/drex-v1.5-20261009,3.0953302903380493,2.6297019674045075,3.5443139036096394,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,typical_human,nace-ai/drex-v1.5-20261009,4.1178491289128925,3.7960550000000004,4.427067386738674,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,typical_human,nace-ai/drex-v1.5-20261009,3.0964062437192323,2.1024470702050855,4.090365417233379,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,typical_human,nace-ai/drex-v1.5-20261009,2.041009082503796,1.8138842148157037,2.235208429631408,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,typical_human,nace-ai/drex-v1.5-20261009,4.0313702858547575,3.7425358275630556,4.29939584086727,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,typical_human,nace-ai/drex-v1.5-20261009,3.5496630777116076,2.21887800419958,4.880448151223636,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,typical_human,nace-ai/drex-v1.5-20261009,3.674440190662151,2.8645170077552575,4.523553666924554,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,typical_human,nace-ai/drex-v1.5-20261009,2.75083499268312,2.208329364134875,3.771307450463075,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,typical_human,nace-ai/drex-v1.5-20261009,4.722822501591725,3.1624098765123483,5.928757628262826,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,typical_human,nace-ai/drex-v1.5-20261009,5.194261942619427,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,typical_human,nace-ai/drex-v1.5-20261009,2.0974097409740975,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,typical_human,nace-ai/drex-v1.5-20261009,3.0968522016453295,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,typical_human,nace-ai/drex-v1.5-20261009,3.800792031681268,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,typical_human,nace-ai/drex-v1.5-20261009,3.0916200000000007,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,typical_human,nace-ai/drex-v1.5-20261009,0.7091720316812671,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,typical_human,nace-ai/drex-v1.5-20261009,0.30904,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,typical_human,nace-ai/drex-v1.5-20261009,0.9484,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,typical_human,nace-ai/drex-v1.5-20261009,1.25744,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+categorization,prob_rule_based,typical_human,nace-ai/drex-v1.5-20261009,0.5452299999999999,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,typical_human,nace-ai/drex-v1.5-20261009,54.7072691453829,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,typical_human,nace-ai/drex-v1.5-20261009,53.8801802072083,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,typical_human,nace-ai/drex-v1.5-20261009,0.8270889381746045,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,typical_human,nace-ai/drex-v1.5-20261009,0.70544,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,typical_human,nace-ai/drex-v1.5-20261009,0.014419999999999999,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,typical_human,nace-ai/drex-v1.5-20261009,0.69102,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+trolley,prob_switch_permissible,typical_human,nace-ai/drex-v1.5-20261009,0.96682,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,typical_human,nace-ai/drex-v1.5-20261009,0.07049000000000001,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,typical_human,nace-ai/drex-v1.5-20261009,0.89633,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+false_consensus,wearer_predicts_wear,typical_human,nace-ai/drex-v1.5-20261009,0.96008,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,typical_human,nace-ai/drex-v1.5-20261009,0.72284,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,typical_human,nace-ai/drex-v1.5-20261009,0.23724,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt,proportion_correct,typical_human_plain,nace-ai/drex-v1.5-20261009,0.7316140608380044,0.20786207862078618,0.996869906097183,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+crt,proportion_correct_all6,typical_human_plain,nace-ai/drex-v1.5-20261009,0.8132732770688681,0.5508856040431389,0.9970766831821726,,,,all six items; no single human benchmark covers these,System One
+crt,probability_mass_on_lure,typical_human_plain,nace-ai/drex-v1.5-20261009,0.14055175626491154,0.0006683483504691814,0.39701931184018435,,,,,System One
+fluid_reasoning,accuracy,typical_human_plain,nace-ai/drex-v1.5-20261009,0.8503107783151259,0.7199768093244469,0.9568559523114541,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,typical_human_plain,nace-ai/drex-v1.5-20261009,0.996736691662481,0.991430171396572,0.999679993599872,,,,,System One
+fluid_reasoning,accuracy_steps_2,typical_human_plain,nace-ai/drex-v1.5-20261009,0.9940188088006471,0.9845414653529696,0.9992583220163005,,,,,System One
+fluid_reasoning,accuracy_steps_3,typical_human_plain,nace-ai/drex-v1.5-20261009,0.6419662759625628,0.399140749220118,0.863484859886401,,,,,System One
+fluid_reasoning,accuracy_steps_4,typical_human_plain,nace-ai/drex-v1.5-20261009,0.9287535750715015,0.8586271725434509,0.9988799775995519,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,typical_human_plain,nace-ai/drex-v1.5-20261009,0.29103990478682085,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,typical_human_plain,nace-ai/drex-v1.5-20261009,0.1766996990090297,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,typical_human_plain,nace-ai/drex-v1.5-20261009,0.3304100876973691,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,typical_human_plain,nace-ai/drex-v1.5-20261009,0.059188224353269404,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,typical_human_plain,nace-ai/drex-v1.5-20261009,0.4917394130293486,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,typical_human_plain,nace-ai/drex-v1.5-20261009,0.4121332426648533,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,typical_human_plain,nace-ai/drex-v1.5-20261009,0.28318599999999994,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,typical_human_plain,nace-ai/drex-v1.5-20261009,0.19455000000000003,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,typical_human_plain,nace-ai/drex-v1.5-20261009,0.11054,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,typical_human_plain,nace-ai/drex-v1.5-20261009,0.09298000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,typical_human_plain,nace-ai/drex-v1.5-20261009,0.06805999999999998,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,typical_human_plain,nace-ai/drex-v1.5-20261009,0.0666,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,typical_human_plain,nace-ai/drex-v1.5-20261009,0.02174,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,typical_human_plain,nace-ai/drex-v1.5-20261009,0.03994,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,typical_human_plain,nace-ai/drex-v1.5-20261009,0.04255,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,typical_human_plain,nace-ai/drex-v1.5-20261009,0.031180000000000003,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,typical_human_plain,nace-ai/drex-v1.5-20261009,0.028390000000000002,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,typical_human_plain,nace-ai/drex-v1.5-20261009,0.0081,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,typical_human_plain,nace-ai/drex-v1.5-20261009,0.11054,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
+trust_trustee,return_share_sent_2,typical_human_plain,nace-ai/drex-v1.5-20261009,0.3129318706812932,,,,,,,System One
+trust_trustee,return_share_sent_5,typical_human_plain,nace-ai/drex-v1.5-20261009,0.43034563678970106,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,typical_human_plain,nace-ai/drex-v1.5-20261009,0.4202189289547542,,,,,,,System One
+public_goods_conditional,contribution_low,typical_human_plain,nace-ai/drex-v1.5-20261009,0.23733999999999988,,,,,,,System One
+public_goods_conditional,contribution_mid,typical_human_plain,nace-ai/drex-v1.5-20261009,0.39933797351894074,,,,,,,System One
+public_goods_conditional,contribution_high,typical_human_plain,nace-ai/drex-v1.5-20261009,0.4597108057838842,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,typical_human_plain,nace-ai/drex-v1.5-20261009,0.08737999999999999,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,typical_human_plain,nace-ai/drex-v1.5-20261009,0.68312,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,typical_human_plain,nace-ai/drex-v1.5-20261009,0.0037999999999999983,,,,,,,System One
+framing,prob_certain_gain_frame,typical_human_plain,nace-ai/drex-v1.5-20261009,0.29865,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,typical_human_plain,nace-ai/drex-v1.5-20261009,0.7497900000000001,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,typical_human_plain,nace-ai/drex-v1.5-20261009,-0.45114000000000004,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,typical_human_plain,nace-ai/drex-v1.5-20261009,0.29998,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,typical_human_plain,nace-ai/drex-v1.5-20261009,0.5627000000000001,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,typical_human_plain,nace-ai/drex-v1.5-20261009,0.13118125400000002,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
+conjunction,prob_fallacy_forced_choice,typical_human_plain,nace-ai/drex-v1.5-20261009,0.5879599999999999,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,typical_human_plain,nace-ai/drex-v1.5-20261009,0.06638999999999998,,,,,,,System One
+conjunction_axiom,p_conjunction,typical_human_plain,nace-ai/drex-v1.5-20261009,0.39816,,,,,,,System One
+conjunction_axiom,axiom_margin,typical_human_plain,nace-ai/drex-v1.5-20261009,-0.33177,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,typical_human_plain,nace-ai/drex-v1.5-20261009,0.14879702405951883,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,typical_human_plain,nace-ai/drex-v1.5-20261009,0.04622907541849163,,,,,,,System One
+anchoring,estimate_low_anchor,typical_human_plain,nace-ai/drex-v1.5-20261009,20.613918417552526,,,anchoring_low_median,25.0,approximate,,System One
+anchoring,estimate_high_anchor,typical_human_plain,nace-ai/drex-v1.5-20261009,39.48639486394865,,,anchoring_high_median,45.0,approximate,,System One
+anchoring,anchoring_effect,typical_human_plain,nace-ai/drex-v1.5-20261009,18.87247644639612,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels",System One
+sunk_cost,prob_continue,typical_human_plain,nace-ai/drex-v1.5-20261009,0.15794000000000002,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,typical_human_plain,nace-ai/drex-v1.5-20261009,2.33592,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,typical_human_plain,nace-ai/drex-v1.5-20261009,0.48938,0.40718499999999996,0.6020325,,,,,System One
+discounting,prob_patient_30d,typical_human_plain,nace-ai/drex-v1.5-20261009,0.42025,0.33882749999999995,0.5099824999999999,,,,,System One
+discounting,prob_patient_180d,typical_human_plain,nace-ai/drex-v1.5-20261009,0.46486750000000004,0.40991,0.5182525000000001,,,,,System One
+present_bias,prob_patient_immediate_frontend,typical_human_plain,nace-ai/drex-v1.5-20261009,0.24097999999999997,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,typical_human_plain,nace-ai/drex-v1.5-20261009,0.24735000000000004,,,,,,,System One
+present_bias,present_bias_gap,typical_human_plain,nace-ai/drex-v1.5-20261009,0.00637000000000007,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction",System One
+beauty_contest,expected_guess,typical_human_plain,nace-ai/drex-v1.5-20261009,20.95060098798023,,,beauty_contest_mean,36.0,medium,,System One
+beauty_contest,mass_at_33,typical_human_plain,nace-ai/drex-v1.5-20261009,0.027639447211055778,,,,,,,System One
+beauty_contest,mass_at_22,typical_human_plain,nace-ai/drex-v1.5-20261009,0.035239295214095724,,,,,,,System One
+beauty_contest,mass_at_0,typical_human_plain,nace-ai/drex-v1.5-20261009,0.0038599228015439692,,,,,,,System One
+money_request,expected_request,typical_human_plain,nace-ai/drex-v1.5-20261009,16.342269731908043,,,money_request_modal,17.0,high,the model's mean request against the human mode,System One
+money_request,mass_level0_20,typical_human_plain,nace-ai/drex-v1.5-20261009,0.20543383698489046,,,,,,,System One
+money_request,mass_level1_19,typical_human_plain,nace-ai/drex-v1.5-20261009,0.22178334649960502,,,,,,,System One
+money_request,mass_level2_18,typical_human_plain,nace-ai/drex-v1.5-20261009,0.07707768766936993,,,,,,,System One
+money_request,mass_level3_17,typical_human_plain,nace-ai/drex-v1.5-20261009,0.06708798736037919,,,,,,,System One
+mini_ipip,extraversion,typical_human_plain,nace-ai/drex-v1.5-20261009,3.045740240805566,2.4474390410958904,3.6440414405152417,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,typical_human_plain,nace-ai/drex-v1.5-20261009,4.236211479081673,4.00523443724502,4.50435,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,typical_human_plain,nace-ai/drex-v1.5-20261009,3.186817264197423,2.149865566498656,4.22376896189619,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,typical_human_plain,nace-ai/drex-v1.5-20261009,1.917423524550362,1.7734192540295666,2.042157411209166,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,typical_human_plain,nace-ai/drex-v1.5-20261009,4.023672234723472,3.701074254925493,4.325247979797979,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,typical_human_plain,nace-ai/drex-v1.5-20261009,2.969815327489682,2.0282562887357014,3.9113743662436633,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,typical_human_plain,nace-ai/drex-v1.5-20261009,3.3224203769608622,2.575830795846098,4.12094593978678,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,typical_human_plain,nace-ai/drex-v1.5-20261009,2.553560132513251,2.0351,3.517500397539754,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,typical_human_plain,nace-ai/drex-v1.5-20261009,4.443885670879654,3.06186099739591,5.6617916837026,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,typical_human_plain,nace-ai/drex-v1.5-20261009,5.208120812081208,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,typical_human_plain,nace-ai/drex-v1.5-20261009,2.583812543128882,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,typical_human_plain,nace-ai/drex-v1.5-20261009,2.624308268952326,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,typical_human_plain,nace-ai/drex-v1.5-20261009,3.7649999999999997,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,typical_human_plain,nace-ai/drex-v1.5-20261009,3.211278872112789,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,typical_human_plain,nace-ai/drex-v1.5-20261009,0.5537211278872105,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,typical_human_plain,nace-ai/drex-v1.5-20261009,0.32577,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,typical_human_plain,nace-ai/drex-v1.5-20261009,0.9245800000000001,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,typical_human_plain,nace-ai/drex-v1.5-20261009,1.25035,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+categorization,prob_rule_based,typical_human_plain,nace-ai/drex-v1.5-20261009,0.56938,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,typical_human_plain,nace-ai/drex-v1.5-20261009,55.20572088558229,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,typical_human_plain,nace-ai/drex-v1.5-20261009,53.468130637387254,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,typical_human_plain,nace-ai/drex-v1.5-20261009,1.7375902481950334,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,typical_human_plain,nace-ai/drex-v1.5-20261009,0.68588,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,typical_human_plain,nace-ai/drex-v1.5-20261009,0.015319999999999997,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,typical_human_plain,nace-ai/drex-v1.5-20261009,0.67056,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+trolley,prob_switch_permissible,typical_human_plain,nace-ai/drex-v1.5-20261009,0.97875,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,typical_human_plain,nace-ai/drex-v1.5-20261009,0.07769999999999999,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,typical_human_plain,nace-ai/drex-v1.5-20261009,0.90105,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+false_consensus,wearer_predicts_wear,typical_human_plain,nace-ai/drex-v1.5-20261009,0.9673700000000001,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,typical_human_plain,nace-ai/drex-v1.5-20261009,0.58626,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,typical_human_plain,nace-ai/drex-v1.5-20261009,0.38111000000000006,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt,proportion_correct,antisocial,nace-ai/drex-v2.0-20261009,0.9697022670879815,0.9171366854674187,0.9961401157965261,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+crt,proportion_correct_all6,antisocial,nace-ai/drex-v2.0-20261009,0.9211833065887784,0.8497309940600345,0.9749038783102965,,,,all six items; no single human benchmark covers these,System One
+crt,probability_mass_on_lure,antisocial,nace-ai/drex-v2.0-20261009,0.06058231567952557,0.010336844310975318,0.135123607678261,,,,,System One
+fluid_reasoning,accuracy,antisocial,nace-ai/drex-v2.0-20261009,0.8269730254257782,0.7128637173294471,0.9279544393901632,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,antisocial,nace-ai/drex-v2.0-20261009,0.9655987828834486,0.9102164086563463,0.9993999399939993,,,,,System One
+fluid_reasoning,accuracy_steps_2,antisocial,nace-ai/drex-v2.0-20261009,0.9446001587375695,0.8528684338732306,0.9946835363866783,,,,,System One
+fluid_reasoning,accuracy_steps_3,antisocial,nace-ai/drex-v2.0-20261009,0.6638952702415565,0.45415754337273334,0.8680562498196412,,,,,System One
+fluid_reasoning,accuracy_steps_4,antisocial,nace-ai/drex-v2.0-20261009,0.8369251324486755,0.70034,0.973510264897351,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,antisocial,nace-ai/drex-v2.0-20261009,0.26325243215142125,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,antisocial,nace-ai/drex-v2.0-20261009,0.01173653053877845,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,antisocial,nace-ai/drex-v2.0-20261009,0.9638414463421462,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,antisocial,nace-ai/drex-v2.0-20261009,0.0020199192032318704,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,antisocial,nace-ai/drex-v2.0-20261009,0.3639581979098955,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,antisocial,nace-ai/drex-v2.0-20261009,0.203227,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,antisocial,nace-ai/drex-v2.0-20261009,0.15521189576208477,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,antisocial,nace-ai/drex-v2.0-20261009,0.6718000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,antisocial,nace-ai/drex-v2.0-20261009,0.33185,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,antisocial,nace-ai/drex-v2.0-20261009,0.33270000000000005,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,antisocial,nace-ai/drex-v2.0-20261009,0.23003999999999997,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,antisocial,nace-ai/drex-v2.0-20261009,0.22849000000000003,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,antisocial,nace-ai/drex-v2.0-20261009,0.26386,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,antisocial,nace-ai/drex-v2.0-20261009,0.13894,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,antisocial,nace-ai/drex-v2.0-20261009,0.13562,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,antisocial,nace-ai/drex-v2.0-20261009,0.17964,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,antisocial,nace-ai/drex-v2.0-20261009,0.18601999999999996,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,antisocial,nace-ai/drex-v2.0-20261009,0.19756,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,antisocial,nace-ai/drex-v2.0-20261009,0.33185,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
+trust_trustee,return_share_sent_2,antisocial,nace-ai/drex-v2.0-20261009,0.07476333333333333,,,,,,,System One
+trust_trustee,return_share_sent_5,antisocial,nace-ai/drex-v2.0-20261009,0.11800005333546677,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,antisocial,nace-ai/drex-v2.0-20261009,0.10851290050562117,,,,,,,System One
+public_goods_conditional,contribution_low,antisocial,nace-ai/drex-v2.0-20261009,0.13664263357366424,,,,,,,System One
+public_goods_conditional,contribution_mid,antisocial,nace-ai/drex-v2.0-20261009,0.1681356372872543,,,,,,,System One
+public_goods_conditional,contribution_high,antisocial,nace-ai/drex-v2.0-20261009,0.17881863544093676,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,antisocial,nace-ai/drex-v2.0-20261009,0.03996000000000001,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,antisocial,nace-ai/drex-v2.0-20261009,0.058739999999999994,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,antisocial,nace-ai/drex-v2.0-20261009,0.026149999999999996,,,,,,,System One
+framing,prob_certain_gain_frame,antisocial,nace-ai/drex-v2.0-20261009,0.54374,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,antisocial,nace-ai/drex-v2.0-20261009,0.49248000000000003,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,antisocial,nace-ai/drex-v2.0-20261009,0.05125999999999997,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,antisocial,nace-ai/drex-v2.0-20261009,0.51037,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,antisocial,nace-ai/drex-v2.0-20261009,0.5604600000000001,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,antisocial,nace-ai/drex-v2.0-20261009,0.22432802980000002,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
+conjunction,prob_fallacy_forced_choice,antisocial,nace-ai/drex-v2.0-20261009,0.29836,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,antisocial,nace-ai/drex-v2.0-20261009,0.4055000000000001,,,,,,,System One
+conjunction_axiom,p_conjunction,antisocial,nace-ai/drex-v2.0-20261009,0.3053,,,,,,,System One
+conjunction_axiom,axiom_margin,antisocial,nace-ai/drex-v2.0-20261009,0.10020000000000007,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,antisocial,nace-ai/drex-v2.0-20261009,0.0201,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,antisocial,nace-ai/drex-v2.0-20261009,0.041010000000000005,,,,,,,System One
+anchoring,estimate_low_anchor,antisocial,nace-ai/drex-v2.0-20261009,25.267647323526763,,,anchoring_low_median,25.0,approximate,,System One
+anchoring,estimate_high_anchor,antisocial,nace-ai/drex-v2.0-20261009,32.63912360876391,,,anchoring_high_median,45.0,approximate,,System One
+anchoring,anchoring_effect,antisocial,nace-ai/drex-v2.0-20261009,7.371476285237147,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels",System One
+sunk_cost,prob_continue,antisocial,nace-ai/drex-v2.0-20261009,0.25226000000000004,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,antisocial,nace-ai/drex-v2.0-20261009,2.44819,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,antisocial,nace-ai/drex-v2.0-20261009,0.298845,0.2648525,0.32842000000000005,,,,,System One
+discounting,prob_patient_30d,antisocial,nace-ai/drex-v2.0-20261009,0.33224750000000003,0.2988275,0.3549800000000001,,,,,System One
+discounting,prob_patient_180d,antisocial,nace-ai/drex-v2.0-20261009,0.3100175,0.26495,0.334525,,,,,System One
+present_bias,prob_patient_immediate_frontend,antisocial,nace-ai/drex-v2.0-20261009,0.3311,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,antisocial,nace-ai/drex-v2.0-20261009,0.47375000000000006,,,,,,,System One
+present_bias,present_bias_gap,antisocial,nace-ai/drex-v2.0-20261009,0.14265000000000005,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction",System One
+beauty_contest,expected_guess,antisocial,nace-ai/drex-v2.0-20261009,27.53609278144372,,,beauty_contest_mean,36.0,medium,,System One
+beauty_contest,mass_at_33,antisocial,nace-ai/drex-v2.0-20261009,0.025894821035792843,,,,,,,System One
+beauty_contest,mass_at_22,antisocial,nace-ai/drex-v2.0-20261009,0.02849430113977205,,,,,,,System One
+beauty_contest,mass_at_0,antisocial,nace-ai/drex-v2.0-20261009,0.030593881223755247,,,,,,,System One
+money_request,expected_request,antisocial,nace-ai/drex-v2.0-20261009,15.853099999999994,,,money_request_modal,17.0,high,the model's mean request against the human mode,System One
+money_request,mass_level0_20,antisocial,nace-ai/drex-v2.0-20261009,0.0455,,,,,,,System One
+money_request,mass_level1_19,antisocial,nace-ai/drex-v2.0-20261009,0.23200000000000004,,,,,,,System One
+money_request,mass_level2_18,antisocial,nace-ai/drex-v2.0-20261009,0.11379999999999998,,,,,,,System One
+money_request,mass_level3_17,antisocial,nace-ai/drex-v2.0-20261009,0.09729999999999998,,,,,,,System One
+mini_ipip,extraversion,antisocial,nace-ai/drex-v2.0-20261009,3.1081444255574437,2.616617693230677,3.603015583441656,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,antisocial,nace-ai/drex-v2.0-20261009,1.2992232285302325,1.2060464570604648,1.39719396310369,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,antisocial,nace-ai/drex-v2.0-20261009,3.1205499999999997,2.519825,3.63535,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,antisocial,nace-ai/drex-v2.0-20261009,1.805777791193278,1.3729,2.3608737876212382,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,antisocial,nace-ai/drex-v2.0-20261009,3.7157002999700026,3.1952249999999998,3.987950599940006,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,antisocial,nace-ai/drex-v2.0-20261009,8.290920260473953,8.192240520947905,8.389600000000002,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,antisocial,nace-ai/drex-v2.0-20261009,7.745069243001072,7.364317417993555,8.087781836818364,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,antisocial,nace-ai/drex-v2.0-20261009,7.860467367580379,7.387137111123921,8.333797624036837,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,antisocial,nace-ai/drex-v2.0-20261009,7.083820100948882,6.496505713071306,7.607443163632727,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,antisocial,nace-ai/drex-v2.0-20261009,5.15011501150115,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,antisocial,nace-ai/drex-v2.0-20261009,2.6593,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,antisocial,nace-ai/drex-v2.0-20261009,2.49081501150115,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,antisocial,nace-ai/drex-v2.0-20261009,3.8428,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,antisocial,nace-ai/drex-v2.0-20261009,3.792720727927207,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,antisocial,nace-ai/drex-v2.0-20261009,0.050079272072792946,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,antisocial,nace-ai/drex-v2.0-20261009,0.41736,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,antisocial,nace-ai/drex-v2.0-20261009,0.57972,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,antisocial,nace-ai/drex-v2.0-20261009,0.99708,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+categorization,prob_rule_based,antisocial,nace-ai/drex-v2.0-20261009,0.4243,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,antisocial,nace-ai/drex-v2.0-20261009,50.79845,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,antisocial,nace-ai/drex-v2.0-20261009,51.12482750344993,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,antisocial,nace-ai/drex-v2.0-20261009,-0.3263775034499261,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,antisocial,nace-ai/drex-v2.0-20261009,0.5949,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,antisocial,nace-ai/drex-v2.0-20261009,0.0407,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,antisocial,nace-ai/drex-v2.0-20261009,0.5542,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+trolley,prob_switch_permissible,antisocial,nace-ai/drex-v2.0-20261009,0.43258,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,antisocial,nace-ai/drex-v2.0-20261009,0.58419,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,antisocial,nace-ai/drex-v2.0-20261009,-0.15160999999999997,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+false_consensus,wearer_predicts_wear,antisocial,nace-ai/drex-v2.0-20261009,0.1526,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,antisocial,nace-ai/drex-v2.0-20261009,0.26320000000000005,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,antisocial,nace-ai/drex-v2.0-20261009,-0.11060000000000003,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt,proportion_correct,neutral,nace-ai/drex-v2.0-20261009,0.989809907099071,0.9754297542975431,0.9973000000000001,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+crt,proportion_correct_all6,neutral,nace-ai/drex-v2.0-20261009,0.9540613339748069,0.9144567880049844,0.9894049425494256,,,,all six items; no single human benchmark covers these,System One
+crt,probability_mass_on_lure,neutral,nace-ai/drex-v2.0-20261009,0.03800199387377325,0.004040031166978338,0.07703953408277453,,,,,System One
+fluid_reasoning,accuracy,neutral,nace-ai/drex-v2.0-20261009,0.8867835065168949,0.7903560003020397,0.9634763689627973,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,neutral,nace-ai/drex-v2.0-20261009,0.9706936263970695,0.915770842291577,1.0,,,,,System One
+fluid_reasoning,accuracy_steps_2,neutral,nace-ai/drex-v2.0-20261009,0.9460599265984734,0.8478449219651565,0.9986700016665573,,,,,System One
+fluid_reasoning,accuracy_steps_3,neutral,nace-ai/drex-v2.0-20261009,0.7852128888530271,0.5870291897875186,0.9532169972556331,,,,,System One
+fluid_reasoning,accuracy_steps_4,neutral,nace-ai/drex-v2.0-20261009,0.9385862282754345,0.883092338153237,0.994080118397632,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,neutral,nace-ai/drex-v2.0-20261009,0.151397773227952,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,neutral,nace-ai/drex-v2.0-20261009,0.29946998409952297,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,neutral,nace-ai/drex-v2.0-20261009,0.3148194445833375,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,neutral,nace-ai/drex-v2.0-20261009,0.13916417492524777,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,neutral,nace-ai/drex-v2.0-20261009,0.3962141514339426,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,neutral,nace-ai/drex-v2.0-20261009,0.3037818865434037,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,neutral,nace-ai/drex-v2.0-20261009,0.3717958718348733,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,neutral,nace-ai/drex-v2.0-20261009,0.6383400000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,neutral,nace-ai/drex-v2.0-20261009,0.19585000000000002,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,neutral,nace-ai/drex-v2.0-20261009,0.14659,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,neutral,nace-ai/drex-v2.0-20261009,0.09878,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,neutral,nace-ai/drex-v2.0-20261009,0.05072000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,neutral,nace-ai/drex-v2.0-20261009,0.05516000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,neutral,nace-ai/drex-v2.0-20261009,0.022199999999999998,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,neutral,nace-ai/drex-v2.0-20261009,0.01992,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,neutral,nace-ai/drex-v2.0-20261009,0.017830000000000006,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,neutral,nace-ai/drex-v2.0-20261009,0.020599999999999997,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,neutral,nace-ai/drex-v2.0-20261009,0.016099999999999996,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,neutral,nace-ai/drex-v2.0-20261009,0.19585000000000002,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
+trust_trustee,return_share_sent_2,neutral,nace-ai/drex-v2.0-20261009,0.29144417111657767,,,,,,,System One
+trust_trustee,return_share_sent_5,neutral,nace-ai/drex-v2.0-20261009,0.375290247097529,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,neutral,nace-ai/drex-v2.0-20261009,0.3783927035622138,,,,,,,System One
+public_goods_conditional,contribution_low,neutral,nace-ai/drex-v2.0-20261009,0.3613846138461384,,,,,,,System One
+public_goods_conditional,contribution_mid,neutral,nace-ai/drex-v2.0-20261009,0.4104324783760812,,,,,,,System One
+public_goods_conditional,contribution_high,neutral,nace-ai/drex-v2.0-20261009,0.457970579705797,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,neutral,nace-ai/drex-v2.0-20261009,0.21056000000000002,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,neutral,nace-ai/drex-v2.0-20261009,0.5131600000000001,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,neutral,nace-ai/drex-v2.0-20261009,0.028339999999999997,,,,,,,System One
+framing,prob_certain_gain_frame,neutral,nace-ai/drex-v2.0-20261009,0.7676000000000001,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,neutral,nace-ai/drex-v2.0-20261009,0.4274400000000001,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,neutral,nace-ai/drex-v2.0-20261009,0.34015999999999996,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,neutral,nace-ai/drex-v2.0-20261009,0.7215,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,neutral,nace-ai/drex-v2.0-20261009,0.49998000000000004,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,neutral,nace-ai/drex-v2.0-20261009,0.36076442999999997,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
+conjunction,prob_fallacy_forced_choice,neutral,nace-ai/drex-v2.0-20261009,0.13171,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,neutral,nace-ai/drex-v2.0-20261009,0.2911,,,,,,,System One
+conjunction_axiom,p_conjunction,neutral,nace-ai/drex-v2.0-20261009,0.3299,,,,,,,System One
+conjunction_axiom,axiom_margin,neutral,nace-ai/drex-v2.0-20261009,-0.0388,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,neutral,nace-ai/drex-v2.0-20261009,0.01731896086234826,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,neutral,nace-ai/drex-v2.0-20261009,0.029798212107273566,,,,,,,System One
+anchoring,estimate_low_anchor,neutral,nace-ai/drex-v2.0-20261009,23.947914479144792,,,anchoring_low_median,25.0,approximate,,System One
+anchoring,estimate_high_anchor,neutral,nace-ai/drex-v2.0-20261009,32.29667296672967,,,anchoring_high_median,45.0,approximate,,System One
+anchoring,anchoring_effect,neutral,nace-ai/drex-v2.0-20261009,8.348758487584881,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels",System One
+sunk_cost,prob_continue,neutral,nace-ai/drex-v2.0-20261009,0.16175,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,neutral,nace-ai/drex-v2.0-20261009,2.85826,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,neutral,nace-ai/drex-v2.0-20261009,0.39806250000000004,0.32767,0.468455,,,,,System One
+discounting,prob_patient_30d,neutral,nace-ai/drex-v2.0-20261009,0.4373975,0.392955,0.49903749999999997,,,,,System One
+discounting,prob_patient_180d,neutral,nace-ai/drex-v2.0-20261009,0.34650250000000005,0.295635,0.39925750000000004,,,,,System One
+present_bias,prob_patient_immediate_frontend,neutral,nace-ai/drex-v2.0-20261009,0.46241000000000004,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,neutral,nace-ai/drex-v2.0-20261009,0.45589,,,,,,,System One
+present_bias,present_bias_gap,neutral,nace-ai/drex-v2.0-20261009,-0.006520000000000026,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction",System One
+beauty_contest,expected_guess,neutral,nace-ai/drex-v2.0-20261009,27.94650000000001,,,beauty_contest_mean,36.0,medium,,System One
+beauty_contest,mass_at_33,neutral,nace-ai/drex-v2.0-20261009,0.0225,,,,,,,System One
+beauty_contest,mass_at_22,neutral,nace-ai/drex-v2.0-20261009,0.0344,,,,,,,System One
+beauty_contest,mass_at_0,neutral,nace-ai/drex-v2.0-20261009,0.031000000000000007,,,,,,,System One
+money_request,expected_request,neutral,nace-ai/drex-v2.0-20261009,16.272372762723727,,,money_request_modal,17.0,high,the model's mean request against the human mode,System One
+money_request,mass_level0_20,neutral,nace-ai/drex-v2.0-20261009,0.026997300269973008,,,,,,,System One
+money_request,mass_level1_19,neutral,nace-ai/drex-v2.0-20261009,0.3217678232176782,,,,,,,System One
+money_request,mass_level2_18,neutral,nace-ai/drex-v2.0-20261009,0.10868913108689131,,,,,,,System One
+money_request,mass_level3_17,neutral,nace-ai/drex-v2.0-20261009,0.11698830116988303,,,,,,,System One
+mini_ipip,extraversion,neutral,nace-ai/drex-v2.0-20261009,2.9958767201720167,2.8773267201720167,3.1081534403440347,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,neutral,nace-ai/drex-v2.0-20261009,2.961299867486749,2.292025,3.9097409740974105,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,neutral,nace-ai/drex-v2.0-20261009,3.276097579757976,2.8385249999999997,3.7383177392739273,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,neutral,nace-ai/drex-v2.0-20261009,2.7790668631469186,2.643192881788179,2.8761947444744473,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,neutral,nace-ai/drex-v2.0-20261009,3.231930276972303,2.906065830916908,3.593975000000001,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,neutral,nace-ai/drex-v2.0-20261009,4.842017368637174,4.14663099690031,5.537403740374039,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,neutral,nace-ai/drex-v2.0-20261009,4.832782396428574,4.430006714274384,5.204641626954886,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,neutral,nace-ai/drex-v2.0-20261009,4.464641121715911,3.8508739626037394,5.078408280828084,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,neutral,nace-ai/drex-v2.0-20261009,5.191688698932637,4.768836558844116,5.596850000000001,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,neutral,nace-ai/drex-v2.0-20261009,5.708400000000001,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,neutral,nace-ai/drex-v2.0-20261009,2.4487,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,neutral,nace-ai/drex-v2.0-20261009,3.259700000000001,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+moral_typecasting_estimate,responsibility_man,neutral,nace-ai/drex-v2.0-20261009,4.480599999999999,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting_estimate,responsibility_baby,neutral,nace-ai/drex-v2.0-20261009,2.5435456454354566,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting_estimate,agency_responsibility_gap,neutral,nace-ai/drex-v2.0-20261009,1.9370543545645424,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,neutral,nace-ai/drex-v2.0-20261009,3.601360136013602,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,neutral,nace-ai/drex-v2.0-20261009,3.5914817036592677,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,neutral,nace-ai/drex-v2.0-20261009,0.009878432354334166,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+position_power_estimate,power_long_line,neutral,nace-ai/drex-v2.0-20261009,3.862886288628863,,,position_power_long_line,5.01,medium,,System One
+position_power_estimate,power_short_line,neutral,nace-ai/drex-v2.0-20261009,4.1865000000000006,,,position_power_short_line,4.62,medium,,System One
+position_power_estimate,position_power_gap,neutral,nace-ai/drex-v2.0-20261009,-0.3236137113711375,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,neutral,nace-ai/drex-v2.0-20261009,0.19888000000000006,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,neutral,nace-ai/drex-v2.0-20261009,0.65522,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,neutral,nace-ai/drex-v2.0-20261009,0.8541000000000001,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+choosing_rejecting_estimate,prob_award_extreme,neutral,nace-ai/drex-v2.0-20261009,0.6023,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting_estimate,prob_deny_extreme,neutral,nace-ai/drex-v2.0-20261009,0.7072,,,shafir_deny_extreme,0.55,medium,,System One
+categorization,prob_rule_based,neutral,nace-ai/drex-v2.0-20261009,0.30906,,,norenzayan_rule_based,0.67,medium,,System One
+categorization_estimate,prob_rule_based,neutral,nace-ai/drex-v2.0-20261009,0.691,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,neutral,nace-ai/drex-v2.0-20261009,48.66782664346713,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,neutral,nace-ai/drex-v2.0-20261009,49.29363912721745,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,neutral,nace-ai/drex-v2.0-20261009,-0.6258124837503232,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+incidental_anchors_estimate,estimate_p97,neutral,nace-ai/drex-v2.0-20261009,54.831971639432794,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors_estimate,estimate_p17,neutral,nace-ai/drex-v2.0-20261009,54.36141222824456,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors_estimate,anchor_gap,neutral,nace-ai/drex-v2.0-20261009,0.4705594111882334,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,neutral,nace-ai/drex-v2.0-20261009,0.5316799999999999,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,neutral,nace-ai/drex-v2.0-20261009,0.06277999999999999,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,neutral,nace-ai/drex-v2.0-20261009,0.46889999999999993,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+knobe_estimate,prob_harm_intentional,neutral,nace-ai/drex-v2.0-20261009,0.9257,,,knobe_harm_intentional,0.82,medium,,System One
+knobe_estimate,prob_help_intentional,neutral,nace-ai/drex-v2.0-20261009,0.8827,,,knobe_help_intentional,0.23,medium,,System One
+trolley,prob_switch_permissible,neutral,nace-ai/drex-v2.0-20261009,0.79258,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,neutral,nace-ai/drex-v2.0-20261009,0.2071,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,neutral,nace-ai/drex-v2.0-20261009,0.58548,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+trolley_estimate,prob_switch_permissible,neutral,nace-ai/drex-v2.0-20261009,0.8924,,,trolley_switch_permissible,0.89,medium,,System One
+trolley_estimate,prob_push_permissible,neutral,nace-ai/drex-v2.0-20261009,0.3052,,,trolley_push_permissible,0.11,medium,,System One
+false_consensus,wearer_predicts_wear,neutral,nace-ai/drex-v2.0-20261009,0.133,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,neutral,nace-ai/drex-v2.0-20261009,0.1649,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,neutral,nace-ai/drex-v2.0-20261009,-0.031899999999999984,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+false_consensus_estimate,wearer_predicts_wear,neutral,nace-ai/drex-v2.0-20261009,0.29220000000000007,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus_estimate,nonwearer_predicts_wear,neutral,nace-ai/drex-v2.0-20261009,0.28880000000000006,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus_estimate,false_consensus_gap,neutral,nace-ai/drex-v2.0-20261009,0.003400000000000014,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt_estimate,proportion_correct,neutral,nace-ai/drex-v2.0-20261009,0.8231333333333334,,,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+framing_estimate,prob_certain_gain_frame,neutral,nace-ai/drex-v2.0-20261009,0.804,,,framing_gain_certain,0.72,high,,System One
+framing_estimate,prob_certain_loss_frame,neutral,nace-ai/drex-v2.0-20261009,0.7535,,,framing_loss_certain,0.22,high,,System One
+allais_estimate,prob_certain_pair1,neutral,nace-ai/drex-v2.0-20261009,0.6082,,,allais_p1_certain,0.8,high,,System One
+allais_estimate,prob_safer_pair2,neutral,nace-ai/drex-v2.0-20261009,0.7528,,,allais_p2_certain,0.35,high,,System One
+conjunction_estimate,prob_fallacy_forced_choice,neutral,nace-ai/drex-v2.0-20261009,0.8102,,,conjunction_fallacy_rate,0.85,high,,System One
+base_rate_estimate,prob_correct_band,neutral,nace-ai/drex-v2.0-20261009,0.6459,,,base_rate_correct_band,0.15,medium,,System One
+sunk_cost_estimate,prob_continue,neutral,nace-ai/drex-v2.0-20261009,0.6199000000000001,,,sunk_cost_continue,0.85,medium,,System One
+crt,proportion_correct,rational_agent,nace-ai/drex-v2.0-20261009,0.9908866767982426,0.9784900000000002,0.9975500979960801,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+crt,proportion_correct_all6,rational_agent,nace-ai/drex-v2.0-20261009,0.9375079415421829,0.8463252696852136,0.9918417234464432,,,,all six items; no single human benchmark covers these,System One
+crt,probability_mass_on_lure,rational_agent,nace-ai/drex-v2.0-20261009,0.05102039890616732,0.003238280051753782,0.1399463005818391,,,,,System One
+fluid_reasoning,accuracy,rational_agent,nace-ai/drex-v2.0-20261009,0.8377786339115924,0.7283117305058532,0.9353442265099196,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,rational_agent,nace-ai/drex-v2.0-20261009,0.9828129656579833,0.9514990299805998,0.9996,,,,,System One
+fluid_reasoning,accuracy_steps_2,rational_agent,nace-ai/drex-v2.0-20261009,0.9340571397766696,0.8151018448466005,0.9980886834439645,,,,,System One
+fluid_reasoning,accuracy_steps_3,rational_agent,nace-ai/drex-v2.0-20261009,0.6979339611901809,0.5020374175101724,0.8907182267371214,,,,,System One
+fluid_reasoning,accuracy_steps_4,rational_agent,nace-ai/drex-v2.0-20261009,0.8208479732217149,0.655626225049002,0.9860697213944278,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,rational_agent,nace-ai/drex-v2.0-20261009,0.2575647795719058,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,rational_agent,nace-ai/drex-v2.0-20261009,0.0033010660213204273,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,rational_agent,nace-ai/drex-v2.0-20261009,0.993939878797576,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,rational_agent,nace-ai/drex-v2.0-20261009,0.000740014800296006,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,rational_agent,nace-ai/drex-v2.0-20261009,0.24328316415820797,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,rational_agent,nace-ai/drex-v2.0-20261009,0.060809,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,rational_agent,nace-ai/drex-v2.0-20261009,0.07628076280762808,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,rational_agent,nace-ai/drex-v2.0-20261009,0.17320000000000005,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,rational_agent,nace-ai/drex-v2.0-20261009,0.01134,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,rational_agent,nace-ai/drex-v2.0-20261009,0.00955,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,rational_agent,nace-ai/drex-v2.0-20261009,0.010250000000000002,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,rational_agent,nace-ai/drex-v2.0-20261009,0.008119999999999999,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,rational_agent,nace-ai/drex-v2.0-20261009,0.014430000000000002,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,rational_agent,nace-ai/drex-v2.0-20261009,0.007600000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,rational_agent,nace-ai/drex-v2.0-20261009,0.0054600000000000004,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,rational_agent,nace-ai/drex-v2.0-20261009,0.005600000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,rational_agent,nace-ai/drex-v2.0-20261009,0.00628,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,rational_agent,nace-ai/drex-v2.0-20261009,0.00795,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,rational_agent,nace-ai/drex-v2.0-20261009,0.01134,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
+trust_trustee,return_share_sent_2,rational_agent,nace-ai/drex-v2.0-20261009,0.009041395424803922,,,,,,,System One
+trust_trustee,return_share_sent_5,rational_agent,nace-ai/drex-v2.0-20261009,0.01607613714019034,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,rational_agent,nace-ai/drex-v2.0-20261009,0.014310858651519091,,,,,,,System One
+public_goods_conditional,contribution_low,rational_agent,nace-ai/drex-v2.0-20261009,0.11209048361934475,,,,,,,System One
+public_goods_conditional,contribution_mid,rational_agent,nace-ai/drex-v2.0-20261009,0.22099841996839936,,,,,,,System One
+public_goods_conditional,contribution_high,rational_agent,nace-ai/drex-v2.0-20261009,0.32230644612892256,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,rational_agent,nace-ai/drex-v2.0-20261009,0.029349999999999998,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,rational_agent,nace-ai/drex-v2.0-20261009,0.27272,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,rational_agent,nace-ai/drex-v2.0-20261009,0.019450000000000002,,,,,,,System One
+framing,prob_certain_gain_frame,rational_agent,nace-ai/drex-v2.0-20261009,0.72264,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,rational_agent,nace-ai/drex-v2.0-20261009,0.4436,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,rational_agent,nace-ai/drex-v2.0-20261009,0.27903999999999995,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,rational_agent,nace-ai/drex-v2.0-20261009,0.5906,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,rational_agent,nace-ai/drex-v2.0-20261009,0.58985,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,rational_agent,nace-ai/drex-v2.0-20261009,0.24223458999999997,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
+conjunction,prob_fallacy_forced_choice,rational_agent,nace-ai/drex-v2.0-20261009,0.1886,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,rational_agent,nace-ai/drex-v2.0-20261009,0.3409,,,,,,,System One
+conjunction_axiom,p_conjunction,rational_agent,nace-ai/drex-v2.0-20261009,0.27829999999999994,,,,,,,System One
+conjunction_axiom,axiom_margin,rational_agent,nace-ai/drex-v2.0-20261009,0.06260000000000004,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,rational_agent,nace-ai/drex-v2.0-20261009,0.010530000000000001,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,rational_agent,nace-ai/drex-v2.0-20261009,0.034850000000000006,,,,,,,System One
+anchoring,estimate_low_anchor,rational_agent,nace-ai/drex-v2.0-20261009,23.49286507134929,,,anchoring_low_median,25.0,approximate,,System One
+anchoring,estimate_high_anchor,rational_agent,nace-ai/drex-v2.0-20261009,30.1748,,,anchoring_high_median,45.0,approximate,,System One
+anchoring,anchoring_effect,rational_agent,nace-ai/drex-v2.0-20261009,6.681934928650712,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels",System One
+sunk_cost,prob_continue,rational_agent,nace-ai/drex-v2.0-20261009,0.11729999999999999,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,rational_agent,nace-ai/drex-v2.0-20261009,3.2612200000000002,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,rational_agent,nace-ai/drex-v2.0-20261009,0.45278499999999994,0.3901775,0.5102074999999999,,,,,System One
+discounting,prob_patient_30d,rational_agent,nace-ai/drex-v2.0-20261009,0.443245,0.36562000000000006,0.5167200000000001,,,,,System One
+discounting,prob_patient_180d,rational_agent,nace-ai/drex-v2.0-20261009,0.38872,0.349175,0.433195,,,,,System One
+present_bias,prob_patient_immediate_frontend,rational_agent,nace-ai/drex-v2.0-20261009,0.37390000000000007,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,rational_agent,nace-ai/drex-v2.0-20261009,0.4754,,,,,,,System One
+present_bias,present_bias_gap,rational_agent,nace-ai/drex-v2.0-20261009,0.10149999999999992,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction",System One
+beauty_contest,expected_guess,rational_agent,nace-ai/drex-v2.0-20261009,15.974500000000015,,,beauty_contest_mean,36.0,medium,,System One
+beauty_contest,mass_at_33,rational_agent,nace-ai/drex-v2.0-20261009,0.0212,,,,,,,System One
+beauty_contest,mass_at_22,rational_agent,nace-ai/drex-v2.0-20261009,0.027100000000000003,,,,,,,System One
+beauty_contest,mass_at_0,rational_agent,nace-ai/drex-v2.0-20261009,0.5626,,,,,,,System One
+money_request,expected_request,rational_agent,nace-ai/drex-v2.0-20261009,16.413041304130413,,,money_request_modal,17.0,high,the model's mean request against the human mode,System One
+money_request,mass_level0_20,rational_agent,nace-ai/drex-v2.0-20261009,0.08820882088208823,,,,,,,System One
+money_request,mass_level1_19,rational_agent,nace-ai/drex-v2.0-20261009,0.2397239723972397,,,,,,,System One
+money_request,mass_level2_18,rational_agent,nace-ai/drex-v2.0-20261009,0.12061206120612061,,,,,,,System One
+money_request,mass_level3_17,rational_agent,nace-ai/drex-v2.0-20261009,0.11721172117211721,,,,,,,System One
+mini_ipip,extraversion,rational_agent,nace-ai/drex-v2.0-20261009,3.0570978122812282,2.950393436843684,3.1623000000000006,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,rational_agent,nace-ai/drex-v2.0-20261009,2.560490814081408,2.29585,2.749740814081408,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,rational_agent,nace-ai/drex-v2.0-20261009,3.3913970852914708,3.0417249999999996,3.8871162558744135,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,rational_agent,nace-ai/drex-v2.0-20261009,2.4886303855266605,2.3166611599492186,2.6352728952104787,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,rational_agent,nace-ai/drex-v2.0-20261009,3.284717526752675,3.103325,3.5677275802580257,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,rational_agent,nace-ai/drex-v2.0-20261009,5.115134904543099,4.5468336304683366,5.683436178617862,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,rational_agent,nace-ai/drex-v2.0-20261009,4.746305137194819,4.375685685969423,5.089218013080424,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,rational_agent,nace-ai/drex-v2.0-20261009,4.494588731914439,4.071046608210465,4.754684559538447,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,rational_agent,nace-ai/drex-v2.0-20261009,4.629191775126917,3.8041999999999994,5.1402405059494045,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,rational_agent,nace-ai/drex-v2.0-20261009,5.56005600560056,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,rational_agent,nace-ai/drex-v2.0-20261009,1.951404859514048,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,rational_agent,nace-ai/drex-v2.0-20261009,3.6086511460865123,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,rational_agent,nace-ai/drex-v2.0-20261009,3.6435356464353563,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,rational_agent,nace-ai/drex-v2.0-20261009,3.7061999999999995,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,rational_agent,nace-ai/drex-v2.0-20261009,-0.06266435356464317,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,rational_agent,nace-ai/drex-v2.0-20261009,0.20822000000000002,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,rational_agent,nace-ai/drex-v2.0-20261009,0.62648,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,rational_agent,nace-ai/drex-v2.0-20261009,0.8347,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+categorization,prob_rule_based,rational_agent,nace-ai/drex-v2.0-20261009,0.41400000000000003,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,rational_agent,nace-ai/drex-v2.0-20261009,48.954454089081786,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,rational_agent,nace-ai/drex-v2.0-20261009,49.49878997579952,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,rational_agent,nace-ai/drex-v2.0-20261009,-0.5443358867177324,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,rational_agent,nace-ai/drex-v2.0-20261009,0.5656400000000001,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,rational_agent,nace-ai/drex-v2.0-20261009,0.07053999999999999,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,rational_agent,nace-ai/drex-v2.0-20261009,0.49510000000000015,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+trolley,prob_switch_permissible,rational_agent,nace-ai/drex-v2.0-20261009,0.7609100000000001,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,rational_agent,nace-ai/drex-v2.0-20261009,0.36598,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,rational_agent,nace-ai/drex-v2.0-20261009,0.39493000000000006,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+false_consensus,wearer_predicts_wear,rational_agent,nace-ai/drex-v2.0-20261009,0.12749999999999997,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,rational_agent,nace-ai/drex-v2.0-20261009,0.17439999999999997,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,rational_agent,nace-ai/drex-v2.0-20261009,-0.0469,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt,proportion_correct,typical_human,nace-ai/drex-v2.0-20261009,0.7690065837366115,0.5616112322246445,0.89351,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+crt,proportion_correct_all6,typical_human,nace-ai/drex-v2.0-20261009,0.7820216686203448,0.6649752195750236,0.891366903205575,,,,all six items; no single human benchmark covers these,System One
+crt,probability_mass_on_lure,typical_human,nace-ai/drex-v2.0-20261009,0.17295500003880213,0.06497367693770094,0.29249941388414663,,,,,System One
+fluid_reasoning,accuracy,typical_human,nace-ai/drex-v2.0-20261009,0.8019925567332966,0.6809273793142653,0.9116801189040664,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,typical_human,nace-ai/drex-v2.0-20261009,0.8900542410303589,0.6819227230910764,0.99614,,,,,System One
+fluid_reasoning,accuracy_steps_2,typical_human,nace-ai/drex-v2.0-20261009,0.8811445769394569,0.6801259635963596,0.9886932487316414,,,,,System One
+fluid_reasoning,accuracy_steps_3,typical_human,nace-ai/drex-v2.0-20261009,0.6905366390038201,0.47093710100906394,0.8956857142857143,,,,,System One
+fluid_reasoning,accuracy_steps_4,typical_human,nace-ai/drex-v2.0-20261009,0.82253968172239,0.773496795096147,0.871582568348633,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,typical_human,nace-ai/drex-v2.0-20261009,0.17018359253352333,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,typical_human,nace-ai/drex-v2.0-20261009,0.23961218836565096,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,typical_human,nace-ai/drex-v2.0-20261009,0.24671740152204566,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,typical_human,nace-ai/drex-v2.0-20261009,0.13427402822084664,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,typical_human,nace-ai/drex-v2.0-20261009,0.4175304740857775,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,typical_human,nace-ai/drex-v2.0-20261009,0.41001300000000007,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,typical_human,nace-ai/drex-v2.0-20261009,0.44922400000000007,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,typical_human,nace-ai/drex-v2.0-20261009,0.8583000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,typical_human,nace-ai/drex-v2.0-20261009,0.6133,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,typical_human,nace-ai/drex-v2.0-20261009,0.54595,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,typical_human,nace-ai/drex-v2.0-20261009,0.39378,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,typical_human,nace-ai/drex-v2.0-20261009,0.31987999999999994,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,typical_human,nace-ai/drex-v2.0-20261009,0.23426000000000002,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,typical_human,nace-ai/drex-v2.0-20261009,0.17884000000000005,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,typical_human,nace-ai/drex-v2.0-20261009,0.15430000000000002,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,typical_human,nace-ai/drex-v2.0-20261009,0.20046,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,typical_human,nace-ai/drex-v2.0-20261009,0.29378000000000004,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,typical_human,nace-ai/drex-v2.0-20261009,0.1501,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,typical_human,nace-ai/drex-v2.0-20261009,0.6133,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
+trust_trustee,return_share_sent_2,typical_human,nace-ai/drex-v2.0-20261009,0.5172078170988205,,,,,,,System One
+trust_trustee,return_share_sent_5,typical_human,nace-ai/drex-v2.0-20261009,0.4899453333333333,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,typical_human,nace-ai/drex-v2.0-20261009,0.47052662806705264,,,,,,,System One
+public_goods_conditional,contribution_low,typical_human,nace-ai/drex-v2.0-20261009,0.27698376983769835,,,,,,,System One
+public_goods_conditional,contribution_mid,typical_human,nace-ai/drex-v2.0-20261009,0.4208584171683434,,,,,,,System One
+public_goods_conditional,contribution_high,typical_human,nace-ai/drex-v2.0-20261009,0.5061448771024579,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,typical_human,nace-ai/drex-v2.0-20261009,0.55398,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,typical_human,nace-ai/drex-v2.0-20261009,0.75915,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,typical_human,nace-ai/drex-v2.0-20261009,0.05781999999999999,,,,,,,System One
+framing,prob_certain_gain_frame,typical_human,nace-ai/drex-v2.0-20261009,0.8431,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,typical_human,nace-ai/drex-v2.0-20261009,0.43080999999999997,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,typical_human,nace-ai/drex-v2.0-20261009,0.41229,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,typical_human,nace-ai/drex-v2.0-20261009,0.7839600000000001,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,typical_human,nace-ai/drex-v2.0-20261009,0.5454000000000001,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,typical_human,nace-ai/drex-v2.0-20261009,0.356388216,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
+conjunction,prob_fallacy_forced_choice,typical_human,nace-ai/drex-v2.0-20261009,0.38804,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,typical_human,nace-ai/drex-v2.0-20261009,0.2812,,,,,,,System One
+conjunction_axiom,p_conjunction,typical_human,nace-ai/drex-v2.0-20261009,0.5419,,,,,,,System One
+conjunction_axiom,axiom_margin,typical_human,nace-ai/drex-v2.0-20261009,-0.26070000000000004,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,typical_human,nace-ai/drex-v2.0-20261009,0.009019909800901994,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,typical_human,nace-ai/drex-v2.0-20261009,0.04865951340486596,,,,,,,System One
+anchoring,estimate_low_anchor,typical_human,nace-ai/drex-v2.0-20261009,22.691848081519183,,,anchoring_low_median,25.0,approximate,,System One
+anchoring,estimate_high_anchor,typical_human,nace-ai/drex-v2.0-20261009,29.630203697963015,,,anchoring_high_median,45.0,approximate,,System One
+anchoring,anchoring_effect,typical_human,nace-ai/drex-v2.0-20261009,6.9383556164438325,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels",System One
+sunk_cost,prob_continue,typical_human,nace-ai/drex-v2.0-20261009,0.31455,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,typical_human,nace-ai/drex-v2.0-20261009,3.7652599999999996,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,typical_human,nace-ai/drex-v2.0-20261009,0.33058,0.27052,0.38724000000000003,,,,,System One
+discounting,prob_patient_30d,typical_human,nace-ai/drex-v2.0-20261009,0.3541675,0.30623,0.40887750000000006,,,,,System One
+discounting,prob_patient_180d,typical_human,nace-ai/drex-v2.0-20261009,0.30412999999999996,0.254665,0.38729499999999994,,,,,System One
+present_bias,prob_patient_immediate_frontend,typical_human,nace-ai/drex-v2.0-20261009,0.38108000000000003,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,typical_human,nace-ai/drex-v2.0-20261009,0.35287,,,,,,,System One
+present_bias,present_bias_gap,typical_human,nace-ai/drex-v2.0-20261009,-0.028210000000000013,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction",System One
+beauty_contest,expected_guess,typical_human,nace-ai/drex-v2.0-20261009,26.635963596359634,,,beauty_contest_mean,36.0,medium,,System One
+beauty_contest,mass_at_33,typical_human,nace-ai/drex-v2.0-20261009,0.0348034803480348,,,,,,,System One
+beauty_contest,mass_at_22,typical_human,nace-ai/drex-v2.0-20261009,0.0474047404740474,,,,,,,System One
+beauty_contest,mass_at_0,typical_human,nace-ai/drex-v2.0-20261009,0.0087008700870087,,,,,,,System One
+money_request,expected_request,typical_human,nace-ai/drex-v2.0-20261009,15.6332,,,money_request_modal,17.0,high,the model's mean request against the human mode,System One
+money_request,mass_level0_20,typical_human,nace-ai/drex-v2.0-20261009,0.0505,,,,,,,System One
+money_request,mass_level1_19,typical_human,nace-ai/drex-v2.0-20261009,0.16250000000000003,,,,,,,System One
+money_request,mass_level2_18,typical_human,nace-ai/drex-v2.0-20261009,0.09109999999999999,,,,,,,System One
+money_request,mass_level3_17,typical_human,nace-ai/drex-v2.0-20261009,0.1165,,,,,,,System One
+mini_ipip,extraversion,typical_human,nace-ai/drex-v2.0-20261009,2.9704803405340536,2.7186384488448843,3.2223222322232226,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,typical_human,nace-ai/drex-v2.0-20261009,3.5808217103289675,3.0997500000000002,4.061893420657935,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,typical_human,nace-ai/drex-v2.0-20261009,3.0310279077907794,2.655490549054906,3.4194417491749176,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,typical_human,nace-ai/drex-v2.0-20261009,2.790537301269873,2.5075296220377963,3.0735449805019495,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,typical_human,nace-ai/drex-v2.0-20261009,3.4162014648535144,3.0223,3.788004394560544,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,typical_human,nace-ai/drex-v2.0-20261009,4.982143219321933,3.5950691469146916,6.369217291729173,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,typical_human,nace-ai/drex-v2.0-20261009,4.729106521984481,4.031635460529949,5.4123220047371525,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,typical_human,nace-ai/drex-v2.0-20261009,3.869025726566507,3.2439850614938504,4.8205671182056715,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,typical_human,nace-ai/drex-v2.0-20261009,5.3361506200650055,4.519948005199479,5.993203219932032,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,typical_human,nace-ai/drex-v2.0-20261009,5.0491049104910495,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,typical_human,nace-ai/drex-v2.0-20261009,2.2608999999999995,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,typical_human,nace-ai/drex-v2.0-20261009,2.78820491049105,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,typical_human,nace-ai/drex-v2.0-20261009,3.9446000000000008,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,typical_human,nace-ai/drex-v2.0-20261009,4.122812281228123,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,typical_human,nace-ai/drex-v2.0-20261009,-0.17821228122812238,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,typical_human,nace-ai/drex-v2.0-20261009,0.24478999999999998,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,typical_human,nace-ai/drex-v2.0-20261009,0.7065500000000001,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,typical_human,nace-ai/drex-v2.0-20261009,0.9513400000000001,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+categorization,prob_rule_based,typical_human,nace-ai/drex-v2.0-20261009,0.36528,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,typical_human,nace-ai/drex-v2.0-20261009,48.49645489364681,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,typical_human,nace-ai/drex-v2.0-20261009,48.527495549910995,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,typical_human,nace-ai/drex-v2.0-20261009,-0.03104065626418162,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,typical_human,nace-ai/drex-v2.0-20261009,0.7503,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,typical_human,nace-ai/drex-v2.0-20261009,0.07907000000000003,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,typical_human,nace-ai/drex-v2.0-20261009,0.67123,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+trolley,prob_switch_permissible,typical_human,nace-ai/drex-v2.0-20261009,0.85806,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,typical_human,nace-ai/drex-v2.0-20261009,0.08540000000000002,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,typical_human,nace-ai/drex-v2.0-20261009,0.77266,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+false_consensus,wearer_predicts_wear,typical_human,nace-ai/drex-v2.0-20261009,0.0998,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,typical_human,nace-ai/drex-v2.0-20261009,0.17130000000000004,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,typical_human,nace-ai/drex-v2.0-20261009,-0.07150000000000004,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt,proportion_correct,typical_human_plain,nace-ai/drex-v2.0-20261009,0.9222939360634297,0.826753070122805,0.973289732897329,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+crt,proportion_correct_all6,typical_human_plain,nace-ai/drex-v2.0-20261009,0.9029482510981722,0.8499539698617484,0.9529515416910388,,,,all six items; no single human benchmark covers these,System One
+crt,probability_mass_on_lure,typical_human_plain,nace-ai/drex-v2.0-20261009,0.07752612020435885,0.029238806835235946,0.1285292108654714,,,,,System One
+fluid_reasoning,accuracy,typical_human_plain,nace-ai/drex-v2.0-20261009,0.8409074815537709,0.7394275653412267,0.9314114763563465,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,typical_human_plain,nace-ai/drex-v2.0-20261009,0.9492523757131143,0.8523570471409428,0.9994,,,,,System One
+fluid_reasoning,accuracy_steps_2,typical_human_plain,nace-ai/drex-v2.0-20261009,0.9005237563738936,0.7202155512865334,0.9955431263607105,,,,,System One
+fluid_reasoning,accuracy_steps_3,typical_human_plain,nace-ai/drex-v2.0-20261009,0.7473496973898758,0.5717707828844775,0.9131567656091534,,,,,System One
+fluid_reasoning,accuracy_steps_4,typical_human_plain,nace-ai/drex-v2.0-20261009,0.8269935604280214,0.7424171208560427,0.91157,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,typical_human_plain,nace-ai/drex-v2.0-20261009,0.18420404209253938,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,typical_human_plain,nace-ai/drex-v2.0-20261009,0.23773888694434725,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,typical_human_plain,nace-ai/drex-v2.0-20261009,0.24372218610930546,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,typical_human_plain,nace-ai/drex-v2.0-20261009,0.1295364768238412,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,typical_human_plain,nace-ai/drex-v2.0-20261009,0.4403263869445223,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,typical_human_plain,nace-ai/drex-v2.0-20261009,0.38953720925581486,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,typical_human_plain,nace-ai/drex-v2.0-20261009,0.39738702612973864,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,typical_human_plain,nace-ai/drex-v2.0-20261009,0.826,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,typical_human_plain,nace-ai/drex-v2.0-20261009,0.6148199999999999,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,typical_human_plain,nace-ai/drex-v2.0-20261009,0.49868000000000007,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,typical_human_plain,nace-ai/drex-v2.0-20261009,0.37324,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,typical_human_plain,nace-ai/drex-v2.0-20261009,0.26248,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,typical_human_plain,nace-ai/drex-v2.0-20261009,0.23710000000000003,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,typical_human_plain,nace-ai/drex-v2.0-20261009,0.17596,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,typical_human_plain,nace-ai/drex-v2.0-20261009,0.15350000000000003,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,typical_human_plain,nace-ai/drex-v2.0-20261009,0.19378,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,typical_human_plain,nace-ai/drex-v2.0-20261009,0.24784,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,typical_human_plain,nace-ai/drex-v2.0-20261009,0.12738,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,typical_human_plain,nace-ai/drex-v2.0-20261009,0.6148199999999999,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
+trust_trustee,return_share_sent_2,typical_human_plain,nace-ai/drex-v2.0-20261009,0.5299328639812259,,,,,,,System One
+trust_trustee,return_share_sent_5,typical_human_plain,nace-ai/drex-v2.0-20261009,0.5062742705906275,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,typical_human_plain,nace-ai/drex-v2.0-20261009,0.48018146848135157,,,,,,,System One
+public_goods_conditional,contribution_low,typical_human_plain,nace-ai/drex-v2.0-20261009,0.30691820754622634,,,,,,,System One
+public_goods_conditional,contribution_mid,typical_human_plain,nace-ai/drex-v2.0-20261009,0.4208993730188094,,,,,,,System One
+public_goods_conditional,contribution_high,typical_human_plain,nace-ai/drex-v2.0-20261009,0.48691386913869145,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,typical_human_plain,nace-ai/drex-v2.0-20261009,0.4258,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,typical_human_plain,nace-ai/drex-v2.0-20261009,0.74915,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,typical_human_plain,nace-ai/drex-v2.0-20261009,0.05096000000000001,,,,,,,System One
+framing,prob_certain_gain_frame,typical_human_plain,nace-ai/drex-v2.0-20261009,0.8271,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,typical_human_plain,nace-ai/drex-v2.0-20261009,0.40081,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,typical_human_plain,nace-ai/drex-v2.0-20261009,0.42628999999999995,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,typical_human_plain,nace-ai/drex-v2.0-20261009,0.80615,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,typical_human_plain,nace-ai/drex-v2.0-20261009,0.5414000000000001,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,typical_human_plain,nace-ai/drex-v2.0-20261009,0.36970039,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
+conjunction,prob_fallacy_forced_choice,typical_human_plain,nace-ai/drex-v2.0-20261009,0.26924000000000003,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,typical_human_plain,nace-ai/drex-v2.0-20261009,0.2739,,,,,,,System One
+conjunction_axiom,p_conjunction,typical_human_plain,nace-ai/drex-v2.0-20261009,0.4845,,,,,,,System One
+conjunction_axiom,axiom_margin,typical_human_plain,nace-ai/drex-v2.0-20261009,-0.2106,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,typical_human_plain,nace-ai/drex-v2.0-20261009,0.017939461816145516,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,typical_human_plain,nace-ai/drex-v2.0-20261009,0.04286871393858184,,,,,,,System One
+anchoring,estimate_low_anchor,typical_human_plain,nace-ai/drex-v2.0-20261009,21.88148118518815,,,anchoring_low_median,25.0,approximate,,System One
+anchoring,estimate_high_anchor,typical_human_plain,nace-ai/drex-v2.0-20261009,30.019550977548874,,,anchoring_high_median,45.0,approximate,,System One
+anchoring,anchoring_effect,typical_human_plain,nace-ai/drex-v2.0-20261009,8.138069792360724,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels",System One
+sunk_cost,prob_continue,typical_human_plain,nace-ai/drex-v2.0-20261009,0.21666,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,typical_human_plain,nace-ai/drex-v2.0-20261009,3.72717,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,typical_human_plain,nace-ai/drex-v2.0-20261009,0.308315,0.26039,0.36673500000000003,,,,,System One
+discounting,prob_patient_30d,typical_human_plain,nace-ai/drex-v2.0-20261009,0.35029499999999997,0.283,0.41759,,,,,System One
+discounting,prob_patient_180d,typical_human_plain,nace-ai/drex-v2.0-20261009,0.278085,0.2578775,0.2934,,,,,System One
+present_bias,prob_patient_immediate_frontend,typical_human_plain,nace-ai/drex-v2.0-20261009,0.37492000000000003,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,typical_human_plain,nace-ai/drex-v2.0-20261009,0.37014,,,,,,,System One
+present_bias,present_bias_gap,typical_human_plain,nace-ai/drex-v2.0-20261009,-0.0047800000000000065,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction",System One
+beauty_contest,expected_guess,typical_human_plain,nace-ai/drex-v2.0-20261009,27.406459354064594,,,beauty_contest_mean,36.0,medium,,System One
+beauty_contest,mass_at_33,typical_human_plain,nace-ai/drex-v2.0-20261009,0.05119488051194881,,,,,,,System One
+beauty_contest,mass_at_22,typical_human_plain,nace-ai/drex-v2.0-20261009,0.05039496050394961,,,,,,,System One
+beauty_contest,mass_at_0,typical_human_plain,nace-ai/drex-v2.0-20261009,0.012598740125987402,,,,,,,System One
+money_request,expected_request,typical_human_plain,nace-ai/drex-v2.0-20261009,15.783078307830785,,,money_request_modal,17.0,high,the model's mean request against the human mode,System One
+money_request,mass_level0_20,typical_human_plain,nace-ai/drex-v2.0-20261009,0.0393039303930393,,,,,,,System One
+money_request,mass_level1_19,typical_human_plain,nace-ai/drex-v2.0-20261009,0.2057205720572057,,,,,,,System One
+money_request,mass_level2_18,typical_human_plain,nace-ai/drex-v2.0-20261009,0.0926092609260926,,,,,,,System One
+money_request,mass_level3_17,typical_human_plain,nace-ai/drex-v2.0-20261009,0.10781078107810782,,,,,,,System One
+mini_ipip,extraversion,typical_human_plain,nace-ai/drex-v2.0-20261009,3.0043060606060608,2.7759500000000004,3.2326621212121216,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,typical_human_plain,nace-ai/drex-v2.0-20261009,3.6356324582318242,3.1752120317521193,4.096052884711529,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,typical_human_plain,nace-ai/drex-v2.0-20261009,3.112836089455115,2.778203012839792,3.4853500000000004,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,typical_human_plain,nace-ai/drex-v2.0-20261009,2.7755651640379013,2.550480543054306,3.0006497850214977,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,typical_human_plain,nace-ai/drex-v2.0-20261009,3.4842500000000003,3.118925,3.799375,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,typical_human_plain,nace-ai/drex-v2.0-20261009,4.771692445163602,3.301900728743363,6.241484161583841,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,typical_human_plain,nace-ai/drex-v2.0-20261009,4.500779255733602,3.772146169965772,5.220029285621742,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,typical_human_plain,nace-ai/drex-v2.0-20261009,3.6347705163234547,2.998591140885911,4.641029375437543,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,typical_human_plain,nace-ai/drex-v2.0-20261009,5.095874805713748,4.17885294428853,5.8233176682331775,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,typical_human_plain,nace-ai/drex-v2.0-20261009,5.0476,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,typical_human_plain,nace-ai/drex-v2.0-20261009,2.262173782621738,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,typical_human_plain,nace-ai/drex-v2.0-20261009,2.7854262173782622,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,typical_human_plain,nace-ai/drex-v2.0-20261009,4.147114711471147,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,typical_human_plain,nace-ai/drex-v2.0-20261009,4.2209220922092205,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,typical_human_plain,nace-ai/drex-v2.0-20261009,-0.07380738073807347,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,typical_human_plain,nace-ai/drex-v2.0-20261009,0.20413,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,typical_human_plain,nace-ai/drex-v2.0-20261009,0.7216,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,typical_human_plain,nace-ai/drex-v2.0-20261009,0.92573,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+categorization,prob_rule_based,typical_human_plain,nace-ai/drex-v2.0-20261009,0.35315,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,typical_human_plain,nace-ai/drex-v2.0-20261009,49.16825000000001,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,typical_human_plain,nace-ai/drex-v2.0-20261009,48.70128798712013,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,typical_human_plain,nace-ai/drex-v2.0-20261009,0.4669620128798755,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,typical_human_plain,nace-ai/drex-v2.0-20261009,0.64814,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,typical_human_plain,nace-ai/drex-v2.0-20261009,0.09599999999999997,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,typical_human_plain,nace-ai/drex-v2.0-20261009,0.5521400000000001,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+trolley,prob_switch_permissible,typical_human_plain,nace-ai/drex-v2.0-20261009,0.89215,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,typical_human_plain,nace-ai/drex-v2.0-20261009,0.07769999999999999,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,typical_human_plain,nace-ai/drex-v2.0-20261009,0.81445,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+false_consensus,wearer_predicts_wear,typical_human_plain,nace-ai/drex-v2.0-20261009,0.15229999999999996,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,typical_human_plain,nace-ai/drex-v2.0-20261009,0.1956,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,typical_human_plain,nace-ai/drex-v2.0-20261009,-0.04330000000000003,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One

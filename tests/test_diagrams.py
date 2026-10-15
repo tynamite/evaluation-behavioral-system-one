@@ -61,7 +61,7 @@ def test_every_model_in_the_scatter_is_named(built: list[Path]) -> None:
     page = next(p for p in built if p.stem == "models-scatter").read_text()
     points = set(re.findall(r'data-name="([^"]+)" data-x=', page))
     labels = set(re.findall(r'data-name="([^"]+)" data-role="label"', page))
-    assert len(points) == 12
+    assert len(points) == 14
     assert labels == points
 
 
@@ -100,7 +100,10 @@ def test_framing_figure_plots_the_real_swings(built: list[Path]) -> None:
     pairs = list(zip(refs, focal, strict=True))
     assert any(abs(a - 23.9) < 0.1 and abs(b - 31.1) < 0.1 for a, b in pairs)  # d1
     assert any(abs(a - 0.6) < 0.1 and abs(b - 4.1) < 0.1 for a, b in pairs)  # Jev
-    assert sum(1 for a, _b in pairs if a < 0) == 1  # only Microsoft-Decision-1 reverses it
+    assert any(abs(a - 33.9) < 0.5 and abs(b - 41.2) < 0.5 for a, b in pairs)  # Drex 2.0
+    # Microsoft-Decision-1 and Drex 1.5 reverse it; the chart keeps to eight rows.
+    assert sum(1 for a, _b in pairs if a < 0) == 2
+    assert len(pairs) == 8
 
 
 def test_decision_chart_shows_all_three_series_on_every_row(built: list[Path]) -> None:

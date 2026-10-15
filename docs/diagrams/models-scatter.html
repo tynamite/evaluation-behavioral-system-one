@@ -40,13 +40,13 @@
 </head>
 <body>
   <div class="frame">
-    <p class="eyebrow">Twelve models · no instruction vs. told to answer like a typical person</p>
+    <p class="eyebrow">Fourteen models · no instruction vs. told to answer like a typical person</p>
     <h1>Distance from published human results, with and without the ‘typical person’ instruction</h1>
     <p class="subtitle">Each point is one model. Distance is the mean absolute difference from the published human result over the 14 measures in the decision-making and economic-game charts, each on a 0–1 scale, so 0 would mean identical to people. Across: no instruction. Up: told to answer like a typical person. Points below the dashed line moved closer to people when told.</p>
     <div class="diagram-container">
       <svg viewBox="0 23 1000 597" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="models-scatter-title models-scatter-desc">
         <title id="models-scatter-title">Distance from published human results, with and without the ‘typical person’ instruction</title>
-        <desc id="models-scatter-desc">Scatter of twelve models&#x27; mean distance from human values answering neutrally versus as a typical person; 12 fall below the no-change line.</desc>
+        <desc id="models-scatter-desc">Scatter of fourteen models&#x27; mean distance from human values answering neutrally versus as a typical person; 14 fall below the no-change line.</desc>
         <defs>
           <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
           <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#157a6e"/></marker>
@@ -95,6 +95,8 @@
 <circle data-name="Clef Flash" data-x="0.2290" data-y="0.1824" fill="rgba(79,93,117,0.2)" stroke="#4f5d75" stroke-width="1" cx="253.7" cy="308.1" r="5"><title>Clef Flash · 0.23 with no instruction · 0.18 as a typical person</title></circle>
 <circle data-name="Mercury Decide" data-x="0.3090" data-y="0.2097" fill="rgba(79,93,117,0.2)" stroke="#4f5d75" stroke-width="1" cx="429.7" cy="264.5" r="5"><title>Mercury Decide · 0.31 with no instruction · 0.21 as a typical person</title></circle>
 <circle data-name="Microsoft-Decision-1" data-x="0.3519" data-y="0.1856" fill="rgba(79,93,117,0.2)" stroke="#4f5d75" stroke-width="1" cx="524.2" cy="303.1" r="5"><title>Microsoft-Decision-1 · 0.35 with no instruction · 0.19 as a typical person</title></circle>
+<circle data-name="Drex 1.5" data-x="0.2882" data-y="0.2828" fill="rgba(79,93,117,0.2)" stroke="#4f5d75" stroke-width="1" cx="384.0" cy="147.5" r="5"><title>Drex 1.5 · 0.29 with no instruction · 0.28 as a typical person</title></circle>
+<circle data-name="Drex 2.0" data-x="0.2331" data-y="0.1759" fill="rgba(79,93,117,0.2)" stroke="#4f5d75" stroke-width="1" cx="262.8" cy="318.5" r="5"><title>Drex 2.0 · 0.23 with no instruction · 0.18 as a typical person</title></circle>
 <circle data-name="Decider v1.1 27B" data-x="0.3350" data-y="0.1383" fill="rgba(79,93,117,0.2)" stroke="#4f5d75" stroke-width="1" cx="487.0" cy="378.7" r="5"><title>Decider v1.1 27B · 0.34 with no instruction · 0.14 as a typical person</title></circle>
 <circle data-name="Solar Decide" data-x="0.4346" data-y="0.1608" fill="rgba(79,93,117,0.2)" stroke="#4f5d75" stroke-width="1" cx="706.2" cy="342.8" r="5"><title>Solar Decide · 0.43 with no instruction · 0.16 as a typical person</title></circle>
 <circle data-name="Solar Decide Flash" data-x="0.2270" data-y="0.1443" fill="rgba(79,93,117,0.2)" stroke="#4f5d75" stroke-width="1" cx="249.3" cy="369.1" r="5"><title>Solar Decide Flash · 0.23 with no instruction · 0.14 as a typical person</title></circle>
@@ -112,14 +114,18 @@
 <text x="414.7" y="256" fill="#2d3142" font-size="10.0" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="500" data-name="Mercury Decide" data-role="label">Mercury Decide</text>
 <rect x="536.2" y="295.6" width="126.0" height="15.0" rx="2" fill="#f5f5f5"/>
 <text x="539.2" y="306.6" fill="#2d3142" font-size="10.0" font-family="'Geist', system-ui, sans-serif" text-anchor="start" font-weight="500" data-name="Microsoft-Decision-1" data-role="label">Microsoft-Decision-1</text>
+<rect x="175.7" y="300.6" width="66.0" height="15.0" rx="2" fill="#f5f5f5"/>
+<text x="238.7" y="311.6" fill="#2d3142" font-size="10.0" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="500" data-name="Clef Flash" data-role="label">Clef Flash</text>
+<rect x="274.8" y="311.0" width="54.0" height="15.0" rx="2" fill="#f5f5f5"/>
+<text x="277.8" y="322" fill="#2d3142" font-size="10.0" font-family="'Geist', system-ui, sans-serif" text-anchor="start" font-weight="500" data-name="Drex 2.0" data-role="label">Drex 2.0</text>
 <rect x="445.5" y="304.3" width="54.0" height="15.0" rx="2" fill="#f5f5f5"/>
 <text x="448.5" y="315.3" fill="#2d3142" font-size="10.0" font-family="'Geist', system-ui, sans-serif" text-anchor="start" font-weight="500" data-name="Jev 1.13" data-role="label">Jev 1.13</text>
 <rect x="829.1" y="306.8" width="102.0" height="15.0" rx="2" fill="#f5f5f5"/>
 <text x="832.1" y="317.8" fill="#2d3142" font-size="10.0" font-family="'Geist', system-ui, sans-serif" text-anchor="start" font-weight="500" data-name="Claude Haiku 5.5" data-role="label">Claude Haiku 5.5</text>
-<rect x="265.7" y="300.6" width="66.0" height="15.0" rx="2" fill="#f5f5f5"/>
-<text x="268.7" y="311.6" fill="#2d3142" font-size="10.0" font-family="'Geist', system-ui, sans-serif" text-anchor="start" font-weight="500" data-name="Clef Flash" data-role="label">Clef Flash</text>
 <rect x="446.4" y="216.7" width="18.0" height="15.0" rx="2" fill="#f5f5f5"/>
 <text x="449.4" y="227.7" fill="#2d3142" font-size="10.0" font-family="'Geist', system-ui, sans-serif" text-anchor="start" font-weight="500" data-name="d1" data-role="label">d1</text>
+<rect x="396.0" y="140.0" width="54.0" height="15.0" rx="2" fill="#f5f5f5"/>
+<text x="399" y="151" fill="#2d3142" font-size="10.0" font-family="'Geist', system-ui, sans-serif" text-anchor="start" font-weight="500" data-name="Drex 1.5" data-role="label">Drex 1.5</text>
 <rect x="499.0" y="371.2" width="102.0" height="15.0" rx="2" fill="#f5f5f5"/>
 <text x="502" y="382.2" fill="#2d3142" font-size="10.0" font-family="'Geist', system-ui, sans-serif" text-anchor="start" font-weight="500" data-name="Decider v1.1 27B" data-role="label">Decider v1.1 27B</text>
 <rect x="718.2" y="335.3" width="78.0" height="15.0" rx="2" fill="#f5f5f5"/>
@@ -146,7 +152,7 @@
 <text x="735.4" y="605" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">Claude Haiku 5.5</text>
       </svg>
     </div>
-    <p class="source">Axes zoomed to the data: 0.15–0.55 across, 0.05–0.35 up, not from zero. All models run 12–13 Oct 2026; 14 probability-scale measures (each 0–1), 10 replicates or samples per cell. Distance alone is not a ranking: see the framing figure.</p>
+    <p class="source">Axes zoomed to the data: 0.15–0.55 across, 0.05–0.35 up, not from zero. Models run 12–13 Oct 2026, except Drex 1.5 and Drex 2.0 on 15 Oct 2026. 14 probability-scale measures (each 0–1), 10 replicates or samples per cell. Distance alone is not a ranking: see the framing figure.</p>
     <p class="mark" aria-hidden="true">github.com/tynamite</p>
   </div>
 </body>

@@ -150,8 +150,8 @@ Estimating is better on average, as predicted, and the preregistered test, a
 one-sided Wilcoxon test on the absolute errors, passes (p = 0.015). The errors
 are in each item's own units, so the two percentage items and the 1–7 ratings
 weigh most; scaled to each item's range, a check chosen after seeing the data,
-the same test gives p = 0.043. Across the ten System One models the direction
-holds for seven, and the preregistered test passes for three. The
+the same test gives p = 0.043. Across the twelve System One models the direction
+holds for eight, and the preregistered test passes for three. The
 same study also predicted that a model would reproduce a famous effect at its
 original size rather than its replicated one; on the incidental-anchoring item
 it does not — no model reaches even half the original 6.2-point gap.
