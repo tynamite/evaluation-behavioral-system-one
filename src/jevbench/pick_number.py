@@ -14,6 +14,7 @@ preregistered.
 from __future__ import annotations
 
 import json
+import re
 from collections import Counter
 from pathlib import Path
 from typing import Any
@@ -110,6 +111,17 @@ def system_one_name(model: str) -> str:
     if "jev" in model:
         return "Jev"
     return SHORT.get(model, chat_name(model))
+
+
+def same_model(requested: str, answered: str) -> bool:
+    """Whether a record's model is the one requested.
+
+    A provider may answer with a versioned id (`upstage/solar-decide` answers
+    as `upstage/solar-decide-20260928`; `typesafe/jev-1.13` as `jev-1.13.0`),
+    so a version or date suffix is allowed; another model's name is not.
+    """
+    req, ans = requested.split("/")[-1], answered.split("/")[-1]
+    return ans.startswith(req) and re.fullmatch(r"([.-]\d[\w.]*)?", ans[len(req) :]) is not None
 
 
 def chat_name(model: str) -> str:

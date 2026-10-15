@@ -147,3 +147,31 @@ def test_resume_refuses_a_file_from_the_other_arm(tmp_path, capsys) -> None:
     assert main(["pick-number", "run", "--replicates", "1", "--resume", str(path)]) == 1
     assert "holds the baseline arm" in capsys.readouterr().err
     assert path.read_text().count("\n") == 1  # untouched
+
+
+def test_same_model_allows_a_version_suffix_only() -> None:
+    from jevbench.pick_number import same_model
+
+    assert same_model("upstage/solar-decide", "upstage/solar-decide-20260928")
+    assert same_model("typesafe/jev-1.13", "jev-1.13.0")
+    assert same_model("anthropic/claude-haiku-5.5", "anthropic/claude-haiku-5.5")
+    assert not same_model("upstage/solar-decide", "upstage/solar-decide-flash-20261008")
+    assert not same_model("anthropic/claude-haiku-5.5", "anthropic/claude-sonnet-5.5")
+
+
+def test_resume_refuses_a_file_from_another_model(tmp_path, capsys) -> None:
+    import json
+
+    from jevbench.cli import main
+
+    rec = {"probe_id": "pick_number_1_10", "instrument": "pick_number", "persona": "neutral",
+           "arm": "baseline", "replicate": 0, "backend": "openrouter",
+           "model": "anthropic/claude-haiku-5.5", "kind": "choice", "value": "7",
+           "probabilities": {}, "error": None}  # fmt: skip
+    path = tmp_path / "run_live_x.jsonl"
+    path.write_text(json.dumps(rec) + "\n")
+    argv = ["pick-number", "run", "--backend", "openrouter", "--baseline-samples", "2",
+            "--baseline-model", "anthropic/claude-sonnet-5.5", "--resume", str(path)]  # fmt: skip
+    assert main(argv) == 1
+    assert "holds anthropic/claude-haiku-5.5" in capsys.readouterr().err
+    assert path.read_text().count("\n") == 1

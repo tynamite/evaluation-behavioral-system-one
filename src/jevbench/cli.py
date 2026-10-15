@@ -189,6 +189,23 @@ def _cmd_pick_number(args: argparse.Namespace) -> int:
                 )
                 return 1
         cfg = _with_models(Config.from_env(args.backend), args)
+        if args.resume:
+            from .analysis import load_records
+            from .pick_number import same_model
+
+            # Likewise a file from another model: the runner would add this
+            # model's calls beside the old ones.
+            wanted = cfg.baseline_model if args.baseline_samples > 0 else cfg.model
+            other = sorted(
+                {m for m in load_records(Path(args.resume))["model"].astype(str)
+                 if not same_model(wanted, m)}
+            )  # fmt: skip
+            if other:
+                print(
+                    f"pick-number: {args.resume} holds {', '.join(other)}, not {wanted}",
+                    file=sys.stderr,
+                )
+                return 1
         # The backend actually resolved (flag, then JEVBENCH_BACKEND), since the
         # chat arm sends this config's key to OpenRouter.
         if args.baseline_samples > 0 and cfg.backend != "openrouter":
