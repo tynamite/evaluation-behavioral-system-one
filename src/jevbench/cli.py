@@ -173,11 +173,17 @@ def _cmd_pick_number(args: argparse.Namespace) -> int:
                 file=sys.stderr,
             )
             return 1
-        if args.baseline_samples > 0 and (args.backend or "openrouter") != "openrouter":
-            print("pick-number: the chat model runs through --backend openrouter", file=sys.stderr)
+        cfg = _with_models(Config.from_env(args.backend), args)
+        # The backend actually resolved (flag, then JEVBENCH_BACKEND), since the
+        # chat arm sends this config's key to OpenRouter.
+        if args.baseline_samples > 0 and cfg.backend != "openrouter":
+            print(
+                f"pick-number: the chat model runs through OpenRouter, not {cfg.backend}; "
+                "pass --backend openrouter",
+                file=sys.stderr,
+            )
             return 1
 
-        cfg = _with_models(Config.from_env(args.backend), args)
         run_battery(
             cfg,
             personas=PERSONAS,
