@@ -198,3 +198,23 @@ def test_resume_refuses_another_probe_or_backend(tmp_path, change, message) -> N
     assert resume_problem(path, **ok) is None
     path.write_text(json.dumps({**rec, **change}) + "\n")
     assert message in (resume_problem(path, **ok) or "")
+
+
+def test_analyse_refuses_two_jev_versions(tmp_path) -> None:
+    import json
+
+    from jevbench.pick_number import analyse
+
+    base = {"probe_id": "pick_number_1_10", "instrument": "pick_number", "backend": "x",
+            "kind": "choice", "value": "7", "probabilities": {"7": 1.0}, "error": None}  # fmt: skip
+    grid = [("neutral", r) for r in range(2)] + [("typical_human", r) for r in range(2)]
+    runs = {"A_jev": ("jev", "jev-1.13.0"), "B_jev": ("jev", "jev-1.14.0-preview"),
+            "C_chat": ("baseline", "anthropic/claude-haiku-5.5")}  # fmt: skip
+    for name, (arm, model) in runs.items():
+        rows = [{**base, "arm": arm, "model": model, "persona": p, "replicate": r} for p, r in grid]
+        (tmp_path / f"run_live_{name}.jsonl").write_text(
+            "".join(json.dumps(r) + "\n" for r in rows)
+        )
+    # Both would be drawn as "Jev".
+    with pytest.raises(ValueError, match="exactly one Jev run"):
+        analyse(tmp_path, tmp_path / "out")

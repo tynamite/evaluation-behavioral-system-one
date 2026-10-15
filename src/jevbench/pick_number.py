@@ -220,8 +220,10 @@ def analyse(root: Path = PICK_DIR, out_dir: Path = PICK_RESULTS_DIR) -> pd.DataF
     system_one = [m for a, m in runs if a == "jev"]
     if len(chats) != 1 or len(set(system_one)) != len(system_one):
         raise ValueError(f"{root} needs one chat run and each System One model once, found {runs}")
-    if not any("jev" in m for m in system_one):
-        raise ValueError(f"{root} has no Jev run")
+    jevs = [m for m in system_one if "jev" in m]
+    # Every Jev version is drawn as "Jev", so two versions would be indistinguishable.
+    if len(jevs) != 1:
+        raise ValueError(f"{root} needs exactly one Jev run, found {jevs or 'none'}")
     df = pd.concat(frames.values(), ignore_index=True)
     table = pd.DataFrame(summarise(df))
     # Every run must leave usable answers under both prompts, checked against
