@@ -151,13 +151,14 @@ def main(argv: list[str]) -> int:
         return 1
     df = load_records(run)
     global EMBED_FIGURES, SECOND
+    # Set on every call: a second call in the same process must not inherit
+    # the first's figures or Jev 1.14 rows.
     reason = figures_mismatch(run, df)
+    EMBED_FIGURES = reason is None
+    SECOND = None if reason else second_version()
     if reason:
-        EMBED_FIGURES = False
         print(f"figures left out: they are drawn from the committed run, not this one ({reason})",
               file=sys.stderr)
-    else:
-        SECOND = second_version()
     sdf = pd.DataFrame([asdict(s) for s in compute_stats(df)])
     odf = order_effects(df)
 
