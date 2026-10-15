@@ -3044,13 +3044,14 @@ def fig_pick_number_models(table: pd.DataFrame, group: str, models: list[str], p
 def pick_number_figures(table: pd.DataFrame) -> list[Figure]:
     """Every pick-number figure the run set supports.
 
-    A dumbbell takes 4 to 8 rows. A second group too small for one is folded
-    into the first when they fit together; a group still under four models
-    gets the small multiples, which take any number, but no dumbbells.
+    A dumbbell takes 4 to 8 rows. Models that fit in one chart are drawn in
+    one group; past eight they split into Jev with the main comparison's
+    models, and the rest. A group under four models gets the small multiples,
+    which take any number, but no dumbbells.
     """
     groups = _pick_groups(table)
-    if len(groups) == 2 and len(groups[1][1]) < 4 and len(groups[0][1]) + len(groups[1][1]) <= 8:
-        groups = [("the System One models", groups[0][1] + groups[1][1])]
+    if sum(len(ms) for _g, ms in groups) <= 8:
+        groups = [("the System One models", [m for _g, ms in groups for m in ms])]
     figures = [fig_pick_number_jev(table)]
     for (group, models), part in zip(groups, "ab", strict=False):
         if len(models) >= 4:

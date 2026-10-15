@@ -399,7 +399,10 @@ def test_pick_number_figures_draw_any_number_of_models(keep: int) -> None:
 
     table = pd.read_csv(PICK_RESULTS_DIR / "distributions.csv", dtype={"persona": str})
     table["persona"] = table["persona"].fillna("")
-    models = sorted(set(table.loc[table["arm"] == "jev", "model"]), key=lambda m: "jev" not in m)
+    # Jev first, then by name: the same selection on every machine.
+    models = sorted(
+        set(table.loc[table["arm"] == "jev", "model"]), key=lambda m: ("jev" not in m, m)
+    )
     table = table[(table["arm"] != "jev") | table["model"].isin(models[:keep])]
     slugs = [f.slug for f in pick_number_figures(table)]
     assert "pick-number-jev" in slugs and "pick-number-models-a" in slugs
