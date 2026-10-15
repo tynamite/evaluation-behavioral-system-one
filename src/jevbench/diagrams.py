@@ -2813,6 +2813,25 @@ def _pick_calls(table: pd.DataFrame, models: list[str] | None = None) -> str:
     return str(ns[0]) if len(ns) == 1 else f"{ns[0]} to {ns[-1]}"
 
 
+def _pick_dates(table: pd.DataFrame, models: list[str] | None = None) -> str:
+    """When the plotted runs were made, from the table: "on 15 Oct 2026", or a range."""
+    from datetime import date
+
+    rows = table[table["arm"] != "people"]
+    if models is not None:
+        rows = rows[rows["model"].isin(models)]
+    col = rows["run_dates"] if "run_dates" in rows.columns else pd.Series(dtype=str)
+    days = sorted({d for v in col.dropna().astype(str) for d in v.split(" to ") if d})
+    if not days:
+        return "on dates not recorded"
+
+    def fmt(d: str) -> str:
+        x = date.fromisoformat(d)
+        return f"{x.day} {x:%b %Y}"
+
+    return f"on {fmt(days[0])}" if len(days) == 1 else f"between {fmt(days[0])} and {fmt(days[-1])}"
+
+
 def _pick_ceil(top: float) -> float:
     """The scale ends just above the tallest bar, on a 20% gridline."""
     return max(0.4, math.ceil((top + 0.02) / 0.2) * 0.2)
@@ -2934,8 +2953,8 @@ def fig_pick_number_jev(
         width=1000,
         height=550,
         body="\n".join(out),
-        source=f"Same scale in every panel. Jev: {' or '.join(map(str, calls))} calls per prompt, run 15 Oct "
-        f"2026, options shuffled per call. {chat_name}: {_pick_calls(table)} calls per prompt at temperature 1. "
+        source=f"Same scale in every panel. Jev: {' or '.join(map(str, calls))} calls per prompt, run "
+        f"{_pick_dates(table)}, options shuffled per call. {chat_name}: {_pick_calls(table)} calls per prompt at temperature 1. "
         "People: YouGov, 12–13 Sep 2024, open text box; published percentages normalised. Distance: total "
         "variation, 0 (the same) to 1 (no overlap).",
     )
@@ -2997,7 +3016,7 @@ def fig_pick_number_reading(
         height=510,
         body=body,
         source="Total-variation distance from YouGov's 2,241 British adults, 12–13 Sep 2024. Each model: "
-        f"{_pick_calls(table, models)} calls, run 15 Oct 2026, options shuffled per call. Dashed line: the "
+        f"{_pick_calls(table, models)} calls, run {_pick_dates(table, models)}, options shuffled per call. Dashed line: the "
         f"chat model, {_pick_calls(table)} calls at temperature 1.",
     )
 
@@ -3047,8 +3066,8 @@ def fig_pick_number_prompt(table: pd.DataFrame, group: str, models: list[str], p
         width=1000,
         height=510,
         body=body,
-        source=f"Each model: mean of {_pick_calls(table, models)} returned distributions per prompt, run 15 "
-        "Oct 2026, options shuffled per "
+        source=f"Each model: mean of {_pick_calls(table, models)} returned distributions per prompt, run "
+        f"{_pick_dates(table, models)}, options shuffled per "
         "call. People: YouGov, 2,241 British adults, 12–13 Sep 2024.",
     )
 
@@ -3110,7 +3129,7 @@ def fig_pick_number_models(table: pd.DataFrame, group: str, models: list[str], p
         height=rule + 50,
         body="\n".join(out),
         source=f"Same scale in every panel. Each model: mean of {_pick_calls(table, models)} returned "
-        "distributions, run 15 Oct 2026, "
+        f"distributions, run {_pick_dates(table, models)}, "
         "options shuffled per call. People: YouGov, 2,241 British adults, 12–13 Sep 2024.",
     )
 

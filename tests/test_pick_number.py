@@ -487,3 +487,23 @@ def test_group_suffixes_never_run_out() -> None:
     parts = [_part(i) for i in range(30)]
     assert parts[:3] == ["a", "b", "c"] and parts[25:28] == ["z", "aa", "ab"]
     assert len(set(parts)) == 30
+
+
+def test_run_without_a_count_is_refused(capsys) -> None:
+    from jevbench.cli import main
+
+    assert main(["pick-number", "run"]) == 1
+    assert "--replicates N" in capsys.readouterr().err
+
+
+def test_figures_take_their_dates_from_the_runs() -> None:
+    from jevbench.diagrams import pick_number_figures
+    from jevbench.pick_number import PICK_RESULTS_DIR
+
+    table = pd.read_csv(PICK_RESULTS_DIR / "distributions.csv", dtype={"persona": str})
+    table["persona"] = table["persona"].fillna("")
+    assert set(table.loc[table["arm"] != "people", "run_dates"]) == {"2026-10-15"}
+    table.loc[table["arm"] != "people", "run_dates"] = "2027-01-02 to 2027-01-03"
+    for f in pick_number_figures(table):
+        assert "15 Oct 2026" not in f.source, f.slug
+        assert "between 2 Jan 2027 and 3 Jan 2027" in f.source, f.slug

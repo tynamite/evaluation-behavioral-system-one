@@ -72,6 +72,7 @@ def summarise(df: pd.DataFrame) -> list[dict[str, Any]]:
     ok = df[df["error"].isna()] if "error" in df.columns else df
     for key, g in ok.groupby(["arm", "model", "persona"]):
         arm, model, persona = (str(k) for k in key)
+        start = len(rows)
         picks = Counter(str(v) for v in g["value"] if v is not None and str(v) in NUMBERS)
         if arm == "jev":
             dists = [p for p in g["probabilities"] if isinstance(p, dict) and p]
@@ -97,10 +98,22 @@ def summarise(df: pd.DataFrame) -> list[dict[str, Any]]:
                 _row(f"{chat_name(model)}, one pick per call", "baseline", model, persona, _shares(picks),
                      sum(picks.values()))
             )  # fmt: skip
+        for row in rows[start:]:
+            row["run_dates"] = run_dates(g)
     return rows
 
 
 CHAT_SUFFIX = ", one pick per call"
+
+
+def run_dates(g: pd.DataFrame) -> str:
+    """The UTC dates a run's records were made: "2026-10-15", or "first to last"."""
+    if "timestamp" not in g.columns:
+        return ""
+    days = sorted({str(t)[:10] for t in g["timestamp"].dropna()})
+    if not days:
+        return ""
+    return days[0] if len(days) == 1 else f"{days[0]} to {days[-1]}"
 
 
 def system_one_name(model: str) -> str:
@@ -300,6 +313,7 @@ def analyse(root: Path = PICK_DIR, out_dir: Path = PICK_RESULTS_DIR) -> pd.DataF
         "top": "7",
         "entropy_bits": float(-sum(v * np.log2(v) for v in h.values() if v)),
         "tv_from_people": 0.0,
+        "run_dates": "2024-09-12 to 2024-09-13",
     }
     table = pd.concat([table, pd.DataFrame([people])], ignore_index=True)
     out_dir.mkdir(parents=True, exist_ok=True)

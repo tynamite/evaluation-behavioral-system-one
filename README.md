@@ -386,8 +386,9 @@ identical and 1 is no overlap. A model that put everything on 7 would score
   give the same choice in every call under a given prompt, and Jev 1.14 in
   all but one. Usually that is 7;
   asked plainly, Microsoft-Decision-1 always says 5 and Mercury Decide always
-  says 6. Only the two Solar models vary at all. Solar Decide asked plainly
-  picked 1 in 69% of calls and 3 in 23%. Read this way, the closest any model
+  says 6. Jev 1.14 departs once (one 5 in 200 calls); only the two Solar
+  models vary much. Solar Decide asked plainly picked 1 in 69% of calls and 3
+  in 23%. Read this way, the closest any model
   gets to people is 0.63, against Haiku's 0.67.
 - **Their own distributions are much closer to people.** Asked plainly, nine
   of the eleven distributions are 0.15 to 0.32 from people. Jev 1.14 is the
