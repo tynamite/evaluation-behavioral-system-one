@@ -466,3 +466,24 @@ def test_diagrams_name_a_main_model_missing_from_the_comparison(tmp_path: Path) 
     health[health["model"] != "typesafe/jev-1.14.0"].to_csv(cmp / "health.csv", index=False)
     with pytest.raises(ValueError, match=re.escape("no run for typesafe/jev-1.14.0")):
         build_diagrams(COMMITTED_RUN, TABLES_DIR, cmp, tmp_path / "out")
+
+
+def test_route_is_read_from_the_raw_directory_the_charts_use(tmp_path: Path) -> None:
+    import shutil
+
+    from jevbench.config import RAW_DIR
+
+    # A relocated copy of the raw data whose 1.14 run records another route: the
+    # caption must follow the copy, not the default raw directory.
+    raw = tmp_path / "raw"
+    shutil.copytree(RAW_DIR, raw, ignore=shutil.ignore_patterns("pick_number", "r2", "r3"))
+    run = raw / "order_study" / "r1" / "run_live_20261014T231829Z_jev-1.14.0.jsonl"
+    run.write_text(
+        run.read_text().replace('"backend": "typesafe"', '"backend": "openrouter"'),
+        encoding="utf-8",
+    )
+    built = build_diagrams(
+        COMMITTED_RUN, TABLES_DIR, REPO_ROOT / "results" / "comparison", tmp_path / "out", raw
+    )
+    page = next(p for p in built if p.stem == "models-decisions").read_text()
+    assert "called through TypeSafe" not in page

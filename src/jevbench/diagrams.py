@@ -721,7 +721,10 @@ def _runs_when(run_files: dict[str, str] | None, models: list[str]) -> str:
 
 
 def _backend(run_file: str) -> str:
-    """The backend a run file records, read from its first record."""
+    """The backend a run file records, read from its first record.
+
+    `run_file` is a full path, or one relative to the default raw directory.
+    """
     import json
 
     from .config import RAW_DIR
@@ -3004,7 +3007,10 @@ def build_diagrams(
             f"the comparison has no run for {', '.join(missing)}; rebuild it with every run, "
             "including data/raw/order_study/r1/run_live_20261014T231829Z_jev-1.14.0.jsonl"
         )
-    runs = {m: load_records(raw / files[m]) for m, _c in MAIN_MODELS}
+    # Every run by its full path under the chosen raw directory, so the source
+    # lines read each run's route from the same files the charts are drawn from.
+    files = {m: str(raw / f) for m, f in files.items()}
+    runs = {m: load_records(Path(files[m])) for m, _c in MAIN_MODELS}
 
     figures = [
         fig_process(),
