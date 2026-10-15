@@ -45,17 +45,17 @@
       "errors": 0,
       "picks_left_out": 0
     },
-    "run_live_20261015T082115Z_upstage--solar-decide-flash.jsonl": {
-      "records": 200,
-      "errors": 0,
-      "picks_left_out": 0
-    },
     "run_live_20261015T082115Z_upstage--solar-decide.jsonl": {
       "records": 200,
       "errors": 0,
       "picks_left_out": 0
     },
     "run_live_20261015T090525Z_jev-1.14.0.jsonl": {
+      "records": 200,
+      "errors": 0,
+      "picks_left_out": 0
+    },
+    "run_live_20261015T110413Z_nace-ai--drex-v2.0.jsonl": {
       "records": 200,
       "errors": 0,
       "picks_left_out": 0
