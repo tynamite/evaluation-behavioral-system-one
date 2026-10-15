@@ -1060,6 +1060,7 @@ SHORT = {
     "upstage/solar-decide-20260928": "Solar Decide",
     "upstage/solar-decide-flash-20261008": "Solar Decide Flash",
     "nace-ai/drex-v1.5-20261009": "Drex 1.5",
+    "nace-ai/drex-v2.0-20261009": "Drex 2.0",
     "cloudflare/clef-flash": "Clef Flash",
     "cloudflare/clef": "Clef",
     "anthropic/claude-sonnet-5": "Claude Sonnet 5",
