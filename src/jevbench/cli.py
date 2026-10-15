@@ -149,6 +149,28 @@ def _cmd_figures(args: argparse.Namespace) -> int:
     return 0
 
 
+def _export_pngs(html: list[Path]) -> None:
+    """Render figures to PNG when the optional renderer is there; say so when not.
+
+    PNG export needs the `diagrams` extra (Playwright) and a Chromium. Without
+    them the tables and HTML figures are already written, so the command
+    still succeeds.
+    """
+    hint = 'PNGs not written: install `uv pip install -e ".[diagrams]"` and a Chromium'
+    try:
+        from playwright.sync_api import Error as PlaywrightError
+
+        from .diagrams import export_pngs
+    except ImportError:
+        print(f"{hint}.", file=sys.stderr)
+        return
+    try:
+        for p in export_pngs(html, FIGURES_DIR):
+            print(f"wrote {p.relative_to(REPO_ROOT)}")
+    except PlaywrightError as exc:
+        print(f"{hint} ({str(exc).splitlines()[0]}).", file=sys.stderr)
+
+
 def _cmd_diagrams(args: argparse.Namespace) -> int:
     from .diagrams import main as diagrams_main
 
@@ -219,7 +241,7 @@ def _cmd_pick_number(args: argparse.Namespace) -> int:
             probes=[PROBE],
         )
         return 0
-    from .diagrams import build_pick_number_diagrams, export_pngs
+    from .diagrams import build_pick_number_diagrams
 
     try:
         table = analyse()
@@ -233,8 +255,7 @@ def _cmd_pick_number(args: argparse.Namespace) -> int:
     for p in html:
         print(f"wrote {p.relative_to(REPO_ROOT)}")
     if not args.no_png:
-        for p in export_pngs(html, FIGURES_DIR):
-            print(f"wrote {p.relative_to(REPO_ROOT)}")
+        _export_pngs(html)
     return 0
 
 
@@ -257,7 +278,7 @@ def _cmd_order_study(args: argparse.Namespace) -> int:
         import pandas as pd
 
         from .config import REPO_ROOT
-        from .diagrams import export_pngs, fig_order_study
+        from .diagrams import fig_order_study
 
         fig = fig_order_study(pd.read_csv(ORDER_RESULTS_DIR / "instruments.csv"))
         if fig is not None:
@@ -265,8 +286,7 @@ def _cmd_order_study(args: argparse.Namespace) -> int:
             html.write_text(fig.html(), encoding="utf-8")
             print(f"wrote {html.relative_to(REPO_ROOT)}")
             if not args.no_png:
-                for p in export_pngs([html], FIGURES_DIR):
-                    print(f"wrote {p.relative_to(REPO_ROOT)}")
+                _export_pngs([html])
     return 0
 
 

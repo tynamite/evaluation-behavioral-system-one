@@ -454,3 +454,16 @@ def test_compare_names_a_direct_typesafe_run_and_where_it_lives(tmp_path: Path) 
     assert _run_name(run) == f"order_study/r1/{run.name}"
     # TypeSafe's direct API reports tokens but no cost: unknown, not free.
     assert health["cost_usd"].isna().all()
+
+
+def test_png_export_is_skipped_without_the_renderer(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    """A base install has no Playwright: the figure's HTML stands, with a note."""
+    import sys
+
+    from jevbench.cli import _export_pngs
+
+    monkeypatch.setitem(sys.modules, "playwright.sync_api", None)
+    _export_pngs([tmp_path / "figure.html"])
+    assert 'install `uv pip install -e ".[diagrams]"`' in capsys.readouterr().err
