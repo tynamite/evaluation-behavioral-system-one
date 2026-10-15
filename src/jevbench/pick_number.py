@@ -152,6 +152,12 @@ def resume_problem(path: Path, *, arm: str, model: str, backend: str) -> str | N
     if not path.read_text().strip():
         return None
     d = load_records(path)
+    # The runner drops failed calls on resume and retries them; a failure
+    # records the model requested, not the one served, so it is not checked.
+    if "error" in d.columns:
+        d = d[d["error"].isna() | d["error"].astype(str).str.startswith("unusable answer")]
+    if d.empty:
+        return None
     checks: list[tuple[str, str, Callable[[str], bool]]] = [
         ("probe_id", PROBE.probe_id, lambda v: v == PROBE.probe_id),
         ("arm", arm, lambda v: v == arm),

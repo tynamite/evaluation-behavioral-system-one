@@ -2765,6 +2765,15 @@ def _pick_chat_line(table: pd.DataFrame) -> str:
     return f"{name}'s most common answer: {said}."
 
 
+def _pick_calls(table: pd.DataFrame, models: list[str] | None = None) -> str:
+    """How many calls each plotted cell holds, from the table: "100", or "50 to 100"."""
+    rows = table[table["arm"] == "jev"] if models else table[table["arm"] == "baseline"]
+    if models:
+        rows = rows[rows["model"].isin(models)]
+    ns = sorted({int(n) for n in rows["n"]})
+    return str(ns[0]) if len(ns) == 1 else f"{ns[0]} to {ns[-1]}"
+
+
 def _pick_ceil(top: float) -> float:
     """The scale ends just above the tallest bar, on a 20% gridline."""
     return max(0.4, math.ceil((top + 0.02) / 0.2) * 0.2)
@@ -2913,9 +2922,9 @@ def fig_pick_number_reading(
         width=1000,
         height=510,
         body=body,
-        source="Total-variation distance from YouGov's 2,241 British adults, 12–13 Sep 2024. Each model: 100 "
-        "calls, run 15 Oct 2026, options shuffled per call. Dashed line: the chat model, 100 calls at "
-        "temperature 1.",
+        source="Total-variation distance from YouGov's 2,241 British adults, 12–13 Sep 2024. Each model: "
+        f"{_pick_calls(table, models)} calls, run 15 Oct 2026, options shuffled per call. Dashed line: the "
+        f"chat model, {_pick_calls(table)} calls at temperature 1.",
     )
 
 
@@ -2964,7 +2973,8 @@ def fig_pick_number_prompt(table: pd.DataFrame, group: str, models: list[str], p
         width=1000,
         height=510,
         body=body,
-        source="Each model: mean of 100 returned distributions per prompt, run 15 Oct 2026, options shuffled per "
+        source=f"Each model: mean of {_pick_calls(table, models)} returned distributions per prompt, run 15 "
+        "Oct 2026, options shuffled per "
         "call. People: YouGov, 2,241 British adults, 12–13 Sep 2024.",
     )
 
@@ -3009,7 +3019,7 @@ def fig_pick_number_models(table: pd.DataFrame, group: str, models: list[str], p
         )
         sx += 13
     out.append(
-        _t(sx + 8, rule + 33, "The model's returned probability, mean of 100 calls", size=9,
+        _t(sx + 8, rule + 33, f"The model's returned probability, mean of {_pick_calls(table, models)} calls", size=9,
            family=SANS, fill=INK)
     )  # fmt: skip
     return Figure(
@@ -3025,7 +3035,8 @@ def fig_pick_number_models(table: pd.DataFrame, group: str, models: list[str], p
         width=1000,
         height=rule + 50,
         body="\n".join(out),
-        source="Same scale in every panel. Each model: mean of 100 returned distributions, run 15 Oct 2026, "
+        source=f"Same scale in every panel. Each model: mean of {_pick_calls(table, models)} returned "
+        "distributions, run 15 Oct 2026, "
         "options shuffled per call. People: YouGov, 2,241 British adults, 12–13 Sep 2024.",
     )
 

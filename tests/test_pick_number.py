@@ -326,3 +326,29 @@ def test_pick_number_figures_draw_any_number_of_jev_versions_and_count_the_chat_
     fig = fig_pick_number_jev(pd.concat([table, jev], ignore_index=True))
     assert "Jev 1.15" in fig.body and "Jev 1.13" in fig.body
     assert "7 in 90 of 100 calls" in fig.subtitle and "said 7 every time" not in fig.subtitle
+
+
+def test_resume_ignores_failed_calls_the_runner_will_retry(tmp_path) -> None:
+    import json
+
+    from jevbench.pick_number import resume_problem
+
+    ok = {"probe_id": "pick_number_1_10", "instrument": "pick_number", "persona": "neutral",
+          "arm": "jev", "replicate": 0, "backend": "typesafe", "model": "jev-1.14.0",
+          "kind": "choice", "value": "7", "probabilities": {"7": 1.0}, "error": None}  # fmt: skip
+    failed = {**ok, "replicate": 1, "model": "jev-preview", "value": None, "probabilities": {},
+              "error": "HTTP 503"}  # fmt: skip
+    path = tmp_path / "run_live_x.jsonl"
+    path.write_text(json.dumps(ok) + "\n" + json.dumps(failed) + "\n")
+    assert resume_problem(path, arm="jev", model="jev-1.14.0", backend="typesafe") is None
+
+
+def test_pick_number_figures_count_calls_from_the_table() -> None:
+    from jevbench.diagrams import pick_number_figures
+    from jevbench.pick_number import PICK_RESULTS_DIR
+
+    table = pd.read_csv(PICK_RESULTS_DIR / "distributions.csv", dtype={"persona": str})
+    table["persona"] = table["persona"].fillna("")
+    table.loc[table["arm"] != "people", "n"] = 40
+    for f in pick_number_figures(table):
+        assert "100 calls" not in f.body + f.source and "100 returned" not in f.source, f.slug
