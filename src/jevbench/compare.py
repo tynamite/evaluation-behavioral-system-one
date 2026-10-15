@@ -60,13 +60,13 @@ def _arm_label(df: pd.DataFrame, arm: str) -> str:
 def _run_name(path: Path) -> str:
     """A run file's name as health.csv records it: relative to the raw-data
     directory when it is inside it (the Jev 1.14 run lives in order_study/r1/),
-    otherwise its bare name."""
+    otherwise its full path, so the figures can find it wherever it is."""
     from .config import RAW_DIR
 
     try:
         return path.resolve().relative_to(RAW_DIR.resolve()).as_posix()
     except ValueError:
-        return path.name
+        return path.resolve().as_posix()
 
 
 def _health(df: pd.DataFrame, arm: str, label: str, run_file: str) -> dict[str, Any]:

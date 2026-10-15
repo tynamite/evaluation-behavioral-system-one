@@ -440,14 +440,14 @@ def test_compare_names_a_direct_typesafe_run_and_where_it_lives(tmp_path: Path) 
     from jevbench.config import RAW_DIR
 
     run = RAW_DIR / "order_study" / "r1" / "run_live_20261014T231829Z_jev-1.14.0.jsonl"
-    # A slice copied out of data/raw/ is recorded by its bare name.
+    # A slice copied out of data/raw/ is recorded by its full path.
     sliced = tmp_path / run.name
     sliced.write_text(
         "".join(line for line in run.open() if '"instrument": "crt"' in line), encoding="utf-8"
     )
     health = compare_runs([sliced], tmp_path / "cmp")["health"]
     assert list(health["model"]) == ["typesafe/jev-1.14.0"]
-    assert list(health["run_file"]) == [run.name]
+    assert list(health["run_file"]) == [sliced.resolve().as_posix()]
 
     from jevbench.compare import _run_name
 

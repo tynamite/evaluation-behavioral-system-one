@@ -470,3 +470,26 @@ def test_route_is_read_from_the_raw_directory_the_charts_use(tmp_path: Path) -> 
     )
     page = next(p for p in built if p.stem == "models-decisions").read_text()
     assert "called through TypeSafe" not in page
+
+
+def test_figures_build_from_a_comparison_of_relocated_runs(tmp_path: Path) -> None:
+    """A comparison built from runs outside data/raw/ records where they are, so the
+    figures can load them, nested paths included."""
+    import shutil
+
+    from jevbench.compare import compare_runs
+    from jevbench.config import RAW_DIR
+
+    health = pd.read_csv(REPO_ROOT / "results" / "comparison" / "health.csv")
+    files = dict(zip(health["model"], health["run_file"], strict=True))
+    raw = tmp_path / "raw"
+    copies = []
+    for f in sorted({files[m] for m in health["model"]}):
+        dst = raw / f
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy(RAW_DIR / f, dst)
+        copies.append(dst)
+    cmp = tmp_path / "comparison"
+    compare_runs(copies, cmp)
+    built = build_diagrams(COMMITTED_RUN, TABLES_DIR, cmp, tmp_path / "out", raw)
+    assert any(p.stem == "models-dictator" for p in built)
