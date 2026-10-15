@@ -2765,11 +2765,23 @@ def fig_pick_number_jev(
                  (f"{name}, returned distribution", cell(model, persona, "its distribution"),
                   f'fill="{fill}" fill-opacity="0.75" stroke="{stroke}"'),
                  (f"{name}, single answer counted over calls", cell(model, persona, "one pick per call"),
-                  f'fill="{PAPER}" stroke="{stroke}"'),
-                 (f"{chat_name}, single answer counted over calls",
-                  [float(chat_row[n]) for n in PICK_NUMBERS],
-                  f'fill="{ANTHROPIC_ORANGE}" stroke="{INK}"')],
+                  f'fill="{PAPER}" stroke="{stroke}"')],
             )  # fmt: skip
+            # The chat model's single answers are a level, not a fourth bar: an
+            # orange rule across each number's group at its share (all on 7).
+            pitch = w / len(PICK_NUMBERS)
+            for i, n in enumerate(PICK_NUMBERS):
+                v = float(chat_row[n])
+                if v <= 0:
+                    continue
+                cx, ly = x0 + pitch * (i + 0.5), y0 + h - v / ceil * h
+                out.append(
+                    f'<line data-series="{esc(chat_name)}" data-value="{v:.4f}" '
+                    f'x1="{cx - pitch / 2 + 2:.1f}" y1="{ly:.1f}" x2="{cx + pitch / 2 - 2:.1f}" '
+                    f'y2="{ly:.1f}" stroke="{ANTHROPIC_ORANGE}" stroke-width="2.5" stroke-linecap="round">'
+                    f"<title>{esc(chat_name)} · {n} · {v:.0%} of calls</title></line>"
+                )
+                out.append(_t(cx + pitch / 2 + 4, ly + 3, chat_name, size=8, family=SANS, fill=INK))
     out.append(_t(510, 470, "NUMBER PICKED", size=7, spacing="0.14em", anchor="middle"))
     out.append(_legend(1000, 480, []))
     keys: list[tuple[list[str], str]] = [
@@ -2778,16 +2790,22 @@ def fig_pick_number_jev(
          "Jev's returned distribution: the probability it gives each number, averaged over calls"),
         ([f'fill="{PAPER}" stroke="{_pick_colour(m)[1]}"' for m in jevs],
          "Jev's single answer: the one number each call picks, counted over calls"),
-        ([f'fill="{ANTHROPIC_ORANGE}" stroke="{INK}"'],
+        (["chat"],
          f"{chat_name}'s single answer, counted over calls (a chat model gives nothing else)"),
     ]  # fmt: skip
     for i, (styles, label) in enumerate(keys):
         kx, ky = (104, 504) if i % 2 == 0 else (560, 504)
         ky += (i // 2) * 20
         for st in styles:
-            out.append(
-                f'<rect x="{kx}" y="{ky}" width="12" height="10" rx="2" {st} stroke-width="1"/>'
-            )
+            if st == "chat":
+                out.append(
+                    f'<line x1="{kx}" y1="{ky + 5}" x2="{kx + 14}" y2="{ky + 5}" '
+                    f'stroke="{ANTHROPIC_ORANGE}" stroke-width="2.5" stroke-linecap="round"/>'
+                )
+            else:
+                out.append(
+                    f'<rect x="{kx}" y="{ky}" width="12" height="10" rx="2" {st} stroke-width="1"/>'
+                )
             kx += 15
         out.append(_t(kx + 6, ky + 9, label, size=9, family=SANS, fill=INK))
     versions = " and ".join(system_one_name(m) for m in jevs)
