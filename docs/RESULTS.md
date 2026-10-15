@@ -187,3 +187,10 @@ A separate preregistered study, run on 14 October 2026 on Jev 1.13 and the 1.14 
 ![How far option order moves Jev's answers, per instrument, 1.13 and 1.14](../results/figures/order-study.png)
 
 
+## Exploratory: pick a number between 1 and 10
+
+A separate exploratory comparison, run on 15 October 2026 on Jev 1.13 and Claude Haiku 5.5, against YouGov's survey of 2,241 British adults; the tables above are not from it. See the [README](../README.md#exploratory-15-october-2026-pick-a-number-between-1-and-10) and [results/pick_number/](../results/pick_number/).
+
+![Pick a number between 1 and 10: Jev's distribution, Jev and Haiku one pick per call, and people](../results/figures/pick-number.png)
+
+
