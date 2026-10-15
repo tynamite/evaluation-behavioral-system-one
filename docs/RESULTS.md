@@ -193,13 +193,13 @@ A separate exploratory comparison, run on 15 October 2026 on Jev 1.13, the Jev 1
 
 ![Jev 1.13 and Jev 1.14: the distribution Jev returns against its single answer, with Claude Haiku 5.5 and people](../results/figures/pick-number-jev.png)
 
-![Read one pick at a time, Jev and the main comparison's models mostly collapse onto one number](../results/figures/pick-number-reading-a.png)
+![One pick per call against the full distribution: Jev and the main comparison's models](../results/figures/pick-number-reading-a.png)
 
-![Read one pick at a time, the other System One models mostly collapse onto one number](../results/figures/pick-number-reading-b.png)
+![One pick per call against the full distribution: the other System One models](../results/figures/pick-number-reading-b.png)
 
-![Told to answer as a typical person, Jev and the main comparison's models mostly overshoot onto 7](../results/figures/pick-number-prompt-a.png)
+![Share on 7, asked plainly and as a typical person: Jev and the main comparison's models](../results/figures/pick-number-prompt-a.png)
 
-![Told to answer as a typical person, the other System One models mostly overshoot onto 7](../results/figures/pick-number-prompt-b.png)
+![Share on 7, asked plainly and as a typical person: the other System One models](../results/figures/pick-number-prompt-b.png)
 
 ![Pick a number between 1 and 10: Jev and the main comparison's models' returned distributions against people](../results/figures/pick-number-models-a.png)
 
