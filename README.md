@@ -352,7 +352,7 @@ The 600 calls cost under a cent. The table, with each distribution in full, is
 in [distributions.csv](results/pick_number/distributions.csv), and
 `jevbench pick-number analyse` rebuilds it and the figures from the raw runs.
 
-![Pick a number between 1 and 10: Jev 1.13 and Jev 1.14 against people, asked plainly and as a typical person](results/figures/pick-number-jev.png)
+![Jev 1.13 and Jev 1.14: the distribution Jev returns against its single answer, with Claude Haiku 5.5 and people](results/figures/pick-number-jev.png)
 
 #### The other System One models
 
@@ -410,9 +410,9 @@ identical and 1 is no overlap. A model that put everything on 7 would score
 
 ![Told to answer as a typical person, the other System One models mostly overshoot onto 7](results/figures/pick-number-prompt-b.png)
 
-![Pick a number between 1 and 10: Jev and the main comparison's models, against people](results/figures/pick-number-models-a.png)
+![Pick a number between 1 and 10: Jev and the main comparison's models' returned distributions against people](results/figures/pick-number-models-a.png)
 
-![Pick a number between 1 and 10: the other System One models, against people](results/figures/pick-number-models-b.png)
+![Pick a number between 1 and 10: the other System One models' returned distributions against people](results/figures/pick-number-models-b.png)
 
 ## Checked afterwards against the documented behaviour
 

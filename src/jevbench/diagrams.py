@@ -2719,6 +2719,25 @@ def _pick_bars(
     step: float = 0.2,
 ) -> None:
     """People's share (slate) beside the model's probability, one pair per number."""
+    _pick_bar_groups(
+        out, x0, y0, w, h, ceil,
+        [("people", people, f'fill="{muted(0.18)}" stroke="{MUTED}"'),
+         (who, values, f'fill="{fill}" fill-opacity="0.75" stroke="{edge}"')],
+        step,
+    )  # fmt: skip
+
+
+def _pick_bar_groups(
+    out: list[str],
+    x0: float,
+    y0: float,
+    w: float,
+    h: float,
+    ceil: float,
+    series: list[tuple[str, list[float], str]],
+    step: float = 0.2,
+) -> None:
+    """One group of bars per number, one bar per series, on a shared scale."""
     base = y0 + h
 
     def y(v: float) -> float:
@@ -2742,18 +2761,20 @@ def _pick_bars(
         f'<line x1="{x0}" y1="{base}" x2="{x0 + w}" y2="{base}" stroke="{ink(0.25)}" stroke-width="1"/>'
     )
     pitch = w / len(PICK_NUMBERS)
-    bar = min(14.0, pitch / 2 - 2)
+    k = len(series)
+    gap = 2.0
+    bar = min(14.0, (pitch - 6) / k - gap)
+    span = k * bar + (k - 1) * gap
     for i, n in enumerate(PICK_NUMBERS):
         cx = x0 + pitch * (i + 0.5)
-        for series, v, bx, style in (
-            ("people", people[i], cx - bar - 1, f'fill="{muted(0.18)}" stroke="{MUTED}"'),
-            (who, values[i], cx + 1, f'fill="{fill}" fill-opacity="0.75" stroke="{edge}"'),
-        ):
+        for j, (name, values, style) in enumerate(series):
+            v = values[i]
+            bx = cx - span / 2 + j * (bar + gap)
             by = y(v)
             out.append(
-                f'<rect data-series="{esc(series)}" data-value="{v:.4f}" x="{bx:.1f}" y="{by:.1f}" '
+                f'<rect data-series="{esc(name)}" data-value="{v:.4f}" x="{bx:.1f}" y="{by:.1f}" '
                 f'width="{bar:g}" height="{base - by:.1f}" {style} stroke-width="1">'
-                f"<title>{esc(series)} · {n} · {v:.0%}</title></rect>"
+                f"<title>{esc(name)} · {n} · {v:.0%}</title></rect>"
             )
         out.append(_t(cx, base + 14, n, size=8, anchor="middle"))
 
@@ -2800,7 +2821,7 @@ def _pick_ceil(top: float) -> float:
 PICK_PEOPLE_KEY = "People: share of 2,241 British adults (YouGov)"
 
 
-PICK_JEV_PER_FIGURE = 3
+PICK_JEV_PER_FIGURE = 2
 
 
 def _pick_jevs(table: pd.DataFrame) -> list[str]:
@@ -2828,48 +2849,67 @@ def fig_pick_number_jev(
         raise ValueError(f"one Jev figure takes 1 to {PICK_JEV_PER_FIGURE} versions, got {jevs}")
     people_row = table[table["arm"] == "people"].iloc[0]
     people = [float(people_row[n]) for n in PICK_NUMBERS]
-    dists = {
-        (m, p): [float(_pick_cell(table, m, p, "its distribution")[n]) for n in PICK_NUMBERS]
-        for m in jevs
-        for p, _l in PICK_PROMPTS
-    }
-    ceil = _pick_ceil(max(max(people), *(max(v) for v in dists.values())))
-    chat_line = _pick_chat_line(table)
-    # One column per Jev version, as many as the analysis accepted.
+
+    def cell(m: str, p: str, kind: str) -> list[float]:
+        return [float(_pick_cell(table, m, p, kind)[n]) for n in PICK_NUMBERS]
+
+    chat = table[table["arm"] == "baseline"]
+    chat_name = str(chat["source"].iloc[0]).split(",")[0]
+    chat_rows = {p: chat[chat["persona"] == p].iloc[0] for p, _l in PICK_PROMPTS}
+    # Single answers reach 100%, so the scale always runs to the top.
+    ceil = 1.0
     gap = 80
     w = (880 - gap * (len(jevs) - 1)) // len(jevs)
     h = 150
     out: list[str] = []
     for col, model in enumerate(jevs):
+        name = system_one_name(model)
         for row, (persona, prompt) in enumerate(PICK_PROMPTS):
             x0, y0 = 70 + col * (w + gap), 60 + row * 230
             fill = JEV_PINK if persona == "neutral" else JEV_PROMPT
             edge = JEV_PINK_EDGE if persona == "neutral" else JEV_PROMPT
-            name = system_one_name(model)
+            dist = _pick_cell(table, model, persona, "its distribution")
+            pick = _pick_cell(table, model, persona, "one pick per call")
             out.append(
                 _t(x0, y0 - 24, f"{name} · {prompt}", size=12, family=SANS, fill=INK, weight=600)
             )
             out.append(
-                _t(x0, y0 - 10, f"One pick per call: {_pick_one_pick(table, model, persona)}",
-                   size=9, family=SANS)
+                _t(x0, y0 - 10, f"Distance from people: distribution {float(dist['tv_from_people']):.2f} · "
+                   f"single answers {float(pick['tv_from_people']):.2f}", size=9, family=SANS)
             )  # fmt: skip
-            _pick_bars(out, x0, y0, w, h, ceil, people, dists[(model, persona)], name, fill, edge)
+            chat_row = chat_rows[persona]
+            _pick_bar_groups(
+                out, x0, y0, w, h, ceil,
+                [("people", people, f'fill="{muted(0.18)}" stroke="{MUTED}"'),
+                 (f"{name}, returned distribution", cell(model, persona, "its distribution"),
+                  f'fill="{fill}" fill-opacity="0.75" stroke="{edge}"'),
+                 (f"{name}, single answer counted over calls", cell(model, persona, "one pick per call"),
+                  f'fill="{PAPER}" stroke="{edge}"'),
+                 (f"{chat_name}, single answer counted over calls",
+                  [float(chat_row[n]) for n in PICK_NUMBERS],
+                  f'fill="{ANTHROPIC_ORANGE}" stroke="{INK}"')],
+            )  # fmt: skip
     out.append(_t(510, 470, "NUMBER PICKED", size=7, spacing="0.14em", anchor="middle"))
     out.append(_legend(1000, 480, []))
-    out.append(
-        f'<rect x="104" y="504" width="16" height="10" rx="2" fill="{muted(0.18)}" stroke="{MUTED}" stroke-width="1"/>'
-    )
-    out.append(_t(128, 513, PICK_PEOPLE_KEY, size=9, family=SANS, fill=INK))
-    kx = 128 + text_width(PICK_PEOPLE_KEY, 9) + 40
-    for fill, edge, label in (
-        (JEV_PINK, JEV_PINK_EDGE, "Jev, asked plainly"),
-        (JEV_PROMPT, JEV_PROMPT, "Jev, as a typical person"),
-    ):
-        out.append(
-            f'<rect x="{kx:g}" y="504" width="16" height="10" rx="2" fill="{fill}" fill-opacity="0.75" stroke="{edge}" stroke-width="1"/>'
-        )
-        out.append(_t(kx + 24, 513, label, size=9, family=SANS, fill=INK))
-        kx += 24 + text_width(label, 9) + 40
+    keys: list[tuple[list[str], str]] = [
+        ([f'fill="{muted(0.18)}" stroke="{MUTED}"'], PICK_PEOPLE_KEY),
+        ([f'fill="{JEV_PINK}" fill-opacity="0.75" stroke="{JEV_PINK_EDGE}"',
+          f'fill="{JEV_PROMPT}" fill-opacity="0.75" stroke="{JEV_PROMPT}"'],
+         "Jev's returned distribution: the probability it gives each number, averaged over calls"),
+        ([f'fill="{PAPER}" stroke="{JEV_PINK_EDGE}"', f'fill="{PAPER}" stroke="{JEV_PROMPT}"'],
+         "Jev's single answer: the one number each call picks, counted over calls"),
+        ([f'fill="{ANTHROPIC_ORANGE}" stroke="{INK}"'],
+         f"{chat_name}'s single answer, counted over calls (a chat model gives nothing else)"),
+    ]  # fmt: skip
+    for i, (styles, label) in enumerate(keys):
+        kx, ky = (104, 504) if i % 2 == 0 else (560, 504)
+        ky += (i // 2) * 20
+        for st in styles:
+            out.append(
+                f'<rect x="{kx}" y="{ky}" width="12" height="10" rx="2" {st} stroke-width="1"/>'
+            )
+            kx += 15
+        out.append(_t(kx + 6, ky + 9, label, size=9, family=SANS, fill=INK))
     versions = " and ".join(system_one_name(m) for m in jevs)
     calls = sorted(
         {
@@ -2881,21 +2921,23 @@ def fig_pick_number_jev(
     return Figure(
         slug=slug,
         eyebrow="Pick a number · exploratory",
-        title=f"Pick a number between 1 and 10: {versions} against people",
+        title=f"{versions}: the distribution Jev returns against its single answer",
         subtitle=(
-            "Asked for a random number from 1 to 10, a third of people say 7. Jev returns a probability for "
-            "every number in each call; read one pick per call, the way a chat model has to be read, it says 7 "
-            f"almost every time. {chat_line}"
+            "Asked for a random number from 1 to 10, a third of people say 7. Each Jev call returns a probability "
+            "for every number (solid) and also picks one (outlined). Counting the single picks, the way a chat "
+            "model has to be read, puts nearly everything on 7; the distribution is far closer to people. "
+            f"{_pick_chat_line(table)}"
         ),
-        desc=f"Four small bar charts: {versions}, asked plainly and asked to answer as a typical person, each "
-        "showing the probability Jev returns for each number from 1 to 10 next to the share of people who "
-        "pick it.",
+        desc=f"Four small bar charts: {versions}, asked plainly and asked to answer as a typical person. For "
+        "each number from 1 to 10 they show the share of people who pick it, the probability Jev returns, the "
+        f"share of calls whose single answer is that number, and the same share for {chat_name}.",
         width=1000,
-        height=530,
+        height=550,
         body="\n".join(out),
-        source=f"Same scale in every panel. Jev: mean of {' or '.join(map(str, calls))} returned distributions "
-        "per prompt, run 15 Oct 2026, options shuffled per call. People: YouGov, 12–13 Sep 2024, open text "
-        "box; published percentages normalised.",
+        source=f"Same scale in every panel. Jev: {' or '.join(map(str, calls))} calls per prompt, run 15 Oct "
+        f"2026, options shuffled per call. {chat_name}: {_pick_calls(table)} calls per prompt at temperature 1. "
+        "People: YouGov, 12–13 Sep 2024, open text box; published percentages normalised. Distance: total "
+        "variation, 0 (the same) to 1 (no overlap).",
     )
 
 
@@ -3057,7 +3099,7 @@ def fig_pick_number_models(table: pd.DataFrame, group: str, models: list[str], p
     return Figure(
         slug=f"pick-number-models-{part}",
         eyebrow="Pick a number · asked plainly · exploratory",
-        title=f"Pick a number between 1 and 10: {group}, against people",
+        title=f"Pick a number between 1 and 10: {group}' returned distributions against people",
         subtitle=(
             "Slate: the share of people picking each number. Coloured: the probability each model returns for "
             "it. Distance is total variation from people's distribution, 0 (the same) to 1 (no overlap)."

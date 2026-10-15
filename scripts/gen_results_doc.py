@@ -331,8 +331,8 @@ def main(argv: list[str]) -> int:
         L.append("")
 
     pick = figures(
-        ("pick-number-jev.png", "Pick a number between 1 and 10: Jev 1.13 and Jev 1.14 against "
-                                "people, asked plainly and as a typical person"),
+        ("pick-number-jev.png", "Jev 1.13 and Jev 1.14: the distribution Jev returns against "
+                                "its single answer, with Claude Haiku 5.5 and people"),
         ("pick-number-reading-a.png", "Read one pick at a time, Jev and the main comparison's "
                                       "models mostly collapse onto one number"),
         ("pick-number-reading-b.png", "Read one pick at a time, the other System One models "
@@ -342,9 +342,9 @@ def main(argv: list[str]) -> int:
         ("pick-number-prompt-b.png", "Told to answer as a typical person, the other System One "
                                      "models mostly overshoot onto 7"),
         ("pick-number-models-a.png", "Pick a number between 1 and 10: Jev and the main "
-                                     "comparison's models, against people"),
+                                     "comparison's models' returned distributions against people"),
         ("pick-number-models-b.png", "Pick a number between 1 and 10: the other System One "
-                                     "models, against people"),
+                                     "models' returned distributions against people"),
     )
     if pick:
         L.append("## Exploratory: pick a number between 1 and 10\n")

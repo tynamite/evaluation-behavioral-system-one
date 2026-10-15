@@ -316,7 +316,7 @@ def test_resume_accepts_an_empty_file(tmp_path) -> None:
 
 
 def test_pick_number_figures_draw_any_number_of_jev_versions_and_count_the_chat_model() -> None:
-    from jevbench.diagrams import fig_pick_number_jev
+    from jevbench.diagrams import pick_number_figures
     from jevbench.pick_number import PICK_RESULTS_DIR
 
     table = pd.read_csv(PICK_RESULTS_DIR / "distributions.csv", dtype={"persona": str})
@@ -327,9 +327,14 @@ def test_pick_number_figures_draw_any_number_of_jev_versions_and_count_the_chat_
     # The chat model varies under one prompt: the figure must say so.
     chat = (table["arm"] == "baseline") & (table["persona"] == "typical_human")
     table.loc[chat, ["7", "3"]] = [0.9, 0.1]
-    fig = fig_pick_number_jev(pd.concat([table, jev], ignore_index=True))
-    assert "Jev 1.15" in fig.body and "Jev 1.13" in fig.body
-    assert "7 in 90 of 100 calls" in fig.subtitle and "said 7 every time" not in fig.subtitle
+    figs = [f for f in pick_number_figures(pd.concat([table, jev], ignore_index=True))
+            if f.slug.startswith("pick-number-jev")]  # fmt: skip
+    body = "".join(f.body for f in figs)
+    assert all(f"Jev 1.{v} ·" in body for v in (13, 14, 15))
+    assert all("7 in 90 of 100 calls" in f.subtitle and "said 7 every time" not in f.subtitle
+               for f in figs)  # fmt: skip
+    # Every panel draws both readings of Jev and the chat model's answers.
+    assert "returned distribution" in body and "single answer counted over calls" in body
 
 
 def test_resume_ignores_failed_calls_the_runner_will_retry(tmp_path) -> None:
