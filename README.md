@@ -356,10 +356,13 @@ in [distributions.csv](results/pick_number/distributions.csv), and
 
 #### The other System One models
 
-The same question went to the nine other System One models in the main
-comparison, through OpenRouter: 100 calls under each prompt, 1,800 calls in
-all, for about two cents. As with Jev, each call returns a distribution and a
-single choice.
+The same question went to nine other System One models through OpenRouter:
+eight from the main comparison and Drex 2.0, which OpenRouter listed this week.
+Each got 100 calls under each prompt, 1,800 calls in all, for about two cents.
+As with Jev, each call returns a distribution and a single choice. Solar Decide
+Flash was run too but is left out, to keep one Upstage model; its run is kept
+in [data/raw/pick_number/excluded/](data/raw/pick_number/excluded/). Perplexity's
+newest Decider is still v1.1 27B: its "latest" alias resolves to it.
 
 | Model | On 7, plainly | On 7, as a typical person | Distance from people, plainly | Distance, as a typical person |
 |---|---|---|---|---|
@@ -370,11 +373,11 @@ single choice.
 | **Jev 1.14** | **30%** | **69%** | **0.15** | **0.36** |
 | d1 | 27% | 83% | 0.20 | 0.51 |
 | Clef Flash | 23% | 53% | 0.18 | 0.28 |
+| Drex 2.0 | 18% (peak on 5) | 55% | 0.21 | 0.28 |
 | Decider v1.1 27B | 15% | 34% | 0.24 | 0.12 |
 | Microsoft-Decision-1 | 14% (peak on 5) | 49% | 0.26 | 0.35 |
 | Mercury Decide | 10% (peak on 6) | 67% | 0.25 | 0.34 |
 | Solar Decide | 5% (peak on 1) | 96% | 0.61 | 0.63 |
-| Solar Decide Flash | 5% (peak on 3) | 1% (peak on 5) | 0.57 | 0.76 |
 | Claude Haiku 5.5, one pick per call | 100% | 100% | 0.67 | 0.67 |
 
 The shares and distances are for each model's own distribution, averaged over
@@ -382,15 +385,15 @@ its 100 calls. Distance is total variation from people's distribution: 0 is
 identical and 1 is no overlap. A model that put everything on 7 would score
 0.67.
 
-- **Read one pick per call, every model collapses.** Eight of the eleven
+- **Read one pick per call, every model collapses.** Nine of the eleven
   give the same choice in every call under a given prompt, and Jev 1.14 in
   all but one. Usually that is 7;
-  asked plainly, Microsoft-Decision-1 always says 5 and Mercury Decide always
-  says 6. Jev 1.14 departs once (one 5 in 200 calls); only the two Solar
-  models vary much. Solar Decide asked plainly picked 1 in 69% of calls and 3
+  asked plainly, Microsoft-Decision-1 and Drex 2.0 always say 5 and Mercury
+  Decide always says 6. Jev 1.14 departs once (one 5 in 200 calls); only
+  Solar Decide varies much. Asked plainly, it picked 1 in 69% of calls and 3
   in 23%. Read this way, the closest any model
   gets to people is 0.63, against Haiku's 0.67.
-- **Their own distributions are much closer to people.** Asked plainly, nine
+- **Their own distributions are much closer to people.** Asked plainly, ten
   of the eleven distributions are 0.15 to 0.32 from people. Jev 1.14 is the
   closest (0.15). Clef Flash (0.18) and d1 (0.20) are closer than Jev 1.13
   (0.27); Clef, a larger model, overstates 7 more than Jev 1.13 does.
@@ -399,9 +402,12 @@ identical and 1 is no overlap. A model that put everything on 7 would score
   closer: Decider v1.1 27B, whose 34% on 7 matches people's 33% almost exactly
   (distance 0.12, the closest of any model under this prompt), and GPT-6 Luna
   Decisions.
-- **The two Solar models have no sense of 7 asked plainly.** Both put only 5%
-  on it and favour 1, 3 and 10. Under the typical-person prompt, Solar Decide
-  swings to 96% on 7, and Solar Decide Flash to 68% on 5.
+- **Drex 2.0 shows the gap between the two readings most plainly.** Asked
+  plainly, its distribution is spread across the middle numbers (19% on 5,
+  18% on 7, 15% on 6), 0.21 from people, yet its single answer is 5 in all 100
+  calls, 0.92 from people.
+- **Solar Decide has no sense of 7 asked plainly.** It puts 5% on it and
+  favours 1, 3 and 10. Under the typical-person prompt it swings to 96% on 7.
 
 ![One pick per call against the full distribution: Jev and the main comparison's models](results/figures/pick-number-reading-a.png)
 
