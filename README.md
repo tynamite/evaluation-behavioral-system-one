@@ -270,10 +270,11 @@ in the item pool. Two others could:
   original's direction, simulated or estimated; the largest is 2.6 (Jev 1.13:
   0.3 and −0.3; Jev 1.14: −0.1 and −0.1).
 
-![Jev 1.13's error on each of the 23 statistics, simulated and estimated](results/figures/followup-h4.png)
+![Each of the 23 statistics, simulated and estimated, for Jev 1.14 and Jev 1.13](results/figures/followup-h4.png)
 
-The chart is the preregistered test, on Jev 1.13. The full table, with every
-model's summary, is in [docs/RESULTS.md](docs/RESULTS.md#follow-up-h4-simulate-or-estimate).
+The chart puts the two versions side by side, one row per statistic in the
+same order; the preregistered test is the Jev 1.13 panel. The full table, with
+every model's summary, is in [docs/RESULTS.md](docs/RESULTS.md#follow-up-h4-simulate-or-estimate).
 
 The conjunction result looked like the most interesting thing here until I read
 the documentation properly. Asked side by side, the model picked the single

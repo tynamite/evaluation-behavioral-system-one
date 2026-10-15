@@ -305,8 +305,8 @@ def main(argv: list[str]) -> int:
     h4 = simulate_vs_estimate(sdf)
     if len(h4):
         L.append("## Follow-up H4: simulate or estimate\n")
-        L += figures(("followup-h4.png", "Jev 1.13's error on each of the 23 statistics, "
-                                         "simulated and estimated"))
+        L += figures(("followup-h4.png", "Each of the 23 statistics, simulated and estimated, "
+                                         "for Jev 1.14 and Jev 1.13"))
         L.append("Each follow-up statistic measured two ways: the item asked with the typical-person "
                  "prompt (simulate), and its population question asked with no persona (estimate). "
                  "Errors are distances from the original study's published value (Many Labs 2 "

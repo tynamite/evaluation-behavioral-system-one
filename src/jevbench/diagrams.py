@@ -354,11 +354,18 @@ def dumbbell(
         out.append(
             f'<line x1="{xa}" y1="{ya}" x2="{xb}" y2="{yb}" stroke="{ink(0.55)}" stroke-width="1"/>'
         )
+        shape = shape_of(name)
         out.append(
-            f'<circle data-series="reference" data-value="{a:.4f}" cx="{xa}" cy="{ya}" r="{r}" {row_style}/>'
+            _mark(shape, xa, ya, r, f'data-series="reference" data-value="{a:.4f}" {row_style}')
         )
         out.append(
-            f'<circle data-series="focal" data-value="{b:.4f}" cx="{xb}" cy="{yb}" r="{r}" fill="{c}" stroke="{edge(c)}" stroke-width="1"/>'
+            _mark(
+                shape,
+                xb,
+                yb,
+                r,
+                f'data-series="focal" data-value="{b:.4f}" fill="{c}" stroke="{edge(c)}" stroke-width="1"',
+            )
         )
         left, right = (a, b) if xa <= xb else (b, a)
         xl, xr = min(xa, xb), max(xa, xb)
@@ -874,7 +881,8 @@ def fig_models_scatter(fdf: pd.DataFrame, run_files: dict[str, str] | None = Non
             model, colour = main[name]
             shape, mark = MAIN_SHAPES[model], _model_style(model, colour)
         elif name == "Claude Haiku 5.5":
-            mark = f'fill="{ANTHROPIC_ORANGE}" stroke="{INK}" stroke-width="1"'
+            # A chat model, so hollow like Sonnet; its orange tells it apart.
+            mark = f'fill="{PAPER}" stroke="{ANTHROPIC_ORANGE}" stroke-width="2"'
         elif typ != "System One":
             mark = f'fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"'
         else:
@@ -951,7 +959,7 @@ def fig_models_scatter(fdf: pd.DataFrame, run_files: dict[str, str] | None = Non
     out.append(_t(x + 12, ky + 4, "Chat model, resampled", size=9, family=SANS, fill=INK))
     x += 12 + text_width("Chat model, resampled", 9) + 30
     out.append(
-        f'<circle cx="{x:g}" cy="{ky}" r="5" fill="{ANTHROPIC_ORANGE}" stroke="{INK}" stroke-width="1"/>'
+        f'<circle cx="{x:g}" cy="{ky}" r="5" fill="{PAPER}" stroke="{ANTHROPIC_ORANGE}" stroke-width="2"/>'
     )
     out.append(_t(x + 12, ky + 4, "Claude Haiku 5.5", size=9, family=SANS, fill=INK))
     if focal_note:
@@ -1064,18 +1072,21 @@ def fig_framing(mdf: pd.DataFrame, run_files: dict[str, str] | None = None) -> F
 def _node(
     x: int, y: int, w: int, h: int, name: str, sub: str, *, kind: str = "backend", tag: str = ""
 ) -> str:
-    fill, stroke = {
-        "backend": (WHITE, INK),
-        "focal": (accent(0.08), ACCENT),
-        "external": (ink(0.03), ink(0.30)),
-        "store": (ink(0.05), MUTED),
+    # Teal marks the System One path in the method schematic and nothing else;
+    # a fixed bug in the health schematic is a heavier ink outline.
+    fill, stroke, width = {
+        "backend": (WHITE, INK, 1),
+        "focal": (accent(0.08), ACCENT, 1),
+        "fixed": (WHITE, INK, 2.5),
+        "external": (ink(0.03), ink(0.30), 1),
+        "store": (ink(0.05), MUTED, 1),
     }[kind]
     if text_width(name, 12) > w - 16 or text_width(sub, 9, True) > w - 16:
         raise ValueError(f"label does not fit its node: {name!r} / {sub!r}")
     cx = x + w / 2
     parts = [
         f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="6" fill="{PAPER}"/>',
-        f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="6" fill="{fill}" stroke="{stroke}" stroke-width="1"/>',
+        f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="6" fill="{fill}" stroke="{stroke}" stroke-width="{width:g}"/>',
     ]
     ty = y + h / 2 + (4 if not tag else 8)
     if tag:
@@ -1283,7 +1294,7 @@ def fig_health(run_files: dict[str, str] | None = None) -> Figure:
             "client tried each 5 times",
             "Counted as refusals",
             "never retried; in health.csv",
-            "focal",
+            "fixed",
         ),
         (
             "Both Solar models lost an item",
@@ -1301,7 +1312,7 @@ def fig_health(run_files: dict[str, str] | None = None) -> Figure:
             "all 512 tokens, no answer",
             "Cap raised and recorded",
             "4,096 → 16 unresolved",
-            "focal",
+            "fixed",
         ),
     ]
     a: list[str] = []
@@ -1322,13 +1333,13 @@ def fig_health(run_files: dict[str, str] | None = None) -> Figure:
         a.append(_node(cols[2], y, w, h, n3, s3, kind=kind3))
     a.append(_legend(W, 372, []))
     x = 104
-    for fill, stroke, label in [
-        (accent(0.08), ACCENT, "A bug in this repository, fixed"),
-        (WHITE, INK, "Outcome"),
-        (ink(0.03), ink(0.30), "Cause outside the repository's control"),
+    for fill, stroke, width, label in [
+        (WHITE, INK, 2.5, "A bug in this repository, fixed"),
+        (WHITE, INK, 1, "Outcome"),
+        (ink(0.03), ink(0.30), 1, "Cause outside the repository's control"),
     ]:
         a.append(
-            f'<rect x="{x}" y="402" width="16" height="10" rx="2" fill="{fill}" stroke="{stroke}" stroke-width="1"/>'
+            f'<rect x="{x}" y="402" width="16" height="10" rx="2" fill="{fill}" stroke="{stroke}" stroke-width="{width:g}"/>'
         )
         a.append(_t(x + 24, 411, label, size=9, family=SANS, fill=INK))
         x += int(24 + text_width(label, 9) + 40)
@@ -1382,6 +1393,11 @@ MAIN_SHAPES = {
 # Every other System One model shares one sienna: not slate (people), not teal,
 # and none of the main five's colours; the validator finds no failing pair.
 OTHER_MODEL = "#a0522d"
+
+
+def shape_of(name: str) -> str:
+    """A model's marker shape, by its display name; circle for any model outside the main five."""
+    return next((MAIN_SHAPES[m] for m, _c in MAIN_MODELS if SHORT[m] == name), "circle")
 
 
 def model_colour(model: str) -> str:
@@ -2015,166 +2031,202 @@ H4_LABELS = {
 }
 
 
-def _signed(v: float) -> str:
-    """A signed change, with enough decimals that a nonzero one never reads as zero."""
-    if v == 0:
-        return "0"
-    return f"{v:+.2f}" if abs(v) >= 0.005 else f"{v:+.1g}"
+def fig_h4(panels: list[tuple[str, pd.DataFrame]], run_name: str = "the run shown") -> Figure:
+    """Follow-up H4, one panel per Jev version: each statistic's error simulated and estimated.
 
-
-def fig_h4(h4: pd.DataFrame, run_name: str = "the run shown") -> Figure:
-    """Follow-up H4 for Jev: each statistic's error simulated and estimated, closer one first.
-
-    Errors are divided by each scale's range so proportions, 1-7 ratings and
-    percentage bands can share one axis; the registered test uses the raw
-    errors, and both p values are quoted.
+    `panels` is (model, H4 table) per version, drawn left to right. Rows keep
+    one order across panels (by how much estimating helps, averaged over the
+    versions), so a statistic reads straight across. Hollow is simulate, filled
+    is estimate, both in the version's colour. Errors are divided by each
+    scale's range so proportions, 1-7 ratings and percentage bands can share
+    one axis; the registered test uses the raw errors, and both p values are
+    quoted.
     """
     from .analysis import h4_summary
 
     def _p(v: float | None) -> str:
         # No test: every pair tied, or too few pairs to rank.
         if v is None:
-            return ": n/a"
-        return " < 0.001" if v < 0.0005 else f" = {v:.3f}"
+            return "n/a"
+        return "< 0.001" if v < 0.0005 else f"{v:.3f}"
 
-    t = h4.assign(gain=h4["scaled_error_simulate"] - h4["scaled_error_estimate"])
-    closer = t[t["gain"] > 0].sort_values("gain", ascending=False)
-    worse = t[t["gain"] < 0].sort_values("gain", ascending=False)
-    tied = t[t["gain"] == 0]
-    summary = h4_summary(h4)
-    L, R, pitch = 300, 880, 22
-    vals = [*t["scaled_error_simulate"], *t["scaled_error_estimate"]]
-    floor, ceil = _domain(vals, 0.1)
+    def key(r: pd.Series) -> tuple[str, str]:
+        return (str(r["instrument"]), str(r["statistic"]))
 
-    def px(v: float) -> float:
-        return L + (v - floor) / (ceil - floor) * (R - L)
-
-    out: list[str] = []
-    y = 64
-    rows_top = y - 20
-    groups = [
-        (f"ESTIMATE CLOSER · {len(closer)} OF {len(t)}", closer),
-        (f"SIMULATE CLOSER · {len(worse)} OF {len(t)}", worse),
-        (f"TIED · {len(tied)} OF {len(t)}", tied),
+    tables = [
+        (model, t.assign(gain=t["scaled_error_simulate"] - t["scaled_error_estimate"]))
+        for model, t in panels
     ]
-    for label, part in groups:
-        if not len(part):
-            continue
-        out.append(_t(L - 12, y, label, size=7, spacing="0.14em", anchor="end", fill=INK))
-        y += 22
-        for _, r in part.iterrows():
-            name = H4_LABELS.get(
-                (r["instrument"], r["statistic"]), f"{r['instrument']}: {r['statistic']}"
-            )
-            if text_width(name, 10) > L - 24:
-                raise ValueError(f"row label does not fit the label column: {name!r}")
-            xs, xe = px(r["scaled_error_simulate"]), px(r["scaled_error_estimate"])
-            better = r["gain"] > 0
-            # A pair too close to tell apart is split vertically, as in the
-            # dumbbells, so neither dot hides the other; x stays exact.
-            ys, ye = (y - 8, y) if abs(xs - xe) < 9 else (y - 4, y - 4)
-            out.append(
-                f'<line x1="{xs:.1f}" y1="{ys}" x2="{xe:.1f}" y2="{ye}" '
-                f'stroke="{ACCENT if better else ink(0.45)}" stroke-width="{2 if better else 1}"/>'
-            )
-            out.append(
-                f'<circle data-series="simulate" data-value="{r["scaled_error_simulate"]:.4f}" '
-                f'cx="{xs:.1f}" cy="{ys}" r="4.5" fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"/>'
-            )
-            out.append(
-                f'<circle data-series="estimate" data-value="{r["scaled_error_estimate"]:.4f}" '
-                f'cx="{xe:.1f}" cy="{ye}" r="4.5" fill="{JEV_PINK}" stroke="{JEV_PINK_EDGE}" stroke-width="1"/>'
-            )
-            out.append(_t(L - 12, y, name, size=10, fill=INK, family=SANS, anchor="end"))
-            out.append(
-                _t(
-                    970,
-                    y,
-                    _signed(-r["gain"]),
-                    anchor="end",
-                    fill=ACCENT if better else MUTED,
-                    weight=600 if better else None,
-                )
-            )
-            y += pitch
-        y += 10
-    rows_bottom = y - 14
-    out.append(_t(970, rows_top + 2, "CHANGE", size=7, spacing="0.14em", anchor="end"))
-    ticks = [floor + i * 0.1 for i in range(round((ceil - floor) / 0.1) + 1)]
-    for v in ticks:
-        x = px(v)
-        if v > floor:
-            out.append(
-                f'<line x1="{x:.1f}" y1="{rows_top}" x2="{x:.1f}" y2="{rows_bottom}" stroke="{ink(0.08)}" stroke-width="0.8"/>'
-            )
+    gains: dict[tuple[str, str], list[float]] = {}
+    for _m, t in tables:
+        for _, r in t.iterrows():
+            gains.setdefault(key(r), []).append(float(r["gain"]))
+    order = sorted(gains, key=lambda k: -sum(gains[k]) / len(gains[k]))
+    vals = [
+        v for _m, t in tables for v in (*t["scaled_error_simulate"], *t["scaled_error_estimate"])
+    ]
+    floor, ceil = _domain(vals, 0.1)
+    L, pitch, y0 = 300, 22, 92
+    n = len(tables)
+    gap = 40
+    w = (960 - L - 20 - gap * (n - 1)) / n
+    last = y0 + (len(order) - 1) * pitch
+    out: list[str] = []
+    heads = []
+    for c, (model, t) in enumerate(tables):
+        a = L + 20 + c * (w + gap)
+        colour = model_colour(model)
+        stroke = edge(colour)
+        name = SHORT.get(model, model)
+        summary = h4_summary(t)
+        closer, tied = int((t["gain"] > 0).sum()), int((t["gain"] == 0).sum())
+        heads.append((name, closer, len(t), summary))
+
+        def px(v: float, a: float = a) -> float:
+            return a + (v - floor) / (ceil - floor) * w
+
+        out.append(
+            _mark(MAIN_SHAPES.get(model, "circle"), a + 5, 36, 4.5, _model_style(model, colour))
+        )
+        out.append(_t(a + 16, 40, name, size=11, family=SANS, fill=INK, weight=600))
+        tie = f" · TIED {tied}" if tied else ""
         out.append(
             _t(
-                x,
-                rows_bottom + 18,
-                f"{v:.1f}",
-                anchor="middle",
-                extra=f' data-tick="x" data-value="{v:g}"',
+                a,
+                56,
+                f"ESTIMATE CLOSER ON {closer} OF {len(t)}{tie}",
+                size=7,
+                spacing="0.12em",
+                fill=INK,
             )
         )
-    out.insert(
-        0,
-        f'<line x1="{L}" y1="{rows_top}" x2="{L}" y2="{rows_bottom}" stroke="{ink(0.25)}" stroke-width="1"/>',
-    )
+        out.append(
+            _t(
+                a,
+                68,
+                f"P = {_p(summary.get('wilcoxon_p_one_sided'))} RAW · {_p(summary.get('wilcoxon_p_scaled'))} SCALED",
+                size=7,
+                spacing="0.12em",
+            )
+        )
+        ticks = [floor + i * 0.1 for i in range(round((ceil - floor) / 0.1) + 1)]
+        for v in ticks:
+            x = px(v)
+            out.append(
+                f'<line x1="{x:.1f}" y1="{y0 - 12}" x2="{x:.1f}" y2="{last + 12}" '
+                f'stroke="{ink(0.25 if v == floor else 0.08)}" stroke-width="{1 if v == floor else 0.8}"/>'
+            )
+            if round(v * 10) % 2 == 0:
+                out.append(
+                    _t(
+                        x,
+                        last + 28,
+                        f"{v:.1f}",
+                        anchor="middle",
+                        extra=f' data-tick="x" data-value="{v:g}"',
+                    )
+                )
+        rows = {key(r): r for _, r in t.iterrows()}
+        for i, k in enumerate(order):
+            if k not in rows:
+                continue
+            r = rows[k]
+            y = y0 + i * pitch
+            se, ee = float(r["scaled_error_simulate"]), float(r["scaled_error_estimate"])
+            xs, xe = px(se), px(ee)
+            # A pair too close to tell apart is split vertically, so neither
+            # mark hides the other; x stays exact.
+            ys, ye = (y - 4, y + 4) if abs(xs - xe) < 9 else (y, y)
+            out.append(
+                f'<line x1="{xs:.1f}" y1="{ys}" x2="{xe:.1f}" y2="{ye}" stroke="{stroke}" stroke-width="1.5"/>'
+            )
+            label = H4_LABELS.get(k, f"{k[0]}: {k[1]}")
+            shape = MAIN_SHAPES.get(model, "circle")
+            out.append(
+                _mark(
+                    shape,
+                    xs,
+                    ys,
+                    4,
+                    f'data-series="simulate" data-panel="{esc(name)}" data-value="{se:.4f}" '
+                    f'fill="{PAPER}" stroke="{stroke}" stroke-width="1.5"',
+                    title=f"{name} · {label} · simulate {se:.2f}",
+                )
+            )
+            out.append(
+                _mark(
+                    shape,
+                    xe,
+                    ye,
+                    4,
+                    f'data-series="estimate" data-panel="{esc(name)}" data-value="{ee:.4f}" '
+                    + _model_style(model, colour),
+                    title=f"{name} · {label} · estimate {ee:.2f}",
+                )
+            )
+    for i, k in enumerate(order):
+        label = H4_LABELS.get(k, f"{k[0]}: {k[1]}")
+        if text_width(label, 10) > L - 24:
+            raise ValueError(f"row label does not fit the label column: {label!r}")
+        out.append(
+            _t(L - 12, y0 + i * pitch + 4, label, size=10, fill=INK, family=SANS, anchor="end")
+        )
     out.append(
         _t(
-            (L + R) / 2,
-            rows_bottom + 34,
-            "DISTANCE FROM THE PUBLISHED VALUE, AS A SHARE OF THE SCALE",
+            (L + 960) / 2,
+            last + 44,
+            "DISTANCE FROM THE PUBLISHED VALUE, AS A SHARE OF THE SCALE (LEFT IS CLOSER)",
             size=7,
             anchor="middle",
             spacing="0.14em",
         )
     )
-    rule = int(rows_bottom + 46)
+    rule = int(last + 56)
     out.append(_legend(1000, rule, []))
-    k1 = f"Simulate: answers as a typical person (mean {t['scaled_error_simulate'].mean():.2f})"
-    k2 = (
-        f"Estimate: predicts the population's answer (mean {t['scaled_error_estimate'].mean():.2f})"
-    )
     ky = rule + 31
+    k1, k2 = "Simulate: answers as a typical person", "Estimate: predicts the population's answer"
     out.append(
         f'<circle cx="104" cy="{ky - 4}" r="5" fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"/>'
     )
     out.append(_t(116, ky, k1, size=9, family=SANS, fill=INK))
     x2 = 116 + text_width(k1, 9) + 32
     out.append(
-        f'<circle cx="{x2:g}" cy="{ky - 4}" r="5" fill="{JEV_PINK}" stroke="{JEV_PINK_EDGE}" stroke-width="1"/>'
+        f'<circle cx="{x2:g}" cy="{ky - 4}" r="5" fill="{MUTED}" stroke="{MUTED}" stroke-width="1"/>'
     )
     out.append(_t(x2 + 12, ky, k2, size=9, family=SANS, fill=INK))
+    out.append(_t(970, ky, "ROWS BY HOW MUCH ESTIMATING HELPS", anchor="end"))
+    names = [h[0] for h in heads]
+    who = " and ".join(names)
+    counts = "; ".join(f"{nm}: {c} of {m}" for nm, c, m, _s in heads)
+    preregistered = next((h for h in heads if h[0] == "Jev 1.13"), heads[0])
     return Figure(
         slug=H4_SLUG,
-        eyebrow="Follow-up study · H4 · Jev 1.13",
-        title=(
-            f"Predicting how people answer beats playing one, for Jev 1.13, on "
-            f"{len(closer)} of {len(t)}"
-        ),
+        eyebrow=f"Follow-up study · H4 · {who}",
+        title="Predicting how people answer beats playing one, a little, "
+        + ("in both versions" if n > 1 else f"for {names[0]}"),
         subtitle=(
-            f"Each statistic was measured two ways: the item asked under the typical-person prompt "
-            f"(simulate), and a question with no persona asking for the population's answer itself: "
-            f"the share who chose an option, or the average rating, percentage or prediction "
-            f"(estimate). Estimating came closer to the original study's value on "
-            f"{len(closer)} of {len(t)}. Preregistered one-sided Wilcoxon test on "
-            f"the absolute errors: p{_p(summary.get('wilcoxon_p_one_sided'))}; on the errors as drawn "
-            f"here, scaled to each item's range: p{_p(summary.get('wilcoxon_p_scaled'))}."
+            "Each statistic was measured two ways: the item asked under the typical-person prompt "
+            "(simulate, hollow), and a question with no persona asking for the population's answer "
+            "itself: the share who chose an option, or the average rating, percentage or prediction "
+            f"(estimate, filled). Estimating came closer to the original study's value on {counts}. "
+            f"The preregistered test, a one-sided Wilcoxon test on the absolute errors, was written for "
+            f"{preregistered[0]}: p = {_p(preregistered[3].get('wilcoxon_p_one_sided'))}."
+            + (" Jev 1.14's is a description, not a test." if n > 1 else "")
         ),
         desc=(
-            "Dot chart with one row per statistic, showing how far Jev 1.13's simulated answer and its "
-            "population estimate land from the published human value, grouped by which came closer."
+            f"Dot chart in {n} panel{'s' if n > 1 else ''}, {who}, with one row per statistic, showing how "
+            "far the simulated answer and the population estimate land from the published human value."
         ),
         width=1000,
         height=int(ky + 18),
         body="\n".join(out),
         source=(
-            f"H4 table from {run_name}; FOLLOWUP_PREREGISTRATION.md, H4. Human values are the "
-            "original studies' published ones (Many Labs 2 reports only effect sizes). Errors are "
-            "divided by each scale's range (1 for proportions, 6 for 1–7 ratings, 100 for percentage "
-            "bands) so they share an axis; change is estimate minus simulate, so negative is better. "
-            "Runs of 12–13 Oct 2026."
+            f"Jev 1.13: {run_name}, 12–13 Oct 2026. "
+            + ("Jev 1.14: its 14 Oct 2026 run, through TypeSafe's API directly. " if n > 1 else "")
+            + "FOLLOWUP_PREREGISTRATION.md, H4. Human values are the original studies' published ones "
+            "(Many Labs 2 reports only effect sizes). Errors are divided by each scale's range (1 for "
+            "proportions, 6 for 1–7 ratings, 100 for percentage bands) so they share an axis; the "
+            "scaled p values are a check chosen after seeing the data."
         ),
     )
 
@@ -2410,9 +2462,14 @@ def _pick_groups(table: pd.DataFrame) -> list[tuple[str, list[str]]]:
     if len(models) <= 8:
         return [("the System One models", models)]
     main_ids = {m for m, _c in MAIN_MODELS}
-    first = [m for m in models if is_jev(m)] + [
-        m for m in models if m in main_ids and not is_jev(m)
-    ]
+    # The main charts' models, in the main charts' order (newest Jev first).
+    order = [SHORT[m] for m, _c in MAIN_MODELS]
+    first = sorted(
+        (m for m in models if is_jev(m) or m in main_ids),
+        key=lambda m: (
+            order.index(system_one_name(m)) if system_one_name(m) in order else len(order)
+        ),
+    )
     rest = [m for m in models if m not in first]
     groups: list[tuple[str, list[str]]] = []
     for label, ms in (("Jev and the main comparison's models", first),
@@ -2588,9 +2645,11 @@ PICK_JEV_PER_FIGURE = 2
 def _pick_jevs(table: pd.DataFrame) -> list[str]:
     from .pick_number import is_jev, system_one_name
 
+    # Newest version first, as in every other chart.
     return sorted(
         {str(m) for m in table.loc[table["arm"] == "jev", "model"] if is_jev(str(m))},
         key=system_one_name,
+        reverse=True,
     )
 
 
@@ -2676,7 +2735,24 @@ def fig_pick_number_jev(
             dist = _pick_cell(table, model, persona, "its distribution")
             pick = _pick_cell(table, model, persona, "one pick per call")
             out.append(
-                _t(x0, y0 - 24, f"{name} · {prompt}", size=12, family=SANS, fill=INK, weight=600)
+                _mark(
+                    shape_of(name),
+                    x0 + 5,
+                    y0 - 28,
+                    4.5,
+                    f'fill="{fill}" stroke="{stroke}" stroke-width="1"',
+                )
+            )
+            out.append(
+                _t(
+                    x0 + 16,
+                    y0 - 24,
+                    f"{name} · {prompt}",
+                    size=12,
+                    family=SANS,
+                    fill=INK,
+                    weight=600,
+                )
             )
             out.append(
                 _t(x0, y0 - 10, f"Distance from people: distribution {float(dist['tv_from_people']):.2f} · "
@@ -2874,7 +2950,16 @@ def fig_pick_number_models(table: pd.DataFrame, group: str, models: list[str], p
         fill, edge = _pick_colour(m)
         name = system_one_name(m)
         dist = _pick_cell(table, m, "neutral", "its distribution")
-        out.append(_t(x0, y0 - 24, name, size=12, family=SANS, fill=INK, weight=600))
+        out.append(
+            _mark(
+                shape_of(name),
+                x0 + 5,
+                y0 - 28,
+                4.5,
+                f'fill="{fill}" stroke="{edge}" stroke-width="1"',
+            )
+        )
+        out.append(_t(x0 + 16, y0 - 24, name, size=12, family=SANS, fill=INK, weight=600))
         out.append(
             _t(x0, y0 - 10, f"on 7: {float(dist['share_7']):.0%} · distance from people "
                f"{float(dist['tv_from_people']):.2f}", size=9, family=SANS)
@@ -3028,7 +3113,12 @@ def build_diagrams(
     h4_path = tables_dir / "followup_h4.csv"
     h4 = pd.read_csv(h4_path) if h4_path.exists() and h4_path.stat().st_size else pd.DataFrame()
     if len(h4):
-        figures.insert(6, fig_h4(h4, _shown_path(run_path)))
+        from .analysis import simulate_vs_estimate
+
+        # Jev 1.14's table comes from the comparison, beside the run's own 1.13.
+        h114 = simulate_vs_estimate(cdf.rename(columns={"model": "arm"}), arm=JEV_114_ID)
+        panels = ([(JEV_114_ID, h114)] if len(h114) else []) + [(JEV_113, h4)]
+        figures.insert(6, fig_h4(panels, _shown_path(run_path)))
     else:
         # Leave no chart from an earlier run behind.
         (out_dir / f"{H4_SLUG}.html").unlink(missing_ok=True)

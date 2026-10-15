@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+import pandas as pd
 import pytest
 
 from jevbench.analysis import primary_run
@@ -228,18 +229,18 @@ def test_h4_chart_draws_every_pair_from_the_table(built: list[Path]) -> None:
     h4 = pd.read_csv(TABLES_DIR / "followup_h4.csv")
     for series in ("simulate", "estimate"):
         drawn = sorted(
-            float(v) for v in re.findall(rf'data-series="{series}" data-value="([^"]+)"', page)
+            float(v)
+            for v in re.findall(
+                rf'data-series="{series}" data-panel="Jev 1.13" data-value="([^"]+)"', page
+            )
         )
         assert drawn == pytest.approx(sorted(h4[f"scaled_error_{series}"]), abs=1e-4)
+        # Jev 1.14's panel draws the same 23 statistics.
+        assert len(re.findall(rf'data-series="{series}" data-panel="Jev 1.14"', page)) == 23
 
 
-def test_h4_chart_puts_ties_in_their_own_group() -> None:
-    import pandas as pd
-
-    from jevbench.diagrams import fig_h4
-
-    rows = [("a", 0.3, 0.1), ("b", 0.1, 0.3), ("c", 0.2, 0.2), ("d", 0.4, 0.2)]
-    h4 = pd.DataFrame(
+def _h4_table(rows: list[tuple[str, float, float]]) -> pd.DataFrame:
+    return pd.DataFrame(
         {
             "instrument": [r[0] for r in rows],
             "statistic": ["s"] * len(rows),
@@ -249,31 +250,33 @@ def test_h4_chart_puts_ties_in_their_own_group() -> None:
             "scaled_error_estimate": [r[2] for r in rows],
         }
     )
-    body = fig_h4(h4).body
-    assert "ESTIMATE CLOSER · 2 OF 4" in body
-    assert "SIMULATE CLOSER · 1 OF 4" in body
-    assert "TIED · 1 OF 4" in body
 
 
-def test_h4_chart_keeps_small_changes_visible_and_renders_all_ties() -> None:
-    import pandas as pd
+def test_h4_chart_counts_ties_apart() -> None:
+    from jevbench.diagrams import JEV_113, fig_h4
 
-    from jevbench.diagrams import _signed, fig_h4
+    h4 = _h4_table([("a", 0.3, 0.1), ("b", 0.1, 0.3), ("c", 0.2, 0.2), ("d", 0.4, 0.2)])
+    body = fig_h4([(JEV_113, h4)]).body
+    assert "ESTIMATE CLOSER ON 2 OF 4 · TIED 1" in body
 
-    assert _signed(0.00017) == "+0.0002" and _signed(-0.25) == "-0.25" and _signed(0) == "0"
-    h4 = pd.DataFrame(
-        {
-            "instrument": ["a", "b"],
-            "statistic": ["s", "s"],
-            **{c: [0.2, 0.3] for c in ("error_simulate", "error_estimate")},
-            **{c: [0.2, 0.3] for c in ("scaled_error_simulate", "scaled_error_estimate")},
-        }
-    )
-    fig = fig_h4(h4)
-    assert "TIED · 2 OF 2" in fig.body and "n/a" in fig.subtitle
+
+def test_h4_chart_renders_all_ties_with_no_test() -> None:
+    from jevbench.diagrams import JEV_113, fig_h4
+
+    h4 = _h4_table([("a", 0.2, 0.2), ("b", 0.3, 0.3)])
+    fig = fig_h4([(JEV_113, h4)])
+    assert "ESTIMATE CLOSER ON 0 OF 2 · TIED 2" in fig.body and "P = n/a" in fig.body
     # One surviving pair: drawn, with no test.
-    one = fig_h4(h4.iloc[:1])
-    assert "TIED · 1 OF 1" in one.body and "p: n/a" in one.subtitle
+    one = fig_h4([(JEV_113, h4.iloc[:1])])
+    assert "TIED 1" in one.body and "P = n/a" in one.body
+
+
+def test_h4_chart_never_prints_a_zero_p_value() -> None:
+    from jevbench.diagrams import JEV_113, fig_h4
+
+    h4 = _h4_table([(f"i{k}", 0.5 + k / 100, 0.1) for k in range(23)])
+    fig = fig_h4([(JEV_113, h4)])
+    assert "< 0.001" in fig.subtitle and "0.000" not in fig.subtitle + fig.body
 
 
 def test_h4_chart_is_removed_when_a_run_has_no_pairs(tmp_path: Path) -> None:
@@ -287,26 +290,6 @@ def test_h4_chart_is_removed_when_a_run_has_no_pairs(tmp_path: Path) -> None:
     (out / "followup-h4.html").write_text("stale")
     paths = build_diagrams(COMMITTED_RUN, tables, REPO_ROOT / "results" / "comparison", out)
     assert len(paths) == 10 and not (out / "followup-h4.html").exists()
-
-
-def test_h4_chart_never_prints_a_zero_p_value() -> None:
-    import pandas as pd
-
-    from jevbench.diagrams import fig_h4
-
-    n = 23
-    h4 = pd.DataFrame(
-        {
-            "instrument": [f"i{k}" for k in range(n)],
-            "statistic": ["s"] * n,
-            "error_simulate": [0.5 + k / 100 for k in range(n)],
-            "error_estimate": [0.1] * n,
-            "scaled_error_simulate": [0.5 + k / 100 for k in range(n)],
-            "scaled_error_estimate": [0.1] * n,
-        }
-    )
-    sub = fig_h4(h4).subtitle
-    assert "p < 0.001" in sub and "0.000" not in sub
 
 
 def test_figures_follow_the_run_they_are_built_from(tmp_path: Path) -> None:
