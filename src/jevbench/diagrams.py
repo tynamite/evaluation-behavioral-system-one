@@ -1220,7 +1220,32 @@ def _count(n: int) -> str:
     return words.split()[n] if n < 16 else str(n)
 
 
-def fig_models_scatter(fdf: pd.DataFrame) -> Figure:
+def _runs_when(run_files: dict[str, str] | None, models: list[str]) -> str:
+    """When the plotted models were run, from their run files' names.
+
+    The main comparison's runs began on 12 Oct 2026 and finished on the 13th;
+    a model run on another day is named with its date.
+    """
+    from datetime import date
+
+    if not run_files:
+        return "All models run 12\u201313 Oct 2026."
+    started = {m: run_files[m][9:17] for m in models if m in run_files}
+    later: dict[str, list[str]] = {}
+    for m, d in started.items():
+        if d != "20261012":
+            later.setdefault(d, []).append(SHORT.get(m, m))
+    if not later:
+        return "All models run 12\u201313 Oct 2026."
+    parts = []
+    for d, names in sorted(later.items()):
+        x = date(int(d[:4]), int(d[4:6]), int(d[6:8]))
+        joined = ", ".join(names[:-1]) + " and " + names[-1] if len(names) > 1 else names[0]
+        parts.append(f"{joined} on {x.day} {x:%b %Y}")
+    return f"Models run 12\u201313 Oct 2026, except {'; '.join(parts)}."
+
+
+def fig_models_scatter(fdf: pd.DataFrame, run_files: dict[str, str] | None = None) -> Figure:
     piv = fdf.pivot(index="model", columns="persona", values="mae")
     types = {str(m): str(t) for m, t in zip(fdf["model"], fdf["type"], strict=False)}
     pts = [
@@ -1437,9 +1462,9 @@ def fig_models_scatter(fdf: pd.DataFrame) -> Figure:
         width=1000,
         height=ly0 + 50,
         body="\n".join(out),
-        source="Axes zoomed to the data: 0.15–0.55 across, 0.05–0.35 up, not from zero. All models run "
-        "12–13 Oct 2026; 14 probability-scale measures (each 0–1), 10 replicates or samples "
-        "per cell. Distance alone is not a ranking: see the framing figure.",
+        source="Axes zoomed to the data: 0.15–0.55 across, 0.05–0.35 up, not from zero. "
+        f"{_runs_when(run_files, sorted(set(fdf['model'].astype(str))))} 14 probability-scale measures (each "
+        "0–1), 10 replicates or samples per cell. Distance alone is not a ranking: see the framing figure.",
     )
 
 
@@ -1447,7 +1472,7 @@ def _cell(df: pd.DataFrame, row: str, col: str) -> float:
     return float(str(df.at[row, col]))
 
 
-def fig_framing(mdf: pd.DataFrame) -> Figure:
+def fig_framing(mdf: pd.DataFrame, run_files: dict[str, str] | None = None) -> Figure:
     s = {p: mdf[mdf.persona == p].set_index("measure") for p in ("neutral", "typical_human")}
 
     def contrast(model: str, p: str) -> float:
@@ -1463,12 +1488,15 @@ def fig_framing(mdf: pd.DataFrame) -> Figure:
         )
         * 100
     )
-    # Eight rows fit; the two middling models without a distinct swing go in the source line.
-    keep = [
-        m
-        for m in mdf.columns
-        if m in SHORT and "anthropic" not in m and "mercury" not in m and "pplx-decider" not in m
-    ]
+    # Eight rows fit: Jev, and the seven System One models with the largest swing
+    # under either prompt. The rest, and the chat models, go in the source line.
+    system_one = [m for m in mdf.columns if m in SHORT and "anthropic" not in m]
+    jev = [m for m in system_one if m.startswith("typesafe/")]
+    others = sorted(
+        (m for m in system_one if m not in jev),
+        key=lambda m: -max(abs(contrast(m, "neutral")), abs(contrast(m, "typical_human"))),
+    )
+    keep = jev + others[: 8 - len(jev)]
     rows = sorted(
         [
             (
@@ -1495,7 +1523,7 @@ def fig_framing(mdf: pd.DataFrame) -> Figure:
     )
     return Figure(
         slug="framing-contrast",
-        eyebrow="Framing effect · eight System One models",
+        eyebrow=f"Framing effect · {_count(len(keep))} System One models",
         title="Size of the framing effect by model, in the disease problem",
         subtitle=(
             "The same choice between a sure and a risky programme against a disease, worded once as lives saved "
@@ -1503,18 +1531,18 @@ def fig_framing(mdf: pd.DataFrame) -> Figure:
             "the loss wording, a 50-point swing. Each row is a model's swing in points; below zero, it picks the "
             "sure option more often in the loss wording, the reverse of people."
         ),
-        desc="Dumbbell chart of eight System One models' framing reversal in points, answering neutrally and as a typical person, against the human value of 50.",
+        desc=f"Dumbbell chart of {_count(len(keep))} System One models' framing reversal in points, answering neutrally and as a typical person, against the human value of 50.",
         width=1000,
         height=510,
         body=body,
         source="The chart holds eight rows, so the rest are given here, with no instruction and as a typical "
         "person: "
         + "; ".join(
-            f"{SHORT[m]} {contrast(m, 'neutral'):.0f} and {contrast(m, 'typical_human'):.0f}"
+            f"{SHORT[m]} {round(contrast(m, 'neutral'))} and {round(contrast(m, 'typical_human'))}"
             for m in mdf.columns
             if m in SHORT and m not in keep
         )
-        + ". Human rates: Tversky & Kahneman (1981). All models run 12\u201313 Oct 2026.",
+        + f". Human rates: Tversky & Kahneman (1981). {_runs_when(run_files, list(mdf.columns))}",
     )
 
 
@@ -3283,8 +3311,8 @@ def build_diagrams(
         fig_models_antisocial(cdf),
         fig_models_dictator(runs),
         fig_models_order(runs),
-        fig_models_scatter(fdf),
-        fig_framing(mdf),
+        fig_models_scatter(fdf, files),
+        fig_framing(mdf, files),
         fig_health(),
     ]
     # Follow-up H4 is drawn only when the run has paired items to draw.

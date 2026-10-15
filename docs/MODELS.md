@@ -1,7 +1,7 @@
 # More models through the same battery
 
 The [main write-up](../README.md) is about one System One model, TypeSafe's
-Jev. Nine more models are on OpenRouter's decisions route, all on the same
+Jev. Eleven more models are on OpenRouter's decisions route, all on the same
 `/v1/systemone` contract, so the battery runs on them unchanged. This page puts
 them side by side with Jev and two chat models, Claude Sonnet 5.5 and Claude
 Haiku 5.5, resampled ten times per item.
@@ -18,6 +18,12 @@ calls. On 13 October the ten System One models were also asked the ten
 population questions added to the follow-up study (no persona, 10 replicates:
 100 calls each, appended to the same files); the costs below include them.
 
+Drex 1.5 and Drex 2.0 (Nace AI) were added on 15 October with the battery as it
+stands now: 6,850 calls each. The difference is the follow-up study's 15
+population questions, which the battery now asks under the neutral prompt only;
+the 12–13 October runs also asked them under the other four prompts (600 calls
+each). No comparison on this page uses those 600 calls.
+
 | Model | Type | Cost |
 |---|---|---|
 | `typesafe/jev-1.13-20260917` | System One | $0.14 |
@@ -30,6 +36,8 @@ population questions added to the follow-up study (no persona, 10 replicates:
 | `upstage/solar-decide-20260928` | System One | $0.17 |
 | `cloudflare/clef-flash` | System One | $0.05 |
 | `cloudflare/clef` | System One | $0.12 |
+| `nace-ai/drex-v1.5-20261009` | System One | $0.04 |
+| `nace-ai/drex-v2.0-20261009` | System One | $0.06 |
 | `anthropic/claude-sonnet-5.5` | chat, resampled | $8.84 |
 | `anthropic/claude-haiku-5.5` | chat, resampled | $0.84 |
 
@@ -122,7 +130,9 @@ person" is the typical-person instruction quoted in the
 |---|---|---|---|---|---|---|
 | Solar Decide Flash | **0.23** | +0.17 | **0.14** | +0.64 | 0.17 | +0.41 |
 | Clef Flash | **0.23** | +0.08 | 0.18 | +0.38 | 0.19 | +0.43 |
+| Drex 2.0 | **0.23** | +0.15 | 0.18 | +0.42 | 0.20 | +0.28 |
 | Clef | 0.28 | +0.00 | 0.20 | +0.44 | 0.21 | +0.34 |
+| Drex 1.5 | 0.29 | −0.01 | 0.28 | −0.03 | 0.28 | −0.06 |
 | Mercury Decide | 0.31 | −0.12 | 0.21 | +0.44 | 0.23 | +0.30 |
 | Jev 1.13 | 0.31 | −0.21 | 0.18 | +0.39 | 0.20 | +0.25 |
 | d1 | 0.31 | +0.03 | 0.23 | +0.41 | 0.28 | +0.29 |
@@ -140,11 +150,14 @@ rejection measure the $1 offer, to match what the human values measure (see
 The pattern from the main write-up holds across every model: **answering with
 no instruction, none of them looks like people** (no correlation better than
 +0.17, several strongly negative), and **asking for a typical person moves
-every one of them closer.** How far differs a lot. The chat models and Solar
-Decide learn which effects are strong (r +0.73 to +0.89 under one of the two
-versions); Decider v1.1 27B, Solar Decide Flash and Microsoft-Decision-1 come
-next (+0.54 to +0.68); Jev, Clef, Clef Flash, d1 and Mercury Decide only partly
-(+0.25 to +0.44); and GPT-6 Luna Decisions hardly at all.
+every one of them closer**, Drex 1.5 only barely. How far differs a lot. The
+chat models and Solar Decide learn which effects are strong (r +0.73 to +0.89
+under one of the two versions); Decider v1.1 27B, Solar Decide Flash and
+Microsoft-Decision-1 come next (+0.54 to +0.68); Jev, Clef, Clef Flash, d1,
+Mercury Decide and Drex 2.0 only partly (+0.25 to +0.44); GPT-6 Luna Decisions
+hardly at all; and Drex 1.5 not at all. Its distance moves from 0.29 to 0.28
+and its correlation stays at zero (−0.03; −0.06 without the steer): the
+instruction barely changes its answers.
 
 **The steer matters more for some models than others.** Without "not the
 textbook-correct answer", most System One models fit people a little less well
@@ -164,23 +177,28 @@ reason matters more than the ranking. Their answers sit nearer 0.5 than any
 other model's (on average 0.20 and 0.16 from it), and most of the human
 reference values sit in the middle of the scale too — on average 0.18 from
 0.5. A model that hedges everywhere therefore scores a small distance without
-reproducing any effect.
+reproducing any effect. Drex 2.0, a close third, is the exception: its answers
+are 0.26 from 0.5 on average, about as far as Jev's, and it shows the largest
+framing effect of any System One model asked with no instruction.
 
 The framing reversal shows it. Humans pick the certain option 72% of the time
 in the gain frame and 22% in the loss frame, a 50-point reversal; the main
 write-up argues that the contrast, not either level, is the robust quantity.
 Gain minus loss, in points:
 
-| | Human | d1 | Solar | Clef | Mercury | Jev | Decider | Luna | Solar Flash | Clef Flash | MS-Decision-1 | Sonnet 5.5 | Haiku 5.5 |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| No instruction | 50 | 24 | 26 | 26 | 0 | 1 | 3 | 16 | 10 | 2 | −16 | 20 | 0 |
-| As a person | 50 | 31 | **60** | 18 | 18 | 4 | 21 | 11 | 0 | 2 | −24 | 100 | 90 |
-| No steer | 50 | 22 | **60** | 16 | 13 | 7 | 14 | 7 | 2 | 8 | −20 | 100 | 100 |
+| | Human | d1 | Solar | Clef | Mercury | Jev | Decider | Luna | Solar Flash | Clef Flash | MS-Decision-1 | Drex 1.5 | Drex 2.0 | Sonnet 5.5 | Haiku 5.5 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| No instruction | 50 | 24 | 26 | 26 | 0 | 1 | 3 | 16 | 10 | 2 | −16 | −24 | **34** | 20 | 0 |
+| As a person | 50 | 31 | **60** | 18 | 18 | 4 | 21 | 11 | 0 | 2 | −24 | −55 | 41 | 100 | 90 |
+| No steer | 50 | 22 | **60** | 16 | 13 | 7 | 14 | 7 | 2 | 8 | −20 | −45 | 43 | 100 | 100 |
 
-No System One model shows the human effect without being asked, and only
-Solar Decide comes near it when asked. Solar Decide Flash and Clef Flash, the
-two closest to people by distance, show almost none in any condition;
-Microsoft-Decision-1 reverses it; the chat models are near all or nothing once
+No System One model shows the full human effect without being asked; Drex 2.0
+comes closest, at 34 points. Asked to answer as a person, only Solar Decide (60)
+and Drex 2.0 (41, or 43 without the steer) come near it. Solar Decide Flash and
+Clef Flash, two of the three closest to people by distance, show almost none in
+any condition. Microsoft-Decision-1 reverses it, and Drex 1.5 reverses it
+strongly once asked to be a person (−55, the largest swing of any System One
+model, in the wrong direction). The chat models are near all or nothing once
 asked to be a person, 90 to 100 points (resampled answers saturate at 0 or 1). Distance from human levels
 and reproduction of human effects are different questions, and this battery's
 one summary number answers only the first.
@@ -194,7 +212,7 @@ one summary number answers only the first.
   sending nothing in the trust game and contributing 1% to the public good
   (people: about half). Asked to answer as a person, both move close to people.
 - **The sunk-cost item splits the models.** With no instruction, every model
-  abandons the project (≤ 0.08, people 0.85). Asked to answer as a person, in
+  abandons the project (≤ 0.16, people 0.85). Asked to answer as a person, in
   Arkes and Blumer's original wording, Sonnet 5.5 continues every time, Haiku
   5.5 (0.80) and Solar Decide (0.76) come close to people, and Jev, d1, Clef
   and Mercury Decide stay at 0.17 or below.
@@ -207,10 +225,16 @@ one summary number answers only the first.
   the trust game (people: 50%), and with no instruction it answers Frederick's
   cognitive reflection items correctly least often of any model (66%; people
   41%, every other model 77% or more). It is a fine-tune of Qwen3.5-9B.
-- **Only the Clef models and Solar Decide Flash show the conjunction fallacy
-  unprompted** — Clef at 0.88 against people's 0.85, Solar Decide Flash 0.69,
-  Clef Flash 0.59 — and every other model stays at 0.25 or below. Asked to
-  answer as a person, all but Luna (0.50) reach 0.83 or more.
+- **Only the Clef models, Solar Decide Flash and Drex 1.5 show the conjunction
+  fallacy unprompted** — Clef at 0.88 against people's 0.85, Solar Decide Flash
+  0.69, Clef Flash 0.59, Drex 1.5 0.58 — and every other model stays at 0.25 or
+  below. Asked to answer as a person, all but Luna (0.50) and the two Drex
+  models (0.60 and 0.39) reach 0.83 or more.
+- **The two Drex versions behave like different models.** Drex 1.5 barely
+  responds to being asked to answer as a person, and when it does respond, it
+  responds the wrong way on framing. Drex 2.0 is among the closest to people
+  with no instruction, without hedging, and shows the largest unprompted
+  framing effect of any System One model.
 - **Clef and Clef Flash differ the way the Solar pair do.** Clef (listed on
   OpenRouter as built on Qwen3.8-27B) does not hedge: it shows about half the
   human framing effect with no instruction (26 points) where Flash shows none.
@@ -236,16 +260,19 @@ error to its item's range instead; that check was chosen after seeing the data
 | Mercury Decide | 0.23 | 0.20 | 17 of 23 | 0.026 | 0.071 |
 | d1 | 0.24 | 0.18 | 13 of 23 | 0.071 | 0.111 |
 | Solar Decide | 0.16 | 0.13 | 15 of 23 | 0.143 | 0.188 |
+| Drex 1.5 | 0.25 | 0.25 | 14 of 23 | 0.165 | 0.241 |
+| Drex 2.0 | 0.20 | 0.20 | 12 of 23 | 0.311 | 0.482 |
 | Decider v1.1 27B | 0.15 | 0.14 | 12 of 23 | 0.343 | 0.435 |
 | Clef | 0.20 | 0.16 | 12 of 23 | 0.377 | 0.250 |
 | Solar Decide Flash | 0.16 | 0.18 | 11 of 23 | 0.482 | 0.710 |
 | Microsoft-Decision-1 | 0.18 | 0.19 | 13 of 23 | 0.506 | 0.458 |
 | Clef Flash | 0.23 | 0.26 | 11 of 23 | 0.542 | 0.710 |
 
-Estimating has the lower mean scaled error for seven of the ten models; for
-Solar Decide Flash, Microsoft-Decision-1 and Clef Flash it is higher. Three
-clear p < 0.05 on the preregistered test, and only Jev clears it on the scaled
-one. The ten tests share their items, so they are not independent evidence.
+Estimating has the lower mean scaled error for eight of the twelve models; for
+Solar Decide Flash, Microsoft-Decision-1, Clef Flash and Drex 2.0 it is higher
+(for both Drex models the two differ by under 0.01). Three clear p < 0.05 on the
+preregistered test, and only Jev clears it on the scaled one. The twelve tests
+share their items, so they are not independent evidence.
 GPT-6 Luna Decisions has only 13 pairs because its refusals leave ten
 statistics without an estimate. The chat models are left out: a true/false
 reply cannot carry a proportion.

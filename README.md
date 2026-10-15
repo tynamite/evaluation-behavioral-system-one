@@ -83,7 +83,7 @@ The charts below put Jev next to three other System One models from the
 [model comparison](docs/MODELS.md) — GPT-6 Luna Decisions, Cloudflare's Clef
 and Liquid AI's d1 — so its results can be read against its peers'. The text is
 about Jev; each chart is followed by the same chart for Jev alone, and all
-twelve models are in docs/MODELS.md.
+fourteen models are in docs/MODELS.md.
 
 ### With no instruction, it does not look like human System 1
 
@@ -103,8 +103,8 @@ conditions where humans move about 20.
 It shows **no framing effect at all**: it picks the sure programme in the
 disease problem at 0.85 when it is worded as lives saved and 0.84 when worded
 as lives lost, where people go from 0.72 to 0.22. No System One model shows
-people's 50-point reversal without being asked, and only Solar Decide comes
-near it when asked:
+people's 50-point reversal without being asked (Drex 2.0 comes closest, at
+34), and only Solar Decide and Drex 2.0 come near it when asked:
 
 ![The framing reversal by model](results/figures/framing-contrast.png)
 
@@ -220,8 +220,8 @@ in the item pool. Two others could:
   own units, so the two percentage items and the 1–7 ratings outweigh the
   proportions. Scaled to each item's range instead, a check I chose after
   seeing the data, Jev's mean error is **0.17** when estimating against
-  **0.23** when simulating, and p = 0.043. Across the ten System One models,
-  estimating has the lower mean scaled error for **seven**. Three pass the
+  **0.23** when simulating, and p = 0.043. Across the twelve System One models,
+  estimating has the lower mean scaled error for **eight**. Three pass the
   preregistered test (GPT-6 Luna Decisions, Jev and Mercury Decide), and only
   Jev passes the scaled one.
   The main run also asked the new items' population questions under every
@@ -662,7 +662,7 @@ guessed, and `summary.json` reports them with per-cell sample coverage.
 describes each step.
 
 The typed arm has never returned an answer that could not be read, across
-74,500 calls to ten System One models: a typed decision is a distribution,
+88,200 calls to twelve System One models: a typed decision is a distribution,
 so there is no text to misread. What did go wrong there was visible: 300
 refusals from one model and 100 calls the route rejected (the p-beauty item,
 for both Solar models), each recorded as such ([docs/MODELS.md](docs/MODELS.md#read-the-health-table-first)).
