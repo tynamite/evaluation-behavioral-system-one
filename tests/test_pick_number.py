@@ -507,3 +507,30 @@ def test_figures_take_their_dates_from_the_runs() -> None:
     for f in pick_number_figures(table):
         assert "15 Oct 2026" not in f.source, f.slug
         assert "between 2 Jan 2027 and 3 Jan 2027" in f.source, f.slug
+
+
+def test_resume_refuses_more_repeats_than_asked_for(tmp_path) -> None:
+    import json
+
+    from jevbench.pick_number import resume_problem
+
+    rec = {"probe_id": "pick_number_1_10", "instrument": "pick_number", "persona": "neutral",
+           "arm": "jev", "replicate": 5, "backend": "typesafe", "model": "jev-1.14.0",
+           "kind": "choice", "value": "7", "probabilities": {"7": 1.0}, "error": None}  # fmt: skip
+    path = tmp_path / "run_live_x.jsonl"
+    path.write_text(json.dumps(rec) + "\n")
+    ok = {"arm": "jev", "model": "jev-1.14.0", "backend": "typesafe"}
+    assert resume_problem(path, **ok, count=10) is None
+    assert "more than the 3" in (resume_problem(path, **ok, count=3) or "")
+
+
+def test_jev_figure_dates_cover_only_jev() -> None:
+    from jevbench.diagrams import pick_number_figures
+    from jevbench.pick_number import PICK_RESULTS_DIR
+
+    table = pd.read_csv(PICK_RESULTS_DIR / "distributions.csv", dtype={"persona": str})
+    table["persona"] = table["persona"].fillna("")
+    table.loc[table["arm"] == "baseline", "run_dates"] = "2027-03-01"
+    jev = next(f for f in pick_number_figures(table) if f.slug == "pick-number-jev")
+    assert "Jev: 100 calls per prompt, run on 15 Oct 2026" in jev.source
+    assert "temperature 1, run on 1 Mar 2027" in jev.source

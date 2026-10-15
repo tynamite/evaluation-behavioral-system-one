@@ -157,7 +157,9 @@ def same_model(requested: str, answered: str) -> bool:
     return ans.startswith(req) and re.fullmatch(r"([.-]\d[\w.]*)?", ans[len(req) :]) is not None
 
 
-def resume_problem(path: Path, *, arm: str, model: str, backend: str) -> str | None:
+def resume_problem(
+    path: Path, *, arm: str, model: str, backend: str, count: int | None = None
+) -> str | None:
     """Why `path` cannot be resumed by this run, or None if it can.
 
     Every record must be this study's question, on this arm, through this
@@ -188,6 +190,14 @@ def resume_problem(path: Path, *, arm: str, model: str, backend: str) -> str | N
             f"cannot be resumed through the alias {model}, which may now point elsewhere; "
             f"pass --model {served}"
         )
+    # A file made with more calls per prompt than this run asks for would keep
+    # its extra records, and the analysis would then refuse or overcount them.
+    if count is not None and "replicate" in d.columns:
+        over = sorted({int(r) for r in d["replicate"] if int(r) >= count})
+        if over:
+            return (
+                f"holds repeats up to {over[-1]}, more than the {count} calls per prompt asked for"
+            )
     for column, wanted, ok in checks:
         found = sorted({str(v) for v in d[column]} if column in d.columns else {"none"})
         other = [v for v in found if not ok(v)]

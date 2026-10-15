@@ -2954,7 +2954,8 @@ def fig_pick_number_jev(
         height=550,
         body="\n".join(out),
         source=f"Same scale in every panel. Jev: {' or '.join(map(str, calls))} calls per prompt, run "
-        f"{_pick_dates(table)}, options shuffled per call. {chat_name}: {_pick_calls(table)} calls per prompt at temperature 1. "
+        f"{_pick_dates(table, jevs)}, options shuffled per call. {chat_name}: {_pick_calls(table)} calls per "
+        f"prompt at temperature 1, run {_pick_dates(table, sorted(set(chat['model'].astype(str))))}. "
         "People: YouGov, 12–13 Sep 2024, open text box; published percentages normalised. Distance: total "
         "variation, 0 (the same) to 1 (no overlap).",
     )

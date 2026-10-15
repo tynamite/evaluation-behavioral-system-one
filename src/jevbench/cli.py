@@ -192,6 +192,7 @@ def _cmd_pick_number(args: argparse.Namespace) -> int:
                 arm=arm,
                 model=cfg.baseline_model if arm == "baseline" else cfg.model,
                 backend=cfg.backend,
+                count=args.baseline_samples if arm == "baseline" else args.replicates,
             )
             if problem:
                 print(f"pick-number: {args.resume} {problem}", file=sys.stderr)
