@@ -19,9 +19,9 @@ def test_jev_is_read_two_ways_and_the_chat_model_once() -> None:
     chat = [{"arm": "baseline", "model": "haiku", "persona": "neutral", "error": None,
              "probabilities": {}, "value": v} for v in ("7", "7", "3", None)]  # fmt: skip
     rows = {r["source"]: r for r in summarise(pd.DataFrame([_jev(a, "7"), _jev(b, "3"), *chat]))}
-    dist = rows["Jev, its distribution"]
+    dist = rows["Jev 1.13, its distribution"]
     assert dist["7"] == pytest.approx(0.4) and dist["3"] == pytest.approx(0.4)
-    picks = rows["Jev, one pick per call"]
+    picks = rows["Jev 1.13, one pick per call"]
     assert picks["7"] == pytest.approx(0.5) and picks["n"] == 2
     # An unread chat reply is left out, not counted as a number.
     chat_row = rows["Haiku, one pick per call"]  # named from the model id "haiku"
@@ -200,7 +200,7 @@ def test_resume_refuses_another_probe_or_backend(tmp_path, change, message) -> N
     assert message in (resume_problem(path, **ok) or "")
 
 
-def test_analyse_refuses_two_jev_versions(tmp_path) -> None:
+def test_analyse_keeps_two_jev_versions_apart(tmp_path) -> None:
     import json
 
     from jevbench.pick_number import analyse
@@ -208,13 +208,22 @@ def test_analyse_refuses_two_jev_versions(tmp_path) -> None:
     base = {"probe_id": "pick_number_1_10", "instrument": "pick_number", "backend": "x",
             "kind": "choice", "value": "7", "probabilities": {"7": 1.0}, "error": None}  # fmt: skip
     grid = [("neutral", r) for r in range(2)] + [("typical_human", r) for r in range(2)]
-    runs = {"A_jev": ("jev", "jev-1.13.0"), "B_jev": ("jev", "jev-1.14.0-preview"),
-            "C_chat": ("baseline", "anthropic/claude-haiku-5.5")}  # fmt: skip
-    for name, (arm, model) in runs.items():
-        rows = [{**base, "arm": arm, "model": model, "persona": p, "replicate": r} for p, r in grid]
-        (tmp_path / f"run_live_{name}.jsonl").write_text(
-            "".join(json.dumps(r) + "\n" for r in rows)
-        )
-    # Both would be drawn as "Jev".
-    with pytest.raises(ValueError, match="exactly one Jev run"):
+
+    def write(runs: dict[str, tuple[str, str]]) -> None:
+        for f in tmp_path.glob("run_live_*"):
+            f.unlink()
+        for name, (arm, model) in runs.items():
+            rows = [{**base, "arm": arm, "model": model, "persona": p, "replicate": r}
+                    for p, r in grid]  # fmt: skip
+            (tmp_path / f"run_live_{name}.jsonl").write_text(
+                "".join(json.dumps(r) + "\n" for r in rows)
+            )
+
+    chat = ("baseline", "anthropic/claude-haiku-5.5")
+    write({"A": ("jev", "jev-1.13.0"), "B": ("jev", "jev-1.14.0"), "C": chat})
+    sources = set(analyse(tmp_path, tmp_path / "out")["source"])
+    assert {"Jev 1.13, its distribution", "Jev 1.14, its distribution"} <= sources
+    # The same version twice (direct and through OpenRouter) would share a label.
+    write({"A": ("jev", "jev-1.13.0"), "B": ("jev", "typesafe/jev-1.13-20260917"), "C": chat})
+    with pytest.raises(ValueError, match="named alike"):
         analyse(tmp_path, tmp_path / "out")

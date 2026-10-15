@@ -63,7 +63,7 @@ def _shares(counts: Counter[str]) -> dict[str, float]:
 def summarise(df: pd.DataFrame) -> list[dict[str, Any]]:
     """One distribution per source and prompt.
 
-    For Jev: the mean of its returned distributions, and the share of calls
+    For each System One model: the mean of its returned distributions, and the share of calls
     whose single chosen number was each value. For the chat model: the share
     of samples naming each value. Unusable and unread replies are left out
     and counted.
@@ -105,13 +105,19 @@ CHAT_SUFFIX = ", one pick per call"
 def system_one_name(model: str) -> str:
     """The display name of a System One model, from the model that answered.
 
-    Jev keeps the short name the README and the main figure use.
+    Jev always carries its version (`jev-1.14.0` -> `Jev 1.14`), so two
+    versions in one analysis stay apart and a lone one is never ambiguous.
     """
     from .diagrams import SHORT
 
-    if "jev" in model:
-        return "Jev"
+    version = re.search(r"jev-(\d+\.\d+)", model)
+    if version:
+        return f"Jev {version.group(1)}"
     return SHORT.get(model, chat_name(model))
+
+
+def is_jev(model: str) -> bool:
+    return system_one_name(model).startswith("Jev ")
 
 
 def same_model(requested: str, answered: str) -> bool:
@@ -220,10 +226,13 @@ def analyse(root: Path = PICK_DIR, out_dir: Path = PICK_RESULTS_DIR) -> pd.DataF
     system_one = [m for a, m in runs if a == "jev"]
     if len(chats) != 1 or len(set(system_one)) != len(system_one):
         raise ValueError(f"{root} needs one chat run and each System One model once, found {runs}")
-    jevs = [m for m in system_one if "jev" in m]
-    # Every Jev version is drawn as "Jev", so two versions would be indistinguishable.
-    if len(jevs) != 1:
-        raise ValueError(f"{root} needs exactly one Jev run, found {jevs or 'none'}")
+    # Rows are labelled by display name, so two runs that share one (say Jev
+    # 1.13 direct and through OpenRouter) would be indistinguishable.
+    names = [system_one_name(m) for m in system_one]
+    if len(set(names)) != len(names):
+        raise ValueError(f"{root} has two System One runs named alike: {sorted(names)}")
+    if not any(is_jev(m) for m in system_one):
+        raise ValueError(f"{root} has no Jev run")
     df = pd.concat(frames.values(), ignore_index=True)
     table = pd.DataFrame(summarise(df))
     # Every run must leave usable answers under both prompts, checked against

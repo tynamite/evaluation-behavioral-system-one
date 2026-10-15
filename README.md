@@ -310,42 +310,49 @@ rebuilds them and the figure from the raw runs.
 Asked for a random number from 1 to 10, people favour 7, but only a third of
 them choose it. A chat model gives one answer per call, so its "distribution"
 has to be counted over many calls. Jev returns the whole distribution in each
-call. This puts the two side by side. It is exploratory and not preregistered.
+call. This puts the two side by side, for Jev 1.13 and the Jev 1.14 preview.
+It is exploratory and not preregistered.
 
 The question is YouGov's wording: "Think of a random number from 1-10. What
 number did you think of?" YouGov asked it of 2,241 British adults on 12–13
 September 2024, with an open text box
 ([source](https://yougov.com/en-gb/articles/51866-seven-is-the-most-random-number)).
-Jev 1.13 answered it 100 times under each of two prompts, through TypeSafe's
-API. Claude Haiku 5.5 answered it 100 times under each prompt at temperature 1,
+Jev 1.13 and Jev 1.14 each answered it 100 times under each of two prompts,
+through TypeSafe's API. Claude Haiku 5.5 answered it 100 times under each prompt at temperature 1,
 through OpenRouter. The options were shuffled on every call.
 
 | Share of answers on 7 | Asked plainly | As a typical person |
 |---|---|---|
 | People (YouGov) | 33% | 33% |
-| Jev, its distribution | 46% | 83% |
-| Jev, one pick per call | 100% | 100% |
+| Jev 1.13, its distribution | 46% | 83% |
+| Jev 1.13, one pick per call | 100% | 100% |
+| Jev 1.14, its distribution | 30% | 69% |
+| Jev 1.14, one pick per call | 99% | 100% |
 | Claude Haiku 5.5, one pick per call | 100% | 100% |
 
-- **Read one answer at a time, both models say 7 every time.** Haiku said "7"
-  in all 200 calls. Jev's single pick was 7 in all 200 calls; in 199 of them
-  it was the top of that call's distribution.
-- **Jev's distribution keeps some spread.** Asked plainly, it puts 46% on 7,
-  21% on 5 and 13% on 6, and smaller amounts on every other number. People
-  spread further still: 14% each on 6 and 8, and more on 3, 4 and 9 than Jev.
+- **Read one answer at a time, every model says 7 almost every time.** Haiku
+  said "7" in all 200 calls. Jev 1.13's single pick was 7 in all 200 calls;
+  in 199 of them it was the top of that call's distribution. Jev 1.14's was 7
+  in 199 of 200 calls; the other was 5.
+- **Jev's distribution keeps some spread.** Asked plainly, Jev 1.13 puts 46%
+  on 7, 21% on 5 and 13% on 6, and smaller amounts on every other number.
+  People spread further still: 14% each on 6 and 8, and more on 3, 4 and 9.
+- **Jev 1.14 is closer to people than Jev 1.13.** Asked plainly, it puts 30%
+  on 7 (people: 33%), with 20% on 5 and 14% on 6. Its distance from people's
+  distribution is 0.15, against 0.27 for Jev 1.13.
 - **Asking Jev to answer as a typical person makes it less human, not more.**
-  The share on 7 rises from 46% to 83%, against people's 33%. The model has
-  learned that people favour 7 and overstates it, as with the famous biases
-  above.
+  The share on 7 rises from 46% to 83% for Jev 1.13 and from 30% to 69% for
+  Jev 1.14, against people's 33%. The model has learned that people favour 7
+  and overstates it, as with the famous biases above.
 - **The wording matters.** An informal try beforehand, worded "Pick a number
-  between 1 and 10", put Jev's largest share on 5, not 7. It is not part of
-  the data here.
+  between 1 and 10", put Jev 1.13's largest share on 5, not 7. It is not part
+  of the data here.
 
-The 400 calls cost under a cent. The table, with each distribution in full, is
+The 600 calls cost under a cent. The table, with each distribution in full, is
 in [distributions.csv](results/pick_number/distributions.csv), and
 `jevbench pick-number analyse` rebuilds it and the figures from the raw runs.
 
-![Pick a number between 1 and 10: Jev's distribution, Jev and Haiku one pick per call, and people](results/figures/pick-number.png)
+![Pick a number between 1 and 10: Jev 1.13 and Jev 1.14, each as its distribution and one pick per call, against Haiku and people](results/figures/pick-number.png)
 
 #### The other System One models
 
@@ -360,6 +367,7 @@ single choice.
 | Clef | 56% | 82% | 0.32 | 0.51 |
 | **Jev 1.13** | **46%** | **83%** | **0.27** | **0.50** |
 | GPT-6 Luna Decisions | 36% | 49% | 0.28 | 0.22 |
+| **Jev 1.14** | **30%** | **69%** | **0.15** | **0.36** |
 | d1 | 27% | 83% | 0.20 | 0.51 |
 | Clef Flash | 23% | 53% | 0.18 | 0.28 |
 | Decider v1.1 27B | 15% | 34% | 0.24 | 0.12 |
@@ -374,20 +382,22 @@ its 100 calls. Distance is total variation from people's distribution: 0 is
 identical and 1 is no overlap. A model that put everything on 7 would score
 0.67.
 
-- **Read one pick per call, every model collapses.** Eight of the ten give
-  the same choice in every call under a given prompt. Usually that is 7;
+- **Read one pick per call, every model collapses.** Eight of the eleven
+  give the same choice in every call under a given prompt, and Jev 1.14 in
+  all but one. Usually that is 7;
   asked plainly, Microsoft-Decision-1 always says 5 and Mercury Decide always
   says 6. Only the two Solar models vary at all. Solar Decide asked plainly
   picked 1 in 69% of calls and 3 in 23%. Read this way, the closest any model
   gets to people is 0.63, against Haiku's 0.67.
-- **Their own distributions are much closer to people.** Asked plainly, eight
-  of the ten distributions are 0.18 to 0.32 from people. Clef Flash (0.18) and
-  d1 (0.20) are closer than Jev (0.27); Clef, a larger model, overstates 7 more
-  than Jev does.
-- **Asking for a typical person pushes most of them onto 7.** Eight of the ten
-  move further from people. Two move closer: Decider v1.1 27B, whose 34% on 7
-  matches people's 33% almost exactly (distance 0.12, the closest of any model
-  here), and GPT-6 Luna Decisions.
+- **Their own distributions are much closer to people.** Asked plainly, nine
+  of the eleven distributions are 0.15 to 0.32 from people. Jev 1.14 is the
+  closest (0.15). Clef Flash (0.18) and d1 (0.20) are closer than Jev 1.13
+  (0.27); Clef, a larger model, overstates 7 more than Jev 1.13 does.
+- **Asking for a typical person pushes most of them onto 7.** Nine of the
+  eleven move further from people, both Jev versions among them. Two move
+  closer: Decider v1.1 27B, whose 34% on 7 matches people's 33% almost exactly
+  (distance 0.12, the closest of any model under this prompt), and GPT-6 Luna
+  Decisions.
 - **The two Solar models have no sense of 7 asked plainly.** Both put only 5%
   on it and favour 1, 3 and 10. Under the typical-person prompt, Solar Decide
   swings to 96% on 7, and Solar Decide Flash to 68% on 5.
