@@ -9,6 +9,8 @@ Total cost: $8.9857 (Jev arm $0.1418)
 
 Every table below is the Jev arm only; the chat baseline and the other System One models are compared in `results/comparison/`. Values are probability mass, computed from the returned distributions rather than from the point answers. Human values are literature reference points, not a matched control group — see [BENCHMARKS.md](BENCHMARKS.md).
 
+![How one item becomes a number](../results/figures/how-it-works.png)
+
 ## Cognitive reflection
 
 | Measure | Neutral | As typical human | As typical human (no steer) | As rational agent | Antisocial | Human |
@@ -32,6 +34,18 @@ Accuracy on an authored ICAR-format item set. **Not an IQ score.**
 
 ## Social preferences
 
+![Jev in the economic games, with no instruction](../results/figures/jev-games-neutral.png)
+
+![Four System One models against people in the economic games](../results/figures/models-games.png)
+
+![What a single call returns: Jev's dictator distribution](../results/figures/dictator-distribution.png)
+
+![What a single call returns, four models](../results/figures/models-dictator.png)
+
+![Jev's antisocial persona in the economic games](../results/figures/persona-antisocial.png)
+
+![The antisocial persona in the economic games, four models](../results/figures/models-antisocial.png)
+
 | Measure | Neutral | As typical human | As typical human (no steer) | As rational agent | Antisocial | Human |
 |---|---:|---:|---:|---:|---:|---:|
 | Dictator: share given | 0.15 | 0.27 | 0.28 | 0.00 | 0.00 | 0.28 |
@@ -45,6 +59,14 @@ Accuracy on an authored ICAR-format item set. **Not an IQ score.**
 | PD: cooperation (one-shot) | 0.03 | 0.22 | 0.15 | 0.00 | 0.00 | 0.37 |
 
 ## Decision anomalies
+
+![Jev on the seven decision-making tests, with and without the typical-person instruction](../results/figures/jev-decisions.png)
+
+![Four System One models against people on the seven decision-making tests](../results/figures/models-decisions.png)
+
+![Jev under the typical-person instruction with and without its steer](../results/figures/jev-steer.png)
+
+![The framing reversal by model](../results/figures/framing-contrast.png)
 
 | Measure | Neutral | As typical human | As typical human (no steer) | As rational agent | Antisocial | Human |
 |---|---:|---:|---:|---:|---:|---:|
@@ -87,6 +109,10 @@ The Dark Triad scale is a **manipulation check**, not a diagnostic claim.
 
 ## Option-order sensitivity
 
+![Option-order sensitivity, Jev](../results/figures/order-effects.png)
+
+![Option-order sensitivity, four models](../results/figures/models-order-effects.png)
+
 The core battery's multiple-choice items (415 probe × persona cells), the set H6 was written for: their options are shuffled per replicate. Likert and yes/no items are not shuffled, so they measure replicate-to-replicate variation with nothing changed instead.
 
 - Mean total-variation distance across reorderings: **0.0627**
@@ -108,6 +134,8 @@ Most order-sensitive probes:
 The follow-up items, reported apart: 0.0252 on 55 shuffled cells, 0.0197 on 105 unshuffled ones.
 
 ## Follow-up H4: simulate or estimate
+
+![Jev's error on each of the 23 statistics, simulated and estimated](../results/figures/followup-h4.png)
 
 Each follow-up statistic measured two ways: the item asked with the typical-person prompt (simulate), and its population question asked with no persona (estimate). Errors are distances from the original study's published value (Many Labs 2 reports only effect sizes, not per-condition values), in the item's own units, as preregistered. Those units differ (proportions, 1–7 ratings, percentage bands), so the raw test weighs the ratings and percentages most; as a post-hoc check the same test is repeated with each error divided by its scale's range (1, 6 and 100), and the mean errors below are on that scaled footing. The population questions for the six items reused from the first project (CRT, framing, conjunction, sunk cost, Allais, base rate) were asked on 13 October 2026, after the main run.
 
@@ -142,4 +170,20 @@ Each follow-up statistic measured two ways: the item asked with the typical-pers
 - Simulate without the steer, estimate with no persona: estimate closer on 16 of 23; one-sided Wilcoxon p = 0.005 on the raw errors (0.021 scaled, post-hoc); mean scaled error 0.248 (simulate) vs 0.170 (estimate)
 
 - Both asked under the steer-free typical-person prompt (exploratory): estimate closer on 12 of 15; one-sided Wilcoxon p = 0.003 on the raw errors (0.011 scaled, post-hoc); mean scaled error 0.225 (simulate) vs 0.134 (estimate)
+
+## Across the System One models
+
+All twelve models are compared, with the discussion, in [MODELS.md](MODELS.md).
+
+![Every model's distance from the published human results](../results/figures/models-scatter.png)
+
+![What the health table caught](../results/figures/health-checks.png)
+
+
+## Addendum: option order, and the Jev 1.14 preview
+
+A separate preregistered study, run on 14 October 2026 on Jev 1.13 and the 1.14 preview; the tables above are not from it. Its plan is in [ORDER_PREREGISTRATION.md](../ORDER_PREREGISTRATION.md), its results in [results/order_study/](../results/order_study/) and the [README](../README.md#addendum-14-october-2026-option-order-and-the-jev-114-preview).
+
+![How far option order moves Jev's answers, per instrument, 1.13 and 1.14](../results/figures/order-study.png)
+
 

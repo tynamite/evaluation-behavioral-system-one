@@ -9,6 +9,7 @@ Nothing is transcribed by hand, so the prose cannot disagree with the data.
 
 from __future__ import annotations
 
+import subprocess
 import sys
 from pathlib import Path
 
@@ -21,6 +22,7 @@ from jevbench.analysis import (  # noqa: E402
     compute_stats, h4_summary, load_records, order_effects, primary_run, simulate_vs_estimate,
 )
 from jevbench.benchmarks import BENCHMARKS  # noqa: E402
+from jevbench.diagrams import check_editorial_run  # noqa: E402
 from dataclasses import asdict  # noqa: E402
 
 PERSONA_ORDER = ["neutral", "typical_human", "typical_human_plain", "rational_agent", "antisocial"]
@@ -37,6 +39,61 @@ def fmt(v: float | None, places: int = 2) -> str:
     if v is None or not isinstance(v, (int, float)) or pd.isna(v):
         return "—"
     return f"{v:.{places}f}"
+
+
+FIGURES = ROOT / "results" / "figures"
+# The committed figures are drawn from the committed run only (see
+# `check_editorial_run`); main() turns this off for any other run, so its
+# tables are never shown beside another experiment's figures.
+EMBED_FIGURES = True
+
+
+def committed_unchanged(path: Path) -> bool:
+    """Whether git tracks `path` and it matches the committed version."""
+    rel = str(path.resolve().relative_to(ROOT))
+    tracked = subprocess.run(["git", "-C", str(ROOT), "ls-files", "--error-unmatch", rel],
+                             capture_output=True).returncode == 0
+    clean = subprocess.run(["git", "-C", str(ROOT), "diff", "--quiet", "HEAD", "--", rel],
+                           capture_output=True).returncode == 0
+    return tracked and clean
+
+
+def figures_mismatch(run: Path, df: pd.DataFrame) -> str | None:
+    """Why the committed figures would misdescribe this run, if they would.
+
+    They are drawn from one file, the committed run, so only that exact file,
+    unchanged from what git has committed, gets them; the shape check alone
+    would pass an edited copy.
+    """
+    committed = primary_run(ROOT / "data" / "raw", live_only=True)
+    if committed is None or run.resolve() != committed.resolve():
+        return f"{run.name} is not the committed run"
+    if not committed_unchanged(run):
+        return f"{run.name} differs from the committed file"
+    try:
+        check_editorial_run(df)
+    except ValueError as exc:
+        return str(exc)
+    return None
+
+
+def figures(*items: tuple[str, str]) -> list[str]:
+    """Markdown for the committed figures among `items` (file, alt text).
+
+    A figure that is missing, or has been redrawn since it was committed
+    (`jevbench diagrams --run` can redraw it from another run), is left out
+    rather than shown beside tables it may not match.
+    """
+    if not EMBED_FIGURES:
+        return []
+    out = []
+    for name, alt in items:
+        path = FIGURES / name
+        if path.exists() and committed_unchanged(path):
+            out.append(f"![{alt}](../results/figures/{name})\n")
+        elif path.exists():
+            print(f"left out {name}: it differs from the committed figure", file=sys.stderr)
+    return out
 
 
 def persona_table(sdf: pd.DataFrame, rows: list[tuple[str, str, str]], arm: str = "jev") -> list[str]:
@@ -59,6 +116,12 @@ def main(argv: list[str]) -> int:
         print("no run file found", file=sys.stderr)
         return 1
     df = load_records(run)
+    global EMBED_FIGURES
+    reason = figures_mismatch(run, df)
+    if reason:
+        EMBED_FIGURES = False
+        print(f"figures left out: they are drawn from the committed run, not this one ({reason})",
+              file=sys.stderr)
     sdf = pd.DataFrame([asdict(s) for s in compute_stats(df)])
     odf = order_effects(df)
 
@@ -81,6 +144,7 @@ def main(argv: list[str]) -> int:
              "from the point answers. Human values are "
              "literature reference points, not a matched control group — see "
              "[BENCHMARKS.md](BENCHMARKS.md).\n")
+    L += figures(("how-it-works.png", "How one item becomes a number"))
 
     L.append("## Cognitive reflection\n")
     L += persona_table(sdf, [
@@ -101,6 +165,14 @@ def main(argv: list[str]) -> int:
     L.append("")
 
     L.append("## Social preferences\n")
+    L += figures(
+        ("jev-games-neutral.png", "Jev in the economic games, with no instruction"),
+        ("models-games.png", "Four System One models against people in the economic games"),
+        ("dictator-distribution.png", "What a single call returns: Jev's dictator distribution"),
+        ("models-dictator.png", "What a single call returns, four models"),
+        ("persona-antisocial.png", "Jev's antisocial persona in the economic games"),
+        ("models-antisocial.png", "The antisocial persona in the economic games, four models"),
+    )
     L += persona_table(sdf, [
         ("dictator", "mean_share", "Dictator: share given"),
         ("dictator", "prob_give_zero", "Dictator: mass on giving nothing"),
@@ -115,6 +187,14 @@ def main(argv: list[str]) -> int:
     L.append("")
 
     L.append("## Decision anomalies\n")
+    L += figures(
+        ("jev-decisions.png", "Jev on the seven decision-making tests, with and without the "
+                              "typical-person instruction"),
+        ("models-decisions.png", "Four System One models against people on the seven "
+                                 "decision-making tests"),
+        ("jev-steer.png", "Jev under the typical-person instruction with and without its steer"),
+        ("framing-contrast.png", "The framing reversal by model"),
+    )
     L += persona_table(sdf, [
         ("framing", "prob_certain_gain_frame", "Framing: certain option (gain frame)"),
         ("framing", "prob_certain_loss_frame", "Framing: certain option (loss frame)"),
@@ -151,6 +231,10 @@ def main(argv: list[str]) -> int:
     L.append("")
 
     L.append("## Option-order sensitivity\n")
+    L += figures(
+        ("order-effects.png", "Option-order sensitivity, Jev"),
+        ("models-order-effects.png", "Option-order sensitivity, four models"),
+    )
     if len(odf):
         followup = odf[odf.followup]
         odf = odf[~odf.followup]
@@ -185,6 +269,8 @@ def main(argv: list[str]) -> int:
     h4 = simulate_vs_estimate(sdf)
     if len(h4):
         L.append("## Follow-up H4: simulate or estimate\n")
+        L += figures(("followup-h4.png", "Jev's error on each of the 23 statistics, "
+                                         "simulated and estimated"))
         L.append("Each follow-up statistic measured two ways: the item asked with the typical-person "
                  "prompt (simulate), and its population question asked with no persona (estimate). "
                  "Errors are distances from the original study's published value (Many Labs 2 "
@@ -219,6 +305,29 @@ def main(argv: list[str]) -> int:
                      f"errors ({p(hs['wilcoxon_p_scaled'])} scaled, post-hoc); mean scaled error "
                      f"{hs['mean_scaled_error_simulate']:.3f} (simulate) vs "
                      f"{hs['mean_scaled_error_estimate']:.3f} (estimate)")
+        L.append("")
+
+    across = figures(
+        ("models-scatter.png", "Every model's distance from the published human results"),
+        ("health-checks.png", "What the health table caught"),
+    )
+    if across:
+        L.append("## Across the System One models\n")
+        L.append("All twelve models are compared, with the discussion, in "
+                 "[MODELS.md](MODELS.md).\n")
+        L += across
+        L.append("")
+
+    order = figures(("order-study.png", "How far option order moves Jev's answers, per "
+                                        "instrument, 1.13 and 1.14"))
+    if order:
+        L.append("## Addendum: option order, and the Jev 1.14 preview\n")
+        L.append("A separate preregistered study, run on 14 October 2026 on Jev 1.13 and the "
+                 "1.14 preview; the tables above are not from it. Its plan is in "
+                 "[ORDER_PREREGISTRATION.md](../ORDER_PREREGISTRATION.md), its results in "
+                 "[results/order_study/](../results/order_study/) and the "
+                 "[README](../README.md#addendum-14-october-2026-option-order-and-the-jev-114-preview).\n")
+        L += order
         L.append("")
 
     out = ROOT / "docs" / "RESULTS.md"

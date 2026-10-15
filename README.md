@@ -82,13 +82,14 @@ in a band, and the anchoring study asked a different question, so only its
 The charts below put Jev next to three other System One models from the
 [model comparison](docs/MODELS.md) — GPT-6 Luna Decisions, Cloudflare's Clef
 and Liquid AI's d1 — so its results can be read against its peers'. The text is
-about Jev; each chart links a Jev-only version, and all twelve models are in
-docs/MODELS.md.
+about Jev; each chart is followed by the same chart for Jev alone, and all
+twelve models are in docs/MODELS.md.
 
 ### With no instruction, it does not look like human System 1
 
 ![Four System One models against people on seven decision-making tests, with and without the typical-person instruction](results/figures/models-decisions.png)
-<sub>Jev only: [jev-decisions.png](results/figures/jev-decisions.png)</sub>
+
+![Jev alone on the seven decision-making tests, with and without the typical-person instruction](results/figures/jev-decisions.png)
 
 On most classic biases it sits closer to the normative answer than the published
 human value. On Frederick's three Cognitive Reflection Test items it put
@@ -101,10 +102,15 @@ conditions where humans move about 20.
 
 It shows **no framing effect at all**: it picks the sure programme in the
 disease problem at 0.85 when it is worded as lives saved and 0.84 when worded
-as lives lost, where people go from 0.72 to 0.22.
+as lives lost, where people go from 0.72 to 0.22. No System One model shows
+people's 50-point reversal without being asked, and only Solar Decide comes
+near it when asked:
+
+![The framing reversal by model](results/figures/framing-contrast.png)
 
 ![Four System One models against people in the economic games](results/figures/models-games.png)
-<sub>Jev only: [jev-games-neutral.png](results/figures/jev-games-neutral.png)</sub>
+
+![Jev alone in the economic games, with no instruction](results/figures/jev-games-neutral.png)
 
 The social preferences are a partial exception: it gave **0.15** of the pie as
 dictator (human ≈ 0.28), offered **0.41** in the ultimatum game (human ≈ 0.40)
@@ -133,7 +139,10 @@ and Blumer's original wording, gets **0.17** continuation against people's
 Across the 14 probability-scale measures, the typical-person instruction cuts
 Jev's mean distance from the human values from **0.31 to 0.18**, and its
 correlation with them goes from **−0.21 to +0.39**: closer, and partly in the
-right order, but only partly.
+right order, but only partly. Every model's distance, with and without the
+instruction:
+
+![Every model's distance from the published human results, with and without the typical-person instruction](results/figures/models-scatter.png)
 
 ### How much of that is the instruction's steer
 
@@ -160,7 +169,8 @@ collapsed across every game — dictator 0.15 → 0.00, trust sent 0.38 → 0.07
 public goods 0.38 → 0.01.
 
 ![The antisocial persona in the economic games, four models](results/figures/models-antisocial.png)
-<sub>Jev only: [persona-antisocial.png](results/figures/persona-antisocial.png)</sub>
+
+![Jev alone: the antisocial persona in the economic games](results/figures/persona-antisocial.png)
 
 That the persona reaches consequential allocations and not just self-description
 is the part I found most interesting, and it is measurable here only because the
@@ -345,10 +355,12 @@ is defined as each level multiplied by its probability and summed, which is what
 the instrument prints it, where the API's own score is 0-based).
 
 ![What a single call returns, four models](results/figures/models-dictator.png)
-<sub>Jev only: [dictator-distribution.png](results/figures/dictator-distribution.png)</sub>
+
+![What a single call returns, Jev alone](results/figures/dictator-distribution.png)
 
 ![Option-order sensitivity, four models](results/figures/models-order-effects.png)
-<sub>Jev only: [order-effects.png](results/figures/order-effects.png)</sub>
+
+![Option-order sensitivity, Jev alone](results/figures/order-effects.png)
 
 
 ## Running it yourself
@@ -544,6 +556,8 @@ The typed arm has never returned an answer that could not be read, across
 so there is no text to misread. What did go wrong there was visible: 300
 refusals from one model and 100 calls the route rejected (the p-beauty item,
 for both Solar models), each recorded as such ([docs/MODELS.md](docs/MODELS.md#read-the-health-table-first)).
+
+![What the health table caught](results/figures/health-checks.png)
 
 **Learnings.** The bugs found and method fixes made along the way, and what
 each one changed, are written up in [docs/LEARNINGS.md](docs/LEARNINGS.md).
