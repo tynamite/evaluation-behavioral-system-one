@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shuffling the options moves Jev&#x27;s answers, in both versions, by about the same</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper: #f5f5f5; --color-ink: #2d3142; --color-muted: #4f5d75;
+      --font-sans: 'Geist', system-ui, sans-serif; --font-serif: 'Instrument Serif', serif; --font-mono: 'Geist Mono', ui-monospace, monospace;
+    }
+    body {
+      font-family: var(--font-sans); background: var(--color-paper); color: var(--color-ink);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 3rem 2rem;
+    }
+    .frame { max-width: 1080px; width: 100%; padding: 32px 40px; background: var(--color-paper);
+      position: relative; }
+    .mark { position: absolute; right: 40px; bottom: 12px; font-family: var(--font-mono); font-size: 0.6rem;
+      letter-spacing: 0.14em; color: var(--color-muted); opacity: 0.55; }
+    .diagram-container { width: 100%; overflow-x: auto; }
+    .eyebrow {
+      font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-muted);
+      margin-bottom: 0.5rem;
+    }
+    h1 {
+      font-family: var(--font-serif); font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem);
+      font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.5rem;
+    }
+    .subtitle { color: var(--color-muted); font-size: 0.95rem; line-height: 1.45;
+      max-width: 60rem; margin-bottom: 1rem; }
+    .source { font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-muted);
+      border-top: 1px solid rgba(45,49,66,0.12); margin-top: 1rem; padding-top: 0.75rem; line-height: 1.5; }
+    svg { width: 100%; min-width: 1000px; display: block; }
+    @media print { .diagram-container { overflow-x: visible; } svg { min-width: 0; } }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Option order · Jev 1.14 and 1.13 · preregistered addendum</p>
+    <h1>Shuffling the options moves Jev&#x27;s answers, in both versions, by about the same</h1>
+    <p class="subtitle">Each row is one instrument. Left: how much more the answers move between repeats when the options are put in a new order each time than when the same request is repeated; above 0 is an order effect. Right: how an option&#x27;s probability changes as it moves from first place to last, with each option&#x27;s own pull removed.</p>
+    <div class="diagram-container">
+      <svg viewBox="0 47 1000 597" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="order-study-title order-study-desc">
+        <title id="order-study-title">Shuffling the options moves Jev&#x27;s answers, in both versions, by about the same</title>
+        <desc id="order-study-desc">Two-panel dot chart of 21 instruments: for Jev 1.13 and Jev 1.14, the extra answer movement when options are shuffled, and the change in an option&#x27;s probability from first place to last.</desc>
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
+          <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#157a6e"/></marker>
+          <marker id="arrow-link" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#2e5aa8"/></marker>
+        </defs>
+        <rect width="100%" height="100%" fill="#f5f5f5"/>
+<line x1="320.0" y1="82" x2="320.0" y2="550" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="320" y="566" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="-0.05">-0.05</text>
+<line x1="378.0" y1="82" x2="378.0" y2="550" stroke="rgba(45,49,66,0.25)" stroke-width="1"/>
+<text x="378" y="566" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0">0</text>
+<line x1="436.0" y1="82" x2="436.0" y2="550" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="436" y="566" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.05">0.05</text>
+<line x1="494.0" y1="82" x2="494.0" y2="550" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="494" y="566" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.1">0.10</text>
+<line x1="552.0" y1="82" x2="552.0" y2="550" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="552" y="566" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.15">0.15</text>
+<line x1="610.0" y1="82" x2="610.0" y2="550" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="610" y="566" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.2">0.20</text>
+<text x="465" y="582" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.14em">EXTRA MOVEMENT WHEN SHUFFLED (TOTAL VARIATION)</text>
+<text x="320" y="66" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" letter-spacing="0.1em">MORE THAN REPEAT NOISE →</text>
+<line x1="566.0" y1="96" x2="569.6" y2="96" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O1" data-value="0.1652" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="573.8,98.4 569.6,100.8 565.4,98.4 565.4,93.6 569.6,91.2 573.8,93.6"><title>Jev 1.14 · Beauty contest · 0.165</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O1" data-value="0.1620" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="566.0" cy="96.0" r="4"><title>Jev 1.13 · Beauty contest · 0.162</title></circle>
+<line x1="537.5" y1="118" x2="437.5" y2="118" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O1" data-value="0.0513" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="441.6,120.4 437.5,122.8 433.3,120.4 433.3,115.6 437.5,113.2 441.6,115.6"><title>Jev 1.14 · Discounting · 0.051</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O1" data-value="0.1375" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="537.5" cy="118.0" r="4"><title>Jev 1.13 · Discounting · 0.138</title></circle>
+<line x1="488.8" y1="140" x2="450.7" y2="140" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O1" data-value="0.0627" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="454.9,142.4 450.7,144.8 446.6,142.4 446.6,137.6 450.7,135.2 454.9,137.6"><title>Jev 1.14 · Ultimatum proposer · 0.063</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O1" data-value="0.0955" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="488.8" cy="140.0" r="4"><title>Jev 1.13 · Ultimatum proposer · 0.095</title></circle>
+<line x1="479.4" y1="162" x2="463.5" y2="162" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O1" data-value="0.0737" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="467.7,164.4 463.5,166.8 459.4,164.4 459.4,159.6 463.5,157.2 467.7,159.6"><title>Jev 1.14 · Base rate · 0.074</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O1" data-value="0.0874" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="479.4" cy="162.0" r="4"><title>Jev 1.13 · Base rate · 0.087</title></circle>
+<line x1="469.2" y1="184" x2="461.6" y2="184" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O1" data-value="0.0721" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="465.7,186.4 461.6,188.8 457.4,186.4 457.4,181.6 461.6,179.2 465.7,181.6"><title>Jev 1.14 · Anchoring · 0.072</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O1" data-value="0.0786" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="469.2" cy="184.0" r="4"><title>Jev 1.13 · Anchoring · 0.079</title></circle>
+<line x1="444.5" y1="206" x2="421.4" y2="206" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O1" data-value="0.0374" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="425.5,208.4 421.4,210.8 417.2,208.4 417.2,203.6 421.4,201.2 425.5,203.6"><title>Jev 1.14 · Public goods · 0.037</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O1" data-value="0.0574" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="444.5" cy="206.0" r="4"><title>Jev 1.13 · Public goods · 0.057</title></circle>
+<line x1="441.2" y1="228" x2="424.2" y2="228" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O1" data-value="0.0398" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="428.4,230.4 424.2,232.8 420.0,230.4 420.0,225.6 424.2,223.2 428.4,225.6"><title>Jev 1.14 · Dictator · 0.040</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O1" data-value="0.0545" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="441.2" cy="228.0" r="4"><title>Jev 1.13 · Dictator · 0.054</title></circle>
+<line x1="440.7" y1="250" x2="434.7" y2="250" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O1" data-value="0.0489" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="438.8,252.4 434.7,254.8 430.5,252.4 430.5,247.6 434.7,245.2 438.8,247.6"><title>Jev 1.14 · Trust trustee · 0.049</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O1" data-value="0.0540" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="440.7" cy="250.0" r="4"><title>Jev 1.13 · Trust trustee · 0.054</title></circle>
+<line x1="435.4" y1="272" x2="411.5" y2="272" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O1" data-value="0.0288" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="415.6,274.4 411.5,276.8 407.3,274.4 407.3,269.6 411.5,267.2 415.6,269.6"><title>Jev 1.14 · Allais · 0.029</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O1" data-value="0.0494" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="435.4" cy="272.0" r="4"><title>Jev 1.13 · Allais · 0.049</title></circle>
+<line x1="428.4" y1="294" x2="476.2" y2="294" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O1" data-value="0.0847" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="480.4,296.4 476.2,298.8 472.1,296.4 472.1,291.6 476.2,289.2 480.4,291.6"><title>Jev 1.14 · Holt–Laury · 0.085</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O1" data-value="0.0435" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="428.4" cy="294.0" r="4"><title>Jev 1.13 · Holt–Laury · 0.043</title></circle>
+<line x1="427.2" y1="316" x2="416.2" y2="316" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O1" data-value="0.0329" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="420.3,318.4 416.2,320.8 412.0,318.4 412.0,313.6 416.2,311.2 420.3,313.6"><title>Jev 1.14 · Trust sender · 0.033</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O1" data-value="0.0424" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="427.2" cy="316.0" r="4"><title>Jev 1.13 · Trust sender · 0.042</title></circle>
+<line x1="419.5" y1="338" x2="440.6" y2="338" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O1" data-value="0.0540" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="444.8,340.4 440.6,342.8 436.5,340.4 436.5,335.6 440.6,333.2 444.8,335.6"><title>Jev 1.14 · Money request · 0.054</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O1" data-value="0.0358" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="419.5" cy="338.0" r="4"><title>Jev 1.13 · Money request · 0.036</title></circle>
+<line x1="419.4" y1="360" x2="419.1" y2="360" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O1" data-value="0.0354" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="423.2,362.4 419.1,364.8 414.9,362.4 414.9,357.6 419.1,355.2 423.2,357.6"><title>Jev 1.14 · Public goods (conditional) · 0.035</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O1" data-value="0.0357" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="419.4" cy="360.0" r="4"><title>Jev 1.13 · Public goods (conditional) · 0.036</title></circle>
+<line x1="404.0" y1="382" x2="400.2" y2="382" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O1" data-value="0.0191" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="404.4,384.4 400.2,386.8 396.0,384.4 396.0,379.6 400.2,377.2 404.4,379.6"><title>Jev 1.14 · Framing · 0.019</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O1" data-value="0.0224" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="404.0" cy="382.0" r="4"><title>Jev 1.13 · Framing · 0.022</title></circle>
+<line x1="397.5" y1="404" x2="396.5" y2="404" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O1" data-value="0.0159" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="400.6,406.4 396.5,408.8 392.3,406.4 392.3,401.6 396.5,399.2 400.6,401.6"><title>Jev 1.14 · Fluid reasoning · 0.016</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O1" data-value="0.0168" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="397.5" cy="404.0" r="4"><title>Jev 1.13 · Fluid reasoning · 0.017</title></circle>
+<line x1="395.3" y1="426" x2="406.4" y2="426" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O1" data-value="0.0245" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="410.6,428.4 406.4,430.8 402.3,428.4 402.3,423.6 406.4,421.2 410.6,423.6"><title>Jev 1.14 · Present bias · 0.025</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O1" data-value="0.0149" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="395.3" cy="426.0" r="4"><title>Jev 1.13 · Present bias · 0.015</title></circle>
+<line x1="391.8" y1="448" x2="392.9" y2="448" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O1" data-value="0.0129" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="397.1,450.4 392.9,452.8 388.8,450.4 388.8,445.6 392.9,443.2 397.1,445.6"><title>Jev 1.14 · CRT · 0.013</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O1" data-value="0.0119" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="391.8" cy="448.0" r="4"><title>Jev 1.13 · CRT · 0.012</title></circle>
+<line x1="385.7" y1="470" x2="384.5" y2="470" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O1" data-value="0.0056" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="388.7,472.4 384.5,474.8 380.4,472.4 380.4,467.6 384.5,465.2 388.7,467.6"><title>Jev 1.14 · Sunk cost · 0.006</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O1" data-value="0.0066" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="385.7" cy="470.0" r="4"><title>Jev 1.13 · Sunk cost · 0.007</title></circle>
+<line x1="382.3" y1="492" x2="381.5" y2="492" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O1" data-value="0.0030" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="385.6,494.4 381.5,496.8 377.3,494.4 377.3,489.6 381.5,487.2 385.6,489.6"><title>Jev 1.14 · Ultimatum responder · 0.003</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O1" data-value="0.0037" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="382.3" cy="492.0" r="4"><title>Jev 1.13 · Ultimatum responder · 0.004</title></circle>
+<line x1="378.7" y1="514" x2="386.7" y2="514" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O1" data-value="0.0075" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="390.8,516.4 386.7,518.8 382.5,516.4 382.5,511.6 386.7,509.2 390.8,511.6"><title>Jev 1.14 · Prisoner&#x27;s dilemma · 0.007</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O1" data-value="0.0006" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="378.7" cy="514.0" r="4"><title>Jev 1.13 · Prisoner&#x27;s dilemma · 0.001</title></circle>
+<line x1="376.0" y1="536" x2="406.8" y2="536" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O1" data-value="0.0248" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="411.0,538.4 406.8,540.8 402.7,538.4 402.7,533.6 406.8,531.2 411.0,533.6"><title>Jev 1.14 · Conjunction · 0.025</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O1" data-value="-0.0017" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="376.0" cy="536.0" r="4"><title>Jev 1.13 · Conjunction · -0.002</title></circle>
+<line x1="660.0" y1="82" x2="660.0" y2="550" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="660" y="566" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="-0.2">-0.2</text>
+<line x1="710.0" y1="82" x2="710.0" y2="550" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="710" y="566" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="-0.1">-0.1</text>
+<line x1="760.0" y1="82" x2="760.0" y2="550" stroke="rgba(45,49,66,0.25)" stroke-width="1"/>
+<text x="760" y="566" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0">0</text>
+<line x1="810.0" y1="82" x2="810.0" y2="550" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="810" y="566" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.1">+0.1</text>
+<line x1="860.0" y1="82" x2="860.0" y2="550" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="860" y="566" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.2">+0.2</text>
+<line x1="910.0" y1="82" x2="910.0" y2="550" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="910" y="566" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.3">+0.3</text>
+<line x1="960.0" y1="82" x2="960.0" y2="550" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="960" y="566" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.4">+0.4</text>
+<text x="810" y="582" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.14em">SLOT SLOPE: PROBABILITY, FIRST PLACE TO LAST</text>
+<text x="660" y="66" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" letter-spacing="0.1em">← FIRST OPTION GAINS</text>
+<text x="960" y="66" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" letter-spacing="0.1em">LATER OPTIONS GAIN →</text>
+<line x1="759.1" y1="96" x2="759.2" y2="96" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O3" data-value="-0.0015" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="763.4,98.4 759.2,100.8 755.1,98.4 755.1,93.6 759.2,91.2 763.4,93.6"><title>Jev 1.14 · Beauty contest · -0.002</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O3" data-value="-0.0019" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="759.1" cy="96.0" r="4"><title>Jev 1.13 · Beauty contest · -0.002</title></circle>
+<line x1="911.3" y1="118" x2="804.4" y2="118" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O3" data-value="0.0888" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="808.6,120.4 804.4,122.8 800.2,120.4 800.2,115.6 804.4,113.2 808.6,115.6"><title>Jev 1.14 · Discounting · 0.089</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O3" data-value="0.3026" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="911.3" cy="118.0" r="4"><title>Jev 1.13 · Discounting · 0.303</title></circle>
+<line x1="769.7" y1="140" x2="764.0" y2="140" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O3" data-value="0.0079" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="768.1,142.4 764.0,144.8 759.8,142.4 759.8,137.6 764.0,135.2 768.1,137.6"><title>Jev 1.14 · Ultimatum proposer · 0.008</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O3" data-value="0.0195" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="769.7" cy="140.0" r="4"><title>Jev 1.13 · Ultimatum proposer · 0.019</title></circle>
+<line x1="752.7" y1="162" x2="745.3" y2="162" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O3" data-value="-0.0294" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="749.5,164.4 745.3,166.8 741.2,164.4 741.2,159.6 745.3,157.2 749.5,159.6"><title>Jev 1.14 · Base rate · -0.029</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O3" data-value="-0.0147" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="752.7" cy="162.0" r="4"><title>Jev 1.13 · Base rate · -0.015</title></circle>
+<line x1="788.5" y1="184" x2="777.8" y2="184" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O3" data-value="0.0356" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="781.9,186.4 777.8,188.8 773.6,186.4 773.6,181.6 777.8,179.2 781.9,181.6"><title>Jev 1.14 · Anchoring · 0.036</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O3" data-value="0.0570" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="788.5" cy="184.0" r="4"><title>Jev 1.13 · Anchoring · 0.057</title></circle>
+<line x1="764.0" y1="206" x2="762.5" y2="206" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O3" data-value="0.0050" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="766.6,208.4 762.5,210.8 758.3,208.4 758.3,203.6 762.5,201.2 766.6,203.6"><title>Jev 1.14 · Public goods · 0.005</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O3" data-value="0.0080" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="764.0" cy="206.0" r="4"><title>Jev 1.13 · Public goods · 0.008</title></circle>
+<line x1="767.8" y1="228" x2="759.7" y2="228" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O3" data-value="-0.0005" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="763.9,230.4 759.7,232.8 755.6,230.4 755.6,225.6 759.7,223.2 763.9,225.6"><title>Jev 1.14 · Dictator · -0.001</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O3" data-value="0.0156" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="767.8" cy="228.0" r="4"><title>Jev 1.13 · Dictator · 0.016</title></circle>
+<line x1="766.5" y1="250" x2="765.0" y2="250" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O3" data-value="0.0100" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="769.2,252.4 765.0,254.8 760.9,252.4 760.9,247.6 765.0,245.2 769.2,247.6"><title>Jev 1.14 · Trust trustee · 0.010</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O3" data-value="0.0129" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="766.5" cy="250.0" r="4"><title>Jev 1.13 · Trust trustee · 0.013</title></circle>
+<line x1="812.7" y1="272" x2="781.1" y2="272" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O3" data-value="0.0422" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="785.3,274.4 781.1,276.8 777.0,274.4 777.0,269.6 781.1,267.2 785.3,269.6"><title>Jev 1.14 · Allais · 0.042</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O3" data-value="0.1053" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="812.7" cy="272.0" r="4"><title>Jev 1.13 · Allais · 0.105</title></circle>
+<line x1="750.1" y1="294" x2="669.1" y2="294" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O3" data-value="-0.1818" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="673.2,296.4 669.1,298.8 664.9,296.4 664.9,291.6 669.1,289.2 673.2,291.6"><title>Jev 1.14 · Holt–Laury · -0.182</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O3" data-value="-0.0197" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="750.1" cy="294.0" r="4"><title>Jev 1.13 · Holt–Laury · -0.020</title></circle>
+<line x1="761.7" y1="316" x2="758.5" y2="316" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O3" data-value="-0.0030" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="762.7,318.4 758.5,320.8 754.4,318.4 754.4,313.6 758.5,311.2 762.7,313.6"><title>Jev 1.14 · Trust sender · -0.003</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O3" data-value="0.0034" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="761.7" cy="316.0" r="4"><title>Jev 1.13 · Trust sender · 0.003</title></circle>
+<line x1="760.8" y1="338" x2="762.8" y2="338" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O3" data-value="0.0055" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="766.9,340.4 762.8,342.8 758.6,340.4 758.6,335.6 762.8,333.2 766.9,335.6"><title>Jev 1.14 · Money request · 0.006</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O3" data-value="0.0016" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="760.8" cy="338.0" r="4"><title>Jev 1.13 · Money request · 0.002</title></circle>
+<line x1="766.6" y1="360" x2="761.4" y2="360" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O3" data-value="0.0029" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="765.6,362.4 761.4,364.8 757.3,362.4 757.3,357.6 761.4,355.2 765.6,357.6"><title>Jev 1.14 · Public goods (conditional) · 0.003</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O3" data-value="0.0132" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="766.6" cy="360.0" r="4"><title>Jev 1.13 · Public goods (conditional) · 0.013</title></circle>
+<line x1="786.6" y1="382" x2="773.6" y2="382" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O3" data-value="0.0272" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="777.8,384.4 773.6,386.8 769.4,384.4 769.4,379.6 773.6,377.2 777.8,379.6"><title>Jev 1.14 · Framing · 0.027</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O3" data-value="0.0531" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="786.6" cy="382.0" r="4"><title>Jev 1.13 · Framing · 0.053</title></circle>
+<line x1="759.9" y1="404" x2="760.3" y2="404" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O3" data-value="0.0006" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="764.4,406.4 760.3,408.8 756.1,406.4 756.1,401.6 760.3,399.2 764.4,401.6"><title>Jev 1.14 · Fluid reasoning · 0.001</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O3" data-value="-0.0003" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="759.9" cy="404.0" r="4"><title>Jev 1.13 · Fluid reasoning · -0.000</title></circle>
+<line x1="779.5" y1="426" x2="775.0" y2="426" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O3" data-value="0.0301" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="779.2,428.4 775.0,430.8 770.9,428.4 770.9,423.6 775.0,421.2 779.2,423.6"><title>Jev 1.14 · Present bias · 0.030</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O3" data-value="0.0390" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="779.5" cy="426.0" r="4"><title>Jev 1.13 · Present bias · 0.039</title></circle>
+<line x1="760.2" y1="448" x2="759.7" y2="448" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O3" data-value="-0.0006" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="763.9,450.4 759.7,452.8 755.5,450.4 755.5,445.6 759.7,443.2 763.9,445.6"><title>Jev 1.14 · CRT · -0.001</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O3" data-value="0.0004" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="760.2" cy="448.0" r="4"><title>Jev 1.13 · CRT · 0.000</title></circle>
+<line x1="767.4" y1="470" x2="764.7" y2="470" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O3" data-value="0.0094" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="768.9,472.4 764.7,474.8 760.6,472.4 760.6,467.6 764.7,465.2 768.9,467.6"><title>Jev 1.14 · Sunk cost · 0.009</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O3" data-value="0.0148" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="767.4" cy="470.0" r="4"><title>Jev 1.13 · Sunk cost · 0.015</title></circle>
+<line x1="760.9" y1="492" x2="763.4" y2="492" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O3" data-value="0.0068" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="767.5,494.4 763.4,496.8 759.2,494.4 759.2,489.6 763.4,487.2 767.5,489.6"><title>Jev 1.14 · Ultimatum responder · 0.007</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O3" data-value="0.0018" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="760.9" cy="492.0" r="4"><title>Jev 1.13 · Ultimatum responder · 0.002</title></circle>
+<line x1="762.2" y1="514" x2="768.1" y2="514" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O3" data-value="0.0163" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="772.3,516.4 768.1,518.8 764.0,516.4 764.0,511.6 768.1,509.2 772.3,511.6"><title>Jev 1.14 · Prisoner&#x27;s dilemma · 0.016</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O3" data-value="0.0044" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="762.2" cy="514.0" r="4"><title>Jev 1.13 · Prisoner&#x27;s dilemma · 0.004</title></circle>
+<line x1="754.0" y1="536" x2="790.8" y2="536" stroke="rgba(45,49,66,0.3)" stroke-width="1"/>
+<polygon data-series="Jev 1.14" data-panel="O3" data-value="0.0616" fill="#a3195b" stroke="#a3195b" stroke-width="1" points="794.9,538.4 790.8,540.8 786.6,538.4 786.6,533.6 790.8,531.2 794.9,533.6"><title>Jev 1.14 · Conjunction · 0.062</title></polygon>
+<circle data-series="Jev 1.13" data-panel="O3" data-value="-0.0121" fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="754.0" cy="536.0" r="4"><title>Jev 1.13 · Conjunction · -0.012</title></circle>
+<text x="296" y="100" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Beauty contest</text>
+<text x="296" y="122" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Discounting</text>
+<text x="296" y="144" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Ultimatum proposer</text>
+<text x="296" y="166" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Base rate</text>
+<text x="296" y="188" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Anchoring</text>
+<text x="296" y="210" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Public goods</text>
+<text x="296" y="232" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Dictator</text>
+<text x="296" y="254" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Trust trustee</text>
+<text x="296" y="276" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Allais</text>
+<text x="296" y="298" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Holt–Laury</text>
+<text x="296" y="320" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Trust sender</text>
+<text x="296" y="342" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Money request</text>
+<text x="296" y="364" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Public goods (conditional)</text>
+<text x="296" y="386" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Framing</text>
+<text x="296" y="408" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Fluid reasoning</text>
+<text x="296" y="430" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Present bias</text>
+<text x="296" y="452" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">CRT</text>
+<text x="296" y="474" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Sunk cost</text>
+<text x="296" y="496" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Ultimatum responder</text>
+<text x="296" y="518" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Prisoner&#x27;s dilemma</text>
+<text x="296" y="540" fill="#2d3142" font-size="10" font-family="'Geist', system-ui, sans-serif" text-anchor="end">Conjunction</text>
+<line x1="30" y1="594" x2="970" y2="594" stroke="rgba(45,49,66,0.1)" stroke-width="0.8"/>
+<text x="30" y="610" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" letter-spacing="0.14em">LEGEND</text>
+<polygon fill="#a3195b" stroke="#a3195b" stroke-width="1" points="108.7,627.7 104.0,630.4 99.3,627.7 99.3,622.3 104.0,619.6 108.7,622.3"/>
+<text x="114" y="629" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">Jev 1.14</text>
+<circle fill="#ff69b4" stroke="#d6126f" stroke-width="1" cx="189.2" cy="625.0" r="4.5"/>
+<text x="199.2" y="629" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">Jev 1.13</text>
+<text x="970" y="629" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">ROWS BY JEV 1.13&#x27;S EXTRA MOVEMENT</text>
+      </svg>
+    </div>
+    <p class="source">Both versions called through TypeSafe&#x27;s API directly on 14 Oct 2026, 10 repeats of each item under each of five prompts. Tests and their preregistration: ORDER_PREREGISTRATION.md; tables in results/order_study/.</p>
+    <p class="mark" aria-hidden="true">github.com/tynamite</p>
+  </div>
+</body>
+</html>

@@ -13,3 +13,4 @@ cloudflare/clef-flash,System One,run_live_20261012T225926Z_cloudflare--clef-flas
 cloudflare/clef,System One,run_live_20261012T225927Z_cloudflare--clef.jsonl,7450,0,0,0,0,745,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.1167
 nace-ai/drex-v1.5-20261009,System One,run_live_20261015T110900Z_nace-ai--drex-v1.5.jsonl,6850,0,0,0,0,685,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.039
 nace-ai/drex-v2.0-20261009,System One,run_live_20261015T110900Z_nace-ai--drex-v2.0.jsonl,6850,0,0,0,0,685,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.0586
+typesafe/jev-1.14.0,System One,order_study/r1/run_live_20261014T231829Z_jev-1.14.0.jsonl,6850,0,0,0,0,685,0,"{""choice"": 0.0, ""noul"": 0.0, ""score"": 0.0}",0.0

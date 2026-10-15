@@ -256,11 +256,17 @@ def _cmd_order_study(args: argparse.Namespace) -> int:
         # The committed study: its figure goes beside the README's others.
         import pandas as pd
 
-        from .plots import fig_order_study
+        from .config import REPO_ROOT
+        from .diagrams import export_pngs, fig_order_study
 
-        fig = fig_order_study(pd.read_csv(ORDER_RESULTS_DIR / "instruments.csv"), FIGURES_DIR)
+        fig = fig_order_study(pd.read_csv(ORDER_RESULTS_DIR / "instruments.csv"))
         if fig is not None:
-            print(f"wrote {fig}")
+            html = REPO_ROOT / "docs" / "diagrams" / f"{fig.slug}.html"
+            html.write_text(fig.html(), encoding="utf-8")
+            print(f"wrote {html.relative_to(REPO_ROOT)}")
+            if not args.no_png:
+                for p in export_pngs([html], FIGURES_DIR):
+                    print(f"wrote {p.relative_to(REPO_ROOT)}")
     return 0
 
 
@@ -393,6 +399,7 @@ def main(argv: list[str] | None = None) -> int:
         default=None,
         help="committed OpenRouter run for the route check, if no fresh one exists",
     )
+    o.add_argument("--no-png", action="store_true", help="write the HTML figure only")
     o.set_defaults(func=_cmd_order_study)
 
     args = parser.parse_args(argv)

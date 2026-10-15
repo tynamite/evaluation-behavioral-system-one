@@ -1,16 +1,17 @@
 # More models through the same battery
 
 The [main write-up](../README.md) is about one System One model, TypeSafe's
-Jev. Eleven more models are on OpenRouter's decisions route, all on the same
-`/v1/systemone` contract, so the battery runs on them unchanged. This page puts
-them side by side with Jev and two chat models, Claude Sonnet 5.5 and Claude
-Haiku 5.5, resampled ten times per item.
+Jev, in two versions, 1.13 and 1.14. Eleven more models are on OpenRouter's
+decisions route, all on the same `/v1/systemone` contract, so the battery runs
+on them unchanged. This page puts them side by side with both Jev versions and
+two chat models, Claude Sonnet 5.5 and Claude Haiku 5.5, resampled ten times
+per item.
 
 The same caveats as the main write-up apply in full: this is a hobby project,
 the human values are not a control group, and **no claims are made about any
-model, company or product.** These are numbers recorded from a public API on
-12–13 October 2026 (Drex 1.5 and Drex 2.0 on 15 October), and how they were
-produced.
+model, company or product.** These are numbers recorded from public APIs on
+12–13 October 2026 (Jev 1.14 on 14 October, Drex 1.5 and Drex 2.0 on 15
+October), and how they were produced.
 
 ## What was run
 
@@ -19,8 +20,13 @@ calls. On 13 October the ten System One models were also asked the ten
 population questions added to the follow-up study (no persona, 10 replicates:
 100 calls each, appended to the same files); the costs below include them.
 
-Drex 1.5 and Drex 2.0 (Nace AI) were added on 15 October with the battery as it
-stands now: 6,850 calls each. The difference is the follow-up study's 15
+Jev 1.14 was run on 14 October, for the [option-order
+addendum](../README.md#addendum-14-october-2026-option-order), through
+TypeSafe's API directly rather than OpenRouter; that addendum found the route
+moves answers about as much as repeating the call does. TypeSafe's direct API
+reports tokens but not cost, so its cost below is blank. Drex 1.5 and Drex 2.0
+(Nace AI) were added on 15 October. All three ran the battery as it stands
+now: 6,850 calls each. The difference is the follow-up study's 15
 population questions, which the battery now asks under the neutral prompt only;
 the 12–13 October runs also asked them under the other four prompts (600 calls
 each). No comparison on this page uses those 600 calls.
@@ -28,6 +34,7 @@ each). No comparison on this page uses those 600 calls.
 | Model | Type | Cost |
 |---|---|---|
 | `typesafe/jev-1.13-20260917` | System One | $0.14 |
+| `jev-1.14.0` (TypeSafe direct) | System One | — |
 | `openai/gpt-6-luna-decisions-20261006` | System One | $0.17 |
 | `microsoft/microsoft-decision-1-20261009` | System One | $0.05 |
 | `perplexity/pplx-decider-v1.1-27b-20261006` | System One | $0.03 |
@@ -42,13 +49,14 @@ each). No comparison on this page uses those 600 calls.
 | `anthropic/claude-sonnet-5.5` | chat, resampled | $8.84 |
 | `anthropic/claude-haiku-5.5` | chat, resampled | $0.84 |
 
-The README's main charts carry four of these models — Jev, GPT-6 Luna
-Decisions, Clef and d1 — and this page has all of them.
+The README's main charts carry five of these models — both Jev versions,
+GPT-6 Luna Decisions, Clef and d1 — and this page has all of them.
 
 Reproduce:
 
 ```bash
-jevbench compare data/raw/run_live_*.jsonl
+jevbench compare data/raw/run_live_*.jsonl \
+  data/raw/order_study/r1/run_live_20261014T231829Z_jev-1.14.0.jsonl
 ```
 
 ## Read the health table first
@@ -134,6 +142,7 @@ person" is the typical-person instruction quoted in the
 | Drex 2.0 | **0.23** | +0.15 | 0.18 | +0.42 | 0.20 | +0.28 |
 | Clef | 0.28 | +0.00 | 0.20 | +0.44 | 0.21 | +0.34 |
 | Drex 1.5 | 0.29 | −0.01 | 0.28 | −0.03 | 0.28 | −0.06 |
+| Jev 1.14 | 0.29 | −0.23 | 0.17 | +0.43 | 0.18 | +0.33 |
 | Mercury Decide | 0.31 | −0.12 | 0.21 | +0.44 | 0.23 | +0.30 |
 | Jev 1.13 | 0.31 | −0.21 | 0.18 | +0.39 | 0.20 | +0.25 |
 | d1 | 0.31 | +0.03 | 0.23 | +0.41 | 0.28 | +0.29 |
@@ -154,15 +163,16 @@ no instruction, none of them looks like people** (no correlation better than
 every one of them closer**, Drex 1.5 only barely. How far differs a lot. The
 chat models and Solar Decide learn which effects are strong (r +0.73 to +0.89
 under one of the two versions); Decider v1.1 27B, Solar Decide Flash and
-Microsoft-Decision-1 come next (+0.54 to +0.68); Jev, Clef, Clef Flash, d1,
-Mercury Decide and Drex 2.0 only partly (+0.25 to +0.44); GPT-6 Luna Decisions
+Microsoft-Decision-1 come next (+0.54 to +0.68); both Jev versions, Clef,
+Clef Flash, d1, Mercury Decide and Drex 2.0 only partly (+0.25 to +0.44); GPT-6 Luna Decisions
 hardly at all; and Drex 1.5 not at all. Its distance moves from 0.29 to 0.28
 and its correlation stays at zero (−0.03; −0.06 without the steer): the
 instruction barely changes its answers.
 
 **The steer matters more for some models than others.** Without "not the
 textbook-correct answer", most System One models fit people a little less well
-(Jev's r falls from +0.39 to +0.25, Decider's from +0.68 to +0.54), which says
+(Jev 1.13's r falls from +0.39 to +0.25, Jev 1.14's from +0.43 to +0.33,
+Decider's from +0.68 to +0.54), which says
 part of their move toward people was the instruction's push. Sonnet 5.5,
 Solar Decide go the other way and fit people *better* without it (Sonnet's
 distance falls from 0.20 to 0.15), and Clef Flash's correlation rises
@@ -179,7 +189,7 @@ other model's (on average 0.20 and 0.16 from it), and most of the human
 reference values sit in the middle of the scale too — on average 0.18 from
 0.5. A model that hedges everywhere therefore scores a small distance without
 reproducing any effect. Drex 2.0, a close third, is the exception: its answers
-are 0.26 from 0.5 on average, about as far as Jev's, and it shows the largest
+are 0.26 from 0.5 on average, as far as Jev 1.13's, and it shows the largest
 framing effect of any System One model asked with no instruction.
 
 The framing reversal shows it. Humans pick the certain option 72% of the time
@@ -187,17 +197,18 @@ in the gain frame and 22% in the loss frame, a 50-point reversal; the main
 write-up argues that the contrast, not either level, is the robust quantity.
 Gain minus loss, in points:
 
-| | Human | d1 | Solar | Clef | Mercury | Jev | Decider | Luna | Solar Flash | Clef Flash | MS-Decision-1 | Drex 1.5 | Drex 2.0 | Sonnet 5.5 | Haiku 5.5 |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| No instruction | 50 | 24 | 26 | 26 | 0 | 1 | 3 | 16 | 10 | 2 | −16 | −24 | **34** | 20 | 0 |
-| As a person | 50 | 31 | **60** | 18 | 18 | 4 | 21 | 11 | 0 | 2 | −24 | −55 | 41 | 100 | 90 |
-| No steer | 50 | 22 | **60** | 16 | 13 | 7 | 14 | 7 | 2 | 8 | −20 | −45 | 43 | 100 | 100 |
+| | Human | d1 | Solar | Clef | Mercury | Jev 1.13 | Jev 1.14 | Decider | Luna | Solar Flash | Clef Flash | MS-Decision-1 | Drex 1.5 | Drex 2.0 | Sonnet 5.5 | Haiku 5.5 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| No instruction | 50 | 24 | 26 | 26 | 0 | 1 | −9 | 3 | 16 | 10 | 2 | −16 | −24 | **34** | 20 | 0 |
+| As a person | 50 | 31 | **60** | 18 | 18 | 4 | −5 | 21 | 11 | 0 | 2 | −24 | −55 | 41 | 100 | 90 |
+| No steer | 50 | 22 | **60** | 16 | 13 | 7 | 5 | 14 | 7 | 2 | 8 | −20 | −45 | 43 | 100 | 100 |
 
 No System One model shows the full human effect without being asked; Drex 2.0
 comes closest, at 34 points. Asked to answer as a person, only Solar Decide (60)
 and Drex 2.0 (41, or 43 without the steer) come near it. Solar Decide Flash and
 Clef Flash, two of the three closest to people by distance, show almost none in
-any condition. Microsoft-Decision-1 reverses it, and Drex 1.5 reverses it
+any condition. Jev 1.14 reverses it slightly with no instruction (−9),
+Microsoft-Decision-1 reverses it, and Drex 1.5 reverses it
 strongly once asked to be a person (−55, the largest reverse swing of any
 System One model). The chat models are near all or nothing once
 asked to be a person, 90 to 100 points (resampled answers saturate at 0 or 1). Distance from human levels
@@ -215,8 +226,8 @@ one summary number answers only the first.
 - **The sunk-cost item splits the models.** With no instruction, every model
   abandons the project (≤ 0.16, people 0.85). Asked to answer as a person, in
   Arkes and Blumer's original wording, Sonnet 5.5 continues every time, Haiku
-  5.5 (0.80) and Solar Decide (0.76) come close to people, and Jev, d1, Clef
-  and Mercury Decide stay at 0.17 or below.
+  5.5 (0.80) and Solar Decide (0.76) come close to people, Jev 1.14 reaches
+  0.28, and Jev 1.13, d1, Clef and Mercury Decide stay at 0.17 or below.
 - **The chat models are the most extreme answerers when asked to be a typical
   person**, furthest from 0.5 of any model (Sonnet 0.36 and Haiku 0.31 from it
   on average). In that framing both get Frederick's cognitive reflection items
@@ -259,6 +270,7 @@ error to its item's range instead; that check was chosen after seeing the data
 | GPT-6 Luna Decisions | 0.19 | 0.15 | 11 of 13 | 0.011 | 0.073 |
 | Jev 1.13 | 0.23 | 0.17 | 14 of 23 | 0.015 | 0.043 |
 | Mercury Decide | 0.23 | 0.20 | 17 of 23 | 0.026 | 0.071 |
+| Jev 1.14 | 0.22 | 0.16 | 13 of 23 | 0.028 | 0.085 |
 | d1 | 0.24 | 0.18 | 13 of 23 | 0.071 | 0.111 |
 | Solar Decide | 0.16 | 0.13 | 15 of 23 | 0.143 | 0.188 |
 | Drex 1.5 | 0.25 | 0.25 | 14 of 23 | 0.165 | 0.241 |
@@ -269,11 +281,11 @@ error to its item's range instead; that check was chosen after seeing the data
 | Microsoft-Decision-1 | 0.18 | 0.19 | 13 of 23 | 0.506 | 0.458 |
 | Clef Flash | 0.23 | 0.26 | 11 of 23 | 0.542 | 0.710 |
 
-Estimating has the lower mean scaled error for eight of the twelve models; for
+Estimating has the lower mean scaled error for nine of the thirteen models; for
 Solar Decide Flash, Microsoft-Decision-1, Clef Flash and Drex 2.0 it is higher
-(for both Drex models the two differ by under 0.01). Three clear p < 0.05 on the
-preregistered test, and only Jev clears it on the scaled one. The twelve tests
-share their items, so they are not independent evidence.
+(for both Drex models the two differ by under 0.01). Four clear p < 0.05 on the
+preregistered test, and only Jev 1.13 clears it on the scaled one. The thirteen
+tests share their items, so they are not independent evidence.
 GPT-6 Luna Decisions has only 13 pairs because its refusals leave ten
 statistics without an estimate. The chat models are left out: a true/false
 reply cannot carry a proportion.

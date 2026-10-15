@@ -21,7 +21,6 @@ with a headless Chromium, which is what the README embeds.
 from __future__ import annotations
 
 import html
-import itertools
 import math
 import os
 import sys
@@ -39,18 +38,21 @@ PAPER = "#f5f5f5"
 INK = "#2d3142"
 MUTED = "#4f5d75"
 SOFT = "#5a6580"
-ACCENT = "#157a6e"  # teal accent for everything that is not Jev (4.8:1 on paper)
+ACCENT = "#157a6e"  # teal, for the schematics' System One path only (4.8:1 on paper)
 LINK = "#2e5aa8"
 WHITE = "#ffffff"
-# Jev with no instruction is hot pink in every chart. The pink is too light to
-# be a mark's only edge (2.4:1 on paper), so pink dots keep an ink outline and
-# pink bars take the deeper JEV_PINK_EDGE (4.6:1), which also serves as text.
+# One rule in every chart: colour (with shape, where marks share a row) says
+# which model; hollow against filled says which condition (no instruction
+# against a prompt, one pick per call against the full distribution). People
+# are always slate.
+#
+# Jev 1.13 is hot pink, Jev 1.14 the deeper magenta of the same family, so
+# both read as Jev and still tell apart. The pink is too light to be a mark's
+# only edge (2.4:1 on paper), so it takes JEV_PINK_EDGE (4.6:1) as its edge.
 JEV_PINK = "#ff69b4"
 JEV_PINK_EDGE = "#d6126f"
-# Jev under a prompt (typical person, antisocial persona) stays in the same pink
-# family, darker, so every Jev mark reads as Jev.
-JEV_PROMPT = "#a3195b"
-# Claude Haiku 5.5 is the one non-Jev mark with its own colour: Anthropic orange.
+JEV_114 = "#a3195b"
+# Claude Haiku 5.5 is the one chat model with its own colour: Anthropic orange.
 # Too light to be its own edge (2.9:1), so it keeps an ink outline.
 ANTHROPIC_ORANGE = "#d97757"
 
@@ -272,10 +274,7 @@ def dumbbell(
     *,
     ref_name: str,
     focal_name: str,
-    ref_fill: str | None = None,
-    focal_fill: str = ACCENT,
-    row_ref_fill: dict[str, tuple[str, str]] | None = None,
-    row_focal_fill: dict[str, tuple[str, str]] | None = None,
+    row_colour: dict[str, str] | None = None,
     axis_title: str,
     step: float,
     fmt: str = "{:.2f}",
@@ -290,17 +289,14 @@ def dumbbell(
     carries a second line saying what the test was and what the number counts:
     the rows do not all point the same way (some count correct answers, others
     the error), and without that line a reader cannot tell which.
+
+    Each row is drawn in its model's colour (`row_colour`, by row name; slate
+    for a row not named): the reference end hollow, the focal end filled, as
+    in every other chart.
     """
     n = len(rows)
     if not 4 <= n <= 8:
         raise ValueError(f"dumbbell takes 4-8 rows, got {n}")
-    # The reference end is hollow by default; a solid fill marks it as a series
-    # of its own (Jev with no instruction, in pink), still with an ink edge.
-    ref_style = (
-        f'fill="{ref_fill}" stroke="{INK}" stroke-width="1"'
-        if ref_fill
-        else f'fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"'
-    )
     pitch, y0 = ROW_LAYOUT[n]
     vals = [v for _, _, a, b in rows for v in (a, b)]
     if reference_line:
@@ -348,10 +344,8 @@ def dumbbell(
         y = y0 + i * pitch
         xa, xb = px(a), px(b)
         close = abs(xa - xb) < 16
-        row_style = ref_style
-        row_focal = (row_focal_fill or {}).get(name, (focal_fill, ""))[0]
-        if row_ref_fill and name in row_ref_fill:
-            row_style = f'fill="{row_ref_fill[name][0]}" stroke="{INK}" stroke-width="1"'
+        c = (row_colour or {}).get(name, MUTED)
+        row_style = f'fill="{PAPER}" stroke="{edge(c)}" stroke-width="1.5"'
         # A pair too close to separate horizontally is split vertically instead,
         # one dot just above the row and one just below, so neither hides the
         # other; the positions along the axis stay exact.
@@ -364,7 +358,7 @@ def dumbbell(
             f'<circle data-series="reference" data-value="{a:.4f}" cx="{xa}" cy="{ya}" r="{r}" {row_style}/>'
         )
         out.append(
-            f'<circle data-series="focal" data-value="{b:.4f}" cx="{xb}" cy="{yb}" r="{r}" fill="{row_focal}" stroke="{INK}" stroke-width="1"/>'
+            f'<circle data-series="focal" data-value="{b:.4f}" cx="{xb}" cy="{yb}" r="{r}" fill="{c}" stroke="{edge(c)}" stroke-width="1"/>'
         )
         left, right = (a, b) if xa <= xb else (b, a)
         xl, xr = min(xa, xb), max(xa, xb)
@@ -393,23 +387,13 @@ def dumbbell(
         out.append(_t(L - 12, y + 12, sub, size=9, fill=MUTED, family=SANS, anchor="end"))
 
     keys = [
-        f'<circle cx="104" cy="493" r="5" {ref_style}/>',
+        f'<circle cx="104" cy="493" r="5" fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"/>',
         _t(116, 497, ref_name, size=9, family=SANS, fill=INK),
-        f'<circle cx="{132 + text_width(ref_name, 9) + 24:g}" cy="493" r="5" fill="{focal_fill}" stroke="{INK}" stroke-width="1"/>',
+        f'<circle cx="{132 + text_width(ref_name, 9) + 24:g}" cy="493" r="5" fill="{MUTED}" stroke="{MUTED}" stroke-width="1"/>',
         _t(132 + text_width(ref_name, 9) + 36, 497, focal_name, size=9, family=SANS, fill=INK),
     ]
     out.append(_legend(1000, 462, [], ""))
     out.extend(keys)
-    if row_ref_fill or row_focal_fill:
-        kx = int(132 + text_width(ref_name, 9) + 36 + text_width(focal_name, 9) + 40)
-        # Several rows can share one style (two Jev versions); key it once.
-        styles = [*(row_ref_fill or {}).values(), *(row_focal_fill or {}).values()]
-        for fill, label in dict.fromkeys(styles):
-            out.append(
-                f'<circle cx="{kx}" cy="493" r="5" fill="{fill}" stroke="{INK}" stroke-width="1"/>'
-            )
-            out.append(_t(kx + 12, 497, label, size=9, family=SANS, fill=INK))
-            kx += int(12 + text_width(label, 9) + 36)
     out.append(_t(970, 497, order_note, anchor="end"))
     return "\n".join(out)
 
@@ -540,518 +524,9 @@ def _stat(sdf: pd.DataFrame, inst: str, stat: str, persona: str, arm: str = "jev
     return float(sel["value"].iloc[0])
 
 
-def fig_jev_vs_people(sdf: pd.DataFrame, which: str, persona: str) -> Figure:
-    measures = DECISION_MEASURES if which == "decisions" else GAME_MEASURES
-    rows = [
-        (name, sub, BENCHMARKS[b].value, _stat(sdf, i, s, persona))
-        for i, s, b, name, sub in measures
-    ]
-    as_person = persona == "typical_human"
-    slug = f"jev-{which}-{'typical' if as_person else 'neutral'}"
-    focal = (
-        "Jev 1.13, told to answer like a typical person"
-        if as_person
-        else "Jev 1.13, no instruction"
-    )
-    tests = "seven decision-making tests" if which == "decisions" else "five economic games"
-    if as_person:
-        title = "Jev 1.13 vs. published human results, told to answer like a typical person"
-        subtitle = (
-            f"The same {tests} as the no-instruction chart, with this instruction added before each: "
-            f"\u201c{_prompt('typical_human')}\u201d"
-        )
-    elif which == "decisions":
-        title = f"Jev 1.13 vs. published human results: {tests}"
-        subtitle = (
-            "Classic problems from behavioural economics, asked with no instruction about how to answer. "
-            "Each row says what was asked and which answer is being counted; some rows count the correct "
-            "answer, others the typical human error. Jev's value is the probability it puts on that answer."
-        )
-    else:
-        title = f"Jev 1.13 vs. published human results: {tests}"
-        subtitle = (
-            "One-shot, anonymous games played for a hypothetical $10, asked with no instruction about how to "
-            "answer. Each row says what the player could do and what the number measures. Jev's value is the "
-            "expected share, or the probability of the choice, from its returned distribution."
-        )
-    body = dumbbell(
-        rows,
-        ref_name="Published human result",
-        focal_name=focal,
-        focal_fill=JEV_PROMPT if as_person else JEV_PINK,
-        axis_title="share of answers, or share of the money",
-        step=0.2,
-        fmt="{:.2f}",
-        domain=(0.0, 1.0),
-        order_note="ROWS IN BATTERY ORDER",
-    )
-    return Figure(
-        slug=slug,
-        eyebrow=f"{'Decision-making tests' if which == 'decisions' else 'Economic games'} · "
-        f"{'told to answer like a typical person' if as_person else 'no instruction'}",
-        title=title,
-        subtitle=subtitle,
-        desc=f"Dumbbell chart comparing Jev 1.13's answers{', told to answer like a typical person,' if as_person else ''} with published human results on {len(rows)} measures from {tests}.",
-        width=1000,
-        height=510,
-        body=body,
-        source="Jev: mean of the probability distributions returned over 10 repeats, run of 12–13 Oct 2026. "
-        "Human results: published studies or meta-analyses, listed in docs/BENCHMARKS.md; different people, "
-        "decades and stakes, so a gap of a few points is not meaningful. The base-rate human figure counts "
-        "Bayesian answers, a looser match to the band.",
-    )
-
-
-# A Jev condition as the dot chart draws it: persona, legend label, column head
-# and the circle's style. The plain typical-person prompt is a hollow ring in
-# the steered prompt's colour: the same instruction, minus one clause.
-SERIES = {"neutral": "neutral", "typical_human": "typical", "typical_human_plain": "plain"}
-NO_INSTRUCTION = (
-    "neutral",
-    "Jev 1.13, no instruction",
-    "NO INSTR.",
-    f'fill="{JEV_PINK}" stroke="{INK}" stroke-width="1"',
-)
-AS_PERSON = (
-    "typical_human",
-    "Jev 1.13, told to answer like a typical person",
-    "AS PERSON",
-    f'fill="{JEV_PROMPT}" stroke="{INK}" stroke-width="1"',
-)
-AS_PERSON_PLAIN = (
-    "typical_human_plain",
-    "Jev 1.13, same without \u2018not the textbook-correct answer\u2019",
-    "NO STEER",
-    f'fill="{PAPER}" stroke="{JEV_PROMPT}" stroke-width="2"',
-)
-
-
-def fig_jev_decisions(
-    sdf: pd.DataFrame,
-    first: tuple[str, str, str, str] = NO_INSTRUCTION,
-    second: tuple[str, str, str, str] = AS_PERSON,
-) -> Figure:
-    """Three series per row: people and two Jev conditions.
-
-    The dumbbell takes two series, so this is its dot-plot sibling: one hairline
-    spanning the three values, a tick for people and a dot for each Jev
-    condition, and the numbers in a table column at the right rather than
-    beside the dots, where three labels per row would collide. By default the
-    two conditions are no instruction and the typical-person prompt; the steer
-    figure compares the typical-person prompt with and without its steer.
-    """
-    rows = [
-        (
-            name,
-            sub,
-            BENCHMARKS[b].value,
-            _stat(sdf, i, s, first[0]),
-            _stat(sdf, i, s, second[0]),
-        )
-        for i, s, b, name, sub in DECISION_MEASURES
-    ]
-    n = len(rows)
-    pitch, y0 = ROW_LAYOUT[n]
-    L, R = 300, 820
-    cols = [(874, "PEOPLE"), (922, first[2]), (970, second[2])]
-
-    def px(v: float) -> float:
-        return L + v * (R - L)
-
-    out: list[str] = []
-    for i in range(6):
-        t = i * 0.2
-        x = px(t)
-        if i:
-            out.append(
-                f'<line x1="{x:g}" y1="56" x2="{x:g}" y2="408" stroke="{ink(0.08)}" stroke-width="0.8"/>'
-            )
-        out.append(
-            _t(x, 440, f"{t:.2f}", anchor="middle", extra=f' data-tick="x" data-value="{t:g}"')
-        )
-    out.append(f'<line x1="{L}" y1="40" x2="{L}" y2="420" stroke="{ink(0.25)}" stroke-width="1"/>')
-    out.append(
-        _t(
-            (L + R) / 2,
-            456,
-            "SHARE OF ANSWERS THAT ARE THE ONE NAMED UNDER EACH TEST",
-            size=7,
-            anchor="middle",
-            spacing="0.14em",
-        )
-    )
-    # Column heads are the series marks themselves, so the table needs no words.
-    hy = y0 - 30
-    out.append(
-        f'<line x1="{cols[0][0] - 8}" y1="{hy - 7}" x2="{cols[0][0] - 8}" y2="{hy + 7}" stroke="{MUTED}" stroke-width="2"/>'
-    )
-    out.append(f'<circle cx="{cols[1][0] - 8}" cy="{hy}" r="5" {first[3]}/>')
-    out.append(f'<circle cx="{cols[2][0] - 8}" cy="{hy}" r="5" {second[3]}/>')
-    for k, (name, sub, h, neu, typ) in enumerate(rows):
-        y = y0 + k * pitch
-        xh, xn, xt = px(h), px(neu), px(typ)
-        # Each Jev condition sits on its own line just above or below the row, joined
-        # to the people tick, so its hairline is its gap from people and no two
-        # dots can cover each other however close the values are.
-        for xv, dy in ((xn, -7), (xt, 7)):
-            out.append(
-                f'<line x1="{xh:.1f}" y1="{y + dy}" x2="{xv:.1f}" y2="{y + dy}" stroke="{ink(0.35)}" stroke-width="1"/>'
-            )
-        out.append(
-            f'<line data-series="people" data-value="{h:.4f}" x1="{xh:.1f}" y1="{y - 14}" x2="{xh:.1f}" y2="{y + 14}" stroke="{MUTED}" stroke-width="2"/>'
-        )
-        out.append(
-            f'<circle data-series="{SERIES[first[0]]}" data-value="{neu:.4f}" cx="{xn:.1f}" cy="{y - 7}" r="5" {first[3]}/>'
-        )
-        out.append(
-            f'<circle data-series="{SERIES[second[0]]}" data-value="{typ:.4f}" cx="{xt:.1f}" cy="{y + 7}" r="5" {second[3]}/>'
-        )
-        for (x, _h), v in zip(cols, (h, neu, typ), strict=True):
-            out.append(_t(x, y + 4, f"{v:.2f}", anchor="end", fill=INK))
-        out.append(
-            _t(L - 12, y - 1, name, size=11, fill=INK, family=SANS, anchor="end", weight=600)
-        )
-        out.append(_t(L - 12, y + 12, sub, size=9, fill=MUTED, family=SANS, anchor="end"))
-    out.append(_legend(1000, 462, []))
-    keys = [
-        ("Published human result", f'fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"'),
-        (first[1], first[3]),
-        (second[1], second[3]),
-    ]
-    x = 104
-    for i, (label, style) in enumerate(keys):
-        if i == 0:
-            out.append(
-                f'<line x1="{x}" y1="486" x2="{x}" y2="500" stroke="{MUTED}" stroke-width="2"/>'
-            )
-        else:
-            out.append(f'<circle cx="{x}" cy="493" r="5" {style}/>')
-        out.append(_t(x + 12, 497, label, size=9, family=SANS, fill=INK))
-        x += int(12 + text_width(label, 9) + 36)
-    out.append(_t(970, 497, "ROWS IN BATTERY ORDER", anchor="end"))
-    if first[0] == "neutral":
-        slug = "jev-decisions"
-        eyebrow = "Decision-making tests · Jev 1.13"
-        title = "Jev 1.13 vs. published human results on seven decision-making tests"
-        subtitle = (
-            "Classic problems from behavioural economics, each asked two ways: with no instruction, and with this "
-            f"instruction added first: \u201c{_prompt('typical_human')}\u201d Each row says what was asked and "
-            "which answer is counted; some rows count the correct answer, others the typical human error. Jev's "
-            "value is the probability it puts on that answer."
-        )
-        desc = "Dot chart of seven decision-making tests comparing the published human result with Jev 1.13 asked with no instruction and told to answer like a typical person."
-    else:
-        slug = "jev-steer"
-        eyebrow = "Decision-making tests · Jev 1.13 · the steer"
-        title = "How much of the move toward people comes from \u2018not the textbook-correct answer\u2019"
-        subtitle = (
-            "The typical-person instruction asks for a typical answer and also says \u201cnot the "
-            "textbook-correct answer\u201d. The plain version drops that clause: \u201c"
-            f"{_prompt('typical_human_plain')}\u201d Where the two dots differ, the clause, not the model's "
-            "picture of people, did part of the work."
-        )
-        desc = "Dot chart of seven decision-making tests comparing the published human result with Jev 1.13 under the typical-person instruction with and without the clause steering away from the textbook-correct answer."
-    return Figure(
-        slug=slug,
-        eyebrow=eyebrow,
-        title=title,
-        subtitle=subtitle,
-        desc=desc,
-        width=1000,
-        height=510,
-        body="\n".join(out),
-        source="Jev: mean of the probability distributions returned over 10 repeats, run of 12–13 Oct 2026. "
-        "Human results: published studies or meta-analyses, listed in docs/BENCHMARKS.md; different people, "
-        "decades and stakes, so a gap of a few points is not meaningful. The base-rate human figure counts "
-        "Bayesian answers, a looser match to the band.",
-    )
-
-
-def fig_antisocial(sdf: pd.DataFrame) -> Figure:
-    rows = [
-        (name, sub, _stat(sdf, i, s, "neutral"), _stat(sdf, i, s, "antisocial"))
-        for i, s, _b, name, sub in GAME_MEASURES
-    ]
-    dt_n = _stat(sdf, "dirty_dozen", "overall", "neutral")
-    dt_a = _stat(sdf, "dirty_dozen", "overall", "antisocial")
-    body = dumbbell(
-        rows,
-        ref_name="Jev 1.13, no instruction",
-        focal_name="Jev 1.13, antisocial persona",
-        ref_fill=JEV_PINK,
-        focal_fill=JEV_PROMPT,
-        axis_title="share of answers, or share of the money",
-        step=0.2,
-        domain=(0.0, 1.0),
-        order_note="ROWS IN BATTERY ORDER",
-    )
-    return Figure(
-        slug="persona-antisocial",
-        eyebrow="Economic games · antisocial persona",
-        title="Jev 1.13 in five economic games: no instruction vs. an antisocial persona",
-        subtitle=(
-            f"The same games, with this instruction added before each: \u201c{_prompt('antisocial')}\u201d "
-            f"As a check that the persona took hold, Jev's score on the Dark Triad questionnaire rose from "
-            f"{dt_n:.1f} to {dt_a:.1f} out of 9."
-        ),
-        desc="Dumbbell chart of Jev 1.13's choices in five economic games with no instruction and with an antisocial persona.",
-        width=1000,
-        height=510,
-        body=body,
-        source="Mean of returned distributions over 10 repeats, run of 12–13 Oct 2026. The persona is a prompt: it shows "
-        "what the model can be made to output, not a trait it has.",
-    )
-
-
-def fig_dictator(df: pd.DataFrame) -> Figure:
-    """People's full distribution of giving next to Jev's, one pair of bars per dollar.
-
-    Eleven categories breaks the bar type's eight-bar cap on purpose: pooling
-    $6 to $10, as an earlier version did, hid the 5% of people who give
-    everything, which is part of why the human distribution has three modes.
-    """
-    from .analysis import distributions
-    from .benchmarks import DICTATOR_HUMAN_DISTRIBUTION, DICTATOR_HUMAN_SOURCE
-
-    d = distributions(df).get(("dictator_allocation", "neutral", "jev"), {})
-    amounts = [f"${v}" for v in range(11)]
-    jev = [d.get(a, 0.0) for a in amounts]
-    people = [DICTATOR_HUMAN_DISTRIBUTION[a] for a in amounts]
-    ceil = 0.7
-
-    def y(v: float) -> float:
-        return 420 - v / ceil * 380
-
-    left, right = 80, 960
-    pitch = (right - left) / len(amounts)
-    bar, gap = 30, 2
-    out: list[str] = []
-    for i in range(8):
-        t = i * 0.1
-        if i:
-            out.append(
-                f'<line x1="{left}" y1="{y(t):g}" x2="{right}" y2="{y(t):g}" stroke="{ink(0.08)}" stroke-width="0.8"/>'
-            )
-        out.append(
-            _t(
-                left - 8,
-                y(t) + 3,
-                f"{t:.0%}",
-                anchor="end",
-                extra=f' data-tick="y" data-value="{t:g}"',
-            )
-        )
-    out.append(
-        f'<line x1="{left}" y1="420" x2="{right}" y2="420" stroke="{ink(0.25)}" stroke-width="1"/>'
-    )
-    out.append(
-        f'<line x1="{left}" y1="40" x2="{left}" y2="420" stroke="{ink(0.25)}" stroke-width="1"/>'
-    )
-    for i, a in enumerate(amounts):
-        cx = left + pitch * (i + 0.5)
-        for series, v, bx, style in (
-            ("people", people[i], cx - bar - gap / 2, f'fill="{muted(0.18)}" stroke="{MUTED}"'),
-            (
-                "jev",
-                jev[i],
-                cx + gap / 2,
-                f'fill="{JEV_PINK}" fill-opacity="0.75" stroke="{JEV_PINK_EDGE}"',
-            ),
-        ):
-            by = y(v)
-            out.append(
-                f'<rect x="{bx:.1f}" y="{by:.1f}" width="{bar}" height="{420 - by:.1f}" fill="{PAPER}"/>'
-            )
-            out.append(
-                f'<rect data-series="{series}" data-value="{v:.4f}" x="{bx:.1f}" y="{by:.1f}" width="{bar}" '
-                f'height="{420 - by:.1f}" {style} stroke-width="1"/>'
-            )
-            out.append(
-                _t(
-                    bx + bar / 2,
-                    by - 5,
-                    f"{v * 100:.0f}",
-                    size=7.5,
-                    anchor="middle",
-                    fill=INK,
-                    halo=True,
-                )
-            )
-        out.append(_t(cx, 440, a, size=11, family=SANS, fill=INK, anchor="middle", weight=600))
-    out.append(
-        _t(
-            24,
-            230,
-            "SHARE OF DICTATORS / OF JEV'S PROBABILITY",
-            size=7,
-            spacing="0.14em",
-            anchor="middle",
-            extra=' transform="rotate(-90 24 230)"',
-        )
-    )
-    out.append(
-        _t(
-            (left + right) / 2,
-            458,
-            "AMOUNT GIVEN TO THE STRANGER, OUT OF $10",
-            size=7,
-            spacing="0.14em",
-            anchor="middle",
-        )
-    )
-    out.append(_legend(1000, 470, []))
-    out.append(
-        f'<rect x="104" y="496" width="16" height="10" rx="2" fill="{muted(0.18)}" stroke="{MUTED}" stroke-width="1"/>'
-    )
-    out.append(
-        _t(
-            128,
-            505,
-            "People: share of 20,813 dictators in 328 treatments",
-            size=9,
-            family=SANS,
-            fill=INK,
-        )
-    )
-    kx = int(128 + text_width("People: share of 20,813 dictators in 328 treatments", 9) + 40)
-    out.append(
-        f'<rect x="{kx}" y="496" width="16" height="10" rx="2" fill="{JEV_PINK}" fill-opacity="0.75" stroke="{JEV_PINK_EDGE}" stroke-width="1"/>'
-    )
-    out.append(
-        _t(
-            kx + 24,
-            505,
-            "Jev 1.13, no instruction: probability it returns",
-            size=9,
-            family=SANS,
-            fill=INK,
-        )
-    )
-    out.append(_t(970, 524, "NUMBERS ABOVE BARS ARE PERCENT", anchor="end"))
-    return Figure(
-        slug="dictator-distribution",
-        eyebrow="Dictator game · no instruction",
-        title="How much people and Jev 1.13 give away in the dictator game",
-        subtitle=(
-            "The game: you are given $10 and decide how much to give an anonymous stranger, who cannot respond. "
-            "People mostly give nothing (36%) or half (17%), and 5% give it all. Jev returns a probability for "
-            f"every amount in a single call: it puts {jev[0]:.0%} on nothing and {jev[5]:.0%} on half, and "
-            f"{jev[10]:.0%} on giving everything. A chat model would have to be asked many times to estimate a "
-            "shape like this."
-        ),
-        desc="Grouped bar chart comparing the distribution of amounts people give in the dictator game with the probabilities Jev 1.13 returns for each amount from zero to ten dollars.",
-        width=1000,
-        height=540,
-        body="\n".join(out),
-        source=f"People: {DICTATOR_HUMAN_SOURCE}, bars read from the figure's labels. Jev: mean of 10 returned "
-        "distributions, no instruction, run of 12–13 Oct 2026.",
-    )
-
-
-def fig_order_effects(odf: pd.DataFrame) -> Figure:
-    """Shuffled multiple-choice cells against the unshuffled floor, as shares of each group."""
-    edges = [0.0, 0.025, 0.05, 0.10, 0.15, 0.20]
-    names = ["< 0.025", "0.025–0.05", "0.05–0.10", "0.10–0.15", "0.15–0.20", "≥ 0.20"]
-
-    def shares(tv: pd.Series) -> list[float]:
-        n = len(tv)
-        bands = [((tv >= lo) & (tv < hi)).sum() for lo, hi in itertools.pairwise(edges)]
-        bands.append((tv >= edges[-1]).sum())
-        return [float(b) / n for b in bands]
-
-    sh = odf[odf["shuffled"]]["mean_tv_distance"]
-    un = odf[~odf["shuffled"]]["mean_tv_distance"]
-    s_sh, s_un = shares(sh), shares(un)
-    ceil = 0.6
-
-    def y(v: float) -> float:
-        return 420 - v / ceil * 380
-
-    pitch, bar, gap = 140, 48, 4
-    x0 = 80 + (880 - pitch * len(names)) / 2
-    out: list[str] = []
-    for t in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6]:
-        if t:
-            out.append(
-                f'<line x1="80" y1="{y(t):g}" x2="960" y2="{y(t):g}" stroke="{ink(0.08)}" stroke-width="0.8"/>'
-            )
-        out.append(
-            _t(72, y(t) + 3, f"{t:.0%}", anchor="end", extra=f' data-tick="y" data-value="{t:g}"')
-        )
-    out.append(f'<line x1="80" y1="420" x2="960" y2="420" stroke="{ink(0.25)}" stroke-width="1"/>')
-    out.append(f'<line x1="80" y1="40" x2="80" y2="420" stroke="{ink(0.25)}" stroke-width="1"/>')
-    for i, name in enumerate(names):
-        cx = x0 + i * pitch + pitch / 2
-        for v, bx, fill, stroke, label_fill in (
-            (s_sh[i], cx - bar - gap / 2, accent(0.12), ACCENT, ACCENT),
-            (s_un[i], cx + gap / 2, muted(0.15), MUTED, MUTED),
-        ):
-            by = y(v)
-            out.append(
-                f'<rect x="{bx:g}" y="{by:.1f}" width="{bar}" height="{420 - by:.1f}" fill="{PAPER}"/>'
-            )
-            out.append(
-                f'<rect data-value="{v:.4f}" x="{bx:g}" y="{by:.1f}" width="{bar}" height="{420 - by:.1f}" '
-                f'fill="{fill}" stroke="{stroke}" stroke-width="1"/>'
-            )
-            out.append(
-                _t(bx + bar / 2, by - 6, f"{v:.0%}", anchor="middle", fill=label_fill, halo=True)
-            )
-        out.append(_t(cx, 440, name, size=11, family=SANS, fill=INK, anchor="middle", weight=600))
-    out.append(
-        _t(
-            24,
-            230,
-            "SHARE OF CELLS IN EACH GROUP",
-            size=7,
-            spacing="0.14em",
-            anchor="middle",
-            extra=' transform="rotate(-90 24 230)"',
-        )
-    )
-    out.append(
-        _t(
-            520,
-            458,
-            "HOW MUCH THE ANSWER DISTRIBUTION CHANGED BETWEEN REPEATS",
-            size=7,
-            spacing="0.14em",
-            anchor="middle",
-        )
-    )
-    out.append(_legend(1000, 470, []))
-    k1 = f"Multiple-choice, options shuffled ({len(sh)} cells, mean {sh.mean():.3f})"
-    k2 = f"Likert and yes/no, never shuffled ({len(un)} cells, mean {un.mean():.3f})"
-    out.append(
-        f'<rect x="104" y="496" width="16" height="10" rx="2" fill="{accent(0.12)}" stroke="{ACCENT}" stroke-width="1"/>'
-    )
-    out.append(_t(128, 505, k1, size=9, family=SANS, fill=INK))
-    x2 = 128 + text_width(k1, 9) + 40
-    out.append(
-        f'<rect x="{x2:g}" y="496" width="16" height="10" rx="2" fill="{muted(0.15)}" stroke="{MUTED}" stroke-width="1"/>'
-    )
-    out.append(_t(x2 + 24, 505, k2, size=9, family=SANS, fill=INK))
-    return Figure(
-        slug="order-effects",
-        eyebrow="Option order · all five prompts",
-        title="How much Jev 1.13's answers change when the order of the options is shuffled",
-        subtitle=(
-            "Each item was asked 10 times. For multiple-choice items the options were put in a new random order "
-            "every time; Likert and yes/no items were left as they were, so they show how much the answers vary "
-            "with nothing changed. The measure is total-variation distance between two answer distributions: "
-            "0 means identical, 1 means no overlap at all."
-        ),
-        desc="Grouped bar chart comparing how much Jev 1.13's answers changed between repeats for multiple-choice items with shuffled options and for unshuffled Likert and yes/no items.",
-        width=1000,
-        height=520,
-        body="\n".join(out),
-        source="Mean distance over all pairs of the 10 repeats, per item and prompt; run of 12–13 Oct 2026. "
-        "Bands are unequal: finer near zero, where most cells sit.",
-    )
-
-
 SHORT = {
     "typesafe/jev-1.13-20260917": "Jev 1.13",
+    "typesafe/jev-1.14.0": "Jev 1.14",
     "openai/gpt-6-luna-decisions-20261006": "GPT-6 Luna Decisions",
     "microsoft/microsoft-decision-1-20261009": "Microsoft-Decision-1",
     "perplexity/pplx-decider-v1.1-27b-20261006": "Decider v1.1 27B",
@@ -1230,7 +705,7 @@ def _runs_when(run_files: dict[str, str] | None, models: list[str]) -> str:
 
     if not run_files:
         return "All models run 12\u201313 Oct 2026."
-    started = {m: run_files[m][9:17] for m in models if m in run_files}
+    started = {m: Path(run_files[m]).name[9:17] for m in models if m in run_files}
     later: dict[str, list[str]] = {}
     for m, d in started.items():
         if d != "20261012":
@@ -1243,6 +718,20 @@ def _runs_when(run_files: dict[str, str] | None, models: list[str]) -> str:
         joined = ", ".join(names[:-1]) + " and " + names[-1] if len(names) > 1 else names[0]
         parts.append(f"{joined} on {x.day} {x:%b %Y}")
     return f"Models run 12\u201313 Oct 2026, except {'; '.join(parts)}."
+
+
+def _route(models: list[str]) -> str:
+    """Which models were not served through OpenRouter, for the source lines."""
+    return (
+        "Jev 1.14 was called through TypeSafe's API directly, the rest through OpenRouter. "
+        if JEV_114_ID in models
+        else ""
+    )
+
+
+def _main_when(run_files: dict[str, str] | None) -> str:
+    models = [m for m, _c in MAIN_MODELS]
+    return f"{_runs_when(run_files, models)} {_route(models)}".strip()
 
 
 def fig_models_scatter(fdf: pd.DataFrame, run_files: dict[str, str] | None = None) -> Figure:
@@ -1369,7 +858,7 @@ def fig_models_scatter(fdf: pd.DataFrame, run_files: dict[str, str] | None = Non
         elif typ != "System One":
             mark = f'fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"'
         else:
-            mark = f'fill="{muted(0.20)}" stroke="{MUTED}" stroke-width="1"'
+            mark = f'fill="{OTHER_MODEL}" stroke="{OTHER_MODEL}" stroke-width="1"'
         if name == focal_name:
             out.append(
                 f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="10" fill="none" stroke="{INK}" stroke-width="1.5"/>'
@@ -1426,18 +915,21 @@ def fig_models_scatter(fdf: pd.DataFrame, run_files: dict[str, str] | None = Non
     ly0 = bottom + 50
     out.append(_legend(1000, ly0, []))
     ky = ly0 + 31
+    # Two key lines: the main models by name, then everything else.
+    x: float = 104
+    for model, colour in MAIN_MODELS:
+        x = _model_key(out, x, ky, model, colour) - 4
+    ky += 22
     out.append(
-        f'<circle cx="104" cy="{ky}" r="5" fill="{muted(0.20)}" stroke="{MUTED}" stroke-width="1"/>'
+        f'<circle cx="104" cy="{ky}" r="5" fill="{OTHER_MODEL}" stroke="{OTHER_MODEL}" stroke-width="1"/>'
     )
-    out.append(_t(116, ky + 4, "System One model", size=9, family=SANS, fill=INK))
-    x = 116 + text_width("System One model", 9) + 30
+    out.append(_t(116, ky + 4, "Other System One model", size=9, family=SANS, fill=INK))
+    x = 116 + text_width("Other System One model", 9) + 30
     out.append(
         f'<circle cx="{x:g}" cy="{ky}" r="5" fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"/>'
     )
     out.append(_t(x + 12, ky + 4, "Chat model, resampled", size=9, family=SANS, fill=INK))
     x += 12 + text_width("Chat model, resampled", 9) + 30
-    for model, colour in MAIN_MODELS:
-        x = _model_key(out, x, ky, model, colour) - 4
     out.append(
         f'<circle cx="{x:g}" cy="{ky}" r="5" fill="{ANTHROPIC_ORANGE}" stroke="{INK}" stroke-width="1"/>'
     )
@@ -1460,10 +952,11 @@ def fig_models_scatter(fdf: pd.DataFrame, run_files: dict[str, str] | None = Non
         desc=f"Scatter of {_count(len(pts))} models' mean distance from human values answering neutrally versus as a "
         f"typical person; {len([p for p in pts if p[2] < p[1]])} fall below the no-change line.",
         width=1000,
-        height=ly0 + 50,
+        height=ly0 + 72 + (22 if focal_note else 0),
         body="\n".join(out),
         source="Axes zoomed to the data: 0.15–0.55 across, 0.05–0.35 up, not from zero. "
-        f"{_runs_when(run_files, sorted(set(fdf['model'].astype(str))))} 14 probability-scale measures (each "
+        f"{_runs_when(run_files, sorted(set(fdf['model'].astype(str))))} "
+        f"{_route(sorted(set(fdf['model'].astype(str))))}14 probability-scale measures (each "
         "0–1), 10 replicates or samples per cell. Distance alone is not a ranking: see the framing figure.",
     )
 
@@ -1488,8 +981,8 @@ def fig_framing(mdf: pd.DataFrame, run_files: dict[str, str] | None = None) -> F
         )
         * 100
     )
-    # Eight rows fit: Jev, and the seven System One models with the largest swing
-    # under either prompt. The rest, and the chat models, go in the source line.
+    # Eight rows fit: both Jev versions, and the six other System One models with
+    # the largest swing under either prompt. The rest, and the chat models, go in the source line.
     system_one = [m for m in mdf.columns if m in SHORT and "anthropic" not in m]
     jev = [m for m in system_one if m.startswith("typesafe/")]
     others = sorted(
@@ -1513,8 +1006,7 @@ def fig_framing(mdf: pd.DataFrame, run_files: dict[str, str] | None = None) -> F
         rows,
         ref_name="No instruction",
         focal_name="Told to answer like a typical person",
-        row_ref_fill={"Jev 1.13": (JEV_PINK, "Jev 1.13, no instruction")},
-        row_focal_fill={"Jev 1.13": (JEV_PROMPT, "Jev 1.13, told")},
+        row_colour={SHORT[m]: model_colour(m) for m in keep},
         axis_title="gain-frame minus loss-frame rate of picking the sure option, in points",
         step=20,
         fmt="{:.0f}",
@@ -1844,28 +1336,42 @@ def fig_health(run_files: dict[str, str] | None = None) -> Figure:
 
 # -- main charts, several models ------------------------------------------------
 
-# The models the README's main charts carry, each in its own colour. Jev keeps
-# its hot pink; the others are dark enough to read on paper and far enough apart
-# in hue to tell apart at a dot's size. Everything else is in the scatter and
-# docs/MODELS.md.
+# The models the README's main charts carry, each in its own colour and shape:
+# both Jev versions, newest first, then the three other System One models the
+# comparison started with. Everything else is in the scatter and docs/MODELS.md.
+JEV_113 = "typesafe/jev-1.13-20260917"
+JEV_114_ID = "typesafe/jev-1.14.0"
 MAIN_MODELS = [
-    ("typesafe/jev-1.13-20260917", JEV_PINK),
+    (JEV_114_ID, JEV_114),
+    (JEV_113, JEV_PINK),
     ("openai/gpt-6-luna-decisions-20261006", "#2e5aa8"),
     ("cloudflare/clef", "#8e7c0b"),
     ("liquid/d1-20260930", "#7911d4"),
 ]
-# Colours chosen by search, not by eye: under normal vision and simulated
-# deuteranopia, protanopia and tritanopia, every pair among these, people's
-# slate, the teal accent and Jev's magenta stays at least 28 CIELAB units apart
-# (the old blue and violet were 5 apart for protanopes). None is teal, which
-# elsewhere means "told to answer like a typical person". Each model also has
-# its own shape, so identity never rests on colour alone.
+# Checked with the dataviz palette validator on paper: every pair clears the
+# normal-vision floor; the closest pair for colour-blind readers (d1's violet
+# and GPT-6's blue, 6.8 for deuteranopes) is in the band that is legal only
+# with a second encoding, which the shapes are. None is teal or slate.
 MAIN_SHAPES = {
-    "typesafe/jev-1.13-20260917": "circle",
+    JEV_114_ID: "hexagon",
+    JEV_113: "circle",
     "openai/gpt-6-luna-decisions-20261006": "square",
     "cloudflare/clef": "diamond",
     "liquid/d1-20260930": "triangle",
 }
+# Every other System One model shares one sienna: not slate (people), not teal,
+# and none of the main five's colours; the validator finds no failing pair.
+OTHER_MODEL = "#a0522d"
+
+
+def model_colour(model: str) -> str:
+    """A model's colour in every chart: its own if it is one of the main five."""
+    return dict(MAIN_MODELS).get(model, OTHER_MODEL)
+
+
+def edge(colour: str) -> str:
+    """The stroke for a mark of this colour: Jev 1.13's pink is too light to be its own."""
+    return JEV_PINK_EDGE if colour == JEV_PINK else colour
 
 
 def _mark(shape: str, x: float, y: float, r: float, attrs: str, title: str = "") -> str:
@@ -1901,6 +1407,13 @@ def _mark(shape: str, x: float, y: float, r: float, attrs: str, title: str = "")
                 f'L{x - t * 0.9:.1f} {y + t * 0.6:.1f} Z"'
             ),
         )
+    elif shape == "hexagon":
+        h = r * 1.2
+        pts = " ".join(
+            f"{x + h * math.cos(math.radians(a)):.1f},{y + h * math.sin(math.radians(a)):.1f}"
+            for a in range(30, 390, 60)
+        )
+        tag, geo = "polygon", f'points="{pts}"'
     else:
         raise ValueError(f"unknown marker shape {shape!r}")
     if title:
@@ -1909,8 +1422,7 @@ def _mark(shape: str, x: float, y: float, r: float, attrs: str, title: str = "")
 
 
 def _model_style(model: str, colour: str) -> str:
-    edge = INK if colour == JEV_PINK else colour
-    return f'fill="{colour}" stroke="{edge}" stroke-width="1"'
+    return f'fill="{colour}" stroke="{edge(colour)}" stroke-width="1"'
 
 
 def _mstat(cdf: pd.DataFrame, inst: str, stat: str, persona: str, model: str) -> float:
@@ -1947,7 +1459,9 @@ def _model_dots(
     pitch, y0 = 52, 96
     spans = [(312, 612), (648, 948)][: len(panels)]
     panel_names = {key: header.lower() for key, header in panels}
-    offsets = [-10.5, -3.5, 3.5, 10.5]
+    # One line per model inside the row, top to bottom in legend order.
+    k = len(MAIN_MODELS)
+    offsets = [(i - (k - 1) / 2) * 6 for i in range(k)]
     last = y0 + (n - 1) * pitch
     out: list[str] = []
     for (key, header), (a, b) in zip(panels, spans, strict=True):
@@ -2019,17 +1533,23 @@ def _model_dots(
     return "\n".join(out)
 
 
-def _models_source(cdf: pd.DataFrame) -> str:
-    """The four-model charts' source line; the rest of the comparison is counted, not assumed."""
+# How the main charts name their models: both Jev versions, then the rest.
+MAIN_WHO = "Jev 1.14, Jev 1.13 and three other System One models"
+
+
+def _models_source(cdf: pd.DataFrame, run_files: dict[str, str] | None = None) -> str:
+    """The main charts' source line; the rest of the comparison is counted, not assumed."""
     more = cdf["model"].nunique() - len(MAIN_MODELS)
     return (
-        "Each model: mean of the probability distributions returned over 10 repeats. All models run 12–13 Oct "
-        "2026. Human results: published studies or meta-analyses, listed in docs/BENCHMARKS.md. "
+        f"Each model: mean of the probability distributions returned over 10 repeats. {_main_when(run_files)} "
+        "Human results: published studies or meta-analyses, listed in docs/BENCHMARKS.md. "
         f"{_count(more).capitalize()} more models are in the scatter and docs/MODELS.md."
     )
 
 
-def fig_models_tests(cdf: pd.DataFrame, which: str) -> Figure:
+def fig_models_tests(
+    cdf: pd.DataFrame, which: str, run_files: dict[str, str] | None = None
+) -> Figure:
     measures = DECISION_MEASURES if which == "decisions" else GAME_MEASURES
     panels = [
         ("neutral", "NO INSTRUCTION"),
@@ -2046,13 +1566,13 @@ def fig_models_tests(cdf: pd.DataFrame, which: str) -> Figure:
     ]
     names = ", ".join(SHORT[m] for m, _c in MAIN_MODELS[:-1]) + f" and {SHORT[MAIN_MODELS[-1][0]]}"
     if which == "decisions":
-        title = "Four System One models vs. published human results on seven decision-making tests"
+        title = f"{MAIN_WHO} vs. people on seven decision-making tests"
         what = (
             "Classic problems from behavioural economics. Each row says what was asked and which answer is "
             "counted; some rows count the correct answer, others the typical human error."
         )
     else:
-        title = "Four System One models vs. published human results in five economic games"
+        title = f"{MAIN_WHO} vs. people in five economic games"
         what = (
             "One-shot, anonymous games for a hypothetical $10. Each row says what the player could do and what "
             "the number measures."
@@ -2072,8 +1592,8 @@ def fig_models_tests(cdf: pd.DataFrame, which: str) -> Figure:
         ]
         return Figure(
             slug="models-games",
-            eyebrow="Economic games · four models",
-            title="Four System One models in economic games, before and after being told to answer like a person",
+            eyebrow=f"Economic games · {_count(len(MAIN_MODELS))} models",
+            title="Five economic games, before and after being told to answer like a person",
             subtitle=(
                 f"{what} Each line runs from a model's choice with no instruction (hollow) to its choice "
                 f"(filled) with this instruction added first: \u201c{_prompt('typical_human')}\u201d The tick "
@@ -2089,11 +1609,12 @@ def fig_models_tests(cdf: pd.DataFrame, which: str) -> Figure:
                 "SHARE OF ANSWERS, OR SHARE OF THE MONEY",
                 ("typical_human", "told to answer like a typical person"),
             ),
-            source=_models_source(cdf),
+            source=_models_source(cdf, run_files),
         )
     return Figure(
         slug=f"models-{which}",
-        eyebrow=f"{'Decision-making tests' if which == 'decisions' else 'Economic games'} · four models",
+        eyebrow=f"{'Decision-making tests' if which == 'decisions' else 'Economic games'} · "
+        f"{_count(len(MAIN_MODELS))} models",
         title=title,
         subtitle=(
             f"{what} Left, asked with no instruction; right, with this instruction added first: "
@@ -2105,7 +1626,7 @@ def fig_models_tests(cdf: pd.DataFrame, which: str) -> Figure:
         width=1000,
         height=y_end(len(rows)),
         body=_model_dots(rows, panels, "SHARE OF ANSWERS, OR SHARE OF THE MONEY"),
-        source=_models_source(cdf),
+        source=_models_source(cdf, run_files),
     )
 
 
@@ -2118,6 +1639,8 @@ def _model_shift_grid(
     rows: list[tuple[str, str, float, dict[str, tuple[float, float]]]],
     axis_title: str,
     to: tuple[str, str] = ("antisocial", "antisocial persona"),
+    models: list[tuple[str, str]] | None = None,
+    start: tuple[str, str] = ("neutral", "No instruction"),
 ) -> str:
     """Small multiples: one column per model, one row per test.
 
@@ -2126,21 +1649,31 @@ def _model_shift_grid(
     for people. Read down a column for one model, across a row for one test;
     no line ever has to be matched between panels.
     """
+    models = models or MAIN_MODELS
     n = len(rows)
     pitch, y0 = 52, 96
-    w, gap, x_start = 128, 46, 320
+    # The columns share the plot width: 128 wide with 46 between for up to
+    # four models, narrower for five.
+    x_start = 320
+    w, gap = {1: (280, 60), 2: (280, 60), 3: (180, 50), 4: (128, 46)}.get(len(models), (104, 26))
     last = y0 + (n - 1) * pitch
     out: list[str] = []
-    for c, (model, colour) in enumerate(MAIN_MODELS):
+    for c, (model, colour) in enumerate(models):
         a = x_start + c * (w + gap)
         shape = MAIN_SHAPES[model]
         name = SHORT[model]
         out.append(_mark(shape, a + 5, 48, 4.5, _model_style(model, colour)))
-        out.append(_t(a + 16, 52, name, size=11, family=SANS, fill=INK, weight=600))
+        # A name wider than its column goes on two lines.
+        if text_width(name, 10) + 14 > w + gap - 8 and " " in name:
+            head, tail = name.rsplit(" ", 1)
+            out.append(_t(a + 14, 52, head, size=10, family=SANS, fill=INK, weight=600))
+            out.append(_t(a + 14, 64, tail, size=10, family=SANS, fill=INK, weight=600))
+        else:
+            out.append(_t(a + 14, 52, name, size=10, family=SANS, fill=INK, weight=600))
         for t in (0.0, 0.5, 1.0):
             x = a + t * w
             out.append(
-                f'<line x1="{x:g}" y1="68" x2="{x:g}" y2="{last + 22}" stroke="{ink(0.25 if t == 0 else 0.08)}" stroke-width="{1 if t == 0 else 0.8}"/>'
+                f'<line x1="{x:g}" y1="72" x2="{x:g}" y2="{last + 22}" stroke="{ink(0.25 if t == 0 else 0.08)}" stroke-width="{1 if t == 0 else 0.8}"/>'
             )
             out.append(
                 _t(
@@ -2162,7 +1695,7 @@ def _model_shift_grid(
             if abs(xa - xb) > 9:
                 step = 7 if xa > xb else -7
                 out.append(
-                    f'<line x1="{xb:.1f}" y1="{y}" x2="{xa - step:.1f}" y2="{y}" stroke="{colour if colour != JEV_PINK else JEV_PINK_EDGE}" stroke-width="1.5"/>'
+                    f'<line x1="{xb:.1f}" y1="{y}" x2="{xa - step:.1f}" y2="{y}" stroke="{edge(colour)}" stroke-width="1.5"/>'
                 )
             out.append(
                 _mark(
@@ -2170,9 +1703,9 @@ def _model_shift_grid(
                     xb,
                     y,
                     4,
-                    f'data-series="{esc(name)}" data-panel="neutral" data-value="{before:.4f}" '
-                    f'fill="{PAPER}" stroke="{colour if colour != JEV_PINK else JEV_PINK_EDGE}" stroke-width="1.5"',
-                    title=f"{name} · no instruction · {before:.2f} (people {human:.2f})",
+                    f'data-series="{esc(name)}" data-panel="{start[0]}" data-value="{before:.4f}" '
+                    f'fill="{PAPER}" stroke="{edge(colour)}" stroke-width="1.5"',
+                    title=f"{name} · {start[1].lower()} · {before:.2f} (people {human:.2f})",
                 )
             )
             out.append(
@@ -2190,7 +1723,7 @@ def _model_shift_grid(
         y = y0 + k * pitch
         out.append(_t(296, y - 1, name, size=11, fill=INK, family=SANS, anchor="end", weight=600))
         out.append(_t(296, y + 12, sub, size=9, fill=MUTED, family=SANS, anchor="end"))
-    right = x_start + 3 * (w + gap) + w
+    right = x_start + (len(models) - 1) * (w + gap) + w
     out.append(
         _t((x_start + right) / 2, last + 54, axis_title, size=7, anchor="middle", spacing="0.14em")
     )
@@ -2205,8 +1738,8 @@ def _model_shift_grid(
     out.append(
         f'<circle cx="{x}" cy="{ly + 31}" r="4" fill="{PAPER}" stroke="{MUTED}" stroke-width="1.5"/>'
     )
-    out.append(_t(x + 10, ly + 35, "No instruction", size=9, family=SANS, fill=INK))
-    x += 10 + text_width("No instruction", 9) + 40
+    out.append(_t(x + 10, ly + 35, start[1], size=9, family=SANS, fill=INK))
+    x += 10 + text_width(start[1], 9) + 40
     out.append(
         f'<circle cx="{x}" cy="{ly + 31}" r="4.5" fill="{MUTED}" stroke="{MUTED}" stroke-width="1"/>'
     )
@@ -2224,7 +1757,7 @@ def _model_shift_grid(
     return "\n".join(out)
 
 
-def fig_models_antisocial(cdf: pd.DataFrame) -> Figure:
+def fig_models_antisocial(cdf: pd.DataFrame, run_files: dict[str, str] | None = None) -> Figure:
     rows = [
         (
             name,
@@ -2244,8 +1777,8 @@ def fig_models_antisocial(cdf: pd.DataFrame) -> Figure:
     )
     return Figure(
         slug="models-antisocial",
-        eyebrow="Economic games · antisocial persona · four models",
-        title="What an antisocial persona does to four System One models\u2019 choices in economic games",
+        eyebrow=f"Economic games · antisocial persona · {_count(len(MAIN_MODELS))} models",
+        title="What an antisocial persona does to choices in five economic games",
         subtitle=(
             f"Each line runs from a model's choice with no instruction (hollow) to its choice (filled) with this instruction "
             f"added first: \u201c{_prompt('antisocial')}\u201d As a check that the persona took hold, the Dark "
@@ -2257,13 +1790,61 @@ def fig_models_antisocial(cdf: pd.DataFrame) -> Figure:
         width=1000,
         height=y_end(len(rows)),
         body=_model_shift_grid(rows, "SHARE OF ANSWERS, OR SHARE OF THE MONEY"),
-        source="Mean of returned distributions over 10 repeats; all models run 12\u201313 Oct 2026. The tick is "
+        source=f"Mean of returned distributions over 10 repeats. {_main_when(run_files)} The tick is "
         "people with no persona, for scale. A persona is a prompt: it shows what a model can be made to output, "
         "not a trait it has.",
     )
 
 
-def fig_models_dictator(runs: dict[str, pd.DataFrame]) -> Figure:
+def fig_jev_steer(cdf: pd.DataFrame, run_files: dict[str, str] | None = None) -> Figure:
+    """Both Jev versions under the typical-person prompt, without and with its steer."""
+    jevs = [(m, c) for m, c in MAIN_MODELS if m.startswith("typesafe/")]
+    rows = [
+        (
+            name,
+            sub,
+            BENCHMARKS[b].value,
+            {
+                m: (
+                    _mstat(cdf, i, s, "typical_human_plain", m),
+                    _mstat(cdf, i, s, "typical_human", m),
+                )
+                for m, _c in jevs
+            },
+        )
+        for i, s, b, name, sub in DECISION_MEASURES
+    ]
+    return Figure(
+        slug="jev-steer",
+        eyebrow="Decision-making tests · Jev 1.14 and 1.13 · the steer",
+        title="How much of the move toward people comes from \u2018not the textbook-correct answer\u2019",
+        subtitle=(
+            "The typical-person instruction asks for a typical answer and also says \u201cnot the "
+            "textbook-correct answer\u201d. Hollow: Jev's answer to the plain version, which drops that clause: "
+            f"\u201c{_prompt('typical_human_plain')}\u201d Filled: its answer with the clause. A long line means "
+            "the clause, not the model's picture of people, did the work."
+        ),
+        desc="Small multiples, one column per Jev version and one row per decision-making test, each a line "
+        "from the value under the plain typical-person instruction to the value with the clause steering away "
+        "from the textbook-correct answer, over the published human result.",
+        width=1000,
+        height=y_end(len(rows)),
+        body=_model_shift_grid(
+            rows,
+            "SHARE OF ANSWERS THAT ARE THE ONE NAMED UNDER EACH TEST",
+            ("typical_human", "with \u2018not the textbook-correct answer\u2019"),
+            models=jevs,
+            start=("typical_human_plain", "Plain typical-person instruction"),
+        ),
+        source="Each version: mean of the probability distributions returned over 10 repeats. "
+        f"{_runs_when(run_files, [m for m, _c in jevs])} {_route([m for m, _c in jevs])}"
+        "Human results: published studies or meta-analyses, listed in docs/BENCHMARKS.md.",
+    )
+
+
+def fig_models_dictator(
+    runs: dict[str, pd.DataFrame], run_files: dict[str, str] | None = None
+) -> Figure:
     """People's distribution of giving behind each model's, one small panel per model."""
     from .analysis import distributions
     from .benchmarks import DICTATOR_HUMAN_DISTRIBUTION, DICTATOR_HUMAN_SOURCE
@@ -2281,8 +1862,9 @@ def fig_models_dictator(runs: dict[str, pd.DataFrame]) -> Figure:
     # The scale ends just above the tallest bar, so no panel carries an empty
     # band above its top gridline; gridlines stay on round 20s.
     ceil = max(0.4, top + 0.04)
-    cells = [(70, 60), (550, 60), (70, 280), (550, 280)]
-    w, h = 400, 150
+    # Three panels to a row; two rows hold the five models.
+    cells = [(70 + 310 * (k % 3), 60 + 220 * (k // 3)) for k in range(len(MAIN_MODELS))]
+    w, h = 260, 150
     out: list[str] = []
     for (model, colour), (x0, y0) in zip(MAIN_MODELS, cells, strict=True):
         base = y0 + h
@@ -2310,7 +1892,7 @@ def fig_models_dictator(runs: dict[str, pd.DataFrame]) -> Figure:
             f'<line x1="{x0}" y1="{base}" x2="{x0 + w}" y2="{base}" stroke="{ink(0.25)}" stroke-width="1"/>'
         )
         pitch = w / len(amounts)
-        bar = 14
+        bar = 9
         edge = JEV_PINK_EDGE if colour == JEV_PINK else colour
         for i, a in enumerate(amounts):
             cx = x0 + pitch * (i + 0.5)
@@ -2366,20 +1948,20 @@ def fig_models_dictator(runs: dict[str, pd.DataFrame]) -> Figure:
     )
     return Figure(
         slug="models-dictator",
-        eyebrow="Dictator game · no instruction · four models",
-        title="Four System One models' answer distributions in the dictator game, against people's",
+        eyebrow=f"Dictator game · no instruction · {_count(len(MAIN_MODELS))} models",
+        title="What one call returns in the dictator game, against what people give",
         subtitle=(
             "You are given $10 and decide how much to give an anonymous stranger, who cannot respond. Grey: the "
             "share of people giving each amount. Coloured: the probability each model returns for that amount, "
             "averaged over 10 calls. People have three peaks, at nothing, half and everything."
         ),
-        desc="Four small bar charts, one per System One model, each showing the model's probability of giving "
+        desc=f"{_count(len(MAIN_MODELS)).capitalize()} small bar charts, one per System One model, each showing the model's probability of giving "
         "each amount from $0 to $10 next to the share of people who give it.",
         width=1000,
         height=520,
         body="\n".join(out),
-        source=f"Same scale in every panel. Models: mean of 10 returned distributions; all models run "
-        f"12–13 Oct 2026. People: {DICTATOR_HUMAN_SOURCE}.",
+        source=f"Same scale in every panel. Models: mean of 10 returned distributions. {_main_when(run_files)} "
+        f"People: {DICTATOR_HUMAN_SOURCE}.",
     )
 
 
@@ -2577,7 +2159,9 @@ def fig_h4(h4: pd.DataFrame, run_name: str = "the run shown") -> Figure:
     )
 
 
-def fig_models_order(runs: dict[str, pd.DataFrame]) -> Figure:
+def fig_models_order(
+    runs: dict[str, pd.DataFrame], run_files: dict[str, str] | None = None
+) -> Figure:
     from .analysis import core_order_cells, order_effects
 
     odfs = {m: core_order_cells(order_effects(runs[m])) for m, _c in MAIN_MODELS}
@@ -2607,8 +2191,7 @@ def fig_models_order(runs: dict[str, pd.DataFrame]) -> Figure:
         rows,
         ref_name="Never shuffled: the floor",
         focal_name="Options shuffled",
-        row_ref_fill={"Jev 1.13": (JEV_PINK, "Jev, never shuffled")},
-        row_focal_fill={"Jev 1.13": (JEV_PROMPT, "Jev, shuffled")},
+        row_colour={SHORT[m]: c for m, c in MAIN_MODELS},
         axis_title="mean change in the answer distribution between repeats (total-variation distance)",
         step=0.05,
         fmt="{:.3f}",
@@ -2616,22 +2199,21 @@ def fig_models_order(runs: dict[str, pd.DataFrame]) -> Figure:
     )
     return Figure(
         slug="models-order-effects",
-        eyebrow="Option order · four models",
-        title="How much four System One models' answers change when the options are shuffled",
+        eyebrow=f"Option order · {_count(len(MAIN_MODELS))} models",
+        title=f"How much {_count(len(MAIN_MODELS))} System One models' answers change when the options are shuffled",
         subtitle=(
             "Each item was asked 10 times. Multiple-choice options were put in a new random order every time; "
             "Likert and yes/no items were left as they were, so they show how much the answers move with nothing "
             "changed. The gap between the two is the order effect. 0 means identical distributions, 1 no overlap."
         ),
-        desc="Dumbbell chart of four System One models' mean answer change between repeats, for shuffled "
+        desc=f"Dumbbell chart of {_count(len(MAIN_MODELS))} System One models' mean answer change between repeats, for shuffled "
         "multiple-choice items and for never-shuffled items.",
         width=1000,
         height=510,
         body=body,
         source=f"Mean distance over all pairs of the 10 repeats, per item and prompt, on the {len(common)} item-and-"
-        f"prompt cells ({len(items)} items) all four runs share; the follow-up items are left out, as "
-        f"for H6. {_order_notes(rows)}"
-        "All models run 12–13 Oct 2026.",
+        f"prompt cells ({len(items)} items) all {_count(len(MAIN_MODELS))} runs share; the follow-up items are left "
+        f"out, as for H6. {_order_notes(rows)}{_main_when(run_files)}",
     )
 
 
@@ -2663,14 +2245,121 @@ def _shown_path(path: Path) -> str:
         return str(path.resolve())
 
 
+# -- the option-order addendum ---------------------------------------------------
+
+ORDER_STUDY_NAMES = {
+    "crt": "CRT",
+    "holt_laury": "Holt\u2013Laury",
+    "prisoners_dilemma": "Prisoner's dilemma",
+    "public_goods_conditional": "Public goods (conditional)",
+}
+
+
+def fig_order_study(inst: pd.DataFrame) -> Figure | None:
+    """The option-order addendum (ORDER_PREREGISTRATION.md), one row per instrument.
+
+    Left: how much more the answers move when the options are shuffled than
+    when the same request is repeated (O1; O2 is the gap between the two
+    versions). Right: the slot slope, the change in an option's probability
+    from first place to last (O3). Both Jev versions on every row, in their
+    colours and shapes from the main charts.
+    """
+    need = {"O1 1.13", "O1 1.14", "O3 1.13", "O3 1.14"}
+    if inst.empty or not need <= set(inst["test"]):
+        return None
+    wide = inst.pivot_table(index="instrument", columns="test", values="value")
+    wide = wide.sort_values("O1 1.13", ascending=False)
+    names = [ORDER_STUDY_NAMES.get(n, n.replace("_", " ").capitalize()) for n in wide.index]
+    versions = [("1.14", JEV_114_ID, JEV_114), ("1.13", JEV_113, JEV_PINK)]
+    n = len(wide)
+    pitch, y0 = 22, 96
+    last = y0 + (n - 1) * pitch
+    panels = [
+        ("O1", 320, 610, _domain([*wide["O1 1.13"], *wide["O1 1.14"]], 0.05), 0.05, "{:.2f}",
+         "EXTRA MOVEMENT WHEN SHUFFLED (TOTAL VARIATION)"),
+        ("O3", 660, 960, _domain([*wide["O3 1.13"], *wide["O3 1.14"]], 0.1), 0.1, "{:+.1f}",
+         "SLOT SLOPE: PROBABILITY, FIRST PLACE TO LAST"),
+    ]  # fmt: skip
+    out: list[str] = []
+    for test, a, b, (lo, hi), step, fmt, title in panels:
+
+        def px(v: float, a: int = a, b: int = b, lo: float = lo, hi: float = hi) -> float:
+            return a + (v - lo) / (hi - lo) * (b - a)
+
+        for i in range(round((hi - lo) / step) + 1):
+            t = lo + i * step
+            x = px(t)
+            zero = abs(t) < 1e-9
+            out.append(
+                f'<line x1="{x:.1f}" y1="{y0 - 14}" x2="{x:.1f}" y2="{last + 14}" '
+                f'stroke="{ink(0.25 if zero else 0.08)}" stroke-width="{1 if zero else 0.8}"/>'
+            )
+            label = "0" if zero else fmt.format(t)
+            out.append(
+                _t(x, last + 30, label, anchor="middle", extra=f' data-tick="x" data-value="{t:g}"')
+            )
+        out.append(_t((a + b) / 2, last + 46, title, size=7, anchor="middle", spacing="0.14em"))
+        if test == "O3":
+            out.append(_t(a, y0 - 30, "\u2190 FIRST OPTION GAINS", size=7, spacing="0.1em"))
+            out.append(
+                _t(b, y0 - 30, "LATER OPTIONS GAIN \u2192", size=7, spacing="0.1em", anchor="end")
+            )
+        else:
+            out.append(_t(a, y0 - 30, "MORE THAN REPEAT NOISE \u2192", size=7, spacing="0.1em"))
+        for k, inst_name in enumerate(wide.index):
+            y = y0 + k * pitch
+            v13, v14 = (
+                float(str(wide.at[inst_name, f"{test} 1.13"])),
+                float(str(wide.at[inst_name, f"{test} 1.14"])),
+            )
+            out.append(
+                f'<line x1="{px(v13):.1f}" y1="{y}" x2="{px(v14):.1f}" y2="{y}" stroke="{ink(0.3)}" stroke-width="1"/>'
+            )
+            for v, (ver, model, colour) in zip((v14, v13), versions, strict=True):
+                out.append(
+                    _mark(
+                        MAIN_SHAPES[model],
+                        px(v),
+                        y,
+                        4,
+                        f'data-series="Jev {ver}" data-panel="{test}" data-value="{v:.4f}" '
+                        + _model_style(model, colour),
+                        title=f"Jev {ver} · {names[k]} · {v:.3f}",
+                    )
+                )
+    for k, name in enumerate(names):
+        out.append(_t(296, y0 + k * pitch + 4, name, size=10, fill=INK, family=SANS, anchor="end"))
+    ly = last + 58
+    out.append(_legend(1000, ly, []))
+    x = 104
+    for _ver, model, colour in versions:
+        x = _model_key(out, x, ly + 31, model, colour)
+    out.append(_t(970, ly + 35, "ROWS BY JEV 1.13'S EXTRA MOVEMENT", anchor="end"))
+    return Figure(
+        slug="order-study",
+        eyebrow="Option order · Jev 1.14 and 1.13 · preregistered addendum",
+        title="Shuffling the options moves Jev's answers, in both versions, by about the same",
+        subtitle=(
+            "Each row is one instrument. Left: how much more the answers move between repeats when the options "
+            "are put in a new order each time than when the same request is repeated; above 0 is an order "
+            "effect. Right: how an option's probability changes as it moves from first place to last, with each "
+            "option's own pull removed."
+        ),
+        desc=f"Two-panel dot chart of {n} instruments: for Jev 1.13 and Jev 1.14, the extra answer movement "
+        "when options are shuffled, and the change in an option's probability from first place to last.",
+        width=1000,
+        height=ly + 50,
+        body="\n".join(out),
+        source="Both versions called through TypeSafe's API directly on 14 Oct 2026, 10 repeats of each item "
+        "under each of five prompts. Tests and their preregistration: ORDER_PREREGISTRATION.md; tables in "
+        "results/order_study/.",
+    )
+
+
 # -- pick a number between 1 and 10 (exploratory) -----------------------------
 
 PICK_NUMBERS = [str(i) for i in range(1, 11)]
 PICK_PROMPTS = [("neutral", "asked plainly"), ("typical_human", "as a typical person")]
-# The rest of the System One models share one sienna: not teal (which means
-# "told to answer like a typical person"), not people's slate, and none of the
-# main four's colours; the dataviz validator finds no failing pair it adds.
-OTHER_MODEL = "#a0522d"
 
 
 def _pick_cell(table: pd.DataFrame, model: str, persona: str, kind: str) -> pd.Series:
@@ -2719,13 +2408,14 @@ def _pick_groups(table: pd.DataFrame) -> list[tuple[str, list[str]]]:
 
 
 def _pick_colour(model: str) -> tuple[str, str]:
-    """(fill, edge) for a model's bars: Jev pink, the main models their own colour."""
-    from .pick_number import is_jev
+    """(fill, edge) for a model's marks, in its colour from the main comparison."""
+    from .pick_number import is_jev, system_one_name
 
     if is_jev(model):
-        return JEV_PINK, JEV_PINK_EDGE
-    colour = dict(MAIN_MODELS).get(model, OTHER_MODEL)
-    return colour, colour
+        colour = JEV_114 if system_one_name(model) == "Jev 1.14" else JEV_PINK
+    else:
+        colour = model_colour(model)
+    return colour, edge(colour)
 
 
 def _pick_one_pick(table: pd.DataFrame, model: str, persona: str) -> str:
@@ -2962,8 +2652,7 @@ def fig_pick_number_jev(
         name = system_one_name(model)
         for row, (persona, prompt) in enumerate(PICK_PROMPTS):
             x0, y0 = 70 + col * (w + gap), 60 + row * 230
-            fill = JEV_PINK if persona == "neutral" else JEV_PROMPT
-            edge = JEV_PINK_EDGE if persona == "neutral" else JEV_PROMPT
+            fill, stroke = _pick_colour(model)
             dist = _pick_cell(table, model, persona, "its distribution")
             pick = _pick_cell(table, model, persona, "one pick per call")
             out.append(
@@ -2978,9 +2667,9 @@ def fig_pick_number_jev(
                 out, x0, y0, w, h, ceil,
                 [("people", people, f'fill="{muted(0.18)}" stroke="{MUTED}"'),
                  (f"{name}, returned distribution", cell(model, persona, "its distribution"),
-                  f'fill="{fill}" fill-opacity="0.75" stroke="{edge}"'),
+                  f'fill="{fill}" fill-opacity="0.75" stroke="{stroke}"'),
                  (f"{name}, single answer counted over calls", cell(model, persona, "one pick per call"),
-                  f'fill="{PAPER}" stroke="{edge}"'),
+                  f'fill="{PAPER}" stroke="{stroke}"'),
                  (f"{chat_name}, single answer counted over calls",
                   [float(chat_row[n]) for n in PICK_NUMBERS],
                   f'fill="{ANTHROPIC_ORANGE}" stroke="{INK}"')],
@@ -2989,10 +2678,9 @@ def fig_pick_number_jev(
     out.append(_legend(1000, 480, []))
     keys: list[tuple[list[str], str]] = [
         ([f'fill="{muted(0.18)}" stroke="{MUTED}"'], PICK_PEOPLE_KEY),
-        ([f'fill="{JEV_PINK}" fill-opacity="0.75" stroke="{JEV_PINK_EDGE}"',
-          f'fill="{JEV_PROMPT}" fill-opacity="0.75" stroke="{JEV_PROMPT}"'],
+        ([f'fill="{_pick_colour(m)[0]}" fill-opacity="0.75" stroke="{_pick_colour(m)[1]}"' for m in jevs],
          "Jev's returned distribution: the probability it gives each number, averaged over calls"),
-        ([f'fill="{PAPER}" stroke="{JEV_PINK_EDGE}"', f'fill="{PAPER}" stroke="{JEV_PROMPT}"'],
+        ([f'fill="{PAPER}" stroke="{_pick_colour(m)[1]}"' for m in jevs],
          "Jev's single answer: the one number each call picks, counted over calls"),
         ([f'fill="{ANTHROPIC_ORANGE}" stroke="{INK}"'],
          f"{chat_name}'s single answer, counted over calls (a chat model gives nothing else)"),
@@ -3020,7 +2708,7 @@ def fig_pick_number_jev(
         title=f"{versions}: the distribution Jev returns against its single answer",
         subtitle=(
             f"Asked for a random number from 1 to 10, {people[PICK_NUMBERS.index('7')]:.0%} of people say 7. "
-            "Each Jev call returns a probability for every number (solid) and also picks one (outlined); "
+            "Each Jev call returns a probability for every number (filled) and also picks one (hollow); "
             "counting the single picks is how a chat model has to be read. "
             f"{_pick_jev_claim(table, jevs)} {_pick_chat_line(table)}"
         ),
@@ -3049,7 +2737,7 @@ def fig_pick_number_reading(
     table: pd.DataFrame, group: str, models: list[str], part: str
 ) -> Figure:
     """Distance from people, read one pick per call and read as the model's own distribution."""
-    from .pick_number import is_jev, system_one_name
+    from .pick_number import system_one_name
 
     rows = []
     for m in models:
@@ -3066,12 +2754,11 @@ def fig_pick_number_reading(
     rows.sort(key=lambda r: r[3])
     chat = table[(table["arm"] == "baseline") & (table["persona"] == "neutral")].iloc[0]
     chat_name = str(chat["source"]).split(",")[0]
-    jev_rows = {system_one_name(m) for m in models if is_jev(m)}
     body = dumbbell(
         rows,
         ref_name="One pick per call",
         focal_name="The model's own distribution",
-        row_focal_fill={n: (JEV_PINK, "Jev's own distribution") for n in jev_rows},
+        row_colour={system_one_name(m): _pick_colour(m)[0] for m in models},
         axis_title="distance from people's distribution (total variation, 0 = the same)",
         step=0.2,
         fmt="{:.2f}",
@@ -3085,7 +2772,7 @@ def fig_pick_number_reading(
         title=f"One pick per call against the full distribution: {group}",
         subtitle=(
             "How far each model's answers are from people's when it is asked for a random number from 1 to 10. "
-            "Hollow: counting the single number each call picks, as a chat model has to be read. Solid: the "
+            "Hollow: counting the single number each call picks, as a chat model has to be read. Filled: the "
             f"probabilities the model returns. {_pick_reading_claim(rows)} Putting everything on 7 scores "
             f"{1 - _pick_people7(table):.2f}."
         ),
@@ -3102,7 +2789,7 @@ def fig_pick_number_reading(
 
 def fig_pick_number_prompt(table: pd.DataFrame, group: str, models: list[str], part: str) -> Figure:
     """Share on 7 in each model's distribution, asked plainly and as a typical person."""
-    from .pick_number import is_jev, system_one_name
+    from .pick_number import system_one_name
 
     people = float(table.loc[table["arm"] == "people", "share_7"].iloc[0])
     rows = []
@@ -3117,13 +2804,11 @@ def fig_pick_number_prompt(table: pd.DataFrame, group: str, models: list[str], p
         )
         rows.append((system_one_name(m), sub, float(plain["share_7"]), float(typical["share_7"])))
     rows.sort(key=lambda r: r[3])
-    jev_rows = {system_one_name(m) for m in models if is_jev(m)}
     body = dumbbell(
         rows,
         ref_name="Asked plainly",
         focal_name="Asked to answer as a typical person",
-        row_ref_fill={n: (JEV_PINK, "Jev, asked plainly") for n in jev_rows},
-        row_focal_fill={n: (JEV_PROMPT, "Jev, as a typical person") for n in jev_rows},
+        row_colour={system_one_name(m): _pick_colour(m)[0] for m in models},
         axis_title="share of the model's probability on 7",
         step=0.2,
         fmt="{:.0%}",
@@ -3279,13 +2964,10 @@ def build_diagrams(
     raw_dir: Path | None = None,
 ) -> list[Path]:
     """Build every figure. `tables_dir` must hold the analysis of `run_path`."""
-    from .analysis import core_order_cells, load_records
+    from .analysis import load_records
 
-    sdf = pd.read_csv(tables_dir / "statistics.csv")
-    odf = core_order_cells(pd.read_csv(tables_dir / "order_effects.csv"))
     fdf = pd.read_csv(comparison_dir / "fidelity.csv")
     mdf = pd.read_csv(comparison_dir / "measures.csv")
-    df = load_records(run_path)
     # The multi-model charts read each main model's statistics from the
     # comparison, and its run file (named in health.csv) for distributions.
     cdf = pd.read_csv(comparison_dir / "statistics.csv")
@@ -3303,26 +2985,21 @@ def build_diagrams(
 
     figures = [
         fig_process(),
-        fig_jev_decisions(sdf),
-        fig_jev_decisions(sdf, AS_PERSON_PLAIN, AS_PERSON),
-        fig_jev_vs_people(sdf, "games", "neutral"),
-        fig_antisocial(sdf),
-        fig_dictator(df),
-        fig_order_effects(odf),
-        fig_models_tests(cdf, "decisions"),
-        fig_models_tests(cdf, "games"),
-        fig_models_antisocial(cdf),
-        fig_models_dictator(runs),
-        fig_models_order(runs),
-        fig_models_scatter(fdf, files),
+        fig_models_tests(cdf, "decisions", files),
         fig_framing(mdf, files),
+        fig_models_tests(cdf, "games", files),
+        fig_models_scatter(fdf, files),
+        fig_jev_steer(cdf, files),
+        fig_models_antisocial(cdf, files),
+        fig_models_dictator(runs, files),
+        fig_models_order(runs, files),
         fig_health(files),
     ]
     # Follow-up H4 is drawn only when the run has paired items to draw.
     h4_path = tables_dir / "followup_h4.csv"
     h4 = pd.read_csv(h4_path) if h4_path.exists() and h4_path.stat().st_size else pd.DataFrame()
     if len(h4):
-        figures.insert(7, fig_h4(h4, _shown_path(run_path)))
+        figures.insert(6, fig_h4(h4, _shown_path(run_path)))
     else:
         # Leave no chart from an earlier run behind.
         (out_dir / f"{H4_SLUG}.html").unlink(missing_ok=True)

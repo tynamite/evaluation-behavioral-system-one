@@ -48,7 +48,25 @@ def _arm_label(df: pd.DataFrame, arm: str) -> str:
     sel = df[df["arm"] == arm]
     ok = sel[sel["error"].isna()] if "error" in sel.columns else sel
     models = (ok if len(ok) else sel)["model"].value_counts()
-    return str(models.index[0])
+    label = str(models.index[0])
+    # TypeSafe's direct API names its models without the provider prefix that
+    # OpenRouter adds (jev-1.14.0, not typesafe/jev-1.14.0); add it, so every
+    # label says who makes the model whichever route served it.
+    if "/" not in label and set(sel["backend"]) == {"typesafe"}:
+        label = f"typesafe/{label}"
+    return label
+
+
+def _run_name(path: Path) -> str:
+    """A run file's name as health.csv records it: relative to the raw-data
+    directory when it is inside it (the Jev 1.14 run lives in order_study/r1/),
+    otherwise its bare name."""
+    from .config import RAW_DIR
+
+    try:
+        return path.resolve().relative_to(RAW_DIR.resolve()).as_posix()
+    except ValueError:
+        return path.name
 
 
 def _health(df: pd.DataFrame, arm: str, label: str, run_file: str) -> dict[str, Any]:
@@ -112,11 +130,11 @@ def compare_runs(paths: list[Path], out_dir: Path) -> dict[str, pd.DataFrame]:
                 # alongside each new System One model) would otherwise be
                 # silently pooled under one name.
                 raise ValueError(
-                    f"{label} appears in both {seen[label]} and {path.name}; "
+                    f"{label} appears in both {seen[label]} and {_run_name(path)}; "
                     "pass only one run file per model"
                 )
-            seen[label] = path.name
-            health.append(_health(df, arm, label, path.name))
+            seen[label] = _run_name(path)
+            health.append(_health(df, arm, label, _run_name(path)))
             part = sdf[sdf["arm"] == arm].copy()
             part["arm"] = label
             part["type"] = SYSTEM_ONE if arm == "jev" else CHAT
