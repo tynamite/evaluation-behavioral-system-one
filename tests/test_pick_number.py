@@ -157,6 +157,8 @@ def test_same_model_allows_a_version_suffix_only() -> None:
     assert same_model("anthropic/claude-haiku-5.5", "anthropic/claude-haiku-5.5")
     assert not same_model("upstage/solar-decide", "upstage/solar-decide-flash-20261008")
     assert not same_model("anthropic/claude-haiku-5.5", "anthropic/claude-sonnet-5.5")
+    # Same model name under another provider is another model.
+    assert not same_model("other/claude-haiku-5.5", "anthropic/claude-haiku-5.5")
 
 
 def test_resume_refuses_a_file_from_another_model(tmp_path, capsys) -> None:
@@ -352,3 +354,39 @@ def test_pick_number_figures_count_calls_from_the_table() -> None:
     table.loc[table["arm"] != "people", "n"] = 40
     for f in pick_number_figures(table):
         assert "100 calls" not in f.body + f.source and "100 returned" not in f.source, f.slug
+
+
+def test_analyse_skips_an_empty_run_file(tmp_path) -> None:
+    import json
+
+    from jevbench.pick_number import analyse
+
+    base = {"probe_id": "pick_number_1_10", "instrument": "pick_number", "backend": "x",
+            "kind": "choice", "value": "7", "probabilities": {"7": 1.0}, "error": None}  # fmt: skip
+    grid = [(p, r) for p in ("neutral", "typical_human") for r in range(2)]
+    for name, (arm, model) in {"A": ("jev", "jev-1.13.0"),
+                               "B": ("baseline", "anthropic/claude-haiku-5.5")}.items():  # fmt: skip
+        rows = [{**base, "arm": arm, "model": model, "persona": p, "replicate": r} for p, r in grid]
+        (tmp_path / f"run_live_{name}.jsonl").write_text(
+            "".join(json.dumps(r) + "\n" for r in rows)
+        )
+    (tmp_path / "run_live_C.jsonl").write_text("")
+    assert len(analyse(tmp_path, tmp_path / "out"))
+
+
+def test_pick_number_build_removes_figures_it_no_longer_draws(tmp_path) -> None:
+    from jevbench.diagrams import build_pick_number_diagrams
+    from jevbench.pick_number import PICK_RESULTS_DIR
+
+    table = pd.read_csv(PICK_RESULTS_DIR / "distributions.csv", dtype={"persona": str})
+    table["persona"] = table["persona"].fillna("")
+    html, png = tmp_path / "html", tmp_path / "png"
+    png.mkdir()
+    build_pick_number_diagrams(table, html, png)
+    (png / "pick-number-models-b.png").write_bytes(b"x")
+    # Keep only Jev and the main models: no second group.
+    keep = ["jev-1.13.0", "jev-1.14.0", "cloudflare/clef", "liquid/d1-20260930",
+            "openai/gpt-6-luna-decisions-20261006"]  # fmt: skip
+    table = table[(table["arm"] != "jev") | table["model"].isin(keep)]
+    build_pick_number_diagrams(table, html, png)
+    assert not list(html.glob("pick-number-*-b.html")) and not list(png.glob("*-b.png"))

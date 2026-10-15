@@ -131,6 +131,11 @@ def same_model(requested: str, answered: str) -> bool:
     as `upstage/solar-decide-20260928`; `typesafe/jev-1.13` as `jev-1.13.0`),
     so a version or date suffix is allowed; another model's name is not.
     """
+    # A provider prefix must match when both ids carry one; TypeSafe answers
+    # without one (`typesafe/jev-1.13` serves as `jev-1.13.0`).
+    both = "/" in requested and "/" in answered
+    if both and requested.rsplit("/", 1)[0] != answered.rsplit("/", 1)[0]:
+        return False
     req, ans = requested.split("/")[-1], answered.split("/")[-1]
     # TypeSafe's aliases (`jev-preview`, `jev-latest`) answer with whichever
     # Jev version they point at today, which may not be the one in a file.
@@ -226,7 +231,9 @@ def check_complete(name: str, arm: str, g: pd.DataFrame) -> None:
 
 
 def analyse(root: Path = PICK_DIR, out_dir: Path = PICK_RESULTS_DIR) -> pd.DataFrame:
-    files = sorted(root.glob("run_live_*.jsonl"))
+    # A run interrupted before its first call leaves an empty file; it holds
+    # nothing to analyse and is resumed, not read.
+    files = sorted(f for f in root.glob("run_live_*.jsonl") if f.read_text().strip())
     if not files:
         raise ValueError(f"no run files in {root}")
     frames = {f: load_records(f) for f in files}

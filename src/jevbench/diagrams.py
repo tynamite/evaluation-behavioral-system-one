@@ -3052,10 +3052,21 @@ def pick_number_figures(table: pd.DataFrame) -> list[Figure]:
     return figures
 
 
-def build_pick_number_diagrams(table: pd.DataFrame, out_dir: Path) -> list[Path]:
+def build_pick_number_diagrams(
+    table: pd.DataFrame, out_dir: Path, png_dir: Path | None = None
+) -> list[Path]:
+    """Write every pick-number figure, and remove any an earlier build left that
+    this one does not draw (a second model group that no longer exists), so no
+    stale figure can be linked or embedded."""
     out_dir.mkdir(parents=True, exist_ok=True)
+    figures = pick_number_figures(table)
+    slugs = {f.slug for f in figures}
+    for d, ext in ((out_dir, "html"), (png_dir, "png")):
+        for old in d.glob(f"pick-number-*.{ext}") if d else []:
+            if old.stem not in slugs:
+                old.unlink()
     paths = []
-    for f in pick_number_figures(table):
+    for f in figures:
         p = out_dir / f"{f.slug}.html"
         p.write_text(f.html(), encoding="utf-8")
         paths.append(p)

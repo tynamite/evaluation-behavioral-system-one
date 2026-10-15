@@ -221,7 +221,7 @@ def _cmd_pick_number(args: argparse.Namespace) -> int:
     print(table.drop(columns=[str(i) for i in range(1, 11)]).to_string(index=False))
     print(f"wrote {PICK_RESULTS_DIR / 'distributions.csv'}")
     # Drawn in the diagram-design house style, like the README's other editorial figures.
-    html = build_pick_number_diagrams(table, REPO_ROOT / "docs" / "diagrams")
+    html = build_pick_number_diagrams(table, REPO_ROOT / "docs" / "diagrams", FIGURES_DIR)
     for p in html:
         print(f"wrote {p.relative_to(REPO_ROOT)}")
     if not args.no_png:
