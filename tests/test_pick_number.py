@@ -24,7 +24,7 @@ def test_jev_is_read_two_ways_and_the_chat_model_once() -> None:
     picks = rows["Jev, one pick per call"]
     assert picks["7"] == pytest.approx(0.5) and picks["n"] == 2
     # An unread chat reply is left out, not counted as a number.
-    chat_row = rows["Haiku, one pick per call"]
+    chat_row = rows["Haiku, one pick per call"]  # named from the model id "haiku"
     assert chat_row["n"] == 3 and chat_row["7"] == pytest.approx(2 / 3)
 
 
@@ -34,3 +34,24 @@ def test_human_reference_is_yougov_normalised() -> None:
     assert sum(h.values()) == pytest.approx(1.0)
     assert sum(YOUGOV_PERCENT.values()) == 101  # published, rounded
     assert max(h, key=h.get) == "7"
+
+
+def test_chat_name_comes_from_the_model() -> None:
+    from jevbench.pick_number import chat_name
+
+    assert chat_name("anthropic/claude-haiku-5.5") == "Claude Haiku 5.5"
+    assert chat_name("openai/gpt-6-luna") == "Gpt 6 Luna"
+
+
+def test_analyse_refuses_more_than_one_run_per_arm(tmp_path) -> None:
+    import json
+
+    from jevbench.pick_number import analyse
+
+    row = {"probe_id": "pick_number_1_10", "instrument": "pick_number", "persona": "neutral",
+           "arm": "jev", "replicate": 0, "backend": "typesafe", "model": "jev-1.13.0",
+           "kind": "choice", "value": "7", "probabilities": {"7": 1.0}, "error": None}  # fmt: skip
+    for name in ("run_live_A_jev-1.13.0.jsonl", "run_live_B_jev-1.13.0.jsonl"):
+        (tmp_path / name).write_text(json.dumps(row) + "\n")
+    with pytest.raises(ValueError, match="exactly one Jev run and one chat run"):
+        analyse(tmp_path, tmp_path / "out")

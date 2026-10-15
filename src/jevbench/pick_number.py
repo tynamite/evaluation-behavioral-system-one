@@ -80,10 +80,19 @@ def summarise(df: pd.DataFrame) -> list[dict[str, Any]]:
             )
         else:
             rows.append(
-                _row("Haiku, one pick per call", model, persona, _shares(picks),
+                _row(f"{chat_name(model)}, one pick per call", model, persona, _shares(picks),
                      sum(picks.values()))
             )  # fmt: skip
     return rows
+
+
+CHAT_SUFFIX = ", one pick per call"
+
+
+def chat_name(model: str) -> str:
+    """A readable name for the chat model that answered: `anthropic/claude-haiku-5.5` -> `Claude Haiku 5.5`."""
+    words = model.split("/")[-1].split("-")
+    return " ".join(w if any(c.isdigit() for c in w) else w.capitalize() for w in words)
 
 
 def _row(source: str, model: str, persona: str, dist: dict[str, float], n: int) -> dict[str, Any]:
@@ -107,7 +116,16 @@ def analyse(root: Path = PICK_DIR, out_dir: Path = PICK_RESULTS_DIR) -> pd.DataF
     files = sorted(root.glob("run_live_*.jsonl"))
     if not files:
         raise ValueError(f"no run files in {root}")
-    df = pd.concat([load_records(f) for f in files], ignore_index=True)
+    frames = {f: load_records(f) for f in files}
+    # Exactly one Jev run and one chat run: a rerun or another model left in
+    # the folder would otherwise be pooled with these, or plotted in their place.
+    by_arm: dict[str, list[str]] = {}
+    for f, d in frames.items():
+        for arm in d["arm"].unique():
+            by_arm.setdefault(str(arm), []).append(f.name)
+    if sorted(by_arm) != ["baseline", "jev"] or any(len(v) != 1 for v in by_arm.values()):
+        raise ValueError(f"{root} needs exactly one Jev run and one chat run, found {by_arm}")
+    df = pd.concat(frames.values(), ignore_index=True)
     table = pd.DataFrame(summarise(df))
     h = human()
     people = {
@@ -126,10 +144,15 @@ def analyse(root: Path = PICK_DIR, out_dir: Path = PICK_RESULTS_DIR) -> pd.DataF
     table.to_csv(out_dir / "distributions.csv", index=False)
     health = {
         f.name: {
-            "records": len(d := load_records(f)),
+            "records": len(d),
             "errors": int(d["error"].notna().sum()) if "error" in d.columns else 0,
+            # A chat reply that arrived but named no number: left out of the
+            # counts, so reported here rather than hidden.
+            "unread_replies": int(
+                ((d["arm"] == "baseline") & d["error"].isna() & d["value"].isna()).sum()
+            ),
         }
-        for f in files
+        for f, d in frames.items()
     }
     (out_dir / "summary.json").write_text(
         json.dumps({"files": health, "human_source": YOUGOV_SOURCE}, indent=2) + "\n"
