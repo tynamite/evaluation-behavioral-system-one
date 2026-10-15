@@ -301,3 +301,28 @@ def test_each_reply_counts_equally_in_the_mean() -> None:
     rows = summarise(pd.DataFrame([_jev({"7": 0.5}, "7"), _jev({"3": 1.0}, "3")]))
     dist = next(r for r in rows if r["source"].endswith("its distribution"))
     assert dist["7"] == pytest.approx(0.5) and dist["3"] == pytest.approx(0.5)
+
+
+def test_resume_accepts_an_empty_file(tmp_path) -> None:
+    from jevbench.pick_number import resume_problem
+
+    path = tmp_path / "run_live_x.jsonl"
+    path.write_text("")
+    assert resume_problem(path, arm="jev", model="jev-1.14.0", backend="typesafe") is None
+
+
+def test_pick_number_figures_draw_any_number_of_jev_versions_and_count_the_chat_model() -> None:
+    from jevbench.diagrams import fig_pick_number_jev
+    from jevbench.pick_number import PICK_RESULTS_DIR
+
+    table = pd.read_csv(PICK_RESULTS_DIR / "distributions.csv", dtype={"persona": str})
+    table["persona"] = table["persona"].fillna("")
+    jev = table[table["model"] == "jev-1.14.0"].copy()
+    jev["model"] = "jev-1.15.0"
+    jev["source"] = jev["source"].str.replace("Jev 1.14", "Jev 1.15")
+    # The chat model varies under one prompt: the figure must say so.
+    chat = (table["arm"] == "baseline") & (table["persona"] == "typical_human")
+    table.loc[chat, ["7", "3"]] = [0.9, 0.1]
+    fig = fig_pick_number_jev(pd.concat([table, jev], ignore_index=True))
+    assert "Jev 1.15" in fig.body and "Jev 1.13" in fig.body
+    assert "7 in 90 of 100 calls" in fig.subtitle and "said 7 every time" not in fig.subtitle

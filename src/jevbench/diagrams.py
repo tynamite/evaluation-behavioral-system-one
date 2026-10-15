@@ -2747,6 +2747,24 @@ def _pick_bars(
         out.append(_t(cx, base + 14, n, size=8, anchor="middle"))
 
 
+def _pick_chat_line(table: pd.DataFrame) -> str:
+    """What the chat model said, counted per prompt from the table, never assumed."""
+    chat = table[table["arm"] == "baseline"]
+    name = str(chat["source"].iloc[0]).split(",")[0]
+    parts = []
+    for persona, prompt in PICK_PROMPTS:
+        row = chat[chat["persona"] == persona].iloc[0]
+        top = max(PICK_NUMBERS, key=lambda k: float(row[k]))
+        n = int(row["n"])
+        parts.append((top, round(float(row[top]) * n), n, prompt))
+    if all(k == parts[0][0] and c == n for k, c, n, _p in parts):
+        return (
+            f"{name}, asked {sum(n for *_, n, _p in parts)} times, said {parts[0][0]} every time."
+        )
+    said = "; ".join(f"{prompt}, {k} in {c} of {n} calls" for k, c, n, prompt in parts)
+    return f"{name}'s most common answer: {said}."
+
+
 def _pick_ceil(top: float) -> float:
     """The scale ends just above the tallest bar, on a 20% gridline."""
     return max(0.4, math.ceil((top + 0.02) / 0.2) * 0.2)
@@ -2767,8 +2785,6 @@ def fig_pick_number_jev(table: pd.DataFrame) -> Figure:
         {str(m) for m in table.loc[table["arm"] == "jev", "model"] if is_jev(str(m))},
         key=system_one_name,
     )
-    if len(jevs) > 2:
-        raise ValueError(f"the Jev chart has room for two versions, got {jevs}")
     people_row = table[table["arm"] == "people"].iloc[0]
     people = [float(people_row[n]) for n in PICK_NUMBERS]
     dists = {
@@ -2777,15 +2793,15 @@ def fig_pick_number_jev(table: pd.DataFrame) -> Figure:
         for p, _l in PICK_PROMPTS
     }
     ceil = _pick_ceil(max(max(people), *(max(v) for v in dists.values())))
-    chat = table[table["arm"] == "baseline"]
-    chat_name = str(chat["source"].iloc[0]).split(",")[0]
-    chat_row = chat[chat["persona"] == "neutral"].iloc[0]
-    chat_top = max(PICK_NUMBERS, key=lambda k: float(chat_row[k]))
-    w, h = 400, 150
+    chat_line = _pick_chat_line(table)
+    # One column per Jev version, as many as the analysis accepted.
+    gap = 80
+    w = (880 - gap * (len(jevs) - 1)) // len(jevs)
+    h = 150
     out: list[str] = []
     for col, model in enumerate(jevs):
         for row, (persona, prompt) in enumerate(PICK_PROMPTS):
-            x0, y0 = 70 + col * 480, 60 + row * 230
+            x0, y0 = 70 + col * (w + gap), 60 + row * 230
             fill = JEV_PINK if persona == "neutral" else JEV_PROMPT
             edge = JEV_PINK_EDGE if persona == "neutral" else JEV_PROMPT
             name = system_one_name(model)
@@ -2828,7 +2844,7 @@ def fig_pick_number_jev(table: pd.DataFrame) -> Figure:
         subtitle=(
             "Asked for a random number from 1 to 10, a third of people say 7. Jev returns a probability for "
             "every number in each call; read one pick per call, the way a chat model has to be read, it says 7 "
-            f"almost every time. {chat_name}, asked 200 times, said {chat_top} every time."
+            f"almost every time. {chat_line}"
         ),
         desc=f"Four small bar charts: {versions}, asked plainly and asked to answer as a typical person, each "
         "showing the probability Jev returns for each number from 1 to 10 next to the share of people who "

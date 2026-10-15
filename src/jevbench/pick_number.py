@@ -147,6 +147,10 @@ def resume_problem(path: Path, *, arm: str, model: str, backend: str) -> str | N
     """
     from .analysis import load_records
 
+    # A run interrupted before its first call leaves an empty file: nothing
+    # in it can conflict.
+    if not path.read_text().strip():
+        return None
     d = load_records(path)
     checks: list[tuple[str, str, Callable[[str], bool]]] = [
         ("probe_id", PROBE.probe_id, lambda v: v == PROBE.probe_id),
