@@ -305,6 +305,48 @@ rebuilds them and the figure from the raw runs.
 
 ![How far option order moves Jev's answers, per instrument, 1.13 and 1.14](results/figures/order-study.png)
 
+### Exploratory, 15 October 2026: pick a number between 1 and 10
+
+Asked for a random number from 1 to 10, people favour 7, but only a third of
+them choose it. A chat model gives one answer per call, so its "distribution"
+has to be counted over many calls. Jev returns the whole distribution in each
+call. This puts the two side by side. It is exploratory and not preregistered.
+
+The question is YouGov's wording: "Think of a random number from 1-10. What
+number did you think of?" YouGov asked it of 2,241 British adults on 12–13
+September 2024, with an open text box
+([source](https://yougov.com/en-gb/articles/51866-seven-is-the-most-random-number)).
+Jev 1.13 answered it 100 times under each of two prompts, through TypeSafe's
+API. Claude Haiku 5.5 answered it 100 times under each prompt at temperature 1,
+through OpenRouter. The options were shuffled on every call.
+
+| Share of answers on 7 | Asked plainly | As a typical person |
+|---|---|---|
+| People (YouGov) | 33% | 33% |
+| Jev, its distribution | 46% | 83% |
+| Jev, one pick per call | 100% | 100% |
+| Claude Haiku 5.5, one pick per call | 100% | 100% |
+
+- **Read one answer at a time, both models say 7 every time.** Haiku said "7"
+  in all 200 calls. Jev's single pick was 7 in all 200 calls; in 199 of them
+  it was the top of that call's distribution.
+- **Jev's distribution keeps some spread.** Asked plainly, it puts 46% on 7,
+  21% on 5 and 13% on 6, and smaller amounts on every other number. People
+  spread further still: 14% each on 6 and 8, and more on 3, 4 and 9 than Jev.
+- **Asking Jev to answer as a typical person makes it less human, not more.**
+  The share on 7 rises from 46% to 83%, against people's 33%. The model has
+  learned that people favour 7 and overstates it, as with the famous biases
+  above.
+- **The wording matters.** An informal try beforehand, worded "Pick a number
+  between 1 and 10", put Jev's largest share on 5, not 7. It is not part of
+  the data here.
+
+The 400 calls cost under a cent. The table, with each distribution in full, is
+in [distributions.csv](results/pick_number/distributions.csv), and
+`jevbench pick-number analyse` rebuilds it and the figure from the raw runs.
+
+![Pick a number between 1 and 10: Jev's distribution, Jev and Haiku one pick per call, and people](results/figures/pick-number.png)
+
 ## Checked afterwards against the documented behaviour
 
 After the run I read TypeSafe's `model-jaggedness/jev-1.13` page, which

@@ -330,6 +330,18 @@ def main(argv: list[str]) -> int:
         L += order
         L.append("")
 
+    pick = figures(("pick-number.png", "Pick a number between 1 and 10: Jev's distribution, "
+                                       "Jev and Haiku one pick per call, and people"))
+    if pick:
+        L.append("## Exploratory: pick a number between 1 and 10\n")
+        L.append("A separate exploratory comparison, run on 15 October 2026 on Jev 1.13 and "
+                 "Claude Haiku 5.5, against YouGov's survey of 2,241 British adults; the tables "
+                 "above are not from it. See the "
+                 "[README](../README.md#exploratory-15-october-2026-pick-a-number-between-1-and-10) "
+                 "and [results/pick_number/](../results/pick_number/).\n")
+        L += pick
+        L.append("")
+
     out = ROOT / "docs" / "RESULTS.md"
     out.write_text("\n".join(L) + "\n", encoding="utf-8")
     print(f"wrote {out}")

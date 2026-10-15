@@ -158,6 +158,38 @@ def _cmd_diagrams(args: argparse.Namespace) -> int:
     return diagrams_main(argv)
 
 
+def _cmd_pick_number(args: argparse.Namespace) -> int:
+    from .pick_number import PERSONAS, PICK_DIR, PICK_RESULTS_DIR, PROBE, analyse
+
+    if args.action == "run":
+        from .runner import run_battery
+
+        cfg = _with_models(Config.from_env(args.backend), args)
+        run_battery(
+            cfg,
+            personas=PERSONAS,
+            replicates=args.replicates,
+            baseline_samples=args.baseline_samples,
+            workers=args.workers,
+            seed=20261015,
+            out_dir=PICK_DIR,
+            resume=Path(args.resume) if args.resume else None,
+            probes=[PROBE],
+        )
+        return 0
+    from .plots import fig_pick_number
+
+    try:
+        table = analyse()
+    except ValueError as exc:
+        print(f"pick-number: {exc}", file=sys.stderr)
+        return 1
+    print(table.drop(columns=[str(i) for i in range(1, 11)]).to_string(index=False))
+    print(f"wrote {PICK_RESULTS_DIR / 'distributions.csv'}")
+    print(f"wrote {fig_pick_number(table, FIGURES_DIR)}")
+    return 0
+
+
 def _cmd_order_study(args: argparse.Namespace) -> int:
     from .order_study import ORDER_RESULTS_DIR, ORDER_STUDY_DIR, analyse_study
 
@@ -288,6 +320,19 @@ def main(argv: list[str] | None = None) -> int:
     c.add_argument("runs", nargs="+", help="run .jsonl files, one per model")
     c.add_argument("--out", default=str(COMPARISON_DIR), help="output directory")
     c.set_defaults(func=_cmd_compare)
+
+    n = sub.add_parser(
+        "pick-number", help="pick a number from 1 to 10: Jev, a chat model and people"
+    )
+    n.add_argument("action", choices=["run", "analyse"])
+    n.add_argument("--backend", choices=["openrouter", "typesafe"], default=None)
+    n.add_argument("--model", default=None, help="System One model (default: JEVBENCH_MODEL)")
+    n.add_argument("--replicates", type=int, default=0, help="Jev calls per prompt")
+    n.add_argument("--baseline-model", default=None, help="chat model, resampled")
+    n.add_argument("--baseline-samples", type=int, default=0, help="chat samples per prompt")
+    n.add_argument("--workers", type=int, default=8)
+    n.add_argument("--resume", default=None)
+    n.set_defaults(func=_cmd_pick_number)
 
     o = sub.add_parser(
         "order-study", help="the option-order addendum's tests (ORDER_PREREGISTRATION.md)"

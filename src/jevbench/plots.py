@@ -1643,3 +1643,83 @@ def fig_order_study(inst: pd.DataFrame, out: Path) -> Path | None:
     fig.savefig(path, facecolor=SURFACE, bbox_inches="tight")
     plt.close(fig)
     return path
+
+
+def fig_pick_number(table: pd.DataFrame, out: Path) -> Path:
+    """Pick a number from 1 to 10: Jev read two ways, a chat model, and people.
+
+    One panel per prompt. Jev's own distribution is solid blue; the same Jev
+    calls read as one pick each are outlined blue, the way a chat model has to
+    be read; the chat model's picks are orange; people (YouGov) are green; the
+    dashed line is a uniform 10%.
+    """
+    numbers = [str(i) for i in range(1, 11)]
+    series: list[tuple[str, dict[str, Any]]] = [
+        ("Jev, its distribution", dict(color=JEV)),
+        ("Jev, one pick per call", dict(facecolor=SURFACE, edgecolor=JEV, linewidth=1.4)),
+        ("Haiku, one pick per call", dict(color=BASE)),
+        ("People (YouGov)", dict(color=HUMAN)),
+    ]
+    panels = [
+        ("neutral", "Asked plainly"),
+        ("typical_human", "Asked to answer as a typical person"),
+    ]
+    people = table[table["source"] == "People (YouGov)"].iloc[0]
+    fig, axes = plt.subplots(2, 1, figsize=(10.4, 7.4), dpi=170, sharex=True, sharey=True)
+    fig.patch.set_facecolor(SURFACE)
+    width = 0.2
+    x = np.arange(len(numbers))
+    for ax, (persona, title) in zip(axes, panels, strict=True):
+        _grid(ax, "y")
+        for i, (source, style) in enumerate(series):
+            row = (
+                people
+                if source.startswith("People")
+                else table[(table["source"] == source) & (table["persona"] == persona)].iloc[0]
+            )
+            ax.bar(
+                x + (i - 1.5) * width,
+                [float(row[n]) for n in numbers],
+                width=width * 0.9,
+                label=source,
+                zorder=3,
+                **style,
+            )
+        ax.axhline(0.1, color=INK_3, linewidth=1.2, linestyle=(0, (4, 3)), zorder=2)
+        ax.text(
+            len(numbers) - 0.45,
+            0.103,
+            "uniform 10%",
+            color=INK_2,
+            fontsize=8.5,
+            ha="right",
+            va="bottom",
+        )
+        ax.set_title(title, loc="left", color=INK, fontsize=10.5, fontweight="bold")
+        ax.set_ylim(0, 1.0)
+        ax.yaxis.set_major_formatter(lambda v, _: f"{v:.0%}")
+    axes[-1].set_xticks(x, numbers)
+    axes[-1].set_xlabel("number picked", color=INK_2, fontsize=9.5)
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(
+        handles,
+        labels,
+        loc="upper right",
+        bbox_to_anchor=(1.0, 0.915),
+        ncol=4,
+        frameon=False,
+        fontsize=8.8,
+    )
+    _titles(
+        fig,
+        "Pick a number between 1 and 10",
+        "Share of answers on each number. Jev returns a whole distribution per call; a chat "
+        "model gives one pick per call,\nso its distribution is counted over many calls. People: "
+        "YouGov, 2,241 British adults, September 2024.",
+        y=1.0,
+    )
+    fig.subplots_adjust(top=0.80, hspace=0.32)
+    path = out / "pick-number.png"
+    fig.savefig(path, facecolor=SURFACE, bbox_inches="tight")
+    plt.close(fig)
+    return path

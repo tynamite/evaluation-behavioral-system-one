@@ -116,6 +116,10 @@ def main(argv: list[str]) -> int:
     if order_study.exists():
         inst = pd.read_csv(order_study)
         builders["order_study"] = lambda: plots.fig_order_study(inst, out)
+    pick = ROOT / "results" / "pick_number" / "distributions.csv"
+    if pick.exists():
+        dist = pd.read_csv(pick, dtype={"persona": str}).fillna({"persona": ""})
+        builders["pick_number"] = lambda: plots.fig_pick_number(dist, out)
 
     # Re-render inside this process so the figure is still open for measurement.
     failures = 0
