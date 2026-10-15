@@ -313,7 +313,10 @@ def main(argv: list[str]) -> int:
     )
     if across:
         L.append("## Across the System One models\n")
-        L.append("All twelve models are compared, with the discussion, in "
+        n_models = len(pd.read_csv(ROOT / "results" / "comparison" / "health.csv"))
+        words = "zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen"
+        count = words.split()[n_models] if n_models < 17 else str(n_models)
+        L.append(f"All {count} models are compared, with the discussion, in "
                  "[MODELS.md](MODELS.md).\n")
         L += across
         L.append("")

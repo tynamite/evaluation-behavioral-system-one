@@ -1759,7 +1759,7 @@ def fig_process() -> Figure:
     )
 
 
-def fig_health() -> Figure:
+def fig_health(run_files: dict[str, str] | None = None) -> Figure:
     W, H = 960, 440
     w, h = 280, 64
     cols = [24, 340, 656]
@@ -1834,8 +1834,8 @@ def fig_health() -> Figure:
         width=W,
         height=H,
         body="\n".join(a),
-        source="results/comparison/health.csv, runs of 12\u201313 Oct 2026. The truncated Haiku run was discarded, "
-        "not mixed in.",
+        source=f"results/comparison/health.csv. {_runs_when(run_files, sorted(run_files or {}))} The "
+        "truncated Haiku run was discarded, not mixed in.",
     )
 
 
@@ -3313,7 +3313,7 @@ def build_diagrams(
         fig_models_order(runs),
         fig_models_scatter(fdf, files),
         fig_framing(mdf, files),
-        fig_health(),
+        fig_health(files),
     ]
     # Follow-up H4 is drawn only when the run has paired items to draw.
     h4_path = tables_dir / "followup_h4.csv"

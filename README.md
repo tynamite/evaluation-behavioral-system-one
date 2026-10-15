@@ -515,7 +515,7 @@ titles and source lines name the committed run (Jev 1.13, 10 repeats, 12–13 Oc
 
 ### Adding more models
 
-Results for nine more System One models and Claude Haiku 5.5 are in
+Results for eleven more System One models and Claude Haiku 5.5 are in
 [docs/MODELS.md](docs/MODELS.md).
 
 Every System One model on OpenRouter's decisions route shares Jev's
