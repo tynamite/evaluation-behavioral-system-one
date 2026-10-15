@@ -164,6 +164,19 @@ def _cmd_pick_number(args: argparse.Namespace) -> int:
     if args.action == "run":
         from .runner import run_battery
 
+        if args.baseline_samples > 0 and args.replicates > 0:
+            # The chat arm goes through OpenRouter and Jev may not: one run per arm
+            # keeps each on its own backend and key.
+            print(
+                "pick-number: run Jev (--replicates) and the chat model "
+                "(--baseline-samples) as two separate runs",
+                file=sys.stderr,
+            )
+            return 1
+        if args.baseline_samples > 0 and (args.backend or "openrouter") != "openrouter":
+            print("pick-number: the chat model runs through --backend openrouter", file=sys.stderr)
+            return 1
+
         cfg = _with_models(Config.from_env(args.backend), args)
         run_battery(
             cfg,

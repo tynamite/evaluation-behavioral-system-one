@@ -125,6 +125,13 @@ def analyse(root: Path = PICK_DIR, out_dir: Path = PICK_RESULTS_DIR) -> pd.DataF
             by_arm.setdefault(str(arm), []).append(f.name)
     if sorted(by_arm) != ["baseline", "jev"] or any(len(v) != 1 for v in by_arm.values()):
         raise ValueError(f"{root} needs exactly one Jev run and one chat run, found {by_arm}")
+    # And one model per arm, so a run resumed with another model is refused.
+    for f, d in frames.items():
+        for arm, g in d.groupby("arm"):
+            answered = g[g["error"].isna()] if "error" in g.columns else g
+            models = sorted(set(answered["model"].astype(str)))
+            if len(models) != 1:
+                raise ValueError(f"{f.name}: the {arm!s} arm holds {models}, not one model")
     df = pd.concat(frames.values(), ignore_index=True)
     table = pd.DataFrame(summarise(df))
     h = human()

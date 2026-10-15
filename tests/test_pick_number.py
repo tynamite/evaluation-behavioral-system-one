@@ -55,3 +55,19 @@ def test_analyse_refuses_more_than_one_run_per_arm(tmp_path) -> None:
         (tmp_path / name).write_text(json.dumps(row) + "\n")
     with pytest.raises(ValueError, match="exactly one Jev run and one chat run"):
         analyse(tmp_path, tmp_path / "out")
+
+
+def test_analyse_refuses_two_models_in_one_run(tmp_path) -> None:
+    import json
+
+    from jevbench.pick_number import analyse
+
+    base = {"probe_id": "pick_number_1_10", "instrument": "pick_number", "persona": "neutral",
+            "replicate": 0, "backend": "x", "kind": "choice", "value": "7",
+            "probabilities": {"7": 1.0}, "error": None}  # fmt: skip
+    jev = [{**base, "arm": "jev", "model": m} for m in ("jev-1.13.0", "jev-1.14.0")]
+    chat = [{**base, "arm": "baseline", "model": "anthropic/claude-haiku-5.5"}]
+    (tmp_path / "run_live_A_jev.jsonl").write_text("".join(json.dumps(r) + "\n" for r in jev))
+    (tmp_path / "run_live_B_chat.jsonl").write_text("".join(json.dumps(r) + "\n" for r in chat))
+    with pytest.raises(ValueError, match="not one model"):
+        analyse(tmp_path, tmp_path / "out")
