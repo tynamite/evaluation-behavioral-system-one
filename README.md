@@ -45,10 +45,12 @@ was run through it that day, with the same ten repeats and shuffled options
 addendum](#addendum-14-october-2026-option-order)). Every item went under the
 same five prompts but 15 of the follow-up study's population questions, which
 the battery by then asked under the neutral prompt only: 6,850 calls against
-1.13's 7,450. No comparison uses those 600 calls. Every chart and number
-below gives both versions. The preregistered tests were written for 1.13 and
-are scored on it; 1.14's results for the same tests are a description, not a
-test.
+1.13's 7,450. No comparison uses those 600 calls. Every result below gives
+both versions, with two exceptions that are 1.13 only: the cost comparison
+with the chat model (TypeSafe's direct API reports no cost for the 1.14 run)
+and the preregistered hypothesis table. The preregistered tests were written
+for 1.13 and are scored on it; 1.14's results for the same tests are given
+after that table as a description, not a test.
 
 ## Why this model is an unusually convenient subject
 
