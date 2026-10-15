@@ -187,3 +187,22 @@ A separate preregistered study, run on 14 October 2026 on Jev 1.13 and the 1.14 
 ![How far option order moves Jev's answers, per instrument, 1.13 and 1.14](../results/figures/order-study.png)
 
 
+## Exploratory: pick a number between 1 and 10
+
+A separate exploratory comparison, run on 15 October 2026 on Jev 1.13, the Jev 1.14 preview, the other nine System One models and Claude Haiku 5.5, against YouGov's survey of 2,241 British adults; the tables above are not from it. See the [README](../README.md#exploratory-15-october-2026-pick-a-number-between-1-and-10) and [results/pick_number/](../results/pick_number/).
+
+![Jev 1.13 and Jev 1.14: the distribution Jev returns against its single answer, with Claude Haiku 5.5 and people](../results/figures/pick-number-jev.png)
+
+![One pick per call against the full distribution: Jev and the main comparison's models](../results/figures/pick-number-reading-a.png)
+
+![One pick per call against the full distribution: the other System One models](../results/figures/pick-number-reading-b.png)
+
+![Share on 7, asked plainly and as a typical person: Jev and the main comparison's models](../results/figures/pick-number-prompt-a.png)
+
+![Share on 7, asked plainly and as a typical person: the other System One models](../results/figures/pick-number-prompt-b.png)
+
+![Pick a number between 1 and 10: Jev and the main comparison's models' returned distributions against people](../results/figures/pick-number-models-a.png)
+
+![Pick a number between 1 and 10: the other System One models' returned distributions against people](../results/figures/pick-number-models-b.png)
+
+

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One pick per call against the full distribution: the other System One models</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper: #f5f5f5; --color-ink: #2d3142; --color-muted: #4f5d75;
+      --font-sans: 'Geist', system-ui, sans-serif; --font-serif: 'Instrument Serif', serif; --font-mono: 'Geist Mono', ui-monospace, monospace;
+    }
+    body {
+      font-family: var(--font-sans); background: var(--color-paper); color: var(--color-ink);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 3rem 2rem;
+    }
+    .frame { max-width: 1080px; width: 100%; padding: 32px 40px; background: var(--color-paper);
+      position: relative; }
+    .mark { position: absolute; right: 40px; bottom: 12px; font-family: var(--font-mono); font-size: 0.6rem;
+      letter-spacing: 0.14em; color: var(--color-muted); opacity: 0.55; }
+    .diagram-container { width: 100%; overflow-x: auto; }
+    .eyebrow {
+      font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-muted);
+      margin-bottom: 0.5rem;
+    }
+    h1 {
+      font-family: var(--font-serif); font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem);
+      font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.5rem;
+    }
+    .subtitle { color: var(--color-muted); font-size: 0.95rem; line-height: 1.45;
+      max-width: 60rem; margin-bottom: 1rem; }
+    .source { font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-muted);
+      border-top: 1px solid rgba(45,49,66,0.12); margin-top: 1rem; padding-top: 0.75rem; line-height: 1.5; }
+    svg { width: 100%; min-width: 1000px; display: block; }
+    @media print { .diagram-container { overflow-x: visible; } svg { min-width: 0; } }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Pick a number · asked plainly · exploratory</p>
+    <h1>One pick per call against the full distribution: the other System One models</h1>
+    <p class="subtitle">How far each model&#x27;s answers are from people&#x27;s when it is asked for a random number from 1 to 10. Hollow: counting the single number each call picks, as a chat model has to be read. Solid: the probabilities the model returns. The distribution is closer to people than the single picks for all 6 models. Putting everything on 7 scores 0.67.</p>
+    <div class="diagram-container">
+      <svg viewBox="0 16 1000 494" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="pick-number-reading-b-title pick-number-reading-b-desc">
+        <title id="pick-number-reading-b-title">One pick per call against the full distribution: the other System One models</title>
+        <desc id="pick-number-reading-b-desc">Dumbbell chart of Clef Flash, Decider v1.1 27B, Mercury Decide, Microsoft-Decision-1, Solar Decide and Solar Decide Flash: each model&#x27;s distance from people&#x27;s distribution of picks, counted one pick per call and taken from its returned probabilities.</desc>
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
+          <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#157a6e"/></marker>
+          <marker id="arrow-link" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#2e5aa8"/></marker>
+        </defs>
+        <rect width="100%" height="100%" fill="#f5f5f5"/>
+<text x="300" y="440" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0">0.00</text>
+<line x1="432" y1="56" x2="432" y2="408" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="432" y="440" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.2">0.20</text>
+<line x1="564" y1="56" x2="564" y2="408" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="564" y="440" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.4">0.40</text>
+<line x1="696" y1="56" x2="696" y2="408" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="696" y="440" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.6">0.60</text>
+<line x1="828" y1="56" x2="828" y2="408" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="828" y="440" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="0.8">0.80</text>
+<line x1="960" y1="56" x2="960" y2="408" stroke="rgba(45,49,66,0.08)" stroke-width="0.8"/>
+<text x="960" y="440" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" data-tick="x" data-value="1">1.00</text>
+<line x1="300" y1="40" x2="300" y2="420" stroke="rgba(45,49,66,0.25)" stroke-width="1"/>
+<text x="630" y="456" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.14em">DISTANCE FROM PEOPLE&#x27;S DISTRIBUTION (TOTAL VARIATION, 0 = THE SAME)</text>
+<line x1="744" y1="48" x2="744" y2="420" stroke="rgba(45,49,66,0.55)" stroke-width="1" stroke-dasharray="4,3" data-value="0.673267"/>
+<rect x="653.2" y="28" width="181.6" height="12" rx="2" fill="#f5f5f5"/>
+<text x="744" y="37" fill="#2d3142" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.06em">CLAUDE HAIKU 5.5, ONE PICK PER CALL</text>
+<line x1="744" y1="76" x2="420" y2="76" stroke="rgba(45,49,66,0.55)" stroke-width="1"/>
+<circle data-series="reference" data-value="0.6733" cx="744" cy="76" r="6" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="focal" data-value="0.1812" cx="420" cy="76" r="6" fill="#157a6e" stroke="#2d3142" stroke-width="1"/>
+<text x="408" y="80" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">0.18</text>
+<text x="756" y="80" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">0.67</text>
+<text x="288" y="75" fill="#2d3142" font-size="11" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="600">Clef Flash</text>
+<text x="288" y="88" fill="#4f5d75" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="end">one pick per call: 7 in 100 of 100 calls</text>
+<line x1="744" y1="140" x2="460" y2="140" stroke="rgba(45,49,66,0.55)" stroke-width="1"/>
+<circle data-series="reference" data-value="0.6733" cx="744" cy="140" r="6" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="focal" data-value="0.2424" cx="460" cy="140" r="6" fill="#157a6e" stroke="#2d3142" stroke-width="1"/>
+<text x="448" y="144" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">0.24</text>
+<text x="756" y="144" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">0.67</text>
+<text x="288" y="139" fill="#2d3142" font-size="11" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="600">Decider v1.1 27B</text>
+<text x="288" y="152" fill="#4f5d75" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="end">one pick per call: 7 in 100 of 100 calls</text>
+<line x1="869" y1="204" x2="462" y2="204" stroke="rgba(45,49,66,0.55)" stroke-width="1"/>
+<circle data-series="reference" data-value="0.8614" cx="869" cy="204" r="6" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="focal" data-value="0.2460" cx="462" cy="204" r="6" fill="#157a6e" stroke="#2d3142" stroke-width="1"/>
+<text x="450" y="208" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">0.25</text>
+<text x="881" y="208" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">0.86</text>
+<text x="288" y="203" fill="#2d3142" font-size="11" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="600">Mercury Decide</text>
+<text x="288" y="216" fill="#4f5d75" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="end">one pick per call: 6 in 100 of 100 calls</text>
+<line x1="908" y1="268" x2="473" y2="268" stroke="rgba(45,49,66,0.55)" stroke-width="1"/>
+<circle data-series="reference" data-value="0.9208" cx="908" cy="268" r="6" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="focal" data-value="0.2617" cx="473" cy="268" r="6" fill="#157a6e" stroke="#2d3142" stroke-width="1"/>
+<text x="461" y="272" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">0.26</text>
+<text x="920" y="272" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">0.92</text>
+<text x="288" y="267" fill="#2d3142" font-size="11" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="600">Microsoft-Decision-1</text>
+<text x="288" y="280" fill="#4f5d75" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="end">one pick per call: 5 in 100 of 100 calls</text>
+<line x1="901" y1="332" x2="676" y2="332" stroke="rgba(45,49,66,0.55)" stroke-width="1"/>
+<circle data-series="reference" data-value="0.9109" cx="901" cy="332" r="6" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="focal" data-value="0.5700" cx="676" cy="332" r="6" fill="#157a6e" stroke="#2d3142" stroke-width="1"/>
+<text x="664" y="336" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">0.57</text>
+<text x="913" y="336" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">0.91</text>
+<text x="288" y="331" fill="#2d3142" font-size="11" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="600">Solar Decide Flash</text>
+<text x="288" y="344" fill="#4f5d75" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="end">one pick per call: 3 in 94 of 100 calls</text>
+<line x1="848" y1="396" x2="704" y2="396" stroke="rgba(45,49,66,0.55)" stroke-width="1"/>
+<circle data-series="reference" data-value="0.8309" cx="848" cy="396" r="6" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<circle data-series="focal" data-value="0.6124" cx="704" cy="396" r="6" fill="#157a6e" stroke="#2d3142" stroke-width="1"/>
+<text x="692" y="400" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">0.61</text>
+<text x="860" y="400" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" stroke="#f5f5f5" stroke-width="3" paint-order="stroke">0.83</text>
+<text x="288" y="395" fill="#2d3142" font-size="11" font-family="'Geist', system-ui, sans-serif" text-anchor="end" font-weight="600">Solar Decide</text>
+<text x="288" y="408" fill="#4f5d75" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="end">one pick per call: 1 in 69 of 100 calls</text>
+<line x1="30" y1="462" x2="970" y2="462" stroke="rgba(45,49,66,0.1)" stroke-width="0.8"/>
+<text x="30" y="478" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" letter-spacing="0.14em">LEGEND</text>
+<circle cx="104" cy="493" r="5" fill="#f5f5f5" stroke="#4f5d75" stroke-width="1.5"/>
+<text x="116" y="497" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">One pick per call</text>
+<circle cx="247.8" cy="493" r="5" fill="#157a6e" stroke="#2d3142" stroke-width="1"/>
+<text x="259.8" y="497" fill="#2d3142" font-size="9" font-family="'Geist', system-ui, sans-serif" text-anchor="start">The model&#x27;s own distribution</text>
+<text x="970" y="497" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">ROWS BY THE DISTRIBUTION&#x27;S DISTANCE</text>
+      </svg>
+    </div>
+    <p class="source">Total-variation distance from YouGov&#x27;s 2,241 British adults, 12–13 Sep 2024. Each model: 100 calls, run on 15 Oct 2026, options shuffled per call. Dashed line: the chat model, 100 calls at temperature 1.</p>
+    <p class="mark" aria-hidden="true">github.com/tynamite</p>
+  </div>
+</body>
+</html>

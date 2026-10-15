@@ -395,18 +395,21 @@ def run_battery(
     randomise_options: bool = True,
     out_dir: Path | None = None,
     resume: Path | None = None,
+    probes: list[Probe] | None = None,
 ) -> Path:
     if replicates <= 0 and baseline_samples <= 0:
         raise RuntimeError("nothing to run: set --replicates or --baseline-samples above 0")
 
-    probes = all_probes(modules)
+    # A study outside the battery (such as the pick-a-number addendum) passes
+    # its own items; otherwise the battery's modules are run.
+    probes = probes if probes is not None else all_probes(modules)
     if resume is not None:
         path = resume
         kept, done = _done_keys(path)
         # Against the whole battery, not this invocation's modules: a kept
         # record from a module not selected now must still match.
         problem = resume_order_mismatch(
-            kept, all_probes(), seed=seed, randomise_options=randomise_options
+            kept, all_probes() + probes, seed=seed, randomise_options=randomise_options
         )
         if problem:
             raise RuntimeError(

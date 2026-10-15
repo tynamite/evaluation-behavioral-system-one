@@ -7,7 +7,7 @@ import sys
 from dataclasses import replace
 from pathlib import Path
 
-from .config import COMPARISON_DIR, FIGURES_DIR, RAW_DIR, TABLES_DIR, Config
+from .config import COMPARISON_DIR, FIGURES_DIR, RAW_DIR, REPO_ROOT, TABLES_DIR, Config
 from .instruments import MODULES, PERSONAS, all_probes, asked_under
 
 
@@ -158,6 +158,86 @@ def _cmd_diagrams(args: argparse.Namespace) -> int:
     return diagrams_main(argv)
 
 
+def _cmd_pick_number(args: argparse.Namespace) -> int:
+    from .pick_number import PERSONAS, PICK_DIR, PICK_RESULTS_DIR, PROBE, analyse
+
+    if args.action == "run":
+        from .runner import run_battery
+
+        if args.baseline_samples <= 0 and args.replicates <= 0:
+            print(
+                "pick-number: say how many calls to make: --replicates N for a System One "
+                "model, or --baseline-samples N for the chat model",
+                file=sys.stderr,
+            )
+            return 1
+        if args.baseline_samples > 0 and args.replicates > 0:
+            # The chat arm goes through OpenRouter and Jev may not: one run per arm
+            # keeps each on its own backend and key.
+            print(
+                "pick-number: run Jev (--replicates) and the chat model "
+                "(--baseline-samples) as two separate runs",
+                file=sys.stderr,
+            )
+            return 1
+        cfg = _with_models(Config.from_env(args.backend), args)
+        arm = "baseline" if args.baseline_samples > 0 else "jev"
+        if args.resume:
+            from .pick_number import resume_problem
+
+            # The runner skips only calls already in the file, so a file from
+            # another run would have this run's paid calls appended beside it.
+            problem = resume_problem(
+                Path(args.resume),
+                arm=arm,
+                model=cfg.baseline_model if arm == "baseline" else cfg.model,
+                backend=cfg.backend,
+                count=args.baseline_samples if arm == "baseline" else args.replicates,
+            )
+            if problem:
+                print(f"pick-number: {args.resume} {problem}", file=sys.stderr)
+                return 1
+        # The backend actually resolved (flag, then JEVBENCH_BACKEND), since the
+        # chat arm sends this config's key to OpenRouter.
+        if args.baseline_samples > 0 and cfg.backend != "openrouter":
+            print(
+                f"pick-number: the chat model runs through OpenRouter, not {cfg.backend}; "
+                "pass --backend openrouter",
+                file=sys.stderr,
+            )
+            return 1
+
+        run_battery(
+            cfg,
+            personas=PERSONAS,
+            replicates=args.replicates,
+            baseline_samples=args.baseline_samples,
+            workers=args.workers,
+            seed=20261015,
+            out_dir=PICK_DIR,
+            resume=Path(args.resume) if args.resume else None,
+            probes=[PROBE],
+        )
+        return 0
+    from .diagrams import build_pick_number_diagrams, export_pngs
+
+    try:
+        table = analyse()
+    except ValueError as exc:
+        print(f"pick-number: {exc}", file=sys.stderr)
+        return 1
+    print(table.drop(columns=[str(i) for i in range(1, 11)]).to_string(index=False))
+    print(f"wrote {PICK_RESULTS_DIR / 'distributions.csv'}")
+    # Drawn in the diagram-design house style, like the README's other editorial figures.
+    html = build_pick_number_diagrams(table, REPO_ROOT / "docs" / "diagrams", FIGURES_DIR)
+    for p in html:
+        print(f"wrote {p.relative_to(REPO_ROOT)}")
+    if not args.no_png:
+        for p in export_pngs(html, FIGURES_DIR):
+            print(f"wrote {p.relative_to(REPO_ROOT)}")
+    return 0
+
+
 def _cmd_order_study(args: argparse.Namespace) -> int:
     from .order_study import ORDER_RESULTS_DIR, ORDER_STUDY_DIR, analyse_study
 
@@ -288,6 +368,20 @@ def main(argv: list[str] | None = None) -> int:
     c.add_argument("runs", nargs="+", help="run .jsonl files, one per model")
     c.add_argument("--out", default=str(COMPARISON_DIR), help="output directory")
     c.set_defaults(func=_cmd_compare)
+
+    n = sub.add_parser(
+        "pick-number", help="pick a number from 1 to 10: Jev, a chat model and people"
+    )
+    n.add_argument("action", choices=["run", "analyse"])
+    n.add_argument("--backend", choices=["openrouter", "typesafe"], default=None)
+    n.add_argument("--model", default=None, help="System One model (default: JEVBENCH_MODEL)")
+    n.add_argument("--replicates", type=int, default=0, help="Jev calls per prompt")
+    n.add_argument("--baseline-model", default=None, help="chat model, resampled")
+    n.add_argument("--baseline-samples", type=int, default=0, help="chat samples per prompt")
+    n.add_argument("--workers", type=int, default=8)
+    n.add_argument("--resume", default=None)
+    n.add_argument("--no-png", action="store_true", help="analyse: write the HTML figures only")
+    n.set_defaults(func=_cmd_pick_number)
 
     o = sub.add_parser(
         "order-study", help="the option-order addendum's tests (ORDER_PREREGISTRATION.md)"
