@@ -479,3 +479,11 @@ def test_legend_counts_only_the_plotted_distributions() -> None:
     picks = table["source"].str.endswith("one pick per call") & (table["arm"] == "jev")
     table.loc[picks, "n"] = 99
     assert _pick_calls(table, ["jev-1.13.0"]) == "100"
+
+
+def test_group_suffixes_never_run_out() -> None:
+    from jevbench.diagrams import _part
+
+    parts = [_part(i) for i in range(30)]
+    assert parts[:3] == ["a", "b", "c"] and parts[25:28] == ["z", "aa", "ab"]
+    assert len(set(parts)) == 30

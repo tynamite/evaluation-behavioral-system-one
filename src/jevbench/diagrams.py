@@ -3115,6 +3115,16 @@ def fig_pick_number_models(table: pd.DataFrame, group: str, models: list[str], p
     )
 
 
+def _part(i: int) -> str:
+    """Group suffixes without end: a, b, ..., z, aa, ab, ..."""
+    out = ""
+    i += 1
+    while i:
+        i, r = divmod(i - 1, 26)
+        out = chr(97 + r) + out
+    return out
+
+
 def pick_number_figures(table: pd.DataFrame) -> list[Figure]:
     """Every pick-number figure the run set supports.
 
@@ -3131,7 +3141,8 @@ def pick_number_figures(table: pd.DataFrame) -> list[Figure]:
         )
         for i in range(0, len(jevs), size)
     ]
-    for (group, models), part in zip(_pick_groups(table), "abcdefghij", strict=False):
+    for i, (group, models) in enumerate(_pick_groups(table)):
+        part = _part(i)
         if len(models) >= 4:
             figures += [
                 fig_pick_number_reading(table, group, models, part),
