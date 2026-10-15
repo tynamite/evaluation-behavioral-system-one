@@ -227,3 +227,31 @@ def test_analyse_keeps_two_jev_versions_apart(tmp_path) -> None:
     write({"A": ("jev", "jev-1.13.0"), "B": ("jev", "typesafe/jev-1.13-20260917"), "C": chat})
     with pytest.raises(ValueError, match="named alike"):
         analyse(tmp_path, tmp_path / "out")
+
+
+def test_same_model_accepts_a_jev_alias() -> None:
+    from jevbench.pick_number import same_model
+
+    assert same_model("jev-preview", "jev-1.14.0")
+    assert same_model("jev-latest", "jev-1.13.0")
+    assert not same_model("jev-preview", "cloudflare/clef")
+
+
+def test_analyse_refuses_another_probe(tmp_path) -> None:
+    import json
+
+    from jevbench.pick_number import analyse
+
+    base = {"instrument": "pick_number", "backend": "x", "kind": "choice", "value": "7",
+            "probabilities": {"7": 1.0}, "error": None}  # fmt: skip
+    grid = [(p, r) for p in ("neutral", "typical_human") for r in range(2)]
+    runs = {"A": ("jev", "jev-1.13.0", "pick_number_1_10"),
+            "B": ("baseline", "anthropic/claude-haiku-5.5", "dictator")}  # fmt: skip
+    for name, (arm, model, probe) in runs.items():
+        rows = [{**base, "probe_id": probe, "arm": arm, "model": model, "persona": p,
+                 "replicate": r} for p, r in grid]  # fmt: skip
+        (tmp_path / f"run_live_{name}.jsonl").write_text(
+            "".join(json.dumps(r) + "\n" for r in rows)
+        )
+    with pytest.raises(ValueError, match="holds probes"):
+        analyse(tmp_path, tmp_path / "out")

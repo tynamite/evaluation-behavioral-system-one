@@ -120,6 +120,9 @@ def is_jev(model: str) -> bool:
     return system_one_name(model).startswith("Jev ")
 
 
+JEV_ALIASES = {"jev-preview", "jev-latest"}
+
+
 def same_model(requested: str, answered: str) -> bool:
     """Whether a record's model is the one requested.
 
@@ -128,6 +131,10 @@ def same_model(requested: str, answered: str) -> bool:
     so a version or date suffix is allowed; another model's name is not.
     """
     req, ans = requested.split("/")[-1], answered.split("/")[-1]
+    # TypeSafe's aliases (`jev-preview`, `jev-latest`) answer with whichever
+    # Jev version they point at; the analysis names that version.
+    if req in JEV_ALIASES:
+        return is_jev(answered)
     return ans.startswith(req) and re.fullmatch(r"([.-]\d[\w.]*)?", ans[len(req) :]) is not None
 
 
@@ -218,6 +225,9 @@ def analyse(root: Path = PICK_DIR, out_dir: Path = PICK_RESULTS_DIR) -> pd.DataF
         # answered (failed calls, which carry only the requested one, are
         # refused by check_complete).
         models = sorted(set(d["model"].astype(str)))
+        probes = sorted(set(d["probe_id"].astype(str)))
+        if probes != [PROBE.probe_id]:
+            raise ValueError(f"{f.name} holds probes {probes}, not only {PROBE.probe_id}")
         if len(arms) != 1 or len(models) != 1:
             raise ValueError(f"{f.name} holds arms {arms} and models {models}, not one of each")
         check_complete(f.name, arms[0], d)
