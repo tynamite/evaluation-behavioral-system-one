@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import re
+
 import pandas as pd
 import pytest
 
@@ -444,3 +446,31 @@ def test_analyse_refuses_a_file_from_two_backends(tmp_path) -> None:
         )
     with pytest.raises(ValueError, match="holds backends"):
         analyse(tmp_path, tmp_path / "out")
+
+
+def test_many_jev_versions_spread_over_several_figures() -> None:
+    from jevbench.diagrams import PICK_JEV_PER_FIGURE, pick_number_figures
+    from jevbench.pick_number import PICK_RESULTS_DIR
+
+    table = pd.read_csv(PICK_RESULTS_DIR / "distributions.csv", dtype={"persona": str})
+    table["persona"] = table["persona"].fillna("")
+    jev = table[table["model"] == "jev-1.14.0"]
+    more = [jev.assign(model=f"jev-1.{v}.0", source=jev["source"].str.replace("Jev 1.14", f"Jev 1.{v}"))
+            for v in range(15, 21)]  # fmt: skip
+    figs = [f for f in pick_number_figures(pd.concat([table, *more], ignore_index=True))
+            if f.slug.startswith("pick-number-jev")]  # fmt: skip
+    names = [n for f in figs for n in set(re.findall(r"Jev 1\.\d+(?= ·)", f.body))]
+    assert len(names) == 8 and len(set(names)) == 8
+    assert all(
+        len(set(re.findall(r"Jev 1\.\d+(?= ·)", f.body))) <= PICK_JEV_PER_FIGURE for f in figs
+    )
+
+
+def test_legend_counts_only_the_plotted_distributions() -> None:
+    from jevbench.diagrams import _pick_calls
+    from jevbench.pick_number import PICK_RESULTS_DIR
+
+    table = pd.read_csv(PICK_RESULTS_DIR / "distributions.csv", dtype={"persona": str})
+    picks = table["source"].str.endswith("one pick per call") & (table["arm"] == "jev")
+    table.loc[picks, "n"] = 99
+    assert _pick_calls(table, ["jev-1.13.0"]) == "100"

@@ -2778,9 +2778,16 @@ def _pick_chat_line(table: pd.DataFrame) -> str:
 
 def _pick_calls(table: pd.DataFrame, models: list[str] | None = None) -> str:
     """How many calls each plotted cell holds, from the table: "100", or "50 to 100"."""
-    rows = table[table["arm"] == "jev"] if models else table[table["arm"] == "baseline"]
     if models:
-        rows = rows[rows["model"].isin(models)]
+        # The plotted rows only: a reply can keep its distribution but lose its
+        # single pick, so the one-pick rows may count fewer.
+        rows = table[
+            (table["arm"] == "jev")
+            & table["model"].isin(models)
+            & table["source"].str.endswith("its distribution")
+        ]
+    else:
+        rows = table[table["arm"] == "baseline"]
     ns = sorted({int(n) for n in rows["n"]})
     return str(ns[0]) if len(ns) == 1 else f"{ns[0]} to {ns[-1]}"
 
@@ -2793,18 +2800,32 @@ def _pick_ceil(top: float) -> float:
 PICK_PEOPLE_KEY = "People: share of 2,241 British adults (YouGov)"
 
 
-def fig_pick_number_jev(table: pd.DataFrame) -> Figure:
-    """Each Jev version's distribution against people's, under each prompt.
+PICK_JEV_PER_FIGURE = 3
 
-    Ten numbers break the bar type's eight-bar cap on purpose, as in the
-    dictator chart: pooling them would hide the shape that is the finding.
-    """
+
+def _pick_jevs(table: pd.DataFrame) -> list[str]:
     from .pick_number import is_jev, system_one_name
 
-    jevs = sorted(
+    return sorted(
         {str(m) for m in table.loc[table["arm"] == "jev", "model"] if is_jev(str(m))},
         key=system_one_name,
     )
+
+
+def fig_pick_number_jev(
+    table: pd.DataFrame, jevs: list[str] | None = None, slug: str = "pick-number-jev"
+) -> Figure:
+    """Up to three Jev versions' distributions against people's, under each prompt.
+
+    Ten numbers break the bar type's eight-bar cap on purpose, as in the
+    dictator chart: pooling them would hide the shape that is the finding.
+    More versions go to further figures, so no panel narrows past legibility.
+    """
+    from .pick_number import system_one_name
+
+    jevs = jevs if jevs is not None else _pick_jevs(table)
+    if not 1 <= len(jevs) <= PICK_JEV_PER_FIGURE:
+        raise ValueError(f"one Jev figure takes 1 to {PICK_JEV_PER_FIGURE} versions, got {jevs}")
     people_row = table[table["arm"] == "people"].iloc[0]
     people = [float(people_row[n]) for n in PICK_NUMBERS]
     dists = {
@@ -2858,7 +2879,7 @@ def fig_pick_number_jev(table: pd.DataFrame) -> Figure:
         }
     )
     return Figure(
-        slug="pick-number-jev",
+        slug=slug,
         eyebrow="Pick a number · exploratory",
         title=f"Pick a number between 1 and 10: {versions} against people",
         subtitle=(
@@ -3059,7 +3080,15 @@ def pick_number_figures(table: pd.DataFrame) -> list[Figure]:
     A group under four models gets the small multiples, which take any
     number, but no dumbbells.
     """
-    figures = [fig_pick_number_jev(table)]
+    jevs = _pick_jevs(table)
+    k = -(-len(jevs) // PICK_JEV_PER_FIGURE)
+    size = -(-len(jevs) // k)
+    figures = [
+        fig_pick_number_jev(
+            table, jevs[i : i + size], "pick-number-jev" + (f"-{i // size + 1}" if i else "")
+        )
+        for i in range(0, len(jevs), size)
+    ]
     for (group, models), part in zip(_pick_groups(table), "abcdefghij", strict=False):
         if len(models) >= 4:
             figures += [
