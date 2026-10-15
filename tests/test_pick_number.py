@@ -407,3 +407,40 @@ def test_pick_number_figures_draw_any_number_of_models(keep: int) -> None:
     slugs = [f.slug for f in pick_number_figures(table)]
     assert "pick-number-jev" in slugs and "pick-number-models-a" in slugs
     assert ("pick-number-reading-a" in slugs) == (keep >= 4)
+
+
+def test_pick_number_groups_never_exceed_eight_models() -> None:
+    from jevbench.diagrams import _pick_groups, pick_number_figures
+    from jevbench.pick_number import PICK_RESULTS_DIR
+
+    table = pd.read_csv(PICK_RESULTS_DIR / "distributions.csv", dtype={"persona": str})
+    table["persona"] = table["persona"].fillna("")
+    # Nine more non-main models: the rest becomes fifteen, cut into eight and seven.
+    other = table[table["model"] == "cloudflare/clef-flash"]
+    extra = [other.assign(model=f"x/extra-{i}", source=other["source"].str.replace(
+        "Clef Flash", f"Extra {i}")) for i in range(9)]  # fmt: skip
+    big = pd.concat([table, *extra], ignore_index=True)
+    groups = _pick_groups(big)
+    assert all(len(ms) <= 8 for _g, ms in groups)
+    assert sum(len(ms) for _g, ms in groups) == len(set(big.loc[big["arm"] == "jev", "model"]))
+    assert len(pick_number_figures(big)) == 1 + 3 * len(groups)
+
+
+def test_analyse_refuses_a_file_from_two_backends(tmp_path) -> None:
+    import json
+
+    from jevbench.pick_number import analyse
+
+    base = {"probe_id": "pick_number_1_10", "instrument": "pick_number", "kind": "choice",
+            "value": "7", "probabilities": {"7": 1.0}, "error": None}  # fmt: skip
+    grid = [(p, r) for p in ("neutral", "typical_human") for r in range(2)]
+    jev = [{**base, "arm": "jev", "model": "jev-1.13.0", "persona": p, "replicate": r,
+            "backend": "typesafe" if r else "openrouter"} for p, r in grid]  # fmt: skip
+    chat = [{**base, "arm": "baseline", "model": "anthropic/claude-haiku-5.5", "persona": p,
+             "replicate": r, "backend": "openrouter"} for p, r in grid]  # fmt: skip
+    for name, rows in (("A", jev), ("B", chat)):
+        (tmp_path / f"run_live_{name}.jsonl").write_text(
+            "".join(json.dumps(r) + "\n" for r in rows)
+        )
+    with pytest.raises(ValueError, match="holds backends"):
+        analyse(tmp_path, tmp_path / "out")

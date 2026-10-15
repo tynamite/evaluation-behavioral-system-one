@@ -254,6 +254,11 @@ def analyse(root: Path = PICK_DIR, out_dir: Path = PICK_RESULTS_DIR) -> pd.DataF
             raise ValueError(f"{f.name} holds probes {probes}, not only {PROBE.probe_id}")
         if len(arms) != 1 or len(models) != 1:
             raise ValueError(f"{f.name} holds arms {arms} and models {models}, not one of each")
+        # One provider per file: the summary does not split by backend, so a
+        # file served through two would be pooled into one distribution.
+        backends = sorted(set(d["backend"].astype(str))) if "backend" in d.columns else []
+        if len(backends) > 1:
+            raise ValueError(f"{f.name} holds backends {backends}, not one")
         check_complete(f.name, arms[0], d)
         runs.append((arms[0], models[0]))
     chats = [m for a, m in runs if a == "baseline"]

@@ -2654,24 +2654,35 @@ def _pick_cell(table: pd.DataFrame, model: str, persona: str, kind: str) -> pd.S
 
 
 def _pick_groups(table: pd.DataFrame) -> list[tuple[str, list[str]]]:
-    """The System One models in two groups of at most eight: Jev and the main
-    comparison's three other models, then the rest."""
+    """The System One models in groups of at most eight rows.
+
+    Models that fit in one chart form one group. Past eight they split into
+    Jev with the main comparison's three other models, then the rest; a part
+    still over eight is cut into balanced chunks (nine becomes five and four),
+    so every dumbbell keeps to its 4-8 rows wherever the counts allow.
+    """
     from .pick_number import is_jev, system_one_name
 
     models = sorted(
         {str(m) for m in table.loc[table["arm"] == "jev", "model"]}, key=system_one_name
     )
+    if len(models) <= 8:
+        return [("the System One models", models)]
     main_ids = {m for m, _c in MAIN_MODELS}
     first = [m for m in models if is_jev(m)] + [
         m for m in models if m in main_ids and not is_jev(m)
     ]
     rest = [m for m in models if m not in first]
-    groups = [("Jev and the main comparison's models", first)]
-    if rest:
-        groups.append(("the other System One models", rest))
-    for _label, ms in groups:
-        if len(ms) > 8:
-            raise ValueError(f"{len(ms)} models in one pick-number group; split it further")
+    groups: list[tuple[str, list[str]]] = []
+    for label, ms in (("Jev and the main comparison's models", first),
+                      ("the other System One models", rest)):  # fmt: skip
+        if not ms:
+            continue
+        k = -(-len(ms) // 8)
+        size = -(-len(ms) // k)
+        chunks = [ms[i : i + size] for i in range(0, len(ms), size)]
+        for i, chunk in enumerate(chunks):
+            groups.append((label if k == 1 else f"{label} ({i + 1} of {k})", chunk))
     return groups
 
 
@@ -3044,16 +3055,12 @@ def fig_pick_number_models(table: pd.DataFrame, group: str, models: list[str], p
 def pick_number_figures(table: pd.DataFrame) -> list[Figure]:
     """Every pick-number figure the run set supports.
 
-    A dumbbell takes 4 to 8 rows. Models that fit in one chart are drawn in
-    one group; past eight they split into Jev with the main comparison's
-    models, and the rest. A group under four models gets the small multiples,
-    which take any number, but no dumbbells.
+    A dumbbell takes 4 to 8 rows; `_pick_groups` keeps every group to eight.
+    A group under four models gets the small multiples, which take any
+    number, but no dumbbells.
     """
-    groups = _pick_groups(table)
-    if sum(len(ms) for _g, ms in groups) <= 8:
-        groups = [("the System One models", [m for _g, ms in groups for m in ms])]
     figures = [fig_pick_number_jev(table)]
-    for (group, models), part in zip(groups, "ab", strict=False):
+    for (group, models), part in zip(_pick_groups(table), "abcdefghij", strict=False):
         if len(models) >= 4:
             figures += [
                 fig_pick_number_reading(table, group, models, part),
