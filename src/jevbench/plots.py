@@ -1843,6 +1843,8 @@ def fig_pick_number_grid(table: pd.DataFrame, out: Path, persona: str) -> Path:
     title = dict(PICK_PROMPTS)[persona]
     people = table[table["arm"] == "people"].iloc[0]
     hp = [float(people[n]) for n in NUMBERS]
+    counts = {int(_pick_row(table, m, persona, "its distribution")["n"]) for m in models}
+    calls = f"mean of {counts.pop()} calls" if len(counts) == 1 else "mean over each model's calls"
     ncols = 5
     nrows = -(-len(models) // ncols)
     peak = max(
@@ -1876,7 +1878,7 @@ def fig_pick_number_grid(table: pd.DataFrame, out: Path, persona: str) -> Path:
     for ax in flat[len(models) :]:
         ax.set_visible(False)
     handles = [
-        Rectangle((0, 0), 1, 1, color=JEV, label="the model's own distribution (mean of 100 calls)"),
+        Rectangle((0, 0), 1, 1, color=JEV, label=f"the model's own distribution ({calls})"),
         Line2D([], [], color=HUMAN, linewidth=1.8, marker="o", markersize=4.2,
                    label="people (YouGov, 2,241 British adults)"),
     ]  # fmt: skip

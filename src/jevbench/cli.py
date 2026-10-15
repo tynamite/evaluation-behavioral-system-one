@@ -173,38 +173,21 @@ def _cmd_pick_number(args: argparse.Namespace) -> int:
                 file=sys.stderr,
             )
             return 1
-        if args.resume:
-            from .analysis import load_records
-
-            # A resume file from the other arm would look entirely unfinished to
-            # the runner, which would append this arm to it (paying for every
-            # call) and leave a file that analyse refuses.
-            arm = "baseline" if args.baseline_samples > 0 else "jev"
-            found = sorted(set(load_records(Path(args.resume))["arm"].astype(str)) - {arm})
-            if found:
-                print(
-                    f"pick-number: {args.resume} holds the {', '.join(found)} arm, "
-                    f"not the {arm} arm this run makes",
-                    file=sys.stderr,
-                )
-                return 1
         cfg = _with_models(Config.from_env(args.backend), args)
+        arm = "baseline" if args.baseline_samples > 0 else "jev"
         if args.resume:
-            from .analysis import load_records
-            from .pick_number import same_model
+            from .pick_number import resume_problem
 
-            # Likewise a file from another model: the runner would add this
-            # model's calls beside the old ones.
-            wanted = cfg.baseline_model if args.baseline_samples > 0 else cfg.model
-            other = sorted(
-                {m for m in load_records(Path(args.resume))["model"].astype(str)
-                 if not same_model(wanted, m)}
-            )  # fmt: skip
-            if other:
-                print(
-                    f"pick-number: {args.resume} holds {', '.join(other)}, not {wanted}",
-                    file=sys.stderr,
-                )
+            # The runner skips only calls already in the file, so a file from
+            # another run would have this run's paid calls appended beside it.
+            problem = resume_problem(
+                Path(args.resume),
+                arm=arm,
+                model=cfg.baseline_model if arm == "baseline" else cfg.model,
+                backend=cfg.backend,
+            )
+            if problem:
+                print(f"pick-number: {args.resume} {problem}", file=sys.stderr)
                 return 1
         # The backend actually resolved (flag, then JEVBENCH_BACKEND), since the
         # chat arm sends this config's key to OpenRouter.

@@ -145,7 +145,7 @@ def test_resume_refuses_a_file_from_the_other_arm(tmp_path, capsys) -> None:
     path = tmp_path / "run_live_x.jsonl"
     path.write_text(json.dumps(rec) + "\n")
     assert main(["pick-number", "run", "--replicates", "1", "--resume", str(path)]) == 1
-    assert "holds the baseline arm" in capsys.readouterr().err
+    assert "holds arm baseline, not jev" in capsys.readouterr().err
     assert path.read_text().count("\n") == 1  # untouched
 
 
@@ -173,5 +173,28 @@ def test_resume_refuses_a_file_from_another_model(tmp_path, capsys) -> None:
     argv = ["pick-number", "run", "--backend", "openrouter", "--baseline-samples", "2",
             "--baseline-model", "anthropic/claude-sonnet-5.5", "--resume", str(path)]  # fmt: skip
     assert main(argv) == 1
-    assert "holds anthropic/claude-haiku-5.5" in capsys.readouterr().err
+    assert "holds model anthropic/claude-haiku-5.5" in capsys.readouterr().err
     assert path.read_text().count("\n") == 1
+
+
+@pytest.mark.parametrize(
+    ("change", "message"),
+    [
+        ({"probe_id": "dictator"}, "holds probe_id dictator"),
+        ({"backend": "typesafe"}, "holds backend typesafe"),
+    ],
+)
+def test_resume_refuses_another_probe_or_backend(tmp_path, change, message) -> None:
+    import json
+
+    from jevbench.pick_number import resume_problem
+
+    rec = {"probe_id": "pick_number_1_10", "instrument": "pick_number", "persona": "neutral",
+           "arm": "jev", "replicate": 0, "backend": "openrouter", "model": "jev-1.13.0",
+           "kind": "choice", "value": "7", "probabilities": {"7": 1.0}, "error": None}  # fmt: skip
+    path = tmp_path / "run_live_x.jsonl"
+    path.write_text(json.dumps(rec) + "\n")
+    ok = {"arm": "jev", "model": "typesafe/jev-1.13", "backend": "openrouter"}
+    assert resume_problem(path, **ok) is None
+    path.write_text(json.dumps({**rec, **change}) + "\n")
+    assert message in (resume_problem(path, **ok) or "")

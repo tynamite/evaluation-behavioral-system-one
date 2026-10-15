@@ -16,6 +16,7 @@ from __future__ import annotations
 import json
 import re
 from collections import Counter
+from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
@@ -122,6 +123,29 @@ def same_model(requested: str, answered: str) -> bool:
     """
     req, ans = requested.split("/")[-1], answered.split("/")[-1]
     return ans.startswith(req) and re.fullmatch(r"([.-]\d[\w.]*)?", ans[len(req) :]) is not None
+
+
+def resume_problem(path: Path, *, arm: str, model: str, backend: str) -> str | None:
+    """Why `path` cannot be resumed by this run, or None if it can.
+
+    Every record must be this study's question, on this arm, through this
+    backend, from this model.
+    """
+    from .analysis import load_records
+
+    d = load_records(path)
+    checks: list[tuple[str, str, Callable[[str], bool]]] = [
+        ("probe_id", PROBE.probe_id, lambda v: v == PROBE.probe_id),
+        ("arm", arm, lambda v: v == arm),
+        ("backend", backend, lambda v: v == backend),
+        ("model", model, lambda v: same_model(model, v)),
+    ]
+    for column, wanted, ok in checks:
+        found = sorted({str(v) for v in d[column]} if column in d.columns else {"none"})
+        other = [v for v in found if not ok(v)]
+        if other:
+            return f"holds {column} {', '.join(other)}, not {wanted}"
+    return None
 
 
 def chat_name(model: str) -> str:
