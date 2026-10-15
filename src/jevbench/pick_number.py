@@ -74,6 +74,9 @@ def summarise(df: pd.DataFrame) -> list[dict[str, Any]]:
         if arm == "jev":
             dists = [p for p in g["probabilities"] if isinstance(p, dict) and p]
             mean = {n: float(np.mean([d.get(n, 0.0) for d in dists])) for n in NUMBERS}
+            # Jev rounds its probabilities, so a reply may sum to 0.99; renormalise.
+            total = sum(mean.values())
+            mean = {n: v / total for n, v in mean.items()} if total else mean
             rows.append(_row("Jev, its distribution", model, persona, mean, len(dists)))
             rows.append(
                 _row("Jev, one pick per call", model, persona, _shares(picks), sum(picks.values()))
@@ -182,10 +185,11 @@ def analyse(root: Path = PICK_DIR, out_dir: Path = PICK_RESULTS_DIR) -> pd.DataF
         f.name: {
             "records": len(d),
             "errors": int(d["error"].notna().sum()) if "error" in d.columns else 0,
-            # A chat reply that arrived but named no number: left out of the
-            # counts, so reported here rather than hidden.
-            "unread_replies": int(
-                ((d["arm"] == "baseline") & d["error"].isna() & d["value"].isna()).sum()
+            # A reply that arrived without a single pick from 1 to 10 (a chat
+            # reply naming no number, or a Jev choice outside the options) is
+            # left out of the one-pick counts, so it is reported here.
+            "picks_left_out": int(
+                (d["error"].isna() & ~d["value"].astype(str).isin(NUMBERS)).sum()
             ),
         }
         for f, d in frames.items()
