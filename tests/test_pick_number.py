@@ -229,12 +229,12 @@ def test_analyse_keeps_two_jev_versions_apart(tmp_path) -> None:
         analyse(tmp_path, tmp_path / "out")
 
 
-def test_same_model_accepts_a_jev_alias() -> None:
+def test_same_model_never_matches_a_jev_alias() -> None:
     from jevbench.pick_number import same_model
 
-    assert same_model("jev-preview", "jev-1.14.0")
-    assert same_model("jev-latest", "jev-1.13.0")
-    assert not same_model("jev-preview", "cloudflare/clef")
+    # An alias may move to another version, so it never matches a file's records.
+    assert not same_model("jev-preview", "jev-1.14.0")
+    assert not same_model("jev-latest", "jev-1.13.0")
 
 
 def test_analyse_refuses_another_probe(tmp_path) -> None:
@@ -280,3 +280,24 @@ def test_pick_number_figures_follow_the_house_rules() -> None:
         assert f'aria-labelledby="{f.slug}-title {f.slug}-desc"' in page
         if "jev" in f.desc.lower() or "Jev" in f.body:
             assert JEV_PINK in f.body
+
+
+def test_resume_through_an_alias_names_the_version_to_use(tmp_path) -> None:
+    import json
+
+    from jevbench.pick_number import resume_problem
+
+    rec = {"probe_id": "pick_number_1_10", "instrument": "pick_number", "persona": "neutral",
+           "arm": "jev", "replicate": 0, "backend": "typesafe", "model": "jev-1.14.0",
+           "kind": "choice", "value": "7", "probabilities": {"7": 1.0}, "error": None}  # fmt: skip
+    path = tmp_path / "run_live_x.jsonl"
+    path.write_text(json.dumps(rec) + "\n")
+    problem = resume_problem(path, arm="jev", model="jev-preview", backend="typesafe")
+    assert problem and "--model jev-1.14.0" in problem
+
+
+def test_each_reply_counts_equally_in_the_mean() -> None:
+    # One reply sums to 0.5 (all on 7), one to 1.0 (all on 3): equal weight.
+    rows = summarise(pd.DataFrame([_jev({"7": 0.5}, "7"), _jev({"3": 1.0}, "3")]))
+    dist = next(r for r in rows if r["source"].endswith("its distribution"))
+    assert dist["7"] == pytest.approx(0.5) and dist["3"] == pytest.approx(0.5)

@@ -75,10 +75,11 @@ def summarise(df: pd.DataFrame) -> list[dict[str, Any]]:
         picks = Counter(str(v) for v in g["value"] if v is not None and str(v) in NUMBERS)
         if arm == "jev":
             dists = [p for p in g["probabilities"] if isinstance(p, dict) and p]
-            mean = {n: float(np.mean([d.get(n, 0.0) for d in dists])) for n in NUMBERS}
-            # Jev rounds its probabilities, so a reply may sum to 0.99; renormalise.
-            total = sum(mean.values())
-            mean = {n: v / total for n, v in mean.items()} if total else mean
+            # Jev rounds its probabilities, so a reply may sum to 0.99: normalise
+            # each reply before averaging, so every call counts equally.
+            dists = [{n: d.get(n, 0.0) / t for n in NUMBERS} for d in dists
+                     if (t := sum(d.get(n, 0.0) for n in NUMBERS)) > 0]  # fmt: skip
+            mean = {n: float(np.mean([d[n] for d in dists])) for n in NUMBERS}
             name = system_one_name(model)
             rows.append(_row(f"{name}, its distribution", "jev", model, persona, mean, len(dists)))
             rows.append(
@@ -132,9 +133,9 @@ def same_model(requested: str, answered: str) -> bool:
     """
     req, ans = requested.split("/")[-1], answered.split("/")[-1]
     # TypeSafe's aliases (`jev-preview`, `jev-latest`) answer with whichever
-    # Jev version they point at; the analysis names that version.
+    # Jev version they point at today, which may not be the one in a file.
     if req in JEV_ALIASES:
-        return is_jev(answered)
+        return False
     return ans.startswith(req) and re.fullmatch(r"([.-]\d[\w.]*)?", ans[len(req) :]) is not None
 
 
@@ -153,6 +154,12 @@ def resume_problem(path: Path, *, arm: str, model: str, backend: str) -> str | N
         ("backend", backend, lambda v: v == backend),
         ("model", model, lambda v: same_model(model, v)),
     ]
+    if model.split("/")[-1] in JEV_ALIASES:
+        served = ", ".join(sorted({str(v) for v in d["model"]}))
+        return (
+            f"cannot be resumed through the alias {model}, which may now point elsewhere; "
+            f"pass --model {served}"
+        )
     for column, wanted, ok in checks:
         found = sorted({str(v) for v in d[column]} if column in d.columns else {"none"})
         other = [v for v in found if not ok(v)]
