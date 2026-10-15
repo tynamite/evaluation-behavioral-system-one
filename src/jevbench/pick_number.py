@@ -183,6 +183,7 @@ def resume_problem(
         ("arm", arm, lambda v: v == arm),
         ("backend", backend, lambda v: v == backend),
         ("model", model, lambda v: same_model(model, v)),
+        ("persona", ", ".join(PERSONAS), lambda v: v in PERSONAS),
     ]
     if model.split("/")[-1] in JEV_ALIASES:
         served = ", ".join(sorted({str(v) for v in d["model"]}))
@@ -277,6 +278,8 @@ def analyse(root: Path = PICK_DIR, out_dir: Path = PICK_RESULTS_DIR) -> pd.DataF
             raise ValueError(f"{f.name} holds probes {probes}, not only {PROBE.probe_id}")
         if len(arms) != 1 or len(models) != 1:
             raise ValueError(f"{f.name} holds arms {arms} and models {models}, not one of each")
+        if arms[0] not in ("jev", "baseline"):
+            raise ValueError(f"{f.name} holds the arm {arms[0]}, not jev or baseline")
         # One provider per file: the summary does not split by backend, so a
         # file served through two would be pooled into one distribution.
         backends = sorted(set(d["backend"].astype(str))) if "backend" in d.columns else []

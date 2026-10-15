@@ -403,13 +403,13 @@ identical and 1 is no overlap. A model that put everything on 7 would score
   on it and favour 1, 3 and 10. Under the typical-person prompt, Solar Decide
   swings to 96% on 7, and Solar Decide Flash to 68% on 5.
 
-![Read one pick at a time, Jev and the main comparison's models mostly collapse onto one number](results/figures/pick-number-reading-a.png)
+![One pick per call against the full distribution: Jev and the main comparison's models](results/figures/pick-number-reading-a.png)
 
-![Read one pick at a time, the other System One models mostly collapse onto one number](results/figures/pick-number-reading-b.png)
+![One pick per call against the full distribution: the other System One models](results/figures/pick-number-reading-b.png)
 
-![Told to answer as a typical person, Jev and the main comparison's models mostly overshoot onto 7](results/figures/pick-number-prompt-a.png)
+![Share on 7, asked plainly and as a typical person: Jev and the main comparison's models](results/figures/pick-number-prompt-a.png)
 
-![Told to answer as a typical person, the other System One models mostly overshoot onto 7](results/figures/pick-number-prompt-b.png)
+![Share on 7, asked plainly and as a typical person: the other System One models](results/figures/pick-number-prompt-b.png)
 
 ![Pick a number between 1 and 10: Jev and the main comparison's models' returned distributions against people](results/figures/pick-number-models-a.png)
 

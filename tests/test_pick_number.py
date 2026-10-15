@@ -534,3 +534,54 @@ def test_jev_figure_dates_cover_only_jev() -> None:
     jev = next(f for f in pick_number_figures(table) if f.slug == "pick-number-jev")
     assert "Jev: 100 calls per prompt, run on 15 Oct 2026" in jev.source
     assert "temperature 1, run on 1 Mar 2027" in jev.source
+
+
+def test_resume_refuses_another_persona(tmp_path) -> None:
+    import json
+
+    from jevbench.pick_number import resume_problem
+
+    rec = {"probe_id": "pick_number_1_10", "instrument": "pick_number", "persona": "rational_agent",
+           "arm": "jev", "replicate": 0, "backend": "typesafe", "model": "jev-1.14.0",
+           "kind": "choice", "value": "7", "probabilities": {"7": 1.0}, "error": None}  # fmt: skip
+    path = tmp_path / "run_live_x.jsonl"
+    path.write_text(json.dumps(rec) + "\n")
+    problem = resume_problem(path, arm="jev", model="jev-1.14.0", backend="typesafe")
+    assert problem and "persona rational_agent" in problem
+
+
+def test_analyse_refuses_an_unknown_arm(tmp_path) -> None:
+    import json
+
+    from jevbench.pick_number import analyse
+
+    base = {"probe_id": "pick_number_1_10", "instrument": "pick_number", "backend": "x",
+            "kind": "choice", "value": "7", "probabilities": {"7": 1.0}, "error": None}  # fmt: skip
+    grid = [(p, r) for p in ("neutral", "typical_human") for r in range(2)]
+    runs = {"A": ("jev", "jev-1.13.0"), "B": ("baseline", "anthropic/claude-haiku-5.5"),
+            "C": ("control", "x/other")}  # fmt: skip
+    for name, (arm, model) in runs.items():
+        rows = [{**base, "arm": arm, "model": model, "persona": p, "replicate": r} for p, r in grid]
+        (tmp_path / f"run_live_{name}.jsonl").write_text(
+            "".join(json.dumps(r) + "\n" for r in rows)
+        )
+    with pytest.raises(ValueError, match="not jev or baseline"):
+        analyse(tmp_path, tmp_path / "out")
+
+
+def test_figure_claims_follow_the_data() -> None:
+    from jevbench.diagrams import pick_number_figures
+    from jevbench.pick_number import PICK_RESULTS_DIR
+
+    table = pd.read_csv(PICK_RESULTS_DIR / "distributions.csv", dtype={"persona": str})
+    table["persona"] = table["persona"].fillna("")
+    figs = {f.slug: f for f in pick_number_figures(table)}
+    assert "put 99% to 100% of calls on 7" in figs["pick-number-jev"].subtitle
+    assert "in all 4 panels" in figs["pick-number-jev"].subtitle
+    assert "for all 5 models" in figs["pick-number-reading-a"].subtitle
+    # Make one Jev cell's single picks match people exactly: the claim must change.
+    jev = (table["model"] == "jev-1.13.0") & table["source"].str.endswith("one pick per call")
+    table.loc[jev, "tv_from_people"] = 0.0
+    figs = {f.slug: f for f in pick_number_figures(table)}
+    assert "in none of the 4 panels" not in figs["pick-number-jev"].subtitle
+    assert "in 2 of the 4 panels" in figs["pick-number-jev"].subtitle

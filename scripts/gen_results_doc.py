@@ -333,14 +333,14 @@ def main(argv: list[str]) -> int:
     pick = figures(
         ("pick-number-jev.png", "Jev 1.13 and Jev 1.14: the distribution Jev returns against "
                                 "its single answer, with Claude Haiku 5.5 and people"),
-        ("pick-number-reading-a.png", "Read one pick at a time, Jev and the main comparison's "
-                                      "models mostly collapse onto one number"),
-        ("pick-number-reading-b.png", "Read one pick at a time, the other System One models "
-                                      "mostly collapse onto one number"),
-        ("pick-number-prompt-a.png", "Told to answer as a typical person, Jev and the main "
-                                     "comparison's models mostly overshoot onto 7"),
-        ("pick-number-prompt-b.png", "Told to answer as a typical person, the other System One "
-                                     "models mostly overshoot onto 7"),
+        ("pick-number-reading-a.png", "One pick per call against the full distribution: Jev and "
+                                      "the main comparison's models"),
+        ("pick-number-reading-b.png", "One pick per call against the full distribution: the other "
+                                      "System One models"),
+        ("pick-number-prompt-a.png", "Share on 7, asked plainly and as a typical person: Jev and "
+                                     "the main comparison's models"),
+        ("pick-number-prompt-b.png", "Share on 7, asked plainly and as a typical person: the "
+                                     "other System One models"),
         ("pick-number-models-a.png", "Pick a number between 1 and 10: Jev and the main "
                                      "comparison's models' returned distributions against people"),
         ("pick-number-models-b.png", "Pick a number between 1 and 10: the other System One "

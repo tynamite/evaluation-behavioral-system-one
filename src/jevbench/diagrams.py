@@ -2852,6 +2852,51 @@ def _pick_jevs(table: pd.DataFrame) -> list[str]:
     )
 
 
+def _pick_people7(table: pd.DataFrame) -> float:
+    return float(table.loc[table["arm"] == "people", "share_7"].iloc[0])
+
+
+def _of(n: int, m: int, noun: str) -> str:
+    """'all 4 panels', 'none of the 4 panels', '3 of the 4 panels'."""
+    if n == m:
+        return f"all {m} {noun}"
+    return f"none of the {m} {noun}" if n == 0 else f"{n} of the {m} {noun}"
+
+
+def _pick_jev_claim(table: pd.DataFrame, jevs: list[str]) -> str:
+    """What the panels show, counted from them rather than assumed."""
+    cells = [(m, p) for m in jevs for p, _l in PICK_PROMPTS]
+    picks7 = [float(_pick_cell(table, m, p, "one pick per call")["7"]) for m, p in cells]
+    closer = sum(
+        float(_pick_cell(table, m, p, "its distribution")["tv_from_people"])
+        < float(_pick_cell(table, m, p, "one pick per call")["tv_from_people"])
+        for m, p in cells
+    )
+    lo, hi = min(picks7), max(picks7)
+    span = f"{lo:.0%}" if f"{lo:.0%}" == f"{hi:.0%}" else f"{lo:.0%} to {hi:.0%}"
+    return (
+        f"The single answers put {span} of calls on 7. The distribution is the closer of the two "
+        f"to people in {_of(closer, len(cells), 'panels')}."
+    )
+
+
+def _pick_reading_claim(rows: list[tuple[str, str, float, float]]) -> str:
+    """rows: (name, sub, one-pick distance, distribution distance)."""
+    n = sum(dist < pick for _n, _s, pick, dist in rows)
+    return f"The distribution is closer to people than the single picks for {_of(n, len(rows), 'models')}."
+
+
+def _pick_prompt_claim(rows: list[tuple[str, str, float, float]], people: float) -> str:
+    """rows: (name, sub, share on 7 plainly, as a typical person)."""
+    up = sum(typ > plain for _n, _s, plain, typ in rows)
+    past = sum(typ > people for _n, _s, _p, typ in rows)
+    m = len(rows)
+    return (
+        f"As a typical person, {_of(up, m, 'models')} put more on 7 than when asked plainly, and "
+        f"{_of(past, m, 'models')} put more on 7 than people do."
+    )
+
+
 def fig_pick_number_jev(
     table: pd.DataFrame, jevs: list[str] | None = None, slug: str = "pick-number-jev"
 ) -> Figure:
@@ -2942,10 +2987,10 @@ def fig_pick_number_jev(
         eyebrow="Pick a number · exploratory",
         title=f"{versions}: the distribution Jev returns against its single answer",
         subtitle=(
-            "Asked for a random number from 1 to 10, a third of people say 7. Each Jev call returns a probability "
-            "for every number (solid) and also picks one (outlined). Counting the single picks, the way a chat "
-            "model has to be read, puts nearly everything on 7; the distribution is far closer to people. "
-            f"{_pick_chat_line(table)}"
+            f"Asked for a random number from 1 to 10, {people[PICK_NUMBERS.index('7')]:.0%} of people say 7. "
+            "Each Jev call returns a probability for every number (solid) and also picks one (outlined); "
+            "counting the single picks is how a chat model has to be read. "
+            f"{_pick_jev_claim(table, jevs)} {_pick_chat_line(table)}"
         ),
         desc=f"Four small bar charts: {versions}, asked plainly and asked to answer as a typical person. For "
         "each number from 1 to 10 they show the share of people who pick it, the probability Jev returns, the "
@@ -3005,11 +3050,12 @@ def fig_pick_number_reading(
     return Figure(
         slug=f"pick-number-reading-{part}",
         eyebrow="Pick a number · asked plainly · exploratory",
-        title=f"Read one pick at a time, {group} mostly collapse onto one number",
+        title=f"One pick per call against the full distribution: {group}",
         subtitle=(
             "How far each model's answers are from people's when it is asked for a random number from 1 to 10. "
             "Hollow: counting the single number each call picks, as a chat model has to be read. Solid: the "
-            "probabilities the model returns. Putting everything on 7 scores 0.67."
+            f"probabilities the model returns. {_pick_reading_claim(rows)} Putting everything on 7 scores "
+            f"{1 - _pick_people7(table):.2f}."
         ),
         desc=f"Dumbbell chart of {_pick_name_list(models)}: each model's distance from people's distribution "
         "of picks, counted one pick per call and taken from its returned probabilities.",
@@ -3056,11 +3102,11 @@ def fig_pick_number_prompt(table: pd.DataFrame, group: str, models: list[str], p
     return Figure(
         slug=f"pick-number-prompt-{part}",
         eyebrow="Pick a number · two prompts · exploratory",
-        title=f"Told to answer as a typical person, {group} mostly overshoot onto 7",
+        title=f"Share on 7, asked plainly and as a typical person: {group}",
         subtitle=(
-            "The share of each model's returned probability on 7, the number a third of people pick. Asked to "
-            "answer as a typical person, a model that knew people's answers would move towards the dashed line; "
-            "most go past it."
+            f"The share of each model's returned probability on 7, the number {people:.0%} of people pick. Asked "
+            "to answer as a typical person, a model that knew people's answers would move towards the dashed "
+            f"line. {_pick_prompt_claim(rows, people)}"
         ),
         desc=f"Dumbbell chart of {_pick_name_list(models)}: the share of each model's distribution on 7 when "
         "asked plainly and when asked to answer as a typical person, against people's 33%.",
