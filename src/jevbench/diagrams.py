@@ -3042,13 +3042,23 @@ def fig_pick_number_models(table: pd.DataFrame, group: str, models: list[str], p
 
 
 def pick_number_figures(table: pd.DataFrame) -> list[Figure]:
+    """Every pick-number figure the run set supports.
+
+    A dumbbell takes 4 to 8 rows. A second group too small for one is folded
+    into the first when they fit together; a group still under four models
+    gets the small multiples, which take any number, but no dumbbells.
+    """
+    groups = _pick_groups(table)
+    if len(groups) == 2 and len(groups[1][1]) < 4 and len(groups[0][1]) + len(groups[1][1]) <= 8:
+        groups = [("the System One models", groups[0][1] + groups[1][1])]
     figures = [fig_pick_number_jev(table)]
-    for (group, models), part in zip(_pick_groups(table), "ab", strict=False):
-        figures += [
-            fig_pick_number_reading(table, group, models, part),
-            fig_pick_number_prompt(table, group, models, part),
-            fig_pick_number_models(table, group, models, part),
-        ]
+    for (group, models), part in zip(groups, "ab", strict=False):
+        if len(models) >= 4:
+            figures += [
+                fig_pick_number_reading(table, group, models, part),
+                fig_pick_number_prompt(table, group, models, part),
+            ]
+        figures.append(fig_pick_number_models(table, group, models, part))
     return figures
 
 

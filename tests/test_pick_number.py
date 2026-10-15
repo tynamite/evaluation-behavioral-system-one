@@ -390,3 +390,17 @@ def test_pick_number_build_removes_figures_it_no_longer_draws(tmp_path) -> None:
     table = table[(table["arm"] != "jev") | table["model"].isin(keep)]
     build_pick_number_diagrams(table, html, png)
     assert not list(html.glob("pick-number-*-b.html")) and not list(png.glob("*-b.png"))
+
+
+@pytest.mark.parametrize("keep", [1, 3, 6, 8])
+def test_pick_number_figures_draw_any_number_of_models(keep: int) -> None:
+    from jevbench.diagrams import pick_number_figures
+    from jevbench.pick_number import PICK_RESULTS_DIR
+
+    table = pd.read_csv(PICK_RESULTS_DIR / "distributions.csv", dtype={"persona": str})
+    table["persona"] = table["persona"].fillna("")
+    models = sorted(set(table.loc[table["arm"] == "jev", "model"]), key=lambda m: "jev" not in m)
+    table = table[(table["arm"] != "jev") | table["model"].isin(models[:keep])]
+    slugs = [f.slug for f in pick_number_figures(table)]
+    assert "pick-number-jev" in slugs and "pick-number-models-a" in slugs
+    assert ("pick-number-reading-a" in slugs) == (keep >= 4)
