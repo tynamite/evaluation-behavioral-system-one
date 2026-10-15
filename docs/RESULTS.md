@@ -167,7 +167,7 @@ The follow-up items, reported apart: 0.0252 on 55 shuffled cells, 0.0197 on 105 
 
 ## Follow-up H4: simulate or estimate
 
-![Jev 1.13's error on each of the 23 statistics, simulated and estimated](../results/figures/followup-h4.png)
+![Each of the 23 statistics, simulated and estimated, for Jev 1.14 and Jev 1.13](../results/figures/followup-h4.png)
 
 Each follow-up statistic measured two ways: the item asked with the typical-person prompt (simulate), and its population question asked with no persona (estimate). Errors are distances from the original study's published value (Many Labs 2 reports only effect sizes, not per-condition values), in the item's own units, as preregistered. Those units differ (proportions, 1–7 ratings, percentage bands), so the raw test weighs the ratings and percentages most; as a post-hoc check the same test is repeated with each error divided by its scale's range (1, 6 and 100), and the mean errors below are on that scaled footing. The population questions for the six items reused from the first project (CRT, framing, conjunction, sunk cost, Allais, base rate) were asked on 13 October 2026, after the main run.
 
