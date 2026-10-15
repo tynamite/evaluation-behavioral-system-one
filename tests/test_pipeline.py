@@ -452,3 +452,5 @@ def test_compare_names_a_direct_typesafe_run_and_where_it_lives(tmp_path: Path) 
     from jevbench.compare import _run_name
 
     assert _run_name(run) == f"order_study/r1/{run.name}"
+    # TypeSafe's direct API reports tokens but no cost: unknown, not free.
+    assert health["cost_usd"].isna().all()

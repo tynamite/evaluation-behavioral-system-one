@@ -87,7 +87,12 @@ def _health(df: pd.DataFrame, arm: str, label: str, run_file: str) -> dict[str, 
         str(kind): round(float(grp["error"].notna().mean()), 4) if "error" in grp else 0.0
         for kind, grp in sel.groupby("kind")
     }
-    cost = float(sum(float((u or {}).get("cost") or 0.0) for u in sel["usage"]))
+    # A route that reports no cost (TypeSafe's direct API gives tokens only)
+    # leaves the cost unknown, not zero.
+    reported = [
+        u["cost"] for u in sel["usage"] if isinstance(u, dict) and u.get("cost") is not None
+    ]
+    cost = round(float(sum(reported)), 4) if reported else None
     return {
         "model": label,
         "type": SYSTEM_ONE if arm == "jev" else CHAT,
@@ -104,7 +109,7 @@ def _health(df: pd.DataFrame, arm: str, label: str, run_file: str) -> dict[str, 
         "cells": len(cells),
         "cells_with_no_usable_answer": int((good_cells == 0).sum()),
         "error_rate_by_kind": json.dumps(by_kind, sort_keys=True),
-        "cost_usd": round(cost, 4),
+        "cost_usd": cost,
     }
 
 
