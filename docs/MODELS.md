@@ -198,8 +198,8 @@ comes closest, at 34 points. Asked to answer as a person, only Solar Decide (60)
 and Drex 2.0 (41, or 43 without the steer) come near it. Solar Decide Flash and
 Clef Flash, two of the three closest to people by distance, show almost none in
 any condition. Microsoft-Decision-1 reverses it, and Drex 1.5 reverses it
-strongly once asked to be a person (−55, the largest swing of any System One
-model, in the wrong direction). The chat models are near all or nothing once
+strongly once asked to be a person (−55, the largest reverse swing of any
+System One model). The chat models are near all or nothing once
 asked to be a person, 90 to 100 points (resampled answers saturate at 0 or 1). Distance from human levels
 and reproduction of human effects are different questions, and this battery's
 one summary number answers only the first.
