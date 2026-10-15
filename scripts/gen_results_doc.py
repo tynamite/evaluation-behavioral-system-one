@@ -154,11 +154,14 @@ def main(argv: list[str]) -> int:
     # Set on every call: a second call in the same process must not inherit
     # the first's figures or Jev 1.14 rows.
     reason = figures_mismatch(run, df)
-    EMBED_FIGURES = reason is None
     SECOND = None if reason else second_version()
+    if not reason and SECOND is None:
+        # The committed figures carry Jev 1.14 from the committed comparison; a
+        # comparison that fails that check would leave them describing another one.
+        reason = "the comparison differs from the committed one the figures were drawn from"
+    EMBED_FIGURES = reason is None
     if reason:
-        print(f"figures left out: they are drawn from the committed run, not this one ({reason})",
-              file=sys.stderr)
+        print(f"figures left out, as they would misdescribe this run: {reason}", file=sys.stderr)
     sdf = pd.DataFrame([asdict(s) for s in compute_stats(df)])
     odf = order_effects(df)
 
