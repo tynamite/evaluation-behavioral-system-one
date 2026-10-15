@@ -330,12 +330,21 @@ def main(argv: list[str]) -> int:
         L += order
         L.append("")
 
-    pick = figures(("pick-number.png", "Pick a number between 1 and 10: Jev's distribution, "
-                                       "Jev and Haiku one pick per call, and people"))
+    pick = figures(
+        ("pick-number.png", "Pick a number between 1 and 10: Jev's distribution, "
+                            "Jev and Haiku one pick per call, and people"),
+        ("pick-number-models.png", "Pick a number between 1 and 10: share on 7 for every "
+                                   "System One model, as a distribution and one pick per call"),
+        ("pick-number-models-plain.png", "Pick a number between 1 and 10, asked plainly: each "
+                                         "System One model's distribution against people's"),
+        ("pick-number-models-typical.png", "Pick a number between 1 and 10, asked to answer as a "
+                                           "typical person: each System One model's distribution "
+                                           "against people's"),
+    )
     if pick:
         L.append("## Exploratory: pick a number between 1 and 10\n")
-        L.append("A separate exploratory comparison, run on 15 October 2026 on Jev 1.13 and "
-                 "Claude Haiku 5.5, against YouGov's survey of 2,241 British adults; the tables "
+        L.append("A separate exploratory comparison, run on 15 October 2026 on Jev 1.13, the "
+                 "other nine System One models and Claude Haiku 5.5, against YouGov's survey of 2,241 British adults; the tables "
                  "above are not from it. See the "
                  "[README](../README.md#exploratory-15-october-2026-pick-a-number-between-1-and-10) "
                  "and [results/pick_number/](../results/pick_number/).\n")

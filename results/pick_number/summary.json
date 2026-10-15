@@ -9,6 +9,51 @@
       "records": 200,
       "errors": 0,
       "picks_left_out": 0
+    },
+    "run_live_20261015T082115Z_cloudflare--clef-flash.jsonl": {
+      "records": 200,
+      "errors": 0,
+      "picks_left_out": 0
+    },
+    "run_live_20261015T082115Z_cloudflare--clef.jsonl": {
+      "records": 200,
+      "errors": 0,
+      "picks_left_out": 0
+    },
+    "run_live_20261015T082115Z_inception--mercury-decide.jsonl": {
+      "records": 200,
+      "errors": 0,
+      "picks_left_out": 0
+    },
+    "run_live_20261015T082115Z_liquid--d1.jsonl": {
+      "records": 200,
+      "errors": 0,
+      "picks_left_out": 0
+    },
+    "run_live_20261015T082115Z_microsoft--microsoft-decision-1.jsonl": {
+      "records": 200,
+      "errors": 0,
+      "picks_left_out": 0
+    },
+    "run_live_20261015T082115Z_openai--gpt-6-luna-decisions.jsonl": {
+      "records": 200,
+      "errors": 0,
+      "picks_left_out": 0
+    },
+    "run_live_20261015T082115Z_perplexity--pplx-decider-v1.1-27b.jsonl": {
+      "records": 200,
+      "errors": 0,
+      "picks_left_out": 0
+    },
+    "run_live_20261015T082115Z_upstage--solar-decide-flash.jsonl": {
+      "records": 200,
+      "errors": 0,
+      "picks_left_out": 0
+    },
+    "run_live_20261015T082115Z_upstage--solar-decide.jsonl": {
+      "records": 200,
+      "errors": 0,
+      "picks_left_out": 0
     }
   },
   "human_source": "https://yougov.com/en-gb/articles/51866-seven-is-the-most-random-number"

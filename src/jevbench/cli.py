@@ -196,7 +196,7 @@ def _cmd_pick_number(args: argparse.Namespace) -> int:
             probes=[PROBE],
         )
         return 0
-    from .plots import fig_pick_number
+    from .plots import fig_pick_number, fig_pick_number_grid, fig_pick_number_models
 
     try:
         table = analyse()
@@ -206,6 +206,9 @@ def _cmd_pick_number(args: argparse.Namespace) -> int:
     print(table.drop(columns=[str(i) for i in range(1, 11)]).to_string(index=False))
     print(f"wrote {PICK_RESULTS_DIR / 'distributions.csv'}")
     print(f"wrote {fig_pick_number(table, FIGURES_DIR)}")
+    print(f"wrote {fig_pick_number_models(table, FIGURES_DIR)}")
+    for persona in PERSONAS:
+        print(f"wrote {fig_pick_number_grid(table, FIGURES_DIR, persona)}")
     return 0
 
 

@@ -343,9 +343,60 @@ through OpenRouter. The options were shuffled on every call.
 
 The 400 calls cost under a cent. The table, with each distribution in full, is
 in [distributions.csv](results/pick_number/distributions.csv), and
-`jevbench pick-number analyse` rebuilds it and the figure from the raw runs.
+`jevbench pick-number analyse` rebuilds it and the figures from the raw runs.
 
 ![Pick a number between 1 and 10: Jev's distribution, Jev and Haiku one pick per call, and people](results/figures/pick-number.png)
+
+#### The other System One models
+
+The same question went to the nine other System One models in the main
+comparison, through OpenRouter: 100 calls under each prompt, 1,800 calls in
+all, for about two cents. As with Jev, each call returns a distribution and a
+single choice.
+
+| Model | On 7, plainly | On 7, as a typical person | Distance from people, plainly | Distance, as a typical person |
+|---|---|---|---|---|
+| People (YouGov) | 33% | 33% | 0 | 0 |
+| Clef | 56% | 82% | 0.32 | 0.51 |
+| **Jev 1.13** | **46%** | **83%** | **0.27** | **0.50** |
+| GPT-6 Luna Decisions | 36% | 49% | 0.28 | 0.22 |
+| d1 | 27% | 83% | 0.20 | 0.51 |
+| Clef Flash | 23% | 53% | 0.18 | 0.28 |
+| Decider v1.1 27B | 15% | 34% | 0.24 | 0.12 |
+| Microsoft-Decision-1 | 14% (peak on 5) | 49% | 0.26 | 0.35 |
+| Mercury Decide | 10% (peak on 6) | 67% | 0.25 | 0.34 |
+| Solar Decide | 5% (peak on 1) | 96% | 0.61 | 0.63 |
+| Solar Decide Flash | 5% (peak on 3) | 1% (peak on 5) | 0.57 | 0.76 |
+| Claude Haiku 5.5, one pick per call | 100% | 100% | 0.67 | 0.67 |
+
+The shares and distances are for each model's own distribution, averaged over
+its 100 calls. Distance is total variation from people's distribution: 0 is
+identical and 1 is no overlap. A model that put everything on 7 would score
+0.67.
+
+- **Read one pick per call, every model collapses.** Eight of the ten give
+  the same choice in every call under a given prompt. Usually that is 7;
+  asked plainly, Microsoft-Decision-1 always says 5 and Mercury Decide always
+  says 6. Only the two Solar models vary at all. Solar Decide asked plainly
+  picked 1 in 69% of calls and 3 in 23%. Read this way, the closest any model
+  gets to people is 0.63, against Haiku's 0.67.
+- **Their own distributions are much closer to people.** Asked plainly, eight
+  of the ten distributions are 0.18 to 0.32 from people. Clef Flash (0.18) and
+  d1 (0.20) are closer than Jev (0.27); Clef, a larger model, overstates 7 more
+  than Jev does.
+- **Asking for a typical person pushes most of them onto 7.** Eight of the ten
+  move further from people. Two move closer: Decider v1.1 27B, whose 34% on 7
+  matches people's 33% almost exactly (distance 0.12, the closest of any model
+  here), and GPT-6 Luna Decisions.
+- **The two Solar models have no sense of 7 asked plainly.** Both put only 5%
+  on it and favour 1, 3 and 10. Under the typical-person prompt, Solar Decide
+  swings to 96% on 7, and Solar Decide Flash to 68% on 5.
+
+![Pick a number between 1 and 10: share on 7 for every System One model, read as a distribution and as one pick per call](results/figures/pick-number-models.png)
+
+![Pick a number between 1 and 10, asked plainly: each System One model's distribution against people's](results/figures/pick-number-models-plain.png)
+
+![Pick a number between 1 and 10, asked to answer as a typical person: each System One model's distribution against people's](results/figures/pick-number-models-typical.png)
 
 ## Checked afterwards against the documented behaviour
 

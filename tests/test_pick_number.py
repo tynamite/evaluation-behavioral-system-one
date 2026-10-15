@@ -48,12 +48,17 @@ def test_analyse_refuses_more_than_one_run_per_arm(tmp_path) -> None:
 
     from jevbench.pick_number import analyse
 
-    row = {"probe_id": "pick_number_1_10", "instrument": "pick_number", "persona": "neutral",
-           "arm": "jev", "replicate": 0, "backend": "typesafe", "model": "jev-1.13.0",
-           "kind": "choice", "value": "7", "probabilities": {"7": 1.0}, "error": None}  # fmt: skip
-    for name in ("run_live_A_jev-1.13.0.jsonl", "run_live_B_jev-1.13.0.jsonl"):
-        (tmp_path / name).write_text(json.dumps(row) + "\n")
-    with pytest.raises(ValueError, match="exactly one Jev run and one chat run"):
+    base = {"probe_id": "pick_number_1_10", "instrument": "pick_number", "backend": "x",
+            "kind": "choice", "value": "7", "probabilities": {"7": 1.0}, "error": None}  # fmt: skip
+    jev = [{**base, "arm": "jev", "model": "jev-1.13.0", "persona": p, "replicate": r}
+           for p in ("neutral", "typical_human") for r in range(2)]  # fmt: skip
+    chat = [{**base, "arm": "baseline", "model": "anthropic/claude-haiku-5.5", "persona": p,
+             "replicate": r} for p in ("neutral", "typical_human") for r in range(2)]  # fmt: skip
+    # The same System One model twice, as a rerun left in the folder would be.
+    for name in ("run_live_A_jev.jsonl", "run_live_B_jev.jsonl"):
+        (tmp_path / name).write_text("".join(json.dumps(r) + "\n" for r in jev))
+    (tmp_path / "run_live_C_chat.jsonl").write_text("".join(json.dumps(r) + "\n" for r in chat))
+    with pytest.raises(ValueError, match="each System One model once"):
         analyse(tmp_path, tmp_path / "out")
 
 
@@ -69,7 +74,7 @@ def test_analyse_refuses_two_models_in_one_run(tmp_path) -> None:
     chat = [{**base, "arm": "baseline", "model": "anthropic/claude-haiku-5.5"}]
     (tmp_path / "run_live_A_jev.jsonl").write_text("".join(json.dumps(r) + "\n" for r in jev))
     (tmp_path / "run_live_B_chat.jsonl").write_text("".join(json.dumps(r) + "\n" for r in chat))
-    with pytest.raises(ValueError, match="not one model"):
+    with pytest.raises(ValueError, match="not one of each"):
         analyse(tmp_path, tmp_path / "out")
 
 

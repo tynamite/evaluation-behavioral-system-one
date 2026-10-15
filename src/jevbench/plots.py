@@ -32,6 +32,7 @@ import pandas as pd
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 from matplotlib.lines import Line2D
+from matplotlib.patches import Rectangle
 
 from .analysis import (
     compute_stats,
@@ -1728,6 +1729,171 @@ def fig_pick_number(table: pd.DataFrame, out: Path) -> Path:
     )
     fig.subplots_adjust(top=0.80, hspace=0.32)
     path = out / "pick-number.png"
+    fig.savefig(path, facecolor=SURFACE, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
+PICK_PROMPTS = [
+    ("neutral", "Asked plainly"),
+    ("typical_human", "Asked to answer as a typical person"),
+]
+
+
+def _pick_models(table: pd.DataFrame) -> list[str]:
+    """System One models, ordered by the share their distribution puts on 7 when asked plainly."""
+    dist = table[(table["arm"] == "jev") & table["source"].str.endswith(", its distribution")]
+    plain = dist[dist["persona"] == "neutral"].sort_values("share_7", ascending=False)
+    return [str(m) for m in plain["model"]]
+
+
+def _pick_row(table: pd.DataFrame, model: str, persona: str, kind: str) -> pd.Series:
+    rows = table[
+        (table["arm"] == "jev")
+        & (table["model"] == model)
+        & (table["persona"] == persona)
+        & table["source"].str.endswith(kind)
+    ]
+    return rows.iloc[0]
+
+
+def fig_pick_number_models(table: pd.DataFrame, out: Path) -> Path:
+    """Share on 7 for every System One model, read two ways, against people and a chat model.
+
+    One row per model, one panel per prompt. The filled dot is the model's own
+    distribution; the ring is the same calls read as one pick each. Green line:
+    people; dashed line: uniform; orange: the chat model's picks. A model whose
+    distribution peaks somewhere other than 7 says so beside its row.
+    """
+    from .pick_number import system_one_name
+
+    models = _pick_models(table)
+    chat = table[table["arm"] == "baseline"]
+    people = float(table.loc[table["arm"] == "people", "share_7"].iloc[0])
+    names = [system_one_name(m) for m in models] + [str(chat["source"].iloc[0]).split(",")[0]]
+    y = np.arange(len(names))[::-1]
+    fig, axes = plt.subplots(1, 2, figsize=(11.6, 6.6), dpi=170, sharey=True)
+    fig.patch.set_facecolor(SURFACE)
+    for ax, (persona, title) in zip(axes, PICK_PROMPTS, strict=True):
+        _grid(ax, "x")
+        ax.axvline(people, color=HUMAN, linewidth=2, zorder=2)
+        ax.axvline(0.1, color=INK_3, linewidth=1.2, linestyle=(0, (4, 3)), zorder=2)
+        for yi, model in zip(y, models, strict=False):
+            dist = _pick_row(table, model, persona, "its distribution")
+            pick = _pick_row(table, model, persona, "one pick per call")
+            d7, p7 = float(dist["share_7"]), float(pick["share_7"])
+            ax.plot([d7, p7], [yi, yi], color=GRID, linewidth=2.2, zorder=3)
+            ax.scatter(p7, yi, s=70, facecolor=SURFACE, edgecolor=JEV, linewidth=1.6, zorder=4)
+            ax.scatter(d7, yi, s=70, color=JEV, edgecolor=SURFACE, linewidth=1.2, zorder=5)
+            if str(dist["top"]) != "7":
+                ax.text(
+                    1.07, yi, f"peaks on {dist['top']}", color=INK_2, fontsize=8.3,
+                    va="center", ha="left",
+                )  # fmt: skip
+        c7 = float(chat.loc[chat["persona"] == persona, "share_7"].iloc[0])
+        ax.scatter(c7, y[-1], s=70, color=BASE, edgecolor=SURFACE, linewidth=1.2, zorder=5)
+        ax.axhline(y[-1] + 0.5, color=GRID, linewidth=0.8)
+        ax.set_xlim(-0.03, 1.32)
+        ax.set_xticks([0, 0.25, 0.5, 0.75, 1.0])
+        ax.xaxis.set_major_formatter(lambda v, _: f"{v:.0%}")
+        ax.set_title(title, loc="left", color=INK, fontsize=10.5, fontweight="bold")
+        ax.set_xlabel("share of answers on 7", color=INK_2, fontsize=9.5)
+        ax.text(people + 0.01, y[0] + 0.55, "people 33%", color=INK_2, fontsize=8.3)
+        ax.text(0.11, y[0] + 0.55, "uniform", color=INK_2, fontsize=8.3)
+    axes[0].set_yticks(y, names)
+    for label in axes[0].get_yticklabels():
+        label.set_color(INK)
+        if label.get_text() == "Jev":
+            label.set_fontweight("bold")
+    axes[0].set_ylim(y[-1] - 0.7, y[0] + 1.1)
+    handles = [
+        Line2D([], [], marker="o", linestyle="", color=JEV, markersize=8,
+                   label="the model's own distribution"),
+        Line2D([], [], marker="o", linestyle="", markerfacecolor=SURFACE,
+                   markeredgecolor=JEV, markeredgewidth=1.6, markersize=8,
+                   label="the same calls, one pick each"),
+        Line2D([], [], marker="o", linestyle="", color=BASE, markersize=8,
+                   label="chat model, one pick per call"),
+        Line2D([], [], color=HUMAN, linewidth=2, label="people (YouGov)"),
+    ]  # fmt: skip
+    fig.legend(
+        handles=handles, loc="upper left", bbox_to_anchor=(0.0, 0.875), ncol=4,
+        frameon=False, fontsize=8.8,
+    )  # fmt: skip
+    _titles(
+        fig,
+        "Pick a number between 1 and 10: every System One model",
+        "Share of answers on 7, the number people pick most. Read one pick per call, almost "
+        "every model says the same number every time;\nits own distribution spreads out, "
+        "and asking it to answer as a typical person pushes it further onto 7.",
+        y=1.0,
+    )
+    fig.subplots_adjust(top=0.76, wspace=0.08)
+    path = out / "pick-number-models.png"
+    fig.savefig(path, facecolor=SURFACE, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
+def fig_pick_number_grid(table: pd.DataFrame, out: Path, persona: str) -> Path:
+    """Each System One model's whole distribution against people's, one panel per model."""
+    from .pick_number import NUMBERS, system_one_name
+
+    models = _pick_models(table)
+    title = dict(PICK_PROMPTS)[persona]
+    people = table[table["arm"] == "people"].iloc[0]
+    hp = [float(people[n]) for n in NUMBERS]
+    ncols = 5
+    nrows = -(-len(models) // ncols)
+    peak = max(
+        float(_pick_row(table, m, persona, "its distribution")[n]) for m in models for n in NUMBERS
+    )
+    top = max(0.6, np.ceil(peak * 5) / 5)
+    fig, axes = plt.subplots(
+        nrows, ncols, figsize=(12.4, 2.6 * nrows + 1.6), dpi=170, sharex=True, sharey=True
+    )
+    fig.patch.set_facecolor(SURFACE)
+    flat = np.atleast_1d(axes).ravel()
+    x = np.arange(len(NUMBERS))
+    for ax, model in zip(flat, models, strict=False):
+        _grid(ax, "y")
+        row = _pick_row(table, model, persona, "its distribution")
+        ax.bar(x, [float(row[n]) for n in NUMBERS], width=0.72, color=JEV, zorder=3)
+        ax.plot(x, hp, color=HUMAN, linewidth=1.8, marker="o", markersize=4.2,
+                markeredgecolor=SURFACE, markeredgewidth=0.8, zorder=4)  # fmt: skip
+        name = system_one_name(model)
+        weight = "bold" if name == "Jev" else "normal"
+        ax.set_title(name, loc="left", color=INK, fontsize=9.5, fontweight=weight, pad=17)
+        ax.text(
+            0.0, 1.03,
+            f"on 7: {float(row['share_7']):.0%} · distance {float(row['tv_from_people']):.2f}",
+            transform=ax.transAxes, ha="left", va="bottom", color=INK_2, fontsize=8,
+        )  # fmt: skip
+        ax.set_ylim(0, top)
+        ax.set_xticks(x, NUMBERS)
+        ax.tick_params(labelsize=8)
+        ax.yaxis.set_major_formatter(lambda v, _: f"{v:.0%}")
+    for ax in flat[len(models) :]:
+        ax.set_visible(False)
+    handles = [
+        Rectangle((0, 0), 1, 1, color=JEV, label="the model's own distribution (mean of 100 calls)"),
+        Line2D([], [], color=HUMAN, linewidth=1.8, marker="o", markersize=4.2,
+                   label="people (YouGov, 2,241 British adults)"),
+    ]  # fmt: skip
+    fig.legend(
+        handles=handles, loc="upper left", bbox_to_anchor=(0.0, 1 - 0.95 / fig.get_figheight()),
+        ncol=2, frameon=False, fontsize=8.8,
+    )  # fmt: skip
+    _titles(
+        fig,
+        f"Pick a number between 1 and 10: {title.lower()}",
+        "Share of each number in each System One model's returned distribution, ordered by the "
+        "share on 7 when asked plainly.\nDistance from people: total variation, 0 (the same) to 1 "
+        "(no overlap).",
+        y=1.0,
+    )
+    fig.subplots_adjust(top=1 - 1.75 / fig.get_figheight(), hspace=0.45, wspace=0.12)
+    path = out / f"pick-number-models-{'plain' if persona == 'neutral' else 'typical'}.png"
     fig.savefig(path, facecolor=SURFACE, bbox_inches="tight")
     plt.close(fig)
     return path

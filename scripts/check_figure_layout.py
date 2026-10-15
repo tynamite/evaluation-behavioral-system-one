@@ -120,6 +120,11 @@ def main(argv: list[str]) -> int:
     if pick.exists():
         dist = pd.read_csv(pick, dtype={"persona": str}).fillna({"persona": ""})
         builders["pick_number"] = lambda: plots.fig_pick_number(dist, out)
+        builders["pick_number_models"] = lambda: plots.fig_pick_number_models(dist, out)
+        builders["pick_number_plain"] = lambda: plots.fig_pick_number_grid(dist, out, "neutral")
+        builders["pick_number_typical"] = lambda: plots.fig_pick_number_grid(
+            dist, out, "typical_human"
+        )
 
     # Re-render inside this process so the figure is still open for measurement.
     failures = 0

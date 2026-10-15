@@ -77,10 +77,11 @@ def summarise(df: pd.DataFrame) -> list[dict[str, Any]]:
             # Jev rounds its probabilities, so a reply may sum to 0.99; renormalise.
             total = sum(mean.values())
             mean = {n: v / total for n, v in mean.items()} if total else mean
-            rows.append(_row("Jev, its distribution", "jev", model, persona, mean, len(dists)))
+            name = system_one_name(model)
+            rows.append(_row(f"{name}, its distribution", "jev", model, persona, mean, len(dists)))
             rows.append(
                 _row(
-                    "Jev, one pick per call",
+                    f"{name}, one pick per call",
                     "jev",
                     model,
                     persona,
@@ -97,6 +98,18 @@ def summarise(df: pd.DataFrame) -> list[dict[str, Any]]:
 
 
 CHAT_SUFFIX = ", one pick per call"
+
+
+def system_one_name(model: str) -> str:
+    """The display name of a System One model, from the model that answered.
+
+    Jev keeps the short name the README and the main figure use.
+    """
+    from .diagrams import SHORT
+
+    if "jev" in model:
+        return "Jev"
+    return SHORT.get(model, chat_name(model))
 
 
 def chat_name(model: str) -> str:
@@ -153,40 +166,42 @@ def analyse(root: Path = PICK_DIR, out_dir: Path = PICK_RESULTS_DIR) -> pd.DataF
     frames = {f: load_records(f) for f in files}
     # Exactly one Jev run and one chat run: a rerun or another model left in
     # the folder would otherwise be pooled with these, or plotted in their place.
-    by_arm: dict[str, list[str]] = {}
+    # One model on one arm per file; exactly one chat run; each System One
+    # model once, Jev among them. A rerun left in the folder, or a file resumed
+    # with another model, would otherwise be pooled or plotted in its place.
+    runs: list[tuple[str, str]] = []
     for f, d in frames.items():
-        for arm in d["arm"].unique():
-            by_arm.setdefault(str(arm), []).append(f.name)
-    if sorted(by_arm) != ["baseline", "jev"] or any(len(v) != 1 for v in by_arm.values()):
-        raise ValueError(f"{root} needs exactly one Jev run and one chat run, found {by_arm}")
-    # And one model per arm, so a run resumed with another model is refused.
-    for f, d in frames.items():
-        for arm, g in d.groupby("arm"):
-            # Every record, unusable ones included: they carry the model that
-            # answered (failed calls, which carry only the requested one, are
-            # refused by check_complete).
-            models = sorted(set(g["model"].astype(str)))
-            if len(models) != 1:
-                raise ValueError(f"{f.name}: the {arm!s} arm holds {models}, not one model")
-            check_complete(f.name, str(arm), g)
+        arms = sorted(set(d["arm"].astype(str)))
+        # Every record, unusable ones included: they carry the model that
+        # answered (failed calls, which carry only the requested one, are
+        # refused by check_complete).
+        models = sorted(set(d["model"].astype(str)))
+        if len(arms) != 1 or len(models) != 1:
+            raise ValueError(f"{f.name} holds arms {arms} and models {models}, not one of each")
+        check_complete(f.name, arms[0], d)
+        runs.append((arms[0], models[0]))
+    chats = [m for a, m in runs if a == "baseline"]
+    system_one = [m for a, m in runs if a == "jev"]
+    if len(chats) != 1 or len(set(system_one)) != len(system_one):
+        raise ValueError(f"{root} needs one chat run and each System One model once, found {runs}")
+    if not any("jev" in m for m in system_one):
+        raise ValueError(f"{root} has no Jev run")
     df = pd.concat(frames.values(), ignore_index=True)
     table = pd.DataFrame(summarise(df))
-    # Every source needs usable answers under both prompts, or the figure
-    # and table would silently lose a cell.
-    required = [
-        ("jev", "Jev, its distribution"),
-        ("jev", "Jev, one pick per call"),
-        ("baseline", None),
-    ]
-    for arm, source in required:
+    # Every run must leave usable answers under both prompts, checked against
+    # the runs themselves, not only the rows that survived.
+    for arm, model in runs:
+        kinds = ["its distribution", "one pick per call"] if arm == "jev" else ["one pick per call"]
         for persona in PERSONAS:
-            cell = table[(table["arm"] == arm) & (table["persona"] == persona)]
-            if source is not None:
-                cell = cell[cell["source"] == source]
-            if cell.empty or int(cell["n"].iloc[0]) == 0:
-                raise ValueError(
-                    f"no usable answers for {source or 'the chat model'} under {persona}"
-                )
+            for kind in kinds:
+                cell = table[
+                    (table["arm"] == arm)
+                    & (table["model"] == model)
+                    & (table["persona"] == persona)
+                    & table["source"].str.endswith(kind)
+                ]
+                if cell.empty or int(cell["n"].iloc[0]) == 0:
+                    raise ValueError(f"no usable answers for {model} ({kind}) under {persona}")
     h = human()
     people = {
         "source": "People (YouGov)",
