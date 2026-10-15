@@ -40,9 +40,12 @@ like a person, what happens?
 The study was preregistered and first run on **Jev 1.13**, the version
 TypeSafe served as `jev-latest` on 12–13 October 2026. On 14 October TypeSafe
 listed **Jev 1.14** as its `jev-preview` model, and the same 147-item battery
-was run through it that day, with the same five prompts, ten repeats and
-shuffled options (the full-battery run of the [option-order
-addendum](#addendum-14-october-2026-option-order)). Every chart and number
+was run through it that day, with the same ten repeats and shuffled options
+(the full-battery run of the [option-order
+addendum](#addendum-14-october-2026-option-order)). Every item went under the
+same five prompts but 15 of the follow-up study's population questions, which
+the battery by then asked under the neutral prompt only: 6,850 calls against
+1.13's 7,450. No comparison uses those 600 calls. Every chart and number
 below gives both versions. The preregistered tests were written for 1.13 and
 are scored on it; 1.14's results for the same tests are a description, not a
 test.

@@ -102,9 +102,24 @@ JEV_114 = "typesafe/jev-1.14.0"
 SECOND: pd.DataFrame | None = None
 
 
+# The one run the documents describe as Jev 1.14's, by its path below data/raw/.
+JEV_114_RUN = "order_study/r1/run_live_20261014T231829Z_jev-1.14.0.jsonl"
+
+
 def second_version() -> pd.DataFrame | None:
-    path = ROOT / "results" / "comparison" / "statistics.csv"
-    if not path.exists():
+    """Jev 1.14's statistics, only when the comparison is the committed one built
+    from the committed 1.14 run; any other 1.14 run would be mislabelled."""
+    comparison = ROOT / "results" / "comparison"
+    path, health = comparison / "statistics.csv", comparison / "health.csv"
+    run = ROOT / "data" / "raw" / JEV_114_RUN
+    if not all(p.exists() and committed_unchanged(p) for p in (path, health, run)):
+        print("Jev 1.14 left out: the comparison or its run differs from the committed one",
+              file=sys.stderr)
+        return None
+    h = pd.read_csv(health)
+    if list(h.loc[h["model"] == JEV_114, "run_file"]) != [JEV_114_RUN]:
+        print(f"Jev 1.14 left out: the comparison is not built from {JEV_114_RUN}",
+              file=sys.stderr)
         return None
     c = pd.read_csv(path)
     c = c[c["model"] == JEV_114].rename(columns={"model": "arm"})
