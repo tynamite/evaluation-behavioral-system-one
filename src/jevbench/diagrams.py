@@ -2019,11 +2019,14 @@ def _model_dots(
     return "\n".join(out)
 
 
-_MODELS_SOURCE = (
-    "Each model: mean of the probability distributions returned over 10 repeats. All models run 12–13 Oct "
-    "2026. Human results: published studies or meta-analyses, listed in docs/BENCHMARKS.md. "
-    "Eight more models are in the scatter and docs/MODELS.md."
-)
+def _models_source(cdf: pd.DataFrame) -> str:
+    """The four-model charts' source line; the rest of the comparison is counted, not assumed."""
+    more = cdf["model"].nunique() - len(MAIN_MODELS)
+    return (
+        "Each model: mean of the probability distributions returned over 10 repeats. All models run 12–13 Oct "
+        "2026. Human results: published studies or meta-analyses, listed in docs/BENCHMARKS.md. "
+        f"{_count(more).capitalize()} more models are in the scatter and docs/MODELS.md."
+    )
 
 
 def fig_models_tests(cdf: pd.DataFrame, which: str) -> Figure:
@@ -2086,7 +2089,7 @@ def fig_models_tests(cdf: pd.DataFrame, which: str) -> Figure:
                 "SHARE OF ANSWERS, OR SHARE OF THE MONEY",
                 ("typical_human", "told to answer like a typical person"),
             ),
-            source=_MODELS_SOURCE,
+            source=_models_source(cdf),
         )
     return Figure(
         slug=f"models-{which}",
@@ -2102,7 +2105,7 @@ def fig_models_tests(cdf: pd.DataFrame, which: str) -> Figure:
         width=1000,
         height=y_end(len(rows)),
         body=_model_dots(rows, panels, "SHARE OF ANSWERS, OR SHARE OF THE MONEY"),
-        source=_MODELS_SOURCE,
+        source=_models_source(cdf),
     )
 
 
