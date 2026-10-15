@@ -182,7 +182,8 @@ def main(argv: list[str]) -> int:
              "System One models are compared in `results/comparison/`. "
              + ("Under each measure, Jev 1.13 is this run and Jev 1.14 its 14 October run "
                 "through TypeSafe's API directly (results/comparison/statistics.csv); the option-"
-                "order and follow-up sections below are Jev 1.13 only. " if SECOND is not None else "")
+                "order section's numbers and the follow-up section's table are Jev 1.13 only "
+                "(its chart shows both versions). " if SECOND is not None else "")
              + "Values are "
              "probability mass, computed from the returned distributions rather than "
              "from the point answers. Human values are "
