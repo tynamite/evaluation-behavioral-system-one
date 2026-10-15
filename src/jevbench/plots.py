@@ -1656,28 +1656,34 @@ def fig_pick_number(table: pd.DataFrame, out: Path) -> Path:
     numbers = [str(i) for i in range(1, 11)]
     # The chat model's row, found by its arm; its name is the model that answered.
     chat = str(table.loc[table["arm"] == "baseline", "source"].iloc[0])
-    series: list[tuple[str, dict[str, Any]]] = [
-        ("Jev, its distribution", dict(color=JEV)),
-        ("Jev, one pick per call", dict(facecolor=SURFACE, edgecolor=JEV, linewidth=1.4)),
-        (chat, dict(color=BASE)),
-        ("People (YouGov)", dict(color=HUMAN)),
+    # (arm, source, style): rows are matched on arm and source together, so a
+    # chat model's name can never pick up another series' row.
+    series: list[tuple[str, str, dict[str, Any]]] = [
+        ("jev", "Jev, its distribution", dict(color=JEV)),
+        ("jev", "Jev, one pick per call", dict(facecolor=SURFACE, edgecolor=JEV, linewidth=1.4)),
+        ("baseline", chat, dict(color=BASE)),
+        ("people", "People (YouGov)", dict(color=HUMAN)),
     ]
     panels = [
         ("neutral", "Asked plainly"),
         ("typical_human", "Asked to answer as a typical person"),
     ]
-    people = table[table["source"] == "People (YouGov)"].iloc[0]
+    people = table[table["arm"] == "people"].iloc[0]
     fig, axes = plt.subplots(2, 1, figsize=(10.4, 7.4), dpi=170, sharex=True, sharey=True)
     fig.patch.set_facecolor(SURFACE)
     width = 0.2
     x = np.arange(len(numbers))
     for ax, (persona, title) in zip(axes, panels, strict=True):
         _grid(ax, "y")
-        for i, (source, style) in enumerate(series):
+        for i, (arm, source, style) in enumerate(series):
             row = (
                 people
-                if source.startswith("People")
-                else table[(table["source"] == source) & (table["persona"] == persona)].iloc[0]
+                if arm == "people"
+                else table[
+                    (table["arm"] == arm)
+                    & (table["source"] == source)
+                    & (table["persona"] == persona)
+                ].iloc[0]
             )
             ax.bar(
                 x + (i - 1.5) * width,
