@@ -71,7 +71,8 @@ jobs:
   # The committed tables and comparison must be what the committed raw records
   # give. Run without the replicate intervals (a slow resampling step whose file
   # is left out of the comparison), so a changed statistic, a changed loader or a
-  # raw file edited without regenerating shows up as a diff.
+  # raw file edited without regenerating shows up as a difference (numbers are
+  # compared to a relative 1e-9: the last digit varies between machines).
   reproduce:
     runs-on: ubuntu-latest
     steps:
@@ -98,10 +99,7 @@ jobs:
             data/raw/order_study/r1/run_live_20261014T231829Z_jev-1.14.0.jsonl
 
       - name: They match what is committed
-        run: |
-          git status --short results
-          git diff --exit-code -- results/tables results/comparison \
-            ':(exclude)results/comparison/*.png' ':(exclude)*/intervals.csv'
+        run: python scripts/check_reproduces.py
 
   secrets:
     runs-on: ubuntu-latest
