@@ -70,8 +70,10 @@ predate the fixes:
    which way to move on items with a right answer. A version without the
    clause was added and is reported alongside it ("no steer").
 7. **Two deviations from the preregistered analysis plan.** It promised 95%
-   bootstrap intervals; `statistics.csv` carries them for the multi-item
-   measures, but no document reports them. And it said the only exclusions
+   bootstrap intervals; `statistics.csv` carried them for the multi-item
+   measures only and no document reported them. Every statistic now has a 95%
+   interval from resampling the replicates (`intervals.csv`), shown in
+   `docs/RESULTS.md`; they cover repeat-to-repeat noise, not the choice of items. And it said the only exclusions
    would be transport errors; chat replies that could not be read, model
    refusals, and chat replies to the proportion items (which a true/false reply
    cannot answer) are excluded too, each counted in `summary.json` or
@@ -125,8 +127,8 @@ following, among other claims that did not check out against the code:
   does not belong on it (FOLLOWUP_PREREGISTRATION.md, section 8.1). They are now
   asked with no persona; the records from other prompts stay in the run files.
 - **The option-order figure (H6) included the follow-up items**, which H6 was
-  not written for and which move less. The core battery's figure is 0.063, up
-  from 0.058 with them; H6 fails either way.
+  not written for and which move less. The core battery's figure is 0.065, up
+  from 0.060 with them; H6 fails either way.
 - **The analysis figures left out the no-steer prompt.** They now include it.
 - **H4 was first reported on a scale the preregistration did not name.** It
   registers the absolute error against the human value; the first report
