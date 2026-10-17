@@ -68,7 +68,7 @@ def primary_run(raw_dir: Path, live_only: bool = False) -> Path | None:
     return None if live_only else latest_run(raw_dir)
 
 
-def load_records(path: Path) -> pd.DataFrame:
+def load_records(path: Path, rerun: bool = True) -> pd.DataFrame:
     with path.open(encoding="utf-8") as fh:
         rows = [json.loads(line) for line in fh if line.strip()]
     df = pd.DataFrame(rows)
@@ -79,7 +79,8 @@ def load_records(path: Path) -> pd.DataFrame:
             "Simulated output is structurally valid nonsense and must never be "
             "pooled with live data."
         )
-    df = _with_rerun(df, path)
+    if rerun:
+        df = _with_rerun(df, path)
     return _reread_chat_replies(_mark_unusable(df))
 
 

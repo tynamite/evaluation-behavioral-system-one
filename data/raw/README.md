@@ -43,6 +43,14 @@ the 100 records per model were appended to the same files; their `timestamp`
 tells them apart. The chat models were not asked them: a true/false reply
 cannot carry a proportion.
 
+`rerun_state_cues/` holds one file per model with the Allais, Allais-estimate and
+Holt–Laury items asked again on 17 October 2026, after the item index (`pair`,
+`row`) was taken out of the state sent to the model (see
+[LEARNINGS.md](../../docs/LEARNINGS.md)). `load_records` reads them in place of
+the same model's records of those instruments in the files above; nothing in the
+files above was edited. It is skipped by the `run_live_*.jsonl` pattern, so
+`jevbench compare data/raw/run_live_*.jsonl` does not treat them as runs.
+
 The runs behind an earlier version of the write-up are in
 [data/archive/](../archive/README.md).
 

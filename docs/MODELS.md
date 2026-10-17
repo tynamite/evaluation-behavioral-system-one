@@ -31,6 +31,11 @@ population questions, which the battery now asks under the neutral prompt only;
 the 12–13 October runs also asked them under the other four prompts (600 calls
 each). No comparison on this page uses those 600 calls.
 
+On 17 October the Allais and Holt–Laury items (620 calls per model) were asked
+again with the item index taken out of the state, and the page reads those in
+place of the first run's. Claude Sonnet 5.5 and Decider v1.1 27B (whose endpoint
+is gone) keep their first answers to those items.
+
 | Model | Type | Cost |
 |---|---|---|
 | `typesafe/jev-1.13-20260917` | System One | $0.14 |
@@ -137,20 +142,20 @@ person" is the typical-person instruction quoted in the
 
 | Model | No instruction: distance | r | As a person: distance | r | No steer: distance | r |
 |---|---|---|---|---|---|---|
-| Solar Decide Flash | **0.23** | +0.17 | **0.14** | +0.64 | 0.17 | +0.41 |
-| Clef Flash | **0.23** | +0.08 | 0.18 | +0.38 | 0.19 | +0.43 |
-| Drex 2.0 | **0.23** | +0.15 | 0.18 | +0.42 | 0.20 | +0.28 |
-| Clef | 0.28 | +0.00 | 0.20 | +0.44 | 0.21 | +0.34 |
-| Drex 1.5 | 0.29 | −0.01 | 0.28 | −0.03 | 0.28 | −0.06 |
-| Jev 1.14 | 0.29 | −0.23 | 0.17 | +0.43 | 0.18 | +0.33 |
-| Mercury Decide | 0.31 | −0.12 | 0.21 | +0.44 | 0.23 | +0.30 |
+| Solar Decide Flash | **0.22** | **+0.19** | **0.14** | +0.66 | 0.17 | +0.41 |
+| Clef Flash | **0.22** | +0.11 | 0.18 | +0.42 | 0.18 | +0.45 |
+| Drex 2.0 | 0.23 | +0.15 | 0.18 | +0.42 | 0.20 | +0.28 |
+| Clef | 0.28 | −0.02 | 0.21 | +0.39 | 0.22 | +0.31 |
+| Drex 1.5 | 0.29 | −0.02 | 0.28 | +0.00 | 0.28 | −0.03 |
+| Jev 1.14 | 0.29 | −0.24 | 0.17 | +0.43 | 0.17 | +0.34 |
 | Jev 1.13 | 0.31 | −0.21 | 0.18 | +0.39 | 0.20 | +0.25 |
-| d1 | 0.31 | +0.03 | 0.23 | +0.41 | 0.28 | +0.29 |
+| Mercury Decide | 0.31 | −0.14 | 0.21 | +0.45 | 0.22 | +0.31 |
+| d1 | 0.32 | +0.00 | 0.24 | +0.41 | 0.28 | +0.29 |
 | Decider v1.1 27B | 0.34 | −0.47 | **0.14** | +0.68 | 0.18 | +0.54 |
-| GPT-6 Luna Decisions | 0.35 | −0.31 | 0.21 | +0.20 | 0.27 | −0.31 |
-| Microsoft-Decision-1 | 0.35 | −0.54 | 0.19 | +0.54 | 0.21 | +0.32 |
+| GPT-6 Luna Decisions | 0.35 | −0.32 | 0.21 | +0.23 | 0.27 | −0.31 |
+| Microsoft-Decision-1 | 0.35 | −0.55 | 0.20 | +0.48 | 0.22 | +0.25 |
 | Claude Sonnet 5.5 | 0.37 | −0.22 | 0.20 | +0.80 | 0.15 | **+0.89** |
-| Solar Decide | 0.43 | −0.28 | 0.16 | +0.73 | **0.13** | +0.79 |
+| Solar Decide | 0.44 | −0.28 | 0.16 | +0.73 | **0.12** | +0.79 |
 | Claude Haiku 5.5 | 0.49 | −0.57 | 0.18 | **+0.83** | 0.23 | +0.63 |
 
 The cognitive reflection measure is Frederick's three items and the ultimatum
@@ -159,14 +164,14 @@ rejection measure the $1 offer, to match what the human values measure (see
 
 The pattern from the main write-up holds across every model: **answering with
 no instruction, none of them looks like people** (no correlation better than
-+0.17, several strongly negative), and **asking for a typical person moves
++0.19, several strongly negative), and **asking for a typical person moves
 every one of them closer**, Drex 1.5 only barely. How far differs a lot. The
 chat models and Solar Decide learn which effects are strong (r +0.73 to +0.89
-under one of the two versions); Decider v1.1 27B, Solar Decide Flash and
-Microsoft-Decision-1 come next (+0.54 to +0.68); both Jev versions, Clef,
-Clef Flash, d1, Mercury Decide and Drex 2.0 only partly (+0.25 to +0.44); GPT-6 Luna Decisions
-hardly at all; and Drex 1.5 not at all. Its distance moves from 0.29 to 0.28
-and its correlation stays at zero (−0.03; −0.06 without the steer): the
+under one of the two versions); Decider v1.1 27B and Solar Decide Flash come
+next (+0.66 to +0.68); both Jev versions, Clef, Clef Flash, d1, Mercury Decide,
+Drex 2.0 and Microsoft-Decision-1 only partly (+0.39 to +0.48); GPT-6 Luna Decisions
+hardly at all (+0.23); and Drex 1.5 not at all. Its distance moves from 0.29 to
+0.28 and its correlation stays at zero (+0.00; −0.03 without the steer): the
 instruction barely changes its answers.
 
 **The steer matters more for some models than others.** Without "not the
@@ -267,27 +272,29 @@ error to its item's range instead; that check was chosen after seeing the data
 
 | Model | Simulate: scaled error | Estimate: scaled error | Estimate closer | p (preregistered) | p (scaled) |
 |---|---|---|---|---|---|
-| GPT-6 Luna Decisions | 0.19 | 0.15 | 11 of 13 | 0.011 | 0.073 |
-| Jev 1.13 | 0.23 | 0.17 | 14 of 23 | 0.015 | 0.043 |
-| Mercury Decide | 0.23 | 0.20 | 17 of 23 | 0.026 | 0.071 |
-| Jev 1.14 | 0.22 | 0.16 | 13 of 23 | 0.028 | 0.085 |
-| d1 | 0.24 | 0.18 | 13 of 23 | 0.071 | 0.111 |
-| Solar Decide | 0.16 | 0.13 | 15 of 23 | 0.143 | 0.188 |
-| Drex 1.5 | 0.25 | 0.25 | 14 of 23 | 0.165 | 0.241 |
-| Drex 2.0 | 0.20 | 0.20 | 12 of 23 | 0.311 | 0.482 |
+| GPT-6 Luna Decisions | 0.18 | 0.15 | 10 of 12 | 0.013 | 0.102 |
+| Jev 1.13 | 0.24 | 0.17 | 14 of 23 | 0.014 | 0.040 |
+| Jev 1.14 | 0.22 | 0.16 | 13 of 23 | 0.030 | 0.090 |
+| Mercury Decide | 0.23 | 0.20 | 17 of 23 | 0.043 | 0.106 |
+| d1 | 0.24 | 0.18 | 13 of 23 | 0.080 | 0.123 |
+| Solar Decide | 0.16 | 0.13 | 15 of 23 | 0.157 | 0.205 |
+| Drex 1.5 | 0.25 | 0.25 | 14 of 23 | 0.172 | 0.250 |
+| Drex 2.0 | 0.20 | 0.19 | 12 of 23 | 0.290 | 0.458 |
 | Decider v1.1 27B | 0.15 | 0.14 | 12 of 23 | 0.343 | 0.435 |
-| Clef | 0.20 | 0.16 | 12 of 23 | 0.377 | 0.250 |
-| Solar Decide Flash | 0.16 | 0.18 | 11 of 23 | 0.482 | 0.710 |
-| Microsoft-Decision-1 | 0.18 | 0.19 | 13 of 23 | 0.506 | 0.458 |
-| Clef Flash | 0.23 | 0.26 | 11 of 23 | 0.542 | 0.710 |
+| Clef | 0.20 | 0.17 | 11 of 23 | 0.388 | 0.270 |
+| Solar Decide Flash | 0.16 | 0.18 | 11 of 23 | 0.458 | 0.689 |
+| Microsoft-Decision-1 | 0.19 | 0.19 | 13 of 23 | 0.494 | 0.435 |
+| Clef Flash | 0.23 | 0.26 | 10 of 23 | 0.623 | 0.786 |
 
-Estimating has the lower mean scaled error for nine of the thirteen models; for
-Solar Decide Flash, Microsoft-Decision-1, Clef Flash and Drex 2.0 it is higher
-(for both Drex models the two differ by under 0.01). Four clear p < 0.05 on the
+Estimating has the lower mean scaled error for ten of the thirteen models; for
+Solar Decide Flash, Clef Flash and Drex 1.5 it is higher (for Drex 1.5 the two
+differ by under 0.01, and Microsoft-Decision-1 and Drex 2.0 are lower by under
+0.01). Four clear p < 0.05 on the
 preregistered test, and only Jev 1.13 clears it on the scaled one. The thirteen
 tests share their items, so they are not independent evidence.
-GPT-6 Luna Decisions has only 13 pairs because its refusals leave ten
-statistics without an estimate. The chat models are left out: a true/false
+GPT-6 Luna Decisions has only 12 pairs because its refusals leave eleven
+statistics without an estimate (it refuses the two Allais population questions
+since they stopped carrying their pair number). The chat models are left out: a true/false
 reply cannot carry a proportion.
 
 ## Limitations specific to this comparison
