@@ -605,3 +605,46 @@ def test_fingerprint_tells_an_empty_state_from_no_state() -> None:
         prompt_fingerprint(replace(p, state=state), "neutral", "jev") for state in (None, {}, [])
     }
     assert len(prints) == 3
+
+
+def _rec(arm: str, model: str, instrument: str, probe_id: str, value: str) -> dict:
+    return {
+        "probe_id": probe_id,
+        "instrument": instrument,
+        "persona": "neutral",
+        "arm": arm,
+        "replicate": 0,
+        "backend": "openrouter",
+        "model": model,
+        "kind": "choice",
+        "value": value,
+        "probabilities": {value: 1.0},
+        "error": None,
+        "meta": {},
+        "usage": {},
+    }
+
+
+def test_rerun_replaces_only_the_changed_instruments_of_its_own_model(tmp_path, monkeypatch):
+    import json
+
+    from jevbench import config
+    from jevbench.analysis import RERUN_DIR_NAME, load_records
+
+    raw = tmp_path / "raw"
+    (raw / RERUN_DIR_NAME).mkdir(parents=True)
+    monkeypatch.setattr(config, "RAW_DIR", raw)
+    old = [
+        _rec("jev", "v/m", "allais", "allais_problem1", "old"),
+        _rec("jev", "v/m", "crt", "crt_1", "kept"),
+        _rec("baseline", "chat/other", "allais", "allais_problem1", "chat-old"),
+    ]
+    new = [_rec("jev", "v/m-2026", "allais", "allais_problem1", "new")]
+    run = raw / "run_live_1_m.jsonl"
+    run.write_text("\n".join(json.dumps(r) for r in old))
+    (raw / RERUN_DIR_NAME / "run_live_2_m.jsonl").write_text("\n".join(json.dumps(r) for r in new))
+
+    df = load_records(run).set_index(["arm", "probe_id"])
+    assert df.loc[("jev", "allais_problem1"), "value"] == "new"
+    assert df.loc[("jev", "crt_1"), "value"] == "kept"
+    assert df.loc[("baseline", "allais_problem1"), "value"] == "chat-old"

@@ -79,7 +79,55 @@ def load_records(path: Path) -> pd.DataFrame:
             "Simulated output is structurally valid nonsense and must never be "
             "pooled with live data."
         )
+    df = _with_rerun(df, path)
     return _reread_chat_replies(_mark_unusable(df))
+
+
+RERUN_DIR_NAME = "rerun_state_cues"
+
+
+def _with_rerun(df: pd.DataFrame, path: Path) -> pd.DataFrame:
+    """Swap in the items re-asked after the Allais pair and Holt-Laury row stopped being sent.
+
+    The committed runs asked those items with their own index in the state (see
+    docs/LEARNINGS.md). `data/raw/rerun_state_cues/` holds the same items asked
+    again, one file per model, with the index removed. For a model that has such
+    a file, its records of those instruments are replaced by the re-run; every
+    other record, and every model without a re-run, is read as it was. Only run
+    files inside data/raw/ are touched.
+    """
+    from .config import RAW_DIR
+    from .runner import CHANGED_AFTER_FIRST_RUNS
+
+    rerun_dir = RAW_DIR / RERUN_DIR_NAME
+    try:
+        inside = path.resolve().is_relative_to(RAW_DIR.resolve())
+    except OSError:
+        inside = False
+    if not inside or not rerun_dir.is_dir() or path.parent == rerun_dir:
+        return df
+    changed = df["instrument"].isin(CHANGED_AFTER_FIRST_RUNS)
+    if not changed.any():
+        return df
+    replaced = pd.Series(False, index=df.index)
+    extra: list[pd.DataFrame] = []
+    for file in sorted(rerun_dir.glob("run_live_*.jsonl")):
+        with file.open(encoding="utf-8") as fh:
+            new = pd.DataFrame([json.loads(line) for line in fh if line.strip()])
+        if new.empty:
+            continue
+        for (arm, model), rows in new.groupby(["arm", "model"]):
+            # An OpenRouter alias ("vendor/model") stands for its dated id ("vendor/model-2026...").
+            same = (df["arm"] == arm) & df["model"].map(
+                lambda m, mm=str(model): mm == str(m) or mm.startswith(f"{m}-")
+            )
+            hit = same & changed
+            if hit.any():
+                replaced |= hit
+                extra.append(rows)
+    if not extra:
+        return df
+    return pd.concat([df[~replaced], *extra], ignore_index=True)
 
 
 def _score_levels() -> dict[str, frozenset[str]]:

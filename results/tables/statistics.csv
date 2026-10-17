@@ -143,9 +143,9 @@ prisoners_dilemma,cooperation_after_defection,antisocial,jev,0.002,,,,,,
 framing,prob_certain_gain_frame,antisocial,jev,0.48900000000000005,,,framing_gain_certain,0.72,high,
 framing,prob_certain_loss_frame,antisocial,jev,0.564,,,framing_loss_certain,0.22,high,
 framing,framing_swing,antisocial,jev,-0.0749999999999999,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
-allais,prob_certain_pair1,antisocial,jev,0.31900000000000006,,,allais_p1_certain,0.8,high,
-allais,prob_safer_pair2,antisocial,jev,0.47000000000000003,,,allais_p2_certain,0.35,high,
-allais,independence_violation,antisocial,jev,0.16907000000000005,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
+allais,prob_certain_pair1,antisocial,jev,0.341,,,allais_p1_certain,0.8,high,
+allais,prob_safer_pair2,antisocial,jev,0.503,,,allais_p2_certain,0.35,high,
+allais,independence_violation,antisocial,jev,0.16947700000000002,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
 conjunction,prob_fallacy_forced_choice,antisocial,jev,0.274,,,conjunction_fallacy_rate,0.85,high,
 conjunction_axiom,p_single,antisocial,jev,0.174,,,,,,
 conjunction_axiom,p_conjunction,antisocial,jev,0.24100000000000002,,,,,,
@@ -156,7 +156,7 @@ anchoring,estimate_low_anchor,antisocial,jev,23.6525,,,anchoring_low_median,25.0
 anchoring,estimate_high_anchor,antisocial,jev,25.195,,,anchoring_high_median,45.0,approximate,
 anchoring,anchoring_effect,antisocial,jev,1.5425000000000004,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
 sunk_cost,prob_continue,antisocial,jev,0.10300000000000002,,,sunk_cost_continue,0.85,medium,
-holt_laury,expected_safe_choices,antisocial,jev,1.342,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
+holt_laury,expected_safe_choices,antisocial,jev,3.126,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
 discounting,prob_patient_7d,antisocial,jev,0.2275,0.16349999999999998,0.2915,,,,
 discounting,prob_patient_30d,antisocial,jev,0.23950000000000002,0.1835,0.29550000000000004,,,,
 discounting,prob_patient_180d,antisocial,jev,0.28475000000000006,0.23000000000000004,0.33325,,,,
@@ -366,9 +366,9 @@ prisoners_dilemma,cooperation_after_defection,neutral,jev,0.009999999999999998,,
 framing,prob_certain_gain_frame,neutral,jev,0.849,,,framing_gain_certain,0.72,high,
 framing,prob_certain_loss_frame,neutral,jev,0.843,,,framing_loss_certain,0.22,high,
 framing,framing_swing,neutral,jev,0.006000000000000005,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
-allais,prob_certain_pair1,neutral,jev,0.62,,,allais_p1_certain,0.8,high,
-allais,prob_safer_pair2,neutral,jev,0.614,,,allais_p2_certain,0.35,high,
-allais,independence_violation,neutral,jev,0.23932000000000003,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
+allais,prob_certain_pair1,neutral,jev,0.619,,,allais_p1_certain,0.8,high,
+allais,prob_safer_pair2,neutral,jev,0.6639999999999999,,,allais_p2_certain,0.35,high,
+allais,independence_violation,neutral,jev,0.207984,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
 conjunction,prob_fallacy_forced_choice,neutral,jev,0.10200000000000002,,,conjunction_fallacy_rate,0.85,high,
 conjunction_axiom,p_single,neutral,jev,0.16599999999999998,,,,,,
 conjunction_axiom,p_conjunction,neutral,jev,0.259,,,,,,
@@ -379,7 +379,7 @@ anchoring,estimate_low_anchor,neutral,jev,24.629629629629626,,,anchoring_low_med
 anchoring,estimate_high_anchor,neutral,jev,26.212500000000002,,,anchoring_high_median,45.0,approximate,
 anchoring,anchoring_effect,neutral,jev,1.582870370370376,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
 sunk_cost,prob_continue,neutral,jev,0.038000000000000006,,,sunk_cost_continue,0.85,medium,
-holt_laury,expected_safe_choices,neutral,jev,2.047,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
+holt_laury,expected_safe_choices,neutral,jev,4.609,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
 discounting,prob_patient_7d,neutral,jev,0.5235,0.45475,0.6032500000000001,,,,
 discounting,prob_patient_30d,neutral,jev,0.55225,0.4075,0.71025,,,,
 discounting,prob_patient_180d,neutral,jev,0.51725,0.40199999999999997,0.6325000000000001,,,,
@@ -448,8 +448,8 @@ false_consensus_estimate,false_consensus_gap,neutral,jev,0.015000000000000013,,,
 crt_estimate,proportion_correct,neutral,jev,0.463,,,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)"
 framing_estimate,prob_certain_gain_frame,neutral,jev,0.678,,,framing_gain_certain,0.72,high,
 framing_estimate,prob_certain_loss_frame,neutral,jev,0.591,,,framing_loss_certain,0.22,high,
-allais_estimate,prob_certain_pair1,neutral,jev,0.713,,,allais_p1_certain,0.8,high,
-allais_estimate,prob_safer_pair2,neutral,jev,0.631,,,allais_p2_certain,0.35,high,
+allais_estimate,prob_certain_pair1,neutral,jev,0.72,,,allais_p1_certain,0.8,high,
+allais_estimate,prob_safer_pair2,neutral,jev,0.648,,,allais_p2_certain,0.35,high,
 conjunction_estimate,prob_fallacy_forced_choice,neutral,jev,0.657,,,conjunction_fallacy_rate,0.85,high,
 base_rate_estimate,prob_correct_band,neutral,jev,0.21699999999999994,,,base_rate_correct_band,0.15,medium,
 sunk_cost_estimate,prob_continue,neutral,jev,0.348,,,sunk_cost_continue,0.85,medium,
@@ -597,9 +597,9 @@ prisoners_dilemma,cooperation_after_defection,rational_agent,jev,0.003,,,,,,
 framing,prob_certain_gain_frame,rational_agent,jev,0.6910000000000001,,,framing_gain_certain,0.72,high,
 framing,prob_certain_loss_frame,rational_agent,jev,0.844,,,framing_loss_certain,0.22,high,
 framing,framing_swing,rational_agent,jev,-0.1529999999999999,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
-allais,prob_certain_pair1,rational_agent,jev,0.362,,,allais_p1_certain,0.8,high,
-allais,prob_safer_pair2,rational_agent,jev,0.595,,,allais_p2_certain,0.35,high,
-allais,independence_violation,rational_agent,jev,0.14661000000000002,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
+allais,prob_certain_pair1,rational_agent,jev,0.368,,,allais_p1_certain,0.8,high,
+allais,prob_safer_pair2,rational_agent,jev,0.671,,,allais_p2_certain,0.35,high,
+allais,independence_violation,rational_agent,jev,0.12107200000000003,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
 conjunction,prob_fallacy_forced_choice,rational_agent,jev,0.017000000000000005,,,conjunction_fallacy_rate,0.85,high,
 conjunction_axiom,p_single,rational_agent,jev,0.221,,,,,,
 conjunction_axiom,p_conjunction,rational_agent,jev,0.292,,,,,,
@@ -610,7 +610,7 @@ anchoring,estimate_low_anchor,rational_agent,jev,24.442500000000003,,,anchoring_
 anchoring,estimate_high_anchor,rational_agent,jev,26.011011011011007,,,anchoring_high_median,45.0,approximate,
 anchoring,anchoring_effect,rational_agent,jev,1.5685110110110045,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
 sunk_cost,prob_continue,rational_agent,jev,0.029000000000000005,,,sunk_cost_continue,0.85,medium,
-holt_laury,expected_safe_choices,rational_agent,jev,2.872,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
+holt_laury,expected_safe_choices,rational_agent,jev,4.449999999999999,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
 discounting,prob_patient_7d,rational_agent,jev,0.6475,0.6125,0.6825000000000001,,,,
 discounting,prob_patient_30d,rational_agent,jev,0.5002500000000001,0.4085000000000001,0.5920000000000001,,,,
 discounting,prob_patient_180d,rational_agent,jev,0.43574999999999997,0.34924999999999995,0.4945,,,,
@@ -820,9 +820,9 @@ prisoners_dilemma,cooperation_after_defection,typical_human,jev,0.01400000000000
 framing,prob_certain_gain_frame,typical_human,jev,0.886,,,framing_gain_certain,0.72,high,
 framing,prob_certain_loss_frame,typical_human,jev,0.845,,,framing_loss_certain,0.22,high,
 framing,framing_swing,typical_human,jev,0.041000000000000036,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
-allais,prob_certain_pair1,typical_human,jev,0.819,,,allais_p1_certain,0.8,high,
-allais,prob_safer_pair2,typical_human,jev,0.6940000000000001,,,allais_p2_certain,0.35,high,
-allais,independence_violation,typical_human,jev,0.250614,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
+allais,prob_certain_pair1,typical_human,jev,0.8240000000000001,,,allais_p1_certain,0.8,high,
+allais,prob_safer_pair2,typical_human,jev,0.7060000000000001,,,allais_p2_certain,0.35,high,
+allais,independence_violation,typical_human,jev,0.24225599999999997,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
 conjunction,prob_fallacy_forced_choice,typical_human,jev,0.929,,,conjunction_fallacy_rate,0.85,high,
 conjunction_axiom,p_single,typical_human,jev,0.252,,,,,,
 conjunction_axiom,p_conjunction,typical_human,jev,0.629,,,,,,
@@ -833,7 +833,7 @@ anchoring,estimate_low_anchor,typical_human,jev,20.9984984984985,,,anchoring_low
 anchoring,estimate_high_anchor,typical_human,jev,26.3375,,,anchoring_high_median,45.0,approximate,
 anchoring,anchoring_effect,typical_human,jev,5.3390015015014995,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
 sunk_cost,prob_continue,typical_human,jev,0.175,,,sunk_cost_continue,0.85,medium,
-holt_laury,expected_safe_choices,typical_human,jev,3.971,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
+holt_laury,expected_safe_choices,typical_human,jev,5.368,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
 discounting,prob_patient_7d,typical_human,jev,0.17400000000000002,0.13275000000000003,0.21400000000000002,,,,
 discounting,prob_patient_30d,typical_human,jev,0.17925000000000002,0.12350000000000003,0.23500000000000001,,,,
 discounting,prob_patient_180d,typical_human,jev,0.121,0.07300000000000001,0.1935,,,,
@@ -1043,9 +1043,9 @@ prisoners_dilemma,cooperation_after_defection,typical_human_plain,jev,0.00999999
 framing,prob_certain_gain_frame,typical_human_plain,jev,0.914,,,framing_gain_certain,0.72,high,
 framing,prob_certain_loss_frame,typical_human_plain,jev,0.842,,,framing_loss_certain,0.22,high,
 framing,framing_swing,typical_human_plain,jev,0.07200000000000006,,,,,,H4: human swing is about 0.50 (0.72 - 0.22)
-allais,prob_certain_pair1,typical_human_plain,jev,0.8099999999999999,,,allais_p1_certain,0.8,high,
-allais,prob_safer_pair2,typical_human_plain,jev,0.7060000000000001,,,allais_p2_certain,0.35,high,
-allais,independence_violation,typical_human_plain,jev,0.23813999999999996,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
+allais,prob_certain_pair1,typical_human_plain,jev,0.812,,,allais_p1_certain,0.8,high,
+allais,prob_safer_pair2,typical_human_plain,jev,0.7310000000000001,,,allais_p2_certain,0.35,high,
+allais,independence_violation,typical_human_plain,jev,0.21842800000000004,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent"
 conjunction,prob_fallacy_forced_choice,typical_human_plain,jev,0.8679999999999999,,,conjunction_fallacy_rate,0.85,high,
 conjunction_axiom,p_single,typical_human_plain,jev,0.2,,,,,,
 conjunction_axiom,p_conjunction,typical_human_plain,jev,0.604,,,,,,
@@ -1056,7 +1056,7 @@ anchoring,estimate_low_anchor,typical_human_plain,jev,22.28228228228228,,,anchor
 anchoring,estimate_high_anchor,typical_human_plain,jev,25.1825,,,anchoring_high_median,45.0,approximate,
 anchoring,anchoring_effect,typical_human_plain,jev,2.9002177177177195,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels"
 sunk_cost,prob_continue,typical_human_plain,jev,0.09799999999999998,,,sunk_cost_continue,0.85,medium,
-holt_laury,expected_safe_choices,typical_human_plain,jev,3.7070000000000003,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
+holt_laury,expected_safe_choices,typical_human_plain,jev,5.685,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse
 discounting,prob_patient_7d,typical_human_plain,jev,0.24525000000000002,0.18925000000000003,0.28800000000000003,,,,
 discounting,prob_patient_30d,typical_human_plain,jev,0.28525,0.15199999999999997,0.4185000000000001,,,,
 discounting,prob_patient_180d,typical_human_plain,jev,0.12825,0.09974999999999998,0.15050000000000002,,,,

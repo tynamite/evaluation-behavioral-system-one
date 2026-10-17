@@ -16,7 +16,7 @@
   "baseline_cells_below_full_samples": 2,
   "baseline_cells_with_no_usable_sample": 0,
   "baseline_min_usable_samples": 8,
-  "total_cost_usd": 8.9857,
+  "total_cost_usd": 8.9853,
   "personas": [
     "antisocial",
     "neutral",
@@ -29,20 +29,20 @@
     "jev"
   ],
   "n_statistics": 1123,
-  "mean_order_tv": 0.05835673758865247,
-  "mean_unshuffled_tv": 0.023948686868686873,
-  "mean_order_tv_core": 0.06274993306559572,
+  "mean_order_tv": 0.06038841607565012,
+  "mean_unshuffled_tv": 0.023930909090909096,
+  "mean_order_tv_core": 0.06505087014725569,
   "mean_unshuffled_tv_core": 0.02658888888888889,
   "mean_order_tv_followup": 0.02520808080808081,
-  "mean_unshuffled_tv_followup": 0.019674074074074076,
+  "mean_unshuffled_tv_followup": 0.01962751322751323,
   "followup_h4": {
     "n": 23,
     "estimate_closer": 14,
-    "mean_error_simulate": 0.9871603777690738,
-    "mean_error_estimate": 0.7705317709013357,
-    "wilcoxon_p_one_sided": 0.015043497085571289,
-    "mean_scaled_error_simulate": 0.23491834878356618,
-    "mean_scaled_error_estimate": 0.1695585560197879,
-    "wilcoxon_p_scaled": 0.04291391372680664
+    "mean_error_simulate": 0.9878995082038564,
+    "mean_error_estimate": 0.7709665535100313,
+    "wilcoxon_p_one_sided": 0.013837099075317383,
+    "mean_scaled_error_simulate": 0.23565747921834881,
+    "mean_scaled_error_estimate": 0.16999333862848354,
+    "wilcoxon_p_scaled": 0.04010140895843506
   }
 }
