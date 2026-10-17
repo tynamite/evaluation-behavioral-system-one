@@ -126,6 +126,26 @@ def second_version() -> pd.DataFrame | None:
     return c.assign(arm="jev") if len(c) else None
 
 
+# 95% intervals from resampling the replicates, keyed (version, instrument, statistic, persona);
+# main() fills them from the committed files, and only for the committed run.
+INTERVALS: dict[tuple[str, str, str, str], tuple[float, float]] = {}
+
+
+def load_intervals(second: bool) -> None:
+    """The replicate intervals that belong to the tables being written."""
+    INTERVALS.clear()
+    files = [("1.13", ROOT / "results" / "tables" / "intervals.csv", "jev")]
+    if second:
+        files.append(("1.14", ROOT / "results" / "comparison" / "intervals.csv", JEV_114))
+    for version, path, who in files:
+        if not (path.exists() and committed_unchanged(path)):
+            continue
+        d = pd.read_csv(path)
+        d = d[d["model" if "model" in d else "arm"] == who]
+        for r in d.itertuples(index=False):
+            INTERVALS[(version, r.instrument, r.statistic, r.persona)] = (r.rep_ci_low, r.rep_ci_high)
+
+
 def persona_table(sdf: pd.DataFrame, rows: list[tuple[str, str, str]], arm: str = "jev") -> list[str]:
     personas = [p for p in PERSONA_ORDER if p in set(sdf["persona"])]
     versions = [("1.13", sdf)] + ([("1.14", SECOND)] if SECOND is not None else [])
@@ -138,7 +158,12 @@ def persona_table(sdf: pd.DataFrame, rows: list[tuple[str, str, str]], arm: str 
             vals = {r["persona"]: r["value"] for _, r in sel.iterrows()}
             bench = sel["benchmark_key"].iloc[0] if len(sel) else ""
             human = BENCHMARKS[bench].value if bench and bench in BENCHMARKS else None
-            cells = [fmt(vals.get(p)) for p in personas]
+            cells = []
+            for p in personas:
+                cell = fmt(vals.get(p))
+                if cell != "—" and (ci := INTERVALS.get((version, inst, stat, p))):
+                    cell += f" ({fmt(ci[0])}–{fmt(ci[1])})"
+                cells.append(cell)
             name = (label if k == 0 else "") + " | " + version if len(versions) > 1 else label
             out.append(f"| {name} | " + " | ".join(cells) + f" | {fmt(human)} |")
     return out
@@ -164,6 +189,7 @@ def main(argv: list[str]) -> int:
         print(f"figures left out, as they would misdescribe this run: {reason}", file=sys.stderr)
     sdf = pd.DataFrame([asdict(s) for s in compute_stats(df)])
     odf = order_effects(df)
+    load_intervals(SECOND is not None) if not reason else INTERVALS.clear()
 
     n_err = int(df["error"].notna().sum())
     cost = float(sum(float((u or {}).get("cost") or 0.0) for u in df["usage"]))
@@ -184,6 +210,9 @@ def main(argv: list[str]) -> int:
                 "through TypeSafe's API directly (results/comparison/statistics.csv); the option-"
                 "order section's numbers and the follow-up section's table are Jev 1.13 only "
                 "(its chart shows both versions). " if SECOND is not None else "")
+             + ("Figures in parentheses are 95% intervals from resampling the replicates "
+                "(300 draws): they show how much repeating the call moves a value, not how "
+                "far another choice of items would. " if INTERVALS else "")
              + "Values are "
              "probability mass, computed from the returned distributions rather than "
              "from the point answers. Human values are "

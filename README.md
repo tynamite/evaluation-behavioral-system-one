@@ -634,12 +634,11 @@ src/jevbench/
   diagrams.py      the editorial figures in the README, diagram-design style
   compare.py       several models' runs side by side
   benchmarks.py    42 human reference values, each with source + reliability
-  fame.py, pairing.py, ml2_effects.py
-                   the follow-up study's fame index, pairing rule and
-                   Many Labs 2 effect sizes
   instruments/     the battery
-scripts/           doc generators (RESULTS.md, BENCHMARKS.md), the figure
-                   layout checker, and the follow-up study's reports
+scripts/           doc generators (RESULTS.md, BENCHMARKS.md) and the figure
+                   layout checker
+retired/           the follow-up study's fame index and pairing rule, which
+                   its item pool could not support (see its README)
 tests/             146 tests, all runnable with no API key
 data/raw/          committed raw records — every number is recomputable
 data/archive/      the runs behind an earlier version of this write-up

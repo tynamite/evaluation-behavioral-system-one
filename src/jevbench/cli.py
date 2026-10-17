@@ -147,7 +147,11 @@ def _cmd_analyse(args: argparse.Namespace) -> int:
     if path is None:
         print(f"No run files in {RAW_DIR}. Run `jevbench run` first.", file=sys.stderr)
         return 1
-    analyse_run(path, Path(args.out) if args.out else _default_out(path, TABLES_DIR))
+    analyse_run(
+        path,
+        Path(args.out) if args.out else _default_out(path, TABLES_DIR),
+        replicate_ci=args.replicate_ci,
+    )
     return 0
 
 
@@ -310,7 +314,7 @@ def _cmd_compare(args: argparse.Namespace) -> int:
 
     out = Path(args.out)
     try:
-        tables = compare_runs([Path(p) for p in args.runs], out)
+        tables = compare_runs([Path(p) for p in args.runs], out, args.replicate_ci)
     except ValueError as exc:
         print(f"compare: {exc}", file=sys.stderr)
         return 1
@@ -396,6 +400,12 @@ def main(argv: list[str] | None = None) -> int:
         "--run", default=None, help="path to a run .jsonl (default: the newest run with Jev)"
     )
     a.add_argument("--out", default=None, help=f"output directory (default: {TABLES_DIR.name}/)")
+    a.add_argument(
+        "--replicate-ci",
+        type=int,
+        default=300,
+        help="resamples for the 95%% intervals over replicates (0 = none; default 300)",
+    )
     a.set_defaults(func=_cmd_analyse)
 
     f = sub.add_parser("figures", help="render figures from a run")
@@ -413,6 +423,12 @@ def main(argv: list[str] | None = None) -> int:
     c = sub.add_parser("compare", help="put several models' runs side by side")
     c.add_argument("runs", nargs="+", help="run .jsonl files, one per model")
     c.add_argument("--out", default=str(COMPARISON_DIR), help="output directory")
+    c.add_argument(
+        "--replicate-ci",
+        type=int,
+        default=300,
+        help="resamples for the 95%% intervals over replicates (0 = none; default 300)",
+    )
     c.set_defaults(func=_cmd_compare)
 
     n = sub.add_parser(

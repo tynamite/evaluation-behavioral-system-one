@@ -1489,13 +1489,74 @@ def _order_split(odf: pd.DataFrame) -> dict[str, float | None]:
     return out
 
 
-def analyse_run(path: Path, out_dir: Path) -> dict[str, Any]:
+INTERVAL_KEY = ["instrument", "statistic", "persona", "arm"]
+
+
+def _resampled_stats(
+    args: tuple[pd.DataFrame, list[Any], int, int],
+) -> list[dict[tuple[str, ...], float]]:
+    df, groups, count, seed = args
+    rng = np.random.default_rng(seed)
+    out: list[dict[tuple[str, ...], float]] = []
+    for _ in range(count):
+        pick = np.concatenate([rng.choice(g, size=len(g), replace=True) for g in groups])
+        out.append(
+            {
+                (s.instrument, s.statistic, s.persona, s.arm): s.value
+                for s in compute_stats(df.iloc[pick].reset_index(drop=True))
+            }
+        )
+    return out
+
+
+def replicate_intervals(
+    df: pd.DataFrame, n: int = 300, seed: int = 20261017, workers: int = 4
+) -> pd.DataFrame:
+    """95% percentile intervals for every statistic, from resampling the replicates.
+
+    Within each item, prompt and arm the replicates (or, for a chat model, its
+    resamples) are drawn with replacement, and every statistic is recomputed
+    from the resampled records. This is the uncertainty from repeating the
+    call; it says nothing about which items were chosen. A statistic missing
+    from more than a tenth of the draws gets no interval.
+    """
+    from concurrent.futures import ProcessPoolExecutor
+
+    df = df.reset_index(drop=True)
+    groups = [np.asarray(ix) for ix in df.groupby(["probe_id", "persona", "arm"]).indices.values()]
+    counts = [n // workers + (1 if i < n % workers else 0) for i in range(workers)]
+    jobs = [(df, groups, c, seed + i) for i, c in enumerate(counts) if c]
+    if len(jobs) == 1:
+        draws = _resampled_stats(jobs[0])
+    else:
+        with ProcessPoolExecutor(max_workers=len(jobs)) as pool:
+            draws = [d for part in pool.map(_resampled_stats, jobs) for d in part]
+    keys = sorted({k for d in draws for k in d})
+    rows = []
+    for k in keys:
+        vals = np.array([d[k] for d in draws if k in d], dtype=float)
+        vals = vals[np.isfinite(vals)]
+        if len(vals) < 0.9 * len(draws):
+            continue
+        lo, hi = np.percentile(vals, [2.5, 97.5])
+        rows.append(dict(zip(INTERVAL_KEY, k, strict=True)) | {"rep_ci_low": lo, "rep_ci_high": hi})
+    return pd.DataFrame(rows, columns=[*INTERVAL_KEY, "rep_ci_low", "rep_ci_high"])
+
+
+def analyse_run(path: Path, out_dir: Path, replicate_ci: int = 0) -> dict[str, Any]:
     df = load_records(path)
     out_dir.mkdir(parents=True, exist_ok=True)
 
     stats = compute_stats(df)
     sdf = pd.DataFrame([asdict(s) for s in stats])
     sdf.to_csv(out_dir / "statistics.csv", index=False)
+
+    ivl_path = out_dir / "intervals.csv"
+    if replicate_ci > 0:
+        replicate_intervals(df, replicate_ci).to_csv(ivl_path, index=False)
+    else:
+        # Never leave another run's intervals beside this run's statistics.
+        ivl_path.unlink(missing_ok=True)
 
     odf = order_effects(df)
     odf.to_csv(out_dir / "order_effects.csv", index=False)

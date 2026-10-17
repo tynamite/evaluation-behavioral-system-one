@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from dataclasses import replace
+from dataclasses import asdict, replace
 from pathlib import Path
 
 import pandas as pd
@@ -716,3 +716,20 @@ def test_rerun_keeps_what_the_replaced_calls_cost(tmp_path, monkeypatch):
 
     df = load_records(run)
     assert df["usage"].iloc[0]["cost"] == 0.75
+
+
+def test_replicate_intervals_bracket_the_statistic_and_follow_the_seed(tmp_path) -> None:
+    from jevbench.analysis import compute_stats, replicate_intervals
+
+    path = run_battery(
+        Config(backend="simulator"), replicates=5, workers=2, out_dir=tmp_path, personas=["neutral"]
+    )
+    df = load_records(path)
+    a = replicate_intervals(df, n=20, workers=2)
+    b = replicate_intervals(df, n=20, workers=2)
+    pd.testing.assert_frame_equal(a, b)
+    assert len(a) > 100
+    stats = pd.DataFrame([asdict(s) for s in compute_stats(df)])
+    m = a.merge(stats, on=["instrument", "statistic", "persona", "arm"])
+    assert (m.rep_ci_low <= m.rep_ci_high).all()
+    assert (m.rep_ci_low <= m.value + 1e-9).mean() > 0.9
