@@ -5,7 +5,7 @@
 Run file: `run_live_20261012T225915Z_typesafe--jev-1.13+anthropic--claude-sonnet-5.5.jsonl`  
 Models: `anthropic/claude-sonnet-5.5`, `typesafe/jev-1.13-20260917`  
 Records: 14,800 (0 transport errors, excluded)  
-Total cost: $8.9857 (Jev arm $0.1418)
+Total cost: $8.9853 (Jev arm $0.1413)
 
 Every table below is the Jev arm only; the chat baseline and the other System One models are compared in `results/comparison/`. Under each measure, Jev 1.13 is this run and Jev 1.14 its 14 October run through TypeSafe's API directly (results/comparison/statistics.csv); the option-order section's numbers and the follow-up section's table are Jev 1.13 only (its chart shows both versions). Values are probability mass, computed from the returned distributions rather than from the point answers. Human values are literature reference points, not a matched control group — see [BENCHMARKS.md](BENCHMARKS.md).
 
@@ -86,10 +86,10 @@ Accuracy on an authored ICAR-format item set. **Not an IQ score.**
 |  | 1.14 | 0.80 | 0.72 | 0.72 | 0.83 | 0.58 | 0.22 |
 | Framing swing (human ≈ 0.50) | 1.13 | 0.01 | 0.04 | 0.07 | -0.15 | -0.07 | — |
 |  | 1.14 | -0.09 | -0.04 | 0.05 | -0.32 | -0.20 | — |
-| Allais: certainty in pair 1 | 1.13 | 0.62 | 0.82 | 0.81 | 0.36 | 0.32 | 0.80 |
-|  | 1.14 | 0.50 | 0.61 | 0.60 | 0.35 | 0.31 | 0.80 |
-| Allais: independence violation | 1.13 | 0.24 | 0.25 | 0.24 | 0.15 | 0.17 | — |
-|  | 1.14 | 0.22 | 0.27 | 0.27 | 0.16 | 0.19 | — |
+| Allais: certainty in pair 1 | 1.13 | 0.62 | 0.82 | 0.81 | 0.37 | 0.34 | 0.80 |
+|  | 1.14 | 0.50 | 0.63 | 0.62 | 0.30 | 0.32 | 0.80 |
+| Allais: independence violation | 1.13 | 0.21 | 0.24 | 0.22 | 0.12 | 0.17 | — |
+|  | 1.14 | 0.22 | 0.27 | 0.26 | 0.13 | 0.19 | — |
 | Conjunction fallacy (forced choice) | 1.13 | 0.10 | 0.93 | 0.87 | 0.02 | 0.27 | 0.85 |
 |  | 1.14 | 0.07 | 0.94 | 0.93 | 0.02 | 0.29 | 0.85 |
 | Conjunction axiom margin (negative = violation) | 1.13 | -0.09 | -0.38 | -0.40 | -0.07 | -0.07 | — |
@@ -105,8 +105,8 @@ Accuracy on an authored ICAR-format item set. **Not an IQ score.**
 
 | Measure | Jev | Neutral | As typical human | As typical human (no steer) | As rational agent | Antisocial | Human |
 |---|---|---:|---:|---:|---:|---:|---:|
-| Holt–Laury safe choices (risk neutral = 4) | 1.13 | 2.05 | 3.97 | 3.71 | 2.87 | 1.34 | 5.20 |
-|  | 1.14 | 2.58 | 3.21 | 3.60 | 3.10 | 1.37 | 5.20 |
+| Holt–Laury safe choices (risk neutral = 4) | 1.13 | 4.61 | 5.37 | 5.68 | 4.45 | 3.13 | 5.20 |
+|  | 1.14 | 4.81 | 5.30 | 5.43 | 4.79 | 2.72 | 5.20 |
 | Present-bias gap (direction only) | 1.13 | 0.35 | 0.17 | 0.20 | 0.31 | 0.47 | — |
 |  | 1.14 | 0.09 | 0.14 | 0.19 | 0.22 | 0.37 | — |
 | p-beauty: expected guess | 1.13 | 16.82 | 39.52 | 39.99 | 0.20 | 27.46 | 36.00 |
@@ -147,9 +147,9 @@ The Dark Triad scale is a **manipulation check**, not a diagnostic claim.
 
 The core battery's multiple-choice items (415 probe × persona cells), the set H6 was written for: their options are shuffled per replicate. Likert and yes/no items are not shuffled, so they measure replicate-to-replicate variation with nothing changed instead.
 
-- Mean total-variation distance across reorderings: **0.0627**
-- Median: 0.0411
-- 95th percentile: 0.1994
+- Mean total-variation distance across reorderings: **0.0651**
+- Median: 0.0389
+- 95th percentile: 0.2202
 - Same measure on the 170 unshuffled cells (replicates with nothing reordered, a rough noise floor): 0.0266
 - Largest single probe: 0.3129 (`discount_30d_100`)
 
@@ -161,9 +161,9 @@ Most order-sensitive probes:
 | `discount_30d_75` | rational_agent | 0.2960 |
 | `discount_30d_60` | neutral | 0.2753 |
 | `discount_30d_60` | rational_agent | 0.2742 |
-| `discount_30d_75` | neutral | 0.2673 |
+| `holt_laury_06` | neutral | 0.2709 |
 
-The follow-up items, reported apart: 0.0252 on 55 shuffled cells, 0.0197 on 105 unshuffled ones.
+The follow-up items, reported apart: 0.0252 on 55 shuffled cells, 0.0196 on 105 unshuffled ones.
 
 ## Follow-up H4: simulate or estimate
 
@@ -188,8 +188,8 @@ Each follow-up statistic measured two ways: the item asked with the typical-pers
 | position_power | power_short_line | 4.62 | 3.67 | 4.22 | 0.954 | 0.400 | 0.159 | 0.067 |
 | trolley | prob_push_permissible | 0.11 | 0.00 | 0.23 | 0.110 | 0.122 | 0.110 | 0.122 |
 | trolley | prob_switch_permissible | 0.89 | 1.00 | 0.75 | 0.110 | 0.144 | 0.110 | 0.144 |
-| allais | prob_certain_pair1 | 0.80 | 0.82 | 0.71 | 0.019 | 0.087 | 0.019 | 0.087 |
-| allais | prob_safer_pair2 | 0.35 | 0.69 | 0.63 | 0.344 | 0.281 | 0.344 | 0.281 |
+| allais | prob_certain_pair1 | 0.80 | 0.82 | 0.72 | 0.024 | 0.080 | 0.024 | 0.080 |
+| allais | prob_safer_pair2 | 0.35 | 0.71 | 0.65 | 0.356 | 0.298 | 0.356 | 0.298 |
 | base_rate | prob_correct_band | 0.15 | 0.23 | 0.22 | 0.081 | 0.067 | 0.081 | 0.067 |
 | conjunction | prob_fallacy_forced_choice | 0.85 | 0.93 | 0.66 | 0.079 | 0.193 | 0.079 | 0.193 |
 | crt | proportion_correct | 0.41 | 0.32 | 0.46 | 0.095 | 0.050 | 0.095 | 0.050 |
@@ -197,9 +197,9 @@ Each follow-up statistic measured two ways: the item asked with the typical-pers
 | framing | prob_certain_loss_frame | 0.22 | 0.84 | 0.59 | 0.625 | 0.371 | 0.625 | 0.371 |
 | sunk_cost | prob_continue | 0.85 | 0.17 | 0.35 | 0.675 | 0.502 | 0.675 | 0.502 |
 
-- As preregistered: estimate closer on 14 of 23; one-sided Wilcoxon p = 0.015 on the raw errors (0.043 scaled, post-hoc); mean scaled error 0.235 (simulate) vs 0.170 (estimate)
+- As preregistered: estimate closer on 14 of 23; one-sided Wilcoxon p = 0.014 on the raw errors (0.040 scaled, post-hoc); mean scaled error 0.236 (simulate) vs 0.170 (estimate)
 
-- Simulate without the steer, estimate with no persona: estimate closer on 16 of 23; one-sided Wilcoxon p = 0.005 on the raw errors (0.021 scaled, post-hoc); mean scaled error 0.248 (simulate) vs 0.170 (estimate)
+- Simulate without the steer, estimate with no persona: estimate closer on 16 of 23; one-sided Wilcoxon p = 0.005 on the raw errors (0.019 scaled, post-hoc); mean scaled error 0.250 (simulate) vs 0.170 (estimate)
 
 - Both asked under the steer-free typical-person prompt (exploratory): estimate closer on 12 of 15; one-sided Wilcoxon p = 0.003 on the raw errors (0.011 scaled, post-hoc); mean scaled error 0.225 (simulate) vs 0.134 (estimate)
 
