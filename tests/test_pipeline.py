@@ -639,7 +639,7 @@ def test_rerun_replaces_only_the_changed_instruments_of_its_own_model(tmp_path, 
         _rec("jev", "v/m", "crt", "crt_1", "kept"),
         _rec("baseline", "chat/other", "allais", "allais_problem1", "chat-old"),
     ]
-    new = [_rec("jev", "v/m-2026", "allais", "allais_problem1", "new")]
+    new = [_rec("jev", "v/m-20261017", "allais", "allais_problem1", "new")]
     run = raw / "run_live_1_m.jsonl"
     run.write_text("\n".join(json.dumps(r) for r in old))
     (raw / RERUN_DIR_NAME / "run_live_2_m.jsonl").write_text("\n".join(json.dumps(r) for r in new))
@@ -662,8 +662,30 @@ def test_rerun_leaves_records_written_since_the_change_alone(tmp_path, monkeypat
     fresh = {**_rec("jev", "v/m", "allais", "allais_problem1", "fresh"), "prompt_sha": "abc"}
     run = raw / "run_live_3_m.jsonl"
     run.write_text(json.dumps(fresh))
-    new = _rec("jev", "v/m-2026", "allais", "allais_problem1", "new")
+    new = _rec("jev", "v/m-20261017", "allais", "allais_problem1", "new")
     (raw / RERUN_DIR_NAME / "run_live_2_m.jsonl").write_text(json.dumps(new))
 
     df = load_records(run)
     assert list(df["value"]) == ["fresh"]
+
+
+def test_rerun_does_not_cross_sibling_models(tmp_path, monkeypatch):
+    import json
+
+    from jevbench import config
+    from jevbench.analysis import RERUN_DIR_NAME, load_records
+
+    raw = tmp_path / "raw"
+    (raw / RERUN_DIR_NAME).mkdir(parents=True)
+    monkeypatch.setattr(config, "RAW_DIR", raw)
+    run = raw / "run_live_1_clef.jsonl"
+    run.write_text(json.dumps(_rec("jev", "c/clef", "allais", "allais_problem1", "old")))
+    rerun = [
+        _rec("jev", "c/clef-flash", "allais", "allais_problem1", "flash"),
+        _rec("jev", "c/clef-20261001", "allais", "allais_problem1", "dated"),
+    ]
+    (raw / RERUN_DIR_NAME / "run_live_2_x.jsonl").write_text(
+        "\n".join(json.dumps(r) for r in rerun)
+    )
+
+    assert list(load_records(run)["value"]) == ["dated"]

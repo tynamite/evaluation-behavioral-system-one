@@ -6395,9 +6395,9 @@ prisoners_dilemma,cooperation_after_defection,antisocial,cloudflare/clef,0.01966
 framing,prob_certain_gain_frame,antisocial,cloudflare/clef,0.67095,,,framing_gain_certain,0.72,high,,System One
 framing,prob_certain_loss_frame,antisocial,cloudflare/clef,0.6039000000000001,,,framing_loss_certain,0.22,high,,System One
 framing,framing_swing,antisocial,cloudflare/clef,0.06704999999999994,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
-allais,prob_certain_pair1,antisocial,cloudflare/clef,0.32031,,,allais_p1_certain,0.8,high,,System One
-allais,prob_safer_pair2,antisocial,cloudflare/clef,0.48818,,,allais_p2_certain,0.35,high,,System One
-allais,independence_violation,antisocial,cloudflare/clef,0.1639410642,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
+allais,prob_certain_pair1,antisocial,cloudflare/clef,0.38924000000000003,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,antisocial,cloudflare/clef,0.3346,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,antisocial,cloudflare/clef,0.259000296,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
 conjunction,prob_fallacy_forced_choice,antisocial,cloudflare/clef,0.85144,,,conjunction_fallacy_rate,0.85,high,,System One
 conjunction_axiom,p_single,antisocial,cloudflare/clef,0.32782,,,,,,,System One
 conjunction_axiom,p_conjunction,antisocial,cloudflare/clef,0.42691999999999997,,,,,,,System One
@@ -6408,7 +6408,7 @@ anchoring,estimate_low_anchor,antisocial,cloudflare/clef,21.814000000000004,,,an
 anchoring,estimate_high_anchor,antisocial,cloudflare/clef,24.168750000000003,,,anchoring_high_median,45.0,approximate,,System One
 anchoring,anchoring_effect,antisocial,cloudflare/clef,2.3547499999999992,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels",System One
 sunk_cost,prob_continue,antisocial,cloudflare/clef,0.05049999999999999,,,sunk_cost_continue,0.85,medium,,System One
-holt_laury,expected_safe_choices,antisocial,cloudflare/clef,2.3872750000000003,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+holt_laury,expected_safe_choices,antisocial,cloudflare/clef,2.3213500000000002,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
 discounting,prob_patient_7d,antisocial,cloudflare/clef,0.60487,0.484815,0.7249249999999999,,,,,System One
 discounting,prob_patient_30d,antisocial,cloudflare/clef,0.56681,0.52132,0.6123000000000001,,,,,System One
 discounting,prob_patient_180d,antisocial,cloudflare/clef,0.436395,0.3699,0.48379,,,,,System One
@@ -6513,9 +6513,9 @@ prisoners_dilemma,cooperation_after_defection,neutral,cloudflare/clef,0.0128,,,,
 framing,prob_certain_gain_frame,neutral,cloudflare/clef,0.93319,,,framing_gain_certain,0.72,high,,System One
 framing,prob_certain_loss_frame,neutral,cloudflare/clef,0.6706000000000001,,,framing_loss_certain,0.22,high,,System One
 framing,framing_swing,neutral,cloudflare/clef,0.2625899999999999,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
-allais,prob_certain_pair1,neutral,cloudflare/clef,0.47006,,,allais_p1_certain,0.8,high,,System One
-allais,prob_safer_pair2,neutral,cloudflare/clef,0.61614,,,allais_p2_certain,0.35,high,,System One
-allais,independence_violation,neutral,cloudflare/clef,0.18043723159999997,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
+allais,prob_certain_pair1,neutral,cloudflare/clef,0.52286,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,neutral,cloudflare/clef,0.5860000000000001,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,neutral,cloudflare/clef,0.21646404,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
 conjunction,prob_fallacy_forced_choice,neutral,cloudflare/clef,0.8828,,,conjunction_fallacy_rate,0.85,high,,System One
 conjunction_axiom,p_single,neutral,cloudflare/clef,0.1348,,,,,,,System One
 conjunction_axiom,p_conjunction,neutral,cloudflare/clef,0.3157,,,,,,,System One
@@ -6526,7 +6526,7 @@ anchoring,estimate_low_anchor,neutral,cloudflare/clef,21.741325000000003,,,ancho
 anchoring,estimate_high_anchor,neutral,cloudflare/clef,23.785147188224947,,,anchoring_high_median,45.0,approximate,,System One
 anchoring,anchoring_effect,neutral,cloudflare/clef,2.0438221882249437,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels",System One
 sunk_cost,prob_continue,neutral,cloudflare/clef,0.021900000000000003,,,sunk_cost_continue,0.85,medium,,System One
-holt_laury,expected_safe_choices,neutral,cloudflare/clef,3.5496999999999996,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+holt_laury,expected_safe_choices,neutral,cloudflare/clef,3.9286600000000003,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
 discounting,prob_patient_7d,neutral,cloudflare/clef,0.7037625000000001,0.5506725,0.8473050000000001,,,,,System One
 discounting,prob_patient_30d,neutral,cloudflare/clef,0.6462375,0.5232950000000001,0.76918,,,,,System One
 discounting,prob_patient_180d,neutral,cloudflare/clef,0.606035,0.572345,0.65724,,,,,System One
@@ -6595,8 +6595,8 @@ false_consensus_estimate,false_consensus_gap,neutral,cloudflare/clef,0.027300000
 crt_estimate,proportion_correct,neutral,cloudflare/clef,0.6094833333333334,,,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
 framing_estimate,prob_certain_gain_frame,neutral,cloudflare/clef,0.8273999999999999,,,framing_gain_certain,0.72,high,,System One
 framing_estimate,prob_certain_loss_frame,neutral,cloudflare/clef,0.3882999999999999,,,framing_loss_certain,0.22,high,,System One
-allais_estimate,prob_certain_pair1,neutral,cloudflare/clef,0.52414,,,allais_p1_certain,0.8,high,,System One
-allais_estimate,prob_safer_pair2,neutral,cloudflare/clef,0.49861500000000014,,,allais_p2_certain,0.35,high,,System One
+allais_estimate,prob_certain_pair1,neutral,cloudflare/clef,0.67677,,,allais_p1_certain,0.8,high,,System One
+allais_estimate,prob_safer_pair2,neutral,cloudflare/clef,0.44639999999999996,,,allais_p2_certain,0.35,high,,System One
 conjunction_estimate,prob_fallacy_forced_choice,neutral,cloudflare/clef,0.6893,,,conjunction_fallacy_rate,0.85,high,,System One
 base_rate_estimate,prob_correct_band,neutral,cloudflare/clef,0.15712000000000004,,,base_rate_correct_band,0.15,medium,,System One
 sunk_cost_estimate,prob_continue,neutral,cloudflare/clef,0.13209999999999997,,,sunk_cost_continue,0.85,medium,,System One
@@ -6639,9 +6639,9 @@ prisoners_dilemma,cooperation_after_defection,rational_agent,cloudflare/clef,0.0
 framing,prob_certain_gain_frame,rational_agent,cloudflare/clef,0.5553999999999999,,,framing_gain_certain,0.72,high,,System One
 framing,prob_certain_loss_frame,rational_agent,cloudflare/clef,0.57103,,,framing_loss_certain,0.22,high,,System One
 framing,framing_swing,rational_agent,cloudflare/clef,-0.015630000000000144,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
-allais,prob_certain_pair1,rational_agent,cloudflare/clef,0.41841500000000015,,,allais_p1_certain,0.8,high,,System One
-allais,prob_safer_pair2,rational_agent,cloudflare/clef,0.5247,,,allais_p2_certain,0.35,high,,System One
-allais,independence_violation,rational_agent,cloudflare/clef,0.19887264950000003,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
+allais,prob_certain_pair1,rational_agent,cloudflare/clef,0.3594,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,rational_agent,cloudflare/clef,0.41666,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,rational_agent,cloudflare/clef,0.209652396,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
 conjunction,prob_fallacy_forced_choice,rational_agent,cloudflare/clef,0.8343999999999999,,,conjunction_fallacy_rate,0.85,high,,System One
 conjunction_axiom,p_single,rational_agent,cloudflare/clef,0.6843000000000001,,,,,,,System One
 conjunction_axiom,p_conjunction,rational_agent,cloudflare/clef,0.3961,,,,,,,System One
@@ -6652,7 +6652,7 @@ anchoring,estimate_low_anchor,rational_agent,cloudflare/clef,25.009874999999997,
 anchoring,estimate_high_anchor,rational_agent,cloudflare/clef,25.89016098390161,,,anchoring_high_median,45.0,approximate,,System One
 anchoring,anchoring_effect,rational_agent,cloudflare/clef,0.8802859839016115,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels",System One
 sunk_cost,prob_continue,rational_agent,cloudflare/clef,0.013480000000000002,,,sunk_cost_continue,0.85,medium,,System One
-holt_laury,expected_safe_choices,rational_agent,cloudflare/clef,4.416105,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+holt_laury,expected_safe_choices,rational_agent,cloudflare/clef,4.43102,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
 discounting,prob_patient_7d,rational_agent,cloudflare/clef,0.79049,0.6403200000000001,0.90915,,,,,System One
 discounting,prob_patient_30d,rational_agent,cloudflare/clef,0.7154475,0.6327600000000001,0.798135,,,,,System One
 discounting,prob_patient_180d,rational_agent,cloudflare/clef,0.5881675,0.5093000000000001,0.667035,,,,,System One
@@ -6757,9 +6757,9 @@ prisoners_dilemma,cooperation_after_defection,typical_human,cloudflare/clef,0.01
 framing,prob_certain_gain_frame,typical_human,cloudflare/clef,0.9404,,,framing_gain_certain,0.72,high,,System One
 framing,prob_certain_loss_frame,typical_human,cloudflare/clef,0.7621,,,framing_loss_certain,0.22,high,,System One
 framing,framing_swing,typical_human,cloudflare/clef,0.17830000000000001,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
-allais,prob_certain_pair1,typical_human,cloudflare/clef,0.536205,,,allais_p1_certain,0.8,high,,System One
-allais,prob_safer_pair2,typical_human,cloudflare/clef,0.5845,,,allais_p2_certain,0.35,high,,System One
-allais,independence_violation,typical_human,cloudflare/clef,0.22279317749999997,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
+allais,prob_certain_pair1,typical_human,cloudflare/clef,0.69775,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,typical_human,cloudflare/clef,0.5214599999999999,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,typical_human,cloudflare/clef,0.33390128500000005,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
 conjunction,prob_fallacy_forced_choice,typical_human,cloudflare/clef,0.9766,,,conjunction_fallacy_rate,0.85,high,,System One
 conjunction_axiom,p_single,typical_human,cloudflare/clef,0.22727,,,,,,,System One
 conjunction_axiom,p_conjunction,typical_human,cloudflare/clef,0.92665,,,,,,,System One
@@ -6770,7 +6770,7 @@ anchoring,estimate_low_anchor,typical_human,cloudflare/clef,22.340500000000002,,
 anchoring,estimate_high_anchor,typical_human,cloudflare/clef,30.471452854714528,,,anchoring_high_median,45.0,approximate,,System One
 anchoring,anchoring_effect,typical_human,cloudflare/clef,8.130952854714526,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels",System One
 sunk_cost,prob_continue,typical_human,cloudflare/clef,0.17470000000000002,,,sunk_cost_continue,0.85,medium,,System One
-holt_laury,expected_safe_choices,typical_human,cloudflare/clef,4.373345,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+holt_laury,expected_safe_choices,typical_human,cloudflare/clef,5.1180200000000005,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
 discounting,prob_patient_7d,typical_human,cloudflare/clef,0.5200275000000001,0.34170999999999996,0.6983450000000001,,,,,System One
 discounting,prob_patient_30d,typical_human,cloudflare/clef,0.41248000000000007,0.31535500000000005,0.5096050000000001,,,,,System One
 discounting,prob_patient_180d,typical_human,cloudflare/clef,0.3561025,0.30859000000000003,0.40361500000000006,,,,,System One
@@ -6875,9 +6875,9 @@ prisoners_dilemma,cooperation_after_defection,typical_human_plain,cloudflare/cle
 framing,prob_certain_gain_frame,typical_human_plain,cloudflare/clef,0.92725,,,framing_gain_certain,0.72,high,,System One
 framing,prob_certain_loss_frame,typical_human_plain,cloudflare/clef,0.7705,,,framing_loss_certain,0.22,high,,System One
 framing,framing_swing,typical_human_plain,cloudflare/clef,0.15675000000000006,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
-allais,prob_certain_pair1,typical_human_plain,cloudflare/clef,0.5158500000000001,,,allais_p1_certain,0.8,high,,System One
-allais,prob_safer_pair2,typical_human_plain,cloudflare/clef,0.5737850000000001,,,allais_p2_certain,0.35,high,,System One
-allais,independence_violation,typical_human_plain,cloudflare/clef,0.21986300775,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
+allais,prob_certain_pair1,typical_human_plain,cloudflare/clef,0.6591000000000001,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,typical_human_plain,cloudflare/clef,0.46136,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,typical_human_plain,cloudflare/clef,0.3550176240000001,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
 conjunction,prob_fallacy_forced_choice,typical_human_plain,cloudflare/clef,0.9722,,,conjunction_fallacy_rate,0.85,high,,System One
 conjunction_axiom,p_single,typical_human_plain,cloudflare/clef,0.2454,,,,,,,System One
 conjunction_axiom,p_conjunction,typical_human_plain,cloudflare/clef,0.8933,,,,,,,System One
@@ -6888,7 +6888,7 @@ anchoring,estimate_low_anchor,typical_human_plain,cloudflare/clef,20.83608360836
 anchoring,estimate_high_anchor,typical_human_plain,cloudflare/clef,28.748750000000005,,,anchoring_high_median,45.0,approximate,,System One
 anchoring,anchoring_effect,typical_human_plain,cloudflare/clef,7.912666391639167,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels",System One
 sunk_cost,prob_continue,typical_human_plain,cloudflare/clef,0.04604,,,sunk_cost_continue,0.85,medium,,System One
-holt_laury,expected_safe_choices,typical_human_plain,cloudflare/clef,4.3025,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+holt_laury,expected_safe_choices,typical_human_plain,cloudflare/clef,5.03087,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
 discounting,prob_patient_7d,typical_human_plain,cloudflare/clef,0.6015225000000001,0.4292,0.773845,,,,,System One
 discounting,prob_patient_30d,typical_human_plain,cloudflare/clef,0.52513,0.4057900000000001,0.64447,,,,,System One
 discounting,prob_patient_180d,typical_human_plain,cloudflare/clef,0.4879425,0.42703499999999994,0.525785,,,,,System One

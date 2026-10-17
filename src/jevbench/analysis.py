@@ -14,6 +14,7 @@ statistic consumes a distribution, never an argmax.
 from __future__ import annotations
 
 import json
+import re
 from collections import defaultdict
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -120,7 +121,9 @@ def _with_rerun(df: pd.DataFrame, path: Path) -> pd.DataFrame:
         for (arm, model), rows in new.groupby(["arm", "model"]):
             # An OpenRouter alias ("vendor/model") stands for its dated id ("vendor/model-2026...").
             same = (df["arm"] == arm) & df["model"].map(
-                lambda m, mm=str(model): mm == str(m) or mm.startswith(f"{m}-")
+                lambda m, mm=str(model): (
+                    mm == str(m) or re.fullmatch(rf"{re.escape(str(m))}-\d{{8}}", mm) is not None
+                )
             )
             # Only the records made before the change: every record written
             # since carries the fingerprint of the wording it was asked with.
