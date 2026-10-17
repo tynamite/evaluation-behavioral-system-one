@@ -136,17 +136,19 @@ CHANGED_AFTER_FIRST_RUNS = frozenset({"allais", "allais_estimate", "holt_laury"}
 
 
 def prompt_fingerprint(probe: Probe, persona_key: str) -> str:
-    """A short hash of what the model is asked: state, instructions and the option set.
+    """A short hash of what each arm is sent for this item.
 
-    Taken before the option shuffle, so it does not depend on the seed, and
-    after the persona, so each persona has its own.
+    The System One arm's payload (state and the serialized question, type
+    included) and the chat arm's rendered prompt (which adds its reply-format
+    text). Taken before the option shuffle, so it does not depend on the seed,
+    and after the persona, so each persona has its own.
     """
     p = apply_persona(probe, PERSONAS[persona_key])
-    q = p.question
-    options = getattr(q, "criteria", None)
-    if isinstance(options, dict):
-        options = sorted(options.items())
-    body = {"state": p.state or {}, "instructions": q.instructions, "options": options}
+    body = {
+        "state": p.state or {},
+        "question": p.question.to_payload(),
+        "chat_prompt": render_prompt(p)[0],
+    }
     raw = json.dumps(body, sort_keys=True, default=str)
     return hashlib.sha256(raw.encode()).hexdigest()[:16]
 

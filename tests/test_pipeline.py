@@ -530,3 +530,18 @@ def test_resuming_an_old_run_of_a_changed_item_is_refused(tmp_path: Path) -> Non
     path.write_text("".join(json.dumps(r) + "\n" for r in rows), encoding="utf-8")
     with pytest.raises(RuntimeError, match="asked before its wording changed"):
         run_battery(cfg, resume=path, **kwargs)  # type: ignore[arg-type]
+
+
+def test_fingerprint_follows_the_question_type_and_the_chat_reply_format() -> None:
+    from dataclasses import replace
+
+    from jevbench.runner import prompt_fingerprint
+    from jevbench.schema import Noul
+
+    p = next(p for p in all_probes() if p.probe_id == "allais_problem1")
+    base = prompt_fingerprint(p, "neutral")
+    # The same instructions as another kind of question is another request.
+    as_noul = replace(p, question=Noul(instructions=p.question.instructions))
+    assert prompt_fingerprint(as_noul, "neutral") != base
+    # A change to the state alone is another request too.
+    assert prompt_fingerprint(replace(p, state={**(p.state or {}), "x": 1}), "neutral") != base
