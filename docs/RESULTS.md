@@ -5,7 +5,7 @@
 Run file: `run_live_20261012T225915Z_typesafe--jev-1.13+anthropic--claude-sonnet-5.5.jsonl`  
 Models: `anthropic/claude-sonnet-5.5`, `typesafe/jev-1.13-20260917`  
 Records: 14,800 (0 transport errors, excluded)  
-Total cost: $8.9853 (Jev arm $0.1413)
+Total cost: $8.9957 (Jev arm $0.1518)
 
 Every table below is the Jev arm only; the chat baseline and the other System One models are compared in `results/comparison/`. Under each measure, Jev 1.13 is this run and Jev 1.14 its 14 October run through TypeSafe's API directly (results/comparison/statistics.csv); the option-order section's numbers and the follow-up section's table are Jev 1.13 only (its chart shows both versions). Values are probability mass, computed from the returned distributions rather than from the point answers. Human values are literature reference points, not a matched control group — see [BENCHMARKS.md](BENCHMARKS.md).
 
