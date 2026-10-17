@@ -32,11 +32,9 @@ def holt_laury() -> list[Probe]:
                         else "$3.85 for certain"
                     ),
                 },
-                state={
-                    "task": "lottery choice",
-                    "row": row,
-                    "probability_of_high_payoff": p,
-                },
+                # No row number and no probability: the options already say it, and
+                # either would tell the model where in the ladder it is.
+                state={"task": "lottery choice"},
                 scoring="binary",
                 row=row,
                 p_high=p,

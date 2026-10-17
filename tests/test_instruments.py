@@ -140,3 +140,26 @@ def test_estimate_items_are_asked_without_a_persona() -> None:
         assert not any(asked_under(p, k) for k in PERSONAS if k != "neutral")
     own = next(p for p in all_probes(["followup"]) if not p.probe_id.endswith("_estimate"))
     assert all(asked_under(own, k) for k in PERSONAS)
+
+
+# Bookkeeping that names which item of a series this is, or restates a value the
+# options already carry. It is sent to the model with the item (as `state`), so it
+# is a cue the wording does not give: the `frame` label once produced most of a
+# fake framing effect (docs/LEARNINGS.md). Scoring keeps what it needs in `meta`.
+CUE_KEYS = {"pair", "row", "index", "idx", "item", "step", "trial", "probability_of_high_payoff"}
+
+
+def test_state_carries_no_item_indices() -> None:
+    for probe in all_probes():
+        leaked = CUE_KEYS & set(probe.state or {})
+        assert not leaked, f"{probe.probe_id} sends {sorted(leaked)} to the model"
+
+
+def test_scoring_still_knows_which_pair_and_row_an_item_is() -> None:
+    from jevbench.instruments import all_probes as probes
+
+    by_id = {p.probe_id: p for p in probes()}
+    assert by_id["allais_problem1"].meta["pair"] == 1
+    assert by_id["allais_problem2"].meta["pair"] == 2
+    assert by_id["holt_laury_03"].meta["row"] == 3
+    assert by_id["holt_laury_03"].meta["p_high"] == 0.3
