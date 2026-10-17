@@ -117,7 +117,7 @@ def requested_slug(path: Path) -> str:
 
 
 def load_arm(path: Path) -> Arm:
-    df = load_records(path)
+    df = load_records(path, rerun=False)
     df = df[df["arm"] == "jev"].copy()
     err = df["error"] if "error" in df.columns else pd.Series(None, index=df.index)
     unusable = err.fillna("").astype(str).str.startswith(UNUSABLE)

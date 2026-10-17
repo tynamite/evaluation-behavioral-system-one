@@ -100,8 +100,22 @@ def _cmd_run(args: argparse.Namespace) -> int:
     from .runner import run_battery
 
     cfg = _with_models(Config.from_env(args.backend), args)
+    probes = None
+    if args.instruments is not None:
+        battery = all_probes(args.modules)
+        known = {p.instrument for p in battery}
+        unknown = sorted(set(args.instruments) - known)
+        if unknown or not args.instruments:
+            print(
+                f"run: no items belong to {', '.join(unknown) or '(none given)'}; "
+                f"instruments: {', '.join(sorted(known))}",
+                file=sys.stderr,
+            )
+            return 1
+        probes = [p for p in battery if p.instrument in args.instruments]
     run_battery(
         cfg,
+        probes=probes,
         modules=args.modules,
         personas=args.personas,
         replicates=args.replicates,
@@ -342,6 +356,12 @@ def main(argv: list[str] | None = None) -> int:
         help="resamples per probe for the autoregressive baseline arm (0 = skip)",
     )
     r.add_argument("--workers", type=int, default=8)
+    r.add_argument(
+        "--instruments",
+        nargs="*",
+        default=None,
+        help="run only the items of these instruments (e.g. allais holt_laury), for a targeted re-run",
+    )
     r.add_argument(
         "--seed",
         type=int,

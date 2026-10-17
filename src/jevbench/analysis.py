@@ -14,6 +14,7 @@ statistic consumes a distribution, never an argmax.
 from __future__ import annotations
 
 import json
+import re
 from collections import defaultdict
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -68,7 +69,7 @@ def primary_run(raw_dir: Path, live_only: bool = False) -> Path | None:
     return None if live_only else latest_run(raw_dir)
 
 
-def load_records(path: Path) -> pd.DataFrame:
+def load_records(path: Path, rerun: bool = True) -> pd.DataFrame:
     with path.open(encoding="utf-8") as fh:
         rows = [json.loads(line) for line in fh if line.strip()]
     df = pd.DataFrame(rows)
@@ -79,7 +80,99 @@ def load_records(path: Path) -> pd.DataFrame:
             "Simulated output is structurally valid nonsense and must never be "
             "pooled with live data."
         )
+    if rerun:
+        df = _with_rerun(df, path)
     return _reread_chat_replies(_mark_unusable(df))
+
+
+RERUN_DIR_NAME = "rerun_state_cues"
+
+
+def _with_rerun(df: pd.DataFrame, path: Path) -> pd.DataFrame:
+    """Swap in the items re-asked after the Allais pair and Holt-Laury row stopped being sent.
+
+    The committed runs asked those items with their own index in the state (see
+    docs/LEARNINGS.md). `data/raw/rerun_state_cues/` holds the same items asked
+    again, one file per model, with the index removed. For a model that has such
+    a file, its records of those instruments are replaced by the re-run; every
+    other record, and every model without a re-run, is read as it was. Only run
+    files inside data/raw/ are touched.
+    """
+    from .config import RAW_DIR
+    from .runner import CHANGED_AFTER_FIRST_RUNS
+
+    rerun_dir = RAW_DIR / RERUN_DIR_NAME
+    try:
+        inside = path.resolve().is_relative_to(RAW_DIR.resolve())
+    except OSError:
+        inside = False
+    if not inside or not rerun_dir.is_dir() or path.parent == rerun_dir:
+        return df
+    changed = df["instrument"].isin(CHANGED_AFTER_FIRST_RUNS)
+    if not changed.any():
+        return df
+    replaced = pd.Series(False, index=df.index)
+    extra: list[pd.DataFrame] = []
+    for file in sorted(rerun_dir.glob("run_live_*.jsonl")):
+        with file.open(encoding="utf-8") as fh:
+            new = pd.DataFrame([json.loads(line) for line in fh if line.strip()])
+        if new.empty:
+            continue
+        for (arm, model), rows in new.groupby(["arm", "model"]):
+            # An OpenRouter alias ("vendor/model") stands for its dated id ("vendor/model-2026...").
+            same = (df["arm"] == arm) & df["model"].map(
+                lambda m, mm=str(model): (
+                    mm == str(m) or re.fullmatch(rf"{re.escape(str(m))}-\d{{8}}", mm) is not None
+                )
+            )
+            # Only the records made before the change: every record written
+            # since carries the fingerprint of the wording it was asked with.
+            hit = same & changed & df["prompt_sha"].isna() if "prompt_sha" in df else same & changed
+            if hit.any():
+                replaced |= hit
+                extra.append(_with_paid_usage(rows, df[hit]))
+    if not extra:
+        return df
+    return pd.concat([df[~replaced], *extra], ignore_index=True)
+
+
+_USAGE_KEY = ["arm", "probe_id", "persona", "replicate"]
+
+
+def _with_paid_usage(rows: pd.DataFrame, dropped: pd.DataFrame) -> pd.DataFrame:
+    """The re-run's records, each carrying what the call it replaces also cost.
+
+    Both calls were paid for, so the run's cost and token totals must count both.
+    """
+    if "usage" not in dropped:
+        return rows
+    paid = {
+        tuple(k): u
+        for k, u in zip(
+            dropped[_USAGE_KEY].itertuples(index=False, name=None), dropped["usage"], strict=True
+        )
+        if isinstance(u, dict)
+    }
+
+    def add(key: tuple[Any, ...], usage: Any) -> Any:
+        old = paid.get(key)
+        if not isinstance(usage, dict) or not old:
+            return usage
+        return {
+            k: (usage.get(k) or 0) + (old.get(k) or 0)
+            if isinstance(usage.get(k, old.get(k)), int | float)
+            else usage.get(k, old.get(k))
+            for k in usage.keys() | old.keys()
+        }
+
+    rows = rows.copy()
+    rows["usage"] = [
+        add(k, u)
+        for k, u in zip(
+            rows[_USAGE_KEY].itertuples(index=False, name=None), rows["usage"], strict=True
+        )
+    ]
+    return rows
 
 
 def _score_levels() -> dict[str, frozenset[str]]:

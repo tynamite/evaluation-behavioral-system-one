@@ -702,6 +702,34 @@ def _count(n: int) -> str:
     return words.split()[n] if n < 16 else str(n)
 
 
+def _rerun_note(models: list[str]) -> str:
+    """The re-run of the Allais and Holt-Laury items, with the models it did not reach."""
+    import json
+
+    from .analysis import RERUN_DIR_NAME
+    from .config import RAW_DIR
+
+    rerun = set()
+    for f in (RAW_DIR / RERUN_DIR_NAME).glob("run_live_*.jsonl"):
+        with f.open(encoding="utf-8") as fh:
+            first = next((line for line in fh if line.strip()), None)
+        if first:
+            rerun.add(str(json.loads(first).get("model")))
+    # Jev 1.14 is "typesafe/jev-1.14.0" in the comparison, "jev-1.14.0" on TypeSafe's own API;
+    # a column that is not a model id (a heading, "human") is not a model.
+    left = [
+        SHORT.get(m, m)
+        for m in models
+        if "/" in m and m not in rerun and m.split("/")[-1] not in rerun
+    ]
+    note = " Allais and Holt\u2013Laury items re-asked 17 Oct 2026"
+    return f"{note}, except for {_join(left)}." if left else f"{note}."
+
+
+def _join(names: list[str]) -> str:
+    return names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1]
+
+
 def _runs_when(run_files: dict[str, str] | None, models: list[str]) -> str:
     """When the plotted models were run, from their run files' names.
 
@@ -711,20 +739,20 @@ def _runs_when(run_files: dict[str, str] | None, models: list[str]) -> str:
     from datetime import date
 
     if not run_files:
-        return "All models run 12\u201313 Oct 2026."
+        return "All models run 12\u201313 Oct 2026." + _rerun_note(models)
     started = {m: Path(run_files[m]).name[9:17] for m in models if m in run_files}
     later: dict[str, list[str]] = {}
     for m, d in started.items():
         if d != "20261012":
             later.setdefault(d, []).append(SHORT.get(m, m))
     if not later:
-        return "All models run 12\u201313 Oct 2026."
+        return "All models run 12\u201313 Oct 2026." + _rerun_note(models)
     parts = []
     for d, names in sorted(later.items()):
         x = date(int(d[:4]), int(d[4:6]), int(d[6:8]))
         joined = ", ".join(names[:-1]) + " and " + names[-1] if len(names) > 1 else names[0]
         parts.append(f"{joined} on {x.day} {x:%b %Y}")
-    return f"Models run 12\u201313 Oct 2026, except {'; '.join(parts)}."
+    return f"Models run 12\u201313 Oct 2026, except {'; '.join(parts)}.{_rerun_note(models)}"
 
 
 def _backend(run_file: str) -> str:
@@ -3154,6 +3182,10 @@ def build_diagrams(
 EDITORIAL_MODEL = "typesafe/jev-1.13-20260917"
 EDITORIAL_REPLICATES = 10
 EDITORIAL_DATES = frozenset({"2026-10-12", "2026-10-13"})
+# The Allais and Holt-Laury items were asked again on this day, without their
+# index in the state (data/raw/rerun_state_cues/); the run's records of them
+# are the re-run's.
+RERUN_DATE = "2026-10-17"
 
 
 def check_editorial_run(df: pd.DataFrame) -> None:
@@ -3164,7 +3196,7 @@ def check_editorial_run(df: pd.DataFrame) -> None:
     if models != [EDITORIAL_MODEL]:
         problems.append(f"model {', '.join(models) or 'none'} (labelled {EDITORIAL_MODEL})")
     dates = set(jev["timestamp"].dropna().astype(str).str[:10]) if "timestamp" in jev else set()
-    if dates != EDITORIAL_DATES:
+    if dates != EDITORIAL_DATES | {RERUN_DATE}:
         problems.append(f"dates {', '.join(sorted(dates)) or 'none'} (labelled 12-13 Oct 2026)")
     # Every core item under every prompt needs its full set of successful
     # repeats, since the figures say "mean over 10 repeats"; the follow-up

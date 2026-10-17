@@ -159,12 +159,33 @@ bookkeeping in the state sent to every model, the same kind of cue as the
 
 Both are removed (scoring keeps `pair`, `row` and `p_high` in `meta`, which is
 never sent), and `test_state_carries_no_item_indices` fails if an index like
-these is added again. **The committed runs predate this change.** It touches 12
+these is added again. **The committed runs predate this change**, and it touches 12
 probes (two Allais items and ten Holt–Laury rows), plus the Allais population
-questions that copy their state: about 600 records in each run file, 8% of it.
-The Allais and Holt–Laury numbers in every document are from the earlier
-wording until those probes are re-run. Holt–Laury was already marked as not to
-be taken at face value because it depends on arithmetic.
+questions that copy their state: 620 calls per model, 8% of a run file.
+
+**They were asked again on 17 October 2026** (`jevbench run --instruments
+allais allais_estimate holt_laury`, 10 replicates, the same seed and so the same
+option orders), for thirteen models at about $0.11 in all, into
+`data/raw/rerun_state_cues/`. `load_records` reads those in place of the
+committed records of the same instruments for the same model; every other
+record is as it was, and the original files are untouched. Two things were not
+re-run: Claude Sonnet 5.5 (left out on purpose) and Perplexity's Decider v1.1
+27B, whose endpoint OpenRouter no longer serves, so both keep the old wording in
+the tables, and the order study's runs, which are read as they were.
+
+What moved: **Holt–Laury most.** Averaged over the ten rows, the distribution
+a model returns shifted by 0.20 (Jev 1.13) and 0.18 (Jev 1.14), total-variation
+distance; between 0.03 and 0.16 for the others. Jev's neutral safe choices went
+from 2.05 to 4.61 (1.13) and from 2.58 to 4.81 (1.14), against 5.20 for people:
+the "strongly risk seeking" reading in the earlier write-up came from the row
+number. The Allais items moved by 0.02 to 0.08. The Allais independence
+violation under the rational-agent prompt, GPT-6 Luna's refusal of the two Allais
+population questions, and a few correlations in the model comparison moved with
+them; the headline conclusions about Jev did not change (its distance from people
+is the same to two decimals, and a few other models swap neighbouring places in
+the fidelity table), and estimating now beats simulating on ten models' scaled
+error rather than nine. Holt–Laury was
+already marked as not to be taken at face value because it depends on arithmetic.
 
 ## Smaller corrections
 

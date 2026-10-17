@@ -251,14 +251,14 @@ in the item pool. Two others could:
   (CRT, framing, Linda, sunk cost, Allais, base rate). The reused items'
   population questions were built and asked on 13 October, after the main run.
   Estimate is closer on **14 of 23**. The preregistered one-sided Wilcoxon test
-  on the absolute errors gives **p = 0.015**. Those errors are in each item's
+  on the absolute errors gives **p = 0.014**. Those errors are in each item's
   own units, so the two percentage items and the 1–7 ratings outweigh the
   proportions. Scaled to each item's range instead, a check I chose after
   seeing the data, Jev 1.13's mean error is **0.17** when estimating against
-  **0.23** when simulating, and p = 0.043. Jev 1.14 looks the same: estimate
-  closer on **13 of 23**, p = 0.028, and **0.16** against **0.22** scaled
-  (p = 0.085). Across the thirteen System One models, estimating has the lower
-  mean scaled error for **nine**. Four pass the preregistered test (GPT-6 Luna
+  **0.24** when simulating, and p = 0.040. Jev 1.14 looks the same: estimate
+  closer on **13 of 23**, p = 0.030, and **0.16** against **0.22** scaled
+  (p = 0.090). Across the thirteen System One models, estimating has the lower
+  mean scaled error for **ten**. Four pass the preregistered test (GPT-6 Luna
   Decisions, both Jev versions and Mercury Decide), and only Jev 1.13 passes
   the scaled one.
   The main run also asked the new items' population questions under every
@@ -323,7 +323,9 @@ free); [summary.json](results/order_study/summary.json) has both, run by run.
   0.8 percentage points (1.13) and 0.7 (1.14) from first place to last
   (Holm-adjusted p = 0.03 and 0.04). The lean is uneven. In 1.13 the
   discounting items carry most of it, at 30 points. In 1.14 the Holt–Laury
-  lottery items lean the other way, at 18 points toward the first option. On
+  lottery items lean the other way, at 18 points toward the first option (the
+  order study's runs predate the removal of the row number from those items and
+  were not repeated). On
   two-option items the split is 45/55 in 1.13 and exactly 50/50 in 1.14.
   Counted by item rather than by instrument, a check fixed in advance, the lean
   holds for 1.13 (p = 0.0006) but not for 1.14 (p = 0.14).
@@ -469,10 +471,13 @@ battery is arithmetic: all six CRT items, the number-series and quantitative
 reasoning items, the Holt–Laury lottery comparisons, the discounting items, the
 base-rate problem and the p-beauty contest. Wherever the model did *badly* on
 those, "documented numeric weakness" is at least as good an explanation as
-anything about System 1, and probably better. **The Holt–Laury result — 2.1 safe
-choices for Jev 1.13 and 2.6 for 1.14, against a human reference of 5.2, which
-would read as strongly risk seeking — should not be taken at face value**, because it depends on comparing
-probabilities and payoffs numerically. The same caution applies to the
+anything about System 1, and probably better. **The Holt–Laury result — 4.6 safe
+choices for Jev 1.13 and 4.8 for 1.14, against a human reference of 5.2 — should
+not be taken at face value**, because it depends on comparing
+probabilities and payoffs numerically. (Before the items were asked again
+without their row number in the state, the same figures were 2.1 and 2.6, which
+would have read as strongly risk seeking: see
+[LEARNINGS.md](docs/LEARNINGS.md#found-after-publishing-two-items-still-sent-their-own-index).) The same caution applies to the
 discounting items.
 
 It cuts the other way too: both versions answered the CRT's arithmetic word
