@@ -146,18 +146,18 @@ effect sizes, not the per-condition values this needs.
 
 | | Simulate, 1.13 | Estimate, 1.13 | Simulate, 1.14 | Estimate, 1.14 |
 |---|---|---|---|---|
-| Mean error, scaled to each item's range | 0.23 | **0.17** | 0.22 | **0.16** |
+| Mean error, scaled to each item's range | 0.24 | **0.17** | 0.22 | **0.16** |
 | Items where it is closer to the published value | 9 of 23 | **14 of 23** | 10 of 23 | **13 of 23** |
 
 ![Each of the 23 statistics, simulated and estimated, for Jev 1.14 and Jev 1.13](../results/figures/followup-h4.png)
 
 Estimating is better on average, as predicted, and the preregistered test, a
-one-sided Wilcoxon test on the absolute errors, passes (p = 0.015). The errors
+one-sided Wilcoxon test on the absolute errors, passes (p = 0.014). The errors
 are in each item's own units, so the two percentage items and the 1–7 ratings
 weigh most; scaled to each item's range, a check chosen after seeing the data,
-the same test gives p = 0.043. Jev 1.14, not part of the preregistration,
-gives p = 0.028 and 0.085. Across the thirteen System One models the direction
-holds for nine, and the preregistered test passes for four. The
+the same test gives p = 0.040. Jev 1.14, not part of the preregistration,
+gives p = 0.030 and 0.090. Across the thirteen System One models the direction
+holds for ten, and the preregistered test passes for four. The
 same study also predicted that a model would reproduce a famous effect at its
 original size rather than its replicated one; on the incidental-anchoring item
 it does not — no model reaches even half the original 6.2-point gap.
