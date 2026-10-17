@@ -151,7 +151,9 @@ def prompt_fingerprint(probe: Probe, persona_key: str, arm: str) -> str:
         body = {"chat_prompt": render_prompt(p)[0]}
     else:
         raise ValueError(f"unknown arm {arm!r}")
-    raw = json.dumps(body, sort_keys=True, default=str)
+    # Not sorted: the order of the options and of the state's keys is part of what
+    # the model is sent (a fixed-order run sees them as authored).
+    raw = json.dumps(body, default=str)
     return hashlib.sha256(raw.encode()).hexdigest()[:16]
 
 

@@ -574,3 +574,22 @@ def test_a_chat_only_format_change_leaves_system_one_fingerprints_alone(
     )
     assert runner.prompt_fingerprint(p, "neutral", "jev") == jev
     assert runner.prompt_fingerprint(p, "neutral", "baseline") != chat
+
+
+def test_fingerprint_notices_a_reordering_of_the_options() -> None:
+    from dataclasses import replace
+
+    from jevbench.runner import prompt_fingerprint
+    from jevbench.schema import Choice
+
+    p = next(p for p in all_probes() if p.probe_id == "allais_problem1")
+    assert isinstance(p.question, Choice)
+    flipped = replace(
+        p,
+        question=Choice(
+            instructions=p.question.instructions,
+            criteria=dict(reversed(list(p.question.criteria.items()))),
+        ),
+    )
+    for arm in ("jev", "baseline"):
+        assert prompt_fingerprint(flipped, "neutral", arm) != prompt_fingerprint(p, "neutral", arm)
