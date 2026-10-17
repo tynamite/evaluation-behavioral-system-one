@@ -648,3 +648,22 @@ def test_rerun_replaces_only_the_changed_instruments_of_its_own_model(tmp_path, 
     assert df.loc[("jev", "allais_problem1"), "value"] == "new"
     assert df.loc[("jev", "crt_1"), "value"] == "kept"
     assert df.loc[("baseline", "allais_problem1"), "value"] == "chat-old"
+
+
+def test_rerun_leaves_records_written_since_the_change_alone(tmp_path, monkeypatch):
+    import json
+
+    from jevbench import config
+    from jevbench.analysis import RERUN_DIR_NAME, load_records
+
+    raw = tmp_path / "raw"
+    (raw / RERUN_DIR_NAME).mkdir(parents=True)
+    monkeypatch.setattr(config, "RAW_DIR", raw)
+    fresh = {**_rec("jev", "v/m", "allais", "allais_problem1", "fresh"), "prompt_sha": "abc"}
+    run = raw / "run_live_3_m.jsonl"
+    run.write_text(json.dumps(fresh))
+    new = _rec("jev", "v/m-2026", "allais", "allais_problem1", "new")
+    (raw / RERUN_DIR_NAME / "run_live_2_m.jsonl").write_text(json.dumps(new))
+
+    df = load_records(run)
+    assert list(df["value"]) == ["fresh"]

@@ -301,9 +301,22 @@ def test_figures_follow_the_run_they_are_built_from(tmp_path: Path) -> None:
 
     followup = {p.probe_id for p in all_probes(["followup"])}
     run = tmp_path / "run_live_20261013T000000Z_typesafe--jev-1.13.jsonl"
+    from jevbench.analysis import RERUN_DIR_NAME
+    from jevbench.runner import CHANGED_AFTER_FIRST_RUNS
+
+    # A copy outside data/raw/ is not given the re-run, so it carries it.
+    rerun = next((RAW_DIR / RERUN_DIR_NAME).glob("run_live_*jev-1.13-2026*.jsonl"))
     with COMMITTED_RUN.open() as src, run.open("w") as dst:
         for line in src:
-            if line.strip() and json.loads(line)["probe_id"] not in followup:
+            r = json.loads(line) if line.strip() else None
+            if (
+                r
+                and r["probe_id"] not in followup
+                and r["instrument"] not in CHANGED_AFTER_FIRST_RUNS
+            ):
+                dst.write(line)
+        for line in rerun.read_text().splitlines(keepends=True):
+            if json.loads(line)["probe_id"] not in followup:
                 dst.write(line)
     paths = build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", tmp_path / "out")
     assert len(paths) == 10

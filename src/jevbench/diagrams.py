@@ -3171,7 +3171,7 @@ def check_editorial_run(df: pd.DataFrame) -> None:
     if models != [EDITORIAL_MODEL]:
         problems.append(f"model {', '.join(models) or 'none'} (labelled {EDITORIAL_MODEL})")
     dates = set(jev["timestamp"].dropna().astype(str).str[:10]) if "timestamp" in jev else set()
-    if dates - {RERUN_DATE} != EDITORIAL_DATES:
+    if dates != EDITORIAL_DATES | {RERUN_DATE}:
         problems.append(f"dates {', '.join(sorted(dates)) or 'none'} (labelled 12-13 Oct 2026)")
     # Every core item under every prompt needs its full set of successful
     # repeats, since the figures say "mean over 10 repeats"; the follow-up

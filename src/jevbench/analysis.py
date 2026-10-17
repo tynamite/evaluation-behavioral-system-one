@@ -122,7 +122,9 @@ def _with_rerun(df: pd.DataFrame, path: Path) -> pd.DataFrame:
             same = (df["arm"] == arm) & df["model"].map(
                 lambda m, mm=str(model): mm == str(m) or mm.startswith(f"{m}-")
             )
-            hit = same & changed
+            # Only the records made before the change: every record written
+            # since carries the fingerprint of the wording it was asked with.
+            hit = same & changed & df["prompt_sha"].isna() if "prompt_sha" in df else same & changed
             if hit.any():
                 replaced |= hit
                 extra.append(rows)
