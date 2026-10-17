@@ -135,20 +135,22 @@ def resume_order_mismatch(
 CHANGED_AFTER_FIRST_RUNS = frozenset({"allais", "allais_estimate", "holt_laury"})
 
 
-def prompt_fingerprint(probe: Probe, persona_key: str) -> str:
-    """A short hash of what each arm is sent for this item.
+def prompt_fingerprint(probe: Probe, persona_key: str, arm: str) -> str:
+    """A short hash of what one arm is sent for this item.
 
-    The System One arm's payload (state and the serialized question, type
-    included) and the chat arm's rendered prompt (which adds its reply-format
-    text). Taken before the option shuffle, so it does not depend on the seed,
-    and after the persona, so each persona has its own.
+    The System One arm is sent the state and the serialized question (its type
+    included); the chat arm is sent a rendered prompt that adds its reply-format
+    text. Each arm has its own, so a change to one arm's request does not
+    invalidate the other's records. Taken before the option shuffle, so it does
+    not depend on the seed, and after the persona, so each persona has its own.
     """
     p = apply_persona(probe, PERSONAS[persona_key])
-    body = {
-        "state": p.state or {},
-        "question": p.question.to_payload(),
-        "chat_prompt": render_prompt(p)[0],
-    }
+    if arm == "jev":
+        body: dict[str, Any] = {"state": p.state or {}, "question": p.question.to_payload()}
+    elif arm == "baseline":
+        body = {"chat_prompt": render_prompt(p)[0]}
+    else:
+        raise ValueError(f"unknown arm {arm!r}")
     raw = json.dumps(body, sort_keys=True, default=str)
     return hashlib.sha256(raw.encode()).hexdigest()[:16]
 
@@ -173,7 +175,7 @@ def resume_prompt_mismatch(kept: list[dict[str, Any]], probes: list[Probe]) -> s
                     f"{row['probe_id']} was asked before its wording changed (its state no "
                     "longer carries the item index); re-run it into a new file"
                 )
-        elif sha != prompt_fingerprint(probe, row["persona"]):
+        elif sha != prompt_fingerprint(probe, row["persona"], str(row.get("arm"))):
             return f"{row['probe_id']} / {row['persona']} was asked other wording than it is now"
     return None
 
@@ -293,7 +295,7 @@ class BatteryRunner:
                 error=f"{UNUSABLE}{problem}" if problem else None,
                 timestamp=now,
                 answered_at=answered_at,
-                prompt_sha=prompt_fingerprint(probe, persona_key),
+                prompt_sha=prompt_fingerprint(probe, persona_key, "jev"),
             )
         except Exception as exc:
             return Record(
@@ -309,7 +311,7 @@ class BatteryRunner:
                 meta=probe.meta,
                 error=str(exc)[:500],
                 timestamp=now,
-                prompt_sha=prompt_fingerprint(probe, persona_key),
+                prompt_sha=prompt_fingerprint(probe, persona_key, "jev"),
             )
 
     # -- baseline arm ---------------------------------------------------
@@ -383,7 +385,7 @@ class BatteryRunner:
                 },
                 usage=out.get("usage", {}),
                 timestamp=now,
-                prompt_sha=prompt_fingerprint(probe, persona_key),
+                prompt_sha=prompt_fingerprint(probe, persona_key, "baseline"),
             )
         except Exception as exc:
             return Record(
@@ -399,7 +401,7 @@ class BatteryRunner:
                 meta=probe.meta,
                 error=str(exc)[:500],
                 timestamp=now,
-                prompt_sha=prompt_fingerprint(probe, persona_key),
+                prompt_sha=prompt_fingerprint(probe, persona_key, "baseline"),
             )
 
 
