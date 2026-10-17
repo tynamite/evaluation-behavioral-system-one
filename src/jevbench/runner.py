@@ -146,7 +146,7 @@ def prompt_fingerprint(probe: Probe, persona_key: str, arm: str) -> str:
     """
     p = apply_persona(probe, PERSONAS[persona_key])
     if arm == "jev":
-        body: dict[str, Any] = {"state": p.state or {}, "question": p.question.to_payload()}
+        body: dict[str, Any] = {"state": p.state, "question": p.question.to_payload()}
     elif arm == "baseline":
         body = {"chat_prompt": render_prompt(p)[0]}
     else:

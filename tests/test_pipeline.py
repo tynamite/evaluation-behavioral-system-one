@@ -593,3 +593,15 @@ def test_fingerprint_notices_a_reordering_of_the_options() -> None:
     )
     for arm in ("jev", "baseline"):
         assert prompt_fingerprint(flipped, "neutral", arm) != prompt_fingerprint(p, "neutral", arm)
+
+
+def test_fingerprint_tells_an_empty_state_from_no_state() -> None:
+    from dataclasses import replace
+
+    from jevbench.runner import prompt_fingerprint
+
+    p = next(p for p in all_probes() if p.probe_id == "allais_problem1")
+    prints = {
+        prompt_fingerprint(replace(p, state=state), "neutral", "jev") for state in (None, {}, [])
+    }
+    assert len(prints) == 3
