@@ -506,3 +506,11 @@ def test_figures_build_from_a_comparison_of_relocated_runs(tmp_path: Path) -> No
     compare_runs(copies, cmp)
     built = build_diagrams(COMMITTED_RUN, TABLES_DIR, cmp, tmp_path / "out", raw)
     assert any(p.stem == "models-dictator" for p in built)
+
+
+def test_rerun_note_names_the_models_it_did_not_reach() -> None:
+    from jevbench.diagrams import _rerun_note
+
+    assert _rerun_note(["typesafe/jev-1.13-20260917", "typesafe/jev-1.14.0"]).endswith("2026.")
+    note = _rerun_note(["typesafe/jev-1.14.0", "anthropic/claude-sonnet-5.5", "human"])
+    assert "except for Claude Sonnet 5.5." in note
