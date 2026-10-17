@@ -217,7 +217,7 @@ reporting because the point of writing them down first was to be held to them:
 |---|---|
 | H5: independently elicited probabilities obey P(A∧B) ≤ P(A) | **Violated**, margin **−0.09** with no instruction and **−0.38** when asked to answer like a person |
 | H8: accuracy falls as reasoning depth grows (> 15 points) | **9 points** from 1-step to 3+-step items with no instruction |
-| H6: option order barely matters (mean TV < 0.05) | **0.063** mean, median 0.041, on the core battery's multiple-choice items, whose options were shuffled. Answers move 0.027 between replicates with nothing reordered, a rough noise floor, so a large part of that may be noise. The [addendum](#addendum-14-october-2026-option-order) measured it properly: about a third is. The follow-up items, which H6 was not written for, move less (0.025) |
+| H6: option order barely matters (mean TV < 0.05) | **0.065** mean, median 0.039, on the core battery's multiple-choice items, whose options were shuffled. Answers move 0.027 between replicates with nothing reordered, a rough noise floor, so a large part of that may be noise. The [addendum](#addendum-14-october-2026-option-order) measured it properly: about a third is. The follow-up items, which H6 was not written for, move less (0.025) |
 
 H4 predicted a framing reversal much weaker than people's (under 25 points); it
 is 1 point. H7 (Jev's distribution is more stable across replicates than the
@@ -310,7 +310,7 @@ free); [summary.json](results/order_study/summary.json) has both, run by run.
   and 0.060. Shuffling moves the answers more on 20 of the 21 instruments in
   1.13 (conjunction, barely, is the exception) and on all 21 in 1.14
   (Holm-adjusted p < 0.0001 for both). For 1.13, then, about two thirds of
-  H6's 0.063 is option order and one third is repeat noise. The noise floor
+  H6's 0.065 is option order and one third is repeat noise. The noise floor
   H6 borrowed from rating scales (0.027) turns out to have been close.
 - **No difference in order sensitivity between 1.14 and 1.13 was detected
   (O2).** The median difference is −0.001 (95% interval −0.010 to 0.001,

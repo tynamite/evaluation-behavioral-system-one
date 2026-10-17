@@ -72,16 +72,16 @@ stop silent holes being read as results.
 
 ![What the health table caught](../results/figures/health-checks.png)
 
-**GPT-6 Luna Decisions refuses some items.** 300 of its 7,450 calls (4%) came
-back `OpenAI refused to answer question "answer"`, across 30 item × prompt
+**GPT-6 Luna Decisions refuses some items.** 310 of its 7,450 calls (4%) came
+back `OpenAI refused to answer question "answer"`, across 31 item × prompt
 cells: the trolley, Knobe, categorisation, false-consensus and
-choosing/rejecting (custody case) estimates, five of the ten population
-questions added later (framing gain, Allais pair 1, Linda, base rate, sunk
+choosing/rejecting (custody case) estimates, six of the ten population
+questions added later (framing gain, both Allais pairs, Linda, base rate, sunk
 cost), the false-consensus choices
 themselves, and one Dirty Dozen item (`dd_09`). The route reports a refusal as
 HTTP 502; the client records it as a refusal and does not retry it. None of
-the refused items feeds the comparison below, but 39% of its yes/no (`Noul`)
-calls are refused, leaving it with no answer in 30 item × prompt cells, mostly
+the refused items feeds the comparison below, but 40% of its yes/no (`Noul`)
+calls are refused, leaving it with no answer in 31 item × prompt cells, mostly
 the follow-up study's estimate items.
 
 **Neither Solar model can answer the p-beauty contest.** That item has 101
@@ -177,10 +177,10 @@ instruction barely changes its answers.
 
 **The steer matters more for some models than others.** Without "not the
 textbook-correct answer", most System One models fit people a little less well
-(Jev 1.13's r falls from +0.39 to +0.25, Jev 1.14's from +0.43 to +0.33,
+(Jev 1.13's r falls from +0.39 to +0.25, Jev 1.14's from +0.43 to +0.34,
 Decider's from +0.68 to +0.54), which says
-part of their move toward people was the instruction's push. Sonnet 5.5,
-Solar Decide go the other way and fit people *better* without it (Sonnet's
+part of their move toward people was the instruction's push. Sonnet 5.5
+and Solar Decide go the other way and fit people *better* without it (Sonnet's
 distance falls from 0.20 to 0.15), and Clef Flash's correlation rises
 slightly. GPT-6 Luna Decisions reverses: with the
 plain instruction its correlation is −0.31.

@@ -52,7 +52,7 @@ people do, on nearly every classic bias.
 | Framing: sure option when worded as gains vs. losses | **0.85 vs 0.84** | **0.71 vs 0.80** | 0.72 vs 0.22 |
 
 Across the 14 probability-scale measures with a published human value, its
-answers correlate with human behaviour at **r = −0.21** (1.13) and **−0.23**
+answers correlate with human behaviour at **r = −0.21** (1.13) and **−0.24**
 (1.14) — which is to say, not at all. It is not a fast thinker making fast mistakes. On these items it mostly
 just gets them right, and on the framing problem 1.13 does not react to the
 wording at all, while 1.14 leans slightly the wrong way.
@@ -74,7 +74,7 @@ The instruction, verbatim:
 
 | | 1.13, no instruction | 1.13, asked to be human | 1.14, no instruction | 1.14, asked to be human | People |
 |---|---|---|---|---|---|
-| Correlation with human values | −0.21 | **+0.39** | −0.23 | **+0.43** | — |
+| Correlation with human values | −0.21 | **+0.39** | −0.24 | **+0.43** | — |
 | Mean distance from human values | 0.31 | **0.18** | 0.29 | **0.17** | — |
 | Conjunction fallacy | 0.10 | **0.93** | 0.07 | **0.94** | 0.85 |
 | CRT correct (Frederick's 3 items) | 0.99 | **0.32** | 1.00 | **0.27** | 0.41 |
