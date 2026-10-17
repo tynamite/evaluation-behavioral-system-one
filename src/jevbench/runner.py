@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import random
 import re
@@ -56,6 +57,9 @@ class Record:
     # is first sent, so retries and backoff can put minutes between the two.
     # Recorded on the Jev arm only; None in runs made before it existed.
     answered_at: str | None = None
+    # A short hash of the wording this record was asked (see `prompt_fingerprint`).
+    # None in runs made before it existed.
+    prompt_sha: str | None = None
 
 
 def render_prompt(probe: Probe) -> tuple[str, list[str]]:
@@ -122,6 +126,53 @@ def resume_order_mismatch(
                 f"{row['probe_id']} / {row['persona']} / repeat {row['replicate']} was "
                 f"presented as {row.get('option_order')}, but these settings give {expected}"
             )
+    return None
+
+
+# Instruments whose wording changed after the 12-15 Oct 2026 runs: an index
+# (`pair`, `row`) was removed from the state sent with each item. Records of these
+# made before records carried a fingerprint used the old wording.
+CHANGED_AFTER_FIRST_RUNS = frozenset({"allais", "allais_estimate", "holt_laury"})
+
+
+def prompt_fingerprint(probe: Probe, persona_key: str) -> str:
+    """A short hash of what the model is asked: state, instructions and the option set.
+
+    Taken before the option shuffle, so it does not depend on the seed, and
+    after the persona, so each persona has its own.
+    """
+    p = apply_persona(probe, PERSONAS[persona_key])
+    q = p.question
+    options = getattr(q, "criteria", None)
+    if isinstance(options, dict):
+        options = sorted(options.items())
+    body = {"state": p.state or {}, "instructions": q.instructions, "options": options}
+    raw = json.dumps(body, sort_keys=True, default=str)
+    return hashlib.sha256(raw.encode()).hexdigest()[:16]
+
+
+def resume_prompt_mismatch(kept: list[dict[str, Any]], probes: list[Probe]) -> str | None:
+    """Why the kept records of a resumed run were asked other wording than now, if they were.
+
+    Resuming skips what is done and asks the rest, so a changed item would end up
+    half in one wording and half in the other without a trace. A record carries
+    the fingerprint of what it was asked; one from before records did is checked
+    against the instruments known to have changed since.
+    """
+    by_id = {p.probe_id: p for p in probes}
+    for row in kept:
+        probe = by_id.get(row["probe_id"])
+        if probe is None or row["persona"] not in PERSONAS:
+            continue
+        sha = row.get("prompt_sha")
+        if sha is None:
+            if probe.instrument in CHANGED_AFTER_FIRST_RUNS:
+                return (
+                    f"{row['probe_id']} was asked before its wording changed (its state no "
+                    "longer carries the item index); re-run it into a new file"
+                )
+        elif sha != prompt_fingerprint(probe, row["persona"]):
+            return f"{row['probe_id']} / {row['persona']} was asked other wording than it is now"
     return None
 
 
@@ -240,6 +291,7 @@ class BatteryRunner:
                 error=f"{UNUSABLE}{problem}" if problem else None,
                 timestamp=now,
                 answered_at=answered_at,
+                prompt_sha=prompt_fingerprint(probe, persona_key),
             )
         except Exception as exc:
             return Record(
@@ -255,6 +307,7 @@ class BatteryRunner:
                 meta=probe.meta,
                 error=str(exc)[:500],
                 timestamp=now,
+                prompt_sha=prompt_fingerprint(probe, persona_key),
             )
 
     # -- baseline arm ---------------------------------------------------
@@ -328,6 +381,7 @@ class BatteryRunner:
                 },
                 usage=out.get("usage", {}),
                 timestamp=now,
+                prompt_sha=prompt_fingerprint(probe, persona_key),
             )
         except Exception as exc:
             return Record(
@@ -343,6 +397,7 @@ class BatteryRunner:
                 meta=probe.meta,
                 error=str(exc)[:500],
                 timestamp=now,
+                prompt_sha=prompt_fingerprint(probe, persona_key),
             )
 
 
@@ -415,6 +470,9 @@ def run_battery(
             raise RuntimeError(
                 f"cannot resume {path.name} with these --seed/--fixed-order settings: {problem}"
             )
+        problem = resume_prompt_mismatch(kept, all_probes() + probes)
+        if problem:
+            raise RuntimeError(f"cannot resume {path.name}: {problem}")
         print(f"resuming {path.name}: keeping {len(kept)} completed records", file=sys.stderr)
     else:
         out_dir = out_dir or RAW_DIR

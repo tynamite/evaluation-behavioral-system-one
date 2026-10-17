@@ -467,3 +467,66 @@ def test_png_export_is_skipped_without_the_renderer(
     monkeypatch.setitem(sys.modules, "playwright.sync_api", None)
     _export_pngs([tmp_path / "figure.html"])
     assert 'install `uv pip install -e ".[diagrams]"`' in capsys.readouterr().err
+
+
+def _kept(probe_id: str, instrument: str, persona: str = "neutral", **extra: object) -> dict:
+    return {
+        "probe_id": probe_id,
+        "instrument": instrument,
+        "persona": persona,
+        "replicate": 0,
+        **extra,
+    }
+
+
+def test_resume_rejects_records_asked_before_the_item_index_was_removed() -> None:
+    from jevbench.runner import resume_prompt_mismatch
+
+    probes = all_probes()
+    old_allais = _kept("allais_problem1", "allais")
+    old_hl = _kept("holt_laury_03", "holt_laury")
+    assert "allais_problem1" in (resume_prompt_mismatch([old_allais], probes) or "")
+    assert "holt_laury_03" in (resume_prompt_mismatch([old_hl], probes) or "")
+    # An old record of an item whose wording did not change is still resumable.
+    assert resume_prompt_mismatch([_kept("crt_bat_ball", "crt")], probes) is None
+
+
+def test_resume_checks_the_fingerprint_of_new_records() -> None:
+    from jevbench.runner import prompt_fingerprint, resume_prompt_mismatch
+
+    probes = all_probes()
+    by_id = {p.probe_id: p for p in probes}
+    p = by_id["allais_problem1"]
+    good = _kept(p.probe_id, p.instrument, prompt_sha=prompt_fingerprint(p, "neutral"))
+    assert resume_prompt_mismatch([good], probes) is None
+    bad = {**good, "prompt_sha": "0" * 16}
+    assert "other wording" in (resume_prompt_mismatch([bad], probes) or "")
+    # Another persona is another prompt.
+    assert prompt_fingerprint(p, "neutral") != prompt_fingerprint(p, "antisocial")
+
+
+def test_new_records_carry_the_fingerprint_of_what_was_asked(tmp_path: Path) -> None:
+    from jevbench.runner import prompt_fingerprint
+
+    cfg = Config.from_env(backend="simulator")
+    path = run_battery(
+        cfg, modules=["decision"], replicates=1, personas=["neutral"], out_dir=tmp_path
+    )
+    by_id = {p.probe_id: p for p in all_probes()}
+    rows = [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
+    assert rows and all(
+        r["prompt_sha"] == prompt_fingerprint(by_id[r["probe_id"]], r["persona"]) for r in rows
+    )
+
+
+def test_resuming_an_old_run_of_a_changed_item_is_refused(tmp_path: Path) -> None:
+    cfg = Config.from_env(backend="simulator")
+    kwargs = {"modules": ["decision"], "replicates": 1, "personas": ["neutral"]}
+    path = run_battery(cfg, out_dir=tmp_path, **kwargs)  # type: ignore[arg-type]
+    # Make the file look like one from before records carried a fingerprint.
+    rows = [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
+    for r in rows:
+        r.pop("prompt_sha", None)
+    path.write_text("".join(json.dumps(r) + "\n" for r in rows), encoding="utf-8")
+    with pytest.raises(RuntimeError, match="asked before its wording changed"):
+        run_battery(cfg, resume=path, **kwargs)  # type: ignore[arg-type]
