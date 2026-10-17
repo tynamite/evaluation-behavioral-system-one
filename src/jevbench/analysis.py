@@ -130,10 +130,49 @@ def _with_rerun(df: pd.DataFrame, path: Path) -> pd.DataFrame:
             hit = same & changed & df["prompt_sha"].isna() if "prompt_sha" in df else same & changed
             if hit.any():
                 replaced |= hit
-                extra.append(rows)
+                extra.append(_with_paid_usage(rows, df[hit]))
     if not extra:
         return df
     return pd.concat([df[~replaced], *extra], ignore_index=True)
+
+
+_USAGE_KEY = ["arm", "probe_id", "persona", "replicate"]
+
+
+def _with_paid_usage(rows: pd.DataFrame, dropped: pd.DataFrame) -> pd.DataFrame:
+    """The re-run's records, each carrying what the call it replaces also cost.
+
+    Both calls were paid for, so the run's cost and token totals must count both.
+    """
+    if "usage" not in dropped:
+        return rows
+    paid = {
+        tuple(k): u
+        for k, u in zip(
+            dropped[_USAGE_KEY].itertuples(index=False, name=None), dropped["usage"], strict=True
+        )
+        if isinstance(u, dict)
+    }
+
+    def add(key: tuple[Any, ...], usage: Any) -> Any:
+        old = paid.get(key)
+        if not isinstance(usage, dict) or not old:
+            return usage
+        return {
+            k: (usage.get(k) or 0) + (old.get(k) or 0)
+            if isinstance(usage.get(k, old.get(k)), int | float)
+            else usage.get(k, old.get(k))
+            for k in usage.keys() | old.keys()
+        }
+
+    rows = rows.copy()
+    rows["usage"] = [
+        add(k, u)
+        for k, u in zip(
+            rows[_USAGE_KEY].itertuples(index=False, name=None), rows["usage"], strict=True
+        )
+    ]
+    return rows
 
 
 def _score_levels() -> dict[str, frozenset[str]]:

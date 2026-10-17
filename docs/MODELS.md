@@ -33,7 +33,8 @@ each). No comparison on this page uses those 600 calls.
 
 On 17 October the Allais and Holt–Laury items (620 calls per model) were asked
 again with the item index taken out of the state, and the page reads those in
-place of the first run's. Claude Sonnet 5.5 and Decider v1.1 27B (whose endpoint
+place of the first run's. The costs below are the first run's; the re-run added about $0.11 in
+all (`health.csv` counts both). Claude Sonnet 5.5 and Decider v1.1 27B (whose endpoint
 is gone) keep their first answers to those items.
 
 | Model | Type | Cost |

@@ -697,3 +697,22 @@ def test_run_rejects_an_unknown_or_empty_instrument_list(capsys) -> None:
     for args in (["--instruments", "allais", "holt-laury"], ["--instruments"]):
         assert main(["run", "--backend", "simulator", *args]) == 1
         assert "no items belong to" in capsys.readouterr().err
+
+
+def test_rerun_keeps_what_the_replaced_calls_cost(tmp_path, monkeypatch):
+    import json
+
+    from jevbench import config
+    from jevbench.analysis import RERUN_DIR_NAME, load_records
+
+    raw = tmp_path / "raw"
+    (raw / RERUN_DIR_NAME).mkdir(parents=True)
+    monkeypatch.setattr(config, "RAW_DIR", raw)
+    old = {**_rec("jev", "v/m", "allais", "allais_problem1", "old"), "usage": {"cost": 0.25}}
+    new = {**_rec("jev", "v/m", "allais", "allais_problem1", "new"), "usage": {"cost": 0.5}}
+    run = raw / "run_live_1_m.jsonl"
+    run.write_text(json.dumps(old))
+    (raw / RERUN_DIR_NAME / "run_live_2_m.jsonl").write_text(json.dumps(new))
+
+    df = load_records(run)
+    assert df["usage"].iloc[0]["cost"] == 0.75
