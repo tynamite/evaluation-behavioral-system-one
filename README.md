@@ -1,15 +1,16 @@
 # Does a "System One" model behave like human System 1?
 
 A behavioural-economics and psychometric battery run against TypeSafe's Jev,
-with an ordinary chat model and published human values as comparison points.
+versions 1.13 and 1.14, with thirteen other models and published human values
+as comparison points.
 
 > [!IMPORTANT]
 > **This is a personal project, done out of curiosity and to learn how to build
 > an evaluation.** It is not research, not a product review, and not the work of
 > anyone with professional standing in psychometrics, experimental economics or
 > model evaluation. **No claims are made** about any model, company or product.
-> What follows is a set of numbers recorded from a public API on 12–13 October
-> 2026, and a description of how they were produced. Everything
+> What follows is a set of numbers recorded from public APIs between 12 and 15
+> October 2026, and a description of how they were produced. Everything
 > is recomputable from `data/raw/`. It is not peer reviewed, it uses instruments
 > well outside the contexts they were validated in, and it is probably wrong
 > somewhere. Full caveats in [PREREGISTRATION.md](PREREGISTRATION.md#what-this-is-and-what-it-is-not).
@@ -33,6 +34,23 @@ So there is a question that is at least fun to ask: **does a model that is
 architecturally System 1 — one forward pass, no chain of thought — reproduce the
 behavioural signature of human System 1?** And if you simply *ask* it to answer
 like a person, what happens?
+
+### Two versions of Jev
+
+The study was preregistered and first run on **Jev 1.13**, the version
+TypeSafe served as `jev-latest` on 12–13 October 2026. On 14 October TypeSafe
+listed **Jev 1.14** as its `jev-preview` model, and the same 147-item battery
+was run through it that day, with the same ten repeats and shuffled options
+(the full-battery run of the [option-order
+addendum](#addendum-14-october-2026-option-order)). Every item went under the
+same five prompts but 15 of the follow-up study's population questions, which
+the battery by then asked under the neutral prompt only: 6,850 calls against
+1.13's 7,450. No comparison uses those 600 calls. Every result below gives
+both versions, with two exceptions that are 1.13 only: the cost comparison
+with the chat model (TypeSafe's direct API reports no cost for the 1.14 run)
+and the preregistered hypothesis table. The preregistered tests were written
+for 1.13 and are scored on it; 1.14's results for the same tests are given
+after that table as a description, not a test.
 
 ## Why this model is an unusually convenient subject
 
@@ -62,16 +80,22 @@ sampling frequency, and a model can be internally uncertain while emitting the
 same token every time. The cost asymmetry is real; the graded-versus-saturated
 contrast is partly an artifact of comparing two different things.
 
+What one call returns, for the dictator game, next to what people give:
+
+![What a single call returns in the dictator game, five System One models, against people](results/figures/models-dictator.png)
+
 ## What I observed
 
-14,800 observations at $8.99, recorded on 12–13 October 2026: 147 probes × 5
-prompt conditions × 10 replicates through Jev, plus the same grid through
-`claude-sonnet-5.5`, resampled ten times per cell, and 100 more calls on 13
-October for the population questions added to the follow-up study (see
-below). No transport errors; 3 of
-6,800 scorable comparison-arm replies (0.04%) could not be resolved to an
-option, and every cell kept at least 8 of its 10 samples. Full tables in
-[docs/RESULTS.md](docs/RESULTS.md).
+The main run is 14,800 observations at $8.99, recorded on 12–13 October 2026:
+147 probes × 5 prompt conditions × 10 replicates through Jev 1.13, plus the
+same grid through `claude-sonnet-5.5`, resampled ten times per cell, and 100
+more calls on 13 October for the population questions added to the follow-up
+study (see below). No transport errors; 3 of 6,800 scorable comparison-arm
+replies (0.04%) could not be resolved to an option, and every cell kept at
+least 8 of its 10 samples. Jev 1.14's run on 14 October is 6,850 calls with
+no errors, through TypeSafe's API directly rather than OpenRouter; the
+addendum found the route moves answers about as much as repeating the call
+does. Full tables in [docs/RESULTS.md](docs/RESULTS.md).
 
 Where a human value is quoted it is a published reference point, listed with
 its source in [docs/BENCHMARKS.md](docs/BENCHMARKS.md). Two are looser matches
@@ -79,44 +103,45 @@ than the rest: the base-rate figure counts Bayesian answers rather than answers
 in a band, and the anchoring study asked a different question, so only its
 20-point gap between anchors is compared.
 
-The charts below put Jev next to three other System One models from the
+The charts put both Jev versions next to three other System One models from the
 [model comparison](docs/MODELS.md) — GPT-6 Luna Decisions, Cloudflare's Clef
-and Liquid AI's d1 — so its results can be read against its peers'. The text is
-about Jev; each chart is followed by the same chart for Jev alone, and all
-fourteen models are in docs/MODELS.md.
+and Liquid AI's d1 — so Jev can be read against its peers. Each model keeps
+its colour and shape in every chart; hollow marks are always the baseline
+condition and filled marks the other. All fifteen models are in
+docs/MODELS.md.
 
 ### With no instruction, it does not look like human System 1
 
-![Four System One models against people on seven decision-making tests, with and without the typical-person instruction](results/figures/models-decisions.png)
+![Jev 1.14, Jev 1.13 and three other System One models against people on seven decision-making tests, with and without the typical-person instruction](results/figures/models-decisions.png)
 
-![Jev alone on the seven decision-making tests, with and without the typical-person instruction](results/figures/jev-decisions.png)
+On most classic biases both versions sit closer to the normative answer than
+the published human value. On Frederick's three Cognitive Reflection Test items
+Jev 1.13 put **0.99** probability mass on the correct answers and 1.14
+**1.00** (human reference ≈ 0.41), and across all six CRT items both put
+**0.01** on the intuitive lures the items are built to attract. They continued
+the sunk-cost project with probability **0.04** and **0.06** (human ≈ 0.85),
+put **0.61** and **0.37** on the base-rate item's correct band (about 0.15 of
+people give a Bayesian answer), and moved **1.6** and **0.8 percentage
+points** between anchoring conditions where humans move about 20.
 
-On most classic biases it sits closer to the normative answer than the published
-human value. On Frederick's three Cognitive Reflection Test items it put
-**0.99** probability mass on the correct answers (human reference ≈ 0.41), and
-across all six CRT items **0.01** on the intuitive lures the items are built to
-attract. It continued the sunk-cost project with probability **0.04** (human ≈
-0.85), put **0.61** on the base-rate item's correct band (about 0.15 of people
-give a Bayesian answer), and moved **1.6 percentage points** between anchoring
-conditions where humans move about 20.
-
-It shows **no framing effect at all**: it picks the sure programme in the
+Neither shows a framing effect. Jev 1.13 picks the sure programme in the
 disease problem at 0.85 when it is worded as lives saved and 0.84 when worded
-as lives lost, where people go from 0.72 to 0.22. No System One model shows
-people's 50-point reversal without being asked (Drex 2.0 comes closest, at
-34), and only Solar Decide and Drex 2.0 come near it when asked:
+as lives lost, where people go from 0.72 to 0.22. Jev 1.14 goes slightly the
+wrong way, 0.71 and 0.80: a 9-point swing toward the sure option in the loss
+wording. No System One model shows people's 50-point swing without being asked
+(Drex 2.0 comes closest, at 34), and only Solar Decide and Drex 2.0 come near
+it when asked:
 
-![The framing reversal by model](results/figures/framing-contrast.png)
+![The framing swing by model](results/figures/framing-contrast.png)
 
-![Four System One models against people in the economic games](results/figures/models-games.png)
+![Jev 1.14, Jev 1.13 and three other System One models in the economic games, with and without the typical-person instruction](results/figures/models-games.png)
 
-![Jev alone in the economic games, with no instruction](results/figures/jev-games-neutral.png)
-
-The social preferences are a partial exception: it gave **0.15** of the pie as
-dictator (human ≈ 0.28), offered **0.41** in the ultimatum game (human ≈ 0.40)
-and rejected a $1 offer at **0.49** (human ≈ 0.50). Positive giving is not
-equilibrium play, so on these items it lands nearer people than game theory.
-Not everywhere: it cooperated in a one-shot prisoner's dilemma at **0.03**,
+The social preferences are a partial exception. As dictator Jev 1.13 gave
+**0.15** of the pie and 1.14 **0.18** (human ≈ 0.28); they offered **0.41**
+and **0.45** in the ultimatum game (human ≈ 0.40), and rejected a $1 offer at
+**0.49** and **0.71** (human ≈ 0.50). Positive giving is not equilibrium play,
+so on these items both land nearer people than game theory. Not everywhere:
+they cooperated in a one-shot prisoner's dilemma at **0.03** and **0.06**,
 against people's 0.37.
 
 ### Asked to answer like a person, it moves on some effects and not others
@@ -125,22 +150,25 @@ The `typical_human` condition puts this in front of every item, verbatim:
 
 > Answer the way a typical human participant in a psychology or economics experiment would actually answer — not the textbook-correct answer, and not an idealised one. Give the response the average person would give.
 
-Some effects appear on request. The conjunction fallacy went from **0.10 to
-0.93** against people's 0.85, CRT accuracy fell from **0.99 to 0.32** (people
-0.41) with lure mass up from **0.01 to 0.41**, and the games moved almost onto
-the human values: dictator **0.27** (0.28), trust **0.48** (0.50), public goods
-**0.51** (0.50).
+Some effects appear on request, in both versions. The conjunction fallacy went
+from **0.10 to 0.93** in 1.13 and **0.07 to 0.94** in 1.14, against people's
+0.85. CRT accuracy fell from about **1.00 to 0.32** and **0.27** (people
+0.41), with lure mass up to **0.41** and **0.40**. The games moved almost onto
+the human values: dictator **0.27** and **0.24** (0.28), trust **0.48** and
+**0.49** (0.50), public goods **0.51** and **0.52** (0.50).
 
-Others do not. The framing effect stays absent (**0.89** and **0.84** sure
-choices, a 4-point swing against people's 50), and the sunk-cost item, in Arkes
-and Blumer's original wording, gets **0.17** continuation against people's
-0.85. Rejection of a $1 offer overshoots, at **0.92** against 0.50.
+Others do not. The framing effect stays absent: 4 points in 1.13 and −5 in
+1.14, against people's 50. The sunk-cost item, in Arkes and Blumer's original
+wording, gets **0.17** and **0.28** continuation against people's 0.85.
+Rejection of a $1 offer overshoots, at **0.92** and **0.95** against 0.50.
 
 Across the 14 probability-scale measures, the typical-person instruction cuts
-Jev's mean distance from the human values from **0.31 to 0.18**, and its
-correlation with them goes from **−0.21 to +0.39**: closer, and partly in the
-right order, but only partly. Every model's distance, with and without the
-instruction:
+Jev 1.13's mean distance from the human values from **0.31 to 0.18**, and
+1.14's from **0.29 to 0.17**. The correlation with them goes from **−0.21 to
++0.39** and from **−0.24 to +0.43**: closer, and partly in the right order,
+but only partly. 1.14 is a little closer than 1.13 under every prompt, by 0.01
+to 0.03. Every model's distance, with and
+without the instruction:
 
 ![Every model's distance from the published human results, with and without the typical-person instruction](results/figures/models-scatter.png)
 
@@ -150,27 +178,29 @@ instruction:
 any item with a right answer, it says which way to move. So the battery also
 asks the same thing without that clause:
 
-![Jev under the typical-person instruction with and without its steer](results/figures/jev-steer.png)
+![Jev 1.14 and Jev 1.13 under the typical-person instruction with and without its steer](results/figures/jev-steer.png)
 
-Without the steer, CRT accuracy is **0.53** instead of 0.32 and lure mass
-**0.27** instead of 0.41, and the base-rate item's correct band gets **0.42**
-instead of 0.23. The conjunction fallacy barely moves (**0.87**), nor do the
-games. So the CRT and base-rate errors are partly the instruction telling the
-model to be wrong. The conjunction fallacy and the generous, fair-minded game
-play look more like the model's own picture of people.
+Without the steer, CRT accuracy is **0.53** instead of 0.32 in 1.13 and
+**0.50** instead of 0.27 in 1.14; lure mass is **0.27** and **0.25** instead
+of about 0.40; and the base-rate item's correct band gets **0.42** and
+**0.23** instead of 0.23 and 0.10. The conjunction fallacy barely moves
+(**0.87** and **0.93**), nor do the games. So in both versions the CRT and
+base-rate errors are partly the instruction telling the model to be wrong. The
+conjunction fallacy and the generous, fair-minded game play look more like the
+model's own picture of people.
 
 ### The other prompts
 
-Asked to answer as a rational agent, it put **all** its mass on giving nothing
-in the dictator game and **all** of it on the Nash equilibrium of 0 in the
-p-beauty contest. Asked to adopt an antisocial persona, Dark Triad self-report
-rose from **5.0 to 8.6** on a 9-point scale (the manipulation check), and giving
-collapsed across every game — dictator 0.15 → 0.00, trust sent 0.38 → 0.07,
-public goods 0.38 → 0.01.
+Asked to answer as a rational agent, both versions put **all** their mass on
+giving nothing in the dictator game, and **0.998** (1.13) and **0.986** (1.14)
+on the Nash equilibrium of 0 in the p-beauty contest. Asked to adopt an
+antisocial persona, Dark Triad self-report rose from **5.0 to 8.6** in 1.13
+and **5.3 to 8.6** in 1.14 on a 9-point scale (the manipulation check), and
+giving collapsed across every game. In 1.13: dictator 0.15 → 0.00, trust sent
+0.38 → 0.07, public goods 0.38 → 0.01. In 1.14: 0.18 → 0.00, 0.39 → 0.15 and
+0.53 → 0.03.
 
-![The antisocial persona in the economic games, four models](results/figures/models-antisocial.png)
-
-![Jev alone: the antisocial persona in the economic games](results/figures/persona-antisocial.png)
+![The antisocial persona in the economic games, five models](results/figures/models-antisocial.png)
 
 That the persona reaches consequential allocations and not just self-description
 is the part I found most interesting, and it is measurable here only because the
@@ -179,21 +209,26 @@ output is a number.
 ### Where I was wrong
 
 [PREREGISTRATION.md](PREREGISTRATION.md) records eleven hypotheses, ten with a
-predicted direction, written down before any data was collected. Six held
-(H1, H2, H3, H4, H9, H10). Three failed, which I am reporting because the point
-of writing them down first was to be held to them:
+predicted direction, written down before any data was collected and scored on
+Jev 1.13. Six held (H1, H2, H3, H4, H9, H10). Three failed, which I am
+reporting because the point of writing them down first was to be held to them:
 
-| Expected | Observed |
+| Expected | Observed (Jev 1.13) |
 |---|---|
 | H5: independently elicited probabilities obey P(A∧B) ≤ P(A) | **Violated**, margin **−0.09** with no instruction and **−0.38** when asked to answer like a person |
 | H8: accuracy falls as reasoning depth grows (> 15 points) | **9 points** from 1-step to 3+-step items with no instruction |
-| H6: option order barely matters (mean TV < 0.05) | **0.063** mean, median 0.041, on the core battery's multiple-choice items, whose options were shuffled. Answers move 0.027 between replicates with nothing reordered, a rough noise floor, so a large part of that may be noise. The [addendum](#addendum-14-october-2026-option-order-and-the-jev-114-preview) measured it properly: about a third is. The follow-up items, which H6 was not written for, move less (0.025) |
+| H6: option order barely matters (mean TV < 0.05) | **0.063** mean, median 0.041, on the core battery's multiple-choice items, whose options were shuffled. Answers move 0.027 between replicates with nothing reordered, a rough noise floor, so a large part of that may be noise. The [addendum](#addendum-14-october-2026-option-order) measured it properly: about a third is. The follow-up items, which H6 was not written for, move less (0.025) |
 
 H4 predicted a framing reversal much weaker than people's (under 25 points); it
 is 1 point. H7 (Jev's distribution is more stable across replicates than the
 resampled chat model's) was never tested: the analysis to compare the two
 spreads was not built. H11 was exploratory, with no direction, and is not
 reported.
+
+Scored the same way, as a description only, Jev 1.14 also violates the
+conjunction rule (**−0.05** and **−0.38**), its accuracy falls **16 points**
+with reasoning depth (over H8's 15), its option-order movement is **0.059**,
+and its framing swing is **−9**, slightly the wrong way.
 
 ### The follow-up study: estimating people beats imitating them, a little
 
@@ -208,7 +243,7 @@ rating, percentage or prediction ("estimate"). Its central fame hypotheses
 (H1, H2) could not be run, because the matched pairs they needed do not exist
 in the item pool. Two others could:
 
-- **H4: estimate is more accurate than simulate.** It holds for Jev, but
+- **H4: estimate is more accurate than simulate.** It holds for Jev 1.13, but
   only modestly. The test covers 23 statistics, each compared with the original
   study's published value (Many Labs 2 reports only effect sizes, not the
   per-condition values this needs):
@@ -219,36 +254,42 @@ in the item pool. Two others could:
   on the absolute errors gives **p = 0.015**. Those errors are in each item's
   own units, so the two percentage items and the 1–7 ratings outweigh the
   proportions. Scaled to each item's range instead, a check I chose after
-  seeing the data, Jev's mean error is **0.17** when estimating against
-  **0.23** when simulating, and p = 0.043. Across the twelve System One models,
-  estimating has the lower mean scaled error for **eight**. Three pass the
-  preregistered test (GPT-6 Luna Decisions, Jev and Mercury Decide), and only
-  Jev passes the scaled one.
+  seeing the data, Jev 1.13's mean error is **0.17** when estimating against
+  **0.23** when simulating, and p = 0.043. Jev 1.14 looks the same: estimate
+  closer on **13 of 23**, p = 0.028, and **0.16** against **0.22** scaled
+  (p = 0.085). Across the thirteen System One models, estimating has the lower
+  mean scaled error for **nine**. Four pass the preregistered test (GPT-6 Luna
+  Decisions, both Jev versions and Mercury Decide), and only Jev 1.13 passes
+  the scaled one.
   The main run also asked the new items' population questions under every
-  prompt; inside the steer-free typical-person prompt, Jev's estimates beat
-  its simulated answers on 12 of 15 (p = 0.003; 0.01 scaled). That is not the
-  preregistered comparison, and the battery now asks population questions with
-  no persona.
+  prompt; inside the steer-free typical-person prompt, Jev 1.13's estimates
+  beat its simulated answers on 12 of 15 (p = 0.003; 0.01 scaled). That is not
+  the preregistered comparison, and the battery now asks population questions
+  with no persona, as the 1.14 run did.
 - **H3: the model reproduces the original anchoring effect, not the replication.**
   It does not. The original incidental-anchoring study found a 6.2-point gap;
   Many Labs 2 found almost none. No System One model reaches 3 points in the
-  original's direction, simulated or estimated; the largest is 2.6 (Jev: 0.3
-  and −0.3).
+  original's direction, simulated or estimated; the largest is 2.6 (Jev 1.13:
+  0.3 and −0.3; Jev 1.14: −0.1 and −0.1).
 
-![Jev's error on each of the 23 statistics, simulated and estimated](results/figures/followup-h4.png)
+![Each of the 23 statistics, simulated and estimated, for Jev 1.14 and Jev 1.13](results/figures/followup-h4.png)
 
-The full table is in [docs/RESULTS.md](docs/RESULTS.md#follow-up-h4-simulate-or-estimate).
+The chart puts the two versions side by side, one row per statistic in the
+same order; the preregistered test is the Jev 1.13 panel. The full table, with
+every model's summary, is in [docs/RESULTS.md](docs/RESULTS.md#follow-up-h4-simulate-or-estimate).
 
 The conjunction result looked like the most interesting thing here until I read
 the documentation properly. Asked side by side, the model picked the single
-statement over the conjunction (fallacy mass 0.10). Asked as two independent
-probability questions, it assigned the conjunction *higher* probability than its
-own component. That is the shape of the original human finding — but it is also
-already documented behaviour, not a discovery. See the next section.
+statement over the conjunction (fallacy mass 0.10 in 1.13, 0.07 in 1.14). Asked
+as two independent probability questions, it assigned the conjunction *higher*
+probability than its own component. That is the shape of the original human
+finding — but it is also already documented behaviour, not a discovery. See
+the next section.
 
-### Addendum, 14 October 2026: option order, and the Jev 1.14 preview
+### Addendum, 14 October 2026: option order
 
-Everything above is Jev 1.13 through OpenRouter, and stays that way. This
+The preregistered results above are Jev 1.13 through OpenRouter; Jev 1.14's
+numbers beside them come from this addendum's full-battery run. This
 addendum was preregistered separately, in
 [ORDER_PREREGISTRATION.md](ORDER_PREREGISTRATION.md), before any of its data
 existed. It asks whether H6's order effect is real or just repeat noise, and
@@ -301,9 +342,11 @@ took about 80 seconds. 1.14's statistics for the whole battery are in
 [version_statistics.csv](results/order_study/version_statistics.csv), next to
 1.13's, as a description only. The full tables are in
 [results/order_study/](results/order_study/), and `jevbench order-study`
-rebuilds them and the figure from the raw runs.
+rebuilds them and the figure from the raw runs. How the same measure compares
+across five System One models is in
+[docs/RESULTS.md](docs/RESULTS.md).
 
-![How far option order moves Jev's answers, per instrument, 1.13 and 1.14](results/figures/order-study.png)
+![How far option order moves Jev's answers, per instrument, 1.14 and 1.13](results/figures/order-study.png)
 
 ### Exploratory, 15 October 2026: pick a number between 1 and 10
 
@@ -409,23 +452,16 @@ identical and 1 is no overlap. A model that put everything on 7 would score
 - **Solar Decide has no sense of 7 asked plainly.** It puts 5% on it and
   favours 1, 3 and 10. Under the typical-person prompt it swings to 96% on 7.
 
-![One pick per call against the full distribution: Jev and the main comparison's models](results/figures/pick-number-reading-a.png)
+![One pick per call against the full distribution: both Jev versions and the main comparison's models](results/figures/pick-number-reading-a.png)
 
-![One pick per call against the full distribution: the other System One models](results/figures/pick-number-reading-b.png)
-
-![Share on 7, asked plainly and as a typical person: Jev and the main comparison's models](results/figures/pick-number-prompt-a.png)
-
-![Share on 7, asked plainly and as a typical person: the other System One models](results/figures/pick-number-prompt-b.png)
-
-![Pick a number between 1 and 10: Jev and the main comparison's models' returned distributions against people](results/figures/pick-number-models-a.png)
-
-![Pick a number between 1 and 10: the other System One models' returned distributions against people](results/figures/pick-number-models-b.png)
+The same chart for the other six models, and each model's distribution number
+by number, are in [docs/RESULTS.md](docs/RESULTS.md).
 
 ## Checked afterwards against the documented behaviour
 
 After the run I read TypeSafe's `model-jaggedness/jev-1.13` page, which
 documents known weaknesses of this version. Three of them bear directly on
-results above, and reading it earlier would have changed how I designed the
+results above (1.14 has the same shape on each), and reading it earlier would have changed how I designed the
 battery.
 
 **"Jev is not a calculator… does not count reliably."** A large part of this
@@ -434,13 +470,13 @@ reasoning items, the Holt–Laury lottery comparisons, the discounting items, th
 base-rate problem and the p-beauty contest. Wherever the model did *badly* on
 those, "documented numeric weakness" is at least as good an explanation as
 anything about System 1, and probably better. **The Holt–Laury result — 2.1 safe
-choices against a human reference of 5.2, which would read as strongly risk
-seeking — should not be taken at face value**, because it depends on comparing
+choices for Jev 1.13 and 2.6 for 1.14, against a human reference of 5.2, which
+would read as strongly risk seeking — should not be taken at face value**, because it depends on comparing
 probabilities and payoffs numerically. The same caution applies to the
 discounting items.
 
-It cuts the other way too: the model answered the CRT's arithmetic word
-problems at 0.99 despite arithmetic being a documented weak spot, which makes
+It cuts the other way too: both versions answered the CRT's arithmetic word
+problems at 0.99 or better despite arithmetic being a documented weak spot, which makes
 the cognitive-reflection result more interesting rather than less.
 
 **"There are many structural invariants one might imagine to hold that simply
@@ -469,15 +505,6 @@ explanations of their reasoning". The Score handling is also right — the score
 is defined as each level multiplied by its probability and summed, which is what
 `expected_level` computes (on a 1-based scale, so a 5-point item reads 1–5 as
 the instrument prints it, where the API's own score is 0-based).
-
-![What a single call returns, four models](results/figures/models-dictator.png)
-
-![What a single call returns, Jev alone](results/figures/dictator-distribution.png)
-
-![Option-order sensitivity, four models](results/figures/models-order-effects.png)
-
-![Option-order sensitivity, Jev alone](results/figures/order-effects.png)
-
 
 ## Running it yourself
 
@@ -536,7 +563,8 @@ jevbench doctor --model openai/gpt-6-luna-decisions liquid/d1 microsoft/microsof
 jevbench run --model liquid/d1 --replicates 10
 jevbench run --replicates 0 --baseline-model anthropic/claude-haiku-5.5 --baseline-samples 10
 
-jevbench compare data/raw/run_live_*.jsonl       # -> results/comparison/
+jevbench compare data/raw/run_live_*.jsonl \
+  data/raw/order_study/r1/run_live_20261014T231829Z_jev-1.14.0.jsonl   # -> results/comparison/
 ```
 
 `compare` reduces each file with the single-run analysis unchanged, then joins
@@ -566,7 +594,8 @@ are committed:
 
 ```bash
 jevbench analyse                       # the newest run with Jev in data/raw/
-jevbench compare data/raw/run_live_*.jsonl
+jevbench compare data/raw/run_live_*.jsonl \
+  data/raw/order_study/r1/run_live_20261014T231829Z_jev-1.14.0.jsonl
 python scripts/gen_results_doc.py
 jevbench diagrams
 ```
@@ -620,7 +649,8 @@ hypotheses for the first run, and
 whose H3 and H4 are reported above; its fame hypotheses (H1, H2) could not be
 run on this item pool. [ORDER_PREREGISTRATION.md](ORDER_PREREGISTRATION.md)
 is the plan for the option-order addendum, run on Jev 1.13 and the 1.14
-preview and reported above.
+preview; its full-battery 1.14 run is also the source of 1.14's numbers in the
+main results.
 
 ## How the instruments map onto three primitives
 
@@ -668,7 +698,7 @@ guessed, and `summary.json` reports them with per-cell sample coverage.
 describes each step.
 
 The typed arm has never returned an answer that could not be read, across
-88,200 calls to twelve System One models: a typed decision is a distribution,
+95,050 calls to thirteen System One models: a typed decision is a distribution,
 so there is no text to misread. What did go wrong there was visible: 300
 refusals from one model and 100 calls the route rejected (the p-beauty item,
 for both Solar models), each recorded as such ([docs/MODELS.md](docs/MODELS.md#read-the-health-table-first)).
@@ -699,8 +729,9 @@ ones that bound the numbers most:
 4. **The reasoning set is not an IQ test.** No norms, no standardisation
    sample; it reports accuracy on a fixed list of questions.
 5. **Each model run once, on one route.** Every model was run on 12–13
-   October 2026 (Drex 1.5 and Drex 2.0 on 15 October), all through a
-   third-party gateway via an alpha route that may move. `jevbench doctor` is
+   October 2026 (Jev 1.14 on 14 October, Drex 1.5 and Drex 2.0 on 15
+   October), all but Jev 1.14 through a third-party gateway via an alpha route
+   that may move; Jev 1.14 went to TypeSafe's API directly. `jevbench doctor` is
    there to say when it has.
 6. **Persona conditions are prompt manipulations**, not traits. They show what
    the model can be induced to output, and nothing about what it "is".

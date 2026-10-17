@@ -7,111 +7,143 @@ Models: `anthropic/claude-sonnet-5.5`, `typesafe/jev-1.13-20260917`
 Records: 14,800 (0 transport errors, excluded)  
 Total cost: $8.9857 (Jev arm $0.1418)
 
-Every table below is the Jev arm only; the chat baseline and the other System One models are compared in `results/comparison/`. Values are probability mass, computed from the returned distributions rather than from the point answers. Human values are literature reference points, not a matched control group — see [BENCHMARKS.md](BENCHMARKS.md).
+Every table below is the Jev arm only; the chat baseline and the other System One models are compared in `results/comparison/`. Under each measure, Jev 1.13 is this run and Jev 1.14 its 14 October run through TypeSafe's API directly (results/comparison/statistics.csv); the option-order section's numbers and the follow-up section's table are Jev 1.13 only (its chart shows both versions). Values are probability mass, computed from the returned distributions rather than from the point answers. Human values are literature reference points, not a matched control group — see [BENCHMARKS.md](BENCHMARKS.md).
 
 ![How one item becomes a number](../results/figures/how-it-works.png)
 
 ## Cognitive reflection
 
-| Measure | Neutral | As typical human | As typical human (no steer) | As rational agent | Antisocial | Human |
-|---|---:|---:|---:|---:|---:|---:|
-| CRT correct (Frederick's 3 items) | 0.99 | 0.32 | 0.53 | 1.00 | 0.91 | 0.41 |
-| CRT correct (all 6 items) | 0.99 | 0.55 | 0.71 | 0.99 | 0.93 | — |
-| CRT mass on intuitive lure | 0.01 | 0.41 | 0.27 | 0.01 | 0.05 | — |
+| Measure | Jev | Neutral | As typical human | As typical human (no steer) | As rational agent | Antisocial | Human |
+|---|---|---:|---:|---:|---:|---:|---:|
+| CRT correct (Frederick's 3 items) | 1.13 | 0.99 | 0.32 | 0.53 | 1.00 | 0.91 | 0.41 |
+|  | 1.14 | 1.00 | 0.27 | 0.50 | 0.99 | 0.90 | 0.41 |
+| CRT correct (all 6 items) | 1.13 | 0.99 | 0.55 | 0.71 | 0.99 | 0.93 | — |
+|  | 1.14 | 0.99 | 0.54 | 0.71 | 0.99 | 0.93 | — |
+| CRT mass on intuitive lure | 1.13 | 0.01 | 0.41 | 0.27 | 0.01 | 0.05 | — |
+|  | 1.14 | 0.01 | 0.40 | 0.25 | 0.01 | 0.04 | — |
 
 ## Fluid reasoning by depth
 
 Accuracy on an authored ICAR-format item set. **Not an IQ score.**
 
-| Measure | Neutral | As typical human | As typical human (no steer) | As rational agent | Antisocial | Human |
-|---|---:|---:|---:|---:|---:|---:|
-| Overall accuracy | 0.91 | 0.72 | 0.83 | 0.89 | 0.87 | — |
-| 1 inference step(s) | 1.00 | 0.89 | 0.99 | 1.00 | 0.98 | — |
-| 2 inference step(s) | 0.88 | 0.84 | 0.87 | 0.87 | 0.86 | — |
-| 3 inference step(s) | 0.90 | 0.64 | 0.78 | 0.86 | 0.82 | — |
-| 4 inference step(s) | 0.91 | 0.43 | 0.65 | 0.91 | 0.92 | — |
-| Depth penalty (1 vs 3+) | 0.09 | 0.30 | 0.23 | 0.13 | 0.14 | — |
+| Measure | Jev | Neutral | As typical human | As typical human (no steer) | As rational agent | Antisocial | Human |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Overall accuracy | 1.13 | 0.91 | 0.72 | 0.83 | 0.89 | 0.87 | — |
+|  | 1.14 | 0.91 | 0.71 | 0.80 | 0.89 | 0.86 | — |
+| 1 inference step(s) | 1.13 | 1.00 | 0.89 | 0.99 | 1.00 | 0.98 | — |
+|  | 1.14 | 1.00 | 0.92 | 1.00 | 1.00 | 0.98 | — |
+| 2 inference step(s) | 1.13 | 0.88 | 0.84 | 0.87 | 0.87 | 0.86 | — |
+|  | 1.14 | 0.95 | 0.86 | 0.91 | 0.93 | 0.91 | — |
+| 3 inference step(s) | 1.13 | 0.90 | 0.64 | 0.78 | 0.86 | 0.82 | — |
+|  | 1.14 | 0.81 | 0.56 | 0.69 | 0.78 | 0.75 | — |
+| 4 inference step(s) | 1.13 | 0.91 | 0.43 | 0.65 | 0.91 | 0.92 | — |
+|  | 1.14 | 0.97 | 0.44 | 0.57 | 0.96 | 0.93 | — |
+| Depth penalty (1 vs 3+) | 1.13 | 0.09 | 0.30 | 0.23 | 0.13 | 0.14 | — |
+|  | 1.14 | 0.16 | 0.38 | 0.33 | 0.18 | 0.18 | — |
 
 ## Social preferences
 
-![Jev in the economic games, with no instruction](../results/figures/jev-games-neutral.png)
+![Five System One models against people in the economic games](../results/figures/models-games.png)
 
-![Four System One models against people in the economic games](../results/figures/models-games.png)
+![What a single call returns, five models](../results/figures/models-dictator.png)
 
-![What a single call returns: Jev's dictator distribution](../results/figures/dictator-distribution.png)
+![The antisocial persona in the economic games, five models](../results/figures/models-antisocial.png)
 
-![What a single call returns, four models](../results/figures/models-dictator.png)
-
-![Jev's antisocial persona in the economic games](../results/figures/persona-antisocial.png)
-
-![The antisocial persona in the economic games, four models](../results/figures/models-antisocial.png)
-
-| Measure | Neutral | As typical human | As typical human (no steer) | As rational agent | Antisocial | Human |
-|---|---:|---:|---:|---:|---:|---:|
-| Dictator: share given | 0.15 | 0.27 | 0.28 | 0.00 | 0.00 | 0.28 |
-| Dictator: mass on giving nothing | 0.60 | 0.02 | 0.02 | 1.00 | 1.00 | 0.36 |
-| Dictator: mass on giving half | 0.19 | 0.11 | 0.11 | 0.00 | 0.00 | 0.17 |
-| Ultimatum: offer share | 0.41 | 0.45 | 0.46 | 0.05 | 0.11 | 0.40 |
-| Ultimatum: reject a $1 offer | 0.49 | 0.92 | 0.93 | 0.00 | 0.10 | 0.50 |
-| Trust: share sent | 0.38 | 0.48 | 0.48 | 0.05 | 0.07 | 0.50 |
-| Trust: share returned | 0.30 | 0.49 | 0.50 | 0.00 | 0.00 | 0.37 |
-| Public goods: contribution | 0.38 | 0.51 | 0.52 | 0.04 | 0.01 | 0.50 |
-| PD: cooperation (one-shot) | 0.03 | 0.22 | 0.15 | 0.00 | 0.00 | 0.37 |
+| Measure | Jev | Neutral | As typical human | As typical human (no steer) | As rational agent | Antisocial | Human |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Dictator: share given | 1.13 | 0.15 | 0.27 | 0.28 | 0.00 | 0.00 | 0.28 |
+|  | 1.14 | 0.18 | 0.24 | 0.23 | 0.00 | 0.00 | 0.28 |
+| Dictator: mass on giving nothing | 1.13 | 0.60 | 0.02 | 0.02 | 1.00 | 1.00 | 0.36 |
+|  | 1.14 | 0.50 | 0.05 | 0.07 | 1.00 | 0.99 | 0.36 |
+| Dictator: mass on giving half | 1.13 | 0.19 | 0.11 | 0.11 | 0.00 | 0.00 | 0.17 |
+|  | 1.14 | 0.20 | 0.09 | 0.07 | 0.00 | 0.00 | 0.17 |
+| Ultimatum: offer share | 1.13 | 0.41 | 0.45 | 0.46 | 0.05 | 0.11 | 0.40 |
+|  | 1.14 | 0.45 | 0.48 | 0.49 | 0.04 | 0.14 | 0.40 |
+| Ultimatum: reject a $1 offer | 1.13 | 0.49 | 0.92 | 0.93 | 0.00 | 0.10 | 0.50 |
+|  | 1.14 | 0.71 | 0.95 | 0.94 | 0.01 | 0.16 | 0.50 |
+| Trust: share sent | 1.13 | 0.38 | 0.48 | 0.48 | 0.05 | 0.07 | 0.50 |
+|  | 1.14 | 0.39 | 0.49 | 0.48 | 0.08 | 0.15 | 0.50 |
+| Trust: share returned | 1.13 | 0.30 | 0.49 | 0.50 | 0.00 | 0.00 | 0.37 |
+|  | 1.14 | 0.40 | 0.51 | 0.51 | 0.00 | 0.01 | 0.37 |
+| Public goods: contribution | 1.13 | 0.38 | 0.51 | 0.52 | 0.04 | 0.01 | 0.50 |
+|  | 1.14 | 0.53 | 0.52 | 0.52 | 0.09 | 0.03 | 0.50 |
+| PD: cooperation (one-shot) | 1.13 | 0.03 | 0.22 | 0.15 | 0.00 | 0.00 | 0.37 |
+|  | 1.14 | 0.06 | 0.37 | 0.33 | 0.00 | 0.01 | 0.37 |
 
 ## Decision anomalies
 
-![Jev on the seven decision-making tests, with and without the typical-person instruction](../results/figures/jev-decisions.png)
+![Five System One models against people on the seven decision-making tests](../results/figures/models-decisions.png)
 
-![Four System One models against people on the seven decision-making tests](../results/figures/models-decisions.png)
+![Jev 1.14 and 1.13 under the typical-person instruction with and without its steer](../results/figures/jev-steer.png)
 
-![Jev under the typical-person instruction with and without its steer](../results/figures/jev-steer.png)
+![The framing swing by model](../results/figures/framing-contrast.png)
 
-![The framing reversal by model](../results/figures/framing-contrast.png)
-
-| Measure | Neutral | As typical human | As typical human (no steer) | As rational agent | Antisocial | Human |
-|---|---:|---:|---:|---:|---:|---:|
-| Framing: certain option (gain frame) | 0.85 | 0.89 | 0.91 | 0.69 | 0.49 | 0.72 |
-| Framing: certain option (loss frame) | 0.84 | 0.84 | 0.84 | 0.84 | 0.56 | 0.22 |
-| Framing swing (human ≈ 0.50) | 0.01 | 0.04 | 0.07 | -0.15 | -0.07 | — |
-| Allais: certainty in pair 1 | 0.62 | 0.82 | 0.81 | 0.36 | 0.32 | 0.80 |
-| Allais: independence violation | 0.24 | 0.25 | 0.24 | 0.15 | 0.17 | — |
-| Conjunction fallacy (forced choice) | 0.10 | 0.93 | 0.87 | 0.02 | 0.27 | 0.85 |
-| Conjunction axiom margin (negative = violation) | -0.09 | -0.38 | -0.40 | -0.07 | -0.07 | — |
-| Base rate: 0-10% band (vs Bayesian answers) | 0.61 | 0.23 | 0.42 | 0.64 | 0.57 | 0.15 |
-| Anchoring gap (human ≈ 20 points) | 1.58 | 5.34 | 2.90 | 1.57 | 1.54 | — |
-| Sunk cost: continue | 0.04 | 0.17 | 0.10 | 0.03 | 0.10 | 0.85 |
+| Measure | Jev | Neutral | As typical human | As typical human (no steer) | As rational agent | Antisocial | Human |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Framing: certain option (gain frame) | 1.13 | 0.85 | 0.89 | 0.91 | 0.69 | 0.49 | 0.72 |
+|  | 1.14 | 0.71 | 0.67 | 0.77 | 0.51 | 0.39 | 0.72 |
+| Framing: certain option (loss frame) | 1.13 | 0.84 | 0.84 | 0.84 | 0.84 | 0.56 | 0.22 |
+|  | 1.14 | 0.80 | 0.72 | 0.72 | 0.83 | 0.58 | 0.22 |
+| Framing swing (human ≈ 0.50) | 1.13 | 0.01 | 0.04 | 0.07 | -0.15 | -0.07 | — |
+|  | 1.14 | -0.09 | -0.04 | 0.05 | -0.32 | -0.20 | — |
+| Allais: certainty in pair 1 | 1.13 | 0.62 | 0.82 | 0.81 | 0.36 | 0.32 | 0.80 |
+|  | 1.14 | 0.50 | 0.61 | 0.60 | 0.35 | 0.31 | 0.80 |
+| Allais: independence violation | 1.13 | 0.24 | 0.25 | 0.24 | 0.15 | 0.17 | — |
+|  | 1.14 | 0.22 | 0.27 | 0.27 | 0.16 | 0.19 | — |
+| Conjunction fallacy (forced choice) | 1.13 | 0.10 | 0.93 | 0.87 | 0.02 | 0.27 | 0.85 |
+|  | 1.14 | 0.07 | 0.94 | 0.93 | 0.02 | 0.29 | 0.85 |
+| Conjunction axiom margin (negative = violation) | 1.13 | -0.09 | -0.38 | -0.40 | -0.07 | -0.07 | — |
+|  | 1.14 | -0.05 | -0.38 | -0.32 | -0.01 | -0.10 | — |
+| Base rate: 0-10% band (vs Bayesian answers) | 1.13 | 0.61 | 0.23 | 0.42 | 0.64 | 0.57 | 0.15 |
+|  | 1.14 | 0.37 | 0.10 | 0.23 | 0.28 | 0.35 | 0.15 |
+| Anchoring gap (human ≈ 20 points) | 1.13 | 1.58 | 5.34 | 2.90 | 1.57 | 1.54 | — |
+|  | 1.14 | 0.79 | 4.36 | 1.77 | 1.17 | 1.03 | — |
+| Sunk cost: continue | 1.13 | 0.04 | 0.17 | 0.10 | 0.03 | 0.10 | 0.85 |
+|  | 1.14 | 0.06 | 0.28 | 0.18 | 0.04 | 0.12 | 0.85 |
 
 ## Risk, time and strategic depth
 
-| Measure | Neutral | As typical human | As typical human (no steer) | As rational agent | Antisocial | Human |
-|---|---:|---:|---:|---:|---:|---:|
-| Holt–Laury safe choices (risk neutral = 4) | 2.05 | 3.97 | 3.71 | 2.87 | 1.34 | 5.20 |
-| Present-bias gap (direction only) | 0.35 | 0.17 | 0.20 | 0.31 | 0.47 | — |
-| p-beauty: expected guess | 16.82 | 39.52 | 39.99 | 0.20 | 27.46 | 36.00 |
-| p-beauty: mass on equilibrium (0) | 0.35 | 0.00 | 0.01 | 1.00 | 0.18 | — |
-| 11-20 game: expected request | 17.52 | 17.16 | 16.93 | 17.51 | 18.02 | 17.00 |
+| Measure | Jev | Neutral | As typical human | As typical human (no steer) | As rational agent | Antisocial | Human |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Holt–Laury safe choices (risk neutral = 4) | 1.13 | 2.05 | 3.97 | 3.71 | 2.87 | 1.34 | 5.20 |
+|  | 1.14 | 2.58 | 3.21 | 3.60 | 3.10 | 1.37 | 5.20 |
+| Present-bias gap (direction only) | 1.13 | 0.35 | 0.17 | 0.20 | 0.31 | 0.47 | — |
+|  | 1.14 | 0.09 | 0.14 | 0.19 | 0.22 | 0.37 | — |
+| p-beauty: expected guess | 1.13 | 16.82 | 39.52 | 39.99 | 0.20 | 27.46 | 36.00 |
+|  | 1.14 | 24.77 | 41.47 | 39.96 | 0.51 | 29.21 | 36.00 |
+| p-beauty: mass on equilibrium (0) | 1.13 | 0.35 | 0.00 | 0.01 | 1.00 | 0.18 | — |
+|  | 1.14 | 0.10 | 0.00 | 0.00 | 0.99 | 0.10 | — |
+| 11-20 game: expected request | 1.13 | 17.52 | 17.16 | 16.93 | 17.51 | 18.02 | 17.00 |
+|  | 1.14 | 17.33 | 16.89 | 16.79 | 17.64 | 18.11 | 17.00 |
 
 ## Personality and Dark Triad
 
 The Dark Triad scale is a **manipulation check**, not a diagnostic claim.
 
-| Measure | Neutral | As typical human | As typical human (no steer) | As rational agent | Antisocial | Human |
-|---|---:|---:|---:|---:|---:|---:|
-| Big Five: extraversion | 2.95 | 2.98 | 2.97 | 2.82 | 3.39 | 3.20 |
-| Big Five: agreeableness | 2.89 | 3.68 | 3.88 | 2.19 | 1.16 | 4.00 |
-| Big Five: conscientiousness | 3.08 | 2.89 | 3.04 | 3.99 | 3.18 | 3.40 |
-| Big Five: neuroticism | 2.84 | 2.91 | 2.82 | 1.94 | 1.53 | 2.80 |
-| Big Five: openness | 3.12 | 3.23 | 3.29 | 3.33 | 3.32 | 3.70 |
-| Dark Triad: machiavellianism | 4.84 | 4.90 | 4.70 | 5.34 | 8.71 | — |
-| Dark Triad: psychopathy | 4.65 | 3.41 | 3.25 | 5.25 | 8.64 | — |
-| Dark Triad: narcissism | 5.55 | 5.50 | 5.31 | 4.62 | 8.44 | — |
-| Dark Triad: overall | 5.01 | 4.60 | 4.42 | 5.07 | 8.59 | — |
+| Measure | Jev | Neutral | As typical human | As typical human (no steer) | As rational agent | Antisocial | Human |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Big Five: extraversion | 1.13 | 2.95 | 2.98 | 2.97 | 2.82 | 3.39 | 3.20 |
+|  | 1.14 | 3.06 | 2.99 | 3.02 | 2.98 | 3.54 | 3.20 |
+| Big Five: agreeableness | 1.13 | 2.89 | 3.68 | 3.88 | 2.19 | 1.16 | 4.00 |
+|  | 1.14 | 2.99 | 3.61 | 3.73 | 2.40 | 1.16 | 4.00 |
+| Big Five: conscientiousness | 1.13 | 3.08 | 2.89 | 3.04 | 3.99 | 3.18 | 3.40 |
+|  | 1.14 | 3.06 | 2.95 | 3.08 | 3.95 | 3.13 | 3.40 |
+| Big Five: neuroticism | 1.13 | 2.84 | 2.91 | 2.82 | 1.94 | 1.53 | 2.80 |
+|  | 1.14 | 2.92 | 2.98 | 2.90 | 2.11 | 1.66 | 2.80 |
+| Big Five: openness | 1.13 | 3.12 | 3.23 | 3.29 | 3.33 | 3.32 | 3.70 |
+|  | 1.14 | 3.00 | 3.18 | 3.21 | 3.42 | 3.29 | 3.70 |
+| Dark Triad: machiavellianism | 1.13 | 4.84 | 4.90 | 4.70 | 5.34 | 8.71 | — |
+|  | 1.14 | 5.20 | 5.05 | 4.77 | 5.08 | 8.73 | — |
+| Dark Triad: psychopathy | 1.13 | 4.65 | 3.41 | 3.25 | 5.25 | 8.64 | — |
+|  | 1.14 | 5.04 | 3.47 | 3.36 | 4.81 | 8.64 | — |
+| Dark Triad: narcissism | 1.13 | 5.55 | 5.50 | 5.31 | 4.62 | 8.44 | — |
+|  | 1.14 | 5.71 | 5.57 | 5.43 | 4.70 | 8.44 | — |
+| Dark Triad: overall | 1.13 | 5.01 | 4.60 | 4.42 | 5.07 | 8.59 | — |
+|  | 1.14 | 5.32 | 4.70 | 4.52 | 4.86 | 8.60 | — |
 
 ## Option-order sensitivity
 
-![Option-order sensitivity, Jev](../results/figures/order-effects.png)
-
-![Option-order sensitivity, four models](../results/figures/models-order-effects.png)
+![Option-order sensitivity, five models](../results/figures/models-order-effects.png)
 
 The core battery's multiple-choice items (415 probe × persona cells), the set H6 was written for: their options are shuffled per replicate. Likert and yes/no items are not shuffled, so they measure replicate-to-replicate variation with nothing changed instead.
 
@@ -135,7 +167,7 @@ The follow-up items, reported apart: 0.0252 on 55 shuffled cells, 0.0197 on 105 
 
 ## Follow-up H4: simulate or estimate
 
-![Jev's error on each of the 23 statistics, simulated and estimated](../results/figures/followup-h4.png)
+![Each of the 23 statistics, simulated and estimated, for Jev 1.14 and Jev 1.13](../results/figures/followup-h4.png)
 
 Each follow-up statistic measured two ways: the item asked with the typical-person prompt (simulate), and its population question asked with no persona (estimate). Errors are distances from the original study's published value (Many Labs 2 reports only effect sizes, not per-condition values), in the item's own units, as preregistered. Those units differ (proportions, 1–7 ratings, percentage bands), so the raw test weighs the ratings and percentages most; as a post-hoc check the same test is repeated with each error divided by its scale's range (1, 6 and 100), and the mean errors below are on that scaled footing. The population questions for the six items reused from the first project (CRT, framing, conjunction, sunk cost, Allais, base rate) were asked on 13 October 2026, after the main run.
 
@@ -173,18 +205,18 @@ Each follow-up statistic measured two ways: the item asked with the typical-pers
 
 ## Across the System One models
 
-All fourteen models are compared, with the discussion, in [MODELS.md](MODELS.md).
+All fifteen models are compared, with the discussion, in [MODELS.md](MODELS.md).
 
 ![Every model's distance from the published human results](../results/figures/models-scatter.png)
 
 ![What the health table caught](../results/figures/health-checks.png)
 
 
-## Addendum: option order, and the Jev 1.14 preview
+## Addendum: option order
 
-A separate preregistered study, run on 14 October 2026 on Jev 1.13 and the 1.14 preview; the tables above are not from it. Its plan is in [ORDER_PREREGISTRATION.md](../ORDER_PREREGISTRATION.md), its results in [results/order_study/](../results/order_study/) and the [README](../README.md#addendum-14-october-2026-option-order-and-the-jev-114-preview).
+A separate preregistered study, run on 14 October 2026 on Jev 1.13 and the 1.14 preview; its full-battery 1.14 run is the source of the 1.14 rows above. Its plan is in [ORDER_PREREGISTRATION.md](../ORDER_PREREGISTRATION.md), its results in [results/order_study/](../results/order_study/) and the [README](../README.md#addendum-14-october-2026-option-order).
 
-![How far option order moves Jev's answers, per instrument, 1.13 and 1.14](../results/figures/order-study.png)
+![How far option order moves Jev's answers, per instrument, 1.14 and 1.13](../results/figures/order-study.png)
 
 
 ## Exploratory: pick a number between 1 and 10
@@ -193,7 +225,7 @@ A separate exploratory comparison, run on 15 October 2026 on Jev 1.13, the Jev 1
 
 ![Jev 1.13 and Jev 1.14: the distribution Jev returns against its single answer, with Claude Haiku 5.5 and people](../results/figures/pick-number-jev.png)
 
-![One pick per call against the full distribution: Jev and the main comparison's models](../results/figures/pick-number-reading-a.png)
+![One pick per call against the full distribution: both Jev versions and the main comparison's models](../results/figures/pick-number-reading-a.png)
 
 ![One pick per call against the full distribution: the other System One models](../results/figures/pick-number-reading-b.png)
 

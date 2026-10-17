@@ -432,3 +432,38 @@ def test_resume_keeps_a_billed_but_unusable_reply(tmp_path: Path) -> None:
     assert len(records) == len(lines)
     kept = [r for r in records if r.get("error")]
     assert len(kept) == 1 and kept[0]["usage"] == {"cost": 0.01}
+
+
+def test_compare_names_a_direct_typesafe_run_and_where_it_lives(tmp_path: Path) -> None:
+    """TypeSafe's own API serves `jev-1.14.0` with no provider; the comparison adds it,
+    and records a run kept below data/raw/ by its path from there."""
+    from jevbench.config import RAW_DIR
+
+    run = RAW_DIR / "order_study" / "r1" / "run_live_20261014T231829Z_jev-1.14.0.jsonl"
+    # A slice copied out of data/raw/ is recorded by its full path.
+    sliced = tmp_path / run.name
+    sliced.write_text(
+        "".join(line for line in run.open() if '"instrument": "crt"' in line), encoding="utf-8"
+    )
+    health = compare_runs([sliced], tmp_path / "cmp")["health"]
+    assert list(health["model"]) == ["typesafe/jev-1.14.0"]
+    assert list(health["run_file"]) == [sliced.resolve().as_posix()]
+
+    from jevbench.compare import _run_name
+
+    assert _run_name(run) == f"order_study/r1/{run.name}"
+    # TypeSafe's direct API reports tokens but no cost: unknown, not free.
+    assert health["cost_usd"].isna().all()
+
+
+def test_png_export_is_skipped_without_the_renderer(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    """A base install has no Playwright: the figure's HTML stands, with a note."""
+    import sys
+
+    from jevbench.cli import _export_pngs
+
+    monkeypatch.setitem(sys.modules, "playwright.sync_api", None)
+    _export_pngs([tmp_path / "figure.html"])
+    assert 'install `uv pip install -e ".[diagrams]"`' in capsys.readouterr().err

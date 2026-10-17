@@ -7999,3 +7999,525 @@ trolley,switch_push_asymmetry,typical_human_plain,nace-ai/drex-v2.0-20261009,0.8
 false_consensus,wearer_predicts_wear,typical_human_plain,nace-ai/drex-v2.0-20261009,0.15229999999999996,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
 false_consensus,nonwearer_predicts_wear,typical_human_plain,nace-ai/drex-v2.0-20261009,0.1956,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
 false_consensus,false_consensus_gap,typical_human_plain,nace-ai/drex-v2.0-20261009,-0.04330000000000003,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt,proportion_correct,antisocial,typesafe/jev-1.14.0,0.8973333333333334,0.7600000000000001,0.9800000000000001,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+crt,proportion_correct_all6,antisocial,typesafe/jev-1.14.0,0.927798729521899,0.8574653961885655,0.9743333333333334,,,,all six items; no single human benchmark covers these,System One
+crt,probability_mass_on_lure,antisocial,typesafe/jev-1.14.0,0.04468772985623538,0.008666666666666665,0.10418772985623537,,,,,System One
+fluid_reasoning,accuracy,antisocial,typesafe/jev-1.14.0,0.8623861639417195,0.7598847750528306,0.9442208861639418,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,antisocial,typesafe/jev-1.14.0,0.9773333333333333,0.949,0.995,,,,,System One
+fluid_reasoning,accuracy_steps_2,antisocial,typesafe/jev-1.14.0,0.9095,0.7779999999999999,0.9981666666666666,,,,,System One
+fluid_reasoning,accuracy_steps_3,antisocial,typesafe/jev-1.14.0,0.7527072787072788,0.5602717002717003,0.922978978978979,,,,,System One
+fluid_reasoning,accuracy_steps_4,antisocial,typesafe/jev-1.14.0,0.9325000000000001,0.8710000000000001,0.994,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,antisocial,typesafe/jev-1.14.0,0.18467211656100546,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,antisocial,typesafe/jev-1.14.0,0.0006000000000000001,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,antisocial,typesafe/jev-1.14.0,0.994,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,antisocial,typesafe/jev-1.14.0,0.0,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,antisocial,typesafe/jev-1.14.0,0.13653653653653655,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,antisocial,typesafe/jev-1.14.0,0.15120240480961927,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,antisocial,typesafe/jev-1.14.0,0.030600000000000006,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,antisocial,typesafe/jev-1.14.0,0.466,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,antisocial,typesafe/jev-1.14.0,0.16000000000000003,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,antisocial,typesafe/jev-1.14.0,0.09700000000000002,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,antisocial,typesafe/jev-1.14.0,0.09000000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,antisocial,typesafe/jev-1.14.0,0.078,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,antisocial,typesafe/jev-1.14.0,0.082,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,antisocial,typesafe/jev-1.14.0,0.075,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,antisocial,typesafe/jev-1.14.0,0.101,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,antisocial,typesafe/jev-1.14.0,0.13200000000000003,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,antisocial,typesafe/jev-1.14.0,0.12200000000000004,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,antisocial,typesafe/jev-1.14.0,0.086,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,antisocial,typesafe/jev-1.14.0,0.16000000000000003,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
+trust_trustee,return_share_sent_2,antisocial,typesafe/jev-1.14.0,0.007833333333333333,,,,,,,System One
+trust_trustee,return_share_sent_5,antisocial,typesafe/jev-1.14.0,0.007207207207207207,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,antisocial,typesafe/jev-1.14.0,0.007733333333333334,,,,,,,System One
+public_goods_conditional,contribution_low,antisocial,typesafe/jev-1.14.0,0.03053053053053053,,,,,,,System One
+public_goods_conditional,contribution_mid,antisocial,typesafe/jev-1.14.0,0.038200000000000005,,,,,,,System One
+public_goods_conditional,contribution_high,antisocial,typesafe/jev-1.14.0,0.04899799599198396,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,antisocial,typesafe/jev-1.14.0,0.006,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,antisocial,typesafe/jev-1.14.0,0.014000000000000002,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,antisocial,typesafe/jev-1.14.0,0.035,,,,,,,System One
+framing,prob_certain_gain_frame,antisocial,typesafe/jev-1.14.0,0.385,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,antisocial,typesafe/jev-1.14.0,0.5800000000000001,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,antisocial,typesafe/jev-1.14.0,-0.19500000000000006,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,antisocial,typesafe/jev-1.14.0,0.307,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,antisocial,typesafe/jev-1.14.0,0.391,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,antisocial,typesafe/jev-1.14.0,0.18696300000000002,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
+conjunction,prob_fallacy_forced_choice,antisocial,typesafe/jev-1.14.0,0.2920000000000001,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,antisocial,typesafe/jev-1.14.0,0.187,,,,,,,System One
+conjunction_axiom,p_conjunction,antisocial,typesafe/jev-1.14.0,0.29000000000000004,,,,,,,System One
+conjunction_axiom,axiom_margin,antisocial,typesafe/jev-1.14.0,-0.10300000000000004,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,antisocial,typesafe/jev-1.14.0,0.35300000000000004,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,antisocial,typesafe/jev-1.14.0,0.019,,,,,,,System One
+anchoring,estimate_low_anchor,antisocial,typesafe/jev-1.14.0,27.835,,,anchoring_low_median,25.0,approximate,,System One
+anchoring,estimate_high_anchor,antisocial,typesafe/jev-1.14.0,28.86886886886887,,,anchoring_high_median,45.0,approximate,,System One
+anchoring,anchoring_effect,antisocial,typesafe/jev-1.14.0,1.0338688688688684,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels",System One
+sunk_cost,prob_continue,antisocial,typesafe/jev-1.14.0,0.119,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,antisocial,typesafe/jev-1.14.0,1.374,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,antisocial,typesafe/jev-1.14.0,0.29900000000000004,0.24950000000000003,0.34850000000000003,,,,,System One
+discounting,prob_patient_30d,antisocial,typesafe/jev-1.14.0,0.2905,0.257,0.324,,,,,System One
+discounting,prob_patient_180d,antisocial,typesafe/jev-1.14.0,0.324,0.2635,0.374,,,,,System One
+present_bias,prob_patient_immediate_frontend,antisocial,typesafe/jev-1.14.0,0.23200000000000004,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,antisocial,typesafe/jev-1.14.0,0.6,,,,,,,System One
+present_bias,present_bias_gap,antisocial,typesafe/jev-1.14.0,0.36799999999999994,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction",System One
+beauty_contest,expected_guess,antisocial,typesafe/jev-1.14.0,29.207661290322562,,,beauty_contest_mean,36.0,medium,,System One
+beauty_contest,mass_at_33,antisocial,typesafe/jev-1.14.0,0.04133064516129032,,,,,,,System One
+beauty_contest,mass_at_22,antisocial,typesafe/jev-1.14.0,0.015120967741935486,,,,,,,System One
+beauty_contest,mass_at_0,antisocial,typesafe/jev-1.14.0,0.09576612903225806,,,,,,,System One
+money_request,expected_request,antisocial,typesafe/jev-1.14.0,18.109999999999996,,,money_request_modal,17.0,high,the model's mean request against the human mode,System One
+money_request,mass_level0_20,antisocial,typesafe/jev-1.14.0,0.189,,,,,,,System One
+money_request,mass_level1_19,antisocial,typesafe/jev-1.14.0,0.527,,,,,,,System One
+money_request,mass_level2_18,antisocial,typesafe/jev-1.14.0,0.086,,,,,,,System One
+money_request,mass_level3_17,antisocial,typesafe/jev-1.14.0,0.039,,,,,,,System One
+mini_ipip,extraversion,antisocial,typesafe/jev-1.14.0,3.5431503006012024,2.64225,4.163200901803608,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,antisocial,typesafe/jev-1.14.0,1.1584470912738216,1.056,1.2608941825476427,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,antisocial,typesafe/jev-1.14.0,3.133,2.504,3.548,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,antisocial,typesafe/jev-1.14.0,1.6595,1.234,2.085,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,antisocial,typesafe/jev-1.14.0,3.29134984984985,2.2765,4.158049549549549,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,antisocial,typesafe/jev-1.14.0,8.732326826826828,8.663196696696698,8.78978978978979,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,antisocial,typesafe/jev-1.14.0,8.602660180998472,8.49133238903397,8.699971421405543,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,antisocial,typesafe/jev-1.14.0,8.639505020080321,8.53725,8.735010040160642,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,antisocial,typesafe/jev-1.14.0,8.436148696088264,8.2485,8.623797392176527,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,antisocial,typesafe/jev-1.14.0,5.36,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,antisocial,typesafe/jev-1.14.0,2.0719999999999996,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,antisocial,typesafe/jev-1.14.0,3.2880000000000007,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,antisocial,typesafe/jev-1.14.0,3.7680000000000007,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,antisocial,typesafe/jev-1.14.0,3.3850000000000002,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,antisocial,typesafe/jev-1.14.0,0.38300000000000045,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,antisocial,typesafe/jev-1.14.0,0.589,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,antisocial,typesafe/jev-1.14.0,0.693,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,antisocial,typesafe/jev-1.14.0,1.282,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+categorization,prob_rule_based,antisocial,typesafe/jev-1.14.0,0.08100000000000002,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,antisocial,typesafe/jev-1.14.0,52.9825,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,antisocial,typesafe/jev-1.14.0,53.17,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,antisocial,typesafe/jev-1.14.0,-0.1875,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,antisocial,typesafe/jev-1.14.0,0.8710000000000001,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,antisocial,typesafe/jev-1.14.0,0.014000000000000002,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,antisocial,typesafe/jev-1.14.0,0.8570000000000001,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+trolley,prob_switch_permissible,antisocial,typesafe/jev-1.14.0,0.94,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,antisocial,typesafe/jev-1.14.0,0.8780000000000001,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,antisocial,typesafe/jev-1.14.0,0.06199999999999983,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+false_consensus,wearer_predicts_wear,antisocial,typesafe/jev-1.14.0,0.338,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,antisocial,typesafe/jev-1.14.0,0.426,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,antisocial,typesafe/jev-1.14.0,-0.08799999999999997,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt,proportion_correct,neutral,typesafe/jev-1.14.0,0.9966666666666667,0.991,1.0,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+crt,proportion_correct_all6,neutral,typesafe/jev-1.14.0,0.992,0.9821666666666666,0.9986666666666668,,,,all six items; no single human benchmark covers these,System One
+crt,probability_mass_on_lure,neutral,typesafe/jev-1.14.0,0.005333333333333333,0.0003333333333333333,0.012166666666666666,,,,,System One
+fluid_reasoning,accuracy,neutral,typesafe/jev-1.14.0,0.9063735402068736,0.8091460210210211,0.9782068735402069,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,neutral,typesafe/jev-1.14.0,1.0,1.0,1.0,,,,,System One
+fluid_reasoning,accuracy_steps_2,neutral,typesafe/jev-1.14.0,0.953953953953954,0.8835502168835502,1.0,,,,,System One
+fluid_reasoning,accuracy_steps_3,neutral,typesafe/jev-1.14.0,0.8068571428571429,0.6025714285714285,0.9738571428571429,,,,,System One
+fluid_reasoning,accuracy_steps_4,neutral,typesafe/jev-1.14.0,0.9715,0.943,1.0,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,neutral,typesafe/jev-1.14.0,0.15655555555555556,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,neutral,typesafe/jev-1.14.0,0.1832832832832833,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,neutral,typesafe/jev-1.14.0,0.49649649649649646,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,neutral,typesafe/jev-1.14.0,0.20320320320320323,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,neutral,typesafe/jev-1.14.0,0.4494000000000001,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,neutral,typesafe/jev-1.14.0,0.39370000000000005,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,neutral,typesafe/jev-1.14.0,0.5296000000000001,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,neutral,typesafe/jev-1.14.0,0.913,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,neutral,typesafe/jev-1.14.0,0.71,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,neutral,typesafe/jev-1.14.0,0.5130000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,neutral,typesafe/jev-1.14.0,0.35,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,neutral,typesafe/jev-1.14.0,0.24600000000000002,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,neutral,typesafe/jev-1.14.0,0.092,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,neutral,typesafe/jev-1.14.0,0.04199999999999999,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,neutral,typesafe/jev-1.14.0,0.039,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,neutral,typesafe/jev-1.14.0,0.154,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,neutral,typesafe/jev-1.14.0,0.13599999999999998,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,neutral,typesafe/jev-1.14.0,0.011,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,neutral,typesafe/jev-1.14.0,0.71,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
+trust_trustee,return_share_sent_2,neutral,typesafe/jev-1.14.0,0.4231666666666667,,,,,,,System One
+trust_trustee,return_share_sent_5,neutral,typesafe/jev-1.14.0,0.39699999999999996,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,neutral,typesafe/jev-1.14.0,0.4252,,,,,,,System One
+public_goods_conditional,contribution_low,neutral,typesafe/jev-1.14.0,0.24900000000000005,,,,,,,System One
+public_goods_conditional,contribution_mid,neutral,typesafe/jev-1.14.0,0.3829000000000001,,,,,,,System One
+public_goods_conditional,contribution_high,neutral,typesafe/jev-1.14.0,0.4164,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,neutral,typesafe/jev-1.14.0,0.05500000000000002,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,neutral,typesafe/jev-1.14.0,0.48999999999999994,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,neutral,typesafe/jev-1.14.0,0.030000000000000006,,,,,,,System One
+framing,prob_certain_gain_frame,neutral,typesafe/jev-1.14.0,0.711,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,neutral,typesafe/jev-1.14.0,0.8039999999999999,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,neutral,typesafe/jev-1.14.0,-0.09299999999999997,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,neutral,typesafe/jev-1.14.0,0.501,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,neutral,typesafe/jev-1.14.0,0.554,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,neutral,typesafe/jev-1.14.0,0.223446,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
+conjunction,prob_fallacy_forced_choice,neutral,typesafe/jev-1.14.0,0.065,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,neutral,typesafe/jev-1.14.0,0.14600000000000002,,,,,,,System One
+conjunction_axiom,p_conjunction,neutral,typesafe/jev-1.14.0,0.19899999999999995,,,,,,,System One
+conjunction_axiom,axiom_margin,neutral,typesafe/jev-1.14.0,-0.052999999999999936,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,neutral,typesafe/jev-1.14.0,0.37374749498997994,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,neutral,typesafe/jev-1.14.0,0.0020040080160320644,,,,,,,System One
+anchoring,estimate_low_anchor,neutral,typesafe/jev-1.14.0,27.83567134268537,,,anchoring_low_median,25.0,approximate,,System One
+anchoring,estimate_high_anchor,neutral,typesafe/jev-1.14.0,28.622500000000002,,,anchoring_high_median,45.0,approximate,,System One
+anchoring,anchoring_effect,neutral,typesafe/jev-1.14.0,0.7868286573146328,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels",System One
+sunk_cost,prob_continue,neutral,typesafe/jev-1.14.0,0.05500000000000001,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,neutral,typesafe/jev-1.14.0,2.579,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,neutral,typesafe/jev-1.14.0,0.6755,0.56625,0.74475,,,,,System One
+discounting,prob_patient_30d,neutral,typesafe/jev-1.14.0,0.68475,0.5640000000000001,0.79275,,,,,System One
+discounting,prob_patient_180d,neutral,typesafe/jev-1.14.0,0.668,0.5865,0.7495,,,,,System One
+present_bias,prob_patient_immediate_frontend,neutral,typesafe/jev-1.14.0,0.314,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,neutral,typesafe/jev-1.14.0,0.40099999999999997,,,,,,,System One
+present_bias,present_bias_gap,neutral,typesafe/jev-1.14.0,0.08699999999999997,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction",System One
+beauty_contest,expected_guess,neutral,typesafe/jev-1.14.0,24.769929364278507,,,beauty_contest_mean,36.0,medium,,System One
+beauty_contest,mass_at_33,neutral,typesafe/jev-1.14.0,0.058526740665993955,,,,,,,System One
+beauty_contest,mass_at_22,neutral,typesafe/jev-1.14.0,0.02320887991927346,,,,,,,System One
+beauty_contest,mass_at_0,neutral,typesafe/jev-1.14.0,0.1029263370332997,,,,,,,System One
+money_request,expected_request,neutral,typesafe/jev-1.14.0,17.325999999999997,,,money_request_modal,17.0,high,the model's mean request against the human mode,System One
+money_request,mass_level0_20,neutral,typesafe/jev-1.14.0,0.15699999999999997,,,,,,,System One
+money_request,mass_level1_19,neutral,typesafe/jev-1.14.0,0.372,,,,,,,System One
+money_request,mass_level2_18,neutral,typesafe/jev-1.14.0,0.10500000000000001,,,,,,,System One
+money_request,mass_level3_17,neutral,typesafe/jev-1.14.0,0.057999999999999996,,,,,,,System One
+mini_ipip,extraversion,neutral,typesafe/jev-1.14.0,3.0599999999999996,2.8605,3.2595,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,neutral,typesafe/jev-1.14.0,2.9899096596596597,2.428,3.5518193193193195,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,neutral,typesafe/jev-1.14.0,3.0648375875875877,2.7410000000000005,3.2946751751751755,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,neutral,typesafe/jev-1.14.0,2.9205089215721745,2.661941767068273,3.179076076076076,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,neutral,typesafe/jev-1.14.0,2.995997995991984,2.7517239478957913,3.2422700400801605,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,neutral,typesafe/jev-1.14.0,5.195436956495574,4.798502252252252,5.675769539078155,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,neutral,typesafe/jev-1.14.0,5.3172362189941405,4.92770278390634,5.671587313209649,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,neutral,typesafe/jev-1.14.0,5.044057307307308,4.170670670670671,5.758751251251252,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,neutral,typesafe/jev-1.14.0,5.712214393179538,5.344928786359077,6.0794999999999995,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,neutral,typesafe/jev-1.14.0,6.178178178178178,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,neutral,typesafe/jev-1.14.0,1.16016016016016,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,neutral,typesafe/jev-1.14.0,5.018018018018018,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+moral_typecasting_estimate,responsibility_man,neutral,typesafe/jev-1.14.0,5.465999999999999,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting_estimate,responsibility_baby,neutral,typesafe/jev-1.14.0,1.972972972972973,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting_estimate,agency_responsibility_gap,neutral,typesafe/jev-1.14.0,3.4930270270270265,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,neutral,typesafe/jev-1.14.0,3.621,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,neutral,typesafe/jev-1.14.0,3.62,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,neutral,typesafe/jev-1.14.0,0.0009999999999998899,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+position_power_estimate,power_long_line,neutral,typesafe/jev-1.14.0,3.5010000000000003,,,position_power_long_line,5.01,medium,,System One
+position_power_estimate,power_short_line,neutral,typesafe/jev-1.14.0,4.133133133133134,,,position_power_short_line,4.62,medium,,System One
+position_power_estimate,position_power_gap,neutral,typesafe/jev-1.14.0,-0.6321331331331335,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,neutral,typesafe/jev-1.14.0,0.06799999999999999,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,neutral,typesafe/jev-1.14.0,0.9720000000000001,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,neutral,typesafe/jev-1.14.0,1.04,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+choosing_rejecting_estimate,prob_award_extreme,neutral,typesafe/jev-1.14.0,0.42800000000000005,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting_estimate,prob_deny_extreme,neutral,typesafe/jev-1.14.0,0.607,,,shafir_deny_extreme,0.55,medium,,System One
+categorization,prob_rule_based,neutral,typesafe/jev-1.14.0,0.05500000000000001,,,norenzayan_rule_based,0.67,medium,,System One
+categorization_estimate,prob_rule_based,neutral,typesafe/jev-1.14.0,0.523,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,neutral,typesafe/jev-1.14.0,49.404999999999994,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,neutral,typesafe/jev-1.14.0,49.27605210420842,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,neutral,typesafe/jev-1.14.0,0.12894789579157617,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+incidental_anchors_estimate,estimate_p97,neutral,typesafe/jev-1.14.0,49.4575,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors_estimate,estimate_p17,neutral,typesafe/jev-1.14.0,49.5375,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors_estimate,anchor_gap,neutral,typesafe/jev-1.14.0,-0.0799999999999983,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,neutral,typesafe/jev-1.14.0,0.778,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,neutral,typesafe/jev-1.14.0,0.022,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,neutral,typesafe/jev-1.14.0,0.756,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+knobe_estimate,prob_harm_intentional,neutral,typesafe/jev-1.14.0,0.732,,,knobe_harm_intentional,0.82,medium,,System One
+knobe_estimate,prob_help_intentional,neutral,typesafe/jev-1.14.0,0.442,,,knobe_help_intentional,0.23,medium,,System One
+trolley,prob_switch_permissible,neutral,typesafe/jev-1.14.0,0.9810000000000001,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,neutral,typesafe/jev-1.14.0,0.033999999999999996,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,neutral,typesafe/jev-1.14.0,0.9470000000000001,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+trolley_estimate,prob_switch_permissible,neutral,typesafe/jev-1.14.0,0.765,,,trolley_switch_permissible,0.89,medium,,System One
+trolley_estimate,prob_push_permissible,neutral,typesafe/jev-1.14.0,0.21500000000000002,,,trolley_push_permissible,0.11,medium,,System One
+false_consensus,wearer_predicts_wear,neutral,typesafe/jev-1.14.0,0.314,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,neutral,typesafe/jev-1.14.0,0.284,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,neutral,typesafe/jev-1.14.0,0.030000000000000027,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+false_consensus_estimate,wearer_predicts_wear,neutral,typesafe/jev-1.14.0,0.36400000000000005,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus_estimate,nonwearer_predicts_wear,neutral,typesafe/jev-1.14.0,0.4010000000000001,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus_estimate,false_consensus_gap,neutral,typesafe/jev-1.14.0,-0.03700000000000003,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt_estimate,proportion_correct,neutral,typesafe/jev-1.14.0,0.5186666666666667,,,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+framing_estimate,prob_certain_gain_frame,neutral,typesafe/jev-1.14.0,0.658,,,framing_gain_certain,0.72,high,,System One
+framing_estimate,prob_certain_loss_frame,neutral,typesafe/jev-1.14.0,0.48500000000000004,,,framing_loss_certain,0.22,high,,System One
+allais_estimate,prob_certain_pair1,neutral,typesafe/jev-1.14.0,0.618,,,allais_p1_certain,0.8,high,,System One
+allais_estimate,prob_safer_pair2,neutral,typesafe/jev-1.14.0,0.582,,,allais_p2_certain,0.35,high,,System One
+conjunction_estimate,prob_fallacy_forced_choice,neutral,typesafe/jev-1.14.0,0.643,,,conjunction_fallacy_rate,0.85,high,,System One
+base_rate_estimate,prob_correct_band,neutral,typesafe/jev-1.14.0,0.211,,,base_rate_correct_band,0.15,medium,,System One
+sunk_cost_estimate,prob_continue,neutral,typesafe/jev-1.14.0,0.44699999999999995,,,sunk_cost_continue,0.85,medium,,System One
+crt,proportion_correct,rational_agent,typesafe/jev-1.14.0,0.9936666666666666,0.9899999999999999,0.999,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+crt,proportion_correct_all6,rational_agent,typesafe/jev-1.14.0,0.9871666666666669,0.9766666666666669,0.9958333333333332,,,,all six items; no single human benchmark covers these,System One
+crt,probability_mass_on_lure,rational_agent,typesafe/jev-1.14.0,0.0065,0.0015000000000000002,0.013337499999999941,,,,,System One
+fluid_reasoning,accuracy,rational_agent,typesafe/jev-1.14.0,0.8866666666666667,0.7787180555555555,0.9683347222222222,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,rational_agent,typesafe/jev-1.14.0,1.0,1.0,1.0,,,,,System One
+fluid_reasoning,accuracy_steps_2,rational_agent,typesafe/jev-1.14.0,0.9313333333333333,0.8223333333333334,1.0,,,,,System One
+fluid_reasoning,accuracy_steps_3,rational_agent,typesafe/jev-1.14.0,0.7774285714285715,0.5494285714285715,0.958857142857143,,,,,System One
+fluid_reasoning,accuracy_steps_4,rational_agent,typesafe/jev-1.14.0,0.9650000000000001,0.93,1.0,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,rational_agent,typesafe/jev-1.14.0,0.18088888888888888,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,rational_agent,typesafe/jev-1.14.0,0.0,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,rational_agent,typesafe/jev-1.14.0,1.0,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,rational_agent,typesafe/jev-1.14.0,0.0,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,rational_agent,typesafe/jev-1.14.0,0.036836836836836834,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,rational_agent,typesafe/jev-1.14.0,0.07917917917917916,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,rational_agent,typesafe/jev-1.14.0,0.08908908908908908,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,rational_agent,typesafe/jev-1.14.0,0.079,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,rational_agent,typesafe/jev-1.14.0,0.005,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,rational_agent,typesafe/jev-1.14.0,0.0,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,rational_agent,typesafe/jev-1.14.0,0.0,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,rational_agent,typesafe/jev-1.14.0,0.001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,rational_agent,typesafe/jev-1.14.0,0.0,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,rational_agent,typesafe/jev-1.14.0,0.0,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,rational_agent,typesafe/jev-1.14.0,0.0,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,rational_agent,typesafe/jev-1.14.0,0.001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,rational_agent,typesafe/jev-1.14.0,0.0,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,rational_agent,typesafe/jev-1.14.0,0.0,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,rational_agent,typesafe/jev-1.14.0,0.005,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
+trust_trustee,return_share_sent_2,rational_agent,typesafe/jev-1.14.0,0.0,,,,,,,System One
+trust_trustee,return_share_sent_5,rational_agent,typesafe/jev-1.14.0,0.0,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,rational_agent,typesafe/jev-1.14.0,0.0,,,,,,,System One
+public_goods_conditional,contribution_low,rational_agent,typesafe/jev-1.14.0,0.07077077077077079,,,,,,,System One
+public_goods_conditional,contribution_mid,rational_agent,typesafe/jev-1.14.0,0.2331,,,,,,,System One
+public_goods_conditional,contribution_high,rational_agent,typesafe/jev-1.14.0,0.19959919839679358,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,rational_agent,typesafe/jev-1.14.0,0.0,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,rational_agent,typesafe/jev-1.14.0,0.08799999999999998,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,rational_agent,typesafe/jev-1.14.0,0.009999999999999998,,,,,,,System One
+framing,prob_certain_gain_frame,rational_agent,typesafe/jev-1.14.0,0.51,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,rational_agent,typesafe/jev-1.14.0,0.826,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,rational_agent,typesafe/jev-1.14.0,-0.31599999999999995,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,rational_agent,typesafe/jev-1.14.0,0.346,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,rational_agent,typesafe/jev-1.14.0,0.544,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,rational_agent,typesafe/jev-1.14.0,0.157776,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
+conjunction,prob_fallacy_forced_choice,rational_agent,typesafe/jev-1.14.0,0.020999999999999998,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,rational_agent,typesafe/jev-1.14.0,0.21700000000000003,,,,,,,System One
+conjunction_axiom,p_conjunction,rational_agent,typesafe/jev-1.14.0,0.22899999999999995,,,,,,,System One
+conjunction_axiom,axiom_margin,rational_agent,typesafe/jev-1.14.0,-0.011999999999999927,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,rational_agent,typesafe/jev-1.14.0,0.2752752752752753,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,rational_agent,typesafe/jev-1.14.0,0.006006006006006005,,,,,,,System One
+anchoring,estimate_low_anchor,rational_agent,typesafe/jev-1.14.0,27.62,,,anchoring_low_median,25.0,approximate,,System One
+anchoring,estimate_high_anchor,rational_agent,typesafe/jev-1.14.0,28.785000000000004,,,anchoring_high_median,45.0,approximate,,System One
+anchoring,anchoring_effect,rational_agent,typesafe/jev-1.14.0,1.1650000000000027,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels",System One
+sunk_cost,prob_continue,rational_agent,typesafe/jev-1.14.0,0.036000000000000004,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,rational_agent,typesafe/jev-1.14.0,3.097,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,rational_agent,typesafe/jev-1.14.0,0.8152499999999999,0.73825,0.8659999999999999,,,,,System One
+discounting,prob_patient_30d,rational_agent,typesafe/jev-1.14.0,0.6965,0.58775,0.78,,,,,System One
+discounting,prob_patient_180d,rational_agent,typesafe/jev-1.14.0,0.63975,0.53825,0.7245,,,,,System One
+present_bias,prob_patient_immediate_frontend,rational_agent,typesafe/jev-1.14.0,0.517,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,rational_agent,typesafe/jev-1.14.0,0.733,,,,,,,System One
+present_bias,present_bias_gap,rational_agent,typesafe/jev-1.14.0,0.21599999999999997,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction",System One
+beauty_contest,expected_guess,rational_agent,typesafe/jev-1.14.0,0.508,,,beauty_contest_mean,36.0,medium,,System One
+beauty_contest,mass_at_33,rational_agent,typesafe/jev-1.14.0,0.0,,,,,,,System One
+beauty_contest,mass_at_22,rational_agent,typesafe/jev-1.14.0,0.0,,,,,,,System One
+beauty_contest,mass_at_0,rational_agent,typesafe/jev-1.14.0,0.9860000000000001,,,,,,,System One
+money_request,expected_request,rational_agent,typesafe/jev-1.14.0,17.637999999999998,,,money_request_modal,17.0,high,the model's mean request against the human mode,System One
+money_request,mass_level0_20,rational_agent,typesafe/jev-1.14.0,0.279,,,,,,,System One
+money_request,mass_level1_19,rational_agent,typesafe/jev-1.14.0,0.38300000000000006,,,,,,,System One
+money_request,mass_level2_18,rational_agent,typesafe/jev-1.14.0,0.078,,,,,,,System One
+money_request,mass_level3_17,rational_agent,typesafe/jev-1.14.0,0.030000000000000006,,,,,,,System One
+mini_ipip,extraversion,rational_agent,typesafe/jev-1.14.0,2.984458458458458,2.804499999999999,3.3232499999999994,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,rational_agent,typesafe/jev-1.14.0,2.39575,1.8607500000000001,2.9000000000000004,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,rational_agent,typesafe/jev-1.14.0,3.9502587587587588,3.5175,4.457249999999999,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,rational_agent,typesafe/jev-1.14.0,2.108328578578579,1.6039857357357357,2.6100000000000003,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,rational_agent,typesafe/jev-1.14.0,3.4154999999999998,2.644,4.198,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,rational_agent,typesafe/jev-1.14.0,5.080468937875752,4.219,5.962906813627256,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,rational_agent,typesafe/jev-1.14.0,4.8639419315775365,4.2670812499999995,5.3926747585385995,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,rational_agent,typesafe/jev-1.14.0,4.812856856856857,4.042249999999999,5.3338205705705715,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,rational_agent,typesafe/jev-1.14.0,4.6985,3.225,5.4815000000000005,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,rational_agent,typesafe/jev-1.14.0,5.876,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,rational_agent,typesafe/jev-1.14.0,1.2089999999999999,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,rational_agent,typesafe/jev-1.14.0,4.667000000000001,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,rational_agent,typesafe/jev-1.14.0,3.4649999999999994,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,rational_agent,typesafe/jev-1.14.0,3.3830000000000005,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,rational_agent,typesafe/jev-1.14.0,0.08199999999999896,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,rational_agent,typesafe/jev-1.14.0,0.11600000000000002,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,rational_agent,typesafe/jev-1.14.0,0.885,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,rational_agent,typesafe/jev-1.14.0,1.0010000000000001,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+categorization,prob_rule_based,rational_agent,typesafe/jev-1.14.0,0.08299999999999999,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,rational_agent,typesafe/jev-1.14.0,48.56750000000001,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,rational_agent,typesafe/jev-1.14.0,48.375,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,rational_agent,typesafe/jev-1.14.0,0.19250000000000966,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,rational_agent,typesafe/jev-1.14.0,0.7899999999999999,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,rational_agent,typesafe/jev-1.14.0,0.066,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,rational_agent,typesafe/jev-1.14.0,0.724,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+trolley,prob_switch_permissible,rational_agent,typesafe/jev-1.14.0,0.949,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,rational_agent,typesafe/jev-1.14.0,0.577,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,rational_agent,typesafe/jev-1.14.0,0.372,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+false_consensus,wearer_predicts_wear,rational_agent,typesafe/jev-1.14.0,0.30900000000000005,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,rational_agent,typesafe/jev-1.14.0,0.288,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,rational_agent,typesafe/jev-1.14.0,0.021000000000000074,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt,proportion_correct,typical_human,typesafe/jev-1.14.0,0.26933333333333337,0.03400000000000001,0.506,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+crt,proportion_correct_all6,typical_human,typesafe/jev-1.14.0,0.5385,0.2833333333333334,0.7671666666666667,,,,all six items; no single human benchmark covers these,System One
+crt,probability_mass_on_lure,typical_human,typesafe/jev-1.14.0,0.39599999999999996,0.1656416666666667,0.6613333333333333,,,,,System One
+fluid_reasoning,accuracy,typical_human,typesafe/jev-1.14.0,0.7085407073740407,0.5634661327994661,0.8400013888888889,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,typical_human,typesafe/jev-1.14.0,0.918,0.7719999999999999,1.0,,,,,System One
+fluid_reasoning,accuracy_steps_2,typical_human,typesafe/jev-1.14.0,0.8639229229229229,0.7143291791791793,0.9848333333333333,,,,,System One
+fluid_reasoning,accuracy_steps_3,typical_human,typesafe/jev-1.14.0,0.5625993135993135,0.38548434148434146,0.7502857142857142,,,,,System One
+fluid_reasoning,accuracy_steps_4,typical_human,typesafe/jev-1.14.0,0.439,0.028,0.85,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,typical_human,typesafe/jev-1.14.0,0.38286720053386725,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,typical_human,typesafe/jev-1.14.0,0.24240000000000003,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,typical_human,typesafe/jev-1.14.0,0.048,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,typical_human,typesafe/jev-1.14.0,0.08800000000000001,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,typical_human,typesafe/jev-1.14.0,0.48108108108108094,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,typical_human,typesafe/jev-1.14.0,0.4894,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,typical_human,typesafe/jev-1.14.0,0.5202,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,typical_human,typesafe/jev-1.14.0,0.99,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,typical_human,typesafe/jev-1.14.0,0.9460000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,typical_human,typesafe/jev-1.14.0,0.8380000000000001,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,typical_human,typesafe/jev-1.14.0,0.624,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,typical_human,typesafe/jev-1.14.0,0.454,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,typical_human,typesafe/jev-1.14.0,0.13,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,typical_human,typesafe/jev-1.14.0,0.13700000000000004,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,typical_human,typesafe/jev-1.14.0,0.179,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,typical_human,typesafe/jev-1.14.0,0.393,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,typical_human,typesafe/jev-1.14.0,0.319,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,typical_human,typesafe/jev-1.14.0,0.05900000000000002,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,typical_human,typesafe/jev-1.14.0,0.9460000000000001,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
+trust_trustee,return_share_sent_2,typical_human,typesafe/jev-1.14.0,0.5268333333333334,,,,,,,System One
+trust_trustee,return_share_sent_5,typical_human,typesafe/jev-1.14.0,0.5133600534402138,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,typical_human,typesafe/jev-1.14.0,0.4948563794255177,,,,,,,System One
+public_goods_conditional,contribution_low,typical_human,typesafe/jev-1.14.0,0.17640000000000003,,,,,,,System One
+public_goods_conditional,contribution_mid,typical_human,typesafe/jev-1.14.0,0.5018999999999999,,,,,,,System One
+public_goods_conditional,contribution_high,typical_human,typesafe/jev-1.14.0,0.7817,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,typical_human,typesafe/jev-1.14.0,0.374,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,typical_human,typesafe/jev-1.14.0,0.69,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,typical_human,typesafe/jev-1.14.0,0.05100000000000001,,,,,,,System One
+framing,prob_certain_gain_frame,typical_human,typesafe/jev-1.14.0,0.67,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,typical_human,typesafe/jev-1.14.0,0.7150000000000001,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,typical_human,typesafe/jev-1.14.0,-0.04500000000000004,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,typical_human,typesafe/jev-1.14.0,0.61,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,typical_human,typesafe/jev-1.14.0,0.563,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,typical_human,typesafe/jev-1.14.0,0.26657,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
+conjunction,prob_fallacy_forced_choice,typical_human,typesafe/jev-1.14.0,0.9390000000000001,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,typical_human,typesafe/jev-1.14.0,0.233,,,,,,,System One
+conjunction_axiom,p_conjunction,typical_human,typesafe/jev-1.14.0,0.613,,,,,,,System One
+conjunction_axiom,axiom_margin,typical_human,typesafe/jev-1.14.0,-0.38,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,typical_human,typesafe/jev-1.14.0,0.09500000000000001,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,typical_human,typesafe/jev-1.14.0,0.158,,,,,,,System One
+anchoring,estimate_low_anchor,typical_human,typesafe/jev-1.14.0,25.28,,,anchoring_low_median,25.0,approximate,,System One
+anchoring,estimate_high_anchor,typical_human,typesafe/jev-1.14.0,29.642142142142145,,,anchoring_high_median,45.0,approximate,,System One
+anchoring,anchoring_effect,typical_human,typesafe/jev-1.14.0,4.362142142142144,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels",System One
+sunk_cost,prob_continue,typical_human,typesafe/jev-1.14.0,0.275,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,typical_human,typesafe/jev-1.14.0,3.215,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,typical_human,typesafe/jev-1.14.0,0.28600000000000003,0.21275,0.3415,,,,,System One
+discounting,prob_patient_30d,typical_human,typesafe/jev-1.14.0,0.21550000000000002,0.15775,0.26775000000000004,,,,,System One
+discounting,prob_patient_180d,typical_human,typesafe/jev-1.14.0,0.2,0.15925,0.25825,,,,,System One
+present_bias,prob_patient_immediate_frontend,typical_human,typesafe/jev-1.14.0,0.16399999999999998,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,typical_human,typesafe/jev-1.14.0,0.3,,,,,,,System One
+present_bias,present_bias_gap,typical_human,typesafe/jev-1.14.0,0.136,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction",System One
+beauty_contest,expected_guess,typical_human,typesafe/jev-1.14.0,41.46928499496475,,,beauty_contest_mean,36.0,medium,,System One
+beauty_contest,mass_at_33,typical_human,typesafe/jev-1.14.0,0.0795568982880161,,,,,,,System One
+beauty_contest,mass_at_22,typical_human,typesafe/jev-1.14.0,0.008056394763343404,,,,,,,System One
+beauty_contest,mass_at_0,typical_human,typesafe/jev-1.14.0,0.0010070493454179255,,,,,,,System One
+money_request,expected_request,typical_human,typesafe/jev-1.14.0,16.889999999999997,,,money_request_modal,17.0,high,the model's mean request against the human mode,System One
+money_request,mass_level0_20,typical_human,typesafe/jev-1.14.0,0.07400000000000001,,,,,,,System One
+money_request,mass_level1_19,typical_human,typesafe/jev-1.14.0,0.34,,,,,,,System One
+money_request,mass_level2_18,typical_human,typesafe/jev-1.14.0,0.13000000000000003,,,,,,,System One
+money_request,mass_level3_17,typical_human,typesafe/jev-1.14.0,0.082,,,,,,,System One
+mini_ipip,extraversion,typical_human,typesafe/jev-1.14.0,2.986828722905453,2.763263263263263,3.2103941825476427,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,typical_human,typesafe/jev-1.14.0,3.6108412738214644,3.4259999999999997,3.795682547642929,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,typical_human,typesafe/jev-1.14.0,2.94971021021021,2.6065,3.38621021021021,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,typical_human,typesafe/jev-1.14.0,2.98,2.6654999999999998,3.239,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,typical_human,typesafe/jev-1.14.0,3.183,2.9535,3.4095000000000004,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,typical_human,typesafe/jev-1.14.0,5.048750000000001,3.3635000000000006,6.734,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,typical_human,typesafe/jev-1.14.0,4.695165279675133,3.7195155405405402,5.64273441756302,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,typical_human,typesafe/jev-1.14.0,3.466,2.4785000000000004,5.018000000000001,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,typical_human,typesafe/jev-1.14.0,5.570745839025398,4.299707957957958,6.526686372745491,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,typical_human,typesafe/jev-1.14.0,5.8340000000000005,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,typical_human,typesafe/jev-1.14.0,1.3773773773773772,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,typical_human,typesafe/jev-1.14.0,4.456622622622623,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,typical_human,typesafe/jev-1.14.0,3.746,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,typical_human,typesafe/jev-1.14.0,3.7770000000000006,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,typical_human,typesafe/jev-1.14.0,-0.031000000000000583,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,typical_human,typesafe/jev-1.14.0,0.128,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,typical_human,typesafe/jev-1.14.0,0.947,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,typical_human,typesafe/jev-1.14.0,1.075,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+categorization,prob_rule_based,typical_human,typesafe/jev-1.14.0,0.11099999999999999,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,typical_human,typesafe/jev-1.14.0,48.725,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,typical_human,typesafe/jev-1.14.0,48.800000000000004,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,typical_human,typesafe/jev-1.14.0,-0.07500000000000284,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,typical_human,typesafe/jev-1.14.0,0.859,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,typical_human,typesafe/jev-1.14.0,0.062,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,typical_human,typesafe/jev-1.14.0,0.7969999999999999,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+trolley,prob_switch_permissible,typical_human,typesafe/jev-1.14.0,0.99,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,typical_human,typesafe/jev-1.14.0,0.009999999999999998,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,typical_human,typesafe/jev-1.14.0,0.98,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+false_consensus,wearer_predicts_wear,typical_human,typesafe/jev-1.14.0,0.338,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,typical_human,typesafe/jev-1.14.0,0.34800000000000003,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,typical_human,typesafe/jev-1.14.0,-0.010000000000000009,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One
+crt,proportion_correct,typical_human_plain,typesafe/jev-1.14.0,0.4963333333333333,0.10499999999999998,0.818,crt_proportion_correct,0.413,high,"Frederick's three items (bat and ball, widgets, lily pads)",System One
+crt,proportion_correct_all6,typical_human_plain,typesafe/jev-1.14.0,0.7106666666666667,0.44683333333333336,0.9115000000000001,,,,all six items; no single human benchmark covers these,System One
+crt,probability_mass_on_lure,typical_human_plain,typesafe/jev-1.14.0,0.25266666666666665,0.055500000000000015,0.5213333333333333,,,,,System One
+fluid_reasoning,accuracy,typical_human_plain,typesafe/jev-1.14.0,0.8000498832165499,0.6742118396173952,0.9095123206539872,,,,accuracy on an authored ICAR-format item set; not an IQ score,System One
+fluid_reasoning,accuracy_steps_1,typical_human_plain,typesafe/jev-1.14.0,0.9966666666666667,0.9899999999999999,1.0,,,,,System One
+fluid_reasoning,accuracy_steps_2,typical_human_plain,typesafe/jev-1.14.0,0.9067410744077411,0.7846179512846178,0.999,,,,,System One
+fluid_reasoning,accuracy_steps_3,typical_human_plain,typesafe/jev-1.14.0,0.6897787787787789,0.49932119977119976,0.8628571428571429,,,,,System One
+fluid_reasoning,accuracy_steps_4,typical_human_plain,typesafe/jev-1.14.0,0.5710000000000001,0.23700000000000002,0.905,,,,,System One
+fluid_reasoning,depth_penalty_1_vs_3plus,typical_human_plain,typesafe/jev-1.14.0,0.3332831720609498,,,,,,H8: accuracy at 1 step minus accuracy at 3+ steps,System One
+dictator,mean_share,typical_human_plain,typesafe/jev-1.14.0,0.23240000000000002,,,dictator_mean_share,0.283,high,,System One
+dictator,prob_give_zero,typical_human_plain,typesafe/jev-1.14.0,0.071,,,dictator_share_zero,0.36,high,,System One
+dictator,prob_give_half,typical_human_plain,typesafe/jev-1.14.0,0.06799999999999999,,,dictator_share_half,0.17,high,,System One
+ultimatum_proposer,mean_share,typical_human_plain,typesafe/jev-1.14.0,0.4901803607214429,,,ultimatum_mean_offer,0.4,high,,System One
+trust_sender,mean_share,typical_human_plain,typesafe/jev-1.14.0,0.4846846846846846,,,trust_sender_share,0.5,high,,System One
+public_goods,mean_share,typical_human_plain,typesafe/jev-1.14.0,0.5237,,,pgg_round1_share,0.5,medium,,System One
+ultimatum_responder,prob_reject_offer_0,typical_human_plain,typesafe/jev-1.14.0,0.99,,,,,,,System One
+ultimatum_responder,prob_reject_offer_1,typical_human_plain,typesafe/jev-1.14.0,0.939,,,,,,,System One
+ultimatum_responder,prob_reject_offer_2,typical_human_plain,typesafe/jev-1.14.0,0.817,,,,,,,System One
+ultimatum_responder,prob_reject_offer_3,typical_human_plain,typesafe/jev-1.14.0,0.584,,,,,,,System One
+ultimatum_responder,prob_reject_offer_4,typical_human_plain,typesafe/jev-1.14.0,0.39999999999999997,,,,,,,System One
+ultimatum_responder,prob_reject_offer_5,typical_human_plain,typesafe/jev-1.14.0,0.12700000000000003,,,,,,,System One
+ultimatum_responder,prob_reject_offer_6,typical_human_plain,typesafe/jev-1.14.0,0.15000000000000002,,,,,,,System One
+ultimatum_responder,prob_reject_offer_7,typical_human_plain,typesafe/jev-1.14.0,0.182,,,,,,,System One
+ultimatum_responder,prob_reject_offer_8,typical_human_plain,typesafe/jev-1.14.0,0.417,,,,,,,System One
+ultimatum_responder,prob_reject_offer_9,typical_human_plain,typesafe/jev-1.14.0,0.39999999999999997,,,,,,,System One
+ultimatum_responder,prob_reject_offer_10,typical_human_plain,typesafe/jev-1.14.0,0.027000000000000003,,,,,,,System One
+ultimatum_responder,prob_reject_low_offer,typical_human_plain,typesafe/jev-1.14.0,0.939,,,ultimatum_rejection_low_offer,0.5,medium,offer of $1 out of $10,System One
+trust_trustee,return_share_sent_2,typical_human_plain,typesafe/jev-1.14.0,0.5350350350350351,,,,,,,System One
+trust_trustee,return_share_sent_5,typical_human_plain,typesafe/jev-1.14.0,0.5135135135135136,,,trust_return_share,0.37,high,,System One
+trust_trustee,return_share_sent_10,typical_human_plain,typesafe/jev-1.14.0,0.5062333333333332,,,,,,,System One
+public_goods_conditional,contribution_low,typical_human_plain,typesafe/jev-1.14.0,0.192,,,,,,,System One
+public_goods_conditional,contribution_mid,typical_human_plain,typesafe/jev-1.14.0,0.5003003003003003,,,,,,,System One
+public_goods_conditional,contribution_high,typical_human_plain,typesafe/jev-1.14.0,0.7734,,,,,,,System One
+prisoners_dilemma,cooperation_one_shot,typical_human_plain,typesafe/jev-1.14.0,0.33,,,pd_cooperation_oneshot,0.37,medium,,System One
+prisoners_dilemma,cooperation_after_cooperation,typical_human_plain,typesafe/jev-1.14.0,0.6829999999999999,,,,,,,System One
+prisoners_dilemma,cooperation_after_defection,typical_human_plain,typesafe/jev-1.14.0,0.038,,,,,,,System One
+framing,prob_certain_gain_frame,typical_human_plain,typesafe/jev-1.14.0,0.768,,,framing_gain_certain,0.72,high,,System One
+framing,prob_certain_loss_frame,typical_human_plain,typesafe/jev-1.14.0,0.7220000000000001,,,framing_loss_certain,0.22,high,,System One
+framing,framing_swing,typical_human_plain,typesafe/jev-1.14.0,0.04599999999999993,,,,,,H4: human swing is about 0.50 (0.72 - 0.22),System One
+allais,prob_certain_pair1,typical_human_plain,typesafe/jev-1.14.0,0.5970000000000001,,,allais_p1_certain,0.8,high,,System One
+allais,prob_safer_pair2,typical_human_plain,typesafe/jev-1.14.0,0.546,,,allais_p2_certain,0.35,high,,System One
+allais,independence_violation,typical_human_plain,typesafe/jev-1.14.0,0.27103800000000006,,,,,,"product of the two marginal probabilities (A in pair 1, D in pair 2); the items are asked separately, so this assumes the two choices are independent",System One
+conjunction,prob_fallacy_forced_choice,typical_human_plain,typesafe/jev-1.14.0,0.9269999999999999,,,conjunction_fallacy_rate,0.85,high,,System One
+conjunction_axiom,p_single,typical_human_plain,typesafe/jev-1.14.0,0.20600000000000002,,,,,,,System One
+conjunction_axiom,p_conjunction,typical_human_plain,typesafe/jev-1.14.0,0.53,,,,,,,System One
+conjunction_axiom,axiom_margin,typical_human_plain,typesafe/jev-1.14.0,-0.324,,,,,,"H5: negative means P(A and B) > P(A), violating the conjunction rule",System One
+base_rate,prob_correct_band,typical_human_plain,typesafe/jev-1.14.0,0.23423423423423426,,,base_rate_correct_band,0.15,medium,,System One
+base_rate,prob_lure_band,typical_human_plain,typesafe/jev-1.14.0,0.03503503503503503,,,,,,,System One
+anchoring,estimate_low_anchor,typical_human_plain,typesafe/jev-1.14.0,26.3,,,anchoring_low_median,25.0,approximate,,System One
+anchoring,estimate_high_anchor,typical_human_plain,typesafe/jev-1.14.0,28.0725,,,anchoring_high_median,45.0,approximate,,System One
+anchoring,anchoring_effect,typical_human_plain,typesafe/jev-1.14.0,1.7725000000000009,,,,,,"human gap is about 20 points (Tversky & Kahneman 1974); compare the gap, not the levels",System One
+sunk_cost,prob_continue,typical_human_plain,typesafe/jev-1.14.0,0.185,,,sunk_cost_continue,0.85,medium,,System One
+holt_laury,expected_safe_choices,typical_human_plain,typesafe/jev-1.14.0,3.5989999999999998,,,holt_laury_safe_choices,5.2,high,risk neutral is 4; higher means more risk averse,System One
+discounting,prob_patient_7d,typical_human_plain,typesafe/jev-1.14.0,0.34900000000000003,0.28525000000000006,0.40025,,,,,System One
+discounting,prob_patient_30d,typical_human_plain,typesafe/jev-1.14.0,0.30925,0.21349999999999997,0.405,,,,,System One
+discounting,prob_patient_180d,typical_human_plain,typesafe/jev-1.14.0,0.24300000000000002,0.21100000000000002,0.267,,,,,System One
+present_bias,prob_patient_immediate_frontend,typical_human_plain,typesafe/jev-1.14.0,0.174,,,,,,,System One
+present_bias,prob_patient_delayed_frontend,typical_human_plain,typesafe/jev-1.14.0,0.362,,,,,,,System One
+present_bias,present_bias_gap,typical_human_plain,typesafe/jev-1.14.0,0.188,,,,,,"positive means more patient when both options are delayed; no human level is compared, only the direction",System One
+beauty_contest,expected_guess,typical_human_plain,typesafe/jev-1.14.0,39.95660948536835,,,beauty_contest_mean,36.0,medium,,System One
+beauty_contest,mass_at_33,typical_human_plain,typesafe/jev-1.14.0,0.11503531786074674,,,,,,,System One
+beauty_contest,mass_at_22,typical_human_plain,typesafe/jev-1.14.0,0.009081735620585266,,,,,,,System One
+beauty_contest,mass_at_0,typical_human_plain,typesafe/jev-1.14.0,0.0010090817356205853,,,,,,,System One
+money_request,expected_request,typical_human_plain,typesafe/jev-1.14.0,16.788999999999998,,,money_request_modal,17.0,high,the model's mean request against the human mode,System One
+money_request,mass_level0_20,typical_human_plain,typesafe/jev-1.14.0,0.08499999999999999,,,,,,,System One
+money_request,mass_level1_19,typical_human_plain,typesafe/jev-1.14.0,0.326,,,,,,,System One
+money_request,mass_level2_18,typical_human_plain,typesafe/jev-1.14.0,0.11200000000000002,,,,,,,System One
+money_request,mass_level3_17,typical_human_plain,typesafe/jev-1.14.0,0.08399999999999999,,,,,,,System One
+mini_ipip,extraversion,typical_human_plain,typesafe/jev-1.14.0,3.0164599599599597,2.7974199199199203,3.2354999999999996,mini_ipip_extraversion,3.2,approximate,,System One
+mini_ipip,agreeableness,typical_human_plain,typesafe/jev-1.14.0,3.7331301301301303,3.5946403903903903,3.8635,mini_ipip_agreeableness,4.0,approximate,,System One
+mini_ipip,conscientiousness,typical_human_plain,typesafe/jev-1.14.0,3.077296092184369,2.74525,3.4281382765531063,mini_ipip_conscientiousness,3.4,approximate,,System One
+mini_ipip,neuroticism,typical_human_plain,typesafe/jev-1.14.0,2.8957499999999996,2.632999999999999,3.1232500000000005,mini_ipip_neuroticism,2.8,approximate,,System One
+mini_ipip,openness,typical_human_plain,typesafe/jev-1.14.0,3.2127500000000007,3.0002500000000003,3.4205000000000005,mini_ipip_openness,3.7,approximate,,System One
+dirty_dozen,machiavellianism,typical_human_plain,typesafe/jev-1.14.0,4.7707500000000005,2.9685,6.573,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,overall,typical_human_plain,typesafe/jev-1.14.0,4.521338253082742,3.547154654128076,5.481115277965842,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,psychopathy,typical_human_plain,typesafe/jev-1.14.0,3.3607928153604507,2.3620450901803607,4.86477254509018,,,,9-point agreement scale; manipulation check only,System One
+dirty_dozen,narcissism,typical_human_plain,typesafe/jev-1.14.0,5.432471943887776,4.132415831663327,6.3965000000000005,,,,9-point agreement scale; manipulation check only,System One
+moral_typecasting,responsibility_man,typical_human_plain,typesafe/jev-1.14.0,5.79,,,moral_typecasting_responsibility_man,5.29,medium,,System One
+moral_typecasting,responsibility_baby,typical_human_plain,typesafe/jev-1.14.0,1.337,,,moral_typecasting_responsibility_baby,3.86,medium,,System One
+moral_typecasting,agency_responsibility_gap,typical_human_plain,typesafe/jev-1.14.0,4.453,,,,,,the higher-agency actor (man) is rated more responsible; original gap is 5.29 - 3.86 = 1.43,System One
+position_power,power_long_line,typical_human_plain,typesafe/jev-1.14.0,3.7290000000000005,,,position_power_long_line,5.01,medium,,System One
+position_power,power_short_line,typical_human_plain,typesafe/jev-1.14.0,3.702702702702703,,,position_power_short_line,4.62,medium,,System One
+position_power,position_power_gap,typical_human_plain,typesafe/jev-1.14.0,0.02629729729729746,,,,,,a longer vertical line reads as more powerful; original gap is 5.01 - 4.62 = 0.39,System One
+choosing_rejecting,prob_award_extreme,typical_human_plain,typesafe/jev-1.14.0,0.09800000000000002,,,shafir_award_extreme,0.64,medium,,System One
+choosing_rejecting,prob_deny_extreme,typical_human_plain,typesafe/jev-1.14.0,0.951,,,shafir_deny_extreme,0.55,medium,,System One
+choosing_rejecting,choose_reject_sum,typical_human_plain,typesafe/jev-1.14.0,1.049,,,,,,"Shafir's diagnostic: the extreme parent is both chosen and rejected more than the average parent, so this sums to more than 1.0; original sum is 0.64 + 0.55 = 1.19",System One
+categorization,prob_rule_based,typical_human_plain,typesafe/jev-1.14.0,0.10300000000000001,,,norenzayan_rule_based,0.67,medium,,System One
+incidental_anchors,estimate_p97,typical_human_plain,typesafe/jev-1.14.0,49.2075,,,incidental_anchor_p97,58.1,medium,,System One
+incidental_anchors,estimate_p17,typical_human_plain,typesafe/jev-1.14.0,49.2675,,,incidental_anchor_p17,51.9,medium,,System One
+incidental_anchors,anchor_gap,typical_human_plain,typesafe/jev-1.14.0,-0.05999999999999517,,,,,,"H3 (currency): original gap is 58.1 - 51.9 = 6.2 points; ML2's own replication of this effect found d=0.04, essentially zero — does a simulated or estimated gap track the original number or the near-zero one ML2 actually found?",System One
+knobe,prob_harm_intentional,typical_human_plain,typesafe/jev-1.14.0,0.897,,,knobe_harm_intentional,0.82,medium,,System One
+knobe,prob_help_intentional,typical_human_plain,typesafe/jev-1.14.0,0.037000000000000005,,,knobe_help_intentional,0.23,medium,,System One
+knobe,harm_help_asymmetry,typical_human_plain,typesafe/jev-1.14.0,0.86,,,,,,a harmful side effect is judged far more intentional than an equally unintended helpful one (the Knobe effect); original gap is 0.82 - 0.23 = 0.59,System One
+trolley,prob_switch_permissible,typical_human_plain,typesafe/jev-1.14.0,1.0,,,trolley_switch_permissible,0.89,medium,,System One
+trolley,prob_push_permissible,typical_human_plain,typesafe/jev-1.14.0,0.009999999999999998,,,trolley_push_permissible,0.11,medium,,System One
+trolley,switch_push_asymmetry,typical_human_plain,typesafe/jev-1.14.0,0.99,,,,,,diverting the trolley by switch is judged far more permissible than pushing a person to achieve the same outcome; original gap is 0.89 - 0.11 = 0.78,System One
+false_consensus,wearer_predicts_wear,typical_human_plain,typesafe/jev-1.14.0,0.362,,,false_consensus_wearer_predicts_wear,0.614,medium,,System One
+false_consensus,nonwearer_predicts_wear,typical_human_plain,typesafe/jev-1.14.0,0.34600000000000003,,,false_consensus_nonwearer_predicts_wear,0.304,medium,,System One
+false_consensus,false_consensus_gap,typical_human_plain,typesafe/jev-1.14.0,0.01599999999999996,,,,,,each group predicts more of its own choice than the other group does; original gap is 0.614 - 0.304 = 0.31,System One

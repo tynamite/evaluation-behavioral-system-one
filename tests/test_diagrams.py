@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+import pandas as pd
 import pytest
 
 from jevbench.analysis import primary_run
@@ -21,7 +22,7 @@ def built(tmp_path_factory: pytest.TempPathFactory) -> list[Path]:
 
 
 def test_every_figure_is_an_accessible_figure(built: list[Path]) -> None:
-    assert len(built) == 16
+    assert len(built) == 11
     for path in built:
         page = path.read_text()
         slug = path.stem
@@ -61,7 +62,7 @@ def test_every_model_in_the_scatter_is_named(built: list[Path]) -> None:
     page = next(p for p in built if p.stem == "models-scatter").read_text()
     points = set(re.findall(r'data-name="([^"]+)" data-x=', page))
     labels = set(re.findall(r'data-name="([^"]+)" data-role="label"', page))
-    assert len(points) == 14
+    assert len(points) == 15
     assert labels == points
 
 
@@ -93,36 +94,34 @@ def test_scatter_labels_never_overlap() -> None:
 
 def test_framing_figure_plots_the_real_swings(built: list[Path]) -> None:
     # Pinned against results/comparison/measures.csv: d1 swings 24 then 31 points,
-    # Jev 1 then 4. An operator-precedence slip once drew every row negative.
+    # Jev 1.13 1 then 4, Jev 1.14 -9 then -5. An operator-precedence slip once drew
+    # every row negative.
     page = next(p for p in built if p.stem == "framing-contrast").read_text()
     refs = [float(v) for v in re.findall(r'data-series="reference" data-value="([-\d.]+)"', page)]
     focal = [float(v) for v in re.findall(r'data-series="focal" data-value="([-\d.]+)"', page)]
     pairs = list(zip(refs, focal, strict=True))
     assert any(abs(a - 23.9) < 0.1 and abs(b - 31.1) < 0.1 for a, b in pairs)  # d1
-    assert any(abs(a - 0.6) < 0.1 and abs(b - 4.1) < 0.1 for a, b in pairs)  # Jev
+    assert any(abs(a - 0.6) < 0.1 and abs(b - 4.1) < 0.1 for a, b in pairs)  # Jev 1.13
+    assert any(abs(a + 9.3) < 0.1 and abs(b + 4.5) < 0.1 for a, b in pairs)  # Jev 1.14
     assert any(abs(a - 33.9) < 0.5 and abs(b - 41.2) < 0.5 for a, b in pairs)  # Drex 2.0
-    # Microsoft-Decision-1 and Drex 1.5 reverse it; the chart keeps to eight rows.
-    assert sum(1 for a, _b in pairs if a < 0) == 2
+    # Jev 1.14, Microsoft-Decision-1 and Drex 1.5 reverse it; the chart keeps to
+    # eight rows.
+    assert sum(1 for a, _b in pairs if a < 0) == 3
     assert len(pairs) == 8
-
-
-def test_decision_chart_shows_all_three_series_on_every_row(built: list[Path]) -> None:
-    page = next(p for p in built if p.stem == "jev-decisions").read_text()
-    for series in ("people", "neutral", "typical"):
-        assert len(re.findall(rf'data-series="{series}"', page)) == 7
-    # Pinned: the cognitive reflection row (Frederick's three items) is 0.41
-    # people, 0.99 and 0.32 for Jev.
-    assert 'data-series="neutral" data-value="0.9950"' in page
-    assert 'data-series="typical" data-value="0.3183"' in page
 
 
 def test_steer_chart_compares_the_two_typical_person_prompts(built: list[Path]) -> None:
     page = next(p for p in built if p.stem == "jev-steer").read_text()
-    for series in ("people", "plain", "typical"):
-        assert len(re.findall(rf'data-series="{series}"', page)) == 7
-    # Without "not the textbook-correct answer", Jev gets 0.53 of the CRT right.
-    assert 'data-series="plain" data-value="0.5310"' in page
-    assert 'data-series="typical" data-value="0.3183"' in page
+    assert len(re.findall(r'data-series="people"', page)) == 2 * 7
+    for jev in ("Jev 1.14", "Jev 1.13"):
+        for panel in ("typical_human_plain", "typical_human"):
+            n = len(re.findall(rf'data-series="{jev}" data-panel="{panel}"', page))
+            assert n == 7, (jev, panel)
+    # Without "not the textbook-correct answer", Jev 1.13 gets 0.53 of the CRT
+    # right and 1.14 0.50; with it, 0.32 and 0.27.
+    for jev, plain, typical in (("Jev 1.13", "0.5310", "0.3183"), ("Jev 1.14", "0.4963", "0.2693")):
+        assert f'data-series="{jev}" data-panel="typical_human_plain" data-value="{plain}"' in page
+        assert f'data-series="{jev}" data-panel="typical_human" data-value="{typical}"' in page
 
 
 def test_scatter_legend_matches_where_the_highlighted_model_sits(built: list[Path]) -> None:
@@ -144,7 +143,13 @@ def test_main_models_keep_shape_and_colour_in_the_scatter(built: list[Path]) -> 
     from jevbench.diagrams import MAIN_MODELS, MAIN_SHAPES, SHORT
 
     page = next(p for p in built if p.stem == "models-scatter").read_text()
-    tags = {"circle": "circle", "square": "rect", "diamond": "path", "triangle": "path"}
+    tags = {
+        "circle": "circle",
+        "square": "rect",
+        "diamond": "path",
+        "triangle": "path",
+        "hexagon": "polygon",
+    }
     for model, colour in MAIN_MODELS:
         tag = tags[MAIN_SHAPES[model]]
         assert re.search(
@@ -160,19 +165,20 @@ def test_dictator_chart_uses_the_full_human_distribution(built: list[Path]) -> N
     assert DICTATOR_HUMAN_DISTRIBUTION["$0"] == 0.3611
     assert DICTATOR_HUMAN_DISTRIBUTION["$5"] == 0.1674
     assert DICTATOR_HUMAN_DISTRIBUTION["$10"] == 0.0544
-    page = next(p for p in built if p.stem == "dictator-distribution").read_text()
-    assert len(re.findall(r'data-series="people"', page)) == 11
-    assert len(re.findall(r'data-series="jev"', page)) == 11
+    page = next(p for p in built if p.stem == "models-dictator").read_text()
+    assert len(re.findall(r'data-series="people"', page)) == 5 * 11
+    for name in ("Jev 1.14", "Jev 1.13"):
+        assert len(re.findall(rf'data-series="{name}"', page)) == 11
 
 
-def test_main_charts_carry_the_four_chosen_models(built: list[Path]) -> None:
+def test_main_charts_carry_the_five_chosen_models(built: list[Path]) -> None:
     import pandas as pd
 
     from jevbench.diagrams import DECISION_MEASURES, MAIN_MODELS, SHORT
 
     cdf = pd.read_csv(REPO_ROOT / "results" / "comparison" / "statistics.csv")
     names = [SHORT[m] for m, _c in MAIN_MODELS]
-    assert names == ["Jev 1.13", "GPT-6 Luna Decisions", "Clef", "d1"]
+    assert names == ["Jev 1.14", "Jev 1.13", "GPT-6 Luna Decisions", "Clef", "d1"]
     page = next(p for p in built if p.stem == "models-decisions").read_text()
     for (model, _c), name in zip(MAIN_MODELS, names, strict=True):
         dots = re.findall(
@@ -188,7 +194,7 @@ def test_main_charts_carry_the_four_chosen_models(built: list[Path]) -> None:
         ]["value"].iloc[0]
         assert abs(float(dots[0]) - crt) < 1e-3
     dictator = next(p for p in built if p.stem == "models-dictator").read_text()
-    assert len(re.findall(r'data-series="people"', dictator)) == 4 * 11
+    assert len(re.findall(r'data-series="people"', dictator)) == 5 * 11
 
 
 def test_order_chart_averages_every_model_over_the_same_cells(built: list[Path]) -> None:
@@ -223,18 +229,18 @@ def test_h4_chart_draws_every_pair_from_the_table(built: list[Path]) -> None:
     h4 = pd.read_csv(TABLES_DIR / "followup_h4.csv")
     for series in ("simulate", "estimate"):
         drawn = sorted(
-            float(v) for v in re.findall(rf'data-series="{series}" data-value="([^"]+)"', page)
+            float(v)
+            for v in re.findall(
+                rf'data-series="{series}" data-panel="Jev 1.13" data-value="([^"]+)"', page
+            )
         )
         assert drawn == pytest.approx(sorted(h4[f"scaled_error_{series}"]), abs=1e-4)
+        # Jev 1.14's panel draws the same 23 statistics.
+        assert len(re.findall(rf'data-series="{series}" data-panel="Jev 1.14"', page)) == 23
 
 
-def test_h4_chart_puts_ties_in_their_own_group() -> None:
-    import pandas as pd
-
-    from jevbench.diagrams import fig_h4
-
-    rows = [("a", 0.3, 0.1), ("b", 0.1, 0.3), ("c", 0.2, 0.2), ("d", 0.4, 0.2)]
-    h4 = pd.DataFrame(
+def _h4_table(rows: list[tuple[str, float, float]]) -> pd.DataFrame:
+    return pd.DataFrame(
         {
             "instrument": [r[0] for r in rows],
             "statistic": ["s"] * len(rows),
@@ -244,31 +250,33 @@ def test_h4_chart_puts_ties_in_their_own_group() -> None:
             "scaled_error_estimate": [r[2] for r in rows],
         }
     )
-    body = fig_h4(h4).body
-    assert "ESTIMATE CLOSER · 2 OF 4" in body
-    assert "SIMULATE CLOSER · 1 OF 4" in body
-    assert "TIED · 1 OF 4" in body
 
 
-def test_h4_chart_keeps_small_changes_visible_and_renders_all_ties() -> None:
-    import pandas as pd
+def test_h4_chart_counts_ties_apart() -> None:
+    from jevbench.diagrams import JEV_113, fig_h4
 
-    from jevbench.diagrams import _signed, fig_h4
+    h4 = _h4_table([("a", 0.3, 0.1), ("b", 0.1, 0.3), ("c", 0.2, 0.2), ("d", 0.4, 0.2)])
+    body = fig_h4([(JEV_113, h4)]).body
+    assert "ESTIMATE CLOSER ON 2 OF 4 · TIED 1" in body
 
-    assert _signed(0.00017) == "+0.0002" and _signed(-0.25) == "-0.25" and _signed(0) == "0"
-    h4 = pd.DataFrame(
-        {
-            "instrument": ["a", "b"],
-            "statistic": ["s", "s"],
-            **{c: [0.2, 0.3] for c in ("error_simulate", "error_estimate")},
-            **{c: [0.2, 0.3] for c in ("scaled_error_simulate", "scaled_error_estimate")},
-        }
-    )
-    fig = fig_h4(h4)
-    assert "TIED · 2 OF 2" in fig.body and "n/a" in fig.subtitle
+
+def test_h4_chart_renders_all_ties_with_no_test() -> None:
+    from jevbench.diagrams import JEV_113, fig_h4
+
+    h4 = _h4_table([("a", 0.2, 0.2), ("b", 0.3, 0.3)])
+    fig = fig_h4([(JEV_113, h4)])
+    assert "ESTIMATE CLOSER ON 0 OF 2 · TIED 2" in fig.body and "P = n/a" in fig.body
     # One surviving pair: drawn, with no test.
-    one = fig_h4(h4.iloc[:1])
-    assert "TIED · 1 OF 1" in one.body and "p: n/a" in one.subtitle
+    one = fig_h4([(JEV_113, h4.iloc[:1])])
+    assert "TIED 1" in one.body and "P = n/a" in one.body
+
+
+def test_h4_chart_never_prints_a_zero_p_value() -> None:
+    from jevbench.diagrams import JEV_113, fig_h4
+
+    h4 = _h4_table([(f"i{k}", 0.5 + k / 100, 0.1) for k in range(23)])
+    fig = fig_h4([(JEV_113, h4)])
+    assert "< 0.001" in fig.subtitle and "0.000" not in fig.subtitle + fig.body
 
 
 def test_h4_chart_is_removed_when_a_run_has_no_pairs(tmp_path: Path) -> None:
@@ -281,27 +289,7 @@ def test_h4_chart_is_removed_when_a_run_has_no_pairs(tmp_path: Path) -> None:
     out.mkdir()
     (out / "followup-h4.html").write_text("stale")
     paths = build_diagrams(COMMITTED_RUN, tables, REPO_ROOT / "results" / "comparison", out)
-    assert len(paths) == 15 and not (out / "followup-h4.html").exists()
-
-
-def test_h4_chart_never_prints_a_zero_p_value() -> None:
-    import pandas as pd
-
-    from jevbench.diagrams import fig_h4
-
-    n = 23
-    h4 = pd.DataFrame(
-        {
-            "instrument": [f"i{k}" for k in range(n)],
-            "statistic": ["s"] * n,
-            "error_simulate": [0.5 + k / 100 for k in range(n)],
-            "error_estimate": [0.1] * n,
-            "scaled_error_simulate": [0.5 + k / 100 for k in range(n)],
-            "scaled_error_estimate": [0.1] * n,
-        }
-    )
-    sub = fig_h4(h4).subtitle
-    assert "p < 0.001" in sub and "0.000" not in sub
+    assert len(paths) == 10 and not (out / "followup-h4.html").exists()
 
 
 def test_figures_follow_the_run_they_are_built_from(tmp_path: Path) -> None:
@@ -318,7 +306,7 @@ def test_figures_follow_the_run_they_are_built_from(tmp_path: Path) -> None:
             if line.strip() and json.loads(line)["probe_id"] not in followup:
                 dst.write(line)
     paths = build_diagrams_for_run(run, REPO_ROOT / "results" / "comparison", tmp_path / "out")
-    assert len(paths) == 15
+    assert len(paths) == 10
     assert not (tmp_path / "out" / "followup-h4.html").exists()
 
 
@@ -416,3 +404,92 @@ def test_shown_path_is_absolute_outside_the_repo(tmp_path: Path) -> None:
     assert _shown_path(COMMITTED_RUN) == f"data/raw/{COMMITTED_RUN.name}"
     outside = tmp_path / "run.jsonl"
     assert _shown_path(outside) == str(outside.resolve())
+
+
+def test_order_study_chart_draws_both_versions_on_every_instrument() -> None:
+    import pandas as pd
+
+    from jevbench.diagrams import fig_order_study
+
+    inst = pd.read_csv(REPO_ROOT / "results" / "order_study" / "instruments.csv")
+    fig = fig_order_study(inst)
+    assert fig is not None
+    n = inst[inst["test"] == "O1 1.13"]["instrument"].nunique()
+    for version in ("1.14", "1.13"):
+        for test in ("O1", "O3"):
+            marks = re.findall(rf'data-series="Jev {version}" data-panel="{test}"', fig.body)
+            assert len(marks) == n, (version, test)
+    # Nothing to draw without the four tests it plots.
+    assert fig_order_study(inst[inst["test"] != "O3 1.14"]) is None
+
+
+def test_route_comes_from_the_backend_each_run_records() -> None:
+    import pandas as pd
+
+    from jevbench.diagrams import JEV_113, JEV_114_ID, _route
+
+    health = pd.read_csv(REPO_ROOT / "results" / "comparison" / "health.csv")
+    files = dict(zip(health["model"], health["run_file"], strict=True))
+    assert _route([JEV_114_ID, JEV_113], files) == (
+        "Jev 1.14 was called through TypeSafe's API directly, the rest through OpenRouter. "
+    )
+    # The same model ID run through OpenRouter would claim no direct route.
+    assert _route([JEV_114_ID], {JEV_114_ID: files[JEV_113]}) == ""
+    assert _route([JEV_114_ID], None) == ""
+
+
+def test_diagrams_name_a_main_model_missing_from_the_comparison(tmp_path: Path) -> None:
+    import shutil
+
+    import pandas as pd
+
+    cmp = tmp_path / "comparison"
+    shutil.copytree(REPO_ROOT / "results" / "comparison", cmp)
+    health = pd.read_csv(cmp / "health.csv")
+    health[health["model"] != "typesafe/jev-1.14.0"].to_csv(cmp / "health.csv", index=False)
+    with pytest.raises(ValueError, match=re.escape("no run for typesafe/jev-1.14.0")):
+        build_diagrams(COMMITTED_RUN, TABLES_DIR, cmp, tmp_path / "out")
+
+
+def test_route_is_read_from_the_raw_directory_the_charts_use(tmp_path: Path) -> None:
+    import shutil
+
+    from jevbench.config import RAW_DIR
+
+    # A relocated copy of the raw data whose 1.14 run records another route: the
+    # caption must follow the copy, not the default raw directory.
+    raw = tmp_path / "raw"
+    shutil.copytree(RAW_DIR, raw, ignore=shutil.ignore_patterns("pick_number", "r2", "r3"))
+    run = raw / "order_study" / "r1" / "run_live_20261014T231829Z_jev-1.14.0.jsonl"
+    run.write_text(
+        run.read_text().replace('"backend": "typesafe"', '"backend": "openrouter"'),
+        encoding="utf-8",
+    )
+    built = build_diagrams(
+        COMMITTED_RUN, TABLES_DIR, REPO_ROOT / "results" / "comparison", tmp_path / "out", raw
+    )
+    page = next(p for p in built if p.stem == "models-decisions").read_text()
+    assert "called through TypeSafe" not in page
+
+
+def test_figures_build_from_a_comparison_of_relocated_runs(tmp_path: Path) -> None:
+    """A comparison built from runs outside data/raw/ records where they are, so the
+    figures can load them, nested paths included."""
+    import shutil
+
+    from jevbench.compare import compare_runs
+    from jevbench.config import RAW_DIR
+
+    health = pd.read_csv(REPO_ROOT / "results" / "comparison" / "health.csv")
+    files = dict(zip(health["model"], health["run_file"], strict=True))
+    raw = tmp_path / "raw"
+    copies = []
+    for f in sorted({files[m] for m in health["model"]}):
+        dst = raw / f
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy(RAW_DIR / f, dst)
+        copies.append(dst)
+    cmp = tmp_path / "comparison"
+    compare_runs(copies, cmp)
+    built = build_diagrams(COMMITTED_RUN, TABLES_DIR, cmp, tmp_path / "out", raw)
+    assert any(p.stem == "models-dictator" for p in built)

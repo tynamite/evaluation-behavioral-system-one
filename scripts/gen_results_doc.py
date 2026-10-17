@@ -96,17 +96,51 @@ def figures(*items: tuple[str, str]) -> list[str]:
     return out
 
 
+# Jev 1.14's statistics, from the comparison (its 14 October run), shown under
+# each measure beside the committed run's; main() sets it for the committed run.
+JEV_114 = "typesafe/jev-1.14.0"
+SECOND: pd.DataFrame | None = None
+
+
+# The one run the documents describe as Jev 1.14's, by its path below data/raw/.
+JEV_114_RUN = "order_study/r1/run_live_20261014T231829Z_jev-1.14.0.jsonl"
+
+
+def second_version() -> pd.DataFrame | None:
+    """Jev 1.14's statistics, only when the comparison is the committed one built
+    from the committed 1.14 run; any other 1.14 run would be mislabelled."""
+    comparison = ROOT / "results" / "comparison"
+    path, health = comparison / "statistics.csv", comparison / "health.csv"
+    run = ROOT / "data" / "raw" / JEV_114_RUN
+    if not all(p.exists() and committed_unchanged(p) for p in (path, health, run)):
+        print("Jev 1.14 left out: the comparison or its run differs from the committed one",
+              file=sys.stderr)
+        return None
+    h = pd.read_csv(health)
+    if list(h.loc[h["model"] == JEV_114, "run_file"]) != [JEV_114_RUN]:
+        print(f"Jev 1.14 left out: the comparison is not built from {JEV_114_RUN}",
+              file=sys.stderr)
+        return None
+    c = pd.read_csv(path)
+    c = c[c["model"] == JEV_114].rename(columns={"model": "arm"})
+    return c.assign(arm="jev") if len(c) else None
+
+
 def persona_table(sdf: pd.DataFrame, rows: list[tuple[str, str, str]], arm: str = "jev") -> list[str]:
     personas = [p for p in PERSONA_ORDER if p in set(sdf["persona"])]
-    out = ["| Measure | " + " | ".join(PERSONA_LABEL[p] for p in personas) + " | Human |",
-           "|---|" + "---:|" * (len(personas) + 1)]
+    versions = [("1.13", sdf)] + ([("1.14", SECOND)] if SECOND is not None else [])
+    head = "| Measure | " + ("Jev | " if len(versions) > 1 else "")
+    out = [head + " | ".join(PERSONA_LABEL[p] for p in personas) + " | Human |",
+           "|---|" + ("---|" if len(versions) > 1 else "") + "---:|" * (len(personas) + 1)]
     for inst, stat, label in rows:
-        sel = sdf[(sdf.instrument == inst) & (sdf.statistic == stat) & (sdf.arm == arm)]
-        vals = {r["persona"]: r["value"] for _, r in sel.iterrows()}
-        bench = sel["benchmark_key"].iloc[0] if len(sel) else ""
-        human = BENCHMARKS[bench].value if bench and bench in BENCHMARKS else None
-        cells = [fmt(vals.get(p)) for p in personas]
-        out.append(f"| {label} | " + " | ".join(cells) + f" | {fmt(human)} |")
+        for k, (version, frame) in enumerate(versions):
+            sel = frame[(frame.instrument == inst) & (frame.statistic == stat) & (frame.arm == arm)]
+            vals = {r["persona"]: r["value"] for _, r in sel.iterrows()}
+            bench = sel["benchmark_key"].iloc[0] if len(sel) else ""
+            human = BENCHMARKS[bench].value if bench and bench in BENCHMARKS else None
+            cells = [fmt(vals.get(p)) for p in personas]
+            name = (label if k == 0 else "") + " | " + version if len(versions) > 1 else label
+            out.append(f"| {name} | " + " | ".join(cells) + f" | {fmt(human)} |")
     return out
 
 
@@ -116,12 +150,18 @@ def main(argv: list[str]) -> int:
         print("no run file found", file=sys.stderr)
         return 1
     df = load_records(run)
-    global EMBED_FIGURES
+    global EMBED_FIGURES, SECOND
+    # Set on every call: a second call in the same process must not inherit
+    # the first's figures or Jev 1.14 rows.
     reason = figures_mismatch(run, df)
+    SECOND = None if reason else second_version()
+    if not reason and SECOND is None:
+        # The committed figures carry Jev 1.14 from the committed comparison; a
+        # comparison that fails that check would leave them describing another one.
+        reason = "the comparison differs from the committed one the figures were drawn from"
+    EMBED_FIGURES = reason is None
     if reason:
-        EMBED_FIGURES = False
-        print(f"figures left out: they are drawn from the committed run, not this one ({reason})",
-              file=sys.stderr)
+        print(f"figures left out, as they would misdescribe this run: {reason}", file=sys.stderr)
     sdf = pd.DataFrame([asdict(s) for s in compute_stats(df)])
     odf = order_effects(df)
 
@@ -139,7 +179,12 @@ def main(argv: list[str]) -> int:
     L.append(f"Records: {len(df):,} ({n_err} transport errors, excluded)  ")
     L.append(f"Total cost: ${cost:.4f} (Jev arm ${jev_cost:.4f})\n")
     L.append("Every table below is the Jev arm only; the chat baseline and the other "
-             "System One models are compared in `results/comparison/`. Values are "
+             "System One models are compared in `results/comparison/`. "
+             + ("Under each measure, Jev 1.13 is this run and Jev 1.14 its 14 October run "
+                "through TypeSafe's API directly (results/comparison/statistics.csv); the option-"
+                "order section's numbers and the follow-up section's table are Jev 1.13 only "
+                "(its chart shows both versions). " if SECOND is not None else "")
+             + "Values are "
              "probability mass, computed from the returned distributions rather than "
              "from the point answers. Human values are "
              "literature reference points, not a matched control group — see "
@@ -166,12 +211,9 @@ def main(argv: list[str]) -> int:
 
     L.append("## Social preferences\n")
     L += figures(
-        ("jev-games-neutral.png", "Jev in the economic games, with no instruction"),
-        ("models-games.png", "Four System One models against people in the economic games"),
-        ("dictator-distribution.png", "What a single call returns: Jev's dictator distribution"),
-        ("models-dictator.png", "What a single call returns, four models"),
-        ("persona-antisocial.png", "Jev's antisocial persona in the economic games"),
-        ("models-antisocial.png", "The antisocial persona in the economic games, four models"),
+        ("models-games.png", "Five System One models against people in the economic games"),
+        ("models-dictator.png", "What a single call returns, five models"),
+        ("models-antisocial.png", "The antisocial persona in the economic games, five models"),
     )
     L += persona_table(sdf, [
         ("dictator", "mean_share", "Dictator: share given"),
@@ -188,12 +230,11 @@ def main(argv: list[str]) -> int:
 
     L.append("## Decision anomalies\n")
     L += figures(
-        ("jev-decisions.png", "Jev on the seven decision-making tests, with and without the "
-                              "typical-person instruction"),
-        ("models-decisions.png", "Four System One models against people on the seven "
+        ("models-decisions.png", "Five System One models against people on the seven "
                                  "decision-making tests"),
-        ("jev-steer.png", "Jev under the typical-person instruction with and without its steer"),
-        ("framing-contrast.png", "The framing reversal by model"),
+        ("jev-steer.png", "Jev 1.14 and 1.13 under the typical-person instruction with and "
+                          "without its steer"),
+        ("framing-contrast.png", "The framing swing by model"),
     )
     L += persona_table(sdf, [
         ("framing", "prob_certain_gain_frame", "Framing: certain option (gain frame)"),
@@ -232,8 +273,7 @@ def main(argv: list[str]) -> int:
 
     L.append("## Option-order sensitivity\n")
     L += figures(
-        ("order-effects.png", "Option-order sensitivity, Jev"),
-        ("models-order-effects.png", "Option-order sensitivity, four models"),
+        ("models-order-effects.png", "Option-order sensitivity, five models"),
     )
     if len(odf):
         followup = odf[odf.followup]
@@ -269,8 +309,8 @@ def main(argv: list[str]) -> int:
     h4 = simulate_vs_estimate(sdf)
     if len(h4):
         L.append("## Follow-up H4: simulate or estimate\n")
-        L += figures(("followup-h4.png", "Jev's error on each of the 23 statistics, "
-                                         "simulated and estimated"))
+        L += figures(("followup-h4.png", "Each of the 23 statistics, simulated and estimated, "
+                                         "for Jev 1.14 and Jev 1.13"))
         L.append("Each follow-up statistic measured two ways: the item asked with the typical-person "
                  "prompt (simulate), and its population question asked with no persona (estimate). "
                  "Errors are distances from the original study's published value (Many Labs 2 "
@@ -322,22 +362,23 @@ def main(argv: list[str]) -> int:
         L.append("")
 
     order = figures(("order-study.png", "How far option order moves Jev's answers, per "
-                                        "instrument, 1.13 and 1.14"))
+                                        "instrument, 1.14 and 1.13"))
     if order:
-        L.append("## Addendum: option order, and the Jev 1.14 preview\n")
+        L.append("## Addendum: option order\n")
         L.append("A separate preregistered study, run on 14 October 2026 on Jev 1.13 and the "
-                 "1.14 preview; the tables above are not from it. Its plan is in "
+                 "1.14 preview; its full-battery 1.14 run is the source of the 1.14 rows above. "
+                 "Its plan is in "
                  "[ORDER_PREREGISTRATION.md](../ORDER_PREREGISTRATION.md), its results in "
                  "[results/order_study/](../results/order_study/) and the "
-                 "[README](../README.md#addendum-14-october-2026-option-order-and-the-jev-114-preview).\n")
+                 "[README](../README.md#addendum-14-october-2026-option-order).\n")
         L += order
         L.append("")
 
     pick = figures(
         ("pick-number-jev.png", "Jev 1.13 and Jev 1.14: the distribution Jev returns against "
                                 "its single answer, with Claude Haiku 5.5 and people"),
-        ("pick-number-reading-a.png", "One pick per call against the full distribution: Jev and "
-                                      "the main comparison's models"),
+        ("pick-number-reading-a.png", "One pick per call against the full distribution: both Jev "
+                                      "versions and the main comparison's models"),
         ("pick-number-reading-b.png", "One pick per call against the full distribution: the other "
                                       "System One models"),
         ("pick-number-prompt-a.png", "Share on 7, asked plainly and as a typical person: Jev and "
