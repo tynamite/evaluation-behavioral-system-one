@@ -689,3 +689,11 @@ def test_rerun_does_not_cross_sibling_models(tmp_path, monkeypatch):
     )
 
     assert list(load_records(run)["value"]) == ["dated"]
+
+
+def test_run_rejects_an_unknown_or_empty_instrument_list(capsys) -> None:
+    from jevbench.cli import main
+
+    for args in (["--instruments", "allais", "holt-laury"], ["--instruments"]):
+        assert main(["run", "--backend", "simulator", *args]) == 1
+        assert "no items belong to" in capsys.readouterr().err

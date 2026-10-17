@@ -102,10 +102,17 @@ def _cmd_run(args: argparse.Namespace) -> int:
     cfg = _with_models(Config.from_env(args.backend), args)
     probes = None
     if args.instruments is not None:
-        probes = [p for p in all_probes(args.modules) if p.instrument in args.instruments]
-        if not probes:
-            print(f"run: no items belong to {', '.join(args.instruments)}", file=sys.stderr)
+        battery = all_probes(args.modules)
+        known = {p.instrument for p in battery}
+        unknown = sorted(set(args.instruments) - known)
+        if unknown or not args.instruments:
+            print(
+                f"run: no items belong to {', '.join(unknown) or '(none given)'}; "
+                f"instruments: {', '.join(sorted(known))}",
+                file=sys.stderr,
+            )
             return 1
+        probes = [p for p in battery if p.instrument in args.instruments]
     run_battery(
         cfg,
         probes=probes,
