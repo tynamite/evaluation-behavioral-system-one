@@ -25,15 +25,16 @@ jobs:
       - uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
-          cache-dependency-glob: pyproject.toml
+          cache-dependency-glob: uv.lock
 
       # The runner's system Python is externally managed (PEP 668), so install
       # into a venv and put it on PATH for the steps that follow.
       - name: Install
         run: |
-          uv venv .venv
+          # The locked versions, so a new release of a dependency cannot change a result
+          # or break the build without a commit that says so (`uv lock --upgrade` to move).
+          uv sync --locked --extra dev
           echo "$PWD/.venv/bin" >> "$GITHUB_PATH"
-          uv pip install --python .venv -e ".[dev]"
 
       - name: Lint
         run: |
@@ -66,6 +67,39 @@ jobs:
             results/simulated/tables/
             results/simulated/figures/
           if-no-files-found: error
+
+  # The committed tables and comparison must be what the committed raw records
+  # give. Run without the replicate intervals (a slow resampling step whose file
+  # is left out of the comparison), so a changed statistic, a changed loader or a
+  # raw file edited without regenerating shows up as a difference (numbers are
+  # compared to a relative 1e-9: the last digit varies between machines).
+  reproduce:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Install
+        run: |
+          uv sync --locked
+          echo "$PWD/.venv/bin" >> "$GITHUB_PATH"
+
+      - name: Rebuild the committed tables and comparison
+        run: |
+          jevbench analyse --replicate-ci 0
+          jevbench compare --replicate-ci 0 data/raw/run_live_*.jsonl \
+            data/raw/order_study/r1/run_live_20261014T231829Z_jev-1.14.0.jsonl
+
+      - name: They match what is committed
+        run: python scripts/check_reproduces.py
 
   secrets:
     runs-on: ubuntu-latest

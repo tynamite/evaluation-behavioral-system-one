@@ -516,7 +516,8 @@ the instrument prints it, where the API's own score is 0-based).
 ```bash
 git clone https://github.com/tynamite/evaluation-behavioral-system-one.git
 cd evaluation-behavioral-system-one
-uv venv && uv pip install -e ".[dev]"
+uv sync --extra dev          # the versions in uv.lock
+source .venv/bin/activate
 
 cp .env.example .env        # then add your OpenRouter key
 jevbench doctor             # verify credentials and endpoint
@@ -598,12 +599,17 @@ Reproduce the committed analysis without spending anything — the raw records
 are committed:
 
 ```bash
-jevbench analyse                       # the newest run with Jev in data/raw/
+jevbench analyse                       # the newest run with Jev in data/raw/ (~1 min: it also
+                                       # resamples the replicates for the 95% intervals;
+                                       # --replicate-ci 0 skips that)
 jevbench compare data/raw/run_live_*.jsonl \
   data/raw/order_study/r1/run_live_20261014T231829Z_jev-1.14.0.jsonl
 python scripts/gen_results_doc.py
 jevbench diagrams
 ```
+
+CI rebuilds the tables and the comparison from the raw records on every push
+(without the intervals) and fails if they differ from what is committed.
 
 The runs behind an earlier version of this write-up are kept in
 [data/archive/](data/archive/README.md).
@@ -634,13 +640,12 @@ src/jevbench/
   diagrams.py      the editorial figures in the README, diagram-design style
   compare.py       several models' runs side by side
   benchmarks.py    42 human reference values, each with source + reliability
-  fame.py, pairing.py, ml2_effects.py
-                   the follow-up study's fame index, pairing rule and
-                   Many Labs 2 effect sizes
   instruments/     the battery
-scripts/           doc generators (RESULTS.md, BENCHMARKS.md), the figure
-                   layout checker, and the follow-up study's reports
-tests/             146 tests, all runnable with no API key
+scripts/           doc generators (RESULTS.md, BENCHMARKS.md) and the figure
+                   layout checker
+retired/           the follow-up study's fame index and pairing rule, which
+                   its item pool could not support (see its README)
+tests/             224 tests, all runnable with no API key
 data/raw/          committed raw records — every number is recomputable
 data/archive/      the runs behind an earlier version of this write-up
 results/           generated tables and figures

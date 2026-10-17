@@ -17,6 +17,7 @@ import json
 import re
 from collections import defaultdict
 from dataclasses import asdict, dataclass
+from functools import cache
 from pathlib import Path
 from typing import Any
 
@@ -89,6 +90,10 @@ RERUN_DIR_NAME = "rerun_state_cues"
 
 
 def _with_rerun(df: pd.DataFrame, path: Path) -> pd.DataFrame:
+    return _rerun_apply(df, path)[0]
+
+
+def _rerun_apply(df: pd.DataFrame, path: Path) -> tuple[pd.DataFrame, set[str]]:
     """Swap in the items re-asked after the Allais pair and Holt-Laury row stopped being sent.
 
     The committed runs asked those items with their own index in the state (see
@@ -107,12 +112,13 @@ def _with_rerun(df: pd.DataFrame, path: Path) -> pd.DataFrame:
     except OSError:
         inside = False
     if not inside or not rerun_dir.is_dir() or path.parent == rerun_dir:
-        return df
+        return df, set()
     changed = df["instrument"].isin(CHANGED_AFTER_FIRST_RUNS)
     if not changed.any():
-        return df
+        return df, set()
     replaced = pd.Series(False, index=df.index)
     extra: list[pd.DataFrame] = []
+    models: set[str] = set()
     for file in sorted(rerun_dir.glob("run_live_*.jsonl")):
         with file.open(encoding="utf-8") as fh:
             new = pd.DataFrame([json.loads(line) for line in fh if line.strip()])
@@ -130,10 +136,19 @@ def _with_rerun(df: pd.DataFrame, path: Path) -> pd.DataFrame:
             hit = same & changed & df["prompt_sha"].isna() if "prompt_sha" in df else same & changed
             if hit.any():
                 replaced |= hit
+                models |= set(df.loc[hit, "model"].astype(str))
                 extra.append(_with_paid_usage(rows, df[hit]))
     if not extra:
-        return df
-    return pd.concat([df[~replaced], *extra], ignore_index=True)
+        return df, set()
+    return pd.concat([df[~replaced], *extra], ignore_index=True), models
+
+
+@cache
+def rerun_models(path: Path) -> frozenset[str]:
+    """The models whose records of the re-asked items `load_records` replaces in this file."""
+    with path.open(encoding="utf-8") as fh:
+        df = pd.DataFrame([json.loads(line) for line in fh if line.strip()])
+    return frozenset(_rerun_apply(df, path)[1])
 
 
 _USAGE_KEY = ["arm", "probe_id", "persona", "replicate"]
@@ -1474,13 +1489,74 @@ def _order_split(odf: pd.DataFrame) -> dict[str, float | None]:
     return out
 
 
-def analyse_run(path: Path, out_dir: Path) -> dict[str, Any]:
+INTERVAL_KEY = ["instrument", "statistic", "persona", "arm"]
+
+
+def _resampled_stats(
+    args: tuple[pd.DataFrame, list[Any], int, int],
+) -> list[dict[tuple[str, ...], float]]:
+    df, groups, count, seed = args
+    rng = np.random.default_rng(seed)
+    out: list[dict[tuple[str, ...], float]] = []
+    for _ in range(count):
+        pick = np.concatenate([rng.choice(g, size=len(g), replace=True) for g in groups])
+        out.append(
+            {
+                (s.instrument, s.statistic, s.persona, s.arm): s.value
+                for s in compute_stats(df.iloc[pick].reset_index(drop=True))
+            }
+        )
+    return out
+
+
+def replicate_intervals(
+    df: pd.DataFrame, n: int = 300, seed: int = 20261017, workers: int = 4
+) -> pd.DataFrame:
+    """95% percentile intervals for every statistic, from resampling the replicates.
+
+    Within each item, prompt and arm the replicates (or, for a chat model, its
+    resamples) are drawn with replacement, and every statistic is recomputed
+    from the resampled records. This is the uncertainty from repeating the
+    call; it says nothing about which items were chosen. A statistic missing
+    from more than a tenth of the draws gets no interval.
+    """
+    from concurrent.futures import ProcessPoolExecutor
+
+    df = df.reset_index(drop=True)
+    groups = [np.asarray(ix) for ix in df.groupby(["probe_id", "persona", "arm"]).indices.values()]
+    counts = [n // workers + (1 if i < n % workers else 0) for i in range(workers)]
+    jobs = [(df, groups, c, seed + i) for i, c in enumerate(counts) if c]
+    if len(jobs) == 1:
+        draws = _resampled_stats(jobs[0])
+    else:
+        with ProcessPoolExecutor(max_workers=len(jobs)) as pool:
+            draws = [d for part in pool.map(_resampled_stats, jobs) for d in part]
+    keys = sorted({k for d in draws for k in d})
+    rows = []
+    for k in keys:
+        vals = np.array([d[k] for d in draws if k in d], dtype=float)
+        vals = vals[np.isfinite(vals)]
+        if len(vals) < 0.9 * len(draws):
+            continue
+        lo, hi = np.percentile(vals, [2.5, 97.5])
+        rows.append(dict(zip(INTERVAL_KEY, k, strict=True)) | {"rep_ci_low": lo, "rep_ci_high": hi})
+    return pd.DataFrame(rows, columns=[*INTERVAL_KEY, "rep_ci_low", "rep_ci_high"])
+
+
+def analyse_run(path: Path, out_dir: Path, replicate_ci: int = 0) -> dict[str, Any]:
     df = load_records(path)
     out_dir.mkdir(parents=True, exist_ok=True)
 
     stats = compute_stats(df)
     sdf = pd.DataFrame([asdict(s) for s in stats])
     sdf.to_csv(out_dir / "statistics.csv", index=False)
+
+    ivl_path = out_dir / "intervals.csv"
+    if replicate_ci > 0:
+        replicate_intervals(df, replicate_ci).to_csv(ivl_path, index=False)
+    else:
+        # Never leave another run's intervals beside this run's statistics.
+        ivl_path.unlink(missing_ok=True)
 
     odf = order_effects(df)
     odf.to_csv(out_dir / "order_effects.csv", index=False)

@@ -13,7 +13,7 @@ the population questions for the six items reused from the first project
   that document, not paraphrased from a secondary source.
 - Three items (knobe, trolley, false_consensus) are Section 4.2, sourced from
   the original papers directly rather than from ML2's protocol (Amendment 3
-  later found that ML2 did replicate knobe and trolley; see `ml2_effects.py`),
+  later found that ML2 did replicate knobe and trolley; see `retired/ml2_effects.py`),
   cross-checked against secondary sources rather than the papers' own PDFs
   (not accessible here) — see each function's docstring for exactly what that
   means for its wording.

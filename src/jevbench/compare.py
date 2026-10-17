@@ -35,6 +35,7 @@ from .analysis import (
     h4_summary,
     human_fidelity,
     load_records,
+    replicate_intervals,
     simulate_vs_estimate,
 )
 from .benchmarks import BENCHMARKS
@@ -113,7 +114,9 @@ def _health(df: pd.DataFrame, arm: str, label: str, run_file: str) -> dict[str, 
     }
 
 
-def compare_runs(paths: list[Path], out_dir: Path) -> dict[str, pd.DataFrame]:
+def compare_runs(
+    paths: list[Path], out_dir: Path, replicate_ci: int = 0
+) -> dict[str, pd.DataFrame]:
     """Reduce each run with the single-run analysis, then join on served model."""
     from .plots import PROBABILITY_MEASURES
 
@@ -121,6 +124,7 @@ def compare_runs(paths: list[Path], out_dir: Path) -> dict[str, pd.DataFrame]:
         raise ValueError("compare needs at least one run file")
 
     frames: list[pd.DataFrame] = []
+    intervals: list[pd.DataFrame] = []
     health: list[dict[str, Any]] = []
     backends: set[str] = set()
     seen: dict[str, str] = {}
@@ -128,6 +132,7 @@ def compare_runs(paths: list[Path], out_dir: Path) -> dict[str, pd.DataFrame]:
         df = load_records(path)
         backends |= set(df["backend"].unique())
         sdf = pd.DataFrame([asdict(s) for s in compute_stats(df)])
+        ivl = replicate_intervals(df, replicate_ci) if replicate_ci > 0 else None
         for arm in sorted(df["arm"].unique()):
             label = _arm_label(df, arm)
             if label in seen:
@@ -144,6 +149,10 @@ def compare_runs(paths: list[Path], out_dir: Path) -> dict[str, pd.DataFrame]:
             part["arm"] = label
             part["type"] = SYSTEM_ONE if arm == "jev" else CHAT
             frames.append(part)
+            if ivl is not None:
+                iv = ivl[ivl["arm"] == arm].rename(columns={"arm": "model"}).copy()
+                iv["model"] = label
+                intervals.append(iv)
 
     if "simulator" in backends and len(backends) > 1:
         raise ValueError(
@@ -192,6 +201,10 @@ def compare_runs(paths: list[Path], out_dir: Path) -> dict[str, pd.DataFrame]:
     mdf.to_csv(out_dir / "measures.csv", index=False)
     sdf.rename(columns={"arm": "model"}).to_csv(out_dir / "statistics.csv", index=False)
     h4df.to_csv(out_dir / "followup_h4.csv", index=False)
+    if intervals:
+        pd.concat(intervals, ignore_index=True).to_csv(out_dir / "intervals.csv", index=False)
+    else:
+        (out_dir / "intervals.csv").unlink(missing_ok=True)
 
     with pd.option_context("display.width", 160, "display.max_columns", 20):
         print(hdf.drop(columns=["run_file"]).to_string(index=False))
