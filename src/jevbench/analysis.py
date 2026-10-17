@@ -17,6 +17,7 @@ import json
 import re
 from collections import defaultdict
 from dataclasses import asdict, dataclass
+from functools import cache
 from pathlib import Path
 from typing import Any
 
@@ -89,6 +90,10 @@ RERUN_DIR_NAME = "rerun_state_cues"
 
 
 def _with_rerun(df: pd.DataFrame, path: Path) -> pd.DataFrame:
+    return _rerun_apply(df, path)[0]
+
+
+def _rerun_apply(df: pd.DataFrame, path: Path) -> tuple[pd.DataFrame, set[str]]:
     """Swap in the items re-asked after the Allais pair and Holt-Laury row stopped being sent.
 
     The committed runs asked those items with their own index in the state (see
@@ -107,12 +112,13 @@ def _with_rerun(df: pd.DataFrame, path: Path) -> pd.DataFrame:
     except OSError:
         inside = False
     if not inside or not rerun_dir.is_dir() or path.parent == rerun_dir:
-        return df
+        return df, set()
     changed = df["instrument"].isin(CHANGED_AFTER_FIRST_RUNS)
     if not changed.any():
-        return df
+        return df, set()
     replaced = pd.Series(False, index=df.index)
     extra: list[pd.DataFrame] = []
+    models: set[str] = set()
     for file in sorted(rerun_dir.glob("run_live_*.jsonl")):
         with file.open(encoding="utf-8") as fh:
             new = pd.DataFrame([json.loads(line) for line in fh if line.strip()])
@@ -130,10 +136,19 @@ def _with_rerun(df: pd.DataFrame, path: Path) -> pd.DataFrame:
             hit = same & changed & df["prompt_sha"].isna() if "prompt_sha" in df else same & changed
             if hit.any():
                 replaced |= hit
+                models |= set(df.loc[hit, "model"].astype(str))
                 extra.append(_with_paid_usage(rows, df[hit]))
     if not extra:
-        return df
-    return pd.concat([df[~replaced], *extra], ignore_index=True)
+        return df, set()
+    return pd.concat([df[~replaced], *extra], ignore_index=True), models
+
+
+@cache
+def rerun_models(path: Path) -> frozenset[str]:
+    """The models whose records of the re-asked items `load_records` replaces in this file."""
+    with path.open(encoding="utf-8") as fh:
+        df = pd.DataFrame([json.loads(line) for line in fh if line.strip()])
+    return frozenset(_rerun_apply(df, path)[1])
 
 
 _USAGE_KEY = ["arm", "probe_id", "persona", "replicate"]

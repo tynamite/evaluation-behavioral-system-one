@@ -508,9 +508,19 @@ def test_figures_build_from_a_comparison_of_relocated_runs(tmp_path: Path) -> No
     assert any(p.stem == "models-dictator" for p in built)
 
 
-def test_rerun_note_names_the_models_it_did_not_reach() -> None:
+def test_rerun_note_follows_the_files_it_is_drawn_from(tmp_path: Path) -> None:
+    import shutil
+
     from jevbench.diagrams import _rerun_note
 
-    assert _rerun_note(["typesafe/jev-1.13-20260917", "typesafe/jev-1.14.0"]).endswith("2026.")
-    note = _rerun_note(["typesafe/jev-1.14.0", "anthropic/claude-sonnet-5.5", "human"])
-    assert "except for Claude Sonnet 5.5." in note
+    jev13 = "typesafe/jev-1.13-20260917"
+    sonnet = "anthropic/claude-sonnet-5.5"
+    files = {jev13: str(COMMITTED_RUN), sonnet: str(COMMITTED_RUN)}
+    assert _rerun_note([jev13], files).endswith("2026.")
+    # The committed run file holds Jev 1.13's records and Sonnet's baseline; only Jev's were re-asked.
+    assert "except for Claude Sonnet 5.5." in _rerun_note([jev13, sonnet, "human"], files)
+    # A copy outside data/raw/ is read as it was, so it was not re-asked.
+    moved = tmp_path / COMMITTED_RUN.name
+    shutil.copy(COMMITTED_RUN, moved)
+    assert _rerun_note([jev13], {jev13: str(moved)}) == ""
+    assert _rerun_note([jev13], None) == ""
