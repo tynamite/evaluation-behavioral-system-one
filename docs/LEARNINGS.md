@@ -144,6 +144,28 @@ following, among other claims that did not check out against the code:
   ten System One models on 13 October (1,000 calls), which moved Jev from 8 of
   15 (p = 0.047) to 14 of 23 (p = 0.015).
 
+## Found after publishing: two items still sent their own index
+
+A review after the 15 October write-up found that two items still carried
+bookkeeping in the state sent to every model, the same kind of cue as the
+`"frame"` label above:
+
+- The Allais items carried `"pair": 1` and `"pair": 2`, so the model could tell
+  which of the two problems it was in.
+- The Holt–Laury items carried `"row"` (1 to 10) and
+  `"probability_of_high_payoff"`, which places each item in the ladder of ten.
+  The probability is already in the option text, so it added nothing the wording
+  did not give, and with `row` removed it would still have given the row away.
+
+Both are removed (scoring keeps `pair`, `row` and `p_high` in `meta`, which is
+never sent), and `test_state_carries_no_item_indices` fails if an index like
+these is added again. **The committed runs predate this change.** It touches 12
+probes (two Allais items and ten Holt–Laury rows), plus the Allais population
+questions that copy their state: about 600 records in each run file, 8% of it.
+The Allais and Holt–Laury numbers in every document are from the earlier
+wording until those probes are re-run. Holt–Laury was already marked as not to
+be taken at face value because it depends on arithmetic.
+
 ## Smaller corrections
 
 - **Option-order effects were first averaged over the wrong items.** An early
